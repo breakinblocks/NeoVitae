@@ -53,6 +53,7 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -415,11 +416,19 @@ public class RitualTormentNexus extends Ritual {
 
     private void depositXpIntoTome(ResourceHandler<ItemResource> inv, int xp) {
         for (int i = 0; i < inv.size(); i++) {
-            ItemStack stack = Utils.stackAt(inv, i);
-            if (stack.getItem() instanceof ExperienceTomeItem) {
-                ExperienceTomeItem.addXpToTome(stack, xp);
-                return;
+            ItemResource resource = inv.getResource(i);
+            if (resource.isEmpty() || !(resource.getItem() instanceof ExperienceTomeItem)) {
+                continue;
             }
+            ItemStack updated = resource.toStack(1);
+            ExperienceTomeItem.addXpToTome(updated, xp);
+            try (Transaction tx = Transaction.openRoot()) {
+                if (inv.extract(i, resource, 1, tx) == 1
+                        && inv.insert(i, ItemResource.of(updated), 1, tx) == 1) {
+                    tx.commit();
+                }
+            }
+            return;
         }
     }
 

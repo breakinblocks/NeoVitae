@@ -17,6 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
@@ -103,14 +104,15 @@ public class RitualZephyr extends Ritual {
         }
 
         ResourceHandler<ItemResource> inventory = hasChest ? Utils.getInventory(chestTile, Direction.DOWN) : null;
-        ItemStack experienceTome = findExperienceTome(inventory);
+        int tomeSlot = findExperienceTomeSlot(inventory);
+        int collectedXp = 0;
 
         List<ExperienceOrb> orbs = ctx.level().getEntitiesOfClass(ExperienceOrb.class, aabb);
         for (ExperienceOrb orb : orbs) {
             if (orb.isRemoved()) continue;
 
-            if (!experienceTome.isEmpty()) {
-                ExperienceTomeItem.addXpToTome(experienceTome, orb.getValue());
+            if (tomeSlot >= 0) {
+                collectedXp += orb.getValue();
                 orb.discard();
                 entitiesMoved++;
                 continue;
@@ -126,23 +128,36 @@ public class RitualZephyr extends Ritual {
             }
         }
 
+        if (collectedXp > 0) {
+            depositXpIntoTome(inventory, tomeSlot, collectedXp);
+        }
+
         if (entitiesMoved > 0) {
             int cost = Math.min(getRefreshCost() + (entitiesMoved / 10), ctx.currentEV());
             ctx.syphon(cost);
         }
     }
 
-    private ItemStack findExperienceTome(ResourceHandler<ItemResource> inventory) {
+    private int findExperienceTomeSlot(ResourceHandler<ItemResource> inventory) {
         if (inventory == null || inventory.size() == 0) {
-            return ItemStack.EMPTY;
+            return -1;
         }
+        return inventory.getResource(0).is(NVItems.EXPERIENCE_TOME.get()) ? 0 : -1;
+    }
 
-        ItemStack firstSlot = Utils.stackAt(inventory, 0);
-        if (firstSlot.is(NVItems.EXPERIENCE_TOME.get())) {
-            return firstSlot;
+    private void depositXpIntoTome(ResourceHandler<ItemResource> inventory, int slot, int xp) {
+        ItemResource resource = inventory.getResource(slot);
+        if (resource.isEmpty()) {
+            return;
         }
-
-        return ItemStack.EMPTY;
+        ItemStack updated = resource.toStack(1);
+        ExperienceTomeItem.addXpToTome(updated, xp);
+        try (Transaction tx = Transaction.openRoot()) {
+            if (inventory.extract(slot, resource, 1, tx) == 1
+                    && inventory.insert(slot, ItemResource.of(updated), 1, tx) == 1) {
+                tx.commit();
+            }
+        }
     }
 
     @Override

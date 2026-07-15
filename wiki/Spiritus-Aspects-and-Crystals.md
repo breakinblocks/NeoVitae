@@ -37,7 +37,7 @@ Apply a redstone signal and the Vas reverses direction: a Spiritus Gem placed in
 
 The Aura is **chunk-based**. Spiritus burned in one chunk fills only that chunk, up to a cap of **100 per aspect**. Measure local concentration with a **Spiritus Aura Gauge** (see below). To move Spiritus across distances, place a **Spira Infernalis**: each tick it probes a position **16 blocks away** in each of the four cardinal directions, and if the probed position holds more Spiritus than the pylon's own chunk, the pylon pulls a small fraction of the difference. The flow equilibrates rather than draining the source dry, so chain pylons from a saturated chunk toward your worksite to ferry Aura over long distances.
 
-Placing a Spiritus Gem inside a **[Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment)** causes it to rapidly siphon Spiritus from the surrounding Aura. With an Aspected Spiritus dominant in the chunk and an empty gem in the Forge, you can fill that gem with a specific Aspect.
+This reversal is how an aspected gem is made. Saturate a chunk with a single Aspect, leave an empty Spiritus Gem in a redstone-charged Vas Maleficum there, and the gem takes on that Aspect as it fills.
 
 ### Aura Gauge
 
@@ -75,7 +75,11 @@ Each Aspect also transforms the behaviour of **Sentient Tools** and the **Sentie
 | Invictus | Moderate damage increase, and slaying a foe grants you a protective shield of Absorption. |
 | Nihilum | The greatest raw damage of any Aspect, at the cost of reduced attack speed. |
 
-To fill a gem with a specific Aspect, place an empty gem in a Hellfire Forge situated in the same chunk as a Vas Maleficum, then feed the Vas Maleficum Spiritus Crystals of the desired Aspect. Right-click while holding a Sentient Tool to recalibrate it to the dominant Aspect in your inventory. Your tools attune to whichever Aspect you carry in greatest quantity, so ten Ruina in one gem and a thousand Raw in another means the blade remains Raw.
+To fill a gem with a specific Aspect, feed a Vas Maleficum Spiritus Crystals of that Aspect until the chunk's Aura is saturated, then place the empty gem in that same Vas and apply a redstone signal.
+
+A gem holds only one Aspect at a time, and an empty gem takes whichever Aspect the Aura offers first. Where several are present they are taken in a fixed precedence: Raw first, then Ruina, Nihilum, Invictus, and Vindicta last. Any trace of Raw in the chunk will therefore claim an empty gem before any other Aspect is considered, so dedicate a separate chunk to each Aspect you intend to bottle.
+
+Right-click while holding a Sentient Tool to recalibrate it to the dominant Aspect in your inventory. Your tools attune to whichever Aspect you carry in greatest quantity, so ten Ruina in one gem and a thousand Raw in another means the blade remains Raw.
 
 The Hellfire Forge itself accepts any Aspect for crafting, so there is no need to juggle multiple gems between stations.
 

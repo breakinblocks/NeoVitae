@@ -5,6 +5,11 @@
       "crystal_level": 1,
       "refresh_cost": 25000
     },
+    "neovitae:butchering": {
+      "activation_cost": 25000,
+      "refresh_cost": 25,
+      "refresh_time": 40
+    },
     "neovitae:condor": {
       "activation_cost": 10000,
       "crystal_level": 1,
@@ -103,6 +108,10 @@
       "refresh_cost": 50,
       "refresh_time": 40
     },
+    "neovitae:shepherd": {
+      "activation_cost": 500,
+      "refresh_cost": 30
+    },
     "neovitae:speed": {
       "activation_cost": 500,
       "refresh_cost": 5,
@@ -146,15 +155,6 @@
       "activation_cost": 1000,
       "refresh_cost": 2,
       "refresh_time": 5
-    },
-    "neovitae:shepherd": {
-      "activation_cost": 500,
-      "refresh_cost": 30
-    },
-    "neovitae:butchering": {
-      "activation_cost": 25000,
-      "refresh_cost": 25,
-      "refresh_time": 40
     }
   }
 }

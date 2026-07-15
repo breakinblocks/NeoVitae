@@ -73,14 +73,13 @@ public class AuraEntry extends EntryProvider {
                 + "equilibrates rather than draining the source dry, so place pylons in a [#](2E8B57)chain[#]() "
                 + "from a saturated chunk toward your worksite to ferry Aura over long distances.");
 
-        this.page("forge_absorption", () -> BookTextPageModel.create()
+        this.page("gem_absorption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Placing a [#](8B0000)Spiritus Gem[#]() inside a [#](8B0000)Hellfire Forge[#]() causes it to rapidly "
-                + "siphon Spiritus from the surrounding Aura.\\\n\\\n"
-                + "With an Aspected Spiritus present in the chunk and an empty gem in the Forge, you can fill "
-                + "that gem with a specific Aspect, allowing you to reshape the behavior of your "
-                + "[#](8B0000)Sentient Tools[#]() and [#](8B0000)Sword[#]() accordingly. The effects of each Aspect are detailed "
-                + "in the [#](8B0000)Aspects of Spiritus[#]() entry.");
+        this.pageText("This reversal is how an aspected gem is made. Saturate a chunk with a single Aspect, "
+                + "leave an empty [#](8B0000)Spiritus Gem[#]() in a redstone-charged [#](8B0000)Vas Maleficum[#]() there, "
+                + "and it takes on that Aspect as it fills.\\\n\\\n"
+                + "An aspected gem reshapes the behavior of your [#](8B0000)Sentient Tools[#]() and [#](8B0000)Sword[#](). "
+                + "The effects of each Aspect are detailed in the [#](8B0000)Aspects of Spiritus[#]() entry.");
     }
 
     @Override

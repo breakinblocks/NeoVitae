@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
 import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
 import com.mojang.serialization.MapCodec;
@@ -28,5 +29,13 @@ public class BookHellfireForgeRecipePage extends BookRecipePage<ForgeRecipe> {
     @Override
     public BookPageType<?> type() {
         return TYPE;
+    }
+
+    @Override
+    public void prerenderMarkdown(BookTextRenderer textRenderer) {
+        if (getParentEntry() == null) {
+            return;
+        }
+        super.prerenderMarkdown(textRenderer);
     }
 }

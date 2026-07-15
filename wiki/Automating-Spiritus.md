@@ -9,7 +9,7 @@ A mature setup turns [Spiritus](Spiritus-Aspects-and-Crystals) into a self-susta
 3. **Harvest.** The **Crystallum Fractura** ritual (see [Rituals](Rituals)) auto-harvests fully-grown clusters in range, dropping shards into a chest atop the Master Ritual Stone. It also **doubles** crystal growth and adds **+25% to Spiritus injection** across its chunks. Bias that bonus toward a chosen Aspect with the Ritual Configurator (carry exactly one aspect crystal in your hotbar in SET_WILL_CONFIG mode).
 4. **Burn.** A **Vas Maleficum** consumes Spiritus Crystals fed into it and releases their Spiritus into the chunk's **Aura** (50 per spire; a net gain over the growth cost, and far more when same-Aspect catalysts have supercharged the cluster).
 5. **Route.** Point a **Routing Node** at the harvest chest and feed the shards into the Vas Maleficum to keep the chunk saturated, closing the loop. To move Aura to where it is used, chain **Spira Infernalis** pylons from the saturated chunk toward your worksite; each pulls Aura from a richer chunk 16 blocks away.
-6. **Consume.** Rituals draw on the Aura, the Hellfire Forge fills empty gems with the chunk's dominant Aspect, and the Athanor's ore-yield boost scales with local Raw Spiritus.
+6. **Consume.** Rituals draw on the Aura, a redstone-charged Vas Maleficum fills empty gems from the chunk's Aura, and the Athanor's ore-yield boost scales with local Raw Spiritus.
 
 ## The closed loop
 

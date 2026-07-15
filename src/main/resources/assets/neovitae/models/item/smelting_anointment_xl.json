@@ -1,8 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/alchemic_liquid",
-    "layer1": "neovitae:item/greenlabeledalchemic_vial",
-    "layer2": "neovitae:item/alchemic_ribbon"
+    "layer0": "neovitae:item/smelting_anointment_xl"
   }
 }

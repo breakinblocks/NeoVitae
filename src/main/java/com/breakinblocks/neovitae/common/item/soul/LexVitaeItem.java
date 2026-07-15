@@ -35,6 +35,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -173,6 +174,9 @@ public class LexVitaeItem extends Item implements ISentientTool {
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         if (!isActive(stack)) return 1.0F;
+        if (state.is(Blocks.COBWEB)) {
+            return 15.0F + (float) getDigSpeedBonus(stack);
+        }
         float value = super.getDestroySpeed(stack, state);
         if (value > 1) {
             return (float) (value + getDigSpeedBonus(stack));

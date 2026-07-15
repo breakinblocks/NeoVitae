@@ -1,19 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "neovitae:item/fortune_anointment_3",
-    "tints": [
-      {
-        "type": "neovitae:anointment"
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -1
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -1
-      }
-    ]
+    "model": "neovitae:item/fortune_anointment_3"
   }
 }

@@ -3,9 +3,9 @@
   "condition": {
     "type": "modonomicon:none"
   },
-  "id": "forge_absorption",
+  "id": "gem_absorption",
   "show_title_separator": true,
   "sort_number": 6,
-  "text": "book.neovitae.guide.spiritus.aura.forge_absorption.text",
+  "text": "book.neovitae.guide.spiritus.aura.gem_absorption.text",
   "title": ""
 }

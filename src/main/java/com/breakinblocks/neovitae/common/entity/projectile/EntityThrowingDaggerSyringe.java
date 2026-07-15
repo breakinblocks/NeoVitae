@@ -5,17 +5,16 @@
 
 package com.breakinblocks.neovitae.common.entity.projectile;
 
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
-/**
- * Syringe throwing dagger projectile - applies potion effects on hit.
- */
 public class EntityThrowingDaggerSyringe extends AbstractEntityThrowingDagger {
 
     public EntityThrowingDaggerSyringe(EntityType<? extends EntityThrowingDaggerSyringe> type, Level level) {
@@ -28,6 +27,23 @@ public class EntityThrowingDaggerSyringe extends AbstractEntityThrowingDagger {
 
     public EntityThrowingDaggerSyringe(Level level, double x, double y, double z, ItemStack stack) {
         super(NVEntities.THROWING_DAGGER_SYRINGE.get(), stack, level, x, y, z);
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
+        if (this.level().isClientSide()) {
+            return;
+        }
+        if (result.getEntity() instanceof LivingEntity living && !living.isAlive()) {
+            double maxHealth = living.getMaxHealth();
+            int count = (int) (maxHealth / 20.0D)
+                    + (this.random.nextDouble() < (maxHealth % 20.0D) / 20.0D ? 1 : 0);
+            if (count > 0) {
+                Containers.dropItemStack(this.level(), this.getX(), this.getY(), this.getZ(),
+                        new ItemStack(NVItems.TABULA_AMPOULE.get(), count));
+            }
+        }
     }
 
     @Override

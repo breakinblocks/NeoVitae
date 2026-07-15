@@ -6,10 +6,12 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.hud.HUDElement;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.List;
@@ -39,8 +41,8 @@ public class SpiritusAuraElement extends HUDElement {
         if (player == null || mc.level == null) {
             return false;
         }
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            if (player.getInventory().getItem(i).is(NVItems.SPIRITUS_GAUGE.get())) {
+        for (ItemStack stack : PlayerSpiritusHandler.getAllInventories(player)) {
+            if (stack.is(NVItems.SPIRITUS_GAUGE.get())) {
                 return true;
             }
         }

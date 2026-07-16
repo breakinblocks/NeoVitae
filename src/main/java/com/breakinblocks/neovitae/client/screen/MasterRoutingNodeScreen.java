@@ -1,12 +1,14 @@
 package com.breakinblocks.neovitae.client.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.lwjgl.glfw.GLFW;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
@@ -22,6 +24,7 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
 
     private EditBox energyRateBox;
     private int lastSyncedEnergyRate = -1;
+    private int pendingEnergyRate = -1;
 
     public MasterRoutingNodeScreen(MasterRoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -50,12 +53,17 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         energyRateBox.setMaxLength(7);
         energyRateBox.setFilter(s -> s.isEmpty() || s.chars().allMatch(Character::isDigit));
         energyRateBox.setValue(String.valueOf(initialRate));
-        energyRateBox.setResponder(this::onEnergyRateTyped);
         this.addRenderableWidget(energyRateBox);
         this.setInitialFocus(energyRateBox);
+
+        this.addRenderableWidget(Button.builder(Component.literal("Set"), b -> commitEnergyRate())
+                .bounds(leftPos + ENERGY_BOX_X + ENERGY_BOX_W + 2, topPos + ENERGY_BOX_Y, 26, ENERGY_BOX_H)
+                .build());
     }
 
-    private void onEnergyRateTyped(String value) {
+    private void commitEnergyRate() {
+        if (energyRateBox == null) return;
+        String value = energyRateBox.getValue();
         if (value.isEmpty()) return;
         int parsed;
         try {
@@ -65,7 +73,9 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         }
         int clamped = Math.max(MasterRoutingNodeBlockEntity.ENERGY_RATE_MIN,
                 Math.min(MasterRoutingNodeBlockEntity.ENERGY_RATE_MAX, parsed));
-        if (clamped == lastSyncedEnergyRate) return;
+        energyRateBox.setValue(String.valueOf(clamped));
+        energyRateBox.setFocused(false);
+        pendingEnergyRate = clamped;
         lastSyncedEnergyRate = clamped;
         PacketDistributor.sendToServer(new MasterRoutingNodeEnergyRatePayload(
                 menu.tile.getBlockPos(),
@@ -74,12 +84,23 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if ((keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER)
+                && energyRateBox != null && energyRateBox.isFocused()) {
+            commitEnergyRate();
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        // Mirror server-side rate changes into the field while it isn't being edited.
         int serverRate = menu.getEnergyRate();
-        if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
+        if (pendingEnergyRate >= 0) {
+            if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
+        } else if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
             lastSyncedEnergyRate = serverRate;
             energyRateBox.setValue(String.valueOf(serverRate));
         }

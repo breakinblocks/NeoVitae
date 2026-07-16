@@ -16,6 +16,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
@@ -102,14 +103,15 @@ public class RitualZephyr extends Ritual {
         }
 
         IItemHandler inventory = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
-        ItemStack experienceTome = findExperienceTome(inventory);
+        int tomeSlot = findExperienceTomeSlot(inventory);
+        int collectedXp = 0;
 
         List<ExperienceOrb> orbs = ctx.level().getEntitiesOfClass(ExperienceOrb.class, aabb);
         for (ExperienceOrb orb : orbs) {
             if (orb.isRemoved()) continue;
 
-            if (!experienceTome.isEmpty()) {
-                ExperienceTomeItem.addXpToTome(experienceTome, orb.getValue());
+            if (tomeSlot >= 0) {
+                collectedXp += orb.getValue();
                 orb.discard();
                 entitiesMoved++;
                 continue;
@@ -125,23 +127,30 @@ public class RitualZephyr extends Ritual {
             }
         }
 
+        if (collectedXp > 0) {
+            depositXpIntoTome(inventory, tomeSlot, collectedXp);
+        }
+
         if (entitiesMoved > 0) {
             int cost = Math.min(getRefreshCost() + (entitiesMoved / 10), ctx.currentEV());
             ctx.syphon(cost);
         }
     }
 
-    private ItemStack findExperienceTome(IItemHandler inventory) {
-        if (inventory == null || inventory.getSlots() == 0) {
-            return ItemStack.EMPTY;
+    private int findExperienceTomeSlot(IItemHandler inventory) {
+        if (!(inventory instanceof IItemHandlerModifiable) || inventory.getSlots() == 0) {
+            return -1;
         }
+        return inventory.getStackInSlot(0).is(NVItems.EXPERIENCE_TOME.get()) ? 0 : -1;
+    }
 
-        ItemStack firstSlot = inventory.getStackInSlot(0);
-        if (firstSlot.is(NVItems.EXPERIENCE_TOME.get())) {
-            return firstSlot;
+    private void depositXpIntoTome(IItemHandler inventory, int slot, int xp) {
+        ItemStack updated = inventory.getStackInSlot(slot).copy();
+        if (updated.isEmpty()) {
+            return;
         }
-
-        return ItemStack.EMPTY;
+        ExperienceTomeItem.addXpToTome(updated, xp);
+        ((IItemHandlerModifiable) inventory).setStackInSlot(slot, updated);
     }
 
 

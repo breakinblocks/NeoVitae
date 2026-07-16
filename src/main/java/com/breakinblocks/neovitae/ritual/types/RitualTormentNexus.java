@@ -52,6 +52,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
@@ -425,12 +426,18 @@ public class RitualTormentNexus extends Ritual {
     }
 
     private void depositXpIntoTome(IItemHandler inv, int xp) {
+        if (!(inv instanceof IItemHandlerModifiable modifiable)) {
+            return;
+        }
         for (int i = 0; i < inv.getSlots(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if (stack.getItem() instanceof ExperienceTomeItem) {
-                ExperienceTomeItem.addXpToTome(stack, xp);
-                return;
+            if (!(stack.getItem() instanceof ExperienceTomeItem)) {
+                continue;
             }
+            ItemStack updated = stack.copy();
+            ExperienceTomeItem.addXpToTome(updated, xp);
+            modifiable.setStackInSlot(i, updated);
+            return;
         }
     }
 

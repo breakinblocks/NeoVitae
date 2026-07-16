@@ -2,8 +2,24 @@
   "sources": [
     {
       "type": "minecraft:directory",
-      "prefix": "models/",
-      "source": "models"
+      "prefix": "models/alchemyarrays/",
+      "source": "models/alchemyarrays"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "neovitae:models/modelroutingnode"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "neovitae:models/modelinputroutingnode"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "neovitae:models/modeloutputroutingnode"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "neovitae:models/modelmasterroutingnode"
     },
     {
       "type": "minecraft:paletted_permutations",

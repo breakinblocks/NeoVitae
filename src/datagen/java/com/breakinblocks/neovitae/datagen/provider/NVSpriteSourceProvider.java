@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.client.renderer.texture.atlas.sources.PalettedPermutations;
+import net.minecraft.client.renderer.texture.atlas.sources.SingleFile;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -12,9 +13,13 @@ import com.breakinblocks.neovitae.NeoVitae;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class NVSpriteSourceProvider extends SpriteSourceProvider {
+
+    private static final List<String> ROUTING_NODE_TEXTURES = List.of(
+            "modelroutingnode", "modelinputroutingnode", "modeloutputroutingnode", "modelmasterroutingnode");
 
     private static final List<String> TRIM_PATTERNS = List.of(
             "coast", "sentry", "dune", "wild", "ward", "eye", "vex", "tide", "snout",
@@ -44,8 +49,11 @@ public class NVSpriteSourceProvider extends SpriteSourceProvider {
                 ResourceLocation.withDefaultNamespace("trims/items/helmet_trim"),
                 ResourceLocation.withDefaultNamespace("trims/items/boots_trim"));
 
-        atlas(BLOCKS_ATLAS)
-                .addSource(new DirectoryLister("models", "models/"))
-                .addSource(new PalettedPermutations(itemTrimTextures, paletteKey, permutations));
+        SourceList blocks = atlas(BLOCKS_ATLAS)
+                .addSource(new DirectoryLister("models/alchemyarrays", "models/alchemyarrays/"));
+        for (String node : ROUTING_NODE_TEXTURES) {
+            blocks.addSource(new SingleFile(NeoVitae.rl("models/" + node), Optional.empty()));
+        }
+        blocks.addSource(new PalettedPermutations(itemTrimTextures, paletteKey, permutations));
     }
 }

@@ -309,20 +309,31 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         ServerLevel serverLevel = level instanceof ServerLevel sl ? sl : null;
         if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
             if (toolStack.is(NVTags.Items.ATHANOR_FURNACE) && serverLevel != null) {
-                Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = Optional.empty();
-                SingleRecipeInput input = new SingleRecipeInput(inputStacks[0]);
-                if (toolStack.is(NVTags.Items.ARC_SMELTING)) {
-                     recipe = athanorTile.quickSmelting.getRecipeFor(input, serverLevel);
-                } else if (toolStack.is(NVTags.Items.ARC_BLASTING)) {
-                    recipe = athanorTile.quickBlasting.getRecipeFor(input, serverLevel);
-                } else if (toolStack.is(NVTags.Items.ARC_SMOKING)) {
-                    recipe = athanorTile.quickSmoking.getRecipeFor(input, serverLevel);
+                int furnaceSlot = -1;
+                RecipeHolder<? extends AbstractCookingRecipe> furnaceRecipe = null;
+                for (int s = 0; s < NUM_INPUTS; s++) {
+                    if (inputStacks[s].isEmpty()) continue;
+                    SingleRecipeInput candidate = new SingleRecipeInput(inputStacks[s]);
+                    Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = Optional.empty();
+                    if (toolStack.is(NVTags.Items.ARC_SMELTING)) {
+                        recipe = athanorTile.quickSmelting.getRecipeFor(candidate, serverLevel);
+                    } else if (toolStack.is(NVTags.Items.ARC_BLASTING)) {
+                        recipe = athanorTile.quickBlasting.getRecipeFor(candidate, serverLevel);
+                    } else if (toolStack.is(NVTags.Items.ARC_SMOKING)) {
+                        recipe = athanorTile.quickSmoking.getRecipeFor(candidate, serverLevel);
+                    }
+                    if (athanorTile.canCraftFurnace(recipe, itemOutputHandler)) {
+                        furnaceSlot = s;
+                        furnaceRecipe = recipe.get();
+                        break;
+                    }
                 }
-                if (athanorTile.canCraftFurnace(recipe, itemOutputHandler)) {
-                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().cookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
+                if (furnaceSlot >= 0) {
+                    SingleRecipeInput input = new SingleRecipeInput(inputStacks[furnaceSlot]);
+                    athanorTile.progress += DEFAULT_SPEED * ((double) furnaceRecipe.value().cookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                     didProgress = true;
                     if (athanorTile.progress >= 1) {
-                        athanorTile.craftFurnace(recipe.get().value(), input, itemOutputHandler);
+                        athanorTile.craftFurnace(furnaceRecipe.value(), input, furnaceSlot, itemOutputHandler);
                         outputChanged = true;
                     }
                 }
@@ -414,10 +425,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         return outputHandler.canTransferAllItemsToSlots(List.of(result), true);
     }
 
-    private void craftFurnace(AbstractCookingRecipe value, SingleRecipeInput input, AthanorOutputHandler outputHandler) {
+    private void craftFurnace(AbstractCookingRecipe value, SingleRecipeInput input, int slot, AthanorOutputHandler outputHandler) {
         if (!(level instanceof ServerLevel sl)) return;
         ItemStack output = value.assemble(input);
-        handleInventory(List.of(output), outputHandler, new int[]{0});
+        handleInventory(List.of(output), outputHandler, new int[]{slot});
     }
 
     private boolean canCraft(Optional<RecipeHolder<AthanorRecipe>> recipe, AthanorOutputHandler outputHandler) {

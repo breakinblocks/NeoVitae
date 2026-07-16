@@ -1,8 +1,10 @@
 package com.breakinblocks.neovitae.client.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -14,6 +16,7 @@ import com.breakinblocks.neovitae.common.network.MasterRoutingNodeEnergyRatePayl
 import java.util.ArrayList;
 import java.util.List;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.lwjgl.glfw.GLFW;
 
 public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRoutingNodeMenu> {
     private static final Identifier BACKGROUND = NeoVitae.rl("textures/gui/masterroutingnode.png");
@@ -25,6 +28,7 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
 
     private EditBox energyRateBox;
     private int lastSyncedEnergyRate = -1;
+    private int pendingEnergyRate = -1;
 
     public MasterRoutingNodeScreen(MasterRoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 176, 146);
@@ -51,12 +55,17 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         energyRateBox.setMaxLength(7);
         energyRateBox.setFilter(s -> s.isEmpty() || s.chars().allMatch(Character::isDigit));
         energyRateBox.setValue(String.valueOf(initialRate));
-        energyRateBox.setResponder(this::onEnergyRateTyped);
         this.addRenderableWidget(energyRateBox);
         this.setInitialFocus(energyRateBox);
+
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.neovitae.master_routing.set"), b -> commitEnergyRate())
+                .bounds(leftPos + ENERGY_BOX_X + ENERGY_BOX_W + 2, topPos + ENERGY_BOX_Y, 26, ENERGY_BOX_H)
+                .build());
     }
 
-    private void onEnergyRateTyped(String value) {
+    private void commitEnergyRate() {
+        if (energyRateBox == null) return;
+        String value = energyRateBox.getValue();
         if (value.isEmpty()) return;
         int parsed;
         try {
@@ -66,7 +75,9 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         }
         int clamped = Math.max(MasterRoutingNodeBlockEntity.ENERGY_RATE_MIN,
                 Math.min(MasterRoutingNodeBlockEntity.ENERGY_RATE_MAX, parsed));
-        if (clamped == lastSyncedEnergyRate) return;
+        energyRateBox.setValue(String.valueOf(clamped));
+        energyRateBox.setFocused(false);
+        pendingEnergyRate = clamped;
         lastSyncedEnergyRate = clamped;
         ClientPacketDistributor.sendToServer(new MasterRoutingNodeEnergyRatePayload(
                 menu.tile.getBlockPos(),
@@ -75,11 +86,23 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
     }
 
     @Override
+    public boolean keyPressed(KeyEvent event) {
+        if ((event.key() == GLFW.GLFW_KEY_ENTER || event.key() == GLFW.GLFW_KEY_KP_ENTER)
+                && energyRateBox != null && energyRateBox.isFocused()) {
+            commitEnergyRate();
+            return true;
+        }
+        return super.keyPressed(event);
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
 
         int serverRate = menu.getEnergyRate();
-        if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
+        if (pendingEnergyRate >= 0) {
+            if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
+        } else if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
             lastSyncedEnergyRate = serverRate;
             energyRateBox.setValue(String.valueOf(serverRate));
         }

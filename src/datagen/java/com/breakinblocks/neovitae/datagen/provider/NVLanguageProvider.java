@@ -1456,6 +1456,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // GUI - Master Routing Node
         add("gui.neovitae.master_routing.energy_rate", "Transfer Rate");
         add("gui.neovitae.master_routing.energy_rate_label", "Rate");
+        add("gui.neovitae.master_routing.set", "Set");
         add("gui.neovitae.master_routing.stack_upgrade_slot", "Stack upgrade slot");
         add("gui.neovitae.master_routing.speed_upgrade_slot", "Speed upgrade slot");
         add("gui.neovitae.master_routing.transfer_rate.title", "Transfer Rate");

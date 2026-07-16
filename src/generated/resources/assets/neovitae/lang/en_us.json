@@ -2044,6 +2044,7 @@
   "gui.neovitae.hud.title": "Edit HUD Layout",
   "gui.neovitae.master_routing.energy_rate": "Transfer Rate",
   "gui.neovitae.master_routing.energy_rate_label": "Rate",
+  "gui.neovitae.master_routing.set": "Set",
   "gui.neovitae.master_routing.speed_upgrade_slot": "Speed upgrade slot",
   "gui.neovitae.master_routing.stack_upgrade_slot": "Stack upgrade slot",
   "gui.neovitae.master_routing.transfer_rate.desc": "Items routed per cycle, fluid mB per tick",

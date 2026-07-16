@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [
+    {
+      "chance": 0.5,
+      "item": {
+        "id": "neovitae:corrupted_tiny_dust"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "id": "neovitae:demonite_gravel"
+    }
+  ],
+  "inputs": [
+    "neovitae:demonite_fragment"
+  ],
+  "tool": "#neovitae:athanor_tool/resonator"
+}

@@ -95,7 +95,7 @@ side="BOTH"
 [[dependencies.${mod_id}]]
 modId="modonomicon"
 type="required"
-versionRange="[2.0.0,)"
+versionRange="[2.0.0,26.0.0)"
 ordering="NONE"
 side="BOTH"
 

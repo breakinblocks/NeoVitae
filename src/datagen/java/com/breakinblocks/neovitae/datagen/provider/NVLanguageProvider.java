@@ -860,6 +860,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("flask.combination", "Combination potion - see the Scriptura Vitae for details");
 
         // Athanor Tool tooltips
+        addTooltip("arctool.usage", "Used in the Athanor");
+        addTooltip("arctool.usage.cutting_fluid", "Used in the Athanor and Tabula Vitae");
         addTooltip("arctool.uses", "Uses Remaining: %s");
         addTooltip("arctool.craftspeed", "Crafting Speed: %sx");
         addTooltip("arctool.additionaldrops", "Additional Output Chance: %sx");

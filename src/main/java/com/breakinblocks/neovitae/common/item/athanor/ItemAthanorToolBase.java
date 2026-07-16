@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.util.ChatUtil;
 
 import java.util.List;
@@ -36,6 +37,10 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(stack.is(NVTags.Items.CUTTING_FLUIDS)
+                ? "tooltip.neovitae.arctool.usage.cutting_fluid"
+                : "tooltip.neovitae.arctool.usage").withStyle(ChatFormatting.GRAY));
+
         tooltip.add(Component.translatable("tooltip.neovitae.arctool.uses", stack.getMaxDamage() - stack.getDamageValue()).withStyle(ChatFormatting.GRAY));
 
         if (getCraftingSpeedMultiplier(stack) != 1)

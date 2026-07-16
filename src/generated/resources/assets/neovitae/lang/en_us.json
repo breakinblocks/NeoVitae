@@ -2672,6 +2672,8 @@
   "tooltip.neovitae.arcane_scribe_tool.color": "Color: %s",
   "tooltip.neovitae.arctool.additionaldrops": "Additional Output Chance: %sx",
   "tooltip.neovitae.arctool.craftspeed": "Crafting Speed: %sx",
+  "tooltip.neovitae.arctool.usage": "Used in the Athanor",
+  "tooltip.neovitae.arctool.usage.cutting_fluid": "Used in the Athanor and Tabula Vitae",
   "tooltip.neovitae.arctool.uses": "Uses Remaining: %s",
   "tooltip.neovitae.array_effect.bounce": "Bounces entities high into the air. Crouch to disable.",
   "tooltip.neovitae.array_effect.collection": "Pulls dropped items within 2 blocks. Place over a chest to auto-collect.",

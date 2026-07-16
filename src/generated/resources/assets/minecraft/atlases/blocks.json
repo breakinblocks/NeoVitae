@@ -2,8 +2,8 @@
   "sources": [
     {
       "type": "minecraft:directory",
-      "prefix": "models/",
-      "source": "models"
+      "prefix": "models/alchemyarrays/",
+      "source": "models/alchemyarrays"
     }
   ]
 }

@@ -26,7 +26,7 @@ public class NVSpriteSourceProvider extends SpriteSourceProvider {
 
     @Override
     protected void gather() {
-        atlas(AtlasIds.BLOCKS).addSource(new DirectoryLister("models", "models/"));
+        atlas(AtlasIds.BLOCKS).addSource(new DirectoryLister("models/alchemyarrays", "models/alchemyarrays/"));
 
         Identifier paletteKey = Identifier.withDefaultNamespace("trims/color_palettes/trim_palette");
         Map<String, Identifier> permutations = Map.of(

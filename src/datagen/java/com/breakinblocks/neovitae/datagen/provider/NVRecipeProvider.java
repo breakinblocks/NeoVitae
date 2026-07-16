@@ -3806,12 +3806,24 @@ public class NVRecipeProvider extends RecipeProvider {
                 .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentshellforged"));
 
+        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
+                .input(Ingredient.of(NVItems.DEMONITE_FRAGMENT.get()))
+                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_GRAVEL.get()))
+                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .save(output, NeoVitae.rl("gravelshellforged"));
+
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVItems.DEMONITE_GRAVEL.get()))
                 .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
                 .save(output, NeoVitae.rl("dustshellforged"));
 
-        // Raw hellforged processing removed - no raw hellforged item exists
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
+                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/hellforged_ingot_from_dust"));
+
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 100)
+                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/hellforged_ingot_from_dust"));
 
         // === OTHER UTILITY ===
         // Netherrack to Sulfur + Lava

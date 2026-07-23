@@ -100,12 +100,22 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         int serverRate = menu.getEnergyRate();
         if (pendingEnergyRate >= 0) {
             if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
-        } else if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
+        } else if (serverRate != lastSyncedEnergyRate && boxShowsSyncedValue()) {
             lastSyncedEnergyRate = serverRate;
             energyRateBox.setValue(String.valueOf(serverRate));
         }
 
         this.renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    private boolean boxShowsSyncedValue() {
+        if (energyRateBox == null) return false;
+        String value = energyRateBox.getValue();
+        try {
+            return !value.isEmpty() && Integer.parseInt(value) == lastSyncedEnergyRate;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override
@@ -130,11 +140,13 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if (isHovering(62, 15, 16, 16, mouseX, mouseY)) {
+        boolean slotEmpty = hoveredSlot == null || !hoveredSlot.hasItem();
+
+        if (slotEmpty && isHovering(62, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.renderTooltip(font, Component.literal("Stack Upgrade Slot"), mouseX, mouseY);
         }
 
-        if (isHovering(98, 15, 16, 16, mouseX, mouseY)) {
+        if (slotEmpty && isHovering(98, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.renderTooltip(font, Component.literal("Speed Upgrade Slot"), mouseX, mouseY);
         }
 

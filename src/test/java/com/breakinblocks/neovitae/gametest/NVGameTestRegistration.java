@@ -9,6 +9,7 @@ public class NVGameTestRegistration {
 
     @SubscribeEvent
     public static void registerTests(RegisterGameTestsEvent event) {
+        event.register(HarvestTests.class);
         event.register(RoutingNodeTests.class);
         event.register(AraVitaeTests.class);
         event.register(VitaeLinkTests.class);

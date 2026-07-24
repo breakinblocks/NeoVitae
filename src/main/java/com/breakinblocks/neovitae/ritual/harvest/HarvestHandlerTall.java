@@ -48,15 +48,21 @@ public class HarvestHandlerTall implements IHarvestHandler {
 
         BlockState up = level.getBlockState(pos.above());
         if (up.getBlock() == state.getBlock()) {
-            if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos.above(), ownerUUID)) {
-                return false;
+            BlockPos top = pos.above();
+            while (level.getBlockState(top.above()).getBlock() == state.getBlock()) {
+                top = top.above();
             }
+
+            BlockState topState = level.getBlockState(top);
             LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel);
-            Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-            List<ItemStack> blockDrops = state.getDrops(lootBuilder
+            Vec3 blockCenter = new Vec3(top.getX() + 0.5, top.getY() + 0.5, top.getZ() + 0.5);
+            List<ItemStack> topDrops = topState.getDrops(lootBuilder
                     .withParameter(LootContextParams.ORIGIN, blockCenter)
                     .withParameter(LootContextParams.TOOL, mockHoe));
-            drops.addAll(blockDrops);
+            if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, top, ownerUUID)) {
+                return false;
+            }
+            drops.addAll(topDrops);
             return true;
         }
 

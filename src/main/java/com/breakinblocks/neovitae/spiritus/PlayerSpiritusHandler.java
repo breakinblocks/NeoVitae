@@ -87,6 +87,15 @@ public class PlayerSpiritusHandler {
         return consumed;
     }
 
+    public static boolean hasSpiritusGem(Player player) {
+        for (ItemStack stack : getAllInventories(player)) {
+            if (!stack.isEmpty() && stack.getItem() instanceof ISpiritusGem) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static ItemStack addSpiritus(Player player, ItemStack spiritusStack) {
         if (spiritusStack.isEmpty()) return ItemStack.EMPTY;
 

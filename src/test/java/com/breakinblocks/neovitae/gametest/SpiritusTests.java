@@ -85,6 +85,25 @@ public final class SpiritusTests {
             });
         });
 
+        r.add("spiritus/crystal_breaks_when_support_removed", 60, helper -> {
+            BlockPos supportPos = new BlockPos(3, 0, 2);
+            BlockPos crystalPos = new BlockPos(3, 1, 2);
+            helper.setBlock(supportPos, Blocks.STONE.defaultBlockState());
+            helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
+
+            helper.runAfterDelay(2, () -> {
+                helper.setBlock(supportPos, Blocks.AIR.defaultBlockState());
+
+                helper.runAfterDelay(2, () -> {
+                    if (!helper.getBlockState(crystalPos).isAir()) {
+                        helper.fail("Spiritus Crystal should break when its support is removed, still present: "
+                                + helper.getBlockState(crystalPos));
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
         r.add("spiritus/crystal_drains_chunk_spiritus", 60, helper -> {
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());

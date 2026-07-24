@@ -11,8 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -117,14 +118,15 @@ public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmen
         return null;
     }
 
-    // @Override (removed: not an override in 26.1)
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState,
-                                   LevelAccessor level, BlockPos pos, BlockPos facingPos) {
+    @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess,
+                                     BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState,
+                                     RandomSource random) {
         Direction attached = state.getValue(ATTACHED);
-        if (facing.getOpposite() == attached && !state.canSurvive(level, pos)) {
+        if (direction.getOpposite() == attached && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
-        return state;
+        return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

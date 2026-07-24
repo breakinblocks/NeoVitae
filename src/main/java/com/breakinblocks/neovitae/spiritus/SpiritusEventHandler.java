@@ -133,21 +133,14 @@ public class SpiritusEventHandler {
             return;
         }
 
-        if (!(pickedUp.getItem() instanceof ISpiritus will)) {
+        if (!(pickedUp.getItem() instanceof ISpiritus)) {
             return;
         }
 
         ItemStack remaining = PlayerSpiritusHandler.addSpiritus(player, pickedUp.copy());
 
-        if (remaining.isEmpty()) {
+        if (remaining.isEmpty() || PlayerSpiritusHandler.hasSpiritusGem(player)) {
             event.getItemEntity().discard();
-        } else {
-            double originalSpiritus = will.getSpiritus(will.getType(pickedUp), pickedUp);
-            double remainingSpiritusAmount = remaining.getItem() instanceof ISpiritus remainingSpiritus
-                    ? remainingSpiritus.getSpiritus(will.getType(remaining), remaining) : originalSpiritus;
-            if (remainingSpiritusAmount < originalSpiritus) {
-                event.getItemEntity().setItem(remaining);
-            }
         }
     }
 }

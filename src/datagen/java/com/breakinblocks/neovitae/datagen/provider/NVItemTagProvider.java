@@ -8,6 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -39,6 +40,17 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.SPIRITUS_GEM_COMMON.get())
                 .add(NVItems.SPIRITUS_GEM_GREATER.get())
                 .add(NVItems.SPIRITUS_GEM_GRAND.get());
+
+        tag(NVTags.Items.CHARGES)
+                .add(NVBlocks.SHAPED_CHARGE.item().get())
+                .add(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+                .add(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+                .add(NVBlocks.DEFORESTER_CHARGE.item().get())
+                .add(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+                .add(NVBlocks.VEINMINE_CHARGE.item().get())
+                .add(NVBlocks.VEINMINE_CHARGE_2.item().get())
+                .add(NVBlocks.FUNGAL_CHARGE.item().get())
+                .add(NVBlocks.FUNGAL_CHARGE_2.item().get());
 
         tag(NVTags.Items.SENTIENT_SET)
                 .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());

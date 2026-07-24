@@ -33,6 +33,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 /**
  * Handles anointment effects during gameplay events.
@@ -136,6 +137,10 @@ public class AnointmentEventHandler {
         AnointmentHolder holder = heldStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
+            return;
+        }
+
+        if (heldStack.is(NVTags.Items.CHARGES)) {
             return;
         }
 

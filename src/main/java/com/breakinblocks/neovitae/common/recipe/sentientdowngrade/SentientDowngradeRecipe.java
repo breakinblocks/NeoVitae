@@ -78,6 +78,11 @@ public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }

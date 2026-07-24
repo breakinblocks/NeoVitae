@@ -150,6 +150,11 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         // Return example output for JEI
         return getOutput(getExampleFlask(), getExampleEffects());

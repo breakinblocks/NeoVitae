@@ -888,6 +888,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), "Ancient Debris Fragment");
         add(NVItems.NETHERITE_SCRAP_GRAVEL.get(), "Ancient Debris Gravel");
         add(NVItems.NETHERITE_SCRAP_DUST.get(), "Netherite Scrap Dust");
+        add("item.neovitae.fragment_netherite_scrap", "Ancient Debris Fragment");
+        add("item.neovitae.gravel_netherite_scrap", "Ancient Debris Gravel");
         add(NVItems.HELLFORGED_DUST.get(), "Hellforged Dust");
         add(NVItems.CORRUPTED_DUST.get(), "Corrupted Dust");
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");

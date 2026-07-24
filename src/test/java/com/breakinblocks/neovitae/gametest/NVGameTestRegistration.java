@@ -17,6 +17,7 @@ public class NVGameTestRegistration {
         BloodOrbTests.register(r);
         CapabilityTests.register(r);
         DataValidationTests.register(r);
+        HarvestTests.register(r);
         HellfireForgeTests.register(r);
         ImperfectRitualTests.register(r);
         MinorSystemTests.register(r);

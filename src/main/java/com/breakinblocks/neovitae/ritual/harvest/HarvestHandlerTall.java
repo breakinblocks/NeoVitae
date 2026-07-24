@@ -43,10 +43,17 @@ public class HarvestHandlerTall implements IHarvestHandler {
         BlockState up = level.getBlockState(pos.above());
         if (up.getBlock() != state.getBlock()) return false;
 
-        if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos.above(), ownerUUID)) {
+        BlockPos top = pos.above();
+        while (level.getBlockState(top.above()).getBlock() == state.getBlock()) {
+            top = top.above();
+        }
+
+        BlockState topState = level.getBlockState(top);
+        List<ItemStack> topDrops = HarvestHelper.getDropsAt(serverLevel, top, topState, HarvestHelper.mockHoe());
+        if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, top, ownerUUID)) {
             return false;
         }
-        drops.addAll(HarvestHelper.getDropsAt(serverLevel, pos, state, HarvestHelper.mockHoe()));
+        drops.addAll(topDrops);
         return true;
     }
 

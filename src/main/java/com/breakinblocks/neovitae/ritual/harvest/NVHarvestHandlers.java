@@ -9,6 +9,7 @@ public class NVHarvestHandlers {
         initialized = true;
 
         HarvestRegistry.registerHandler(new HarvestHandlerPlantable());
+        HarvestRegistry.registerHandler(new HarvestHandlerCactusFlower());
         HarvestRegistry.registerHandler(new HarvestHandlerNetherWart());
         HarvestRegistry.registerHandler(new HarvestHandlerBerryBush());
         HarvestRegistry.registerHandler(new HarvestHandlerTall());

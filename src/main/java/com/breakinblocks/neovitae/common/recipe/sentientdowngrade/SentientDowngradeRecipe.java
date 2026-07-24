@@ -73,6 +73,11 @@ public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(input);
     }

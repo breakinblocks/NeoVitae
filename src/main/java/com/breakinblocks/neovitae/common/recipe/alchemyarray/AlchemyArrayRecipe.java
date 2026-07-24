@@ -136,6 +136,11 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.createFromOptionals(List.of(
                 Optional.of(baseInput),

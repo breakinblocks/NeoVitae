@@ -27,6 +27,7 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
@@ -35,6 +36,8 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -112,6 +115,8 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             }
             return;
         }
+
+        absorbSpiritusFromChunk(level, pos, tile);
 
         ForgeInput input = tile.getInput();
         Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level instanceof ServerLevel serverLevel
@@ -200,6 +205,31 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
         tile.progress = 0;
         tile.setChanged();
+    }
+
+    private static void absorbSpiritusFromChunk(Level level, BlockPos pos, HellfireForgeBlockEntity tile) {
+        ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
+        if (gemStack.isEmpty() || !SpiritusHelper.isRechargeable(gemStack)) {
+            return;
+        }
+        boolean changed = false;
+        for (SpiritusType type : SpiritusType.values()) {
+            double currentChunkSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
+            if (currentChunkSpiritus <= 0) continue;
+
+            double fillAmount = Math.min(VasMaleficumBlockEntity.GEM_DRAIN_RATE, currentChunkSpiritus);
+            double canFill = SpiritusHelper.fillSpiritus(gemStack, type, fillAmount, false);
+            if (canFill > 0) {
+                double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, canFill);
+                if (drained > 0) {
+                    SpiritusHelper.fillSpiritus(gemStack, type, drained, true);
+                    changed = true;
+                }
+            }
+        }
+        if (changed) {
+            tile.inv.setStackInSlot(GEM_SLOT, gemStack);
+        }
     }
 
     public ForgeInput getInput() {

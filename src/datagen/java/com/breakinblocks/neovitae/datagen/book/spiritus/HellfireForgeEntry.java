@@ -31,6 +31,17 @@ public class HellfireForgeEntry extends EntryProvider {
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge")));
+
+        this.page("gem_absorption", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Drawing from the Aura");
+        this.pageText("Crafting in the Forge spends the [#](8B0000)Spiritus[#]() held in its [#](8B0000)Spiritus Gem[#](). "
+                + "Left to itself that reserve would soon run dry, so the Forge draws upon its surroundings: a gem "
+                + "seated in the Forge steadily drinks [#](8B0000)Spiritus[#]() from the chunk's [#](4A0080)Aura[#](), at "
+                + "the same pace a [#](8B0000)Vas Maleficum[#]() would fill it.\\\n\\\n"
+                + "[#](2E8B57)Feed the local Aura with a Crystallum Fractura farm and the Forge can craft "
+                + "unattended, its gem refilling as quickly as it is spent.[#]()");
     }
 
     @Override

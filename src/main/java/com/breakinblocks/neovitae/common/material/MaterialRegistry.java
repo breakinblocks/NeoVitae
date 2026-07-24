@@ -45,7 +45,8 @@ public class MaterialRegistry {
             "iron_fragment", "iron_gravel", "iron_dust",
             "gold_fragment", "gold_gravel", "gold_dust",
             "copper_fragment", "copper_gravel", "copper_dust",
-            "fragment_netherite_scrap", "gravel_netherite_scrap", "netherite_scrap_dust",
+            "netherite_scrap_fragment", "netherite_scrap_gravel", "netherite_scrap_dust",
+            "fragment_netherite_scrap", "gravel_netherite_scrap",
             "demonite_fragment", "demonite_gravel"
     );
     private static InMemoryPack GENERATED_PACK;
@@ -634,7 +635,7 @@ public class MaterialRegistry {
                 "minecraft:netherite_scrap", 2.0f,
                 null, null, null,
                 "Ancient Debris",
-                Map.of("fragment", "fragment_netherite_scrap", "gravel", "gravel_netherite_scrap"))
+                null)
                 .withExtraOreItems(List.of("minecraft:ancient_debris"))
                 .withExtraRawItems(List.of("minecraft:netherite_scrap")));
         defaults.add(new MaterialDefinition("demonite", "#8CBFB5",

@@ -102,9 +102,19 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         int serverRate = menu.getEnergyRate();
         if (pendingEnergyRate >= 0) {
             if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
-        } else if (serverRate != lastSyncedEnergyRate && energyRateBox != null && !energyRateBox.isFocused()) {
+        } else if (serverRate != lastSyncedEnergyRate && boxShowsSyncedValue()) {
             lastSyncedEnergyRate = serverRate;
             energyRateBox.setValue(String.valueOf(serverRate));
+        }
+    }
+
+    private boolean boxShowsSyncedValue() {
+        if (energyRateBox == null) return false;
+        String value = energyRateBox.getValue();
+        try {
+            return !value.isEmpty() && Integer.parseInt(value) == lastSyncedEnergyRate;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -129,11 +139,13 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
     protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         super.extractTooltip(guiGraphics, mouseX, mouseY);
 
-        if (isHovering(62, 15, 16, 16, mouseX, mouseY)) {
+        boolean slotEmpty = hoveredSlot == null || !hoveredSlot.hasItem();
+
+        if (slotEmpty && isHovering(62, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.master_routing.stack_upgrade_slot"), mouseX, mouseY);
         }
 
-        if (isHovering(98, 15, 16, 16, mouseX, mouseY)) {
+        if (slotEmpty && isHovering(98, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.master_routing.speed_upgrade_slot"), mouseX, mouseY);
         }
 

@@ -1,6 +1,6 @@
 # Commands
 
-Neo Vitae adds a single command, **`/neovitae`**, that groups admin and debugging tools for its systems: altars, the Anima (Soul) network, Spiritus aura, rituals, Sentient Armor, and routing.
+Neo Vitae adds a single command, **`/neovitae`**, that groups admin and debugging tools for its systems: altars, the Anima (Soul) network, Spiritus aura, rituals, meteors, Sentient Armor, and routing.
 
 > **Every `/neovitae` subcommand requires operator permission / Cheats enabled.** These are admin, pack-testing, and debugging utilities, not part of normal progression; ordinary players cannot run them.
 
@@ -24,6 +24,7 @@ Neo Vitae adds a single command, **`/neovitae`**, that groups admin and debuggin
 | `/neovitae ritual list` | List every registered ritual id. |
 | `/neovitae imperfect <pos> set <ritual>` | Place the required block and activate an imperfect ritual at `<pos>`. |
 | `/neovitae imperfect list` | List the imperfect rituals and their required blocks. |
+| `/neovitae meteor <pos> <catalyst> [detonatePos]` | Summon a meteor of the given `<catalyst>` item, falling from `<pos>`. It craters on impact by default; pass an optional `<detonatePos>` to detonate it at that position's height instead (the meteor falls straight down, so only the detonation Y takes effect). The catalyst must match a meteor recipe. |
 | `/neovitae upgrade <player> ...` | Inspect and edit a player's Sentient Armor: per-upgrade levels (`set`/`get`), point `limits`, the allow/deny `mode`, and `points` recalculation. |
 | `/neovitae routing rescan` | Emergency rebuild of a routing Master's network from the live block entities in range. |
 | `/neovitae setorbfill <amount>` | Set the fill level of the Blood Orb held in your hand (player only). |

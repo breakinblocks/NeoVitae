@@ -19,6 +19,7 @@ public class NVCommands {
                         .then(DungeonShowcaseCommand.build())
                         .then(GenerateMaterialsCommand.build())
                         .then(ImperfectRitualCommand.build())
+                        .then(MeteorCommand.build(buildContext))
                         .then(RitualCommand.build())
                         .then(Commands.literal("routing").then(RoutingRescanCommand.build()))
                         .then(SentientUpgradesCommand.build(buildContext))

@@ -205,7 +205,9 @@ public class CommonEventHandler {
                 dungeonGracePeriod.put(player.getUUID(), grace - 1);
                 return;
             }
-            if (player.getY() < 10) {
+            if (player.getY() < player.level().getMinY()) {
+                NeoVitae.LOGGER.warn("Booting player {} below the dungeon floor at Y={}",
+                        player.getName().getString(), player.getY());
                 bootPlayerFromDungeon(serverPlayer);
             } else if (player.tickCount % 20 == 0) {
                 DungeonExitData exitData = serverPlayer.getData(NVDataAttachments.DUNGEON_EXIT);

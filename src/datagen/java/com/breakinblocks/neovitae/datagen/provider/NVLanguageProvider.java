@@ -968,6 +968,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addCommand("limit.mode.deny", "deny others");
 
         // Ritual commands
+        addCommand("meteor.not_catalyst", "That item is not a valid meteor catalyst.");
+        addCommand("meteor.success", "Summoned a %s meteor falling from %s, %s, %s.");
+
         addCommand("ritual.not_mrs", "Target block is not a Master Ritual Stone.");
         addCommand("ritual.unknown", "Unknown ritual: %s");
         addCommand("ritual.none_active", "No ritual is currently active.");

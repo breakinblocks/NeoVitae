@@ -12,7 +12,9 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -71,6 +73,35 @@ public class HellfireForgeTests {
                 }
                 if (!output.is(NVItems.SPIRITUS_GEM_PETTY.get())) {
                     helper.fail("Expected petty gem, got " + output);
+                }
+                helper.succeed();
+            });
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 120)
+    public void forgeGemAbsorbsSpiritusFromChunk(GameTestHelper helper) {
+        helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+        BlockPos forgePos = new BlockPos(3, 1, 2);
+        HellfireForgeBlockEntity forge = placeForge(helper, forgePos);
+
+        helper.runAfterDelay(1, () -> {
+            if (forge == null) return;
+
+            BlockPos abs = helper.absolutePos(forgePos);
+            WorldSpiritusHandler.addSpiritusToChunk(helper.getLevel(), abs, SpiritusType.RAW, 100.0);
+            double seeded = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), abs, SpiritusType.RAW);
+            forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(0.0));
+
+            helper.runAfterDelay(15, () -> {
+                ItemStack gem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
+                double gemAmount = gem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
+                if (gemAmount <= 0) {
+                    helper.fail("Gem in the forge should absorb spiritus from the chunk, has " + gemAmount);
+                }
+                double chunkRaw = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), abs, SpiritusType.RAW);
+                if (chunkRaw >= seeded) {
+                    helper.fail("Chunk spiritus should decrease as the gem absorbs, was " + seeded + " now " + chunkRaw);
                 }
                 helper.succeed();
             });

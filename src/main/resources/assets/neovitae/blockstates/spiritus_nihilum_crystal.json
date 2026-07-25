@@ -1,11 +1,11 @@
 {
   "multipart": [
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "up" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1" } },
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "down" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 180 } },
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "north" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90 } },
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "south" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 270 } },
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "west" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90, "y": 270 } },
-    { "when": { "age": "0|1|2|3|4|5|6", "attached": "east" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90, "y": 90 } },
+    { "when": { "attached": "up" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1" } },
+    { "when": { "attached": "down" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 180 } },
+    { "when": { "attached": "north" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90 } },
+    { "when": { "attached": "south" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 270 } },
+    { "when": { "attached": "west" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90, "y": 270 } },
+    { "when": { "attached": "east" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal1", "x": 90, "y": 90 } },
 
     { "when": { "age": "1|2|3|4|5|6", "attached": "up" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal2" } },
     { "when": { "age": "1|2|3|4|5|6", "attached": "down" }, "apply": { "model": "neovitae:block/crystal/nihilumcrystal2", "x": 180 } },

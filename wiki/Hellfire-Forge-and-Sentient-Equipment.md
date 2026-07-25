@@ -2,6 +2,10 @@
 
 The **Hellfire Forge** stands as a second pillar of the art, twin to the **[Ara Vitae](Ara-Vitae-and-Runes)** itself. Where the altar works with Essentia Vitae, the Forge consumes **[Spiritus](Spiritus-Aspects-and-Crystals)**, reshaping raw malice into Sentient Tools, Spiritus Gems, Arcane Ash, reagents, and many things besides. No practitioner of Vitaemancy can progress far without one.
 
+## Drawing from the Aura
+
+Crafting in the Forge spends the Spiritus stored in the **Spiritus Gem** placed in its gem slot. To keep that reserve from running dry, a gem seated in the Forge continuously absorbs Spiritus from the chunk's **[Aura](Spiritus-Aspects-and-Crystals)**, at the same rate a **Vas Maleficum** fills a gem (10 per tick per Aspect). Saturate the local Aura with a **Crystallum Fractura** farm and the Forge can run unattended, its gem refilling as fast as crafting drains it.
+
 ## Harvesting Spiritus
 
 Before you can put the forge to use, you must collect Spiritus, the residual spiritus scoured from slain creatures. Two paths open the door.

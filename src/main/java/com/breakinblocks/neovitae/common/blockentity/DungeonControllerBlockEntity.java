@@ -80,7 +80,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
             return false;
         }
 
-        LOGGER.info("Processing room placement request: doorPos={}, direction={}, doorType={}, potentialPools={}",
+        LOGGER.debug("Processing room placement request: doorPos={}, direction={}, doorType={}, potentialPools={}",
                 doorPos, doorDirection, doorType, potentialRooms.length);
 
         for (ResourceLocation roomType : potentialRooms) {
@@ -97,7 +97,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
             }
 
             if (placement != null) {
-                LOGGER.info("Found valid placement from pool {}, placing room {} at {}",
+                LOGGER.debug("Found valid placement from pool {}, placing room {} at {}",
                         roomType, placement.room.getKey(), placement.getRoomPosition());
 
                 try {
@@ -119,7 +119,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     notifyProgressionThresholds(serverLevel, newlyUnlocked);
                     notifySpatialDistortion(serverLevel, roomType, placement);
 
-                    LOGGER.info("Successfully placed room {} from pool {} at {}",
+                    LOGGER.debug("Successfully placed room {} from pool {} at {}",
                             placement.room.getKey(), roomType, placement.getRoomPosition());
                     return true;
                 } catch (Exception e) {
@@ -132,7 +132,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
             }
         }
 
-        LOGGER.warn("Failed to place any room from {} potential pools at door {} (direction: {}, type: {})",
+        LOGGER.debug("Failed to place any room from {} potential pools at door {} (direction: {}, type: {})",
                 potentialRooms.length, doorPos, doorDirection, doorType);
         return false;
     }

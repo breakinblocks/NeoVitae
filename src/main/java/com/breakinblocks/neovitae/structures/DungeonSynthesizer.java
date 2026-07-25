@@ -450,7 +450,7 @@ public class DungeonSynthesizer {
                     }
 
                     if (!valid) {
-                        LOGGER.warn("Rejected {} rot={} at {}: {}",
+                        LOGGER.debug("Rejected {} rot={} at {}: {}",
                                 testingRoom.getKey(), rotation, roomLocation, rejectReason);
                     }
 

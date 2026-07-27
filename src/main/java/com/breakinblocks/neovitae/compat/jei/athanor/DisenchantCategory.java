@@ -30,7 +30,7 @@ public class DisenchantCategory implements IRecipeCategory<DisenchantJEIRecipe> 
     private static final int WIDTH = 120;
     private static final int HEIGHT = 64;
     private static final int ROW = 12;
-    private static final int GREEN = 0x2E8B57;
+    private static final int GREEN = 0xFF2E8B57;
     private static final int RAW_COLOR = 0xFFAA3333;
 
     @Nonnull private final IDrawable icon;
@@ -80,10 +80,10 @@ public class DisenchantCategory implements IRecipeCategory<DisenchantJEIRecipe> 
         guiGraphics.fill(93, ay - 1, 95, ay + 3, 0xFF606060);
 
         int cy = ROW + 22;
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.per_enchant"), 2, cy, 0xAAAAAA);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.per_enchant"), 2, cy, 0xFFAAAAAA);
         guiGraphics.fill(2, cy + 11, 6, cy + 15, RAW_COLOR);
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.spiritus"), 8, cy + 10, 0xFFFFFF);
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.ev"), 2, cy + 20, 0xFFFFFF);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.spiritus"), 8, cy + 10, 0xFFFFFFFF);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.ev"), 2, cy + 20, 0xFFFFFFFF);
     }
 
     @Override

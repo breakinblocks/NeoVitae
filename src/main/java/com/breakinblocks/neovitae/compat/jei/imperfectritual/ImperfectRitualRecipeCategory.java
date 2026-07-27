@@ -86,7 +86,7 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
             lpCost += " (Consumed)";
         }
         int lpWidth = mc.font.width(lpCost);
-        int lpColor = recipe.consumesBlock() ? 0xCC4444 : Color.GRAY.getRGB();
+        int lpColor = recipe.consumesBlock() ? 0xFFCC4444 : Color.GRAY.getRGB();
         guiGraphics.text(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor);
 
         Component desc = recipe.description();

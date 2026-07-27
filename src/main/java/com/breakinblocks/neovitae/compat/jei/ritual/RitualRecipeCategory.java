@@ -83,26 +83,26 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
 
         Component ritualName = recipe.getRitualName();
         int nameWidth = mc.font.width(ritualName);
-        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, 0x404040);
+        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, 0xFF404040);
 
         int leftY = 16;
 
         Component crystalTier = recipe.getCrystalTierName();
-        guiGraphics.text(mc.font, crystalTier, LEFT_COL, leftY, 0x606060);
+        guiGraphics.text(mc.font, crystalTier, LEFT_COL, leftY, 0xFF606060);
         leftY += 12;
 
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.activation"), LEFT_COL, leftY, 0x606060);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.activation"), LEFT_COL, leftY, 0xFF606060);
         leftY += 10;
-        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " EV", LEFT_COL + 4, leftY, 0x808080);
+        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " EV", LEFT_COL + 4, leftY, 0xFF808080);
         leftY += 12;
 
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.refresh"), LEFT_COL, leftY, 0x606060);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.refresh"), LEFT_COL, leftY, 0xFF606060);
         leftY += 10;
-        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0x808080);
+        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0xFF808080);
 
         int rightY = 28;
 
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.total_runes", recipe.getTotalRunes()), RIGHT_COL, rightY, 0x606060);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.total_runes", recipe.getTotalRunes()), RIGHT_COL, rightY, 0xFF606060);
         rightY += 12;
 
         for (EnumRuneType runeType : EnumRuneType.values()) {
@@ -111,8 +111,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
                 String runeName = capitalize(runeType.getSerializedName());
                 Component runeText = Component.translatable("jei.neovitae.ritual.rune_count", count, runeName)
                         .withStyle(runeType.colorCode);
-                guiGraphics.text(mc.font, runeText, RIGHT_COL + 4, rightY, runeType.colorCode.getColor() != null ?
-                        runeType.colorCode.getColor() : 0x808080);
+                int runeColor = (runeType.colorCode.getColor() != null ? runeType.colorCode.getColor() : 0x808080) | 0xFF000000;
+                guiGraphics.text(mc.font, runeText, RIGHT_COL + 4, rightY, runeColor);
                 rightY += 10;
             }
         }

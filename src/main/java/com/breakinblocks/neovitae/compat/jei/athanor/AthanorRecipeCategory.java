@@ -163,7 +163,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
 
         // Labels
-        guiGraphics.text(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0x808080);
+        guiGraphics.text(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0xFF808080);
 
         // Spiritus costs
         int infoY = 58;
@@ -180,7 +180,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         int y = startY;
 
         guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.athanor.spiritus_cost"),
-                1, y, 0xAAAAAA);
+                1, y, 0xFFAAAAAA);
         y += 10;
 
         int col = 0;
@@ -191,7 +191,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
             int x = baseX + col * 83;
             guiGraphics.fill(x, y + 1, x + 4, y + 5, TYPE_COLORS[i]);
-            guiGraphics.text(mc.font, String.format("%.0f %s", amount, TYPE_NAMES[i]), x + 6, y, 0xFFFFFF);
+            guiGraphics.text(mc.font, String.format("%.0f %s", amount, TYPE_NAMES[i]), x + 6, y, 0xFFFFFFFF);
 
             col++;
             if (col >= 2) {
@@ -203,14 +203,14 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     }
 
     private void drawSpiritusBoost(GuiGraphicsExtractor guiGraphics, Minecraft mc, int startY) {
-        guiGraphics.text(mc.font, Component.literal("Raw Spiritus Bonus"), 1, startY, 0xAAAAAA);
+        guiGraphics.text(mc.font, Component.literal("Raw Spiritus Bonus"), 1, startY, 0xFFAAAAAA);
         guiGraphics.fill(1, startY + 11, 5, startY + 15, TYPE_COLORS[0]);
         int textX = 7;
         int textMaxWidth = WIDTH - textX - 1;
         int lineY = startY + 10;
         for (FormattedCharSequence line :
                 mc.font.split(Component.literal("+1 output, scales 33%-100% (chunk 5-100 Raw)"), textMaxWidth)) {
-            guiGraphics.text(mc.font, line, textX, lineY, 0xFFFFFF);
+            guiGraphics.text(mc.font, line, textX, lineY, 0xFFFFFFFF);
             lineY += mc.font.lineHeight;
         }
     }

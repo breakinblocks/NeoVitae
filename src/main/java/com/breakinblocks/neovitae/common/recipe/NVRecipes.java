@@ -71,6 +71,7 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ArcaneScribeDyeRecipe>> ARCANE_SCRIBE_DYE_SERIALIZER = SERIALIZERS.register("arcane_scribe_dye", () -> new RecipeSerializer<>(ArcaneScribeDyeRecipe.CODEC, ArcaneScribeDyeRecipe.STREAM_CODEC));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SigilColorResetRecipe>> SIGIL_COLOR_RESET_SERIALIZER = SERIALIZERS.register("sigil_color_reset", () -> new RecipeSerializer<>(SigilColorResetRecipe.CODEC, SigilColorResetRecipe.STREAM_CODEC));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SigilRainbowRecipe>> SIGIL_RAINBOW_SERIALIZER = SERIALIZERS.register("sigil_rainbow", () -> new RecipeSerializer<>(SigilRainbowRecipe.CODEC, SigilRainbowRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AnointmentApplyRecipe>> ANOINTMENT_APPLY_SERIALIZER = SERIALIZERS.register("anointment_apply", () -> new RecipeSerializer<>(AnointmentApplyRecipe.CODEC, AnointmentApplyRecipe.STREAM_CODEC));
 
     public static void register(IEventBus modBus) {
         SERIALIZERS.register(modBus);

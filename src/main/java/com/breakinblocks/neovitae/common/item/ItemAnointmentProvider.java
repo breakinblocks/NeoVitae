@@ -21,8 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
 import com.breakinblocks.neovitae.anointment.Anointment;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
@@ -129,6 +127,30 @@ public class ItemAnointmentProvider extends Item {
         return new AnointmentHolder(newList);
     }
 
+    public boolean canApplyToStack(ItemStack targetStack) {
+        if (targetStack.isEmpty() || !isItemValidForApplication(targetStack)) {
+            return false;
+        }
+        AnointmentHolder holder = targetStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
+        if (holder == null) {
+            holder = AnointmentHolder.empty();
+        }
+        return canApplyAnointment(holder, AnointmentRegistrar.get(anointmentKey), this.level, this.maxDamage);
+    }
+
+    public ItemStack applyToStack(ItemStack targetStack) {
+        if (!canApplyToStack(targetStack)) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack result = targetStack.copy();
+        AnointmentHolder holder = result.get(NVDataComponents.ANOINTMENT_HOLDER.get());
+        if (holder == null) {
+            holder = AnointmentHolder.empty();
+        }
+        result.set(NVDataComponents.ANOINTMENT_HOLDER.get(), applyAnointment(holder, anointmentKey, this.level, this.maxDamage));
+        return result;
+    }
+
     public boolean isItemValidForApplication(ItemStack stack) {
         Anointment anointment = AnointmentRegistrar.get(anointmentKey);
         TagKey<Item> applicable = anointment.getApplicableItems();
@@ -139,27 +161,12 @@ public class ItemAnointmentProvider extends Item {
     }
 
     public static boolean isItemTool(ItemStack stack) {
-        for (ItemAbility action : validToolActions()) {
-            if (stack.canPerformAction(action)) {
-                return true;
-            }
-        }
-        return false;
+        return stack.is(ItemTags.AXES) || stack.is(ItemTags.PICKAXES)
+                || stack.is(ItemTags.SHOVELS) || stack.is(ItemTags.HOES);
     }
 
     public static boolean isItemSword(ItemStack stack) {
-        // 26.1: SwordItem class removed; check by vanilla "swords" tag.
         return stack.is(ItemTags.SWORDS);
-    }
-
-    public static List<ItemAbility> validToolActions() {
-        // 26.1: AXE_DIG / PICKAXE_DIG / SHOVEL_DIG / SWORD_DIG / HOE_DIG were removed when
-        // digging moved to ToolMaterial-driven resolution. Only SHEARS_DIG remains, and tool
-        // category is now determined by item JSON / ToolMaterial mining rules, not by
-        // `canPerformAction` against a dig ability. Anointment compatibility therefore falls
-        // back to the tool-category tags (ItemTags.AXES etc.) in callers.
-        // See migration_alterations.md.
-        return List.of();
     }
 
     public int getColor() {

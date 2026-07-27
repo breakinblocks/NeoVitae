@@ -7,8 +7,10 @@ import net.minecraft.tags.ItemTags;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.data.tags.TagsProvider;
@@ -69,6 +71,11 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .add(NVBlocks.FUNGAL_CHARGE.item().get())
                 .add(NVBlocks.FUNGAL_CHARGE_2.item().get());
+
+        NVItems.BASIC_ITEMS.getEntries().stream()
+                .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
+                .sorted(Comparator.comparing(holder -> holder.getId().toString()))
+                .forEach(holder -> tag(NVTags.Items.ANOINTMENTS).add(holder.get()));
 
         tag(NVTags.Items.SENTIENT_UPGRADE_SET)
                 .addTag(NVTags.Items.SENTIENT_SET);

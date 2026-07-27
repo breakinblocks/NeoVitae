@@ -10,6 +10,7 @@ public class NVGameTestRegistration {
 
         AlchemyArrayTests.register(r);
         AnimaTests.register(r);
+        AnointmentTests.register(r);
         AraVitaeTests.register(r);
         VitaeLinkTests.register(r);
         OrbVitaeLinkTests.register(r);

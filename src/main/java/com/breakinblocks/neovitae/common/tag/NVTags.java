@@ -51,6 +51,9 @@ public class NVTags {
 
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 
+        public static final TagKey<Item> ANOINTMENTS = tag(bm("anointments"));
+        public static final TagKey<Item> ANOINTABLE = tag(bm("anointable"));
+
         public static final TagKey<Item> SENTIENT_UPGRADE_SET = tag(bm("sentient_upgrade_set"));
         public static final TagKey<Item> SENTIENT_SET = withParent(SENTIENT_UPGRADE_SET, NVMaterialsAndTiers.SENTIENT_EQUIPMENT_ASSET.identifier());
 

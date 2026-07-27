@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRendere
 import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.OrbFillingLinkRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.VasMaleficumRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.VitaeLinkRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
@@ -228,6 +229,7 @@ public class NVTiles {
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(HELLFIRE_FORGE_TYPE.get(), HellfireForgeRenderer::new);
+        event.registerBlockEntityRenderer(VAS_MALEFICUM_TYPE.get(), VasMaleficumRenderer::new);
         event.registerBlockEntityRenderer(ARA_VITAE_TYPE.get(), AraVitaeRenderer::new);
         event.registerBlockEntityRenderer(BLOOD_TANK_TYPE.get(), BloodTankRenderer::new);
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);

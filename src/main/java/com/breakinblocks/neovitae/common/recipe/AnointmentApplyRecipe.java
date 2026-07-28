@@ -22,7 +22,7 @@ public class AnointmentApplyRecipe implements SmithingRecipe {
 
     public static final MapCodec<AnointmentApplyRecipe> CODEC = MapCodec.unit(AnointmentApplyRecipe::new);
     public static final StreamCodec<RegistryFriendlyByteBuf, AnointmentApplyRecipe> STREAM_CODEC =
-            StreamCodec.unit(new AnointmentApplyRecipe());
+            StreamCodec.of((buf, recipe) -> {}, buf -> new AnointmentApplyRecipe());
 
     @Override
     public boolean isTemplateIngredient(ItemStack stack) {

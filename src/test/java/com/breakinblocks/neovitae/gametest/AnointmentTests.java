@@ -1,7 +1,9 @@
 package com.breakinblocks.neovitae.gametest;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
@@ -42,6 +44,23 @@ public class AnointmentTests {
         }
         if (result.get(NVDataComponents.ANOINTMENT_HOLDER.get()) == null) {
             helper.fail("Result item has no anointment holder after smithing");
+            return;
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 20)
+    public void anointmentRecipeStreamCodecEncodes(GameTestHelper helper) {
+        RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), helper.getLevel().registryAccess());
+        AnointmentApplyRecipe recipe = new AnointmentApplyRecipe();
+        try {
+            AnointmentApplyRecipe.STREAM_CODEC.encode(buf, recipe);
+        } catch (Exception e) {
+            helper.fail("Recipe stream codec failed to encode a fresh instance (this kicks clients on login): " + e);
+            return;
+        }
+        if (AnointmentApplyRecipe.STREAM_CODEC.decode(buf) == null) {
+            helper.fail("Recipe stream codec decoded to null");
             return;
         }
         helper.succeed();

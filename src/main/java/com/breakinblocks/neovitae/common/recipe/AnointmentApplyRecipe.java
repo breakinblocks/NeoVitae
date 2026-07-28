@@ -29,7 +29,7 @@ public class AnointmentApplyRecipe extends SimpleSmithingRecipe {
 
     public static final MapCodec<AnointmentApplyRecipe> CODEC = MapCodec.unit(AnointmentApplyRecipe::new);
     public static final StreamCodec<RegistryFriendlyByteBuf, AnointmentApplyRecipe> STREAM_CODEC =
-            StreamCodec.unit(new AnointmentApplyRecipe());
+            StreamCodec.of((buf, recipe) -> {}, buf -> new AnointmentApplyRecipe());
 
     public AnointmentApplyRecipe() {
         super(new Recipe.CommonInfo(false));

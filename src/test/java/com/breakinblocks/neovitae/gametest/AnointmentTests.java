@@ -1,5 +1,7 @@
 package com.breakinblocks.neovitae.gametest;
 
+import io.netty.buffer.Unpooled;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
@@ -46,6 +48,22 @@ public final class AnointmentTests {
                 return;
             }
 
+            helper.succeed();
+        });
+
+        r.add("anointment_recipe_stream_codec_encodes", 20, helper -> {
+            RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), helper.getLevel().registryAccess());
+            AnointmentApplyRecipe recipe = new AnointmentApplyRecipe();
+            try {
+                AnointmentApplyRecipe.STREAM_CODEC.encode(buf, recipe);
+            } catch (Exception e) {
+                helper.fail("Recipe stream codec failed to encode a fresh instance (this kicks clients on login): " + e);
+                return;
+            }
+            if (AnointmentApplyRecipe.STREAM_CODEC.decode(buf) == null) {
+                helper.fail("Recipe stream codec decoded to null");
+                return;
+            }
             helper.succeed();
         });
     }

@@ -22,11 +22,14 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     private static final int DATA_GENERAL_COUNT = 0;
     private static final int DATA_INPUT_COUNT = 1;
     private static final int DATA_OUTPUT_COUNT = 2;
-    private static final int DATA_MAX_TRANSFER = 3;
-    private static final int DATA_TICK_RATE = 4;
-    private static final int DATA_ENERGY_RATE = 5;
-    private static final int DATA_ENERGY_CEILING = 6;
-    private static final int DATA_SIZE = 7;
+    private static final int DATA_TICK_RATE = 3;
+    private static final int DATA_MAX_TRANSFER_LO = 4;
+    private static final int DATA_MAX_TRANSFER_HI = 5;
+    private static final int DATA_ENERGY_RATE_LO = 6;
+    private static final int DATA_ENERGY_RATE_HI = 7;
+    private static final int DATA_ENERGY_CEILING_LO = 8;
+    private static final int DATA_ENERGY_CEILING_HI = 9;
+    private static final int DATA_SIZE = 10;
 
     public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         this(containerId, playerInventory, getBlockEntitySafe(playerInventory, buf.readBlockPos()));
@@ -52,22 +55,22 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
                         case DATA_GENERAL_COUNT -> tile.getGeneralNodeCount();
                         case DATA_INPUT_COUNT -> tile.getInputNodeCount();
                         case DATA_OUTPUT_COUNT -> tile.getOutputNodeCount();
-                        case DATA_MAX_TRANSFER -> tile.getMaxTransfer();
                         case DATA_TICK_RATE -> RoutingNodeHelper.getEffectiveTickRate(
                                 tile.getBlockState().getBlock(),
                                 tile.getItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE).getCount()
                         );
-                        case DATA_ENERGY_RATE -> tile.getConfiguredEnergyRate();
-                        case DATA_ENERGY_CEILING -> tile.getUpgradeEnergyCeiling();
+                        case DATA_MAX_TRANSFER_LO -> low(tile.getMaxTransfer());
+                        case DATA_MAX_TRANSFER_HI -> high(tile.getMaxTransfer());
+                        case DATA_ENERGY_RATE_LO -> low(tile.getConfiguredEnergyRate());
+                        case DATA_ENERGY_RATE_HI -> high(tile.getConfiguredEnergyRate());
+                        case DATA_ENERGY_CEILING_LO -> low(tile.getUpgradeEnergyCeiling());
+                        case DATA_ENERGY_CEILING_HI -> high(tile.getUpgradeEnergyCeiling());
                         default -> 0;
                     };
                 }
 
                 @Override
                 public void set(int index, int value) {
-                    if (index == DATA_ENERGY_RATE) {
-                        tile.setConfiguredEnergyRate(value);
-                    }
                 }
 
                 @Override
@@ -102,7 +105,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     }
 
     public int getMaxTransfer() {
-        return data.get(DATA_MAX_TRANSFER);
+        return combine(DATA_MAX_TRANSFER_LO, DATA_MAX_TRANSFER_HI);
     }
 
     public int getTickRate() {
@@ -110,11 +113,23 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     }
 
     public int getEnergyRate() {
-        return data.get(DATA_ENERGY_RATE);
+        return combine(DATA_ENERGY_RATE_LO, DATA_ENERGY_RATE_HI);
     }
 
     public int getEnergyCeiling() {
-        return data.get(DATA_ENERGY_CEILING);
+        return combine(DATA_ENERGY_CEILING_LO, DATA_ENERGY_CEILING_HI);
+    }
+
+    private int combine(int loIndex, int hiIndex) {
+        return ((data.get(hiIndex) & 0xFFFF) << 16) | (data.get(loIndex) & 0xFFFF);
+    }
+
+    private static int low(int value) {
+        return value & 0xFFFF;
+    }
+
+    private static int high(int value) {
+        return (value >>> 16) & 0xFFFF;
     }
 
     @Override

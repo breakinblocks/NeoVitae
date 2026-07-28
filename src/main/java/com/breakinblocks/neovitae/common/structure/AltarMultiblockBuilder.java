@@ -10,13 +10,20 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.modonomicon.multiblock.DenseMultiblock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs.TagOrElementLocation;
+import net.minecraft.world.level.block.Block;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Builds a Modonomicon Multiblock from an AltarTier's component list so the
@@ -137,7 +144,7 @@ public final class AltarMultiblockBuilder {
 
         JsonObject mapping = new JsonObject();
         for (Map.Entry<Character, MaterialKey> e : reverseMap.entrySet()) {
-            mapping.add(String.valueOf(e.getKey()), matcherFor(e.getValue()));
+            mapping.add(String.valueOf(e.getKey()), matcherFor(e.getValue(), provider));
         }
         root.add("mapping", mapping);
 
@@ -145,10 +152,16 @@ public final class AltarMultiblockBuilder {
         return multiblock.offset(0, 1, 0);
     }
 
-    private static JsonObject matcherFor(MaterialKey key) {
+    private static JsonObject matcherFor(MaterialKey key, HolderLookup.Provider provider) {
         JsonObject matcher = new JsonObject();
         TagOrElementLocation material = key.material();
         if (material.tag()) {
+            Identifier single = singleBlockOfTag(material.id(), provider);
+            if (single != null) {
+                matcher.addProperty("type", "modonomicon:block");
+                matcher.addProperty("block", single.toString());
+                return matcher;
+            }
             matcher.addProperty("type", "modonomicon:tag");
             matcher.addProperty("tag", "#" + material.id());
             Identifier runesTag = NVTags.Blocks.RUNES.location();
@@ -161,6 +174,21 @@ public final class AltarMultiblockBuilder {
             matcher.addProperty("block", material.id().toString());
         }
         return matcher;
+    }
+
+    private static Identifier singleBlockOfTag(Identifier tagId, HolderLookup.Provider provider) {
+        TagKey<Block> tag = TagKey.create(Registries.BLOCK, tagId);
+        HolderSet.Named<Block> named = provider.lookupOrThrow(Registries.BLOCK).get(tag).orElse(null);
+        if (named == null || named.size() != 1) {
+            return null;
+        }
+        for (Holder<Block> holder : named) {
+            Optional<ResourceKey<Block>> key = holder.unwrapKey();
+            if (key.isPresent()) {
+                return key.get().identifier();
+            }
+        }
+        return null;
     }
 
     private static Identifier blockId(Identifier id) {

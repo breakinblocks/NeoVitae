@@ -70,7 +70,7 @@ public final class ElementRegistry {
 
     public static void render(GuiGraphics guiGraphics, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null || mc.getDebugOverlay().showDebugScreen()) {
+        if (mc.player == null || mc.level == null || mc.options.hideGui || mc.getDebugOverlay().showDebugScreen()) {
             return;
         }
         Window window = mc.getWindow();

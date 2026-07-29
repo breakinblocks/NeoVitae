@@ -25,6 +25,7 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.minecraft.core.BlockPos;
@@ -184,7 +185,9 @@ public class CommonEventHandler {
                 dungeonGracePeriod.put(player.getUUID(), grace - 1);
                 return;
             }
-            if (player.getY() < 10) {
+            if (player.getY() < player.level().getMinBuildHeight()) {
+                NeoVitae.LOGGER.warn("Booting player {} below the dungeon floor at Y={}",
+                        player.getName().getString(), player.getY());
                 bootPlayerFromDungeon(serverPlayer);
             } else if (player.tickCount % 20 == 0) {
                 DungeonExitData exitData = serverPlayer.getData(NVDataAttachments.DUNGEON_EXIT);
@@ -266,6 +269,21 @@ public class CommonEventHandler {
                 event.setCanceled(true);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
+        Level level = event.getLevel();
+        if (!DungeonDimensionHelper.isDungeonDimension(level)) return;
+        event.getAffectedBlocks().removeIf(pos -> isDungeonExplosionProtected(level.getBlockState(pos).getBlock()));
+    }
+
+    private static boolean isDungeonExplosionProtected(Block block) {
+        if (block instanceof BlockPrismaticDemonite) return true;
+        if (block == DungeonBlocks.DUNGEON_ORE.block().get()) return false;
+        if (DungeonBlocks.isDungeonBlock(block) && !DungeonBlocks.isDungeonStone(block)) return true;
+        return block == NVBlocks.MASTER_RITUAL_STONE.block().get()
+                || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get();
     }
 
     @SubscribeEvent

@@ -79,17 +79,23 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
 
     public void updateGhostSelection(int previousSlot, int currentSlot) {}
 
-    @Override // dont do quickMove here
+    @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack movedStack = ItemStack.EMPTY;
         Slot movedSlot = this.slots.get(index);
-
-        if (movedSlot.hasItem()) {
-            ItemStack rawStack = movedSlot.getItem();
-            movedStack = rawStack.copy();
+        if (movedSlot instanceof GhostSlot || movedSlot instanceof DisabledSlot || !movedSlot.hasItem()) {
+            return ItemStack.EMPTY;
         }
 
-        return movedStack;
+        ItemStack stack = movedSlot.getItem();
+        for (Slot target : this.slots) {
+            if (target instanceof GhostSlot ghost && !ghost.hasItem() && ghost.isValid(stack)) {
+                ItemStack copyStack = stack.copy();
+                copyStack.setCount(1);
+                ghost.set(copyStack);
+                break;
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override

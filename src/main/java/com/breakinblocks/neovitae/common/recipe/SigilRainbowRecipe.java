@@ -2,11 +2,13 @@ package com.breakinblocks.neovitae.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -62,6 +64,17 @@ public class SigilRainbowRecipe extends CustomRecipe {
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
+        NonNullList<ItemStack> remaining = CraftingRecipe.defaultCraftingReminder(input);
+        for (int i = 0; i < input.size(); i++) {
+            if (input.getItem(i).is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
+                remaining.set(i, ItemStack.EMPTY);
+            }
+        }
+        return remaining;
     }
 
     @Override

@@ -93,7 +93,7 @@ public class DungeonSealScreen extends AbstractContainerScreen<DungeonSealMenu> 
             String countStr = "x" + count;
             int countColor = count > 0 ? 0xFFFFFFFF : 0xFF808080;
             guiGraphics.text(this.font, countStr,
-                    relX + BUTTON_WIDTH - font.width(countStr) - 6, relY + 8, countColor);
+                    relX + BUTTON_WIDTH - font.width(countStr) - 6, relY + 8, countColor, false);
         }
     }
 

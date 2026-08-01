@@ -79,7 +79,7 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
 
         Component ritualName = recipe.getRitualName();
         int nameWidth = mc.font.width(ritualName);
-        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB());
+        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB(), false);
 
         String lpCost = recipe.activationCost() + " EV";
         if (recipe.consumesBlock()) {
@@ -87,15 +87,15 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
         }
         int lpWidth = mc.font.width(lpCost);
         int lpColor = recipe.consumesBlock() ? 0xFFCC4444 : Color.GRAY.getRGB();
-        guiGraphics.text(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor);
+        guiGraphics.text(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor, false);
 
         Component desc = recipe.description();
         int descY = 65;
         int descWidth = mc.font.width(desc);
         if (descWidth <= WIDTH - 4) {
-            guiGraphics.text(mc.font, desc, (WIDTH - descWidth) / 2, descY, Color.DARK_GRAY.getRGB());
+            guiGraphics.text(mc.font, desc, (WIDTH - descWidth) / 2, descY, Color.DARK_GRAY.getRGB(), false);
         } else {
-            guiGraphics.text(mc.font, desc, 2, descY, Color.DARK_GRAY.getRGB());
+            guiGraphics.text(mc.font, desc, 2, descY, Color.DARK_GRAY.getRGB(), false);
         }
 
         slotDrawable.draw(guiGraphics, 71, 15);

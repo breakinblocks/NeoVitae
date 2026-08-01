@@ -65,7 +65,7 @@ public class DisenchantCategory implements IRecipeCategory<DisenchantJEIRecipe> 
     @Override
     public void draw(DisenchantJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
-        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.any_item"), 2, 2, GREEN);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.disenchant.any_item"), 2, 2, GREEN, false);
 
         slot.draw(guiGraphics, 1, ROW);
         slot.draw(guiGraphics, 19, ROW);

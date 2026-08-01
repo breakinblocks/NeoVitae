@@ -38,14 +38,14 @@ public class BookBloodOrbStatsPageRenderer extends BookPageRenderer<BookBloodOrb
             this.parentScreen.renderItemStack(guiGraphics, ICON_X, y + 1, mouseX, mouseY, entry.stack);
 
             Component name = entry.stack.getHoverName().copy();
-            guiGraphics.text(this.font, name, TEXT_X, y, 0xFF4A0080);
+            guiGraphics.text(this.font, name, TEXT_X, y, 0xFF4A0080, false);
 
             String line = String.format("T%d \u00B7 %s EV \u00B7 %s mB \u00B7 %d/t",
                     entry.orb.tier(),
                     formatNumber(entry.orb.animaCapacity()),
                     formatNumber(entry.orb.fluidCapacity()),
                     entry.orb.fillRate());
-            guiGraphics.text(this.font, line, TEXT_X, y + 10, 0xFF555555);
+            guiGraphics.text(this.font, line, TEXT_X, y + 10, 0xFF555555, false);
             y += ROW_HEIGHT;
         }
     }

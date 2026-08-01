@@ -65,7 +65,7 @@ public class TrainerScreen extends AbstractGhostScreen<TrainerMenu> {
         String level = getLevelString();
         if (!level.isEmpty()) {
             int xOff = -3 * level.length();
-            guiGraphics.text(this.font, Component.literal(level), 34 + xOff, 40, 0xFFFFFFFF);
+            guiGraphics.text(this.font, Component.literal(level), 34 + xOff, 40, 0xFFFFFFFF, false);
         }
     }
 

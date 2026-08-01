@@ -163,7 +163,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
 
         // Labels
-        guiGraphics.text(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0xFF808080);
+        guiGraphics.text(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0xFF808080, false);
 
         // Spiritus costs
         int infoY = 58;

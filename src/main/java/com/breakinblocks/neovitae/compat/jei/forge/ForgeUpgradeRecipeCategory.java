@@ -93,13 +93,13 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
         poseStack.pushMatrix();
         poseStack.translate(40, 33);
         poseStack.scale(0.5f, 0.5f);
-        guiGraphics.text(font, Component.translatable("jei.neovitae.recipe.spiritus"), 0, 0, 0xFF8B8B8B);
+        guiGraphics.text(font, Component.translatable("jei.neovitae.recipe.spiritus"), 0, 0, 0xFF8B8B8B, false);
         poseStack.popMatrix();
 
         if (recipe instanceof ForgeUpgradeRecipe) {
             poseStack.pushMatrix();
             poseStack.scale(0.5f, 0.5f);
-            guiGraphics.textWithWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xFFAA0000);
+            guiGraphics.textWithWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xFFAA0000, false);
             poseStack.popMatrix();
         }
     }

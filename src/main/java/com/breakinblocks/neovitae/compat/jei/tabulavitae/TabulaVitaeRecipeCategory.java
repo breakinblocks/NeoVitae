@@ -62,13 +62,13 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
         poseStack.pushMatrix();
         poseStack.translate(67, 37);
         poseStack.scale(0.5f, 0.5f);
-        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0xFF8b8b8b);
+        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0xFF8b8b8b, false);
         poseStack.popMatrix();
 
         poseStack.pushMatrix();
         poseStack.translate(53, 43);
         poseStack.scale(0.5f, 0.5f);
-        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0xFF8b8b8b);
+        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0xFF8b8b8b, false);
         poseStack.popMatrix();
     }
 

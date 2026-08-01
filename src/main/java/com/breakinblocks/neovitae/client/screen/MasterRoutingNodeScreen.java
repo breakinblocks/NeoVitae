@@ -120,14 +120,14 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040);
-        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0xFF404040);
-        guiGraphics.text(this.font, Component.translatable("gui.neovitae.master_routing.energy_rate_label"), 8, ENERGY_BOX_Y + 3, 0xFF404040);
+        guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040, false);
+        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0xFF404040, false);
+        guiGraphics.text(this.font, Component.translatable("gui.neovitae.master_routing.energy_rate_label"), 8, ENERGY_BOX_Y + 3, 0xFF404040, false);
 
         int ceiling = menu.getEnergyCeiling();
         int configured = menu.getEnergyRate();
         int color = configured > ceiling ? 0xFFC00000 : 0xFF808080;
-        guiGraphics.text(this.font, "Max: " + ceiling + " FE/t", ENERGY_BOX_X, ENERGY_BOX_Y + ENERGY_BOX_H + 1, color);
+        guiGraphics.text(this.font, "Max: " + ceiling + " FE/t", ENERGY_BOX_X, ENERGY_BOX_Y + ENERGY_BOX_H + 1, color, false);
     }
 
     @Override

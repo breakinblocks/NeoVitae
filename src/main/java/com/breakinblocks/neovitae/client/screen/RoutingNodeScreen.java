@@ -245,7 +245,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         int h = pickerHeight();
         guiGraphics.fill(x - 1, y - 1, x + w + 1, y + h + 1, 0xFF000000);
         guiGraphics.fill(x, y, x + w, y + h, 0xFF202024);
-        guiGraphics.text(font, Component.translatable("gui.neovitae.routing.match_components"), x + 4, y + 4, 0xFFFFFFFF);
+        guiGraphics.text(font, Component.translatable("gui.neovitae.routing.match_components"), x + 4, y + 4, 0xFFFFFFFF, false);
 
         Set<Identifier> selected = menu.getCurrentItemComponents(componentPickerSlot);
         for (int i = 0; i < pickerTypes.size(); i++) {
@@ -259,7 +259,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             guiGraphics.fill(x + 4, rowY + 2, x + 12, rowY + 10, 0xFF000000);
             guiGraphics.fill(x + 5, rowY + 3, x + 11, rowY + 9, on ? 0xFF55FF55 : 0xFF555555);
             String label = this.font.plainSubstrByWidth(id.toString(), w - 20);
-            guiGraphics.text(font, label, x + 16, rowY + 2, on ? 0xFFFFFFFF : 0xFFAAAAAA);
+            guiGraphics.text(font, label, x + 16, rowY + 2, on ? 0xFFFFFFFF : 0xFFAAAAAA, false);
         }
     }
 
@@ -315,8 +315,8 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             Component str = Component.literal(formatAmount(amount));
             int x = leftPos + slot.x + 17 - font.width(str);
             int y = topPos + slot.y + 9;
-            guiGraphics.text(font, str, x + 1, y + 1, 0xFF3F3F3F);
-            guiGraphics.text(font, str, x, y, 0xFFFFFFFF);
+            guiGraphics.text(font, str, x + 1, y + 1, 0xFF3F3F3F, false);
+            guiGraphics.text(font, str, x, y, 0xFFFFFFFF, false);
         }
     }
 
@@ -334,18 +334,18 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040);
-        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0xFF404040);
+        guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040, false);
+        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0xFF404040, false);
 
         Component pageStr = Component.literal((menu.getCurrentPage() + 1) + "/" + menu.getPageCount());
-        guiGraphics.text(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0xFF404040);
+        guiGraphics.text(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0xFF404040, false);
 
         int currentSlot = menu.getCurrentSlot();
         if (currentSlot < 0 || currentSlot >= 6) return;
 
         int priority = menu.getCurrentPriority();
         Component priorityStr = Component.translatable("gui.neovitae.routing.priority_short", priority);
-        guiGraphics.text(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0xFF404040);
+        guiGraphics.text(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0xFF404040, false);
     }
 
     @Override

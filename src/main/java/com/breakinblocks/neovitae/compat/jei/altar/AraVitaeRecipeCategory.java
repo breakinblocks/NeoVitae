@@ -92,12 +92,12 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
         String tierText = "Tier " + recipe.getMinTier();
         String lpText = recipe.getTotalBlood() + " EV";
 
-        guiGraphics.text(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB());
-        guiGraphics.text(mc.font, lpText, 90 - mc.font.width(lpText) / 2, 10, Color.gray.getRGB());
+        guiGraphics.text(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB(), false);
+        guiGraphics.text(mc.font, lpText, 90 - mc.font.width(lpText) / 2, 10, Color.gray.getRGB(), false);
 
         if (recipe.shouldCopyInputComponents()) {
             String transferText = Component.translatable("jei.neovitae.recipe.componentTransfer").getString();
-            guiGraphics.text(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 63, new Color(100, 180, 100).getRGB());
+            guiGraphics.text(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 63, new Color(100, 180, 100).getRGB(), false);
         }
     }
 

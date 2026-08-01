@@ -86,10 +86,10 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         Minecraft mc = Minecraft.getInstance();
 
         String costText = "Cost: " + DECIMAL_FORMAT.format(recipe.getSyphon()) + " EV";
-        guiGraphics.text(mc.font, costText, 30, 3, Color.GRAY.getRGB());
+        guiGraphics.text(mc.font, costText, 30, 3, Color.GRAY.getRGB(), false);
 
         String explosionText = "Explosion: " + recipe.getExplosionRadius();
-        guiGraphics.text(mc.font, explosionText, 30, 13, Color.GRAY.getRGB());
+        guiGraphics.text(mc.font, explosionText, 30, 13, Color.GRAY.getRGB(), false);
 
         int maxRadius = 0;
         for (MeteorLayer layer : recipe.getLayerList()) {
@@ -97,13 +97,13 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         }
         int diameter = maxRadius * 2 + 1;
         String sizeText = "Size: " + diameter + " Blocks";
-        guiGraphics.text(mc.font, sizeText, 30, 23, Color.GRAY.getRGB());
+        guiGraphics.text(mc.font, sizeText, 30, 23, Color.GRAY.getRGB(), false);
 
         // Draw "Catalyst:" label
-        guiGraphics.text(mc.font, "Catalyst:", 0, 40, Color.DARK_GRAY.getRGB());
+        guiGraphics.text(mc.font, "Catalyst:", 0, 40, Color.DARK_GRAY.getRGB(), false);
 
         // Draw "Outputs:" label
-        guiGraphics.text(mc.font, "Outputs:", 0, 58, Color.DARK_GRAY.getRGB());
+        guiGraphics.text(mc.font, "Outputs:", 0, 58, Color.DARK_GRAY.getRGB(), false);
     }
 
     @Override

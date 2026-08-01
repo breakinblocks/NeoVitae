@@ -36,10 +36,10 @@ public class BookSpiritusGemStatsPageRenderer extends BookPageRenderer<BookSpiri
             this.parentScreen.renderItemStack(guiGraphics, ICON_X, y + 1, mouseX, mouseY, entry.stack);
 
             Component name = entry.stack.getHoverName().copy();
-            guiGraphics.text(this.font, name, TEXT_X, y, 0xFF4A0080);
+            guiGraphics.text(this.font, name, TEXT_X, y, 0xFF4A0080, false);
 
             String line = String.format("%s Spiritus", formatNumber(entry.max));
-            guiGraphics.text(this.font, line, TEXT_X, y + 10, 0xFF555555);
+            guiGraphics.text(this.font, line, TEXT_X, y + 10, 0xFF555555, false);
             y += ROW_HEIGHT;
         }
     }

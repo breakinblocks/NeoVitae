@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.DyeColor;
@@ -76,6 +77,19 @@ public class SigilDyeRecipe extends CustomRecipe {
         result.set(NVDataComponents.BLOOD_LIGHT_COLOR.get(), dyeColor);
         result.remove(NVDataComponents.BLOOD_LIGHT_RAINBOW.get());
         return result;
+    }
+
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
+        NonNullList<ItemStack> remaining = NonNullList.withSize(input.size(), ItemStack.EMPTY);
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getItem(i);
+            if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) continue;
+            if (stack.hasCraftingRemainingItem()) {
+                remaining.set(i, stack.getCraftingRemainingItem());
+            }
+        }
+        return remaining;
     }
 
     @Override

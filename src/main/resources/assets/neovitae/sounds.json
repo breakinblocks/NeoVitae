@@ -91,9 +91,9 @@
     "category": "player",
     "sounds": [
       {"name": "neovitae:blood_siphon"},
-      {"name": "neovitae:blood_siphon2"},
-      {"name": "neovitae:blood_siphon3"},
-      {"name": "neovitae:blood_siphon4"}
+      {"name": "neovitae:blood_siphon_2"},
+      {"name": "neovitae:blood_siphon_3"},
+      {"name": "neovitae:blood_siphon_4"}
     ]
   },
   "blood_shield_absorb": {

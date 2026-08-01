@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
 import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
@@ -11,7 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
-public class BookTabulaVitaeRecipePage extends BookRecipePage<TabulaVitaeRecipe> {
+public class BookTabulaVitaeRecipePage extends BookNVRecipePage<TabulaVitaeRecipe> {
 
     public static final Identifier ID = NVPageTypes.TABULA_VITAE;
     public static final MapCodec<BookTabulaVitaeRecipePage> CODEC = codec(BookTabulaVitaeRecipePage::new);

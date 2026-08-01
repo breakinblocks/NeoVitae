@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.conditions.RegisteredCondition;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import com.breakinblocks.neovitae.common.crafting.OrbTierIngredient;
 import net.minecraft.world.level.ItemLike;
@@ -2615,7 +2616,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Items.COAL)
                 .requires(NVItems.PLANT_OIL.get())
                 .unlockedBy("has_plant_oil", has(NVItems.PLANT_OIL.get()))
-                .save(output, rKey(NeoVitae.rl("coal_dust_from_coal")));
+                .save(output.withConditions(new RegisteredCondition<>(ResourceKey.create(Registries.ITEM, NeoVitae.rl("coal_dust")))),
+                        rKey(NeoVitae.rl("coal_dust_from_coal")));
 
         // Basic Cutting Fluid - plant oil + redstone + gunpowder + sugar + coal dust + water bottle
         TabulaVitaeRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())

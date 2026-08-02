@@ -173,6 +173,19 @@ public class Utils {
         }
     }
 
+    public static ItemStack insertItemIntoSlot(ResourceHandler<ItemResource> handler, int slot, ItemStack stack) {
+        if (stack.isEmpty() || slot < 0 || slot >= handler.size()) return stack;
+        ItemResource resource = ItemResource.of(stack);
+        try (Transaction tx = Transaction.openRoot()) {
+            int inserted = handler.insert(slot, resource, stack.getCount(), tx);
+            tx.commit();
+            if (inserted >= stack.getCount()) return ItemStack.EMPTY;
+            ItemStack leftover = stack.copy();
+            leftover.shrink(inserted);
+            return leftover;
+        }
+    }
+
     public static ItemStack insertItemStacked(ResourceHandler<ItemResource> handler, ItemStack stack, boolean simulate) {
         if (stack.isEmpty()) return ItemStack.EMPTY;
         ItemResource resource = ItemResource.of(stack);

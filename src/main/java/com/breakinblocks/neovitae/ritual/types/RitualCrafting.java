@@ -6,6 +6,7 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,8 +28,10 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
+import com.breakinblocks.neovitae.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -103,11 +106,8 @@ public class RitualCrafting extends Ritual {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
-                    for (int i = 0; i < Math.min(4, inputHandler.getSlots()); i++) {
-                        if (!inputItems.get(i).isEmpty()) {
-                            inputHandler.extractItem(i, 1, false);
-                        }
-                    }
+                    consumeInputs(ctx, inputHandler, outputHandler, outputPos, inputItems,
+                            itemRemainders(inputItems, 4), 4);
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
                     will.use(SpiritusType.INVICTUS, WILL_PER_FORGE_CRAFT);
                     will.drain(ctx.level(), masterPos);
@@ -128,11 +128,8 @@ public class RitualCrafting extends Ritual {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
-                    for (int i = 0; i < Math.min(6, inputHandler.getSlots()); i++) {
-                        if (!inputItems.get(i).isEmpty()) {
-                            inputHandler.extractItem(i, 1, false);
-                        }
-                    }
+                    consumeInputs(ctx, inputHandler, outputHandler, outputPos, inputItems,
+                            itemRemainders(inputItems, TabulaVitaeRecipe.MAX_INPUTS), TabulaVitaeRecipe.MAX_INPUTS);
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
                     will.use(SpiritusType.RUINA, WILL_PER_ALCHEMY_CRAFT);
                     will.drain(ctx.level(), masterPos);
@@ -151,7 +148,8 @@ public class RitualCrafting extends Ritual {
             inputItems.add(ItemStack.EMPTY);
         }
 
-        CraftingInput craftingInput = CraftingInput.of(3, 3, inputItems);
+        CraftingInput.Positioned positioned = CraftingInput.ofPositioned(3, 3, inputItems);
+        CraftingInput craftingInput = positioned.input();
 
         Optional<CraftingRecipe> recipeOpt = ctx.level().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, craftingInput, ctx.level())
@@ -168,11 +166,8 @@ public class RitualCrafting extends Ritual {
         ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
         if (!insertResult.isEmpty()) return; // Output full
 
-        for (int i = 0; i < Math.min(9, inputHandler.getSlots()); i++) {
-            if (!inputItems.get(i).isEmpty()) {
-                inputHandler.extractItem(i, 1, false);
-            }
-        }
+        consumeInputs(ctx, inputHandler, outputHandler, outputPos, inputItems,
+                gridRemainders(recipe.getRemainingItems(craftingInput), positioned), 9);
 
         ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
 
@@ -180,6 +175,45 @@ public class RitualCrafting extends Ritual {
         RitualHelper.chanceStream(ctx.level(), 8, () ->
                 StreamPresets.arcaneBolt(inputPos, outputPos).build()
                         .sendToNearby(ctx.serverLevel(), masterPos, 128));
+    }
+
+    private static List<ItemStack> itemRemainders(List<ItemStack> inputItems, int limit) {
+        List<ItemStack> remainders = new ArrayList<>(Collections.nCopies(inputItems.size(), ItemStack.EMPTY));
+        for (int i = 0; i < Math.min(limit, inputItems.size()); i++) {
+            ItemStack stack = inputItems.get(i);
+            if (!stack.isEmpty() && stack.hasCraftingRemainingItem()) {
+                remainders.set(i, stack.getCraftingRemainingItem());
+            }
+        }
+        return remainders;
+    }
+
+    private static List<ItemStack> gridRemainders(List<ItemStack> trimmed, CraftingInput.Positioned positioned) {
+        List<ItemStack> remainders = new ArrayList<>(Collections.nCopies(9, ItemStack.EMPTY));
+        CraftingInput input = positioned.input();
+        for (int row = 0; row < input.height(); row++) {
+            for (int col = 0; col < input.width(); col++) {
+                int trimmedIndex = row * input.width() + col;
+                if (trimmedIndex >= trimmed.size()) continue;
+                remainders.set((row + positioned.top()) * 3 + col + positioned.left(), trimmed.get(trimmedIndex));
+            }
+        }
+        return remainders;
+    }
+
+    private void consumeInputs(RitualContext ctx, IItemHandler inputHandler, IItemHandler outputHandler,
+                               BlockPos outputPos, List<ItemStack> inputItems, List<ItemStack> remainders, int limit) {
+        for (int i = 0; i < Math.min(limit, inputHandler.getSlots()); i++) {
+            if (inputItems.get(i).isEmpty()) continue;
+            inputHandler.extractItem(i, 1, false);
+
+            ItemStack remainder = i < remainders.size() ? remainders.get(i) : ItemStack.EMPTY;
+            if (remainder.isEmpty()) continue;
+
+            ItemStack leftover = inputHandler.insertItem(i, remainder.copy(), false);
+            if (!leftover.isEmpty()) leftover = Utils.insertStackIntoTile(leftover, outputHandler);
+            if (!leftover.isEmpty()) Utils.spawnStackAtBlock(ctx.level(), outputPos, Direction.UP, leftover);
+        }
     }
 
     /**

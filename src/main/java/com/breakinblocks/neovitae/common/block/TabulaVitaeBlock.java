@@ -118,7 +118,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
         TabulaVitaeBlockEntity tile = (TabulaVitaeBlockEntity) world.getBlockEntity(blockPos);
-        if (tile != null && !tile.isSlave()) {
+        if (tile != null) {
             tile.dropItems();
         }
         super.destroy(world, blockPos, blockState);

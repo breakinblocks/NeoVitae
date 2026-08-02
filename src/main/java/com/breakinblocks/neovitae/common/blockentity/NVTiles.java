@@ -205,7 +205,10 @@ public class NVTiles {
         event.registerBlockEntity(Capabilities.Item.BLOCK, ALCHEMY_ARRAY_TYPE.get(),
                 (be, side) -> be.inv);
         event.registerBlockEntity(Capabilities.Item.BLOCK, TABULA_VITAE_TYPE.get(),
-                (be, side) -> new SideConfigResourceHandler<>(be.inv, be.getSideConfig(), side));
+                (be, side) -> {
+                    TabulaVitaeBlockEntity master = be.getMaster();
+                    return master == null ? null : new SideConfigResourceHandler<>(master.inv, master.getSideConfig(), side);
+                });
         event.registerBlockEntity(Capabilities.Item.BLOCK, TELEPOSER_TYPE.get(),
                 (be, side) -> be.inv);
         event.registerBlockEntity(Capabilities.Item.BLOCK, MIMIC_TYPE.get(),

@@ -36,6 +36,24 @@ public class SideConfigResourceHandler<T extends Resource> extends DelegatingRes
         return super.extract(slot, resource, amount, ctx);
     }
 
+    @Override
+    public int insert(T resource, int amount, TransactionContext ctx) {
+        int inserted = 0;
+        for (int slot = 0, size = size(); slot < size && inserted < amount; slot++) {
+            inserted += insert(slot, resource, amount - inserted, ctx);
+        }
+        return inserted;
+    }
+
+    @Override
+    public int extract(T resource, int amount, TransactionContext ctx) {
+        int extracted = 0;
+        for (int slot = 0, size = size(); slot < size && extracted < amount; slot++) {
+            extracted += extract(slot, resource, amount - extracted, ctx);
+        }
+        return extracted;
+    }
+
     private boolean isAllowed(int slot) {
         if (side == null) return true;
         return config.isAllowed(slot, side);

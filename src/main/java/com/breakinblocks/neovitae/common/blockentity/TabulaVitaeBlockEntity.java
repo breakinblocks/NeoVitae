@@ -82,6 +82,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     private TabulaVitaeRecipe cachedRecipe = null;
     private FlaskRecipe cachedFlaskRecipe = null;
     private int flaskSlot = -1;
+    private boolean checkedSlaveInventory = false;
 
     public final Inv inv = new Inv();
 
@@ -187,11 +188,27 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         this.direction = direction;
         this.isSlave = isSlave;
         this.connectedPos = connectedPos;
+        invalidateCapabilities();
         setChanged();
     }
 
     public boolean isSlave() {
         return isSlave;
+    }
+
+    @Nullable
+    public TabulaVitaeBlockEntity getMaster() {
+        if (!isSlave) return this;
+        TabulaVitaeBlockEntity partner = getPartner();
+        return partner != null && !partner.isSlave ? partner : null;
+    }
+
+    @Nullable
+    private TabulaVitaeBlockEntity getPartner() {
+        if (level == null || connectedPos.distManhattan(worldPosition) != 1 || !level.hasChunkAt(connectedPos)) {
+            return null;
+        }
+        return level.getBlockEntity(connectedPos) instanceof TabulaVitaeBlockEntity partner ? partner : null;
     }
 
     public BlockPos getConnectedPos() {
@@ -213,6 +230,11 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             return;
         }
         if (level == null || level.isClientSide() || isSlave) return;
+
+        if (!checkedSlaveInventory) {
+            checkedSlaveInventory = true;
+            reclaimSlaveInventory();
+        }
 
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);
         int orbTier = getOrbTier(orbStack);
@@ -296,6 +318,22 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         }
 
         setChangedNoSync();
+    }
+
+    private void reclaimSlaveInventory() {
+        TabulaVitaeBlockEntity slave = getPartner();
+        if (slave == null || !slave.isSlave) return;
+        for (int i = 0; i < slave.inv.getSlots(); i++) {
+            ItemStack stack = slave.inv.getStackInSlot(i);
+            if (stack.isEmpty()) continue;
+            slave.inv.setStackInSlot(i, ItemStack.EMPTY);
+            for (int target = 0; target < ORB_SLOT && !stack.isEmpty(); target++) {
+                stack = inv.insertItem(target, stack, false);
+            }
+            if (!stack.isEmpty()) {
+                Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), stack);
+            }
+        }
     }
 
     private boolean syphonEV(ItemStack orbStack, int totalSyphon, int totalTicks) {
@@ -510,7 +548,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     public void dropItems() {
-        if (level != null && !level.isClientSide() && !isSlave) {
+        if (level != null && !level.isClientSide()) {
             for (int i = 0; i < inv.getSlots(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (!stack.isEmpty()) {
@@ -573,9 +611,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        if (!isSlave()) {
-            dropItems();
-        }
+        dropItems();
         super.preRemoveSideEffects(pos, state);
     }
 

@@ -122,7 +122,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
         TabulaVitaeBlockEntity tile = (TabulaVitaeBlockEntity) world.getBlockEntity(blockPos);
-        if (tile != null && !tile.isSlave()) {
+        if (tile != null) {
             tile.dropItems();
         }
         super.destroy(world, blockPos, blockState);
@@ -137,7 +137,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable && !alchemyTable.isSlave()) {
+            if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable) {
                 alchemyTable.dropItems();
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }
@@ -145,7 +145,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
             BlockPos partner = partnerPos(state, pos);
             if (worldIn.getBlockState(partner).is(this)) {
                 BlockEntity partnerEntity = worldIn.getBlockEntity(partner);
-                if (partnerEntity instanceof TabulaVitaeBlockEntity partnerTable && !partnerTable.isSlave()) {
+                if (partnerEntity instanceof TabulaVitaeBlockEntity partnerTable) {
                     partnerTable.dropItems();
                 }
                 worldIn.setBlock(partner, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);

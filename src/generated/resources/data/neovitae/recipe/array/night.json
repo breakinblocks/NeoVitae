@@ -3,8 +3,5 @@
   "addedinput": "#c:gems/lapis",
   "baseinput": "#c:gems/lapis",
   "effect_type": "night",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/moonarray.png"
 }

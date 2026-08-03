@@ -2,8 +2,6 @@ package com.breakinblocks.neovitae.datagen.builder;
 
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -79,8 +77,7 @@ public class AlchemyArrayEffectRecipeBuilder {
         if (addedInput == null) {
             throw new IllegalStateException("AlchemyArrayRecipe requires an added input");
         }
-        // Effect recipes have empty output
-        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, new ItemStackTemplate(Items.STONE, 1), effectType, evCost);
+        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, null, effectType, evCost);
         recipeOutput.accept(id, recipe, null);
     }
 }

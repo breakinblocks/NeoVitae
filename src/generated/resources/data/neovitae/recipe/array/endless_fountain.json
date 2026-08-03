@@ -3,8 +3,5 @@
   "addedinput": "minecraft:sea_pickle",
   "baseinput": "minecraft:lapis_block",
   "effect_type": "endless_fountain",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/fountainarray.png"
 }

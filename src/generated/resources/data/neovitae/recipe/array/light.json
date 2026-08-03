@@ -3,8 +3,5 @@
   "addedinput": "#c:ingots/gold",
   "baseinput": "#c:dusts/glowstone",
   "effect_type": "light",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/lightarray.png"
 }

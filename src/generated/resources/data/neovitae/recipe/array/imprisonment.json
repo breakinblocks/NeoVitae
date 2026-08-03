@@ -3,8 +3,5 @@
   "addedinput": "minecraft:lead",
   "baseinput": "neovitae:blood_pearl",
   "effect_type": "imprisonment",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/imprisonmentarray.png"
 }

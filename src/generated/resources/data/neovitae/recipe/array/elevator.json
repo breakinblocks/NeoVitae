@@ -3,8 +3,5 @@
   "addedinput": "#c:dusts/redstone",
   "baseinput": "#c:ender_pearls",
   "effect_type": "elevator",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/elevatorarray.png"
 }

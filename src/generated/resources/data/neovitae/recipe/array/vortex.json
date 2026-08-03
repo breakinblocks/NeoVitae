@@ -4,8 +4,5 @@
   "baseinput": "neovitae:tabula_robur",
   "effect_type": "vortex",
   "ev_cost": 1,
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/vortexsigil.png"
 }

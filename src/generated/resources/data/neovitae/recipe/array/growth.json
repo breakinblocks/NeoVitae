@@ -3,8 +3,5 @@
   "addedinput": "minecraft:torchflower",
   "baseinput": "minecraft:bone_meal",
   "effect_type": "growth",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/growtharray.png"
 }

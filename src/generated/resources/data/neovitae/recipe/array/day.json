@@ -3,8 +3,5 @@
   "addedinput": "minecraft:coal",
   "baseinput": "minecraft:coal",
   "effect_type": "day",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/sunarray.png"
 }

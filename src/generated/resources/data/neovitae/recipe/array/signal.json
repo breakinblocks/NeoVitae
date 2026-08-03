@@ -3,8 +3,5 @@
   "addedinput": "#c:ingots/gold",
   "baseinput": "#c:dusts/redstone",
   "effect_type": "signal",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/signalarray.png"
 }

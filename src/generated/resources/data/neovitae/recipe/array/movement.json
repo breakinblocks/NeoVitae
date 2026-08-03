@@ -3,8 +3,5 @@
   "addedinput": "#c:dusts/redstone",
   "baseinput": "#c:feathers",
   "effect_type": "movement",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/movementarray.png"
 }

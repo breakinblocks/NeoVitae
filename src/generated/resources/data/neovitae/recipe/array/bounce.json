@@ -3,8 +3,5 @@
   "addedinput": "#c:dusts/redstone",
   "baseinput": "#c:slime_balls",
   "effect_type": "bounce",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/bouncearray.png"
 }

@@ -4,8 +4,5 @@
   "baseinput": "minecraft:coal",
   "effect_type": "furnace",
   "ev_cost": 10,
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/furnacearray.png"
 }

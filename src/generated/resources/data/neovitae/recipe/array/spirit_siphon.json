@@ -3,8 +3,5 @@
   "addedinput": "#c:dusts/corrupted",
   "baseinput": "neovitae:tabula_animata",
   "effect_type": "spirit_siphon",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/spiritsiphonarray.png"
 }

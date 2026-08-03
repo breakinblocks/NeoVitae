@@ -3,8 +3,5 @@
   "addedinput": "#c:gems/lapis",
   "baseinput": "#c:ingots/iron",
   "effect_type": "repulsion",
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/repulsionarray.png"
 }

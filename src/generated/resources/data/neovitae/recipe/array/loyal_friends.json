@@ -4,8 +4,5 @@
   "baseinput": "minecraft:lead",
   "effect_type": "loyal_friends",
   "ev_cost": 2500,
-  "output": {
-    "id": "minecraft:stone"
-  },
   "texture": "neovitae:textures/models/alchemyarrays/defaultarray.png"
 }

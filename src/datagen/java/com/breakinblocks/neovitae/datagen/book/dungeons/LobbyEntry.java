@@ -41,7 +41,7 @@ public class LobbyEntry extends EntryProvider {
                 + "dormant rituals. Vigilance is the price of survival here.\\\n\\\n"
                 + "Among the spoils you may claim:\n\n"
                 + "- Enchanted Books\n\n"
-                + "- Enchanted Weapons and Armour\n\n"
+                + "- Enchanted Weapons and Armor\n\n"
                 + "- Various Anointments\n\n"
                 + "- Spiritus\n\n"
                 + "- Potion Ingredients");

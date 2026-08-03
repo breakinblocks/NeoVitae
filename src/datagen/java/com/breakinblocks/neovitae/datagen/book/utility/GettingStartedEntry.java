@@ -93,7 +93,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageTitle("The Third Tier");
         this.pageText("At [#](B8860B)Tier II[#](), the true scope of Vitaemancy reveals itself. "
                 + "You gain the ability to inscribe [#](4A0080)Rituals[#]() and forge "
-                + "[#](8B0000)Sentient Armour[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
+                + "[#](8B0000)Sentient Armor[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
                 + "Turn your attention to upgrading both the Ara Vitae and your "
                 + "[#](8B0000)Ritual Diviner[#]() to unlock more potent rites. But how?");
 
@@ -120,9 +120,9 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Evolution (Tier III)");
-        this.pageText("Your [#](8B0000)Sentient Armour[#]() may have begun to feel constrained by its modest "
+        this.pageText("Your [#](8B0000)Sentient Armor[#]() may have begun to feel constrained by its modest "
                 + "point cap. With the Dusk Diviner, you may now perform the "
-                + "[#](4A0080)Ritual of Sentient Evolution[#](), raising your armour's capacity from "
+                + "[#](4A0080)Ritual of Sentient Evolution[#](), raising your armor's capacity from "
                 + "[#](B8860B)100[#]() to [#](B8860B)300[#]() points.");
 
         this.page("tier4_armour2", () -> BookTextPageModel.create()
@@ -155,7 +155,7 @@ public class GettingStartedEntry extends EntryProvider {
                 + "and Crippled Arm suit you better.[#]()\\\n\\\n"
                 + "Craft multiple chestplates and swap between them as the situation demands. "
                 + "Dozens of upgrades and downgrades exist - experiment freely, apprentice. "
-                + "The armour responds to your will.");
+                + "The armor responds to your will.");
 
         this.page("tier4_will", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -172,7 +172,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Demon Realm (Tier III)");
         this.pageText("The [#](4A0080)Highway to Hell[#]() tears open a permanent gate into "
-                + "the Endless tier dungeon. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
+                + "the Endless tier dungeon. Come armed and armored - the realm does not suffer the unprepared.\\\n\\\n"
                 + "Delve deep enough, and you may unearth [#](8B0000)Demonite Ore[#](), "
                 + "which in block form serves as capstone for the ultimate altar tiers, alongside the "
                 + "[#](8B0000)Dominus Orb of Vitae[#]().");

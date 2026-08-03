@@ -46,7 +46,7 @@ On the left column there are three controls:
 
 - **Enable / Disable**. Wakes the selected side. A disabled face blocks *everything* regardless of filter configuration.
 - **Items / Fluids tab**. Switches the ghost grid between item and fluid filtering.
-- **Mode**. Toggles the filter behaviour. See below.
+- **Mode**. Toggles the filter behavior. See below.
 
 The center of the UI is the **ghost grid**, a nine-wide field the currently-selected side uses to record what it permits or denies. When you fill the visible slots, a fresh **page** opens automatically; the **<** and **>** arrows above the grid page through them, so a single face can hold as many filters as you need. **Priority** buttons raise and lower the side's weight; **higher priority is served first** within the network.
 
@@ -61,7 +61,7 @@ With the **Items** tab selected, left-click a slot while holding an item to copy
 
 ### Fluids
 
-The **Fluids** tab works the same way; left-click with a bucket or fluid vessel to copy its contents into the ghost, or drag a fluid from JEI onto a slot. Fluids support a third mode unavailable to items, **Auto-Match**, which mirrors whatever fluid is currently in the neighbour tank. This is the default for fresh sides, so an enabled face pointing at a [Blood Tank](Ara-Vitae-and-Runes) begins moving Essentia Vitae immediately.
+The **Fluids** tab works the same way; left-click with a bucket or fluid vessel to copy its contents into the ghost, or drag a fluid from JEI onto a slot. Fluids support a third mode unavailable to items, **Auto-Match**, which mirrors whatever fluid is currently in the neighbor tank. This is the default for fresh sides, so an enabled face pointing at a [Blood Tank](Ara-Vitae-and-Runes) begins moving Essentia Vitae immediately.
 
 ### Keep Amounts
 
@@ -74,11 +74,11 @@ Keep amounts apply only to **Whitelist** ghosts; Blacklist and Auto-Match ignore
 
 ### Energy
 
-Energy has **no whitelist or blacklist**. Any enabled face carries Forge Energy to compatible neighbours alongside items and fluids. The only gates are the face's **Enable** flag and the Master's **Energy Throttle**.
+Energy has **no whitelist or blacklist**. Any enabled face carries Forge Energy to compatible neighbors alongside items and fluids. The only gates are the face's **Enable** flag and the Master's **Energy Throttle**.
 
 ## The Master Routing Node
 
-The Master is where you tune the network's behaviour as a whole.
+The Master is where you tune the network's behavior as a whole.
 
 ### Stack and Speed Upgrades
 

@@ -62,13 +62,13 @@ public class DemonBestiaryEntry extends EntryProvider {
         // --- Daemonium Voraxis ---
         addMob("voraxis", "neovitae:daemonium_voraxis", "Daemonium Voraxis", 0.4f,
                 "The [#](8B0000)Voracious Oni[#](). A mid-tier threat with life-draining slash "
-                        + "attacks and hunger effects. Sturdy at 60 HP with decent armour.\\\n\\\n"
+                        + "attacks and hunger effects. Sturdy at 60 HP with decent armor.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Hollow Gut, Tainted Flesh, Nihilum/Spiritus Ruina, "
                         + "Raw Demonite (rare)");
 
         // --- Daemonium Corrodis ---
         addMob("corrodis", "neovitae:daemonium_corrodis", "Daemonium Corrodis", 0.35f,
-                "[#](8B0000)The Wither Knight[#](). An elite melee combatant clad in heavy armour "
+                "[#](8B0000)The Wither Knight[#](). An elite melee combatant clad in heavy armor "
                         + "with three attack phases. Every blow carries a withering curse that rots flesh on contact, "
                         + "and its strikes often leave victims drained and enfeebled.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Ruina/Spiritus Vindicta, "
@@ -96,7 +96,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "combos, leap slams, and a ghost howl that phases it out of reality. Enters a dangerous "
                         + "second phase at low health.\\\n\\\n"
                         + "A vastly empowered variant known as [#](8B0000)The Foreman[#]() (600 HP, 25 damage, "
-                        + "16 armour) guards the mine entrance. Defeating it drops a clutch of [#](8B0000)Mine Dungeon Keys[#]().\\\n\\\n"
+                        + "16 armor) guards the mine entrance. Defeating it drops a clutch of [#](8B0000)Mine Dungeon Keys[#]().\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, "
                         + "Vindicta/Spiritus Nihilum");
 

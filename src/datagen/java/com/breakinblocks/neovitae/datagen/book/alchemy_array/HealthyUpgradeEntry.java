@@ -20,7 +20,7 @@ public class HealthyUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Healthy");
-        this.pageText("The armour learns from each wound mended and expands your vitality in turn, greatly "
+        this.pageText("The armor learns from each wound mended and expands your vitality in turn, greatly "
                 + "increasing the amount of punishment your body can endure.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Restoring health through any means, natural regeneration, "
                 + "potions, or vitaemantic healing.\\\n\\\n"
@@ -34,7 +34,7 @@ public class HealthyUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Every wound healed teaches the armour to strengthen your life force.";
+        return "Every wound healed teaches the armor to strengthen your life force.";
     }
 
     @Override

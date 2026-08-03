@@ -21,9 +21,9 @@ public class StormTrooperDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Storm Trooper");
-        this.pageText("The armour interferes with your aim, introducing wild inaccuracy to every arrow "
+        this.pageText("The armor interferes with your aim, introducing wild inaccuracy to every arrow "
                 + "and bolt you loose. Bows and crossbows become exercises in frustration.\\\n\\\n"
-                + "[#](4A0080)Your hands are steady. The armour is not.[#]()");
+                + "[#](4A0080)Your hands are steady. The armor is not.[#]()");
 
         this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/storm_trooper"));
@@ -36,7 +36,7 @@ public class StormTrooperDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour ruins your aim; every shot goes astray.";
+        return "The armor ruins your aim; every shot goes astray.";
     }
 
     @Override

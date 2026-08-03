@@ -163,7 +163,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "destination until it holds that many, counting what is already there, then rests. On an "
                 + "[#](8B0000)Input[#]() face the amount is a [#](8B0000)reserve[#](): the node leaves that many "
                 + "behind and draws only the surplus.\\\n\\\n"
-                + "[#](2E8B57)Fluids honour the same rule, measured in millibuckets.[#]()");
+                + "[#](2E8B57)Fluids honor the same rule, measured in millibuckets.[#]()");
 
         this.page("auto_bind", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

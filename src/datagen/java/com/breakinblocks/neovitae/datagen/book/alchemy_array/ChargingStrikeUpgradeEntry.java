@@ -20,7 +20,7 @@ public class ChargingStrikeUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Charging Strike");
-        this.pageText("The armour learns to channel your momentum into devastating force. Sprinting attacks "
+        this.pageText("The armor learns to channel your momentum into devastating force. Sprinting attacks "
                 + "deal increased damage and knockback, up to +50%%.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Dealing damage while sprinting.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 5");

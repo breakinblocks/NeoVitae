@@ -4,7 +4,7 @@
 
 The corridors of the [Endless Dungeon](The-Endless-Dungeon) are patrolled by a roster of ten custom demons, collectively the **Daemonium**. They appear from trial spawners scaled by player count, drop unique trophy materials, and align with one or more of the five [Spiritus](Spiritus-Aspects-and-Crystals) aspects.
 
-## Shared Behaviours
+## Shared Behaviors
 
 Every Daemonium shares a handful of mechanical tells.
 
@@ -43,7 +43,7 @@ See [Dungeon Mechanics](Dungeon-Mechanics) for what Tainted Flesh does and how t
 
 ### Daemonium Pestis, The Pestilence Spider
 
-30 HP, 6 damage, negligible armour. Two attacks: a **fang bite** and a **shadow lunge** that dashes through the gap and bites again at the far end. Both inflict **Poison II for 5 seconds**. Individually fragile, but they swarm; the poison stack will kill you faster than the bites do. Bring milk or a [flask](Tabula-Vitae-Flasks-and-Anointments).
+30 HP, 6 damage, negligible armor. Two attacks: a **fang bite** and a **shadow lunge** that dashes through the gap and bites again at the far end. Both inflict **Poison II for 5 seconds**. Individually fragile, but they swarm; the poison stack will kill you faster than the bites do. Bring milk or a [flask](Tabula-Vitae-Flasks-and-Anointments).
 
 **Drops:** Venomgland Sac, Tainted Flesh, Ruina / Raw Spiritus, Spider Eye.
 
@@ -73,7 +73,7 @@ A blood-red slime of coagulated [Essentia Vitae](Blood-Orbs-and-Anima). Touch sl
 
 ### Daemonium Voraxis, The Voracious Oni
 
-60 HP, 8 damage, 6 armour, 0.28 movement. The first demon that genuinely tanks. Two attacks: **left slash** and **right slash**, both apply **Hunger II for 5 seconds**. Extended Voraxis fights force you to eat mid-combat, which is exactly when their friends close in.
+60 HP, 8 damage, 6 armor, 0.28 movement. The first demon that genuinely tanks. Two attacks: **left slash** and **right slash**, both apply **Hunger II for 5 seconds**. Extended Voraxis fights force you to eat mid-combat, which is exactly when their friends close in.
 
 **Drops:** Hollow Gut, Tainted Flesh, Nihilum / Spiritus Ruina, Raw Demonite (rare).
 
@@ -83,13 +83,13 @@ A blood-red slime of coagulated [Essentia Vitae](Blood-Orbs-and-Anima). Touch sl
 
 ### Daemonium Corrodis, The Wither Knight
 
-100 HP, 8 damage, **15 armour**, 0.28 movement. Three attacks: a **sweep**, a **double sweep**, and a two-phase **slam** with wider arc. **Every hit applies Wither**, and the slam adds Weakness for 5 seconds. Armour-piercing weapons or anointments are the cleanest counter.
+100 HP, 8 damage, **15 armor**, 0.28 movement. Three attacks: a **sweep**, a **double sweep**, and a two-phase **slam** with wider arc. **Every hit applies Wither**, and the slam adds Weakness for 5 seconds. Armor-piercing weapons or anointments are the cleanest counter.
 
 **Drops:** Blight Marrow, Raw Demonite, Ruina / Spiritus Vindicta, Wither Skeleton Skull (rare).
 
 ### Daemonium Fervidis, The Undying Brute
 
-150 HP, 12 damage, 10 armour. Three modes: **decay swing** (basic melee), **revenant smash** (leap slam at 1.5× damage), and the **bear stance**, a defensive posture granting **Resistance II for 2.5s and near-invulnerability**. Wait the stance out; do not waste cooldowns into it.
+150 HP, 12 damage, 10 armor. Three modes: **decay swing** (basic melee), **revenant smash** (leap slam at 1.5× damage), and the **bear stance**, a defensive posture granting **Resistance II for 2.5s and near-invulnerability**. Wait the stance out; do not waste cooldowns into it.
 
 **Drops:** Revenant Plate, Gore-Clotted Fang (rare), Raw Demonite, Nihilum / Spiritus Invictus.
 
@@ -97,7 +97,7 @@ A blood-red slime of coagulated [Essentia Vitae](Blood-Orbs-and-Anima). Touch sl
 
 Also the species of the dungeon boss; see "The Foreman" below.
 
-200 HP, 10 damage, 8 armour, 0.24 movement, **two-phase**. Phase 1 cycles **Combo 1**, **Combo 2**, and a **leap slam** at 1.5× damage. Below 50% HP, **Phase 2** opens **Combo 3** (upward slash + spin, applies **Wither II**) and the **ghost howl**, briefly phasing Doloris out of reality before counter-attacking. The phase transition has a distinct sound layer; back off when you hear it.
+200 HP, 10 damage, 8 armor, 0.24 movement, **two-phase**. Phase 1 cycles **Combo 1**, **Combo 2**, and a **leap slam** at 1.5× damage. Below 50% HP, **Phase 2** opens **Combo 3** (upward slash + spin, applies **Wither II**) and the **ghost howl**, briefly phasing Doloris out of reality before counter-attacking. The phase transition has a distinct sound layer; back off when you hear it.
 
 **Drops:** Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, Vindicta / Spiritus Nihilum.
 
@@ -105,7 +105,7 @@ Also the species of the dungeon boss; see "The Foreman" below.
 
 The Foreman is a unique Daemonium Doloris variant that spawns once per dungeon, inside the sealed Foreman's chamber. Vital statistics:
 
-- **600 HP**, **25 damage**, **16 armour**, 8 armour toughness.
+- **600 HP**, **25 damage**, **16 armor**, 8 armor toughness.
 - Hosts a vanilla **boss bar** while alive.
 - On death, drops a clutch of **Mine Dungeon Keys**, which open the deeper sealed doors inside the Mines.
 
@@ -117,7 +117,7 @@ Treat it as a boss fight, not an elite encounter. Bring [sigils](Sigils) and [se
 
 ### Daemonium Ignis, The Fire Demon
 
-60 HP, 6 damage, 7 armour, fire-immune, permanent Slow Falling. Three attacks chosen by range and arc:
+60 HP, 6 damage, 7 armor, fire-immune, permanent Slow Falling. Three attacks chosen by range and arc:
 
 - **Fireball** at long range: Large Fireball at 1.5× velocity.
 - **Ground Slam** when in front and within 4.2 blocks: AoE at your feet, ignites for 5s.
@@ -131,7 +131,7 @@ Stay off-arc when close. Stay behind cover when far. Anywhere in between is the 
 
 The single most dangerous creature in the dungeon.
 
-250 HP, 10 base damage, 8 armour, 0.2 movement. Six attacks:
+250 HP, 10 base damage, 8 armor, 0.2 movement. Six attacks:
 
 - **Basic ice projectile**: 10 damage, Slowness II for 2s.
 - **Ice Beam**: channelled ~5s, 0.25 damage/tick + Slowness III refresh. Locks disengagement.

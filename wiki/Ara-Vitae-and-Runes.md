@@ -21,7 +21,7 @@ To ascend to greater tiers, you must lay **Blank Runes** in concentric **circula
 | Tier | Total Runes | Notes |
 |------|-------------|-------|
 | 0    | 0           | A lone Ara Vitae, unadorned. |
-| 1    | 8           | A ring of 8 runes one level below the basin (the 3x3 ring with the centre left open). The four cardinal slots take specialized runes; the four diagonal slots stay inert (blank) until higher tiers. |
+| 1    | 8           | A ring of 8 runes one level below the basin (the 3x3 ring with the center left open). The four cardinal slots take specialized runes; the four diagonal slots stay inert (blank) until higher tiers. |
 | 2    | 24          | Adds a circular ring of 16 runes, one level lower and out at radius 3. Pillars rise at the four cardinal sides, capped with **Blood Stained Glass**. |
 | 3    | 52          | Adds a ring of 28 runes, another level down at radius 5. **Bloodstone** (or Bloodstone Brick) blocks sit at the four corners (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
 | 4    | 100         | Adds a ring of 48 runes, lower again at radius 8. **Hellforged Block** caps mark the four cardinal points. |
@@ -41,7 +41,7 @@ The Ara Vitae also forges **Tabula**, the inscribed stone tablets that serve as 
 | Tabula Spiritus  | Tier 3     | 15,000 EV  | Dark veins thread the tablet like frozen lightning. |
 | Tabula Aetherea  | Tier 4     | 30,000 EV  | Almost translucent, hovering at the edge of the beyond. |
 
-Two specialised variants exist for the alchemical bench: the **Tabula Vial** (a glass vessel reinforced with powdered Tabula, used to hold anointments) and the **Tabula Ampoule** (a small reservoir for crystallised EV, produced by certain throwing daggers and crushable for raw EV). Both are forged in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)** brewing rig.
+Two specialized variants exist for the alchemical bench: the **Tabula Vial** (a glass vessel reinforced with powdered Tabula, used to hold anointments) and the **Tabula Ampoule** (a small reservoir for crystallised EV, produced by certain throwing daggers and crushable for raw EV). Both are forged in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)** brewing rig.
 
 ## Rune Families
 

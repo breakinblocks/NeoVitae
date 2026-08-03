@@ -20,7 +20,7 @@ public class PoisonResistanceUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Poison Resistance");
-        this.pageText("The armour develops an antivenom response, automatically purging Poison from your "
+        this.pageText("The armor develops an antivenom response, automatically purging Poison from your "
                 + "blood. Higher levels shorten the cooldown between cures.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Being poisoned.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 5");
@@ -33,7 +33,7 @@ public class PoisonResistanceUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour learns to purge venom from your blood.";
+        return "The armor learns to purge venom from your blood.";
     }
 
     @Override

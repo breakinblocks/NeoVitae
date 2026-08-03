@@ -20,7 +20,7 @@ public class SentientEquipmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Equipment");
-        this.pageText("To create [#](8B0000)Sentient Equipment[#](), you require [#](8B0000)Iron Armour[#](), "
+        this.pageText("To create [#](8B0000)Sentient Equipment[#](), you require [#](8B0000)Iron Armor[#](), "
                 + "the [#](8B0000)Arcane Scribe Tool[#](), a [#](8B0000)Binding Reagent[#](), and at least a "
                 + "[#](8B0000)Common Spiritus Gem[#]() charged with sufficient [#](4A0080)Spiritus[#](). "
                 + "What emerges is no longer mere metal; it is alive, and it learns from you.");
@@ -36,15 +36,15 @@ public class SentientEquipmentEntry extends EntryProvider {
         this.pageText("Inscribe an [#](8B0000)Alchemy Array[#](), then apply the [#](8B0000)Binding Reagent[#]() "
                 + "as base. Place your [#](8B0000)Iron Helmet[#](), [#](8B0000)Iron Chestplate[#](), "
                 + "[#](8B0000)Iron Leggings[#](), or [#](8B0000)Iron Boots[#]() as catalyst, and step back.\\\n\\\n"
-                + "The armour begins equivalent to iron, but possesses 100 [#](B8860B)Upgrade Points[#]() "
+                + "The armor begins equivalent to iron, but possesses 100 [#](B8860B)Upgrade Points[#]() "
                 + "that it will spend as it grows alongside you. There may be ways to surpass this "
                 + "limitation...");
 
         this.page("binding", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Ritual of Binding[#](): [#](8B0000)Binding Reagent[#]() as base, an iron "
-                + "armour piece as catalyst.\\\n\\\n"
-                + "The armour is alive, and it watches everything you do. Be deliberate in what you teach "
+                + "armor piece as catalyst.\\\n\\\n"
+                + "The armor is alive, and it watches everything you do. Be deliberate in what you teach "
                 + "it. [#](2E8B57)Hold sneak while examining a piece to see what it has learned so far.[#]()");
     }
 
@@ -55,7 +55,7 @@ public class SentientEquipmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Armour that breathes, learns, and grows alongside its wearer.";
+        return "Armor that breathes, learns, and grows alongside its wearer.";
     }
 
     @Override

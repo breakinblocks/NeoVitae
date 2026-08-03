@@ -21,10 +21,10 @@ public class BattleHungryDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Battle Hungry");
-        this.pageText("The armour develops a bloodlust that seeps into your belly. If you fail to attack "
+        this.pageText("The armor develops a bloodlust that seeps into your belly. If you fail to attack "
                 + "something recently, gnawing hunger overtakes you. Higher levels shorten the grace period "
                 + "and intensify the starvation.\\\n\\\n"
-                + "[#](4A0080)The armour feeds on violence. Deny it, and it feeds on you instead.[#]()");
+                + "[#](4A0080)The armor feeds on violence. Deny it, and it feeds on you instead.[#]()");
 
         this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/battle_hungry"));
@@ -37,7 +37,7 @@ public class BattleHungryDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour craves combat; starve it of violence, and it starves you.";
+        return "The armor craves combat; starve it of violence, and it starves you.";
     }
 
     @Override

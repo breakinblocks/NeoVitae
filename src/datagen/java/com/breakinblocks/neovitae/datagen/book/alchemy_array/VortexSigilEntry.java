@@ -46,7 +46,7 @@ public class VortexSigilEntry extends EntryProvider {
         this.pageText("Several beings are beyond the sigil's grasp:\\\n\\\n"
                 + "- [#](2E8B57)Players in Creative or Spectator mode[#]() pass through unaffected, as expected.\\\n"
                 + "- [#](2E8B57)Any practitioner holding an Orb of Vitae[#]() - of any tier, in either main hand "
-                + "or off-hand - is recognised by the array and ignored. The orb's aura disrupts the drawing "
+                + "or off-hand - is recognized by the array and ignored. The orb's aura disrupts the drawing "
                 + "current. Useful for working near your own vortex without being yanked into it.\\\n"
                 + "- A [#](2E8B57)redstone signal[#]() applied to the sigil silences it entirely; nothing within "
                 + "the radius is pulled while the signal is active.");
@@ -59,7 +59,7 @@ public class VortexSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A drawing array that yanks all nearby living things toward its centre.";
+        return "A drawing array that yanks all nearby living things toward its center.";
     }
 
     @Override

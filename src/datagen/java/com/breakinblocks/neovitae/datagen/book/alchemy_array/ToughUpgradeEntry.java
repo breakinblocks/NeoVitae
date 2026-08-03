@@ -20,7 +20,7 @@ public class ToughUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tough");
-        this.pageText("The armour hardens against melee strikes, explosions, and all forms of close-range "
+        this.pageText("The armor hardens against melee strikes, explosions, and all forms of close-range "
                 + "violence. Protection against non-projectile harm increases with each wound endured.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Taking damage from sources other than projectiles.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");
@@ -33,7 +33,7 @@ public class ToughUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Pain is the teacher; each blow hardens the armour's resolve.";
+        return "Pain is the teacher; each blow hardens the armor's resolve.";
     }
 
     @Override

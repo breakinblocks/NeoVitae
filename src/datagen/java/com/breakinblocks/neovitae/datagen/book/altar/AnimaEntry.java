@@ -74,7 +74,7 @@ public class AnimaEntry extends EntryProvider {
                 + "\\\n\\\nA slain zombie (20 HP) yields [#](8B0000)200 EV[#](). "
                 + "An Ender Dragon (200 HP) yields [#](8B0000)2,000 EV[#](). "
                 + "The [#](B8860B)Bonus Sacrifice[#]() attribute further multiplies this harvest."
-                + "\\\n\\\n[#](2E8B57)Combine this with the orb's altar-drain behaviour: "
+                + "\\\n\\\n[#](2E8B57)Combine this with the orb's altar-drain behavior: "
                 + "fill the orb through combat, then place it upon the Ara Vitae to rapidly "
                 + "replenish the basin at 10x speed.[#]()");
 

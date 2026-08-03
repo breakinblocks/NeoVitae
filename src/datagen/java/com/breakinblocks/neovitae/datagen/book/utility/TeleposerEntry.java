@@ -48,7 +48,7 @@ public class TeleposerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Enhanced Focus");
         this.pageText("The [#](8B0000)Enhanced Teleposition Focus[#](), also forged in the Ara Vitae, "
-                + "widens the exchange to a 3x3x3 volume centred above the Teleposer. "
+                + "widens the exchange to a 3x3x3 volume centered above the Teleposer. "
                 + "Entire small structures can be relocated in a single pulse.");
 
         this.page("reinforced_focus", () -> BookAraVitaeRecipePageModel.create()
@@ -82,7 +82,7 @@ public class TeleposerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Relocating Spawners");
         this.pageText("[#](8B0000)Mob spawners and trial spawners[#]() count as ordinary blocks to the "
-                + "Teleposer; their settings, current state, and any chained behaviour ride along with them. "
+                + "Teleposer; their settings, current state, and any chained behavior ride along with them. "
                 + "Build your perfect chamber elsewhere, then transpose the spawner into it.\\\n\\\n"
                 + "Bedrock, end portals, command blocks, and similar [#](4A0080)protected blocks[#]() are "
                 + "rejected by the exchange. The full list is governed by the "

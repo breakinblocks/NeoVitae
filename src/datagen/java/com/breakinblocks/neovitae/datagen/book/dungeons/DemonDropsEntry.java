@@ -47,7 +47,7 @@ public class DemonDropsEntry extends EntryProvider {
                 + "[#](8B0000)Blight Marrow[#]() (Corrodis): Corroded bone seeping dark mist, key to wither "
                 + "and Ruina crafting.\\\n\\\n"
                 + "[#](8B0000)Revenant Plate[#]() (Fervidis): A chunk of undying chitin, prized for defensive "
-                + "and armour crafting.\\\n\\\n"
+                + "and armor crafting.\\\n\\\n"
                 + "[#](8B0000)Frozen Marrow Shard[#]() (Doloris): Ice-veined bone, combining cold and anguish "
                 + "in a single reagent.");
 

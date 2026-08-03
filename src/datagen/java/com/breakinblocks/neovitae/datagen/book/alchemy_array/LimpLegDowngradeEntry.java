@@ -21,10 +21,10 @@ public class LimpLegDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Limp Leg");
-        this.pageText("The armour stiffens around your legs, hobbling your stride. Reduces movement "
+        this.pageText("The armor stiffens around your legs, hobbling your stride. Reduces movement "
                 + "speed by up to 70%%.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10\\\n\\\n"
-                + "[#](4A0080)Every step is a negotiation with the armour's weight.[#]()");
+                + "[#](4A0080)Every step is a negotiation with the armor's weight.[#]()");
 
         this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/speed_decrease"));
@@ -37,7 +37,7 @@ public class LimpLegDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour hobbles your stride; each step heavier than the last.";
+        return "The armor hobbles your stride; each step heavier than the last.";
     }
 
     @Override

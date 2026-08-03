@@ -20,7 +20,7 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Body Builder");
-        this.pageText("The armour observes your habits of nourishment and responds in kind, hardening your "
+        this.pageText("The armor observes your habits of nourishment and responds in kind, hardening your "
                 + "frame against impact. Grants an [#](4A0080)anchored stance[#]() that resists being thrown and "
                 + "bolsters your vitality considerably.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Eating food.\\\n\\\n"
@@ -34,7 +34,7 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Feed yourself well and the armour fortifies your body in turn.";
+        return "Feed yourself well and the armor fortifies your body in turn.";
     }
 
     @Override

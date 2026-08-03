@@ -6,7 +6,7 @@ This page collects the non-combat machinery of the [Endless Dungeon](The-Endless
 
 ## Trial Spawners
 
-Every hostile room in the dungeon is policed by a **trial spawner**, a sealed pillar of ribbed iron with a glowing eye at its centre. The spawners share a uniform rhythm across the realm:
+Every hostile room in the dungeon is policed by a **trial spawner**, a sealed pillar of ribbed iron with a glowing eye at its center. The spawners share a uniform rhythm across the realm:
 
 - Demons appear within roughly four blocks of the pillar.
 - Six are summoned per activation, no more than two at once.
@@ -36,7 +36,7 @@ When a powered Spike Trap slays a creature, the vitality spilled by its blades d
 
 The pale-blue stonework that defines the Demon Realm. **Demon Stone** is forged by infusing ordinary stone with [Spiritus](Spiritus-Aspects-and-Crystals) at an [Ara Vitae](Ara-Vitae-and-Runes).
 
-**Demon Stone is aggressively transmutative.** Any attempt to combine Demon Stone with ordinary stone simply yields more Demon Stone; the material refuses to revert. Introducing **Ruina, Nihilum, Invictus, or Vindicta** Spiritus during creation produces coloured variants, each carrying a faint resonance of its aspect. All variants can be shaped at a stonecutter into decorative patterns. Consult JEI for the full recipe matrix.
+**Demon Stone is aggressively transmutative.** Any attempt to combine Demon Stone with ordinary stone simply yields more Demon Stone; the material refuses to revert. Introducing **Ruina, Nihilum, Invictus, or Vindicta** Spiritus during creation produces colored variants, each carrying a faint resonance of its aspect. All variants can be shaped at a stonecutter into decorative patterns. Consult JEI for the full recipe matrix.
 
 ## Prismatic Demonite
 
@@ -76,7 +76,7 @@ Under normal conditions, the vine ripens into common **Tau Fruit**, rendered dow
 
 ### Saturated Tau
 
-If a **living creature stands atop the plant** as it matures, the vine drinks the creature's vitality to feed its own growth. The result is **Saturated Tau**, a far more potent variant born from stolen life, a higher-tier potion ingredient catalogued in JEI.
+If a **living creature stands atop the plant** as it matures, the vine drinks the creature's vitality to feed its own growth. The result is **Saturated Tau**, a far more potent variant born from stolen life, a higher-tier potion ingredient catalogd in JEI.
 
 ## Tainted Provisions
 

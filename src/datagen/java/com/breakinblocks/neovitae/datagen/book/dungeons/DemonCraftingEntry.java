@@ -50,7 +50,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 .withItem(NVItems.DEMONITE_TRIM_INGOT.get())
                 .withTitle("Hellforged Trim Ingot")
                 .withText(this.context().pageText()));
-        this.pageText("A deep blood-red trim material for armour decoration. Apply it at a smithing "
+        this.pageText("A deep blood-red trim material for armor decoration. Apply it at a smithing "
                 + "table like any other trim material to give your gear a [#](8B0000)demonic[#]() accent "
                 + "unique to the Demon Realm.\\\n\\\n"
                 + "Forged from a [#](8B0000)Hellforged Ingot[#](), an [#](4A0080)Animus Mote[#](), "

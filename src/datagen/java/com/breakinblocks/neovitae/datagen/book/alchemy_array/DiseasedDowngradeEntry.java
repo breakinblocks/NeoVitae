@@ -21,7 +21,7 @@ public class DiseasedDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Diseased");
-        this.pageText("The armour's living tissue sickens, suppressing your body's ability to mend. "
+        this.pageText("The armor's living tissue sickens, suppressing your body's ability to mend. "
                 + "All healing is reduced by up to 80%%; a wound that should restore ten hearts "
                 + "barely returns two.\\\n\\\n"
                 + "[#](4A0080)What lives can also sicken.[#]()");
@@ -37,7 +37,7 @@ public class DiseasedDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour festers, choking your body's ability to heal.";
+        return "The armor festers, choking your body's ability to heal.";
     }
 
     @Override

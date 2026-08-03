@@ -104,7 +104,7 @@ public class IncenseAltarEntry extends EntryProvider {
         this.pageTitle("Path Reach");
         this.pageText("Each path material carries its influence only so far: [#](8B0000)Wooden[#]() paths extend "
                 + "three rings, [#](8B0000)Stone[#]() paths five, [#](8B0000)Worn Stone[#]() paths seven, "
-                + "and [#](8B0000)Obsidian[#]() paths nine rings from the centre.\\\n\\\n"
+                + "and [#](8B0000)Obsidian[#]() paths nine rings from the center.\\\n\\\n"
                 + "Not every block contributes Tranquility. You require growing things, earth, "
                 + "and even... lava?");
 

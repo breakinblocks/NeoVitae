@@ -4,7 +4,7 @@ Before sigils, before rituals, before the great workings of Vitaemancy were ever
 
 ## Inscribing an Array
 
-Hold the Arcane Scribe Tool and press [Use] upon a solid surface. Each inscription consumes one charge; the tool holds **twenty uses** before wearing out. The empty array is inert. Click it with an item to place the **base** component; if the base is recognised, the design shifts to reflect what is being summoned.
+Hold the Arcane Scribe Tool and press [Use] upon a solid surface. Each inscription consumes one charge; the tool holds **twenty uses** before wearing out. The empty array is inert. Click it with an item to place the **base** component; if the base is recognized, the design shifts to reflect what is being summoned.
 
 A second item placed becomes the **catalyst**. If both are valid, the array awakens and its working begins. Both components are consumed as the array activates; nothing remains but the result of the working. Watch the pattern carefully when you place the base; if the glyph changes form, you are on the right path.
 
@@ -14,11 +14,11 @@ Most **[Sigils](Sigils)**, reagents, and bindings begin their existence within a
 
 ## Dyeing the Array
 
-The arcane lines are not bound to their natural color. Combine an **Arcane Scribe Tool** with any vanilla **dye** in a crafting grid (shapeless, any two slots) and the tool takes on the dye's hue. Inscriptions drawn with the tinted tool render in that colour; the geometry is unchanged, only the pigment shifts.
+The arcane lines are not bound to their natural color. Combine an **Arcane Scribe Tool** with any vanilla **dye** in a crafting grid (shapeless, any two slots) and the tool takes on the dye's hue. Inscriptions drawn with the tinted tool render in that color; the geometry is unchanged, only the pigment shifts.
 
-The tint travels with the tool, not with the dye, so a single dyeing is enough for as many arrays as the scribe's remaining charges will allow. Combine the tool with a different dye to repaint it. The catalyst items consumed by the array work exactly the same regardless of colour; this is a cosmetic affordance, not a recipe selector.
+The tint travels with the tool, not with the dye, so a single dyeing is enough for as many arrays as the scribe's remaining charges will allow. Combine the tool with a different dye to repaint it. The catalyst items consumed by the array work exactly the same regardless of color; this is a cosmetic affordance, not a recipe selector.
 
-Already-inscribed arrays retain whatever colour they were drawn with. To recolour an existing array, break it (it returns no items) and re-inscribe with a freshly tinted scribe.
+Already-inscribed arrays retain whatever color they were drawn with. To recolor an existing array, break it (it returns no items) and re-inscribe with a freshly tinted scribe.
 
 ## Crafting Arrays
 
@@ -69,10 +69,10 @@ Crafting Arrays are among the simplest expressions of the art. The array inscrib
 
 | Array | Effect |
 |-------|--------|
-| Collection Array | Draws dropped items within 2 blocks toward its centre. Place atop a chest and collected items deposit directly inside. |
+| Collection Array | Draws dropped items within 2 blocks toward its center. Place atop a chest and collected items deposit directly inside. |
 | Light Array | Radiates illumination from invisible sources above the array, lighting an area without cluttering it with torches. |
 | Furnace Array | Transmutes raw materials dropped nearby into their smelted forms (10 EV per stack from the owner's network). Items within its radius will not despawn while awaiting processing; processes all valid stacks simultaneously, with cook times matching a standard furnace. |
-| Endless Fountain Array | Scribed with a Block of Lapis and awakened by a Sea Pickle. Pipes water into every fluid container touching its six faces; every 5 ticks it deposits up to 6 buckets, spread evenly across neighbours. Only whole-bucket fills commit. The cache of adjacent tanks reacts instantly to neighbour changes, backs off progressively when every tank is full (with a slate-grey particle puff to signal the stall), and parks completely on a redstone signal. |
+| Endless Fountain Array | Scribed with a Block of Lapis and awakened by a Sea Pickle. Pipes water into every fluid container touching its six faces; every 5 ticks it deposits up to 6 buckets, spread evenly across neighbors. Only whole-bucket fills commit. The cache of adjacent tanks reacts instantly to neighbor changes, backs off progressively when every tank is full (with a slate-gray particle puff to signal the stall), and parks completely on a redstone signal. |
 
 ## Companions
 
@@ -86,6 +86,6 @@ Many of the most important workings in the discipline are inscribed via Alchemy 
 
 - All **[Sigils](Sigils)** (sigil arrays use a Reagent base + a Slate catalyst).
 - The **[Training Bracelet](Sentient-Armor)** for controlling Sentient Armor learning.
-- The **Ritual of Binding** that turns iron armour into **[Sentient Armor](Hellfire-Forge-and-Sentient-Equipment)** (Binding Reagent base + iron piece catalyst).
+- The **Ritual of Binding** that turns iron armor into **[Sentient Armor](Hellfire-Forge-and-Sentient-Equipment)** (Binding Reagent base + iron piece catalyst).
 
 See also: **[Sigils](Sigils)** (where most arrays end), **[Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)** (where reagents are brewed), **[Sentient Armor](Sentient-Armor)** (the Ritual of Binding), **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (Spirit Siphon Array).

@@ -79,7 +79,7 @@ public class DivinationSigilEntry extends EntryProvider {
         this.page("hud_elements", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The configurable displays are:\n\n"
-                + "- The Incense Altar (light grey)\n\n"
+                + "- The Incense Altar (light gray)\n\n"
                 + "- The Seer's Sigil (purple)\n\n"
                 + "- The Divination Sigil (lavender)\n\n"
                 + "- The Spiritus Aura Gauge (orange)\n\n"

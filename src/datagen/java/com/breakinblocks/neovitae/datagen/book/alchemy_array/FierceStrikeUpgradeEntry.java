@@ -20,7 +20,7 @@ public class FierceStrikeUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fierce Strike");
-        this.pageText("The armour studies each blow you deliver and sharpens your killing edge in response. "
+        this.pageText("The armor studies each blow you deliver and sharpens your killing edge in response. "
                 + "Melee attacks deal progressively greater damage.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Performing melee attacks.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");
@@ -33,7 +33,7 @@ public class FierceStrikeUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Each blow teaches the armour to sharpen the next.";
+        return "Each blow teaches the armor to sharpen the next.";
     }
 
     @Override

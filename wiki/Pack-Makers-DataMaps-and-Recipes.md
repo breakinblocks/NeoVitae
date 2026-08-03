@@ -332,7 +332,7 @@ Effects are **cumulative**; a tier 5 altar plays its own effects plus every lowe
 |-------|------|-------------|
 | `type` | Enum | Visual style (see below). |
 | `origins` | Array of `[x, y, z]` | Offsets from the Ara Vitae core where the effect anchors. |
-| `color` | Integer | Tint colour packed as decimal RGB (e.g. `0x8800CC` = `8913100`). Optional, defaults to white. |
+| `color` | Integer | Tint color packed as decimal RGB (e.g. `0x8800CC` = `8913100`). Optional, defaults to white. |
 
 **Effect types:**
 

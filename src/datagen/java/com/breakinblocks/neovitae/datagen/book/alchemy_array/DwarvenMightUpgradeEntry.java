@@ -20,7 +20,7 @@ public class DwarvenMightUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dwarven Might");
-        this.pageText("The armour recognizes the rhythm of the pick. Mining identical blocks in succession "
+        this.pageText("The armor recognizes the rhythm of the pick. Mining identical blocks in succession "
                 + "accelerates your speed, and at higher levels a surge of [#](4A0080)Haste[#]() follows each "
                 + "broken block.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Mining blocks.\\\n\\\n"
@@ -34,7 +34,7 @@ public class DwarvenMightUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The deeper you dig, the faster the armour drives your arms.";
+        return "The deeper you dig, the faster the armor drives your arms.";
     }
 
     @Override

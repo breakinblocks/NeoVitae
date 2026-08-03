@@ -58,14 +58,14 @@ Raw clusters feel conflicted, as though warring natures strain against one anoth
 - **Raw Spiritus**. Undifferentiated malice.
 - **Spiritus Invictus**. The unbroken; a fortress of intent that refuses to be undone.
 - **Spiritus Nihilum**. The final silence; weight without haste, an ending given form.
-- **Spiritus Vindicta**. The swift reckoning; vengeance taken before the offence is voiced.
+- **Spiritus Vindicta**. The swift reckoning; vengeance taken before the offense is voiced.
 - **Spiritus Ruina**. The slow undoing; patient decay that wears all things to ruin.
 
 Each Aspect can be burned in the Vas Maleficum just as Raw Spiritus can, feeding the Aura with its particular resonance for your Rituals to draw upon.
 
-### Aspect Behaviour on Sentient Tools
+### Aspect Behavior on Sentient Tools
 
-Each Aspect also transforms the behaviour of **Sentient Tools** and the **Sentient Sword**:
+Each Aspect also transforms the behavior of **Sentient Tools** and the **Sentient Sword**:
 
 | Aspect | Effect on Sentient Equipment |
 |--------|-----------------------------|
@@ -107,11 +107,11 @@ Pair the catalyst with the **Crystallum Fractura** ritual (see **[Rituals](Ritua
 
 Through the Hellfire Forge, a practitioner can bind a Spiritus Gem directly into a piece of equipment, granting it the ability to store Spiritus internally. Capacity matches the gem tier: Petty 64, Lesser 256, Common 1,024, Greater 4,096, Grand 16,384.
 
-Place any wearable armour, tool, weapon, or shield alongside a Spiritus Gem in the Hellfire Forge to infuse it (the gem is consumed). Infused equipment stores Spiritus directly, drawn upon by Sentient Tools and other Spiritus-consuming effects just as it would be from a gem in your inventory. A coloured bar at the top of the item icon indicates current charge level; bar colour reflects the Aspect stored. Recharge via a Vas Maleficum or by absorbing monster souls.
+Place any wearable armor, tool, weapon, or shield alongside a Spiritus Gem in the Hellfire Forge to infuse it (the gem is consumed). Infused equipment stores Spiritus directly, drawn upon by Sentient Tools and other Spiritus-consuming effects just as it would be from a gem in your inventory. A colored bar at the top of the item icon indicates current charge level; bar color reflects the Aspect stored. Recharge via a Vas Maleficum or by absorbing monster souls.
 
 ## Blood Mending
 
-Bind the restorative power of Essentia Vitae directly into equipment. An item imbued with **Blood Mending** slowly knits itself back together, drawing EV from the wielder's **[Anima](Blood-Orbs-and-Anima)** each second. The enchantment requires a bound Orb of Vitae in the practitioner's inventory and sufficient reserves to function; only worn armour and held items benefit.
+Bind the restorative power of Essentia Vitae directly into equipment. An item imbued with **Blood Mending** slowly knits itself back together, drawing EV from the wielder's **[Anima](Blood-Orbs-and-Anima)** each second. The enchantment requires a bound Orb of Vitae in the practitioner's inventory and sufficient reserves to function; only worn armor and held items benefit.
 
 Place the item to enchant in the Hellfire Forge alongside a Tabula Robur, Lapis Lazuli, and Nether Wart. The forge requires a minimum of **200 Spiritus** and consumes **400 Spiritus** in the process. The item retains all of its existing enchantments and properties.
 

@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:neovitae/blank_slate",
+  "parent": "neovitae:neovitae/tabula_rasa",
   "criteria": {
     "get_sigil": {
       "conditions": {

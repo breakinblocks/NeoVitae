@@ -21,7 +21,7 @@ public class SmeltingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil");
-        this.pageText("[#](8B0000)Slow-burning Oil[#]() infuses the tool with a smouldering heat that smelts blocks "
+        this.pageText("[#](8B0000)Slow-burning Oil[#]() infuses the tool with a smoldering heat that smelts blocks "
                 + "the instant they are broken. Ore becomes ingot in a single swing.\\\n\\\n"
                 + "Valid items: anything in [#](8B0000)#neovitae:anointable/mining[#]().\\\n\\\nApplies: Heated Tool I (256 blocks)");
 

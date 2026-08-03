@@ -20,7 +20,7 @@ public class PinCushionUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Pin Cushion");
-        this.pageText("The armour hardens against projectile impacts, blunting the force of arrows and "
+        this.pageText("The armor hardens against projectile impacts, blunting the force of arrows and "
                 + "other ranged attacks. Each level absorbs more of the blow, reducing incoming projectile "
                 + "damage by up to [#](4A0080)80%%[#]() at maximum.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Being struck by projectiles.\\\n\\\n"
@@ -34,7 +34,7 @@ public class PinCushionUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Every arrow absorbed teaches the armour to blunt the next.";
+        return "Every arrow absorbed teaches the armor to blunt the next.";
     }
 
     @Override

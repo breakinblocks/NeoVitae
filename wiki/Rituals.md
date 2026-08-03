@@ -46,7 +46,7 @@ Rituals that draw from or deposit into a container expose their chest, tank, or 
 
 Some rituals can be expanded far beyond their default range, but EV cost scales to match. Tread carefully with your reserves.
 
-## Ritual Catalogue
+## Ritual Catalog
 
 ### Combat and Soul Harvest
 
@@ -128,4 +128,4 @@ Practical notes:
 - The Butchering wants a chest directly above its stone to collect drops; without one, the drops simply fall in the pen.
 - Fence the pen so bred animals stay within range of both circles.
 
-See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (for the aura many rituals draw on), **[Sentient Armor](Sentient-Armor)** (armour-evolution rituals), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the EV source), **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** (comparator + redstone shutdowns).
+See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (for the aura many rituals draw on), **[Sentient Armor](Sentient-Armor)** (armor-evolution rituals), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the EV source), **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** (comparator + redstone shutdowns).

@@ -21,9 +21,9 @@ public class QuenchedDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Quenched");
-        this.pageText("The armour rejects all liquid sustenance, clamping your throat shut against any "
+        this.pageText("The armor rejects all liquid sustenance, clamping your throat shut against any "
                 + "potion you attempt to consume. No healing draughts, no buffs, no alchemical aids.\\\n\\\n"
-                + "[#](4A0080)The armour alone shall sustain you, or so it believes.[#]()");
+                + "[#](4A0080)The armor alone shall sustain you, or so it believes.[#]()");
 
         this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/quenched"));
@@ -36,7 +36,7 @@ public class QuenchedDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour seals your throat; no potion shall pass your lips.";
+        return "The armor seals your throat; no potion shall pass your lips.";
     }
 
     @Override

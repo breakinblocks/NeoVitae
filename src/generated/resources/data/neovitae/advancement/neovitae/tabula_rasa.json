@@ -1,11 +1,11 @@
 {
-  "parent": "neovitae:neovitae/demonic_slate",
+  "parent": "neovitae:neovitae/weak_blood_orb",
   "criteria": {
     "get_slate": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:tabula_aetherea"
+            "items": "neovitae:tabula_rasa"
           }
         ]
       },
@@ -13,16 +13,16 @@
     }
   },
   "display": {
+    "announce_to_chat": false,
     "description": {
-      "translate": "advancements.neovitae.ethereal_slate.description"
+      "translate": "advancements.neovitae.tabula_rasa.description"
     },
-    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "neovitae:tabula_aetherea"
+      "id": "neovitae:tabula_rasa"
     },
     "title": {
-      "translate": "advancements.neovitae.ethereal_slate.title"
+      "translate": "advancements.neovitae.tabula_rasa.title"
     }
   },
   "requirements": [

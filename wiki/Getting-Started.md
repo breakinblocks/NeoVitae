@@ -56,9 +56,9 @@ Continue expanding the altar; its hunger grows with your ambition.
 
 If altar construction starts to drag, the **potioncrafting system** opens at Tier I. Prepare **Alchemy Flasks** or tip **Amethyst Throwing Daggers** with dozens of effects. A Vitaemancer with a well-stocked flask belt is never truly in danger.
 
-## Tier II, Rituals and Sentient Armour
+## Tier II, Rituals and Sentient Armor
 
-The true scope of Vitaemancy reveals itself here. You gain the ability to inscribe **Rituals** via the Master Ritual Stone, and to forge **Sentient Armour**, equipment that grows stronger through the trials you endure.
+The true scope of Vitaemancy reveals itself here. You gain the ability to inscribe **Rituals** via the Master Ritual Stone, and to forge **Sentient Armor**, equipment that grows stronger through the trials you endure.
 
 Upgrade both the altar and your **Ritual Diviner** to unlock more potent rites.
 
@@ -76,7 +76,7 @@ Tier III unlocks the **Ritual Diviner [Dusk]** and a vast repertoire of advanced
 
 ## Tier III, Sentient Evolution
 
-Your Sentient Armour may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armour's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armour's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
+Your Sentient Armor may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armor's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armor's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
 
 See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 
@@ -88,7 +88,7 @@ See **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)**.
 
 ## Tier III, The Endless Realm
 
-The **Highway to Hell** ritual tears open a permanent gate to the Endless tier dungeon. Come armed and armoured; the realm does not suffer the unprepared. Delve deep enough and you may unearth **Demonite Ore**, the capstone material for the ultimate altar tiers, alongside the **Dominus Orb of Vitae**.
+The **Highway to Hell** ritual tears open a permanent gate to the Endless tier dungeon. Come armed and armored; the realm does not suffer the unprepared. Delve deep enough and you may unearth **Demonite Ore**, the capstone material for the ultimate altar tiers, alongside the **Dominus Orb of Vitae**.
 
 ## Tier IV, Devastating Rites
 

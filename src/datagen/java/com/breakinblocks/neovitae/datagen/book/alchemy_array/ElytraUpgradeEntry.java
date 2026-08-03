@@ -21,7 +21,7 @@ public class ElytraUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Elytra");
-        this.pageText("The armour sprouts membranes of living tissue, granting true flight. This upgrade "
+        this.pageText("The armor sprouts membranes of living tissue, granting true flight. This upgrade "
                 + "cannot be trained; it must be inscribed via [#](8B0000)Upgrade Tome[#]().\\\n\\\n"
                 + "The wings draw upon the chestplate's vitality, wearing it down at half the rate of conventional "
                 + "elytra. The aesthetic is, admittedly, rather striking.");

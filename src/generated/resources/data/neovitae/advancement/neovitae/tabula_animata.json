@@ -1,11 +1,11 @@
 {
-  "parent": "neovitae:neovitae/imbued_slate",
+  "parent": "neovitae:neovitae/tabula_robur",
   "criteria": {
     "get_slate": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:tabula_spiritus"
+            "items": "neovitae:tabula_animata"
           }
         ]
       },
@@ -13,16 +13,16 @@
     }
   },
   "display": {
+    "announce_to_chat": false,
     "description": {
-      "translate": "advancements.neovitae.demonic_slate.description"
+      "translate": "advancements.neovitae.tabula_animata.description"
     },
-    "frame": "goal",
     "icon": {
       "count": 1,
-      "id": "neovitae:tabula_spiritus"
+      "id": "neovitae:tabula_animata"
     },
     "title": {
-      "translate": "advancements.neovitae.demonic_slate.title"
+      "translate": "advancements.neovitae.tabula_animata.title"
     }
   },
   "requirements": [

@@ -31,7 +31,7 @@ public class AspectedSpiritusEntry extends EntryProvider {
         this.pageText("The four distinct [#](4A0080)Aspects[#]() of Spiritus:\n\n"
                 + "- [#](8B0000)Spiritus Invictus[#](): the unbroken; a fortress of intent that refuses to be undone.\n\n"
                 + "- [#](8B0000)Spiritus Nihilum[#](): the final silence; weight without haste, an ending given form.\n\n"
-                + "- [#](8B0000)Spiritus Vindicta[#](): the swift reckoning; vengeance taken before the offence is voiced.\n\n"
+                + "- [#](8B0000)Spiritus Vindicta[#](): the swift reckoning; vengeance taken before the offense is voiced.\n\n"
                 + "- [#](8B0000)Spiritus Ruina[#](): the slow undoing; patient decay that wears all things to ruin.\\\n\\\n"
                 + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");

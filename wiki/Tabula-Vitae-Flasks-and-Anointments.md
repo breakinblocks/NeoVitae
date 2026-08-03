@@ -15,7 +15,7 @@ If the table refuses to work, the cause is almost certainly one of these:
 
 Each slot on the Tabula Vitae can be exposed to a specific side of the block for hopper or pipe access. Click an empty slot in the menu and then click the direction buttons that appear; the chosen side will deliver to (or pull from) that slot specifically. This makes the table trivial to automate even when several slots feed different ingredients.
 
-### Transmutation Catalogue
+### Transmutation Catalog
 
 Even the simplest transmutations have their uses. Common Tabula Vitae outputs include:
 
@@ -69,7 +69,7 @@ The discipline offers familiar elixirs alongside far stranger brews.
 | Flight | The pinnacle of gravitational alchemy: true flight. |
 | Gravity | Intensifies the earth's pull to crushing force. |
 | Grounded | Anchors the body, suppressing all jumping. |
-| Hard Cloak | Stiffens flesh and armour with alchemical rigidity. |
+| Hard Cloak | Stiffens flesh and armor with alchemical rigidity. |
 | Heavy Heart | A leaden weight that drags the victim earthward. |
 | Instant Damage | Vitality inverted into a bolt of arcane harm. |
 | Instant Health | A surge of raw vitality, instant and potent. |

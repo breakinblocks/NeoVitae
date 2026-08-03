@@ -44,7 +44,7 @@ public class TabulaVitaeEntry extends EntryProvider {
                 + "for the recipe you attempt."
                 + "\n\n- [#](8B0000)Anima Error[#](): The orb is adequate, but it has not been bound to you (right-click to bind), "
                 + "or your [#](4A0080)Anima[#]() lacks sufficient [#](4A0080)Essentia Vitae[#]() to fuel the transmutation."
-                + "\\\n\\\nThe following pages catalogue several fundamental recipes available through the Tabula Vitae.");
+                + "\\\n\\\nThe following pages catalog several fundamental recipes available through the Tabula Vitae.");
 
         this.page("recipes1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -82,7 +82,7 @@ public class TabulaVitaeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A transmutation workbench fuelled by EV from your Anima.";
+        return "A transmutation workbench fueled by EV from your Anima.";
     }
 
     @Override

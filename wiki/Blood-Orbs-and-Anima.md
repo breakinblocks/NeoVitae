@@ -24,7 +24,7 @@ Slay any creature while an Orb of Vitae rests in your off-hand and the orb drink
 - A slain zombie (20 HP) yields **200 EV**.
 - An Ender Dragon (200 HP) yields **2,000 EV**.
 
-The **Bonus Sacrifice** attribute further multiplies this harvest. Combine the orb's altar-drain behaviour with combat farming; fill the orb on the battlefield, then drop it on the Ara Vitae for a 10x rate top-up.
+The **Bonus Sacrifice** attribute further multiplies this harvest. Combine the orb's altar-drain behavior with combat farming; fill the orb on the battlefield, then drop it on the Ara Vitae for a 10x rate top-up.
 
 ## Orb Tiers
 

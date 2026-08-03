@@ -44,13 +44,13 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 + "\n\n- below [#](B8860B)30 Raw[#](): no Fortune"
                 + "\n- [#](B8860B)30-100 Raw[#](): linearly scales from Fortune I to Fortune III"
                 + "\n- at or above [#](B8860B)100 Raw[#](): Fortune III"
-                + "\n\nWhen Fortune is active, the ritual probabilistically consumes [#](8B0000)Raw Spiritus[#]() at an average rate of one per twelve seconds.");
+                + "\n\nWhen Fortune is active, the ritual probabilistically consumes [#](8B0000)Raw Spiritus[#]() at an average rate of one per twelve seconds; keep the chunk fed.");
 
         this.page("aspect_bias", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Aspect Bias");
-        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Configurator[#]() (one matching crystal in the hotbar). The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
+        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Configurator[#]() in [#](2E8B57)Set Spiritus Consumed[#]() mode while holding exactly one matching crystal in your hotbar. The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tough Palms");
-        this.pageText("The armour toughens your hands against the bite of the sacrificial blade, yielding "
+        this.pageText("The armor toughens your hands against the bite of the sacrificial blade, yielding "
                 + "more [#](4A0080)Essentia Vitae[#]() from each offering. Grants up to 150%% bonus to "
                 + "self-sacrifice.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Bleeding into your [#](8B0000)Blood Orb[#]().\\\n\\\n"

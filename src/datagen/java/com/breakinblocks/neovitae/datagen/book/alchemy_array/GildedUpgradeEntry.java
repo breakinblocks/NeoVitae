@@ -20,7 +20,7 @@ public class GildedUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gilded");
-        this.pageText("The armour takes on a subtle golden sheen, marking you as an ally to the Piglins "
+        this.pageText("The armor takes on a subtle golden sheen, marking you as an ally to the Piglins "
                 + "of the Nether. They regard you as they would any creature wearing gold.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Handing a [#](8B0000)Gold Ingot[#]() directly to a Piglin. "
                 + "It must be given by hand, not dropped.\\\n\\\n"

@@ -20,7 +20,7 @@ public class ExperiencedUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Experienced");
-        this.pageText("The armour learns to amplify the resonance of slain creatures, drawing forth "
+        this.pageText("The armor learns to amplify the resonance of slain creatures, drawing forth "
                 + "greater experience from each kill. Increases XP drops up to 150%%.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Collecting experience orbs.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");
@@ -33,7 +33,7 @@ public class ExperiencedUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour draws deeper knowledge from each fallen foe.";
+        return "The armor draws deeper knowledge from each fallen foe.";
     }
 
     @Override

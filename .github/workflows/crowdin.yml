@@ -18,6 +18,10 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  LANG_DIR: src/main/resources/assets/neovitae/lang
+  L10N_BRANCH: l10n_crowdin
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -34,20 +38,67 @@ jobs:
           upload_translations: false
           download_translations: true
           skip_untranslated_strings: true
-          skip_untranslated_files: true
           export_only_approved: false
-          localization_branch_name: l10n_crowdin
-          create_pull_request: true
-          pull_request_title: "New Crowdin translations"
-          pull_request_body: |
-            Translations pulled from Crowdin.
-
-            Source of truth is `main`. After this merges, run
-            `git checkout dev && python tools/port-lang.py` to regenerate
-            dev's translation files from these.
-          pull_request_base_branch_name: "main"
+          push_translations: false
+          create_pull_request: false
           config: crowdin.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+      - name: Discard empty translation files
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          lang = pathlib.Path(os.environ["LANG_DIR"])
+          tracked = set(subprocess.run(
+              ["git", "ls-files", str(lang)],
+              capture_output=True, text=True, check=True).stdout.split())
+          restored, removed = [], []
+          for path in sorted(lang.glob("*.json")):
+              if path.name == "en_us.json":
+                  continue
+              try:
+                  empty = not json.loads(path.read_text(encoding="utf-8"))
+              except json.JSONDecodeError:
+                  empty = True
+              if not empty:
+                  continue
+              if path.as_posix() in tracked:
+                  subprocess.run(["git", "checkout", "--", path.as_posix()], check=True)
+                  restored.append(path.name)
+              else:
+                  path.unlink()
+                  removed.append(path.name)
+          if restored:
+              print(f"restored {len(restored)} tracked file(s) that exported empty: {', '.join(restored)}")
+          if removed:
+              print(f"discarded {len(removed)} empty new file(s): {', '.join(removed)}")
+          if not restored and not removed:
+              print("no empty files")
+          PY
+
+      - name: Commit and open pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No translation changes."
+            exit 0
+          fi
+          git config user.name "Crowdin Bot"
+          git config user.email "support+bot@crowdin.com"
+          git checkout -B "$L10N_BRANCH"
+          git add -A "$LANG_DIR"
+          git commit -m "New Crowdin translations"
+          git push --force origin "$L10N_BRANCH"
+          if [ -n "$(gh pr list --head "$L10N_BRANCH" --state open --json number -q '.[].number')" ]; then
+            echo "Pull request already open, updated in place."
+          else
+            gh pr create \
+              --base main \
+              --head "$L10N_BRANCH" \
+              --title "New Crowdin translations" \
+              --body "Translations pulled from Crowdin. Source of truth is \`main\`. After this merges, run \`git checkout dev && python tools/port-lang.py\` to regenerate dev's translation files."
+          fi

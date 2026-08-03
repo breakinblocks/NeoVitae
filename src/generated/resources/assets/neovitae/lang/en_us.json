@@ -2431,6 +2431,7 @@
   "jei.neovitae.recipe.meteor": "Meteor Ritual",
   "jei.neovitae.recipe.meteor.estimate": "Est: %s blocks (~%s%%)",
   "jei.neovitae.recipe.meteor.fill": "Fill Block",
+  "jei.neovitae.recipe.meteor.random_pool": "Random pick from %s blocks",
   "jei.neovitae.recipe.meteor.weight": "Weight: %s",
   "jei.neovitae.recipe.minimum_spiritus": "Minimum Spiritus: %s",
   "jei.neovitae.recipe.requiredlp": "Required Essentia Vitae: %s",

@@ -26,7 +26,7 @@ import pathlib
 import subprocess
 import sys
 
-SOURCE_REF = "main"
+SOURCE_REF = "origin/main"
 TARGET_REF = "dev"
 SOURCE_EN_US = "src/generated/resources/assets/neovitae/lang/en_us.json"
 TARGET_EN_US = "src/generated/resources/assets/neovitae/lang/en_us.json"
@@ -79,7 +79,17 @@ def main():
     ap.add_argument("--target-ref", default=TARGET_REF)
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--no-fetch", action="store_true")
     args = ap.parse_args()
+
+    if not args.no_fetch:
+        fetched = subprocess.run(
+            ["git", "fetch", "origin", args.source_ref.split("/", 1)[-1]],
+            capture_output=True, encoding="utf-8",
+        )
+        if fetched.returncode != 0:
+            print(f"warning: could not fetch {args.source_ref}; using last known state",
+                  file=sys.stderr)
 
     branch = current_branch()
     if branch != args.target_ref and not args.force:
@@ -94,7 +104,7 @@ def main():
     key_map = load_json(pathlib.Path(KEY_MAP).read_text(encoding="utf-8"))["map"]
 
     src_en = load_json(git_show(args.source_ref, SOURCE_EN_US))
-    tgt_en = load_json(git_show(args.target_ref, TARGET_EN_US))
+    tgt_en = load_json(pathlib.Path(TARGET_EN_US).read_text(encoding="utf-8"))
 
     diverged = set()
     for src_key, src_val in src_en.items():
@@ -111,8 +121,9 @@ def main():
     drift = False
     for name in list_lang_files(args.source_ref):
         src = load_json(git_show(args.source_ref, f"{LANG_DIR}/{name}"))
-        existing_raw = git_show(args.target_ref, f"{LANG_DIR}/{name}")
-        existing = load_json(existing_raw) if existing_raw else {}
+        existing_path = lang_dir / name
+        existing = (load_json(existing_path.read_text(encoding="utf-8"))
+                    if existing_path.exists() else {})
 
         out = collections.OrderedDict()
         for src_key, val in src.items():

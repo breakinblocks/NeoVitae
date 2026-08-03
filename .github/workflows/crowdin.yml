@@ -1,0 +1,52 @@
+name: Crowdin
+
+on:
+  push:
+    branches: [26.1]
+    paths:
+      - src/generated/resources/assets/neovitae/lang/en_us.json
+      - crowdin.yml
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: crowdin
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: "26.1"
+          fetch-depth: 0
+
+      - name: Upload sources and download translations
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: true
+          upload_translations: false
+          download_translations: true
+          skip_untranslated_strings: true
+          export_only_approved: false
+          localization_branch_name: l10n_crowdin
+          create_pull_request: true
+          pull_request_title: "New Crowdin translations"
+          pull_request_body: |
+            Translations pulled from Crowdin.
+
+            Source of truth is `26.1`. After this merges, run
+            `git checkout dev && python tools/port-lang.py` to regenerate
+            dev's translation files from these.
+          pull_request_base_branch_name: "26.1"
+          config: crowdin.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

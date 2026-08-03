@@ -1,0 +1,50 @@
+term,description,type
+Neo Vitae,Mod name. Never translate.,Do not translate
+Vitae,"Latin, ""of life"". Core coined term, appears in Ara Vitae, Essentia Vitae, Orb of Vitae, Lex Vitae, Scriptura Vitae, Tabula Vitae. Never translate.",Do not translate
+Spiritus,"Latin, ""spirit"". The mod's magical energy type. Never translate, including in compounds like Spiritus Crystal and Raw Spiritus.",Do not translate
+Essentia Vitae,The mod's life-essence fluid. Never translate.,Do not translate
+Ara Vitae,The central altar block. Never translate.,Do not translate
+Tabula Vitae,The alchemy table block. Never translate.,Do not translate
+Scriptura Vitae,The in-game guide book. Never translate.,Do not translate
+Lex Vitae,A weapon item. Never translate.,Do not translate
+Athanor,An alchemical furnace block. Never translate.,Do not translate
+Animus,Coined term used for Animus Mote. Never translate.,Do not translate
+Anima,Player-bound energy pool. Never translate.,Do not translate
+Crystallum Fractura,A ritual name. Never translate.,Do not translate
+Tabula Rasa,Slate item tier 1. Never translate.,Do not translate
+Tabula Robur,Slate item tier 2. Never translate.,Do not translate
+Tabula Animata,Slate item tier 3. Never translate.,Do not translate
+Tabula Spiritus,Slate item tier 4. Never translate.,Do not translate
+Tabula Aetherea,Slate item tier 5. Never translate.,Do not translate
+Tabula Vial,Flask container item. Never translate.,Do not translate
+Tabula Ampoule,Flask container item. Never translate.,Do not translate
+Ruina,"One of four Spiritus aspects. Never translate, including in Spiritus Ruina and Ruina Dungeon Brick.",Do not translate
+Nihilum,One of four Spiritus aspects. Never translate.,Do not translate
+Vindicta,One of four Spiritus aspects. Never translate.,Do not translate
+Invictus,One of four Spiritus aspects. Never translate.,Do not translate
+Daemonium,"Genus name for all dungeon demons. Never translate, and never translate the species epithet that follows it.",Do not translate
+Daemonium Animaris,Dungeon mob. Never translate.,Do not translate
+Daemonium Corrodis,Dungeon mob. Never translate.,Do not translate
+Daemonium Cruoris,Dungeon mob. Never translate.,Do not translate
+Daemonium Doloris,Dungeon mob. Never translate.,Do not translate
+Daemonium Fervidis,Dungeon mob. Never translate.,Do not translate
+Daemonium Glaciaris,Dungeon mob. Never translate.,Do not translate
+Daemonium Ignis,Dungeon mob. Never translate.,Do not translate
+Daemonium Pestis,Dungeon mob. Never translate.,Do not translate
+Daemonium Rancoris,Dungeon mob. Never translate.,Do not translate
+Daemonium Voraxis,Dungeon mob. Never translate.,Do not translate
+Novicius,"Orb of Vitae rank 1. Never translate the rank word; ""Orb of Vitae"" may be localized.",Do not translate
+Discipulus,Orb of Vitae rank 2. Never translate the rank word.,Do not translate
+Magus,Orb of Vitae rank 3. Never translate the rank word.,Do not translate
+Veneficus,Orb of Vitae rank 4. Never translate the rank word.,Do not translate
+Dominus,Orb of Vitae rank 5. Never translate the rank word.,Do not translate
+Divinus,Orb of Vitae rank 6. Never translate the rank word.,Do not translate
+Sentient Armor,"The mod's upgradeable armor set. Translate, but keep one consistent rendering everywhere. Note: this is NOT ""Living Armour"" (that is the term from the original Blood Magic mod).",Translate consistently
+Hellfire Forge,A crafting station. Translate but keep consistent.,Translate consistently
+Master Ritual Stone,The central block of every ritual. Translate but keep consistent.,Translate consistently
+Ritual Configurator,Item used to configure rituals. Translate but keep consistent.,Translate consistently
+Ritual Diviner,Item used to build rituals. Translate but keep consistent.,Translate consistently
+Soul Network,Per-player energy network. Translate but keep consistent.,Translate consistently
+Sigil,Activatable magic item category. Translate but keep consistent.,Translate consistently
+Rune,Altar upgrade block category. Translate but keep consistent.,Translate consistently
+Aura,Per-chunk Spiritus field. Translate but keep consistent.,Translate consistently

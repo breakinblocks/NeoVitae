@@ -39,6 +39,8 @@ tools/*
 !tools/sync-wiki.sh
 !tools/git-hooks/
 !tools/git-hooks/*
+!tools/port-lang.py
+!tools/lang-key-map.json
 
 gradlew
 
@@ -63,3 +65,15 @@ metadata/cf.md
 metadata/ROADMAP.md
 
 metadata/showcase.md
+
+# Translation glossary is source, not generated data
+!crowdin/glossary.csv
+
+# Secrets - never commit
+.env
+.env.*
+!.env.example
+*.token
+*.pem
+secrets.txt
+crowdin_token*

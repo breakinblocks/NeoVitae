@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""Port Crowdin translations from the 26.1 branch down to dev (1.21.1).
+"""Port Crowdin translations from the main branch down to dev (1.21.1).
 
-Crowdin translates a single source file: 26.1's generated en_us.json. This
-script regenerates dev's translation files from 26.1's, remapping the keys
+Crowdin translates a single source file: main's generated en_us.json. This
+script regenerates dev's translation files from main's, remapping the keys
 whose names are forced to differ by the Minecraft version.
 
-Keys that exist only on 26.1 are carried over anyway: Minecraft ignores
+Keys that exist only on main are carried over anyway: Minecraft ignores
 translation keys nothing references, and pre-staging them means a feature
 backported to dev already has its translations.
 
 A key whose *English* differs between the two branches is skipped, because a
-translation made against 26.1's wording would silently misdescribe dev's
+translation made against main's wording would silently misdescribe dev's
 behaviour. Any such key keeps whatever dev already had.
 
 Usage (from the repo root):
     python tools/port-lang.py                  # write dev's lang files
     python tools/port-lang.py --check          # report only, exit 1 on drift
-    python tools/port-lang.py --source-ref X   # read from ref X instead of 26.1
+    python tools/port-lang.py --source-ref X   # read from ref X instead of main
 """
 
 import argparse
@@ -26,7 +26,7 @@ import pathlib
 import subprocess
 import sys
 
-SOURCE_REF = "26.1"
+SOURCE_REF = "main"
 TARGET_REF = "dev"
 SOURCE_EN_US = "src/generated/resources/assets/neovitae/lang/en_us.json"
 TARGET_EN_US = "src/generated/resources/assets/neovitae/lang/en_us.json"

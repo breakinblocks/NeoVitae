@@ -2,7 +2,7 @@ name: Crowdin
 
 on:
   push:
-    branches: [26.1]
+    branches: [main]
     paths:
       - src/generated/resources/assets/neovitae/lang/en_us.json
       - crowdin.yml
@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: "26.1"
+          ref: "main"
           fetch-depth: 0
 
       - name: Upload sources and download translations
@@ -42,10 +42,10 @@ jobs:
           pull_request_body: |
             Translations pulled from Crowdin.
 
-            Source of truth is `26.1`. After this merges, run
+            Source of truth is `main`. After this merges, run
             `git checkout dev && python tools/port-lang.py` to regenerate
             dev's translation files from these.
-          pull_request_base_branch_name: "26.1"
+          pull_request_base_branch_name: "main"
           config: crowdin.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

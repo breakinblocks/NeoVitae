@@ -156,6 +156,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("blood_lantern.desc", "Wards a 16-block radius against passive and ambient mob spawns.");
 
         add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
+        add("book.neovitae.altar_tier_info.header.tier", "Tier");
+        add("book.neovitae.altar_tier_info.header.runes", "Runes");
         add("gui.neovitae.tabula_vitae.side_allowed", "Allowed");
         add("gui.neovitae.tabula_vitae.side_blocked", "Blocked");
         add("gui.neovitae.tabula_vitae.side_hint", "Click to toggle hopper/pipe access");

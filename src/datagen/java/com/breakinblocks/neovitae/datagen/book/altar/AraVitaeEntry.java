@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.datagen.book.page.BookAltarTierInfoPageModel;
 import com.breakinblocks.neovitae.datagen.book.page.BookHellfireForgeRecipePageModel;
 import net.minecraft.resources.Identifier;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
@@ -84,6 +85,10 @@ public class AraVitaeEntry extends EntryProvider {
                 + "[#](4A0080)Anima[#](), the invisible network that binds your soul to all your vitaemantic instruments. "
                 + "Consult JEI for all recipes the Ara Vitae can perform.");
 
+        this.page("tier_table", () -> BookAltarTierInfoPageModel.create()
+                .withTitle(this.context().pageTitle()));
+        this.pageTitle("Runes by Tier");
+
         this.page("blank_rune", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("To ascend to greater tiers, you must place [#](8B0000)Blank Runes[#]() and arrange them "
@@ -109,7 +114,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("tier3_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 2[#]() expands the structure outward: 5 runes along each edge, set one level "
+        this.pageText("[#](B8860B)Tier 2[#]() expands the structure outward into an octagonal ring, three runes to a straight edge, set one level "
                 + "down and two blocks out from the previous ring. Stone pillars rise at each corner, capped with "
                 + "[#](8B0000)Blood Stained Glass[#](), light to guide the essence. Use a [#](8B0000)Divination Sigil[#]() to confirm "
                 + "the upgrade. Any solid block suffices for the pillar bodies.");
@@ -119,11 +124,11 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 2 Ara Vitae");
-        this.pageText("28 total runes. The altar's appetite deepens.");
+        this.pageText("24 total runes. The altar's appetite deepens.");
 
         this.page("tier4_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 3[#]() demands 7 runes per edge, another level down and two blocks further out. "
+        this.pageText("[#](B8860B)Tier 3[#]() widens the octagon to five runes a straight edge, another level down and two blocks further out. "
                 + "Four-block pillars rise at each corner, crowned with [#](8B0000)Bloodstone Bricks[#](), for which you "
                 + "will need [#](8B0000)Tau Fruit[#](), harvested from beyond the [#](4A0080)Breaching the Edge of Demon Realm[#]() ritual.");
 
@@ -132,11 +137,11 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 3 Ara Vitae");
-        this.pageText("56 total runes. The structure groans with barely-contained power.");
+        this.pageText("52 total runes. The structure groans with barely-contained power.");
 
         this.page("tier5_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 4[#]() calls for 13 runes per edge, three blocks out from the previous ring, "
+        this.pageText("[#](B8860B)Tier 4[#]() calls for a far broader octagon, three blocks out from the previous ring, "
                 + "with a one-block gap at each end. [#](8B0000)Hellforged Blocks[#]() anchor the corners, rare metal "
                 + "wrested from the [#](4A0080)Demon Realm[#]() itself. The Ara Vitae now commands fearsome energies.");
 
@@ -145,11 +150,11 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 4 Ara Vitae");
-        this.pageText("108 total runes. Few Vitaemancers dare reach this height.");
+        this.pageText("100 total runes. Few Vitaemancers dare reach this height.");
 
         this.page("tier6_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 5[#](), the apex of the art. 19 runes per edge sprawl outward, three blocks "
+        this.pageText("[#](B8860B)Tier 5[#](), the apex of the art. The widest octagon yet sprawls outward, three blocks "
                 + "beyond the last ring. No corner blocks at rune level; instead, pillars ascend one tier higher, "
                 + "crowned with [#](8B0000)Crystal Clusters[#]() that sing with resonant energy. A monument to mastery."
                 + "\\\n\\\nForge Crystal Clusters in the [#](8B0000)Hellfire Forge[#]() from [#](8B0000)Sculk[#](), "
@@ -164,7 +169,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 5 Ara Vitae");
-        this.pageText("184 total runes. The Ara Vitae becomes a cathedral of blood and stone.");
+        this.pageText("172 total runes. The Ara Vitae becomes a cathedral of blood and stone.");
     }
 
     @Override

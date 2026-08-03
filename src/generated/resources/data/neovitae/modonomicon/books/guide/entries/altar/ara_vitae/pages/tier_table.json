@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:altar_tier_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier_table",
+  "sort_number": 9,
+  "title": "book.neovitae.guide.altar.ara_vitae.tier_table.title"
+}

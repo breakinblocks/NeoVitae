@@ -1,5 +1,5 @@
 {
-  "_note": "Maps 26.1 translation keys to their dev (1.21.1) equivalents. Only keys whose name is forced to differ by the Minecraft version belong here.",
+  "_note": "Maps main-branch (MC 26.1) translation keys to their dev (1.21.1) equivalents. Only keys whose name is forced to differ by the Minecraft version belong here.",
   "map": {
     "key.category.neovitae.neovitae": "key.categories.neovitae"
   }

@@ -1086,6 +1086,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("recipe.meteor.fill", "Fill Block");
         addJei("recipe.meteor.weight", "Weight: %s");
         addJei("recipe.meteor.estimate", "Est: %s blocks (~%s%%)");
+        addJei("recipe.meteor.random_pool", "Random pick from %s blocks");
         addJei("recipe.arc", "Athanor");
         addJei("recipe.athanor.chance", "Chance: %s%%");
         addJei("recipe.athanor.spiritus_cost", "Spiritus Cost:");

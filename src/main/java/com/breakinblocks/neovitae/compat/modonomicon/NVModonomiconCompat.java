@@ -57,6 +57,11 @@ public class NVModonomiconCompat {
                 BookBloodOrbStatsPage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
+                NVPageTypes.ALTAR_TIER_INFO,
+                BookAltarTierInfoPage::fromJson,
+                BookAltarTierInfoPage::fromNetwork
+        );
+        LoaderRegistry.registerPageLoader(
                 NVPageTypes.SPIRITUS_GEM_STATS,
                 BookSpiritusGemStatsPage::fromJson,
                 BookSpiritusGemStatsPage::fromNetwork

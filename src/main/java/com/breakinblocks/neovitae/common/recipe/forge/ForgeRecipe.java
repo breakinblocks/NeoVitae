@@ -85,6 +85,10 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         return ingredientList.isEmpty();
     }
 
+    public boolean hasEnoughSpiritus(ForgeInput input) {
+        return input.getGem().getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D) >= minSpiritus;
+    }
+
     @Override
     public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();

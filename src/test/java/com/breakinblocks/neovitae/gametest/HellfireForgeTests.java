@@ -155,6 +155,90 @@ public final class HellfireForgeTests {
             });
         });
 
+        r.add("hellfire_forge/upgrades_petty_gem_to_lesser", 200, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (forge == null) return;
+
+                forge.inv.setStackInSlot(0, createGemWithSpiritus(64.0));
+                forge.inv.setStackInSlot(1, new ItemStack(Items.DIAMOND));
+                forge.inv.setStackInSlot(2, new ItemStack(Items.REDSTONE_BLOCK));
+                forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_BLOCK));
+
+                helper.runAfterDelay(150, () -> {
+                    ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
+                    if (output.isEmpty()) {
+                        helper.fail("Lesser gem upgrade did not craft, progress=" + forge.getProgress());
+                    }
+                    if (!output.is(NVItems.SPIRITUS_GEM_LESSER.get())) {
+                        helper.fail("Expected lesser gem, got " + output);
+                    }
+                    double carried = output.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                    if (carried != 44.0) {
+                        helper.fail("Lesser gem should carry 64 - 20 = 44 spiritus, got " + carried);
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("hellfire_forge/gem_slot_not_drained_by_input_gem_craft", 200, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (forge == null) return;
+
+                forge.inv.setStackInSlot(0, createGemWithSpiritus(64.0));
+                forge.inv.setStackInSlot(1, new ItemStack(Items.DIAMOND));
+                forge.inv.setStackInSlot(2, new ItemStack(Items.REDSTONE_BLOCK));
+                forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_BLOCK));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(64.0));
+
+                helper.runAfterDelay(150, () -> {
+                    ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
+                    if (output.isEmpty()) {
+                        helper.fail("Lesser gem upgrade did not craft with gem slot occupied, progress=" + forge.getProgress());
+                    }
+                    ItemStack sideGem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
+                    double sideSpiritus = sideGem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                    if (sideSpiritus != 64.0) {
+                        helper.fail("Gem slot did not fuel this craft and must not be drained, expected 64 got " + sideSpiritus);
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("hellfire_forge/reports_insufficient_spiritus", 200, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (forge == null) return;
+
+                forge.inv.setStackInSlot(0, createGemWithSpiritus(10.0));
+                forge.inv.setStackInSlot(1, new ItemStack(Items.DIAMOND));
+                forge.inv.setStackInSlot(2, new ItemStack(Items.REDSTONE_BLOCK));
+                forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_BLOCK));
+
+                helper.runAfterDelay(20, () -> {
+                    int status = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_STATUS);
+                    if (status != HellfireForgeBlockEntity.STATUS_NEEDS_SPIRITUS) {
+                        helper.fail("Expected STATUS_NEEDS_SPIRITUS, got " + status);
+                    }
+                    int required = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_REQUIRED_SPIRITUS);
+                    int stored = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_STORED_SPIRITUS);
+                    if (required != 60 || stored != 10) {
+                        helper.fail("Expected 10 / 60 reported, got " + stored + " / " + required);
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
         r.add("hellfire_forge/progress_resets_wrong_recipe", 150, helper -> {
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));

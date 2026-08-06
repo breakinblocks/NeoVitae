@@ -82,22 +82,48 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     public static final int OUTPUT_SLOT = 5;
 
     public static final int MAX_PROGRESS = 100;
+
+    public static final int DATA_PROGRESS = 0;
+    public static final int DATA_STATUS = 1;
+    public static final int DATA_REQUIRED_SPIRITUS = 2;
+    public static final int DATA_STORED_SPIRITUS = 3;
+    public static final int DATA_COUNT = 4;
+
+    public static final int STATUS_IDLE = 0;
+    public static final int STATUS_CRAFTING = 1;
+    public static final int STATUS_NEEDS_SPIRITUS = 2;
+
     protected int progress = 0;
+    protected int status = STATUS_IDLE;
+    protected int requiredSpiritus = 0;
+    protected int storedSpiritus = 0;
 
     public final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int index) {
-            return progress;
+            return switch (index) {
+                case DATA_PROGRESS -> progress;
+                case DATA_STATUS -> status;
+                case DATA_REQUIRED_SPIRITUS -> requiredSpiritus;
+                case DATA_STORED_SPIRITUS -> storedSpiritus;
+                default -> 0;
+            };
         }
 
         @Override
         public void set(int index, int value) {
-            progress = value;
+            switch (index) {
+                case DATA_PROGRESS -> progress = value;
+                case DATA_STATUS -> status = value;
+                case DATA_REQUIRED_SPIRITUS -> requiredSpiritus = value;
+                case DATA_STORED_SPIRITUS -> storedSpiritus = value;
+                default -> { }
+            }
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return DATA_COUNT;
         }
     };
 
@@ -123,20 +149,20 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
                 ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, serverLevel)
                 : Optional.empty();
         if (recipeOptional.isEmpty()) {
-            if (tile.progress > 0) {
-                tile.progress = 0;
-                tile.setChanged();
-            }
+            tile.abortCraft(STATUS_IDLE, 0, 0);
             return;
         }
 
         ForgeRecipe recipe = recipeOptional.get().value();
+        if (!recipe.hasEnoughSpiritus(input)) {
+            tile.abortCraft(STATUS_NEEDS_SPIRITUS, recipe.minSpiritus,
+                    input.getGem().getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D));
+            return;
+        }
+
         ItemStack output = recipe.assemble(input);
         if (output.isEmpty()) {
-            if (tile.progress > 0) {
-                tile.progress = 0;
-                tile.setChanged();
-            }
+            tile.abortCraft(STATUS_IDLE, 0, 0);
             return;
         }
 
@@ -144,14 +170,12 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         if (!currentOutput.isEmpty()) {
             if (!ItemStack.isSameItemSameComponents(currentOutput, output) ||
                     currentOutput.getCount() + output.getCount() > currentOutput.getMaxStackSize()) {
-                if (tile.progress > 0) {
-                    tile.progress = 0;
-                    tile.setChanged();
-                }
+                tile.abortCraft(STATUS_IDLE, 0, 0);
                 return;
             }
         }
 
+        tile.status = STATUS_CRAFTING;
         if (tile.progress == 0) {
             level.playSound(null, pos, NVSounds.HELLFIRE_FORGE_CRAFT.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
         }
@@ -169,15 +193,17 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         NeoVitaeCraftedEvent.Forge event = new NeoVitaeCraftedEvent.Forge(output, input.asArray());
         NeoForge.EVENT_BUS.post(event);
 
-        ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
-        if (!gemStack.isEmpty()) {
-            double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-            will -= recipe.usedSpiritus;
-            if (will <= 0 && gemStack.is(NVItems.RAW_SPIRITUS)) {
-                tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
-            } else {
-                gemStack.set(NVDataComponents.SPIRITUS_AMOUNT, Math.max(0, will));
-                tile.inv.setStackInSlot(GEM_SLOT, gemStack);
+        if (input.getGemIndex() == GEM_SLOT) {
+            ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
+            if (!gemStack.isEmpty()) {
+                double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                will -= recipe.usedSpiritus;
+                if (will <= 0 && gemStack.is(NVItems.RAW_SPIRITUS)) {
+                    tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
+                } else {
+                    gemStack.set(NVDataComponents.SPIRITUS_AMOUNT, Math.max(0, will));
+                    tile.inv.setStackInSlot(GEM_SLOT, gemStack);
+                }
             }
         }
 
@@ -204,7 +230,19 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         }
 
         tile.progress = 0;
+        tile.status = STATUS_IDLE;
         tile.setChanged();
+    }
+
+    private void abortCraft(int newStatus, double required, double stored) {
+        boolean wasCrafting = progress > 0;
+        progress = 0;
+        status = newStatus;
+        requiredSpiritus = (int) Math.ceil(required);
+        storedSpiritus = (int) Math.floor(stored);
+        if (wasCrafting) {
+            setChanged();
+        }
     }
 
     private static void absorbSpiritusFromChunk(Level level, BlockPos pos, HellfireForgeBlockEntity tile) {

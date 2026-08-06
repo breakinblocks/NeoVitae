@@ -79,6 +79,7 @@ public class RitualTormentNexus extends Ritual {
 
     private final Map<BlockPos, Double> vanillaSpawnerAccumulators = new LinkedHashMap<>();
     private final Map<BlockPos, Double> trialSpawnerAccumulators = new LinkedHashMap<>();
+    private final Map<BlockPos, Double> trialRewardAccumulators = new LinkedHashMap<>();
     private BlockPos altarOffsetPos = null;
     private int refreshesSinceScan = 0;
 
@@ -155,6 +156,7 @@ public class RitualTormentNexus extends Ritual {
         }
         vanillaSpawnerAccumulators.clear();
         trialSpawnerAccumulators.clear();
+        trialRewardAccumulators.clear();
     }
 
     private void scanArea(ServerLevel level, IMasterRitualStone master) {
@@ -186,6 +188,7 @@ public class RitualTormentNexus extends Ritual {
         vanillaSpawnerAccumulators.putAll(nextVanilla);
         trialSpawnerAccumulators.clear();
         trialSpawnerAccumulators.putAll(nextTrial);
+        trialRewardAccumulators.keySet().retainAll(nextTrial.keySet());
 
         for (BlockPos p : vanillaSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
         for (BlockPos p : trialSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
@@ -262,6 +265,7 @@ public class RitualTormentNexus extends Ritual {
             for (BlockPos pos : new ArrayList<>(trialSpawnerAccumulators.keySet())) {
                 if (!(level.getBlockEntity(pos) instanceof TrialSpawnerBlockEntity ts)) {
                     trialSpawnerAccumulators.remove(pos);
+                    trialRewardAccumulators.remove(pos);
                     SUPPRESSED_SPAWNERS.remove(GlobalPos.of(level.dimension(), pos));
                     continue;
                 }
@@ -285,6 +289,14 @@ public class RitualTormentNexus extends Ritual {
                     totalKills++;
                 }
                 if (ranOutOfEv) break;
+
+                double rewardProgress = trialRewardAccumulators.getOrDefault(pos, 0.0) + refreshTicks;
+                int rewards = (int) (rewardProgress / snap.cooldownTicks());
+                trialRewardAccumulators.put(pos, rewardProgress - (double) rewards * snap.cooldownTicks());
+                for (int i = 0; i < rewards; i++) {
+                    ejectTrialReward(level, snap, level.getRandom(), chestInv);
+                }
+
                 level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 6, 0.3, 0.3, 0.3, 0.02);
             }
         }
@@ -314,6 +326,7 @@ public class RitualTormentNexus extends Ritual {
             BlockPos p = tit.next().getKey();
             if (!(level.getBlockEntity(p) instanceof TrialSpawnerBlockEntity)) {
                 SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
+                trialRewardAccumulators.remove(p);
                 tit.remove();
             }
         }
@@ -345,7 +358,8 @@ public class RitualTormentNexus extends Ritual {
         return new VanillaSpawnerSnapshot(et, count, avg);
     }
 
-    private record TrialSnapshot(EntityType<?> entityType, int ticksBetweenSpawn, float simultaneousMobs) {}
+    private record TrialSnapshot(EntityType<?> entityType, int ticksBetweenSpawn, float simultaneousMobs,
+                                 int cooldownTicks, WeightedList<ResourceKey<LootTable>> rewardTables) {}
 
     private TrialSnapshot readTrialSpawner(TrialSpawnerBlockEntity be, RandomSource rng) {
         TrialSpawnerConfig cfg = be.getTrialSpawner().activeConfig();
@@ -357,7 +371,21 @@ public class RitualTormentNexus extends Ritual {
                 if (e != null) { picked = e; break; }
             }
         }
-        return new TrialSnapshot(picked, Math.max(1, cfg.ticksBetweenSpawn()), Math.max(1f, cfg.simultaneousMobs()));
+        return new TrialSnapshot(picked, Math.max(1, cfg.ticksBetweenSpawn()), Math.max(1f, cfg.simultaneousMobs()),
+                Math.max(1, be.getTrialSpawner().getTargetCooldownLength()), cfg.lootTablesToEject());
+    }
+
+    private void ejectTrialReward(ServerLevel level, TrialSnapshot snap, RandomSource rng,
+            ResourceHandler<ItemResource> chestInv) {
+        if (chestInv == null || snap.rewardTables() == null) return;
+        ResourceKey<LootTable> key = snap.rewardTables().getRandom(rng).orElse(null);
+        if (key == null) return;
+        LootTable table = level.getServer().reloadableRegistries().getLootTable(key);
+        if (table == LootTable.EMPTY) return;
+        LootParams params = new LootParams.Builder(level).create(LootContextParamSets.EMPTY);
+        for (ItemStack drop : table.getRandomItems(params)) {
+            if (!drop.isEmpty()) Utils.insertItemStacked(chestInv, drop, false);
+        }
     }
 
     private EntityType<?> entityFromSpawnData(SpawnData sd) {
@@ -459,6 +487,8 @@ public class RitualTormentNexus extends Ritual {
         trialSpawnerAccumulators.clear();
         readAccumulatorList(tag, "VanillaSpawners", vanillaSpawnerAccumulators);
         readAccumulatorList(tag, "TrialSpawners", trialSpawnerAccumulators);
+        trialRewardAccumulators.clear();
+        readAccumulatorList(tag, "TrialRewards", trialRewardAccumulators);
     }
 
     private static void readAccumulatorList(CompoundTag tag, String key, Map<BlockPos, Double> out) {
@@ -478,6 +508,7 @@ public class RitualTormentNexus extends Ritual {
         RitualHelper.writeAltarOffset(tag, altarOffsetPos);
         tag.put("VanillaSpawners", writeAccumulatorList(vanillaSpawnerAccumulators));
         tag.put("TrialSpawners", writeAccumulatorList(trialSpawnerAccumulators));
+        tag.put("TrialRewards", writeAccumulatorList(trialRewardAccumulators));
     }
 
     private static ListTag writeAccumulatorList(Map<BlockPos, Double> source) {

@@ -6,6 +6,7 @@ import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
+import com.breakinblocks.neovitae.compat.enderio.EnderIOCompat;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -80,6 +81,7 @@ public class RitualTormentNexus extends Ritual {
     private final Map<BlockPos, Double> vanillaSpawnerAccumulators = new LinkedHashMap<>();
     private final Map<BlockPos, Double> trialSpawnerAccumulators = new LinkedHashMap<>();
     private final Map<BlockPos, Double> trialRewardAccumulators = new LinkedHashMap<>();
+    private final Map<BlockPos, Double> poweredSpawnerAccumulators = new LinkedHashMap<>();
     private BlockPos altarOffsetPos = null;
     private int refreshesSinceScan = 0;
 
@@ -153,10 +155,14 @@ public class RitualTormentNexus extends Ritual {
             for (BlockPos pos : trialSpawnerAccumulators.keySet()) {
                 SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
             }
+            for (BlockPos pos : poweredSpawnerAccumulators.keySet()) {
+                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
+            }
         }
         vanillaSpawnerAccumulators.clear();
         trialSpawnerAccumulators.clear();
         trialRewardAccumulators.clear();
+        poweredSpawnerAccumulators.clear();
     }
 
     private void scanArea(ServerLevel level, IMasterRitualStone master) {
@@ -167,6 +173,7 @@ public class RitualTormentNexus extends Ritual {
 
         Map<BlockPos, Double> nextVanilla = new LinkedHashMap<>();
         Map<BlockPos, Double> nextTrial = new LinkedHashMap<>();
+        Map<BlockPos, Double> nextPowered = new LinkedHashMap<>();
         for (BlockPos pos : range.getContainedPositions(masterPos)) {
             BlockEntity be = level.getBlockEntity(pos);
             BlockPos imm = pos.immutable();
@@ -174,6 +181,8 @@ public class RitualTormentNexus extends Ritual {
                 nextVanilla.put(imm, vanillaSpawnerAccumulators.getOrDefault(imm, 0.0));
             } else if (be instanceof TrialSpawnerBlockEntity) {
                 nextTrial.put(imm, trialSpawnerAccumulators.getOrDefault(imm, 0.0));
+            } else if (be != null && EnderIOCompat.isPoweredSpawner(be)) {
+                nextPowered.put(imm, poweredSpawnerAccumulators.getOrDefault(imm, 0.0));
             }
         }
 
@@ -183,15 +192,21 @@ public class RitualTormentNexus extends Ritual {
         for (BlockPos p : trialSpawnerAccumulators.keySet()) {
             if (!nextTrial.containsKey(p)) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
         }
+        for (BlockPos p : poweredSpawnerAccumulators.keySet()) {
+            if (!nextPowered.containsKey(p)) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
+        }
 
         vanillaSpawnerAccumulators.clear();
         vanillaSpawnerAccumulators.putAll(nextVanilla);
         trialSpawnerAccumulators.clear();
         trialSpawnerAccumulators.putAll(nextTrial);
         trialRewardAccumulators.keySet().retainAll(nextTrial.keySet());
+        poweredSpawnerAccumulators.clear();
+        poweredSpawnerAccumulators.putAll(nextPowered);
 
         for (BlockPos p : vanillaSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
         for (BlockPos p : trialSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
+        for (BlockPos p : poweredSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
     }
 
     @Override
@@ -305,6 +320,37 @@ public class RitualTormentNexus extends Ritual {
             }
         }
 
+        if (!ranOutOfEv) {
+            for (BlockPos pos : new ArrayList<>(poweredSpawnerAccumulators.keySet())) {
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be == null || !EnderIOCompat.isPoweredSpawner(be)) {
+                    poweredSpawnerAccumulators.remove(pos);
+                    SUPPRESSED_SPAWNERS.remove(GlobalPos.of(level.dimension(), pos));
+                    continue;
+                }
+                EnderIOCompat.PoweredSpawnerSnapshot snap = EnderIOCompat.readPoweredSpawner(be);
+                if (snap == null || snap.entityType() == null) continue;
+
+                double cycles = poweredSpawnerAccumulators.getOrDefault(pos, 0.0) + refreshTicks * snap.mobsPerTick();
+                int wholeKills = (int) cycles;
+                poweredSpawnerAccumulators.put(pos, cycles - wholeKills);
+                for (int n = 0; n < wholeKills; n++) {
+                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
+                    if (charge > 0 && ctx.currentEV() < charge) { ranOutOfEv = true; break; }
+                    KillResult kr = simulateKill(level, snap.entityType(), pos, fakePlayer, evModPercent, chestInv);
+                    if (charge > 0) {
+                        ctx.syphon(charge);
+                        evCharged += charge;
+                    }
+                    if (altar != null && kr.ev > 0) altar.addSacrificeEV(kr.ev, true);
+                    pendingXp += kr.xp;
+                    totalKills++;
+                }
+                if (ranOutOfEv) break;
+                level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 6, 0.3, 0.3, 0.3, 0.02);
+            }
+        }
+
         if (pendingXp > 0 && chestInv != null) {
             depositXpIntoTome(chestInv, (int) Math.min(pendingXp, Integer.MAX_VALUE));
         }
@@ -332,6 +378,15 @@ public class RitualTormentNexus extends Ritual {
                 SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
                 trialRewardAccumulators.remove(p);
                 tit.remove();
+            }
+        }
+        var pit = poweredSpawnerAccumulators.entrySet().iterator();
+        while (pit.hasNext()) {
+            BlockPos p = pit.next().getKey();
+            BlockEntity be = level.getBlockEntity(p);
+            if (be == null || !EnderIOCompat.isPoweredSpawner(be)) {
+                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
+                pit.remove();
             }
         }
     }
@@ -512,6 +567,13 @@ public class RitualTormentNexus extends Ritual {
             BlockPos p = NbtUtils.readBlockPos(e, "pos").orElse(null);
             if (p != null) trialRewardAccumulators.put(p, e.getDouble("acc"));
         }
+        poweredSpawnerAccumulators.clear();
+        ListTag plist = tag.getList("PoweredSpawners", Tag.TAG_COMPOUND);
+        for (int i = 0; i < plist.size(); i++) {
+            CompoundTag e = plist.getCompound(i);
+            BlockPos p = NbtUtils.readBlockPos(e, "pos").orElse(null);
+            if (p != null) poweredSpawnerAccumulators.put(p, e.getDouble("acc"));
+        }
     }
 
     @Override
@@ -542,6 +604,14 @@ public class RitualTormentNexus extends Ritual {
             rlist.add(t);
         }
         tag.put("TrialRewards", rlist);
+        ListTag plist = new ListTag();
+        for (var e : poweredSpawnerAccumulators.entrySet()) {
+            CompoundTag t = new CompoundTag();
+            t.put("pos", NbtUtils.writeBlockPos(e.getKey()));
+            t.putDouble("acc", e.getValue());
+            plist.add(t);
+        }
+        tag.put("PoweredSpawners", plist);
     }
 
     @Override

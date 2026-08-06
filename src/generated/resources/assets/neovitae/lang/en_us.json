@@ -2831,7 +2831,7 @@
   "tooltip.neovitae.sigil.blood_light.color": "Color: %s",
   "tooltip.neovitae.sigil.blood_light.desc": "Creates a configurable colored light source",
   "tooltip.neovitae.sigil.blood_light.rainbow": "Rainbow",
-  "tooltip.neovitae.sigil.bound_treasures.desc": "Stores up to five items inside the sigil. Right-click in air to store the item in your offhand, sneak + right-click to retrieve.",
+  "tooltip.neovitae.sigil.bound_treasures.desc": "Opens a bound container from anywhere. Shift right-click a container to bind.",
   "tooltip.neovitae.sigil.damned.desc": "The blood of the fallen empowers the bearer.",
   "tooltip.neovitae.sigil.damned.sacrifice": "+25 Bonus Sacrifice",
   "tooltip.neovitae.sigil.damned.siphon": "+10 Blood Siphon (heal on kill)",

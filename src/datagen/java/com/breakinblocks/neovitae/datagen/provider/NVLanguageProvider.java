@@ -1013,7 +1013,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.green_grove.desc", "Accelerates plant growth nearby");
         addTooltip("sigil.water.desc", "Places water source blocks");
         addTooltip("sigil.lava.desc", "Places lava source blocks");
-        addTooltip("sigil.bound_treasures.desc", "Stores up to five items inside the sigil. Right-click in air to store the item in your offhand, sneak + right-click to retrieve.");
+        addTooltip("sigil.bound_treasures.desc", "Opens a bound container from anywhere. Shift right-click a container to bind.");
         addTooltip("sigil.necromancy.desc", "Reanimates the bones of fallen mobs into temporary skeletal allies under your command.");
 
         addTooltip("sigil.teleposition.unbound", "This sigil is not bound to a Teleposer. Right-click a Teleposer to bind.");

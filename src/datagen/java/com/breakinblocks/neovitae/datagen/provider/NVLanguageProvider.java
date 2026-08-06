@@ -154,6 +154,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("book.neovitae.altar_tier_info.header.tier", "Tier");
         add("book.neovitae.altar_tier_info.header.runes", "Runes");
         add("gui.neovitae.routing.match_components", "Match Components:");
+        add("gui.neovitae.hellfire_forge.needs_spiritus", "Not enough Spiritus: %s / %s");
+        add("gui.neovitae.hellfire_forge.needs_spiritus.hint", "A gem in a crafting slot fuels the craft instead of the gem slot");
         add("gui.neovitae.tabula_vitae.side_allowed", "Allowed");
         add("gui.neovitae.tabula_vitae.side_blocked", "Blocked");
         add("gui.neovitae.tabula_vitae.side_hint", "Click to toggle hopper/pipe access");

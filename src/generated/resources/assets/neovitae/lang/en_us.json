@@ -2008,6 +2008,8 @@
   "gui.neovitae.configurator.tooltip.single": "Single block slot, placed with one click",
   "gui.neovitae.configurator.tooltip.size": "Size: %s x %s x %s",
   "gui.neovitae.configurator.tooltip.volume": "Volume: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Not enough Spiritus: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "A gem in a crafting slot fuels the craft instead of the gem slot",
   "gui.neovitae.hud.cancel": "Cancel",
   "gui.neovitae.hud.default": "Default",
   "gui.neovitae.hud.save": "Save",

@@ -122,6 +122,13 @@ public class RitualTormentNexus extends Ritual {
                     && Math.abs(sp.getY() - at.getY()) <= 6) {
                 event.setSpawnCancelled(true);
                 event.setCanceled(true);
+                for (Entity passenger : entity.getIndirectPassengers()) {
+                    if (passenger instanceof Mob rider) {
+                        rider.setSpawnCancelled(true);
+                    } else {
+                        passenger.discard();
+                    }
+                }
                 return;
             }
         }

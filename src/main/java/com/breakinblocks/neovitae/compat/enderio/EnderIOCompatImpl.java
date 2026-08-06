@@ -20,6 +20,7 @@ final class EnderIOCompatImpl {
 
     private static Method getMode;
     private static Method isCapacitorInstalled;
+    private static Method hasEnergy;
     private static Method hasSoul;
     private static Method getBoundSoul;
     private static Method getMaxEnergyUse;
@@ -38,6 +39,7 @@ final class EnderIOCompatImpl {
 
         if (!(getMode.invoke(be) instanceof Enum<?> mode) || !"SPAWN".equals(mode.name())) return null;
         if (!(Boolean) isCapacitorInstalled.invoke(be)) return null;
+        if (!(Boolean) hasEnergy.invoke(be)) return null;
         if (!(Boolean) hasSoul.invoke(be)) return null;
 
         Object soul = getBoundSoul.invoke(be);
@@ -66,6 +68,7 @@ final class EnderIOCompatImpl {
 
         getMode = beClass.getMethod("getMode");
         isCapacitorInstalled = beClass.getMethod("isCapacitorInstalled");
+        hasEnergy = beClass.getMethod("hasEnergy");
         hasSoul = beClass.getMethod("hasSoul");
         getBoundSoul = beClass.getMethod("getBoundSoul");
         getMaxEnergyUse = beClass.getMethod("getMaxEnergyUse");

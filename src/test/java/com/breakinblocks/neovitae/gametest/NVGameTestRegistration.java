@@ -21,6 +21,7 @@ public class NVGameTestRegistration {
         HarvestTests.register(r);
         HellfireForgeTests.register(r);
         ImperfectRitualTests.register(r);
+        LexVitaeTests.register(r);
         MinorSystemTests.register(r);
         MultiblockTests.register(r);
         RoutingNodeTests.register(r);

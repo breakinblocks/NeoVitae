@@ -157,6 +157,33 @@ public class LexVitaeItem extends Item implements ISentientTool {
     private static final Map<UUID, Long> BEAM_COOLDOWN = new HashMap<>();
     private static final Set<UUID> BEAMING = ConcurrentHashMap.newKeySet();
 
+    public static final int ATTACK_BLOCKS_MINING_TICKS = 20;
+    public static final int MINING_BLOCKS_ATTACK_TICKS = 8;
+
+    private static final Map<UUID, Long> LAST_ENTITY_HIT = new ConcurrentHashMap<>();
+    private static final Map<UUID, Long> LAST_BLOCK_MINED = new ConcurrentHashMap<>();
+
+    public static void markEntityHit(Player player) {
+        LAST_ENTITY_HIT.put(player.getUUID(), player.level().getGameTime());
+    }
+
+    public static void markBlockMined(Player player) {
+        LAST_BLOCK_MINED.put(player.getUUID(), player.level().getGameTime());
+    }
+
+    public static boolean attackedRecently(Player player) {
+        return within(LAST_ENTITY_HIT, player, ATTACK_BLOCKS_MINING_TICKS);
+    }
+
+    public static boolean minedRecently(Player player) {
+        return within(LAST_BLOCK_MINED, player, MINING_BLOCKS_ATTACK_TICKS);
+    }
+
+    private static boolean within(Map<UUID, Long> times, Player player, int ticks) {
+        Long last = times.get(player.getUUID());
+        return last != null && player.level().getGameTime() - last < ticks;
+    }
+
     public static boolean isActive(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.LEX_ACTIVE, false);
     }
@@ -203,6 +230,9 @@ public class LexVitaeItem extends Item implements ISentientTool {
             stack.hurtAndBreak(1, miner, EquipmentSlot.MAINHAND);
         }
         if (miner instanceof Player player) {
+            if (!isBeaming(player)) {
+                markBlockMined(player);
+            }
             recalculatePowers(stack, level, player);
         }
         return true;
@@ -241,6 +271,8 @@ public class LexVitaeItem extends Item implements ISentientTool {
     public static void clearBeaming(UUID id) {
         BEAMING.remove(id);
         BEAM_COOLDOWN.remove(id);
+        LAST_ENTITY_HIT.remove(id);
+        LAST_BLOCK_MINED.remove(id);
     }
 
     public static void fireBeam(Level level, Player player, ItemStack stack) {
@@ -384,6 +416,8 @@ public class LexVitaeItem extends Item implements ISentientTool {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         if (!isActive(stack)) return true;
+        if (minedRecently(player)) return true;
+        markEntityHit(player);
         recalculatePowers(stack, player.level(), player);
         return handleSpiritusDrain(stack, player);
     }

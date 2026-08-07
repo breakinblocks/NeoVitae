@@ -4,5 +4,6 @@
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runy według poziomu",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Za mało Spirytu: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Klejnot w slocie rzemieślniczym paliwuje rzemiosło zamiast gniazda klejnotów.",
-  "jei.neovitae.recipe.meteor.random_pool": "Losowy wybór z bloków %s"
+  "jei.neovitae.recipe.meteor.random_pool": "Losowy wybór z bloków %s",
+  "key.neovitae.open_guide": "Otwórz Witrynę Scriptura dla przedmiotu Hovered"
 }

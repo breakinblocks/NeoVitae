@@ -4,5 +4,6 @@
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Juoksee tason mukaan",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Ei tarpeeksi Spiritus: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Helmi nikkarointiin rako polttoainetta veneen sijaan helmi korttipaikka",
-  "jei.neovitae.recipe.meteor.random_pool": "Valitse satunnainen %s -lohkosta"
+  "jei.neovitae.recipe.meteor.random_pool": "Valitse satunnainen %s -lohkosta",
+  "key.neovitae.open_guide": "Avaa Scriptura Vitae kattavalle tavaralle"
 }

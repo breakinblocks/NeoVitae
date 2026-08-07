@@ -1,5 +1,8 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Kjører",
   "book.neovitae.altar_tier_info.header.tier": "Nivå",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Kjører etter nivå"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Kjører etter nivå",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Ikke nok Ånd: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Et edelhåndverk i en lageplass lager lager i stedet for tannspeilet",
+  "jei.neovitae.recipe.meteor.random_pool": "Tilfeldig plukk fra %s blokker"
 }

@@ -53,7 +53,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("An empty [#](8B0000)Ara Vitae[#]() hungers. Lay a [#](8B0000)diamond[#]() upon a bare altar and, "
                 + "having no stored [#](4A0080)Essentia Vitae[#]() of its own, it reaches out and draws blood from any "
-                + "nearby who carry no [#](8B0000)Blood Orb[#](), spilling their life into the basin until the working is "
+                + "nearby who carry no [#](8B0000)Orb of Vitae[#](), spilling their life into the basin until the working is "
                 + "done. None are slain by this; the altar takes only what it needs.\\\n\\\nThe basin holds "
                 + "[#](8B0000)10,000 EV[#]() at first. Watch the "
                 + "crimson pool within; its level reveals how full the vessel is. A [#](8B0000)Divination Sigil[#]() reveals "
@@ -61,7 +61,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("orb_bleed", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you hold a [#](8B0000)Blood Orb[#](), right-click it to open your veins. Standing near an "
+        this.pageText("Once you hold an [#](8B0000)Orb of Vitae[#](), right-click it to open your veins. Standing near an "
                 + "[#](8B0000)Ara Vitae[#](), the blood flows straight into the basin; away from one, that life is stored "
                 + "within the orb itself to carry and pour into an altar later.");
 

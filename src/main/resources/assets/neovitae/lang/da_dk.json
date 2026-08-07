@@ -1,5 +1,9 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Runer",
   "book.neovitae.altar_tier_info.header.tier": "Niveau",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Kører efter niveau"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Kører efter niveau",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Ikke nok Spiritus: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "En perle i en crafting slot brændstoffer fartøjet i stedet for perle slot",
+  "jei.neovitae.recipe.meteor.random_pool": "Tilfældig pluk fra %s blokke",
+  "key.neovitae.open_guide": "Åbn Scriptura Vitae for Overdækket element"
 }

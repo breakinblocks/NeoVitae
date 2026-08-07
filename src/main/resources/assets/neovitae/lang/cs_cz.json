@@ -1,5 +1,9 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Runy",
   "book.neovitae.altar_tier_info.header.tier": "Úroveň",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Sběry podle úrovně"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Sběry podle úrovně",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Nedostatek ducha: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Gem ve výrobní pozici palivo, které plavidlo místo slotu drahokamů",
+  "jei.neovitae.recipe.meteor.random_pool": "Náhodný výběr z %s bloků",
+  "key.neovitae.open_guide": "Otevřít Scriptura Vitae pro oblečení"
 }

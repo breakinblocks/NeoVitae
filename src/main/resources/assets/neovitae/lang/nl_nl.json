@@ -1,5 +1,8 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Runen",
   "book.neovitae.altar_tier_info.header.tier": "Niveau",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Uitvoeren op Tier"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Uitvoeren op Tier",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Niet genoeg Spiritus: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Een edelsteen in een werkplek voedt het schip in plaats van het edelsteenvakje",
+  "jei.neovitae.recipe.meteor.random_pool": "Willekeurig kiezen uit %s blokken"
 }

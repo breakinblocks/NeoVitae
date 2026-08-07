@@ -1,5 +1,7 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Runas",
   "book.neovitae.altar_tier_info.header.tier": "Camada",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runas por Nível"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runas por Nível",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Espírito insuficiente: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Uma gema em um espaço de criação alimenta a forja ao invés do espaço de gema"
 }

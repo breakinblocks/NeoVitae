@@ -115,6 +115,7 @@ public class MaterialRegistry {
         );
         GENERATED_PACK = new InMemoryPack(locationInfo);
         JsonObject lang = new JsonObject();
+        Map<String, JsonObject> localizedLang = new LinkedHashMap<>();
 
         for (MaterialDefinition mat : MATERIALS) {
             String displayName = mat.getDisplayName();
@@ -140,6 +141,14 @@ public class MaterialRegistry {
                         GSON.toJson(model));
 
                 lang.addProperty("item.neovitae." + itemId, displayName + " " + stageName);
+
+                for (String locale : MaterialTranslations.locales()) {
+                    String localized = MaterialTranslations.nameFor(locale, mat.getName(), stage);
+                    if (localized != null) {
+                        localizedLang.computeIfAbsent(locale, l -> new JsonObject())
+                                .addProperty("item.neovitae." + itemId, localized);
+                    }
+                }
             }
 
             if (mat.getSmeltTo() != null && !mat.getSmeltTo().isEmpty() && mat.hasStage("dust")) {
@@ -160,7 +169,14 @@ public class MaterialRegistry {
                 ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "lang/en_us.json"),
                 GSON.toJson(lang));
 
-        NeoVitae.LOGGER.info("Populated in-memory resource pack for {} materials", MATERIALS.size());
+        for (Map.Entry<String, JsonObject> entry : localizedLang.entrySet()) {
+            GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
+                    ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "lang/" + entry.getKey() + ".json"),
+                    GSON.toJson(entry.getValue()));
+        }
+
+        NeoVitae.LOGGER.info("Populated in-memory resource pack for {} materials ({} localized)",
+                MATERIALS.size(), localizedLang.size());
     }
 
     private static void addSmeltingRecipe(String materialName, String input, String result, float xp, int cookTime, String recipeType) {

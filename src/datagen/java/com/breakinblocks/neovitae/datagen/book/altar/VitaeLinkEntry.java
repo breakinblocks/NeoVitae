@@ -79,7 +79,7 @@ public class VitaeLinkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Orb Vitae Link");
         this.pageText("A cousin of the Link, the [#](8B0000)Orb Vitae Link[#]() does not craft; it [#](8B0000)charges[#](). "
-                + "Seat a single [#](8B0000)Blood Orb[#]() within it (use with an orb in hand, use empty-handed to take it "
+                + "Seat a single [#](8B0000)Orb of Vitae[#]() within it (use with an orb in hand, use empty-handed to take it "
                 + "back), and it pulls [#](4A0080)Essentia Vitae[#]() from its bound altar straight into the orb owner's "
                 + "[#](8B0000)Anima[#](), at the altar's [#](8B0000)full tier[#]() and runes, until the network is full.\\\n\\\n"
                 + "[#](2E8B57)It sits lowest in the chain: it draws only while the altar is idle and no Vitae Link is "

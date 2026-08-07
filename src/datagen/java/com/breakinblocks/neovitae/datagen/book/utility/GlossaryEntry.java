@@ -69,7 +69,7 @@ public class GlossaryEntry extends EntryProvider {
                 + "- [#](8B0000)Blood[#]() (raw): torn from living flesh by blade or sacrifice\n"
                 + "- [#](4A0080)Essentia Vitae[#]() (refined): sanctified within the [#](8B0000)Ara Vitae[#](), "
                 + "pooling as luminous crimson fluid\\\n\\\n"
-                + "The Ara Vitae transmutes blood into EV. A [#](8B0000)Orb of Vitae[#]() placed within draws that EV "
+                + "The Ara Vitae transmutes blood into EV. An [#](8B0000)Orb of Vitae[#]() placed within draws that EV "
                 + "into your [#](4A0080)Anima[#](), where it fuels your instruments across any distance.");
     }
 

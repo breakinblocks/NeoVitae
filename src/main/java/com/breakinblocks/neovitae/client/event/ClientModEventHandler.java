@@ -248,12 +248,16 @@ public class ClientModEventHandler {
     public static final KeyMapping LEX_MODE = new KeyMapping(
             "key.neovitae.lex_mode", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, "key.categories.neovitae");
 
+    public static final KeyMapping OPEN_GUIDE = new KeyMapping(
+            "key.neovitae.open_guide", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "key.categories.neovitae");
+
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(OPEN_HUD_EDIT);
         event.register(LEX_BEAM);
         event.register(BLOOD_SHIELD);
         event.register(LEX_MODE);
+        event.register(OPEN_GUIDE);
     }
 
     @SubscribeEvent

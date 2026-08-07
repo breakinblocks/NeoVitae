@@ -2,5 +2,8 @@
   "book.neovitae.altar_tier_info.header.runes": "Runes",
   "book.neovitae.altar_tier_info.header.tier": "Palier",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runes par palier",
-  "jei.neovitae.recipe.meteor.random_pool": "Choix aléatoire parmi les blocs %s"
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Pas assez d'esprit: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Une gemme dans un emplacement de fabrication alimente l'artisanat au lieu de l'emplacement de gemmes",
+  "jei.neovitae.recipe.meteor.random_pool": "Choix aléatoire parmi les blocs %s",
+  "key.neovitae.open_guide": "Ouvrir Scriptura Vitae pour l'élément survolé"
 }

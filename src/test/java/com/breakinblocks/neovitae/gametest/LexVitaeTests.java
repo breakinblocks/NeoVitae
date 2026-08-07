@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -40,7 +42,46 @@ public final class LexVitaeTests {
         return event.isCanceled();
     }
 
+    public static final class BreakBlocker {
+        private final BlockPos protectedPos;
+
+        BreakBlocker(BlockPos protectedPos) {
+            this.protectedPos = protectedPos;
+        }
+
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        public void onBreak(BreakBlockEvent event) {
+            if (event.getPos().equals(this.protectedPos)) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
     public static void register(NVTestRegistrar r) {
+        r.add("lex_vitae/aoe_respects_block_protection", 60, helper -> {
+            BlockPos below = new BlockPos(2, 0, 2);
+            BlockPos center = new BlockPos(2, 1, 2);
+            BlockPos guarded = new BlockPos(2, 2, 2);
+            helper.setBlock(below, Blocks.STONE.defaultBlockState());
+            helper.setBlock(center, Blocks.STONE.defaultBlockState());
+            helper.setBlock(guarded, Blocks.STONE.defaultBlockState());
+            Player player = armedPlayer(helper, 1);
+
+            BreakBlocker blocker = new BreakBlocker(helper.absolutePos(guarded));
+            NeoForge.EVENT_BUS.register(blocker);
+
+            helper.runAfterDelay(1, () -> {
+                try {
+                    postBreak(helper, player, helper.absolutePos(center));
+                    helper.assertBlockPresent(Blocks.STONE, guarded);
+                    helper.assertBlockNotPresent(Blocks.STONE, below);
+                    helper.succeed();
+                } finally {
+                    NeoForge.EVENT_BUS.unregister(blocker);
+                }
+            });
+        });
+
         r.add("lex_vitae/attack_blocks_mining", 60, helper -> {
             BlockPos pos = new BlockPos(2, 1, 2);
             helper.setBlock(pos, Blocks.STONE.defaultBlockState());

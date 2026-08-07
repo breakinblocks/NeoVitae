@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
+import com.breakinblocks.neovitae.common.material.MaterialTranslations;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 
 public final class MinorSystemTests {
@@ -165,6 +166,33 @@ public final class MinorSystemTests {
 
             if (checked == 0) {
                 helper.fail("Expected at least one registered sigil");
+                return;
+            }
+            helper.succeed();
+        });
+
+        r.add("minor/material_translations_resolve", 30, helper -> {
+            if (!MaterialTranslations.locales().contains("zh_cn")) {
+                helper.fail("Expected a zh_cn material name table");
+                return;
+            }
+
+            String dust = MaterialTranslations.nameFor("zh_cn", "aluminum", "dust");
+            if (!"铝粉".equals(dust)) {
+                helper.fail("aluminum dust should be 铝粉, got " + dust);
+                return;
+            }
+
+            if (MaterialTranslations.nameFor("zh_cn", "not_a_material", "dust") != null) {
+                helper.fail("Unknown material should not resolve");
+                return;
+            }
+            if (MaterialTranslations.nameFor("zh_cn", "aluminum", "not_a_stage") != null) {
+                helper.fail("Unknown stage should not resolve");
+                return;
+            }
+            if (MaterialTranslations.nameFor("xx_yy", "aluminum", "dust") != null) {
+                helper.fail("Unknown locale should not resolve");
                 return;
             }
             helper.succeed();

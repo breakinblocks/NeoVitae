@@ -24,8 +24,9 @@ public class SpiritusInfusionEntry extends EntryProvider {
                 + "[#](8B0000)Spiritus Gem[#]() directly into a piece of equipment, granting it the ability "
                 + "to store [#](4A0080)Spiritus[#]() internally. The storage capacity matches the gem tier used: "
                 + "a Petty Gem grants 64, Lesser 256, Common 1,024, Greater 4,096, and Grand 16,384.\\\n\\\n"
-                + "Place any wearable armor, tool, weapon, or shield alongside a Spiritus Gem in the "
-                + "[#](8B0000)Hellfire Forge[#]() to infuse it. The gem is consumed in the process.");
+                + "Place a piece of wearable armor or a shield alongside a Spiritus Gem in the "
+                + "[#](8B0000)Hellfire Forge[#]() to infuse it. The gem is consumed in the process. "
+                + "Tools and weapons cannot hold an infusion, and an item can only be infused once.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

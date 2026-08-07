@@ -39,7 +39,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "for later expansion). Remain within five blocks of the altar to receive its blessing.[#]()\\\n\\\n"
                 + "When the altar awakens, flame particles dance from its crown and a "
                 + "[#](8B0000)Blessed Sacrifice[#]() settles upon you, lasting thirty seconds. While it holds, the next "
-                + "time you right-click your [#](8B0000)Blood Orb[#]() you spill a single, potent offering of nearly all "
+                + "time you right-click your [#](8B0000)Orb of Vitae[#]() you spill a single, potent offering of nearly all "
                 + "your blood into the orb, then fall into [#](8B0000)Soul Fray[#]() until you may be blessed again.");
 
         this.page("setup_image", () -> BookTextPageModel.create()

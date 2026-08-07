@@ -1,7 +1,9 @@
 package com.breakinblocks.neovitae.client.event;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -18,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -26,6 +29,7 @@ import com.breakinblocks.neovitae.common.block.IEnchantmentAmplifier;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
+import com.breakinblocks.neovitae.client.GuideQuickOpen;
 import com.breakinblocks.neovitae.client.hud.GuiEditHUD;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
@@ -52,9 +56,25 @@ public class ClientEventHandler {
             }
         }
 
+        while (ClientModEventHandler.OPEN_GUIDE.consumeClick()) {
+            GuideQuickOpen.openFor(GuideQuickOpen.hoveredStack());
+        }
+
         Level level = Minecraft.getInstance().level;
         if (level != null) {
             LoopSoundManager.tick(level);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onScreenKeyPressed(ScreenEvent.KeyPressed.Pre event) {
+        if (!(event.getScreen() instanceof AbstractContainerScreen<?>)) return;
+        if (ClientModEventHandler.OPEN_GUIDE.isUnbound()) return;
+        if (!ClientModEventHandler.OPEN_GUIDE.isActiveAndMatches(
+                InputConstants.getKey(event.getKeyEvent()))) return;
+
+        if (GuideQuickOpen.openFor(GuideQuickOpen.hoveredStack())) {
+            event.setCanceled(true);
         }
     }
 
@@ -64,6 +84,7 @@ public class ClientEventHandler {
         ClientHandler.setRitualHoloToNull();
         ClientHandler.setRitualRangeHoloToNull();
         LoopSoundManager.clear();
+        GuideQuickOpen.invalidate();
     }
 
     @SubscribeEvent

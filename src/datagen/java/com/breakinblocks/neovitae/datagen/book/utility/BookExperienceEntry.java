@@ -31,7 +31,7 @@ public class BookExperienceEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "experience_tome"))
                 .withText(this.context().pageText()));
-        this.pageText("Bind an [#](8B0000)Enchanted Book[#]() in gold, lapis, and [#](8B0000)Infused Slate[#]() around a [#](8B0000)Magician's Blood Orb[#]() to forge the [#](8B0000)Tome of Peritia[#]().");
+        this.pageText("Bind an [#](8B0000)Enchanted Book[#]() in gold, lapis, string, and [#](8B0000)Tabula Animata[#]() around a [#](8B0000)Veneficus Orb of Vitae[#]() to forge the [#](8B0000)Tome of Peritia[#]().");
 
         this.page("curios", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

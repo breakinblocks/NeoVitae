@@ -26,7 +26,7 @@ public class SelfSacrificeRuneEntry extends EntryProvider {
         this.pageText("The [#](8B0000)Rune of Self-Sacrifice[#]() honors the practitioner who spills their own blood "
                 + "for the art. Each rune carved into the altar's ring increases the [#](4A0080)Essentia Vitae[#]() "
                 + "yielded from your own wounds by [#](8B0000)+10%%[#](), stacking additively. Bleeding into your "
-                + "[#](8B0000)Blood Orb[#]() and the altar's own draw upon nearby blood mages alike benefit from this rune's blessing.");
+                + "[#](8B0000)Orb of Vitae[#]() and the altar's own draw upon nearby blood mages alike benefit from this rune's blessing.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "rune_sacrifice_self")));

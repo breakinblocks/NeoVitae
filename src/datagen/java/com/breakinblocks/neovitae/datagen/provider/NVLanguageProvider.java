@@ -794,6 +794,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("key.neovitae.lex_beam", "Lex Vitae: Fire Beam");
         add("key.neovitae.lex_mode", "Lex Vitae: Cycle Mode");
         add("key.neovitae.blood_shield", "Blood Shield (Orb of Vitae)");
+        add("key.neovitae.open_guide", "Open Scriptura Vitae for Hovered Item");
         add("key.category.neovitae.neovitae", "Neo Vitae");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 

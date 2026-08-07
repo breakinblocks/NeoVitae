@@ -9,7 +9,7 @@
   },
   "blood_altar_ambient": {
     "category": "block",
-    "sounds": [{"name": "neovitae:blood_altar_ambient", "stream": true}]
+    "sounds": [{"name": "neovitae:blood_altar_ambient"}]
   },
   "blood_altar_craft_start": {
     "category": "block",
@@ -29,7 +29,7 @@
   },
   "ritual_ambient": {
     "category": "block",
-    "sounds": [{"name": "neovitae:ritual_ambient", "stream": true}]
+    "sounds": [{"name": "neovitae:ritual_ambient"}]
   },
   "ritual_complete": {
     "category": "block",
@@ -37,7 +37,7 @@
   },
   "overgrowth": {
     "category": "block",
-    "sounds": [{"name": "neovitae:overgrowth", "stream": true}]
+    "sounds": [{"name": "neovitae:overgrowth"}]
   },
   "alchemy_array_activate": {
     "category": "block",
@@ -49,7 +49,7 @@
   },
   "hellfire_forge_ambient": {
     "category": "block",
-    "sounds": [{"name": "neovitae:hellfire_forge_ambient", "stream": true}]
+    "sounds": [{"name": "neovitae:hellfire_forge_ambient"}]
   },
   "hellfire_forge_craft": {
     "category": "block",
@@ -61,7 +61,7 @@
   },
   "athanor_bubble": {
     "category": "block",
-    "sounds": [{"name": "neovitae:athanor_bubble", "stream": true}]
+    "sounds": [{"name": "neovitae:athanor_bubble"}]
   },
   "athanor_complete": {
     "category": "block",
@@ -73,7 +73,7 @@
   },
   "tabula_vitae_craft": {
     "category": "block",
-    "sounds": [{"name": "neovitae:tabula_vitae_craft", "stream": true}]
+    "sounds": [{"name": "neovitae:tabula_vitae_craft"}]
   },
   "tabula_vitae_complete": {
     "category": "block",
@@ -118,7 +118,7 @@
   },
   "incense_ambient": {
     "category": "block",
-    "sounds": [{"name": "neovitae:incense_ambient", "stream": true}]
+    "sounds": [{"name": "neovitae:incense_ambient"}]
   },
   "blood_tank_fill": {
     "category": "block",

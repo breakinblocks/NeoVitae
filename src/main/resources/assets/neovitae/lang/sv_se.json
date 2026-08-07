@@ -1,5 +1,8 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Runor",
   "book.neovitae.altar_tier_info.header.tier": "Nivå",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runor av skikt"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runor av skikt",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Inte tillräckligt med Spiritus: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "En pärla i en crafting slot bränsle hantverket i stället för pärla slot",
+  "jei.neovitae.recipe.meteor.random_pool": "Slumpmässig plockning från %s block"
 }

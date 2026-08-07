@@ -1,5 +1,9 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "اسطوانات",
   "book.neovitae.altar_tier_info.header.tier": "مستوى",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "اسطوانات حسب المستوى"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "اسطوانات حسب المستوى",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "لا توجد روح كافية: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "جوهرة في فتحة تصنيع تغذي الحقل بدلا من فتحة الجوهرة",
+  "jei.neovitae.recipe.meteor.random_pool": "اختيار عشوائي من كتل %s",
+  "key.neovitae.open_guide": "فتح Scriptura Vitae للعنصر الساخن"
 }

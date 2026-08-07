@@ -1,5 +1,9 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Rune",
   "book.neovitae.altar_tier_info.header.tier": "Livello",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Rune per livello"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Rune per livello",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Spirito insufficiente: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Una gemma in uno slot di fabbricazione alimenta il mestiere invece dello slot gemma",
+  "jei.neovitae.recipe.meteor.random_pool": "Scelta casuale dai blocchi %s",
+  "key.neovitae.open_guide": "Apri Scriptura Vitae per oggetto coperto"
 }

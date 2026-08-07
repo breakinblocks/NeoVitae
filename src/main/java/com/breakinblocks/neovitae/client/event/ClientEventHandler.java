@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -47,6 +48,11 @@ public class ClientEventHandler {
             if (mc.screen == null && mc.player != null) {
                 mc.setScreen(new GuiEditHUD(null));
             }
+        }
+
+        Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            LoopSoundManager.tick(level);
         }
     }
 

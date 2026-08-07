@@ -1,5 +1,8 @@
 {
   "book.neovitae.altar_tier_info.header.runes": "Руны",
   "book.neovitae.altar_tier_info.header.tier": "Этап",
-  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Руны по уровню"
+  "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Руны по уровню",
+  "gui.neovitae.hellfire_forge.needs_spiritus": "Недостаточно Духа: %s / %s",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Самоцвет в слоте для ремесла подпитывает ремесло вместо ячейки для самоцветов",
+  "jei.neovitae.recipe.meteor.random_pool": "Случайный выбор из %s блоков"
 }

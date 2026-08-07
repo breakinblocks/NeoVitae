@@ -274,7 +274,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     }
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack stack, Player player, net.minecraft.world.entity.LivingEntity target, InteractionHand hand) {
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         ItemStack useStack = ISigil.resolveHeldStack(stack, player);
 
         Binding binding = getBinding(useStack);
@@ -358,11 +358,6 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             return Math.max(1, (int) (baseCost * (1 - reduction / 100)));
         }
         return baseCost;
-    }
-
-    @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        return true;
     }
 
     @Override

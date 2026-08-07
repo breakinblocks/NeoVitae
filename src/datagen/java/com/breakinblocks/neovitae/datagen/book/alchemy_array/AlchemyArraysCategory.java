@@ -17,7 +17,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "__a_b_c_d_e________",
+                "__a_b_c_d_e_@______",
                 "____________________",
                 "__f_g_h_i_j_k_l_m__",
                 "____n_o_p_q_r_s_W__",
@@ -50,7 +50,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
         spikeArray.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
         spikeArray.hideWhileLocked(false);
 
-        var telepositionArray = this.add(new TelepositionArrayEntry(this).generate('E'));
+        var telepositionArray = this.add(new TelepositionArrayEntry(this).generate('@'));
         telepositionArray.withParent(this.parent(arcaneAsh));
         telepositionArray.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
         telepositionArray.hideWhileLocked(false);

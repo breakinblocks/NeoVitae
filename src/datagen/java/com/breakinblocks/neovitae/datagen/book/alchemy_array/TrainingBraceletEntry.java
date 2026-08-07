@@ -20,9 +20,9 @@ public class TrainingBraceletEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Training Bracelet");
-        this.pageText("The armour's undirected growth can be maddening. To impose order upon it, you "
+        this.pageText("The armor's undirected growth can be maddening. To impose order upon it, you "
                 + "have devised the [#](8B0000)Training Bracelet[#](), a focus that allows you to dictate "
-                + "which abilities the armour should pursue and which it should ignore.\\\n\\\n"
+                + "which abilities the armor should pursue and which it should ignore.\\\n\\\n"
                 + "Press [Use] to open its configuration menu.");
 
         this.page("recipe", () -> BookTextPageModel.create()
@@ -34,7 +34,7 @@ public class TrainingBraceletEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("With a copy of the relevant [#](8B0000)Tome[#]() in hand, you can set a level cap for "
-                + "any upgrade. Once the armour reaches that limit, it ceases training that skill.\\\n\\\n"
+                + "any upgrade. Once the armor reaches that limit, it ceases training that skill.\\\n\\\n"
                 + "[#](2E8B57)To allow all upgrades except one: set the bracelet to 'allow others' mode and "
                 + "cap the unwanted skill at level 0.[#]()");
     }
@@ -46,7 +46,7 @@ public class TrainingBraceletEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A focus of discipline, control what your sentient armour learns.";
+        return "A focus of discipline, control what your sentient armor learns.";
     }
 
     @Override

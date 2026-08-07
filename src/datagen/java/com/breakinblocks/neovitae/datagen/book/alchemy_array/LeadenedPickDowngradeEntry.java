@@ -21,7 +21,7 @@ public class LeadenedPickDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Leadened Pick");
-        this.pageText("The armour weighs upon your arms, making every swing of the pick feel like moving "
+        this.pageText("The armor weighs upon your arms, making every swing of the pick feel like moving "
                 + "through tar. Reduces dig speed by up to 80%%.\\\n\\\n"
                 + "[#](4A0080)The stone mocks your feeble blows.[#]()");
 
@@ -36,7 +36,7 @@ public class LeadenedPickDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour drags at your arms; mining becomes a crawl.";
+        return "The armor drags at your arms; mining becomes a crawl.";
     }
 
     @Override

@@ -12,10 +12,14 @@ import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
 import com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin;
 import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMenu> {
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/hellfire_forge.png");
+    private static final int BLOCKED_OVERLAY = 0x55FF3030;
+    private static final int BLOCKED_BORDER = 0xAAFF3030;
 
     public HellfireForgeScreen(HellfireForgeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -40,8 +44,20 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
         if (isOverProgress(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW), mouseX, mouseY);
+            List<Component> lines = new ArrayList<>();
+            if (isBlockedOnSpiritus()) {
+                lines.add(Component.translatable("gui.neovitae.hellfire_forge.needs_spiritus",
+                        menu.tile.dataAccess.get(HellfireForgeBlockEntity.DATA_STORED_SPIRITUS),
+                        menu.tile.dataAccess.get(HellfireForgeBlockEntity.DATA_REQUIRED_SPIRITUS)).withStyle(ChatFormatting.RED));
+                lines.add(Component.translatable("gui.neovitae.hellfire_forge.needs_spiritus.hint").withStyle(ChatFormatting.GRAY));
+            }
+            lines.add(Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW));
+            guiGraphics.renderTooltip(this.font, lines, Optional.empty(), mouseX, mouseY);
         }
+    }
+
+    private boolean isBlockedOnSpiritus() {
+        return menu.tile.dataAccess.get(HellfireForgeBlockEntity.DATA_STATUS) == HellfireForgeBlockEntity.STATUS_NEEDS_SPIRITUS;
     }
 
     @Override
@@ -58,6 +74,16 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
 
         int progress = getCookProgressScaled(90);
         guiGraphics.blit(BACKGROUND, i + 115, j + 14 + 90 - progress, 176, 90 - progress, 18, progress);
+
+        if (isBlockedOnSpiritus()) {
+            int x = i + 115;
+            int y = j + 14;
+            guiGraphics.fill(x, y, x + 18, y + 90, BLOCKED_OVERLAY);
+            guiGraphics.fill(x, y, x + 18, y + 1, BLOCKED_BORDER);
+            guiGraphics.fill(x, y + 89, x + 18, y + 90, BLOCKED_BORDER);
+            guiGraphics.fill(x, y, x + 1, y + 90, BLOCKED_BORDER);
+            guiGraphics.fill(x + 17, y, x + 18, y + 90, BLOCKED_BORDER);
+        }
     }
 
     private boolean isOverProgress(double mouseX, double mouseY) {
@@ -79,7 +105,7 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
     }
 
     private int getCookProgressScaled(int scale) {
-        int progress = menu.tile.dataAccess.get(0);
+        int progress = menu.tile.dataAccess.get(HellfireForgeBlockEntity.DATA_PROGRESS);
         return progress * scale / HellfireForgeBlockEntity.MAX_PROGRESS;
     }
 }

@@ -101,47 +101,47 @@ public class NVAdvancementProvider extends AdvancementProvider {
             AdvancementHolder blankSlate = Advancement.Builder.advancement()
                     .parent(weakBloodOrb)
                     .display(NVItems.TABULA_RASA.get(),
-                            Component.translatable("advancements.neovitae.blank_slate.title"),
-                            Component.translatable("advancements.neovitae.blank_slate.description"),
+                            Component.translatable("advancements.neovitae.tabula_rasa.title"),
+                            Component.translatable("advancements.neovitae.tabula_rasa.description"),
                             null, AdvancementType.TASK, true, false, false)
                     .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_RASA.get()))
-                    .save(saver, NeoVitae.rl("neovitae/blank_slate").toString());
+                    .save(saver, NeoVitae.rl("neovitae/tabula_rasa").toString());
 
             AdvancementHolder reinforcedSlate = Advancement.Builder.advancement()
                     .parent(blankSlate)
                     .display(NVItems.TABULA_ROBUR.get(),
-                            Component.translatable("advancements.neovitae.reinforced_slate.title"),
-                            Component.translatable("advancements.neovitae.reinforced_slate.description"),
+                            Component.translatable("advancements.neovitae.tabula_robur.title"),
+                            Component.translatable("advancements.neovitae.tabula_robur.description"),
                             null, AdvancementType.TASK, true, false, false)
                     .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_ROBUR.get()))
-                    .save(saver, NeoVitae.rl("neovitae/reinforced_slate").toString());
+                    .save(saver, NeoVitae.rl("neovitae/tabula_robur").toString());
 
             AdvancementHolder imbuedSlate = Advancement.Builder.advancement()
                     .parent(reinforcedSlate)
                     .display(NVItems.TABULA_ANIMATA.get(),
-                            Component.translatable("advancements.neovitae.imbued_slate.title"),
-                            Component.translatable("advancements.neovitae.imbued_slate.description"),
+                            Component.translatable("advancements.neovitae.tabula_animata.title"),
+                            Component.translatable("advancements.neovitae.tabula_animata.description"),
                             null, AdvancementType.TASK, true, false, false)
                     .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_ANIMATA.get()))
-                    .save(saver, NeoVitae.rl("neovitae/imbued_slate").toString());
+                    .save(saver, NeoVitae.rl("neovitae/tabula_animata").toString());
 
             AdvancementHolder demonicSlate = Advancement.Builder.advancement()
                     .parent(imbuedSlate)
                     .display(NVItems.TABULA_SPIRITUS.get(),
-                            Component.translatable("advancements.neovitae.demonic_slate.title"),
-                            Component.translatable("advancements.neovitae.demonic_slate.description"),
+                            Component.translatable("advancements.neovitae.tabula_spiritus.title"),
+                            Component.translatable("advancements.neovitae.tabula_spiritus.description"),
                             null, AdvancementType.GOAL, true, true, false)
                     .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_SPIRITUS.get()))
-                    .save(saver, NeoVitae.rl("neovitae/demonic_slate").toString());
+                    .save(saver, NeoVitae.rl("neovitae/tabula_spiritus").toString());
 
             AdvancementHolder etherealSlate = Advancement.Builder.advancement()
                     .parent(demonicSlate)
                     .display(NVItems.TABULA_AETHEREA.get(),
-                            Component.translatable("advancements.neovitae.ethereal_slate.title"),
-                            Component.translatable("advancements.neovitae.ethereal_slate.description"),
+                            Component.translatable("advancements.neovitae.tabula_aetherea.title"),
+                            Component.translatable("advancements.neovitae.tabula_aetherea.description"),
                             null, AdvancementType.CHALLENGE, true, true, false)
                     .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_AETHEREA.get()))
-                    .save(saver, NeoVitae.rl("neovitae/ethereal_slate").toString());
+                    .save(saver, NeoVitae.rl("neovitae/tabula_aetherea").toString());
 
             // Crafting Stations (branch off weak_blood_orb)
             AdvancementHolder tabulaVitae = Advancement.Builder.advancement()
@@ -172,7 +172,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("get_altar", InventoryChangeTrigger.TriggerInstance.hasItems(NVBlocks.INCENSE_ALTAR))
                     .save(saver, NeoVitae.rl("neovitae/incense_altar").toString());
 
-            // Sigil Branch (off blank_slate)
+            // Sigil Branch (off tabula_rasa)
             AdvancementHolder firstSigil = Advancement.Builder.advancement()
                     .parent(blankSlate)
                     .display(NVItems.SIGIL_DIVINATION.get(),
@@ -329,7 +329,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("meteor", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:meteor")))
                     .save(saver, NeoVitae.rl("neovitae/master_of_ceremonies").toString());
 
-            // Teleposer (off demonic_slate)
+            // Teleposer (off tabula_spiritus)
             Advancement.Builder.advancement()
                     .parent(demonicSlate)
                     .display(NVBlocks.TELEPOSER,

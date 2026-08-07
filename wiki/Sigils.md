@@ -18,12 +18,12 @@ The toggleable sigils are the **Sigil of the Green Grove**, **Sigil of the Fast 
 ### Divination Sigil
 The first lens through which a Vitaemancer peers into the invisible currents of EV. Activate toward open air to reveal the Essentia Vitae stored within your Anima; aim at an Ara Vitae to reveal its current tier, EV volume, and maximum capacity. Crafted with Redstone Dust as the array base and a Tabula Rasa as the catalyst. *To see is to begin understanding.*
 
-Hold sneak and press [Use] to open a configuration interface for arranging the on-screen HUD elements, namely the Incense Altar (light grey), the Seer's Sigil (purple), the Divination Sigil (lavender), the Spiritus Aura Gauge (orange), and the Sigil of Holding (green).
+Hold sneak and press [Use] to open a configuration interface for arranging the on-screen HUD elements, namely the Incense Altar (light gray), the Seer's Sigil (purple), the Divination Sigil (lavender), the Spiritus Aura Gauge (orange), and the Sigil of Holding (green).
 
 ### Seer's Sigil
 Where the Divination Sigil offers a glimpse, the Seer opens your perception wide. When aimed at an Ara Vitae, the display reveals the altar's tier, its current EV and maximum capacity, active crafting progress, EV consumed per tick during crafting, and the EV currently held in reserve by Charging Runes. Forged from the **Sight Reagent**.
 
-While you carry a Seer's Sigil, looking at an active **Master Ritual Stone** outlines the ritual's working area in the world, drawing a coloured box around each of its configured ranges. The sigil need only be on your person; it works from your inventory, from inside a Sigil of Holding, or worn in a Curios slot.
+While you carry a Seer's Sigil, looking at an active **Master Ritual Stone** outlines the ritual's working area in the world, drawing a colored box around each of its configured ranges. The sigil need only be on your person; it works from your inventory, from inside a Sigil of Holding, or worn in a Curios slot.
 
 ## Utility
 
@@ -81,6 +81,6 @@ Tears a momentary rift between you and a linked **Teleposer**, pulling you acros
 ## Related Foci
 
 ### Training Bracelet
-Not a sigil proper, but inscribed in an Alchemy Array all the same. With a copy of the relevant **Upgrade Tome** in hand, the bracelet lets you cap any **[Sentient Armor](Sentient-Armor)** upgrade's level. The armour will cease training that skill once the limit is met. Only one bracelet is active at a time, with priority off-hand > Curios > main inventory > add-ons. Tip: to allow all upgrades except one, set the bracelet to 'allow others' mode and cap the unwanted skill at level 0.
+Not a sigil proper, but inscribed in an Alchemy Array all the same. With a copy of the relevant **Upgrade Tome** in hand, the bracelet lets you cap any **[Sentient Armor](Sentient-Armor)** upgrade's level. The armor will cease training that skill once the limit is met. Only one bracelet is active at a time, with priority off-hand > Curios > main inventory > add-ons. Tip: to allow all upgrades except one, set the bracelet to 'allow others' mode and cap the unwanted skill at level 0.
 
 See also: **[Alchemy Arrays](Alchemy-Arrays)** (how sigils are inscribed), **[Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)** (where Reagents are brewed), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the network sigils draw from).

@@ -41,18 +41,18 @@ public class UtilityArraysEntry extends EntryProvider {
                 + "and awakened by a [#](8B0000)Sea Pickle[#](). Once lit, it draws water from nowhere and pipes it "
                 + "into every fluid container touching its six faces.\\\n\\\n"
                 + "Each placement cycle (every 5 ticks) the array attempts to deposit [#](8B0000)up to 6 buckets[#]() "
-                + "of water, spread evenly across its neighbours (one per face when all six are tanks). Only whole-bucket "
+                + "of water, spread evenly across its neighbors (one per face when all six are tanks). Only whole-bucket "
                 + "fills are committed: if a tank has room for less than a full bucket the array skips it and tries the "
-                + "next cached neighbour until all 6 buckets land or every tank refuses.");
+                + "next cached neighbor until all 6 buckets land or every tank refuses.");
 
         this.page("endless_fountain2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The array keeps a cache of its six adjacent tanks. The cache refreshes on a timer and also "
-                + "reacts instantly whenever a neighbouring block is placed or broken, so tanks can be swapped in or "
-                + "out freely without waiting for the next scan. Neighbours in unloaded chunks are left alone until "
+                + "reacts instantly whenever a neighboring block is placed or broken, so tanks can be swapped in or "
+                + "out freely without waiting for the next scan. Neighbors in unloaded chunks are left alone until "
                 + "their chunk ticks in again.\\\n\\\n"
                 + "When every cached tank is full the array backs off progressively (like the [#](8B0000)Serenade of "
-                + "the Nether[#]()). While backing off it emits a small puff of drowsy slate-grey particles so you "
+                + "the Nether[#]()). While backing off it emits a small puff of drowsy slate-gray particles so you "
                 + "can spot a stalled fountain at a glance; the moment a tank opens up it snaps back to full cadence.\\\n\\\n"
                 + "A [#](8B0000)redstone signal[#]() on any face parks the array completely, preserving its cache "
                 + "and backoff state, making it easy to gate with a lever or comparator.");

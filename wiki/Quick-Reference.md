@@ -31,7 +31,7 @@ A glossary of every term, resource, and abbreviation you'll encounter.
 | :---: | --- |
 | **0** | Basic altar, Sacrificial Knife, Tabula Vitae, Hellfire Forge, Throwing Daggers |
 | **I** | Upgrade Runes, sigil expansion, potioncrafting, off-hand orb harvesting |
-| **II** | Rituals, Sentient Armour, Demon Realm peek (Breaching the Edge of Demon Realm) |
+| **II** | Rituals, Sentient Armor, Demon Realm peek (Breaching the Edge of Demon Realm) |
 | **III** | Dusk Diviner, Sentient Evolution, Aspected Spiritus, permanent Endless Realm gate |
 | **IV** | Most devastating rituals, Hellforged Parts double rune power |
 | **V** | The pinnacle. Crystal Cluster capstones, nineteen runes per side, unlimited capacity |
@@ -48,7 +48,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Sentient Sword / Tools**. Drink Spiritus from kills, grow stronger.
 
-**Sentient Armour**. Equipped with Upgrades and Downgrades. 100-point cap baseline; **Ritual of Sentient Evolution** raises it to 300.
+**Sentient Armor**. Equipped with Upgrades and Downgrades. 100-point cap baseline; **Ritual of Sentient Evolution** raises it to 300.
 
 **Throwing Dagger**. Early ranged weapon and a Spiritus harvester.
 
@@ -58,9 +58,9 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Ritual Diviner**. Inscribes ritual stone layouts in-world. Upgraded variants (**Dusk Diviner**) unlock more powerful rites.
 
-**Training Bracelet**. Curio that lets you train into specific Sentient Armour upgrades over time.
+**Training Bracelet**. Curio that lets you train into specific Sentient Armor upgrades over time.
 
-**Sigil of Ritual Diviner**. Rotates through known ritual layouts; colour-codes required runes.
+**Sigil of Ritual Diviner**. Rotates through known ritual layouts; color-codes required runes.
 
 ## Blocks
 
@@ -79,7 +79,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Imperfect Ritual Stone**. Cheap, single-shot rituals.
 
-**Blood Light**. Configurable coloured light source. Brightness, hue, redstone sensitivity all tweakable.
+**Blood Light**. Configurable colored light source. Brightness, hue, redstone sensitivity all tweakable.
 
 **Blood Lantern**. A soul lantern reforged in the altar. Wards a 16-block radius against passive and ambient mob spawns. Skips suppression in the Dungeon dimension.
 
@@ -121,7 +121,7 @@ See [Routing Network](Routing-Network).
 
 **Sanguine Ward**. A passive shield that absorbs damage at a cost of EV per second while you hold an Orb of Vitae. See [Blood Orbs and Anima](Blood-Orbs-and-Anima).
 
-**Soul Snare**. Invisible status effect applied by Throwing Daggers to hostile mobs on hit. A snared mob, when killed, yields **Raw Spiritus** to its killer (this is how daggers harvest before a Sentient Sword is in hand). Does not affect mob behaviour.
+**Soul Snare**. Invisible status effect applied by Throwing Daggers to hostile mobs on hit. A snared mob, when killed, yields **Raw Spiritus** to its killer (this is how daggers harvest before a Sentient Sword is in hand). Does not affect mob behavior.
 
 ## Combat Modifiers
 
@@ -129,7 +129,7 @@ See [Routing Network](Routing-Network).
 
 **Flask**. Reusable potion container with custom effect components and configurable duration tiers.
 
-**Upgrade / Downgrade**. Sentient Armour modifiers competing for a configurable point budget. See [Sentient Armor](Sentient-Armor).
+**Upgrade / Downgrade**. Sentient Armor modifiers competing for a configurable point budget. See [Sentient Armor](Sentient-Armor).
 
 ## In-Game Documentation
 

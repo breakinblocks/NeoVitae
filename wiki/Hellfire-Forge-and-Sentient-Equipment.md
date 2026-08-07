@@ -29,7 +29,7 @@ The **Sentient Sword** is a far more elegant instrument of Spiritus collection. 
 
 The success of the Sentient Sword has inspired further experimentation. If a blade can be imbued with Spiritus, the same logic extends to a pickaxe, an axe, or a shovel. All Sentient equipment is highly receptive to enchantment.
 
-| Tool | Behaviour |
+| Tool | Behavior |
 |------|-----------|
 | Sentient Pickaxe | Without Spiritus, scarcely better than iron. With a full Spiritus Gem, surpasses even Netherite, cleaving through stone as though it were clay. |
 | Sentient Axe | Slightly above iron unpowered. With a full gem, rivals Netherite and gains a significant damage boost; formidable as a weapon for those who do not mind its heft. |
@@ -38,17 +38,17 @@ The success of the Sentient Sword has inspired further experimentation. If a bla
 
 ## Sentient Armor
 
-To create **Sentient Equipment**, you require Iron Armour, the **Arcane Scribe Tool**, a **Binding Reagent** (forged in the Tabula Vitae), and at least a **Common Spiritus Gem** charged with sufficient Spiritus. What emerges is no longer mere metal; it is alive, and it learns from you.
+To create **Sentient Equipment**, you require Iron Armor, the **Arcane Scribe Tool**, a **Binding Reagent** (forged in the Tabula Vitae), and at least a **Common Spiritus Gem** charged with sufficient Spiritus. What emerges is no longer mere metal; it is alive, and it learns from you.
 
 ### The Ritual of Binding
 
-Inscribe an **[Alchemy Array](Alchemy-Arrays)**, apply the Binding Reagent as base, then place your Iron Helmet, Chestplate, Leggings, or Boots as catalyst and step back. The resulting armour begins equivalent to iron, but possesses **100 Upgrade Points** that it will spend as it grows alongside you. Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional Binding Reagent.
+Inscribe an **[Alchemy Array](Alchemy-Arrays)**, apply the Binding Reagent as base, then place your Iron Helmet, Chestplate, Leggings, or Boots as catalyst and step back. The resulting armor begins equivalent to iron, but possesses **100 Upgrade Points** that it will spend as it grows alongside you. Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional Binding Reagent.
 
-The armour is alive, and it watches everything you do. Be deliberate in what you teach it. Hold sneak while examining a piece to see what it has learned so far.
+The armor is alive, and it watches everything you do. Be deliberate in what you teach it. Hold sneak while examining a piece to see what it has learned so far.
 
 ### Specialisation
 
-The armour shifts, adapts, and strains to assist you in whatever task it observes. It grows in many directions at once, but its capacity is finite; trying to master everything yields mastery of nothing. Consider forging multiple sets, each trained for a specific purpose, such as a miner's set, a warrior's set, or an explorer's set. The Vitaemancer has devised **[Rituals](Rituals)** to assist with focused training, and another to imbue armour with a greater capacity for growth. See **[Sentient Armor](Sentient-Armor)** for the full upgrade and downgrade catalogue.
+The armor shifts, adapts, and strains to assist you in whatever task it observes. It grows in many directions at once, but its capacity is finite; trying to master everything yields mastery of nothing. Consider forging multiple sets, each trained for a specific purpose, such as a miner's set, a warrior's set, or an explorer's set. The Vitaemancer has devised **[Rituals](Rituals)** to assist with focused training, and another to imbue armor with a greater capacity for growth. See **[Sentient Armor](Sentient-Armor)** for the full upgrade and downgrade catalog.
 
 ## Explosive Charges
 

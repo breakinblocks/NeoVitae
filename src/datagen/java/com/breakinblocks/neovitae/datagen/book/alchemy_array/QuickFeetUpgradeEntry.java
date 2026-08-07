@@ -20,7 +20,7 @@ public class QuickFeetUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Quick Feet");
-        this.pageText("The armour attunes itself to the cadence of your stride, propelling you ever faster. "
+        this.pageText("The armor attunes itself to the cadence of your stride, propelling you ever faster. "
                 + "Increases movement speed up to 150%%.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Running.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");
@@ -33,7 +33,7 @@ public class QuickFeetUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour quickens your step with every mile traveled.";
+        return "The armor quickens your step with every mile traveled.";
     }
 
     @Override

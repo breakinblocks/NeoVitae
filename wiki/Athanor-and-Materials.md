@@ -95,7 +95,7 @@ Fitted with a **Primitive Hydration Cell**, the Athanor becomes a font of elemen
 - **Sand -> Clay** and **Terracotta -> Clay**.
 - **Dirt -> Mud**.
 - **Concrete Powder -> Concrete** for all sixteen hues.
-- Strips dye from beds, wool, carpets, and glass (any colour to white/clear).
+- Strips dye from beds, wool, carpets, and glass (any color to white/clear).
 - Cultivates moss on cobblestone, stone bricks, and their stair/slab/wall variants.
 - Hastens copper oxidation through every stage (block, cut, stairs, slabs).
 

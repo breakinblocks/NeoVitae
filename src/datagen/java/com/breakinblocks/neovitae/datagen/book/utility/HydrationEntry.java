@@ -44,11 +44,11 @@ public class HydrationEntry extends EntryProvider {
         this.page("dye_removal", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Washing Away Colour");
+        this.pageTitle("Washing Away Color");
         this.pageText("The Hydration Cell's waters can strip dye from woven and vitreous materials:\n\n"
-                + "- Beds (any colour to white)\n"
-                + "- Wool (any colour to white)\n"
-                + "- Carpet (any colour to white)\n"
+                + "- Beds (any color to white)\n"
+                + "- Wool (any color to white)\n"
+                + "- Carpet (any color to white)\n"
                 + "- Glass (stained to clear)\n"
                 + "- Glass Panes (stained to clear)\\\n\\\n"
                 + "All dye removal requires Water.");

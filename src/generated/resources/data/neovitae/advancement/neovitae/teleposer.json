@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:neovitae/demonic_slate",
+  "parent": "neovitae:neovitae/tabula_spiritus",
   "criteria": {
     "get_teleposer": {
       "conditions": {

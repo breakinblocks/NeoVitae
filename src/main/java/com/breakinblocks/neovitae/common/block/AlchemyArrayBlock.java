@@ -113,8 +113,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         }
 
         for (int slot = 0; slot < 2; slot++) {
-            ItemStack inSlot = array.getItem(slot);
-            if (inSlot.isEmpty()) {
+            if (array.getItem(slot).isEmpty()) {
                 ItemStack toInsert = playerItem.copy();
                 toInsert.setCount(1);
                 array.inv.setStackInSlot(slot, toInsert);
@@ -123,6 +122,10 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
                 world.sendBlockUpdated(pos, state, state, 3);
                 return ItemInteractionResult.sidedSuccess(world.isClientSide);
             }
+        }
+
+        for (int slot = 0; slot < 2; slot++) {
+            ItemStack inSlot = array.getItem(slot);
             if (ItemStack.isSameItemSameComponents(inSlot, playerItem)
                     && inSlot.getCount() < inSlot.getMaxStackSize()) {
                 inSlot.grow(1);

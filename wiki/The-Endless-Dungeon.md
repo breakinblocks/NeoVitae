@@ -25,7 +25,7 @@ The Tier II ritual lands you in the **Antechamber**, the outermost vestibule of 
 - Several **Doorways**, each barred by a **Dungeon Seal**. Present a key to a seal to break it; the chamber beyond unlocks for you.
 - A second **Inversion Pillar** that returns you to the overworld.
 
-Each sealed chamber may hide treasure, traps, dormant rituals, or angry [Daemonium](Daemonium-Bestiary). The spoils to look for here include enchanted books, enchanted weapons and armour, anointments, [Spiritus](Spiritus-Aspects-and-Crystals) essences, potion ingredients, Tau Fruit, Saturated Tau, and Tau Oil. (See [Dungeon Mechanics](Dungeon-Mechanics) for what each of those does.)
+Each sealed chamber may hide treasure, traps, dormant rituals, or angry [Daemonium](Daemonium-Bestiary). The spoils to look for here include enchanted books, enchanted weapons and armor, anointments, [Spiritus](Spiritus-Aspects-and-Crystals) essences, potion ingredients, Tau Fruit, Saturated Tau, and Tau Oil. (See [Dungeon Mechanics](Dungeon-Mechanics) for what each of those does.)
 
 The pale stonework of the Antechamber is itself an item; if its aesthetics suit your base, help yourself. Just be aware that **Demon Stone is aggressively transmutative**, combining it with ordinary stone yields more Demon Stone, never the reverse.
 
@@ -49,7 +49,7 @@ Press deeper and a second warning echoes:
 
 > *A monstrous roar echoes through the corridors...*
 
-The Foreman's chamber has manifested. Like the mine entrance itself, its door yields only to a **Mine Entrance Key**, and what lies inside is **The Foreman**, a vastly empowered [Daemonium Doloris](Daemonium-Bestiary) (600 HP, 25 damage, 16 armour, full boss bar). Slay it, claim the clutch of **Mine Dungeon Keys** it drops, and the deeper workings of the Mines open to you.
+The Foreman's chamber has manifested. Like the mine entrance itself, its door yields only to a **Mine Entrance Key**, and what lies inside is **The Foreman**, a vastly empowered [Daemonium Doloris](Daemonium-Bestiary) (600 HP, 25 damage, 16 armor, full boss bar). Slay it, claim the clutch of **Mine Dungeon Keys** it drops, and the deeper workings of the Mines open to you.
 
 ### The Mines
 

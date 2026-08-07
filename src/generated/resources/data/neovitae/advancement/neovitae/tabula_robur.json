@@ -1,11 +1,11 @@
 {
-  "parent": "neovitae:neovitae/reinforced_slate",
+  "parent": "neovitae:neovitae/tabula_rasa",
   "criteria": {
     "get_slate": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:tabula_animata"
+            "items": "neovitae:tabula_robur"
           }
         ]
       },
@@ -15,14 +15,14 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.neovitae.imbued_slate.description"
+      "translate": "advancements.neovitae.tabula_robur.description"
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:tabula_animata"
+      "id": "neovitae:tabula_robur"
     },
     "title": {
-      "translate": "advancements.neovitae.imbued_slate.title"
+      "translate": "advancements.neovitae.tabula_robur.title"
     }
   },
   "requirements": [

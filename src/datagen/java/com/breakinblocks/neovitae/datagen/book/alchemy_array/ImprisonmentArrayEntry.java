@@ -25,7 +25,7 @@ public class ImprisonmentArrayEntry extends EntryProvider {
         this.pageTitle("Array of Imprisonment");
         this.pageText("The [#](8B0000)Array of Imprisonment[#]() binds a wandering soul into stone. Inscribe it "
                 + "directly atop a [#](8B0000)Monster Spawner[#](), then slay a creature within an "
-                + "[#](8B0000)11x11x11[#]() region centred on the array.\\\n\\\nThe spawner forgets its old charge and "
+                + "[#](8B0000)11x11x11[#]() region centered on the array.\\\n\\\nThe spawner forgets its old charge and "
                 + "takes on the dying creature's nature instead. The glyph, its purpose fulfilled, crumbles to nothing.");
 
         this.page("usage", () -> BookTextPageModel.create()

@@ -71,7 +71,7 @@ Schematic JSON for dungeon rooms lives under `assets/<namespace>/schematics/`, n
 
 **Workflow:**
 
-1. Build the desired ritual: place a Master Ritual Stone at the centre, then arrange any of the seven `*_ritual_stone` blocks around it.
+1. Build the desired ritual: place a Master Ritual Stone at the center, then arrange any of the seven `*_ritual_stone` blocks around it.
 2. Hold the Ritual Designer. **Sneak + Right-click** any block to mark **Corner 1**, then **Sneak + Right-click** a second block to mark **Corner 2**. The two corners define the AABB to scan. Marking a third corner resets Corner 1.
 3. **Right-click the Master Ritual Stone**. The scanner walks every position in the AABB, recording only blocks whose class is one of the seven `BlockRitualStone` variants (mapped to `EnumRuneType.BLANK/WATER/FIRE/EARTH/AIR/DUSK/DAWN`). Air and any non-rune block, including the master stone itself, are ignored.
 4. The generated method body is delivered to the operator's client via the `neovitae:ritual_code` payload and copied to the system clipboard. The same lines are also echoed in chat between `=== RITUAL CODE START ===` / `=== RITUAL CODE END ===` markers so they survive if the clipboard fails.
@@ -91,7 +91,7 @@ public void gatherComponents(Consumer<RitualComponent> components) {
 }
 ```
 
-**Conflict detection:** before printing, the scanned `(offset, runeType)` set is compared against every registered ritual's layout (honouring datapack `neovitae:ritual_layout` overrides). If an identical layout is already registered, the tool aborts and reports the colliding ritual's id so authors can perturb the pattern.
+**Conflict detection:** before printing, the scanned `(offset, runeType)` set is compared against every registered ritual's layout (honoring datapack `neovitae:ritual_layout` overrides). If an identical layout is already registered, the tool aborts and reports the colliding ritual's id so authors can perturb the pattern.
 
 **Tooltip and state:** the item tooltip lists the control scheme, highlights that OP is required, and shows the currently-stored Corner 1 / Corner 2 coordinates. Corner positions are stored on `neovitae:ritual_corner1` / `neovitae:ritual_corner2` `BlockPos` data components on the stack itself, so different operators can keep independent selections.
 

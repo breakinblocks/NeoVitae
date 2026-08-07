@@ -44,7 +44,7 @@ A Focus, once bound to a target Teleposer, retains that binding until you re-bin
 
 ## Redstone Activation
 
-The Teleposer is **deliberately picky** about its activation signal to minimise misfires. Two rules:
+The Teleposer is **deliberately picky** about its activation signal to minimize misfires. Two rules:
 
 - **Strong redstone power is required.** A redstone block placed adjacent will *not* work; weak power propagation does not satisfy the activation check.
 - **Direct sources do.** Redstone dust running into the side, a repeater pointed at the block, or a lever or button placed directly on the Teleposer all qualify.
@@ -70,7 +70,7 @@ If a Teleposition swap would move a blacklisted block, the entire activation is 
 
 ## Relocating Spawners
 
-**Mob spawners and trial spawners count as ordinary blocks** to the Teleposer, and their full settings ride along, including entity NBT, spawn counts and cooldowns, current cooldown state, and any chained trial-spawner behaviour. Build your grinder chamber elsewhere, then transpose the spawner *into* it.
+**Mob spawners and trial spawners count as ordinary blocks** to the Teleposer, and their full settings ride along, including entity NBT, spawn counts and cooldowns, current cooldown state, and any chained trial-spawner behavior. Build your grinder chamber elsewhere, then transpose the spawner *into* it.
 
 Trial spawners from the [Endless Dungeon](The-Endless-Dungeon) can be relocated this way, but the mob list is locked at world-load; the spawner behaves in the new location exactly as it did in the dungeon. Some packs extend `#neovitae:telepose_blacklist` to lock spawners in place; check your pack's tag overrides if a swap unexpectedly fails.
 
@@ -82,7 +82,7 @@ Place a Teleposer in your floor and another in your ceiling, directly above. Bin
 
 ### The Workshop Mover
 
-Pair a 5×5×5 Reinforced Focus with two Teleposers, one centred in your existing workshop, one in a prepared site. A single button press relocates the workshop wholesale, machines, chests, redstone, and all.
+Pair a 5×5×5 Reinforced Focus with two Teleposers, one centered in your existing workshop, one in a prepared site. A single button press relocates the workshop wholesale, machines, chests, redstone, and all.
 
 ### The Hidden Transit Hub
 
@@ -91,7 +91,7 @@ A central Teleposer chamber under your base, with one Teleposer per remote site,
 ## Practical Tips
 
 - **Test every link with a non-living block first** (a single torch in the swap volume) before you trust a new Foci to your own body.
-- **Mark your destinations.** The Teleposer at the far end of a long link is easy to lose track of. A coloured wool block, a sign, or a unique frame helps.
+- **Mark your destinations.** The Teleposer at the far end of a long link is easy to lose track of. A colored wool block, a sign, or a unique frame helps.
 - **Carry a spare Focus** if you depend on Teleposer transit. Foci are crafted, not infinite, and a lost Focus can strand you.
 - **Mind the cost cap.** A single activation cannot spend more than 10,000 EV; if a 5×5×5 swap of dense blocks would cost more, the activation aborts. Use a higher orb tier or shorten the distance.
 - For *items in bulk*, the [Routing Network](Routing-Network) is cheaper and more flexible. The Teleposer's niche is **moving the world itself**, not its contents.

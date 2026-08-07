@@ -1,11 +1,11 @@
 {
-  "parent": "neovitae:neovitae/weak_blood_orb",
+  "parent": "neovitae:neovitae/tabula_animata",
   "criteria": {
     "get_slate": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:tabula_rasa"
+            "items": "neovitae:tabula_spiritus"
           }
         ]
       },
@@ -13,16 +13,16 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
     "description": {
-      "translate": "advancements.neovitae.blank_slate.description"
+      "translate": "advancements.neovitae.tabula_spiritus.description"
     },
+    "frame": "goal",
     "icon": {
       "count": 1,
-      "id": "neovitae:tabula_rasa"
+      "id": "neovitae:tabula_spiritus"
     },
     "title": {
-      "translate": "advancements.neovitae.blank_slate.title"
+      "translate": "advancements.neovitae.tabula_spiritus.title"
     }
   },
   "requirements": [

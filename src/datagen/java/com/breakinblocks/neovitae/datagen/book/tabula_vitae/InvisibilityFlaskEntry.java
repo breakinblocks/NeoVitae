@@ -27,7 +27,7 @@ public class InvisibilityFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Invisibility");
         this.pageText("The [#](8B0000)Invisibility[#]() elixir bends light around the drinker's flesh, rendering them "
-                + "unseen. Be warned: armour and held items remain stubbornly visible. A floating sword "
+                + "unseen. Be warned: armor and held items remain stubbornly visible. A floating sword "
                 + "is hardly subtle.\\\n\\\n"
                 + "Derived from a flask of [#](8B0000)Night Vision[#]().");
 

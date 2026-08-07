@@ -109,6 +109,14 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "neovitae:altar_tier_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "title": "book.neovitae.guide.altar.ara_vitae.tier_table.title"
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

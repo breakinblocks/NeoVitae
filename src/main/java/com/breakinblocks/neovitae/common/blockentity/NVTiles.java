@@ -203,7 +203,10 @@ public class NVTiles {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 TABULA_VITAE_TYPE.get(),
-                (tile, side) -> new SideConfigItemHandler(tile.inv, tile.getSideConfig(), side)
+                (tile, side) -> {
+                    TabulaVitaeBlockEntity master = tile.getMaster();
+                    return master == null ? null : new SideConfigItemHandler(master.inv, master.getSideConfig(), side);
+                }
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

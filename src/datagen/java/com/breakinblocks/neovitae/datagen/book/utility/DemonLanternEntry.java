@@ -25,7 +25,7 @@ public class DemonLanternEntry extends EntryProvider {
         this.pageTitle("Demon Lantern");
         this.pageText("Take a [#](8B0000)Blood Lantern[#]() back to the [#](8B0000)Hellfire Forge[#]() "
                 + "and let the demonic fires work it over, and its crimson flame curdles into the same "
-                + "restless hue worn by [#](8B0000)Sentient Armour[#](). The [#](8B0000)Demon Lantern[#]() "
+                + "restless hue worn by [#](8B0000)Sentient Armor[#](). The [#](8B0000)Demon Lantern[#]() "
                 + "still wards away timid life, but it no longer merely quiets a place. It [#](8B0000)stirs[#]() it.");
 
         this.page("recipe", () -> BookHellfireForgeRecipePageModel.create()

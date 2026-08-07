@@ -47,6 +47,10 @@ public class NVModonomiconClientCompat {
                 p -> new BookBloodOrbStatsPageRenderer((BookBloodOrbStatsPage) p)
         );
         PageRendererRegistry.registerPageRenderer(
+                NVPageTypes.ALTAR_TIER_INFO,
+                p -> new BookAltarTierInfoPageRenderer((BookAltarTierInfoPage) p)
+        );
+        PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.SPIRITUS_GEM_STATS,
                 p -> new BookSpiritusGemStatsPageRenderer((BookSpiritusGemStatsPage) p)
         );

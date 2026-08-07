@@ -21,9 +21,9 @@ public class DulledBladeDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dulled Blade");
-        this.pageText("The armour saps the force behind your strikes, blunting every blow. "
+        this.pageText("The armor saps the force behind your strikes, blunting every blow. "
                 + "Reduces melee damage by up to 80%%.\\\n\\\n"
-                + "[#](4A0080)Your sword arm weakens as the armour feeds elsewhere.[#]()");
+                + "[#](4A0080)Your sword arm weakens as the armor feeds elsewhere.[#]()");
 
         this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/melee_decrease"));
@@ -36,7 +36,7 @@ public class DulledBladeDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour bleeds your strength; every strike lands softer.";
+        return "The armor bleeds your strength; every strike lands softer.";
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Socketed");
-        this.pageText("The armour opens hidden recesses within itself, forming [#](8B0000)Sentient Armour "
+        this.pageText("The armor opens hidden recesses within itself, forming [#](8B0000)Sentient Armor "
                 + "Socket[#]() slots that can hold compatible [#](4A0080)Vitaemancy[#]() trinkets.\\\n\\\n"
                 + "This upgrade cannot be trained; only inscribed via [#](8B0000)Upgrade Tome[#](). "
                 + "Each tome adds one additional socket.\\\n\\\n"
@@ -34,7 +34,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour grows sockets to hold your vitaemantic trinkets.";
+        return "The armor grows sockets to hold your vitaemantic trinkets.";
     }
 
     @Override

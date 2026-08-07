@@ -55,7 +55,7 @@ public class UpgradeTomesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Crystallized knowledge, inscribe specific skills onto your sentient armour.";
+        return "Crystallized knowledge, inscribe specific skills onto your sentient armor.";
     }
 
     @Override

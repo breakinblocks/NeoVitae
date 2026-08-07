@@ -28,7 +28,7 @@ public class BloodMendingEntry extends EntryProvider {
                 + "[#](8B0000)Blood Mending[#]() will slowly knit itself back together, drawing "
                 + "[#](4A0080)Essentia Vitae[#]() from the wielder's [#](8B0000)Soul Network[#]() each second.\\\n\\\n"
                 + "The enchantment requires a bound [#](8B0000)Orb of Vitae[#]() somewhere in the practitioner's "
-                + "inventory and sufficient reserves in their network to function. Only worn armour "
+                + "inventory and sufficient reserves in their network to function. Only worn armor "
                 + "and held items benefit from this effect.");
 
         this.page("recipe", () -> BookTextPageModel.create()

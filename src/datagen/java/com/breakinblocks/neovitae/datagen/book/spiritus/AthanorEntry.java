@@ -67,7 +67,7 @@ public class AthanorEntry extends EntryProvider {
         this.pageTitle("Stripping Enchantments");
         this.pageText("With the [#](8B0000)Sanguine Reverter[#]() in the tool slot, the Athanor also "
                 + "[#](4A0080)disenchants[#](). Load a stack of [#](8B0000)Books[#]() alongside a single enchanted "
-                + "item - armour, a tool, or even an [#](8B0000)Enchanted Book[#]() - and the crucible lifts one "
+                + "item - armor, a tool, or even an [#](8B0000)Enchanted Book[#]() - and the crucible lifts one "
                 + "enchantment at a time onto a fresh book, removing it from the item.\\\n\\\n"
                 + "Each enchantment moved costs [#](8B0000)5 Raw Spiritus[#]() and [#](8B0000)100 mB of Essentia Vitae[#](). "
                 + "Once the item is stripped bare it drops to the output. The work continues only while you have books "

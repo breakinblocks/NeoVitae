@@ -25,6 +25,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.meteor.RandomBlockContainer;
+import com.breakinblocks.neovitae.common.meteor.RandomBlockTagContainer;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 
 import javax.annotation.Nonnull;
@@ -115,7 +116,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
         List<MeteorLayer> layers = recipe.getLayerList();
         int totalEstimatedBlocks = 0;
-        Map<Block, Double> blockEstimates = new LinkedHashMap<>();
+        Map<List<Block>, Double> blockEstimates = new LinkedHashMap<>();
 
         for (int i = 0; i < layers.size(); i++) {
             MeteorLayer layer = layers.get(i);
@@ -132,8 +133,8 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             int totalWeight = layer.getAdditionalTotalWeight() + weightedTotal;
             totalWeight = Math.max(layer.getMinWeight(), totalWeight);
 
-            Block fillBlock = getBlockFromContainer(layer.getFillBlock());
-            if (fillBlock != null && fillBlock != Blocks.AIR) {
+            List<Block> fillBlocks = getBlocksFromContainer(layer.getFillBlock());
+            if (!fillBlocks.isEmpty()) {
                 double fillEstimate;
                 if (totalWeight > 0) {
                     double fillPortion = (double) (totalWeight - weightedTotal) / totalWeight;
@@ -141,32 +142,32 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
                 } else {
                     fillEstimate = layerVolume;
                 }
-                blockEstimates.merge(fillBlock, fillEstimate, Double::sum);
+                blockEstimates.merge(fillBlocks, fillEstimate, Double::sum);
             }
 
             if (totalWeight > 0) {
                 for (Pair<RandomBlockContainer, Integer> entry : layer.getWeightList()) {
-                    Block block = getBlockFromContainer(entry.getKey());
-                    if (block != null && block != Blocks.AIR) {
+                    List<Block> blocks = getBlocksFromContainer(entry.getKey());
+                    if (!blocks.isEmpty()) {
                         int weight = entry.getValue();
                         double estimate = (double) weight / totalWeight * layerVolume;
-                        blockEstimates.merge(block, estimate, Double::sum);
+                        blockEstimates.merge(blocks, estimate, Double::sum);
                     }
                 }
             }
 
             if (layer.getShellBlock() != null) {
-                Block shellBlock = getBlockFromContainer(layer.getShellBlock());
-                if (shellBlock != null && shellBlock != Blocks.AIR) {
+                List<Block> shellBlocks = getBlocksFromContainer(layer.getShellBlock());
+                if (!shellBlocks.isEmpty()) {
                     int shellEstimate = estimateSphereVolume(radius) - estimateSphereVolume(radius - 1);
-                    blockEstimates.merge(shellBlock, (double) shellEstimate, Double::sum);
+                    blockEstimates.merge(shellBlocks, (double) shellEstimate, Double::sum);
                 }
             }
         }
 
         final int finalTotalBlocks = totalEstimatedBlocks;
 
-        List<Map.Entry<Block, Double>> sortedEntries = new ArrayList<>(blockEstimates.entrySet());
+        List<Map.Entry<List<Block>, Double>> sortedEntries = new ArrayList<>(blockEstimates.entrySet());
         sortedEntries.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
 
         int slotIndex = 0;
@@ -174,8 +175,17 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         int startX = 5;
         int startY = 70;
 
-        for (Map.Entry<Block, Double> entry : sortedEntries) {
+        for (Map.Entry<List<Block>, Double> entry : sortedEntries) {
             if (slotIndex >= 24) break;
+
+            List<ItemStack> stacks = new ArrayList<>();
+            for (Block block : entry.getKey()) {
+                ItemStack stack = new ItemStack(block);
+                if (!stack.isEmpty()) {
+                    stacks.add(stack);
+                }
+            }
+            if (stacks.isEmpty()) continue;
 
             int row = slotIndex / slotsPerRow;
             int col = slotIndex % slotsPerRow;
@@ -183,13 +193,19 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             int y = startY + row * 18;
 
             IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y);
-            slot.addItemStack(new ItemStack(entry.getKey()));
+            slot.addItemStacks(stacks);
             int estimatedCount = (int) Math.round(entry.getValue());
             double percentage = finalTotalBlocks > 0 ? (double) estimatedCount / finalTotalBlocks * 100 : 0;
+            int poolSize = stacks.size();
 
-            slot.addRichTooltipCallback((view, tooltipBuilder) ->
+            slot.addRichTooltipCallback((view, tooltipBuilder) -> {
                 tooltipBuilder.add(Component.translatable("jei.neovitae.recipe.meteor.estimate",
-                        DECIMAL_FORMAT.format(estimatedCount), String.format("%.1f", percentage))));
+                        DECIMAL_FORMAT.format(estimatedCount), String.format("%.1f", percentage)));
+                if (poolSize > 1) {
+                    tooltipBuilder.add(Component.translatable("jei.neovitae.recipe.meteor.random_pool",
+                            DECIMAL_FORMAT.format(poolSize)));
+                }
+            });
             slotIndex++;
         }
     }
@@ -211,6 +227,32 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         return count;
     }
 
+
+    private List<Block> getBlocksFromContainer(RandomBlockContainer container) {
+        if (container == null) {
+            return List.of();
+        }
+
+        if (container instanceof RandomBlockTagContainer tagContainer) {
+            List<Block> blocks = new ArrayList<>();
+            BuiltInRegistries.BLOCK.getTagOrEmpty(tagContainer.getTag()).forEach(holder -> blocks.add(holder.value()));
+
+            int index = tagContainer.getIndex();
+            if (index >= 0) {
+                if (index >= blocks.size()) {
+                    return List.of();
+                }
+                Block block = blocks.get(index);
+                return block == Blocks.AIR ? List.of() : List.of(block);
+            }
+
+            blocks.removeIf(block -> block == Blocks.AIR);
+            return blocks;
+        }
+
+        Block block = getBlockFromContainer(container);
+        return block == null || block == Blocks.AIR ? List.of() : List.of(block);
+    }
 
     @Nullable
     private Block getBlockFromContainer(RandomBlockContainer container) {

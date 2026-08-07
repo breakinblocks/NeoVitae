@@ -63,7 +63,7 @@ All recipes use `neoforge:item_exists` conditions so they silently disable if th
 Any material flagged `generative` (the default) is automatically woven into NeoVitae's world-generation and reward systems. No recipe or tag authoring is required; a pack that adds platinum, mithril, or any ore the material system detects gets it everywhere for free.
 
 - **Prismatic Demonite drops**. Mining Prismatic Demonite in the dungeon drops a random raw material drawn from the `raw_tag` of every generative material.
-- **Dungeon iron-ore deposits**. The hand-placed ore in dungeon rooms (armoury, ore cavern, crane) is swapped at placement time for a random spread of generative ores.
+- **Dungeon iron-ore deposits**. The hand-placed ore in dungeon rooms (armory, ore cavern, crane) is swapped at placement time for a random spread of generative ores.
 - **Meteor ritual**. The default meteors include a weighted entry pointing at the generative ore set, so summoned meteors carry the pack's ores.
 
 These three systems all read the auto-populated `neovitae:generative_ores` block tag, which lists the ore blocks of every generative material. Ores that don't exist in the pack contribute nothing.
@@ -382,7 +382,7 @@ The shipped pools cover:
 ### Tips
 
 - **Reference NeoVitae's generated JSONs** in the repo at `src/generated/resources/assets/neovitae/schematics/`. They cover every door arrangement (single door, multi-level, asymmetric waterway connectors, multi-NBT rooms) and are the authoritative examples.
-- **Indices group doors** that should accept the same neighbour pool. A four-way corridor with one index attaches anything to any door; a station with `index: 1` north/south for mine corridors and `index: 2` east for a side passage attaches different pools per direction.
+- **Indices group doors** that should accept the same neighbor pool. A four-way corridor with one index attaches anything to any door; a station with `index: 1` north/south for mine corridors and `index: 2` east for a side passage attaches different pools per direction.
 - **Ore density is per-room**: the fraction of raw dungeon stone converted to Demonite Ore (and occasionally Prismatic Demonite). Mines use 0.2-0.4, ore-cavern rooms 0.6, mine-key/deadend rooms 0.8.
 - **`/neovitae dungeon-showcase`** places every registered structure NBT in a grid for visual review. Use this to verify your NBT loads correctly before wiring up the JSON definition.
 

@@ -6,9 +6,11 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -145,9 +147,14 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
         // Ingot tags
         tag(NVTags.Items.INGOTS_HELLFORGED).add(NVItems.HELLFORGED_INGOT.get());
+        tag(Tags.Items.INGOTS).addTag(NVTags.Items.INGOTS_HELLFORGED);
 
         // Raw material tags
         tag(NVTags.Items.RAW_MATERIALS_HELLFORGED).add(NVItems.DEMONITE_RAW.get());
+        tag(Tags.Items.RAW_MATERIALS).addTag(NVTags.Items.RAW_MATERIALS_HELLFORGED);
+
+        // Ore tags
+        tag(Tags.Items.ORES).add(DungeonBlocks.DUNGEON_ORE.item().get());
 
         // Armor trim material
         tag(ItemTags.TRIM_MATERIALS).add(NVItems.DEMONITE_TRIM_INGOT.get());

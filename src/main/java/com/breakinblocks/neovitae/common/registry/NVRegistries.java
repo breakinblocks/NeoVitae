@@ -28,7 +28,12 @@ public class NVRegistries {
     }
 
     private static void registerPack(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(Keys.ALTAR_TIER_KEY, AltarTier.CODEC);
+        event.dataPackRegistry(
+                Keys.ALTAR_TIER_KEY,
+                AltarTier.CODEC,
+                AltarTier.CODEC,
+                builder -> builder.sync(true)
+        );
         event.dataPackRegistry(
                 Keys.RITUAL_LAYOUT_KEY,
                 RitualLayout.CODEC,

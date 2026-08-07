@@ -20,7 +20,7 @@ public class StrongLegsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Strong Legs");
-        this.pageText("The armour amplifies the power of your legs, propelling you higher with each leap. "
+        this.pageText("The armor amplifies the power of your legs, propelling you higher with each leap. "
                 + "Grants up to 7.5 additional blocks of jump height and 83%% fall resistance.\\\n\\\n"
                 + "[#](2E8B57)Hold sneak while jumping to suppress the boost.[#]()\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Jumping.\\\n\\\n"
@@ -34,7 +34,7 @@ public class StrongLegsUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour coils like a spring beneath you, launching you skyward.";
+        return "The armor coils like a spring beneath you, launching you skyward.";
     }
 
     @Override

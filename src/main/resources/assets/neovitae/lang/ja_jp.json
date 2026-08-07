@@ -4,5 +4,6 @@
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "階層別Runes",
   "gui.neovitae.hellfire_forge.needs_spiritus": "精神が不足しています: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "クラフトスロットの宝石は宝石スロットの代わりにクラフトを燃料にします",
-  "jei.neovitae.recipe.meteor.random_pool": "%s ブロックからランダムに選択"
+  "jei.neovitae.recipe.meteor.random_pool": "%s ブロックからランダムに選択",
+  "key.neovitae.open_guide": "ホバード・アイテムのためにScriptura Vitae を開く"
 }

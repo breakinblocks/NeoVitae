@@ -2600,6 +2600,7 @@
   "key.neovitae.edit_hud": "Editar Layout da Interface",
   "key.neovitae.lex_beam": "Lex da Vida: Raio de Fogo",
   "key.neovitae.lex_mode": "Lex da Vida: Alternar Modo",
+  "key.neovitae.open_guide": "Abrir o Scriptura Vitae para o Item Hovered",
   "menu.neovitae.athanor": "Athanor",
   "menu.neovitae.teleposer": "Teletransportador",
   "message.neovitae.altar_draws_blood": "O altar puxa o sangue que precisa...",

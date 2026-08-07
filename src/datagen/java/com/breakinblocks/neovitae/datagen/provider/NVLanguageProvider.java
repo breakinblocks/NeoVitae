@@ -1389,7 +1389,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
         addAdvancement("sentient_armor", "Sentient Armor", "Craft Sentient Armor");
         addAdvancement("sentient_evolution", "Sentient Evolution", "Activate the Ritual of Sentient Evolution to push your Sentient Armor's upgrade capacity beyond its limit");
-        addAdvancement("self_sacrifice", "Blood Pact", "Forge your first Blood Orb");
+        addAdvancement("self_sacrifice", "Blood Pact", "Forge your first Orb of Vitae");
 
         addAdvancement("arcane_scribe", "Circle of Intent", "Craft an Arcane Scribe Tool to inscribe and activate Alchemy Arrays");
         addAdvancement("demonite", "Forged in the Pit", "Unearth a sliver of raw Demonite from the Endless Realm");

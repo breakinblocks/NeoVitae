@@ -29,6 +29,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.event.LexVitaeAoeHandler;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
@@ -177,6 +178,10 @@ public class SentientEventHandler {
     @SubscribeEvent
     public static void onBlockBroken(BlockEvent.BreakEvent event) {
         if (event.getLevel().isClientSide()) {
+            return;
+        }
+
+        if (LexVitaeAoeHandler.isAoeBreaking()) {
             return;
         }
 

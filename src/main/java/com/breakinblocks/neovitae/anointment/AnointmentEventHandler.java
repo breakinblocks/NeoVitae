@@ -33,6 +33,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.event.LexVitaeAoeHandler;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
 /**
@@ -128,6 +129,10 @@ public class AnointmentEventHandler {
      */
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (LexVitaeAoeHandler.isAoeBreaking()) {
+            return;
+        }
+
         Player player = event.getPlayer();
         if (player == null) {
             return;

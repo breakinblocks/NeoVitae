@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -40,6 +42,46 @@ public class LexVitaeTests {
         BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(helper.getLevel(), absPos, state, player);
         NeoForge.EVENT_BUS.post(event);
         return event.isCanceled();
+    }
+
+    public static final class BreakBlocker {
+        private final BlockPos protectedPos;
+
+        BreakBlocker(BlockPos protectedPos) {
+            this.protectedPos = protectedPos;
+        }
+
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        public void onBreak(BlockEvent.BreakEvent event) {
+            if (event.getPos().equals(this.protectedPos)) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void lexVitaeAoeRespectsBlockProtection(GameTestHelper helper) {
+        BlockPos below = new BlockPos(2, 0, 2);
+        BlockPos center = new BlockPos(2, 1, 2);
+        BlockPos guarded = new BlockPos(2, 2, 2);
+        helper.setBlock(below, Blocks.STONE.defaultBlockState());
+        helper.setBlock(center, Blocks.STONE.defaultBlockState());
+        helper.setBlock(guarded, Blocks.STONE.defaultBlockState());
+        Player player = armedPlayer(helper, 1);
+
+        BreakBlocker blocker = new BreakBlocker(helper.absolutePos(guarded));
+        NeoForge.EVENT_BUS.register(blocker);
+
+        helper.runAfterDelay(1, () -> {
+            try {
+                postBreak(helper, player, helper.absolutePos(center));
+                helper.assertBlockPresent(Blocks.STONE, guarded);
+                helper.assertBlockNotPresent(Blocks.STONE, below);
+                helper.succeed();
+            } finally {
+                NeoForge.EVENT_BUS.unregister(blocker);
+            }
+        });
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 60)

@@ -15,6 +15,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public final class LexVitaeAoeHandler {
@@ -66,7 +67,7 @@ public final class LexVitaeAoeHandler {
                     if (state.isAir()) continue;
                     if (state.getDestroySpeed(level, pos) < 0) continue;
                     if (!stack.isCorrectToolForDrops(state)) continue;
-                    if (level.destroyBlock(pos, true, player)) {
+                    if (BlockProtectionHelper.tryBreakBlock(level, pos, player)) {
                         stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
                         if (stack.isEmpty()) return;
                     }

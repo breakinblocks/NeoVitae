@@ -1,6 +1,12 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -12,6 +18,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
+import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 
 public final class MinorSystemTests {
@@ -135,6 +142,32 @@ public final class MinorSystemTests {
                 }
                 helper.succeed();
             });
+        });
+
+        r.add("minor/sigils_do_not_suppress_swing_animation", 60, helper -> {
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            int checked = 0;
+
+            for (Item item : BuiltInRegistries.ITEM) {
+                if (!(item instanceof ISigil)) {
+                    continue;
+                }
+                checked++;
+                ItemStack stack = new ItemStack(item);
+                player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+                player.swinging = false;
+                player.swing(InteractionHand.MAIN_HAND, false);
+                if (!player.swinging) {
+                    helper.fail("Sigil " + BuiltInRegistries.ITEM.getKey(item) + " suppresses the swing animation");
+                    return;
+                }
+            }
+
+            if (checked == 0) {
+                helper.fail("Expected at least one registered sigil");
+                return;
+            }
+            helper.succeed();
         });
     }
 }

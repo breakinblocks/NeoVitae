@@ -9,7 +9,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -74,10 +73,5 @@ public class ItemSigil extends Item implements IBindable, ISigil {
     @Nullable
     protected ItemStack resolveStackForUse(Player player, InteractionHand hand) {
         return ISigil.resolveForUse(player, hand);
-    }
-
-    @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        return true;
     }
 }

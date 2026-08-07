@@ -355,11 +355,6 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     }
 
     @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        return true;
-    }
-
-    @Override
     public boolean isFoil(ItemStack stack) {
         return super.isFoil(stack) || getActivated(stack);
     }

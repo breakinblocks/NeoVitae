@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -30,7 +31,7 @@ import net.minecraft.world.item.crafting.Recipe;
 public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
             ItemStackTemplate.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputTemplate),
             Codec.INT.fieldOf("syphon").forGetter(FlaskItemTransformRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskItemTransformRecipe::getTicks),

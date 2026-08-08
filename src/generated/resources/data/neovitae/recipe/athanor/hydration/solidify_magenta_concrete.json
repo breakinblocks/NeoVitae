@@ -1,6 +1,5 @@
 {
   "type": "neovitae:athanor",
-  "chance_outputs": [],
   "guaranteed_outputs": [
     {
       "id": "minecraft:magenta_concrete"

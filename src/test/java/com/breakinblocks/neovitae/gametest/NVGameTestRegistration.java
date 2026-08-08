@@ -24,6 +24,7 @@ public class NVGameTestRegistration {
         LexVitaeTests.register(r);
         MinorSystemTests.register(r);
         MultiblockTests.register(r);
+        RecipeSyntaxTests.register(r);
         RoutingNodeTests.register(r);
         SacrificeTests.register(r);
         SpiritusTests.register(r);

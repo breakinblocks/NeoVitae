@@ -18,6 +18,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
@@ -44,11 +45,11 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     }
 
     public static final MapCodec<AthanorPotionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            Ingredient.CODEC.fieldOf("tool").forGetter(AthanorPotionRecipe::getTool),
-            Ingredient.CODEC.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
-            ItemStackTemplate.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorPotionRecipe::getGuaranteedOutput),
-            Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorPotionRecipe::getChanceOutput),
-            SizedFluidIngredient.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
+            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorPotionRecipe::getTool),
+            NVRecipeCodecs.INGREDIENT.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
+            ItemStackTemplate.CODEC.listOf().optionalFieldOf("guaranteed_outputs", List.of()).forGetter(AthanorPotionRecipe::getGuaranteedOutput),
+            Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().optionalFieldOf("chance_outputs", List.of()).forGetter(AthanorPotionRecipe::getChanceOutput),
+            NVRecipeCodecs.SIZED_FLUID_INGREDIENT.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
             FluidStackTemplate.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorPotionRecipe::getOutputFluidTemplate)
     ).apply(inst, AthanorPotionRecipe::new));
 

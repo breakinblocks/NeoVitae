@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -29,7 +30,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
     public static final MapCodec<ForgeSpiritusInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
-            Ingredient.CODEC.fieldOf("gemInput").forGetter(r -> r.gemInput)
+            NVRecipeCodecs.INGREDIENT.fieldOf("gemInput").forGetter(r -> r.gemInput)
     ).apply(instance, ForgeSpiritusInfusionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeSpiritusInfusionRecipe> STREAM_CODEC = StreamCodec.composite(

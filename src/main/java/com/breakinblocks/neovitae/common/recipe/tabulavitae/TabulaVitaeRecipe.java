@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -31,7 +32,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
     public static final int MAX_INPUTS = 6;
 
     public static final MapCodec<TabulaVitaeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().fieldOf("input").forGetter(TabulaVitaeRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(TabulaVitaeRecipe::getInput),
             ItemStackTemplate.CODEC.fieldOf("output").forGetter(TabulaVitaeRecipe::getOutputTemplate),
             Codec.INT.fieldOf("syphon").forGetter(TabulaVitaeRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(TabulaVitaeRecipe::getTicks),

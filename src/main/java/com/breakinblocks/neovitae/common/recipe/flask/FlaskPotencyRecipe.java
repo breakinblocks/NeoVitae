@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -30,7 +31,7 @@ import net.minecraft.world.item.crafting.Recipe;
 public class FlaskPotencyRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskPotencyRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskPotencyRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(FlaskPotencyRecipe::getInput),
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(FlaskPotencyRecipe::getTargetEffect),
             Codec.INT.fieldOf("amplifier").forGetter(FlaskPotencyRecipe::getAmplifier),
             Codec.DOUBLE.fieldOf("ampDurationMod").forGetter(FlaskPotencyRecipe::getAmpDurationMod),

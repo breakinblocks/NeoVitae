@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -29,7 +30,7 @@ import net.minecraft.world.item.crafting.Recipe;
 public class FlaskEffectRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskEffectRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskEffectRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(FlaskEffectRecipe::getInput),
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(FlaskEffectRecipe::getOutputEffect),
             Codec.INT.fieldOf("baseDuration").forGetter(FlaskEffectRecipe::getBaseDuration),
             Codec.INT.fieldOf("syphon").forGetter(FlaskEffectRecipe::getSyphon),

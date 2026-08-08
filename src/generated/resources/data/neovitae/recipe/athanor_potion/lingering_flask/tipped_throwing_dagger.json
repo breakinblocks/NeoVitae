@@ -1,6 +1,5 @@
 {
   "type": "neovitae:athanor_potion",
-  "chance_outputs": [],
   "guaranteed_outputs": [
     {
       "count": 8,

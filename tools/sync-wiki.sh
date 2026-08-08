@@ -16,6 +16,9 @@
 
 set -euo pipefail
 
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_PREFIX GIT_COMMON_DIR GIT_NAMESPACE \
+      GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_QUARANTINE_PATH
+
 DRY_RUN=0
 if [ "${1:-}" = "--dry-run" ]; then
     DRY_RUN=1
@@ -51,6 +54,12 @@ find "$TMP" -mindepth 1 -maxdepth 1 -not -name '.git' -exec rm -rf {} +
 cp -r wiki/. "$TMP/"
 
 cd "$TMP"
+
+if [ "$(git remote get-url origin)" != "$WIKI_URL" ]; then
+    echo "Refusing to sync: expected to be in a clone of $WIKI_URL," >&2
+    echo "but git resolved origin to $(git remote get-url origin)." >&2
+    exit 1
+fi
 
 if [ -z "$(git status --porcelain)" ]; then
     echo "✓ Wiki already up to date — nothing to push"

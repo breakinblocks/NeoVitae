@@ -85,6 +85,12 @@ public abstract class Ritual {
     public void stopRitual(IMasterRitualStone masterRitualStone, BreakType breakType) {
     }
 
+    public void onLoad(IMasterRitualStone masterRitualStone) {
+    }
+
+    public void onUnload(IMasterRitualStone masterRitualStone) {
+    }
+
     public int getRefreshTime() {
         RitualStats stats = getStats();
         return stats != null ? stats.refreshTime() : 20;

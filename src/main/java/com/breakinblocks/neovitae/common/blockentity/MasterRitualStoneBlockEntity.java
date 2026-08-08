@@ -605,6 +605,22 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         }
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level != null && !level.isClientSide() && active && currentRitual != null) {
+            currentRitual.onLoad(this);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        if (level != null && !level.isClientSide() && currentRitual != null) {
+            currentRitual.onUnload(this);
+        }
+        super.setRemoved();
+    }
+
     private AreaDescriptor createAreaDescriptor(String type) {
         return switch (type) {
             case "rectangle" -> new AreaDescriptor.Rectangle(BlockPos.ZERO, BlockPos.ZERO);

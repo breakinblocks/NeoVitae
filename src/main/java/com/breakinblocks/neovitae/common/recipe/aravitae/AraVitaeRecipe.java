@@ -9,12 +9,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 public class AraVitaeRecipe extends com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe {
 
     public static final MapCodec<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.fieldOf("input").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getInput),
             ItemStack.CODEC.fieldOf("output").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getResult),
             Codec.INT.fieldOf("minTier").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getMinTier),
             Codec.INT.fieldOf("bloodNeeded").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getTotalBlood),

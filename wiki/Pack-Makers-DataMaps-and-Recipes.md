@@ -368,6 +368,33 @@ The bundled circular layout fires these effects (cumulative):
 
 NeoVitae adds several recipe types that can be customized via datapacks.
 
+### Ingredient Syntax Across Minecraft Versions
+
+Minecraft 1.21.2 changed how vanilla spells ingredients: `{ "item": "minecraft:sand" }`
+became `"minecraft:sand"`, and `{ "tag": "c:sands" }` became `"#c:sands"`.
+
+Every NeoVitae recipe type accepts **both** spellings on **both** the 1.21.1 and the
+26.1 build, so a single set of recipe files works on either version with no edits:
+
+| Meaning | 1.21.1 style | 26.1 style |
+|---------|--------------|------------|
+| One item | `{ "item": "minecraft:sand" }` | `"minecraft:sand"` |
+| An item tag | `{ "tag": "c:sands" }` | `"#c:sands"` |
+| Several options | `[{ "item": "a" }, { "tag": "b" }]` | `["a", "#b"]` |
+| One fluid | `{ "fluid": "minecraft:water" }` | `"minecraft:water"` |
+| A fluid tag | `{ "tag": "c:water" }` | `"#c:water"` |
+
+Pick one style per field; the two cannot be mixed inside a single list. Item results
+(`{ "id": "...", "count": 1 }`) and fluid amounts (`{ "id": "...", "amount": 50 }`)
+already use the same shape on both versions.
+
+This covers NeoVitae's own recipe types only. Vanilla recipe types such as
+`minecraft:crafting_shaped` follow vanilla's rules, so those still need
+version-specific files.
+
+NeoVitae's own generated recipes are written in whichever style is native to the
+build, so the files shipped inside the jar will not always match the style you author.
+
 ### Ara Vitae Recipes
 
 **Location:** `data/neovitae/recipe/altar/`
@@ -444,28 +471,50 @@ NeoVitae adds several recipe types that can be customized via datapacks.
 ```json
 {
   "type": "neovitae:athanor",
-  "input": { "item": "minecraft:iron_ore" },
   "tool": { "tag": "neovitae:athanor_tool/explosives" },
-  "output": {
-    "id": "neovitae:iron_fragment",
-    "count": 3
-  },
-  "inputFluid": {
-    "id": "minecraft:water",
-    "amount": 100
-  },
-  "outputFluid": {
-    "id": "minecraft:lava",
-    "amount": 50
-  },
-  "addedOutput": [
+  "inputs": [
+    { "item": "minecraft:iron_ore" }
+  ],
+  "guaranteed_outputs": [
+    {
+      "id": "neovitae:iron_fragment",
+      "count": 3
+    }
+  ],
+  "chance_outputs": [
     {
       "item": { "id": "neovitae:iron_fragment" },
       "chance": 0.5
     }
-  ]
+  ],
+  "input_fluid": {
+    "ingredient": { "fluid": "minecraft:water" },
+    "amount": 100
+  },
+  "output_fluid": {
+    "id": "minecraft:lava",
+    "amount": 50
+  }
 }
 ```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `tool` | yes | The Athanor tool the recipe runs on, normally an `athanor_tool/*` tag |
+| `inputs` | yes | Up to six ingredients, matched against the input slots in any order |
+| `guaranteed_outputs` | no | Item stacks produced on every craft. Defaults to none |
+| `chance_outputs` | no | Item stacks produced per the given `chance`. Defaults to none |
+| `input_fluid` | no | Fluid consumed per craft, as `{ "ingredient": ..., "amount": N }` |
+| `output_fluid` | no | Fluid produced per craft |
+| `spiritus_costs` | no | Map of spiritus type to amount drained from the chunk per craft |
+| `spiritus_boost` | no | When `true`, local raw spiritus can yield a bonus copy of the first guaranteed output |
+
+Both output lists are optional and default to empty, so a recipe that only produces a
+fluid may omit them entirely. Omit a list rather than writing an entry for `minecraft:air`;
+air is not a valid item stack and will fail to load.
+
+A `chance` above `1.0` always produces at least one copy and rolls the remainder for a
+second, so `2.5` yields two copies plus a 50% chance of a third.
 
 ### Alchemy Array Recipes
 

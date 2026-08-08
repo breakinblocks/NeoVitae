@@ -20,6 +20,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
@@ -50,11 +51,11 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Codec.unboundedMap(SpiritusType.CODEC, Codec.DOUBLE);
 
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            Ingredient.CODEC.fieldOf("tool").forGetter(AthanorRecipe::getTool),
-            Ingredient.CODEC.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
-            ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
-            Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
-            SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
+            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorRecipe::getTool),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
+            ItemStack.CODEC.listOf().optionalFieldOf("guaranteed_outputs", List.of()).forGetter(AthanorRecipe::getGuaranteedOutput),
+            Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().optionalFieldOf("chance_outputs", List.of()).forGetter(AthanorRecipe::getChanceOutput),
+            NVRecipeCodecs.SIZED_FLUID_INGREDIENT.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
             FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid),
             SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts),
             Codec.BOOL.optionalFieldOf("spiritus_boost", false).forGetter(AthanorRecipe::isSpiritusBoosted)

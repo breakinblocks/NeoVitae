@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.*;
@@ -28,7 +29,7 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     public static final String RECIPE_TYPE_NAME = "meteor";
 
     public static final MapCodec<MeteorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(MeteorRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.fieldOf("input").forGetter(MeteorRecipe::getInput),
             Codec.INT.fieldOf("syphon").forGetter(MeteorRecipe::getSyphon),
             Codec.FLOAT.fieldOf("explosion").forGetter(MeteorRecipe::getExplosionRadius),
             MeteorLayer.CODEC.listOf().fieldOf("layers").forGetter(MeteorRecipe::getLayerList)

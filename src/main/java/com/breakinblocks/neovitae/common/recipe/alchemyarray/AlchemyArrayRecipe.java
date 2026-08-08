@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 
@@ -31,8 +32,8 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
 
     public static final MapCodec<AlchemyArrayRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("texture").forGetter(AlchemyArrayRecipe::getTexture),
-            Ingredient.CODEC_NONEMPTY.fieldOf("baseinput").forGetter(AlchemyArrayRecipe::getBaseInput),
-            Ingredient.CODEC_NONEMPTY.fieldOf("addedinput").forGetter(AlchemyArrayRecipe::getAddedInput),
+            NVRecipeCodecs.INGREDIENT.fieldOf("baseinput").forGetter(AlchemyArrayRecipe::getBaseInput),
+            NVRecipeCodecs.INGREDIENT.fieldOf("addedinput").forGetter(AlchemyArrayRecipe::getAddedInput),
             ItemStack.CODEC.optionalFieldOf("output", ItemStack.EMPTY).forGetter(AlchemyArrayRecipe::getOutput),
             AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType),
             Codec.INT.optionalFieldOf("ev_cost", 0).forGetter(AlchemyArrayRecipe::getEvCost)

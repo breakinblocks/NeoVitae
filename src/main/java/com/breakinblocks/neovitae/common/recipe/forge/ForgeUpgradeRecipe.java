@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -24,7 +25,7 @@ public class ForgeUpgradeRecipe extends ForgeRecipe {
     public static final MapCodec<ForgeUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("catalysts").forGetter(r -> r.ingredients)
+            Codec.list(NVRecipeCodecs.INGREDIENT).fieldOf("catalysts").forGetter(r -> r.ingredients)
     ).apply(instance, ForgeUpgradeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeUpgradeRecipe> STREAM_CODEC = StreamCodec.composite(

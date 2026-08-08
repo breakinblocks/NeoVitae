@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnull;
@@ -25,7 +26,7 @@ public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
     public static final String RECIPE_TYPE_NAME = "sentient_downgrade";
 
     public static final MapCodec<SentientDowngradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(SentientDowngradeRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.fieldOf("input").forGetter(SentientDowngradeRecipe::getInput),
             ResourceLocation.CODEC.fieldOf("sentient_upgrade").forGetter(SentientDowngradeRecipe::getSentientUpgradeId)
     ).apply(instance, SentientDowngradeRecipe::new));
 

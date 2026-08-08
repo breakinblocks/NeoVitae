@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -27,7 +28,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     public static final MapCodec<ForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
+            Codec.list(NVRecipeCodecs.INGREDIENT).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
             ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
             SpiritusType.CODEC.optionalFieldOf("spiritusType").forGetter(ForgeRecipe::getSpiritusType)
     ).apply(instance, ForgeRecipe::new));

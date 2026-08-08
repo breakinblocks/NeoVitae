@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -25,7 +26,7 @@ import java.util.List;
 public class FlaskCycleRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskCycleRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskCycleRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(FlaskCycleRecipe::getInput),
             Codec.INT.fieldOf("count").forGetter(FlaskCycleRecipe::getNumCycles),
             Codec.INT.fieldOf("syphon").forGetter(FlaskCycleRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskCycleRecipe::getTicks),

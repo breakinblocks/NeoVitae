@@ -14,6 +14,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
@@ -28,7 +29,7 @@ import java.util.List;
 public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
+            NVRecipeCodecs.INGREDIENT.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
             ItemStack.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputItem),
             Codec.INT.fieldOf("syphon").forGetter(FlaskItemTransformRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskItemTransformRecipe::getTicks),

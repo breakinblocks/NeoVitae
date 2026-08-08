@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     public static final MapCodec<ForgeTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
-            Ingredient.CODEC_NONEMPTY.fieldOf("transformInput").forGetter(r -> r.transformInput),
+            Codec.list(NVRecipeCodecs.INGREDIENT).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
+            NVRecipeCodecs.INGREDIENT.fieldOf("transformInput").forGetter(r -> r.transformInput),
             ItemStack.CODEC.fieldOf("output").forGetter(r -> r.resultItem)
     ).apply(instance, ForgeTransformRecipe::new));
 

@@ -24,6 +24,7 @@ public class NVGameTestRegistration {
         event.register(MinorSystemTests.class);
         event.register(MultiblockTests.class);
         event.register(DataValidationTests.class);
+        event.register(RecipeSyntaxTests.class);
         event.register(SacrificeTests.class);
 
         event.register(BloodOrbTests.class);

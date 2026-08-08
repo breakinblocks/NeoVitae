@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.ritual.types;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
@@ -52,6 +53,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -59,6 +62,7 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -74,6 +78,8 @@ public class RitualTormentNexus extends Ritual {
     public static final String CHEST_RANGE = "chestRange";
 
     private static final Set<GlobalPos> SUPPRESSED_SPAWNERS = ConcurrentHashMap.newKeySet();
+    private static final Map<GlobalPos, GlobalPos> HARVESTED_SPAWNERS = new ConcurrentHashMap<>();
+    private static final Map<UUID, GlobalPos> PENDING_HARVEST = new ConcurrentHashMap<>();
     private static volatile boolean LISTENER_REGISTERED = false;
 
     private static final int RESCAN_INTERVAL_REFRESHES = 10;
@@ -81,7 +87,7 @@ public class RitualTormentNexus extends Ritual {
     private final Map<BlockPos, Double> vanillaSpawnerAccumulators = new LinkedHashMap<>();
     private final Map<BlockPos, Double> trialSpawnerAccumulators = new LinkedHashMap<>();
     private final Map<BlockPos, Double> trialRewardAccumulators = new LinkedHashMap<>();
-    private final Map<BlockPos, Double> poweredSpawnerAccumulators = new LinkedHashMap<>();
+    private final Set<BlockPos> harvestedSpawners = new LinkedHashSet<>();
     private BlockPos altarOffsetPos = null;
     private int refreshesSinceScan = 0;
 
@@ -101,12 +107,24 @@ public class RitualTormentNexus extends Ritual {
         synchronized (RitualTormentNexus.class) {
             if (LISTENER_REGISTERED) return;
             NeoForge.EVENT_BUS.addListener(RitualTormentNexus::onFinalizeSpawn);
+            NeoForge.EVENT_BUS.addListener(RitualTormentNexus::onEntityTick);
+            NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
+                SUPPRESSED_SPAWNERS.clear();
+                HARVESTED_SPAWNERS.clear();
+                PENDING_HARVEST.clear();
+            });
             LISTENER_REGISTERED = true;
         }
     }
 
+    private static boolean isNear(BlockPos spawner, BlockPos at) {
+        return Math.abs(spawner.getX() - at.getX()) <= 8
+                && Math.abs(spawner.getZ() - at.getZ()) <= 8
+                && Math.abs(spawner.getY() - at.getY()) <= 6;
+    }
+
     private static void onFinalizeSpawn(FinalizeSpawnEvent event) {
-        if (SUPPRESSED_SPAWNERS.isEmpty()) return;
+        if (SUPPRESSED_SPAWNERS.isEmpty() && HARVESTED_SPAWNERS.isEmpty()) return;
         EntitySpawnReason st = event.getSpawnType();
         if (st != EntitySpawnReason.SPAWNER && st != EntitySpawnReason.TRIAL_SPAWNER) return;
         Entity entity = event.getEntity();
@@ -115,23 +133,46 @@ public class RitualTormentNexus extends Ritual {
         ResourceKey<Level> dim = sl.dimension();
         BlockPos at = entity.blockPosition();
         for (GlobalPos gp : SUPPRESSED_SPAWNERS) {
-            if (!gp.dimension().equals(dim)) continue;
-            BlockPos sp = gp.pos();
-            if (Math.abs(sp.getX() - at.getX()) <= 8
-                    && Math.abs(sp.getZ() - at.getZ()) <= 8
-                    && Math.abs(sp.getY() - at.getY()) <= 6) {
-                event.setSpawnCancelled(true);
-                event.setCanceled(true);
-                for (Entity passenger : entity.getIndirectPassengers()) {
-                    if (passenger instanceof Mob rider) {
-                        rider.setSpawnCancelled(true);
-                    } else {
-                        passenger.discard();
-                    }
+            if (!gp.dimension().equals(dim) || !isNear(gp.pos(), at)) continue;
+            event.setSpawnCancelled(true);
+            event.setCanceled(true);
+            for (Entity passenger : entity.getIndirectPassengers()) {
+                if (passenger instanceof Mob rider) {
+                    rider.setSpawnCancelled(true);
+                } else {
+                    passenger.discard();
                 }
-                return;
             }
+            return;
         }
+        if (!(entity instanceof LivingEntity living)) return;
+        for (Map.Entry<GlobalPos, GlobalPos> e : HARVESTED_SPAWNERS.entrySet()) {
+            GlobalPos spawner = e.getKey();
+            if (!spawner.dimension().equals(dim) || !isNear(spawner.pos(), at)) continue;
+            PENDING_HARVEST.put(living.getUUID(), e.getValue());
+            return;
+        }
+    }
+
+    private static void onEntityTick(EntityTickEvent.Pre event) {
+        if (PENDING_HARVEST.isEmpty()) return;
+        Entity entity = event.getEntity();
+        if (!(entity instanceof LivingEntity living)) return;
+        GlobalPos masterPos = PENDING_HARVEST.remove(living.getUUID());
+        if (masterPos == null) return;
+        if (!(living.level() instanceof ServerLevel sl) || !sl.dimension().equals(masterPos.dimension())) return;
+
+        boolean harvested = sl.getBlockEntity(masterPos.pos()) instanceof MasterRitualStoneBlockEntity mrs
+                && mrs.isActive()
+                && mrs.getCurrentRitual() instanceof RitualTormentNexus nexus
+                && nexus.harvestLiving(mrs, living);
+
+        if (!harvested) return;
+        for (Entity passenger : living.getIndirectPassengers()) {
+            passenger.discard();
+        }
+        living.discard();
+        event.setCanceled(true);
     }
 
     @Override
@@ -152,24 +193,36 @@ public class RitualTormentNexus extends Ritual {
     }
 
     @Override
+    public void onLoad(IMasterRitualStone master) {
+        if (!(master.getLevel() instanceof ServerLevel sl)) return;
+        ResourceKey<Level> dim = sl.dimension();
+        GlobalPos masterPos = GlobalPos.of(dim, master.getBlockPos());
+        for (BlockPos pos : vanillaSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, pos));
+        for (BlockPos pos : trialSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, pos));
+        for (BlockPos pos : harvestedSpawners) HARVESTED_SPAWNERS.put(GlobalPos.of(dim, pos), masterPos);
+        refreshesSinceScan = RESCAN_INTERVAL_REFRESHES;
+    }
+
+    @Override
+    public void onUnload(IMasterRitualStone master) {
+        clearSuppression(master);
+    }
+
+    @Override
     public void stopRitual(IMasterRitualStone master, BreakType breakType) {
-        Level level = master.getLevel();
-        if (level instanceof ServerLevel sl) {
-            ResourceKey<Level> dim = sl.dimension();
-            for (BlockPos pos : vanillaSpawnerAccumulators.keySet()) {
-                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
-            }
-            for (BlockPos pos : trialSpawnerAccumulators.keySet()) {
-                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
-            }
-            for (BlockPos pos : poweredSpawnerAccumulators.keySet()) {
-                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
-            }
-        }
+        clearSuppression(master);
         vanillaSpawnerAccumulators.clear();
         trialSpawnerAccumulators.clear();
         trialRewardAccumulators.clear();
-        poweredSpawnerAccumulators.clear();
+        harvestedSpawners.clear();
+    }
+
+    private void clearSuppression(IMasterRitualStone master) {
+        if (!(master.getLevel() instanceof ServerLevel sl)) return;
+        ResourceKey<Level> dim = sl.dimension();
+        for (BlockPos pos : vanillaSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
+        for (BlockPos pos : trialSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, pos));
+        for (BlockPos pos : harvestedSpawners) HARVESTED_SPAWNERS.remove(GlobalPos.of(dim, pos));
     }
 
     private void scanArea(ServerLevel level, IMasterRitualStone master) {
@@ -180,7 +233,7 @@ public class RitualTormentNexus extends Ritual {
 
         Map<BlockPos, Double> nextVanilla = new LinkedHashMap<>();
         Map<BlockPos, Double> nextTrial = new LinkedHashMap<>();
-        Map<BlockPos, Double> nextPowered = new LinkedHashMap<>();
+        Set<BlockPos> nextHarvested = new LinkedHashSet<>();
         for (BlockPos pos : range.getContainedPositions(masterPos)) {
             BlockEntity be = level.getBlockEntity(pos);
             BlockPos imm = pos.immutable();
@@ -189,7 +242,7 @@ public class RitualTormentNexus extends Ritual {
             } else if (be instanceof TrialSpawnerBlockEntity) {
                 nextTrial.put(imm, trialSpawnerAccumulators.getOrDefault(imm, 0.0));
             } else if (be != null && EnderIOCompat.isPoweredSpawner(be)) {
-                nextPowered.put(imm, poweredSpawnerAccumulators.getOrDefault(imm, 0.0));
+                nextHarvested.add(imm);
             }
         }
 
@@ -199,8 +252,8 @@ public class RitualTormentNexus extends Ritual {
         for (BlockPos p : trialSpawnerAccumulators.keySet()) {
             if (!nextTrial.containsKey(p)) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
         }
-        for (BlockPos p : poweredSpawnerAccumulators.keySet()) {
-            if (!nextPowered.containsKey(p)) SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
+        for (BlockPos p : harvestedSpawners) {
+            if (!nextHarvested.contains(p)) HARVESTED_SPAWNERS.remove(GlobalPos.of(dim, p));
         }
 
         vanillaSpawnerAccumulators.clear();
@@ -208,12 +261,13 @@ public class RitualTormentNexus extends Ritual {
         trialSpawnerAccumulators.clear();
         trialSpawnerAccumulators.putAll(nextTrial);
         trialRewardAccumulators.keySet().retainAll(nextTrial.keySet());
-        poweredSpawnerAccumulators.clear();
-        poweredSpawnerAccumulators.putAll(nextPowered);
+        harvestedSpawners.clear();
+        harvestedSpawners.addAll(nextHarvested);
 
+        GlobalPos masterGlobal = GlobalPos.of(dim, masterPos);
         for (BlockPos p : vanillaSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
         for (BlockPos p : trialSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
-        for (BlockPos p : poweredSpawnerAccumulators.keySet()) SUPPRESSED_SPAWNERS.add(GlobalPos.of(dim, p));
+        for (BlockPos p : harvestedSpawners) HARVESTED_SPAWNERS.put(GlobalPos.of(dim, p), masterGlobal);
     }
 
     @Override
@@ -223,7 +277,7 @@ public class RitualTormentNexus extends Ritual {
         ServerLevel level = ctx.serverLevel();
         BlockPos masterPos = ctx.masterPos();
 
-        if (vanillaSpawnerAccumulators.isEmpty() && trialSpawnerAccumulators.isEmpty()) {
+        if (vanillaSpawnerAccumulators.isEmpty() && trialSpawnerAccumulators.isEmpty() && harvestedSpawners.isEmpty()) {
             scanArea(level, master);
             refreshesSinceScan = 0;
         } else if (++refreshesSinceScan >= RESCAN_INTERVAL_REFRESHES) {
@@ -323,37 +377,6 @@ public class RitualTormentNexus extends Ritual {
             }
         }
 
-        if (!ranOutOfEv) {
-            for (BlockPos pos : new ArrayList<>(poweredSpawnerAccumulators.keySet())) {
-                BlockEntity be = level.getBlockEntity(pos);
-                if (be == null || !EnderIOCompat.isPoweredSpawner(be)) {
-                    poweredSpawnerAccumulators.remove(pos);
-                    SUPPRESSED_SPAWNERS.remove(GlobalPos.of(level.dimension(), pos));
-                    continue;
-                }
-                EnderIOCompat.PoweredSpawnerSnapshot snap = EnderIOCompat.readPoweredSpawner(be);
-                if (snap == null || snap.entityType() == null) continue;
-
-                double cycles = poweredSpawnerAccumulators.getOrDefault(pos, 0.0) + refreshTicks * snap.mobsPerTick();
-                int wholeKills = (int) cycles;
-                poweredSpawnerAccumulators.put(pos, cycles - wholeKills);
-                for (int n = 0; n < wholeKills; n++) {
-                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
-                    if (charge > 0 && ctx.currentEV() < charge) { ranOutOfEv = true; break; }
-                    KillResult kr = simulateKill(level, snap.entityType(), pos, fakePlayer, evModPercent, chestInv);
-                    if (charge > 0) {
-                        ctx.syphon(charge);
-                        evCharged += charge;
-                    }
-                    if (altar != null && kr.ev > 0) altar.addSacrificeEV(kr.ev, true);
-                    pendingXp += kr.xp;
-                    totalKills++;
-                }
-                if (ranOutOfEv) break;
-                level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 6, 0.3, 0.3, 0.3, 0.02);
-            }
-        }
-
         if (pendingXp > 0 && chestInv != null) {
             depositXpIntoTome(chestInv, (int) Math.min(pendingXp, Integer.MAX_VALUE));
         }
@@ -383,12 +406,12 @@ public class RitualTormentNexus extends Ritual {
                 tit.remove();
             }
         }
-        var pit = poweredSpawnerAccumulators.entrySet().iterator();
+        var pit = harvestedSpawners.iterator();
         while (pit.hasNext()) {
-            BlockPos p = pit.next().getKey();
+            BlockPos p = pit.next();
             BlockEntity be = level.getBlockEntity(p);
             if (be == null || !EnderIOCompat.isPoweredSpawner(be)) {
-                SUPPRESSED_SPAWNERS.remove(GlobalPos.of(dim, p));
+                HARVESTED_SPAWNERS.remove(GlobalPos.of(dim, p));
                 pit.remove();
             }
         }
@@ -467,41 +490,73 @@ public class RitualTormentNexus extends Ritual {
         }
         try {
             living.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
-            float maxHealth = living.getMaxHealth();
-            int baseEv = EntitySacrificeHelper.calculateEV(living, maxHealth);
-            int ev = (int) Math.max(0L, ((long) baseEv * evModPercent) / 100L);
-
-            int xp = 0;
-            if (living instanceof Mob mob) {
-                xp = mob.getExperienceReward(level, fakePlayer);
-            }
-
-            if (chestInv != null) {
-                try {
-                    LootParams params = new LootParams.Builder(level)
-                            .withParameter(LootContextParams.THIS_ENTITY, living)
-                            .withParameter(LootContextParams.ORIGIN, living.position())
-                            .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().source(NVDamageSources.RITUAL, fakePlayer))
-                            .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, fakePlayer)
-                            .withOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER, fakePlayer)
-                            .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, fakePlayer)
-                            .create(LootContextParamSets.ENTITY);
-                    ResourceKey<LootTable> lootKey = living.getLootTable().orElse(null);
-                    if (lootKey != null) {
-                        LootTable table = level.getServer().reloadableRegistries().getLootTable(lootKey);
-                        if (table != LootTable.EMPTY) {
-                            for (ItemStack drop : table.getRandomItems(params)) {
-                                if (!drop.isEmpty()) Utils.insertItemStacked(chestInv, drop, false);
-                            }
-                        }
-                    }
-                } catch (Throwable ignored) {
-                }
-            }
-            return new KillResult(ev, xp);
+            return reapLiving(level, living, fakePlayer, evModPercent, chestInv);
         } finally {
             living.discard();
         }
+    }
+
+    private KillResult reapLiving(ServerLevel level, LivingEntity living, FakePlayer fakePlayer, int evModPercent, ResourceHandler<ItemResource> chestInv) {
+        int baseEv = EntitySacrificeHelper.calculateEV(living, living.getMaxHealth());
+        int ev = (int) Math.max(0L, ((long) baseEv * evModPercent) / 100L);
+
+        int xp = 0;
+        if (living instanceof Mob mob) {
+            xp = mob.getExperienceReward(level, fakePlayer);
+        }
+
+        if (chestInv != null) {
+            try {
+                LootParams params = new LootParams.Builder(level)
+                        .withParameter(LootContextParams.THIS_ENTITY, living)
+                        .withParameter(LootContextParams.ORIGIN, living.position())
+                        .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().source(NVDamageSources.RITUAL, fakePlayer))
+                        .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, fakePlayer)
+                        .withOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER, fakePlayer)
+                        .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, fakePlayer)
+                        .create(LootContextParamSets.ENTITY);
+                ResourceKey<LootTable> lootKey = living.getLootTable().orElse(null);
+                if (lootKey != null) {
+                    LootTable table = level.getServer().reloadableRegistries().getLootTable(lootKey);
+                    if (table != LootTable.EMPTY) {
+                        for (ItemStack drop : table.getRandomItems(params)) {
+                            if (!drop.isEmpty()) Utils.insertItemStacked(chestInv, drop, false);
+                        }
+                    }
+                }
+            } catch (Throwable ignored) {
+            }
+        }
+        return new KillResult(ev, xp);
+    }
+
+    private boolean harvestLiving(IMasterRitualStone master, LivingEntity living) {
+        RitualContext ctx = RitualHelper.createContext(master);
+        if (ctx == null) return false;
+        ServerLevel level = ctx.serverLevel();
+        BlockPos masterPos = ctx.masterPos();
+
+        int evPerKill = NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_EV_PER_KILL.get();
+        if (evPerKill > 0 && ctx.currentEV() < evPerKill) return false;
+
+        UUID owner = master.getOwner() != null ? master.getOwner() : UUID.randomUUID();
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus");
+        BlockPos chestPos = RitualHelper.firstPositionInRange(master, this, CHEST_RANGE, masterPos).orElse(masterPos.above());
+        ResourceHandler<ItemResource> chestInv = level.getBlockEntity(chestPos) != null
+                ? level.getCapability(Capabilities.Item.BLOCK, chestPos, null)
+                : null;
+
+        KillResult kr = reapLiving(level, living, fakePlayer, NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_EV_MODIFIER_PERCENT.get(), chestInv);
+
+        if (evPerKill > 0) ctx.syphon(evPerKill);
+
+        AraVitaeTile altar = findAltar(ctx);
+        if (altar != null && kr.ev > 0) altar.addSacrificeEV(kr.ev, true);
+        if (kr.xp > 0 && chestInv != null) depositXpIntoTome(chestInv, kr.xp);
+
+        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, living.getX(), living.getY() + 0.5, living.getZ(), 6, 0.3, 0.3, 0.3, 0.02);
+        emitRitualVisuals(level, masterPos, 1);
+        return true;
     }
 
     private void depositXpIntoTome(ResourceHandler<ItemResource> inv, int xp) {
@@ -551,8 +606,10 @@ public class RitualTormentNexus extends Ritual {
         readAccumulatorList(tag, "TrialSpawners", trialSpawnerAccumulators);
         trialRewardAccumulators.clear();
         readAccumulatorList(tag, "TrialRewards", trialRewardAccumulators);
-        poweredSpawnerAccumulators.clear();
-        readAccumulatorList(tag, "PoweredSpawners", poweredSpawnerAccumulators);
+        harvestedSpawners.clear();
+        Map<BlockPos, Double> legacy = new LinkedHashMap<>();
+        readAccumulatorList(tag, "PoweredSpawners", legacy);
+        harvestedSpawners.addAll(legacy.keySet());
     }
 
     private static void readAccumulatorList(CompoundTag tag, String key, Map<BlockPos, Double> out) {
@@ -573,7 +630,13 @@ public class RitualTormentNexus extends Ritual {
         tag.put("VanillaSpawners", writeAccumulatorList(vanillaSpawnerAccumulators));
         tag.put("TrialSpawners", writeAccumulatorList(trialSpawnerAccumulators));
         tag.put("TrialRewards", writeAccumulatorList(trialRewardAccumulators));
-        tag.put("PoweredSpawners", writeAccumulatorList(poweredSpawnerAccumulators));
+        ListTag powered = new ListTag();
+        for (BlockPos p : harvestedSpawners) {
+            CompoundTag t = new CompoundTag();
+            t.store("pos", BlockPos.CODEC, p);
+            powered.add(t);
+        }
+        tag.put("PoweredSpawners", powered);
     }
 
     private static ListTag writeAccumulatorList(Map<BlockPos, Double> source) {

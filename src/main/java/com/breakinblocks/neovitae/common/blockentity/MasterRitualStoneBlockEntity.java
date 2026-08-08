@@ -620,6 +620,22 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level != null && !level.isClientSide() && active && currentRitual != null) {
+            currentRitual.onLoad(this);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        if (level != null && !level.isClientSide() && currentRitual != null) {
+            currentRitual.onUnload(this);
+        }
+        super.setRemoved();
+    }
+
+    @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (isActive()) {
             stopRitual(Ritual.BreakType.BREAK_MRS);

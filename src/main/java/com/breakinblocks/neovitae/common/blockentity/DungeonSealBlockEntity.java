@@ -12,11 +12,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.common.block.BlockDungeonSeal;
+import com.breakinblocks.neovitae.common.block.BlockDungeonSealInaccessible;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 
@@ -32,6 +37,12 @@ import java.util.Optional;
 public class DungeonSealBlockEntity extends BaseBlockEntity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DungeonSealBlockEntity.class);
+
+    public enum SealResult {
+        OPENED,
+        BLOCKED,
+        COLLAPSED
+    }
 
     public record SealData(
             BlockPos controllerPos,
@@ -133,39 +144,39 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    public boolean requestRoomFromControllerWithKey(Player player, ItemDungeonKey key) {
+    public SealResult requestRoomFromControllerWithKey(Player player, ItemDungeonKey key) {
         if (level == null || level.isClientSide() || !(level instanceof ServerLevel serverLevel)) {
-            return false;
+            return SealResult.BLOCKED;
         }
 
         if (data.controllerPos().equals(BlockPos.ZERO)) {
             LOGGER.warn("Seal at {} has no controller position set", worldPosition);
-            return false;
+            return SealResult.BLOCKED;
         }
 
         if (data.potentialRoomTypes().isEmpty()) {
             LOGGER.warn("Seal at {} has no potential room types", worldPosition);
-            return false;
+            return SealResult.BLOCKED;
         }
 
         if (!(serverLevel.getBlockEntity(data.controllerPos()) instanceof DungeonControllerBlockEntity controller)) {
             LOGGER.warn("No dungeon controller found at {} for seal at {}", data.controllerPos(), worldPosition);
-            return false;
+            return SealResult.BLOCKED;
         }
 
-        Identifier selectedRoom = key.getValidResourceLocation(new ArrayList<>(data.potentialRoomTypes()));
-        if (selectedRoom == null) {
+        List<Identifier> selectedRooms = key.getValidResourceLocations(new ArrayList<>(data.potentialRoomTypes()));
+        if (selectedRooms.isEmpty()) {
             LOGGER.info("[GEN] Seal {} rejected key {} (potentialPools={})",
                     worldPosition, key.getKeyType(), data.potentialRoomTypes());
-            return false;
+            return SealResult.BLOCKED;
         }
 
-        LOGGER.info("[GEN] Seal {} accepted key {} -> pool {} (doorPos={}, doorDir={}, doorType={}, controller={})",
-                worldPosition, key.getKeyType(), selectedRoom,
+        LOGGER.info("[GEN] Seal {} accepted key {} -> pools {} (doorPos={}, doorDir={}, doorType={}, controller={})",
+                worldPosition, key.getKeyType(), selectedRooms,
                 data.doorPos(), data.doorDirection(), data.doorType(), data.controllerPos());
 
         RandomSource rand = serverLevel.getRandom();
-        Identifier[] roomTypes = new Identifier[] { selectedRoom };
+        Identifier[] roomTypes = selectedRooms.toArray(new Identifier[0]);
 
         boolean success = controller.handleRequestForRoomPlacement(
                 worldPosition, data.doorPos(), data.doorDirection(), data.doorType(), roomTypes, rand);
@@ -175,11 +186,37 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
             clearDoorwayFill(serverLevel);
             serverLevel.removeBlock(worldPosition, false);
             LOGGER.info("[GEN] Seal {} consumed; new dungeon room placed", worldPosition);
-            return true;
+            return SealResult.OPENED;
         }
 
-        LOGGER.warn("[GEN] Seal {} key-driven placement FAILED for pool {}", worldPosition, selectedRoom);
-        return false;
+        LOGGER.warn("[GEN] Seal {} key-driven placement FAILED for pools {}", worldPosition, selectedRooms);
+
+        boolean anythingLeft = controller.getDungeonSynthesizer().canAnythingFit(
+                serverLevel, data.doorPos(), data.doorDirection(), data.doorType(),
+                data.potentialRoomTypes().toArray(new Identifier[0]));
+
+        if (anythingLeft) {
+            return SealResult.BLOCKED;
+        }
+
+        LOGGER.info("[GEN] Seal {} has no remaining fit; marking inaccessible", worldPosition);
+        markInaccessible(serverLevel, controller);
+        return SealResult.COLLAPSED;
+    }
+
+    public void markInaccessible(ServerLevel serverLevel, DungeonControllerBlockEntity controller) {
+        BlockState current = getBlockState();
+        boolean special = current.hasProperty(BlockDungeonSeal.SPECIAL) && current.getValue(BlockDungeonSeal.SPECIAL);
+
+        controller.getDungeonSynthesizer().decrementSealCount();
+        controller.setChanged();
+
+        serverLevel.setBlockAndUpdate(worldPosition,
+                NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get().defaultBlockState()
+                        .setValue(BlockDungeonSealInaccessible.SPECIAL, special));
+
+        serverLevel.playSound(null, worldPosition, SoundEvents.BEACON_DEACTIVATE,
+                SoundSource.BLOCKS, 0.6F, 0.6F);
     }
 
     /**

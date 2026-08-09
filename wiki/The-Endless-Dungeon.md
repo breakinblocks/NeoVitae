@@ -22,7 +22,7 @@ A successful ritual leaves an **Inversion Pillar** standing where the diagram on
 The Tier II ritual lands you in the **Antechamber**, the outermost vestibule of the Demon Realm. It is small, deliberately so, and serves as a tutorial pocket before the real dungeon opens up. Expect:
 
 - A solitary chest, sometimes containing **Simple Dungeon Keys**.
-- Several **Doorways**, each barred by a **Dungeon Seal**. Present a key to a seal to break it; the chamber beyond unlocks for you.
+- Several **Doorways**, each barred by a **Dungeon Seal**. Present a key to a seal to break it; the chamber beyond unlocks for you. A seal with nothing left behind it burns out instead, going dark to mark that route as spent.
 - A second **Inversion Pillar** that returns you to the overworld.
 
 Each sealed chamber may hide treasure, traps, dormant rituals, or angry [Daemonium](Daemonium-Bestiary). The spoils to look for here include enchanted books, enchanted weapons and armor, anointments, [Spiritus](Spiritus-Aspects-and-Crystals) essences, potion ingredients, Tau Fruit, Saturated Tau, and Tau Oil. (See [Dungeon Mechanics](Dungeon-Mechanics) for what each of those does.)
@@ -54,6 +54,14 @@ The Foreman's chamber has manifested. Like the mine entrance itself, its door yi
 ### The Mines
 
 The Mines are a significant escalation. Veins of **Demonite Ore** thread the walls here, the only naturally occurring source of the Hellforged metal used in [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most advanced potion-craft. Within the Mines, the **Mine Dungeon Keys** wrenched from the Foreman open the remaining sealed doors. Alongside Demonite, you may pull enchanted armaments, anointments, potions, and rarer spoils from chests.
+
+### Spent Seals
+
+Not every doorway leads somewhere. The realm assembles itself around you as you open it, and a seal can end up hemmed in on all sides with no chamber left that will fit behind it. Present a key to one of these and the seal simply dies: its glow drains away to a dull, lifeless gray, and it will not open again for any key you carry. Your key is not consumed, so nothing is lost but the walk.
+
+The darkened seals are worth reading as a map. Anywhere you see one, you have already exhausted that direction, and your remaining keys are better spent on doors that still burn.
+
+A spent seal is not a dead end for the dungeon itself; it counts as resolved, and the realm carries on toward the rift below.
 
 ### The Spatial Rift
 

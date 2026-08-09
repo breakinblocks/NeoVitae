@@ -118,17 +118,21 @@ public class DungeonSealMenu extends AbstractContainerMenu {
 
         if (keySlot == -1 && !player.getAbilities().instabuild) return false;
 
-        boolean success = seal.requestRoomFromControllerWithKey(player, keyItem);
+        DungeonSealBlockEntity.SealResult result = seal.requestRoomFromControllerWithKey(player, keyItem);
 
-        if (success) {
-            if (!player.getAbilities().instabuild && keySlot >= 0) {
-                playerInventory.getItem(keySlot).shrink(1);
+        switch (result) {
+            case OPENED -> {
+                if (!player.getAbilities().instabuild && keySlot >= 0) {
+                    playerInventory.getItem(keySlot).shrink(1);
+                }
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.dungeon.seal.opened")
+                                .withStyle(ChatFormatting.GREEN));
             }
-            player.sendOverlayMessage(
-                    Component.translatable("chat.neovitae.dungeon.seal.opened")
-                            .withStyle(ChatFormatting.GREEN));
-        } else {
-            player.sendOverlayMessage(
+            case COLLAPSED -> player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.dungeon.seal.collapsed")
+                            .withStyle(ChatFormatting.DARK_GRAY));
+            case BLOCKED -> player.sendOverlayMessage(
                     Component.translatable("chat.neovitae.dungeon.seal.failed")
                             .withStyle(ChatFormatting.RED));
         }

@@ -509,6 +509,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Dungeon Control Blocks
         add(NVBlocks.DUNGEON_CONTROLLER.block().get(), "Dungeon Controller");
         add(NVBlocks.DUNGEON_SEAL.block().get(), "Dungeon Seal");
+        add(NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get(), "Spent Dungeon Seal");
         add("chat.neovitae.mimic.potionSpawnRadius.down", "Potion Spawn Radius: %d");
         add("chat.neovitae.mimic.potionSpawnRadius.up", "Potion Spawn Radius: %d");
         add("chat.neovitae.mimic.detectRadius.down", "Detection Radius: %d");
@@ -753,6 +754,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("container.neovitae.ritual_diviner", "Select a Ritual");
         add("chat.neovitae.dungeon.seal.opened", "The seal has been broken. A new path opens...");
         add("chat.neovitae.dungeon.seal.failed", "The seal remains firmly shut.");
+        add("chat.neovitae.dungeon.seal.collapsed", "The seal dims and dies. Nothing lies beyond it.");
+        add("chat.neovitae.dungeon.seal.inaccessible", "This seal is spent. The way beyond is gone.");
         add("chat.neovitae.dungeon.seal.wrongKey", "This key doesn't fit this seal.");
         add("chat.neovitae.dungeon.seal.noKeys", "You don't have any keys that fit this seal.");
         add("chat.neovitae.dungeon.threshold.mine_entrance", "Strange noises and creatures begin to stir in the depths...");

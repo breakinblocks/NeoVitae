@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
 import com.breakinblocks.neovitae.structures.ModRoomPools;
 import com.breakinblocks.neovitae.structures.rooms.DungeonRoomPlacement;
@@ -274,11 +273,8 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     boolean canFit = tile.dungeonSynthesizer.canAnythingFit(
                             serverLevel, sealData.doorPos(), sealData.doorDirection(), sealData.doorType(), pools);
                     if (!canFit) {
-                        LOGGER.debug("[GEN]   walling off seal {} (no remaining fit)", sealPos);
-                        serverLevel.setBlockAndUpdate(sealPos,
-                                DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
-                        tile.dungeonSynthesizer.decrementSealCount();
-                        tile.setChanged();
+                        LOGGER.debug("[GEN]   marking seal {} inaccessible (no remaining fit)", sealPos);
+                        seal.markInaccessible(serverLevel, tile);
                     }
                 }
             } else {

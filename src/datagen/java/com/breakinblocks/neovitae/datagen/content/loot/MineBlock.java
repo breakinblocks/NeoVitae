@@ -42,6 +42,7 @@ public class MineBlock extends BlockLootSubProvider {
         skipAuto.addAll(specialDropList);
         skipAuto.add(NVBlocks.DUNGEON_CONTROLLER.block().get());
         skipAuto.add(NVBlocks.DUNGEON_SEAL.block().get());
+        skipAuto.add(NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get());
         skipAuto.add(NVBlocks.SPATIAL_RIFT.block().get());
         skipAuto.add(NVBlocks.ALCHEMY_ARRAY.get());
         skipAuto.add(NVBlocks.BLOOD_LIGHT.get());

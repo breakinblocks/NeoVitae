@@ -34,9 +34,9 @@ public class ItemDungeonKey extends Item {
         this.resourceKeys = resourceKeys;
     }
 
-    public Identifier getValidResourceLocation(List<Identifier> roomPools) {
+    public List<Identifier> getValidResourceLocations(List<Identifier> roomPools) {
         if (roomPools == null || roomPools.isEmpty()) {
-            return null;
+            return List.of();
         }
 
         List<Identifier> matchingPools = roomPools.stream()
@@ -44,12 +44,8 @@ public class ItemDungeonKey extends Item {
                         .anyMatch(key -> getPoolName(pool).equals(key)))
                 .collect(Collectors.toList());
 
-        if (matchingPools.isEmpty()) {
-            return null;
-        }
-
         Collections.shuffle(matchingPools);
-        return matchingPools.get(0);
+        return matchingPools;
     }
 
     public boolean canOpenDoor(List<Identifier> roomPools) {

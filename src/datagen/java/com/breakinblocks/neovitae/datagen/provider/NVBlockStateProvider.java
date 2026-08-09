@@ -16,6 +16,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.block.BlockDungeonSeal;
+import com.breakinblocks.neovitae.common.block.BlockDungeonSealInaccessible;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillar;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
@@ -113,6 +114,15 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 .partialState().with(BlockDungeonSeal.SPECIAL, true)
                 .modelForState().modelFile(dungeonSealSpecialModel).addModel();
         simpleBlockItem(NVBlocks.DUNGEON_SEAL.block().get(), dungeonSealModel);
+
+        ModelFile dungeonSealInertModel = models().cubeAll("dungeon_seal_inaccessible", bm("block/dungeon/dungeon_eye_inert"));
+        ModelFile dungeonSealInertSpecialModel = models().cubeAll("dungeon_seal_inaccessible_special", bm("block/dungeon/dungeon_eye_inert_c"));
+        getVariantBuilder(NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get())
+                .partialState().with(BlockDungeonSealInaccessible.SPECIAL, false)
+                .modelForState().modelFile(dungeonSealInertModel).addModel()
+                .partialState().with(BlockDungeonSealInaccessible.SPECIAL, true)
+                .modelForState().modelFile(dungeonSealInertSpecialModel).addModel();
+        simpleBlockItem(NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get(), dungeonSealInertModel);
 
         // Inversion Pillar - dungeon teleporter (uses custom pillar_mid parent)
         ModelFile inversionPillarModel = models().withExistingParent("inversion_pillar", bm("block/pillar_mid"))

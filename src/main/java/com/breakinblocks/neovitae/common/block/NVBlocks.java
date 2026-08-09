@@ -174,6 +174,7 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<BlockDungeonController, BlockItem> DUNGEON_CONTROLLER = BLOCK_REG.register("dungeon_controller", BlockDungeonController::new);
     public static final BlockWithItemHolder<BlockDungeonSeal, BlockItem> DUNGEON_SEAL = BLOCK_REG.register("dungeon_seal", BlockDungeonSeal::new);
+    public static final BlockWithItemHolder<BlockDungeonSealInaccessible, BlockItem> DUNGEON_SEAL_INACCESSIBLE = BLOCK_REG.register("dungeon_seal_inaccessible", BlockDungeonSealInaccessible::new);
 
     public static final BlockWithItemHolder<SandsOfVitaeBlock, BlockItem> SANDS_OF_VITAE = BLOCK_REG.register("sands_of_vitae", SandsOfVitaeBlock::new);
 

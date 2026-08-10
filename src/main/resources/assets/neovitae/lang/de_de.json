@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Dungeonsiegel ausgegeben",
   "book.neovitae.altar_tier_info.header.runes": "Runen",
   "book.neovitae.altar_tier_info.header.tier": "Stufe",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runen nach Stufe",
+  "chat.neovitae.dungeon.seal.collapsed": "Das Siegeldimmen und sterben, nichts liegt darüber hinaus.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Dieses Siegel wird ausgegeben. Der Weg darüber ist verschwunden.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Nicht genug Spiritus: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Ein Edelstein in einem Handwerksfeld heizt das Handwerk anstelle des Edelsteins an",
   "jei.neovitae.recipe.meteor.random_pool": "Zufällige Auswahl von %s Blöcken",

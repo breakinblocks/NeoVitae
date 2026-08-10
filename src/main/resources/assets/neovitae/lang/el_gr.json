@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Δαπανημένος Σφραγίδα Μπουντρούμι",
   "book.neovitae.altar_tier_info.header.runes": "Runes",
   "book.neovitae.altar_tier_info.header.tier": "Βαθμίδα",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Εκτελείται από βαθμίδα",
+  "chat.neovitae.dungeon.seal.collapsed": "Η σφραγίδα σκίζει και πεθαίνει. Τίποτα δεν βρίσκεται πέρα από αυτό.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Αυτή η σφραγίδα ξοδεύεται. Ο δρόμος πέρα έχει φύγει.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Δεν υπάρχει αρκετό Πνεύμα: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Ένα στολίδι σε μια υποδοχή κατασκευής τροφοδοτεί το σκάφος αντί για την υποδοχή στολίδι",
   "jei.neovitae.recipe.meteor.random_pool": "Τυχαία επιλογή από μπλοκ %s",

@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Печатка витрачених Підземель",
   "book.neovitae.altar_tier_info.header.runes": "Руни",
   "book.neovitae.altar_tier_info.header.tier": "Рівень",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Руни за течією",
+  "chat.neovitae.dungeon.seal.collapsed": "Печатка тьмяніють і вмирають, нічого не лежить поза ним.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Цей печатка витрачається, а вихід за межі зникне.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Недостатньо кругів: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Датчик у слоті для крафтингу підживлює предмет, а не слот для шестерні",
   "jei.neovitae.recipe.meteor.random_pool": "Випадкове поле вибору з блоків %s",

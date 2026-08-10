@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Brugt Dungeon Seal",
   "book.neovitae.altar_tier_info.header.runes": "Runer",
   "book.neovitae.altar_tier_info.header.tier": "Niveau",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Kører efter niveau",
+  "chat.neovitae.dungeon.seal.collapsed": "Sælen dæmper og dør. Intet ligger uden for den.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Denne forsegling er brugt. Vejen ud over er væk.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Ikke nok Spiritus: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "En perle i en crafting slot brændstoffer fartøjet i stedet for perle slot",
   "jei.neovitae.recipe.meteor.random_pool": "Tilfældig pluk fra %s blokke",

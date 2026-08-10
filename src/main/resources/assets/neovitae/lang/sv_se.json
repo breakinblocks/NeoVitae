@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Spenderad Dungeon Seal",
   "book.neovitae.altar_tier_info.header.runes": "Runor",
   "book.neovitae.altar_tier_info.header.tier": "Nivå",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runor av skikt",
+  "chat.neovitae.dungeon.seal.collapsed": "Sälen dunkar och dör. Ingenting ligger bortom den.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Denna sigill är förbrukad, vägen bortom är borta.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Inte tillräckligt med Spiritus: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "En pärla i en crafting slot bränsle hantverket i stället för pärla slot",
   "jei.neovitae.recipe.meteor.random_pool": "Slumpmässig plockning från %s block",

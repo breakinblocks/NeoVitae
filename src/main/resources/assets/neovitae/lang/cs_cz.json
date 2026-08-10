@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Utracená tuleně Dungeon",
   "book.neovitae.altar_tier_info.header.runes": "Runy",
   "book.neovitae.altar_tier_info.header.tier": "Úroveň",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Sběry podle úrovně",
+  "chat.neovitae.dungeon.seal.collapsed": "Pečeťové stmívají a zemřou. Nic za nimi neleží.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Tato pečeť je vyčerpána. Cesta vně je pryč.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Nedostatek ducha: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Gem ve výrobní pozici palivo, které plavidlo místo slotu drahokamů",
   "jei.neovitae.recipe.meteor.random_pool": "Náhodný výběr z %s bloků",

@@ -164,7 +164,9 @@ public class NVEntities {
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, key)));
 
     public static final DeferredHolder<EntityType<?>, EntityType<SlimeVitaeEntity>> SLIME_VITAE = ENTITIES.register("slime_vitae", key -> EntityType.Builder.<SlimeVitaeEntity>of(SlimeVitaeEntity::new, MobCategory.MONSTER)
-                    .sized(2.04F, 2.04F)
+                    .sized(0.52F, 0.52F)
+                    .eyeHeight(0.325F)
+                    .spawnDimensionsScale(4.0F)
                     .clientTrackingRange(10)
                     .updateInterval(3)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, key)));

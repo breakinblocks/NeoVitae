@@ -6,8 +6,10 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.tags.BlockTags;
@@ -202,6 +204,14 @@ public class RitualMagnetism extends Ritual {
             tag.putInt("lastPosY", lastPos.getY());
             tag.putInt("lastPosZ", lastPos.getZ());
         }
+    }
+
+    @Override
+    public Component[] provideInformationOfRitualToPlayer(Player player) {
+        return new Component[]{
+                Component.translatable(getTranslationKey() + ".info"),
+                Component.translatable(getTranslationKey() + ".spiritus.invictus")
+        };
     }
 
     @Override

@@ -2367,6 +2367,7 @@
   "item_group.neovitae.main": "Neo Vitae",
   "item_group.neovitae.tomes": "Neo Vitae Upgrade Tomes",
   "item_group.neovitae.trainers": "Neo Vitae Trainer Tomes",
+  "jade.neovitae.altar.crafting": "Crafting...",
   "jade.neovitae.orb_link.linked": "Linked",
   "jade.neovitae.orb_link.network": "Network: %s%%",
   "jade.neovitae.orb_link.unlinked": "Unlinked",

@@ -921,6 +921,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
         add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
         add("jade.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
+        add("jade.neovitae.altar.crafting", "Crafting...");
         add("jade.neovitae.vitae_link.crafting", "Crafting...");
         add("jade.neovitae.vitae_link.unlinked", "Unlinked");
         add("jade.neovitae.orb_link.linked", "Linked");

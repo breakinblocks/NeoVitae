@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.compat.jade;
 
+import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectBounce;
@@ -66,9 +67,10 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         }
 
         if (data.contains("altar_tier")) {
-            tooltip.add(Component.literal("Tier " + data.getInt("altar_tier")).withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("hud.neovitae.altar.tier",
+                    NumeralHelper.toRoman(data.getInt("altar_tier") + 1)).withStyle(ChatFormatting.GOLD));
             if (data.getBoolean("altar_active")) {
-                tooltip.add(Component.literal("Crafting...").withStyle(ChatFormatting.GREEN));
+                tooltip.add(Component.translatable("jade.neovitae.altar.crafting").withStyle(ChatFormatting.GREEN));
             }
         }
 

@@ -89,7 +89,7 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
         background.draw(guiGraphics);
 
         Minecraft mc = Minecraft.getInstance();
-        String tierText = "Tier " + recipe.getMinTier();
+        Component tierText = Component.translatable("hud.neovitae.altar.tier", toRoman(recipe.getMinTier() + 1));
         String lpText = recipe.getTotalBlood() + " EV";
 
         guiGraphics.drawString(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB(), false);

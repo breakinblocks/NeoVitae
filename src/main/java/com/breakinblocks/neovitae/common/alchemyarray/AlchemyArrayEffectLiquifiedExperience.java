@@ -58,15 +58,14 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
         }
 
         int perPoint = NeoVitae.SERVER_CONFIG.LIQUIFIED_EXPERIENCE_MB_PER_POINT.get();
-        int budget = NeoVitae.SERVER_CONFIG.LIQUIFIED_EXPERIENCE_POINTS_PER_OPERATION.get();
-        if (perPoint <= 0 || budget <= 0) {
+        if (perPoint <= 0) {
             return false;
         }
 
         boolean reversed = level.hasNeighborSignal(arrayPos);
         int moved = reversed
-                ? fillTomes(container, tank, experience, perPoint, budget)
-                : drainTomes(container, tank, experience, perPoint, budget);
+                ? fillTomes(container, tank, experience, perPoint)
+                : drainTomes(container, tank, experience, perPoint);
 
         if (moved > 0 && level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), reversed ? 0x66DD33 : 0x88FF44),
@@ -76,9 +75,9 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
         return false;
     }
 
-    private static int drainTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint, int budget) {
+    private static int drainTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint) {
         int moved = 0;
-        for (int slot = 0; slot < container.getSlots() && budget > 0; slot++) {
+        for (int slot = 0; slot < container.getSlots(); slot++) {
             ItemStack stack = container.getStackInSlot(slot);
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
@@ -87,28 +86,27 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             if (stored <= 0) {
                 continue;
             }
-            int points = Math.min(stored, budget);
-            int accepted = tank.fill(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.SIMULATE);
-            points = accepted / perPoint;
+            int offer = (int) Math.min((long) stored * perPoint, Integer.MAX_VALUE);
+            int accepted = tank.fill(new FluidStack(experience, offer), IFluidHandler.FluidAction.SIMULATE);
+            int points = accepted / perPoint;
             if (points <= 0) {
-                continue;
+                break;
             }
             tank.fill(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
             ExperienceTomeItem.addXpToTome(stack, -points);
-            budget -= points;
             moved += points;
         }
         return moved;
     }
 
-    private static int fillTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint, int budget) {
+    private static int fillTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint) {
         int moved = 0;
-        for (int slot = 0; slot < container.getSlots() && budget > 0; slot++) {
+        for (int slot = 0; slot < container.getSlots(); slot++) {
             ItemStack stack = container.getStackInSlot(slot);
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
             }
-            FluidStack available = tank.drain(new FluidStack(experience, budget * perPoint), IFluidHandler.FluidAction.SIMULATE);
+            FluidStack available = tank.drain(new FluidStack(experience, Integer.MAX_VALUE), IFluidHandler.FluidAction.SIMULATE);
             if (available.isEmpty() || !available.is(experience)) {
                 break;
             }
@@ -116,9 +114,12 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             if (points <= 0) {
                 break;
             }
+            points = Math.min(points, Integer.MAX_VALUE - ExperienceTomeItem.getStoredXp(stack));
+            if (points <= 0) {
+                continue;
+            }
             tank.drain(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
             ExperienceTomeItem.addXpToTome(stack, points);
-            budget -= points;
             moved += points;
         }
         return moved;

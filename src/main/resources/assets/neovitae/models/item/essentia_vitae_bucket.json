@@ -1,5 +1,5 @@
 {
   "parent": "neoforge:item/bucket_drip",
   "loader": "neoforge:fluid_container",
-  "fluid": "neovitae:essentia_vitae_fluid_type"
+  "fluid": "neovitae:essentia_vitae_source"
 }

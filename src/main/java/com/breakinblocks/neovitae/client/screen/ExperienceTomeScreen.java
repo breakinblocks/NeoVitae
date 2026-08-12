@@ -20,17 +20,22 @@ public class ExperienceTomeScreen extends AbstractContainerScreen<ExperienceTome
     private static final int BUTTON_W = 26;
     private static final int BUTTON_H = 14;
     private static final int BUTTON_GAP = 2;
-    private static final int BUTTON_LEFT = 6;
+    private static final int PANEL_W = 240;
+    private static final int PANEL_H = 104;
+    private static final int ROW_W = AMOUNTS.length * BUTTON_W + (AMOUNTS.length - 1) * BUTTON_GAP;
+    private static final int BUTTON_LEFT = (PANEL_W - ROW_W) / 2;
     private static final int DEPOSIT_Y = 50;
     private static final int WITHDRAW_Y = 80;
+    private static final int READOUT_Y = 21;
+    private static final int READOUT_INSET = 20;
 
     private static final int TEXT = 0xC8B8B8;
     private static final int HEADING = 0xA8323C;
 
     public ExperienceTomeScreen(ExperienceTomeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 176;
-        this.imageHeight = 104;
+        this.imageWidth = PANEL_W;
+        this.imageHeight = PANEL_H;
         this.titleLabelX = 8;
         this.titleLabelY = 5;
     }
@@ -54,8 +59,19 @@ public class ExperienceTomeScreen extends AbstractContainerScreen<ExperienceTome
         int stored = ExperienceTomeItem.getStoredXp(tome);
         Component readout = Component.translatable("gui.neovitae.experience_tome.stored",
                 ExperienceTomeItem.getLevelForXp(stored), stored);
-        guiGraphics.drawString(this.font, readout,
-                (imageWidth - this.font.width(readout)) / 2, 21, TEXT, false);
+        int readoutWidth = this.font.width(readout);
+        int available = imageWidth - READOUT_INSET * 2;
+        if (readoutWidth <= available) {
+            guiGraphics.drawString(this.font, readout,
+                    (imageWidth - readoutWidth) / 2, READOUT_Y, TEXT, false);
+        } else {
+            float scale = (float) available / readoutWidth;
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(READOUT_INSET, READOUT_Y + (this.font.lineHeight * (1 - scale)) / 2f, 0);
+            guiGraphics.pose().scale(scale, scale, 1f);
+            guiGraphics.drawString(this.font, readout, 0, 0, TEXT, false);
+            guiGraphics.pose().popPose();
+        }
 
         Component deposit = Component.translatable("gui.neovitae.experience_tome.deposit");
         Component withdraw = Component.translatable("gui.neovitae.experience_tome.withdraw");

@@ -1,5 +1,5 @@
 {
   "parent": "neoforge:item/bucket_drip",
   "loader": "neoforge:fluid_container",
-  "fluid": "neovitae:animated_spiritus_source"
+  "fluid": "neovitae:liquified_experience_source"
 }

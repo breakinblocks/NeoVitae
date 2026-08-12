@@ -401,6 +401,9 @@ public class NVPayloads {
             } else {
                 ExperienceTomeItem.withdrawLevels(player, tome, payload.levels());
             }
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.inventoryMenu.broadcastChanges();
+            }
         });
     }
 

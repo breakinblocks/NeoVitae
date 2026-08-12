@@ -495,11 +495,15 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
                 p -> p.isAlive() && !p.isInvulnerable() && !p.getAbilities().instabuild
                         && p.getHealth() > BOOTSTRAP_LEECH_FLOOR && !hasBloodOrb(p));
         for (Player player : players) {
-            float before = player.getHealth();
-            player.invulnerableTime = 0;
-            player.hurtServer(serverLevel, AltarUtil.sacrificeDamage(player), BOOTSTRAP_LEECH_HP);
-            float lost = before - player.getHealth();
-            if (lost > 0) {
+            float lost = AltarUtil.takeSacrifice(serverLevel, player, BOOTSTRAP_LEECH_HP);
+            if (lost <= 0) {
+                if (player instanceof ServerPlayer sp) {
+                    sp.connection.send(new ClientboundSetActionBarTextPacket(
+                            Component.translatable("message.neovitae.altar_blood_refused")));
+                }
+                continue;
+            }
+            {
                 int ev = (int) (AltarUtil.calculateSelfSacrificeLP(player, Math.max(1, (int) Math.ceil(lost)))
                         * BOOTSTRAP_LEECH_EFFICIENCY);
                 addSacrificeEV(ev, false);

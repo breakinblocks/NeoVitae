@@ -2,6 +2,8 @@ package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -119,9 +121,14 @@ public class BloodOrbItem extends Item implements IBindable {
         }
 
         if (!level.isClientSide()) {
-            if (healthSacrificed > 0 && level instanceof ServerLevel serverLevel) {
-                player.invulnerableTime = 0;
-                player.hurtServer(serverLevel, AltarUtil.sacrificeDamage(player), healthSacrificed);
+            if (healthSacrificed > 0 && level instanceof ServerLevel serverLevel
+                    && AltarUtil.takeSacrifice(serverLevel, player, healthSacrificed) <= 0) {
+                // Nothing was actually given up, so nothing is owed in return.
+                if (player instanceof ServerPlayer sp) {
+                    sp.connection.send(new ClientboundSetActionBarTextPacket(
+                            Component.translatable("message.neovitae.altar_blood_refused")));
+                }
+                return InteractionResult.FAIL;
             }
             if (toAltar) {
                 altar.addSacrificeEV(Math.max(0, evAdded), false);

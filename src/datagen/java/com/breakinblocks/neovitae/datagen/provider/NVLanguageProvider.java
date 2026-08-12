@@ -919,6 +919,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
         add("message.neovitae.altar_draws_blood", "The altar draws the blood it needs...");
+        add("message.neovitae.altar_blood_refused", "The altar reaches for your blood and finds nothing it can take.");
 
         add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
         add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
@@ -948,8 +949,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.UPGRADE_TOME.get(), "Upgrade Tome");
         add(NVItems.EXPERIENCE_TOME.get(), "Tome of Peritia");
         addTooltip("experience_tome.stored", "Stored XP: %s");
-        addTooltip("experience_tome.sneak_use", "Sneak + Use: Store XP");
-        addTooltip("experience_tome.use", "Use: Retrieve XP");
+        addTooltip("experience_tome.sneak_use", "Use: Open the tome");
+        addTooltip("experience_tome.use", "Store or withdraw levels in bulk");
+        add("gui.neovitae.experience_tome.stored", "%s levels stored (%s xp)");
+        add("gui.neovitae.experience_tome.deposit", "Store");
+        add("gui.neovitae.experience_tome.withdraw", "Withdraw");
+        add("gui.neovitae.experience_tome.all", "ALL");
 
         add(NVItems.UPGRADE_SCRAP.get(), "Upgrade Tome Scrap");
         add(NVItems.SYNTHETIC_POINT.get(), "Synthetic Upgrade Points");
@@ -1207,6 +1212,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
         addJei("effect.vortex.name", "Vortex Array");
         addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
+        addJei("effect.liquified_experience.name", "Array of Liquified Experience");
+        addJei("effect.liquified_experience.desc", "Drains Tomes of Peritia in the container below into an adjacent tank of Liquified Experience. A redstone signal reverses it.");
         addJei("effect.imprisonment.name", "Array of Imprisonment");
         addJei("effect.imprisonment.desc", "Placed atop a mob spawner; the next mob kill within 11x11x11 reassigns the spawner to that mob, consuming the array");
 
@@ -1233,6 +1240,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
         add(NVItems.ARRAY_LOYAL_FRIENDS.get(), "Array of Loyal Friends");
         add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
+        add(NVItems.ARRAY_LIQUIFIED_EXPERIENCE.get(), "Array of Liquified Experience");
         add(NVItems.ARRAY_IMPRISONMENT.get(), "Array of Imprisonment");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
@@ -1256,6 +1264,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
         addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
         addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
+        addTooltip("array_effect.liquified_experience", "Inscribe atop a chest. Experience stored in Tomes of Peritia inside drains into an adjacent tank as Liquified Experience. Power the array with redstone to pull it back out of the tank.");
         addTooltip("array_effect.imprisonment", "Place atop a mob spawner. The next mob killed within 11x11x11 becomes the spawner's new mob, and the array is consumed.");
 
         // Rituals
@@ -1331,6 +1340,10 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("effect.neovitae.grounded", "Grounded");
         add("effect.neovitae.suspended", "Suspended");
         add("effect.neovitae.bounce", "Bounce");
+        add("effect.neovitae.liquified_experience", "Liquified Experience");
+        add("fluid.neovitae.liquified_experience", "Liquified Experience");
+        add(NVFluids.LIQUIFIED_EXPERIENCE_BUCKET.get(), "Liquified Experience Bucket");
+        add(NVFluids.LIQUIFIED_EXPERIENCE_BLOCK.get(), "Liquified Experience");
         add("effect.neovitae.soft_fall", "Soft Fall");
         add("effect.neovitae.obsidian_cloak", "Obsidian Cloak");
         add("effect.neovitae.hard_cloak", "Hard Cloak");

@@ -166,38 +166,41 @@ public final class DataValidationTests {
             });
         });
 
-        r.add("data/dungeon_spiritus_loot_has_value", 30, helper -> {
+        r.add("data/chest_loot_never_contains_spiritus_souls", 100, helper -> {
             helper.runAfterDelay(1, () -> {
                 ServerLevel level = helper.getLevel();
-                ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE,
-                        NeoVitae.rl("chests/standard_dungeon/great_loot"));
-                LootTable table = level.getServer().reloadableRegistries().getLootTable(key);
-                if (table == LootTable.EMPTY) {
-                    helper.fail("great_loot loot table did not load");
-                    return;
-                }
                 LootParams params = new LootParams.Builder(level)
                         .withParameter(LootContextParams.ORIGIN, Vec3.ZERO)
                         .create(LootContextParamSets.CHEST);
-                int seen = 0;
-                int valued = 0;
-                for (int i = 0; i < 800; i++) {
-                    for (ItemStack drop : table.getRandomItems(params)) {
-                        if (drop.getItem() instanceof SpiritusEssenceItem) {
-                            seen++;
-                            if (drop.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0) > 0) {
-                                valued++;
+
+                List<ResourceKey<LootTable>> tables = level.getServer().reloadableRegistries().lookup()
+                        .lookupOrThrow(Registries.LOOT_TABLE)
+                        .listElementIds()
+                        .filter(key -> key.identifier().getNamespace().equals(NeoVitae.MODID))
+                        .filter(key -> key.identifier().getPath().startsWith("chests/"))
+                        .toList();
+
+                ResourceKey<LootTable> greatLoot = ResourceKey.create(Registries.LOOT_TABLE,
+                        NeoVitae.rl("chests/standard_dungeon/great_loot"));
+                if (!tables.contains(greatLoot)) {
+                    helper.fail("Chest loot table lookup found " + tables.size() + " tables and missed " + greatLoot.identifier());
+                    return;
+                }
+
+                for (ResourceKey<LootTable> key : tables) {
+                    LootTable table = level.getServer().reloadableRegistries().getLootTable(key);
+                    if (table == LootTable.EMPTY) {
+                        helper.fail(key.identifier() + " did not load");
+                        return;
+                    }
+                    for (int i = 0; i < 200; i++) {
+                        for (ItemStack drop : table.getRandomItems(params)) {
+                            if (drop.getItem() instanceof SpiritusEssenceItem) {
+                                helper.fail("Spiritus soul " + drop + " rolled from " + key.identifier());
+                                return;
                             }
                         }
                     }
-                }
-                if (seen == 0) {
-                    helper.fail("Never rolled a spiritus soul from great_loot in 800 rolls");
-                    return;
-                }
-                if (valued < seen) {
-                    helper.fail("Spiritus souls dropped with no value: " + (seen - valued) + "/" + seen);
-                    return;
                 }
                 helper.succeed();
             });

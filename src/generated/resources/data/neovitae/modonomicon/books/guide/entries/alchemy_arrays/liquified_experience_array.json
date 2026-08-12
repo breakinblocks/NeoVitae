@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_arcane_ash",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.alchemy_arrays.arcane_ash.name"
+        }
+      ]
+    }
+  },
+  "description": "book.neovitae.guide.alchemy_arrays.liquified_experience_array.description",
+  "icon": {
+    "id": "neovitae:liquified_experience_bucket"
+  },
+  "id": "neovitae:alchemy_arrays/liquified_experience_array",
+  "name": "book.neovitae.guide.alchemy_arrays.liquified_experience_array.name",
+  "parents": [
+    {
+      "entry": "neovitae:alchemy_arrays/arcane_ash"
+    }
+  ],
+  "sort_number": 63,
+  "x": -2,
+  "y": -4
+}

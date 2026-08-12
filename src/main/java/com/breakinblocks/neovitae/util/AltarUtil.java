@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,6 +49,33 @@ public class AltarUtil {
     public static DamageSource sacrificeDamage(Player causer) {
         DamageSources sources = causer.level().damageSources();
         return sources.source(NVDamageSources.SELF_SACRIFICE);
+    }
+
+    /**
+     * Takes a self-sacrifice toll in real health. Vanilla spends the absorption pool before
+     * touching health and there is no damage tag that opts out of that, so the shield is lifted
+     * for the duration of the blow and put back untouched afterwards: a ward may protect you from
+     * the world, but not from a price you offered to pay yourself.
+     *
+     * <p>The damage still travels the normal pipeline, so protections that cancel it outright are
+     * respected and the caller can see that nothing was taken.
+     *
+     * @return the health actually given up
+     */
+    public static float takeSacrifice(ServerLevel level, Player player, float amount) {
+        float shield = player.getAbsorptionAmount();
+        float before = player.getHealth();
+
+        if (shield > 0) {
+            player.setAbsorptionAmount(0);
+        }
+        player.invulnerableTime = 0;
+        player.hurtServer(level, sacrificeDamage(player), amount);
+        if (shield > 0) {
+            player.setAbsorptionAmount(shield);
+        }
+
+        return Math.max(0, before - player.getHealth());
     }
 
     public static int getTier(Level level, BlockPos altarPos) {

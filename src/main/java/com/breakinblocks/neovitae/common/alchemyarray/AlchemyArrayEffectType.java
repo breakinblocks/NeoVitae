@@ -38,7 +38,8 @@ public enum AlchemyArrayEffectType implements StringRepresentable {
     UNDERTOW("undertow", AlchemyArrayEffectUndertow::new),
     LOYAL_FRIENDS("loyal_friends", AlchemyArrayEffectLoyalFriends::new),
     VORTEX("vortex", AlchemyArrayEffectVortex::new),
-    IMPRISONMENT("imprisonment", AlchemyArrayEffectImprisonment::new);
+    IMPRISONMENT("imprisonment", AlchemyArrayEffectImprisonment::new),
+    LIQUIFIED_EXPERIENCE("liquified_experience", AlchemyArrayEffectLiquifiedExperience::new);
 
     public static final Codec<AlchemyArrayEffectType> CODEC = StringRepresentable.fromEnum(AlchemyArrayEffectType::values);
     public static final StreamCodec<ByteBuf, AlchemyArrayEffectType> STREAM_CODEC = ByteBufCodecs.idMapper(

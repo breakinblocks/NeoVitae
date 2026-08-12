@@ -2140,6 +2140,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/spikearray.png")
                 .save(output, "spike");
 
+        // Array of Liquified Experience - amethyst shard + lapis
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.LIQUIFIED_EXPERIENCE)
+                .base(Items.AMETHYST_SHARD)
+                .added(Items.LAPIS_LAZULI)
+                .texture("textures/models/alchemyarrays/liquifiedexperiencearray.png")
+                .save(output, "liquified_experience");
+
         // Updraft Array - feather + glowstone dust
         AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.UPDRAFT)
                 .base(Ingredient.of(items.getOrThrow(Tags.Items.FEATHERS)))

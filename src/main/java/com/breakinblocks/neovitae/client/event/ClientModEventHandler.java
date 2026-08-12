@@ -57,6 +57,7 @@ import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
 import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
 import com.breakinblocks.neovitae.client.screen.MasterRoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.RoutingNodeScreen;
+import com.breakinblocks.neovitae.client.screen.ExperienceTomeScreen;
 import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
 import com.breakinblocks.neovitae.client.screen.HellfireForgeScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
@@ -124,6 +125,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.TABULA_VITAE.get(), TabulaVitaeScreen::new);
         event.register(NVMenus.HELLFIRE_FORGE.get(), HellfireForgeScreen::new);
         event.register(NVMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
+        event.register(NVMenus.EXPERIENCE_TOME.get(), ExperienceTomeScreen::new);
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);

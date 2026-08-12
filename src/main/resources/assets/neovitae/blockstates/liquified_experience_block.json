@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/liquified_experience_block"
+    }
+  }
+}

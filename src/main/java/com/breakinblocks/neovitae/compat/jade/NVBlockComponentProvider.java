@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -43,7 +44,7 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
         }
 
         if (data.contains("altar_tier")) {
-            tooltip.add(Component.translatable("jade.neovitae.altar_tier", data.getIntOr("altar_tier", 0)).withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("hud.neovitae.altar.tier", NumeralHelper.toRoman(data.getIntOr("altar_tier", 0) + 1)).withStyle(ChatFormatting.GOLD));
             if (data.getBooleanOr("altar_active", false)) {
                 tooltip.add(Component.translatable("jade.neovitae.crafting").withStyle(ChatFormatting.GREEN));
             }

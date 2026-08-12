@@ -5,7 +5,12 @@
   "compatibilityLevel": "JAVA_25",
   "refmap": "neovitae.refmap.json",
   "mixins": [
-    "EnchantmentHelperMixin"
+    "BaseSpawnerMixin",
+    "BlockMixin",
+    "BlockStateBaseMixin",
+    "EnchantmentHelperMixin",
+    "SimpleWaterloggedBlockMixin",
+    "TrialSpawnerMixin"
   ],
   "client": [
     "client.LocalPlayerMixin"

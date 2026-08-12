@@ -25,8 +25,8 @@ public class BookExperienceEntry extends EntryProvider {
         this.pageTitle("Tome of Peritia");
         this.pageText("The [#](8B0000)Tome of Peritia[#]() is a vessel for captured wisdom. Within its pages, "
                 + "your accumulated experience crystallizes into a form that cannot be lost to death.\\\n\\\n"
-                + "[#](2E8B57)Sneak and Use to store one level. Use alone to retrieve. "
-                + "Hold either action to transfer multiple levels rapidly.[#]()");
+                + "[#](2E8B57)Use the Tome to open it. Store or withdraw one, five, ten, fifty or a hundred "
+                + "levels at a stroke, or empty yourself into it entirely.[#]()");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "experience_tome"))

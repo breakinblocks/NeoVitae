@@ -19,7 +19,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "____a___________f____",
                 "b_c_d_e_@___g_h_i_j_k",
                 "1_2_3_4_5___l_m_n_o_p",
-                "__7_9_0_____q_r_s_W_6",
+                "__7_9_0_#___q_r_s_W_6",
                 "________________8____",
                 "_____________________",
                 "__________t__________",
@@ -341,6 +341,11 @@ public class AlchemyArraysCategory extends CategoryProvider {
         imprisonment.withParent(this.parent(arcaneAsh));
         imprisonment.withCondition(this.condition().entryViewedOnce(arcaneAsh));
         imprisonment.hideWhileLocked(false);
+
+        var liquifiedExperience = this.add(new LiquifiedExperienceArrayEntry(this).generate('#'));
+        liquifiedExperience.withParent(this.parent(arcaneAsh));
+        liquifiedExperience.withCondition(this.condition().entryViewedOnce(arcaneAsh));
+        liquifiedExperience.hideWhileLocked(false);
     }
 
     @Override

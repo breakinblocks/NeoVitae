@@ -1,0 +1,6 @@
+{
+  "render_type": "minecraft:solid",
+  "textures": {
+    "particle": "neovitae:block/liquified_experience_still"
+  }
+}

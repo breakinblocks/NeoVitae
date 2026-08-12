@@ -31,6 +31,10 @@ public class NVFluids {
     public static final DeferredRegister.Blocks SOURCE_BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
 
     private static FluidType createFluidType(String descriptionId) {
+        return createFluidType(descriptionId, false);
+    }
+
+    private static FluidType createFluidType(String descriptionId, boolean canHydrate) {
         return new FluidType(FluidType.Properties.create()
                 .descriptionId(descriptionId)
                 .fallDistanceModifier(0F)
@@ -40,13 +44,13 @@ public class NVFluids {
                 .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
                 .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
                 .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
-                .canHydrate(false)
+                .canHydrate(canHydrate)
                 .viscosity(1000)
         );
     }
 
     public static final DeferredHolder<FluidType, FluidType> ESSENTIA_VITAE_TYPE =
-            FLUID_TYPES.register("essentia_vitae_type", () -> createFluidType("fluid.neovitae.essentia_vitae"));
+            FLUID_TYPES.register("essentia_vitae_type", () -> createFluidType("fluid.neovitae.essentia_vitae", true));
 
     public static final DeferredHolder<Fluid, FlowingFluid> ESSENTIA_VITAE_SOURCE = FLUIDS.register("essentia_vitae_source", () -> new BaseFlowingFluid.Source(essentiaVitaeProperties()));
     public static final DeferredHolder<Fluid, FlowingFluid> ESSENTIA_VITAE_FLOWING = FLUIDS.register("essentia_vitae_flowing", () -> new BaseFlowingFluid.Flowing(essentiaVitaeProperties()));
@@ -57,7 +61,11 @@ public class NVFluids {
             (Supplier<BlockBehaviour.Properties>) () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WATER));
 
     private static BaseFlowingFluid.Properties essentiaVitaeProperties() {
-        return new BaseFlowingFluid.Properties(ESSENTIA_VITAE_TYPE, ESSENTIA_VITAE_SOURCE, ESSENTIA_VITAE_FLOWING).bucket(ESSENTIA_VITAE_BUCKET).block(ESSENTIA_VITAE_BLOCK);
+        return new BaseFlowingFluid.Properties(ESSENTIA_VITAE_TYPE, ESSENTIA_VITAE_SOURCE, ESSENTIA_VITAE_FLOWING)
+                .bucket(ESSENTIA_VITAE_BUCKET)
+                .block(ESSENTIA_VITAE_BLOCK)
+                .tickRate(15)
+                .slopeFindDistance(3);
     }
 
     public static final DeferredHolder<FluidType, FluidType> ANIMATED_SPIRITUS_TYPE =
@@ -73,6 +81,24 @@ public class NVFluids {
 
     private static BaseFlowingFluid.Properties animatedSpiritusProperties() {
         return new BaseFlowingFluid.Properties(ANIMATED_SPIRITUS_TYPE, ANIMATED_SPIRITUS_SOURCE, ANIMATED_SPIRITUS_FLOWING).bucket(ANIMATED_SPIRITUS_BUCKET).block(ANIMATED_SPIRITUS_BLOCK);
+    }
+
+    public static final DeferredHolder<FluidType, FluidType> LIQUIFIED_EXPERIENCE_TYPE =
+            FLUID_TYPES.register("liquified_experience_type", () -> createFluidType("fluid.neovitae.liquified_experience"));
+
+    public static final DeferredHolder<Fluid, FlowingFluid> LIQUIFIED_EXPERIENCE_SOURCE = FLUIDS.register("liquified_experience_source", () -> new BaseFlowingFluid.Source(liquifiedExperienceProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> LIQUIFIED_EXPERIENCE_FLOWING = FLUIDS.register("liquified_experience_flowing", () -> new BaseFlowingFluid.Flowing(liquifiedExperienceProperties()));
+    public static final DeferredItem<BucketItem> LIQUIFIED_EXPERIENCE_BUCKET = BUCKETS.registerItem("liquified_experience_bucket",
+            props -> new BucketItem(LIQUIFIED_EXPERIENCE_SOURCE.get(), props.stacksTo(1).craftRemainder(Items.BUCKET)));
+    public static final DeferredBlock<LiquidBlock> LIQUIFIED_EXPERIENCE_BLOCK = SOURCE_BLOCKS.registerBlock("liquified_experience_block",
+            props -> new LiquidBlock(LIQUIFIED_EXPERIENCE_SOURCE.get(), props),
+            (Supplier<BlockBehaviour.Properties>) () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WATER));
+
+    private static BaseFlowingFluid.Properties liquifiedExperienceProperties() {
+        return new BaseFlowingFluid.Properties(LIQUIFIED_EXPERIENCE_TYPE, LIQUIFIED_EXPERIENCE_SOURCE, LIQUIFIED_EXPERIENCE_FLOWING)
+                .bucket(LIQUIFIED_EXPERIENCE_BUCKET)
+                .block(LIQUIFIED_EXPERIENCE_BLOCK)
+                .tickRate(10);
     }
 
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
@@ -95,6 +121,16 @@ public class NVFluids {
                 return Identifier.fromNamespaceAndPath(NeoVitae.MODID, "block/animated_spiritus_flowing");
             }
         }, ANIMATED_SPIRITUS_TYPE);
+
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            public Identifier getStillTexture() {
+                return Identifier.fromNamespaceAndPath(NeoVitae.MODID, "block/liquified_experience_still");
+            }
+
+            public Identifier getFlowingTexture() {
+                return Identifier.fromNamespaceAndPath(NeoVitae.MODID, "block/liquified_experience_flowing");
+            }
+        }, LIQUIFIED_EXPERIENCE_TYPE);
     }
 
     public static void register(IEventBus modBus) {

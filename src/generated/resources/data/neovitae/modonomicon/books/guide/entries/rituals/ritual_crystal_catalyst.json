@@ -20,7 +20,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crystal_catalyst.description",
   "icon": {
-    "id": "neovitae:raw_spiritus_catalyst"
+    "id": "neovitae:raw_spiritus"
   },
   "id": "neovitae:rituals/ritual_crystal_catalyst",
   "name": "book.neovitae.guide.rituals.ritual_crystal_catalyst.name",

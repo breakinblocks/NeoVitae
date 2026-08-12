@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,6 +38,9 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
     private List<BlockPos> connectionList = new ArrayList<>();
 
     private boolean bindingNeedsValidation = true;
+    private int connectionSweepTimer = 0;
+
+    private static final int CONNECTION_SWEEP_INTERVAL = 100;
 
     public RoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -48,6 +52,40 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
 
         if (bindingNeedsValidation) {
             validateBinding(level);
+        }
+
+        if (++connectionSweepTimer >= CONNECTION_SWEEP_INTERVAL) {
+            connectionSweepTimer = 0;
+            pruneDeadConnections(level);
+        }
+    }
+
+    /**
+     * Drops connections whose far end is no longer a routing node. A node destroyed while a
+     * neighbour was unloaded never gets cleaned up by {@link #removeAllConnections()}, and the
+     * orphaned entry would otherwise keep drawing a beam to an empty position forever.
+     * Positions in unloaded chunks are left alone until they can actually be checked.
+     */
+    private void pruneDeadConnections(Level level) {
+        if (connectionList.isEmpty()) return;
+
+        boolean changed = false;
+        Iterator<BlockPos> iterator = connectionList.iterator();
+        while (iterator.hasNext()) {
+            BlockPos connected = iterator.next();
+            if (!level.hasChunk(connected.getX() >> 4, connected.getZ() >> 4)) continue;
+            if (level.getBlockEntity(connected) instanceof IRoutingNode) continue;
+            iterator.remove();
+            changed = true;
+        }
+
+        if (!changed) return;
+
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        if (level.getBlockEntity(masterPos) instanceof IMasterRoutingNode master) {
+            master.removeNodeFromGraph(worldPosition);
+            master.addConnections(worldPosition, connectionList);
         }
     }
 

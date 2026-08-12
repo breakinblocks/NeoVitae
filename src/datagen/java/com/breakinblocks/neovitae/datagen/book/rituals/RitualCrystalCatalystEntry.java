@@ -33,7 +33,13 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Souls Unmoored");
-        this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted, not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal things. The circle distills this into [#](8B0000)Spiritus Catalysts[#](), potent reagents for cultivating and enhancing will crystals. The resulting catalysts are deposited into a nearby chest.");
+        this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted, "
+                + "not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal "
+                + "things. The circle condenses it into [#](8B0000)Raw Spiritus[#](), which falls to the ground "
+                + "[#](8B0000)where the creature died[#]() for you to gather.\n\n"
+                + "The watched volume is [#](B8860B)21x21x21[#](), centered on the Master Ritual Stone. Players are "
+                + "never harvested. Sturdier souls yield more: a common beast parts with a little, while the great "
+                + "horrors of the world surrender a great deal.");
     }
 
     @Override
@@ -43,7 +49,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Distills forsaken essence into spiritus catalysts.";
+        return "Condenses the souls of the slain into Raw Spiritus.";
     }
 
     @Override
@@ -53,7 +59,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.RAW_SPIRITUS_CATALYST.get());
+        return BookIconModel.create(NVItems.RAW_SPIRITUS.get());
     }
 
     @Override

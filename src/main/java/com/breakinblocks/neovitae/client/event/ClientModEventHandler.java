@@ -208,5 +208,9 @@ public class ClientModEventHandler {
                 new Material(NeoVitae.rl("block/animated_spiritus_still")),
                 new Material(NeoVitae.rl("block/animated_spiritus_flowing")),
                 null, null), NVFluids.ANIMATED_SPIRITUS_SOURCE, NVFluids.ANIMATED_SPIRITUS_FLOWING);
+        event.register(new FluidModel.Unbaked(
+                new Material(NeoVitae.rl("block/liquified_experience_still")),
+                new Material(NeoVitae.rl("block/liquified_experience_flowing")),
+                null, null), NVFluids.LIQUIFIED_EXPERIENCE_SOURCE, NVFluids.LIQUIFIED_EXPERIENCE_FLOWING);
     }
 }

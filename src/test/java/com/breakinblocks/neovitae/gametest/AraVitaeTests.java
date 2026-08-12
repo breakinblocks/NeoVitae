@@ -62,7 +62,7 @@ public class AraVitaeTests {
                             NVFluids.ESSENTIA_VITAE_SOURCE.get(), 500),
                     IFluidHandler.FluidAction.EXECUTE);
             if (filled <= 0) {
-                helper.fail("Altar should accept Life Essence, but fill returned " + filled);
+                helper.fail("Altar should accept Essentia Vitae, but fill returned " + filled);
             }
             helper.succeed();
         });

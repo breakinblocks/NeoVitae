@@ -62,8 +62,8 @@ public final class RoutingBeamHandler {
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
         Set<Edge> edges = new HashSet<>();
+        NODES.removeIf(BlockEntity::isRemoved);
         for (BlockEntity be : NODES) {
-            if (be.isRemoved()) continue;
             IRoutingNode node = (IRoutingNode) be;
             List<BlockPos> connections = node.getConnected();
             if (connections.isEmpty()) continue;
@@ -71,10 +71,11 @@ public final class RoutingBeamHandler {
             BlockPos nodePos = be.getBlockPos();
             for (BlockPos targetPos : connections) {
                 if (nodePos.equals(targetPos)) continue;
-                // Defensive: if the target slot no longer holds a routing node, skip it.
-                // Stale connectionList entries can persist if a remove/sync didn't propagate cleanly.
-                if (mc.level.isLoaded(targetPos)
-                        && !(mc.level.getBlockEntity(targetPos) instanceof IRoutingNode)) continue;
+                // Only draw a beam we can actually vouch for. A stale connection entry pointing at a
+                // destroyed node is indistinguishable from a live one until the far end is loaded, so
+                // an unverifiable target is left undrawn rather than trailing off into nothing.
+                if (!mc.level.isLoaded(targetPos)) continue;
+                if (!(mc.level.getBlockEntity(targetPos) instanceof IRoutingNode)) continue;
                 edges.add(Edge.of(nodePos, targetPos));
             }
         }

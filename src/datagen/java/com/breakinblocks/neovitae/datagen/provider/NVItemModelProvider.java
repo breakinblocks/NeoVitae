@@ -233,6 +233,7 @@ public class NVItemModelProvider extends ItemModelProvider {
         singleTexture("array_loyal_friends", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/defaultarray"));
         singleTexture("array_vortex", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/vortexsigil"));
         singleTexture("array_imprisonment", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/imprisonmentarray"));
+        singleTexture("array_liquified_experience", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/liquifiedexperiencearray"));
     }
 
     /** Apply a GUI-only translation (in display-pixel units) so an item icon can be nudged in inventory slots. */

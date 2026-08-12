@@ -39,6 +39,9 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue SANGUINE_WARD_DRAIN_PER_SECOND;
     public final ModConfigSpec.IntValue SANGUINE_WARD_MIN_EV;
 
+    public final ModConfigSpec.ConfigValue<String> LIQUIFIED_EXPERIENCE_FLUID;
+    public final ModConfigSpec.IntValue LIQUIFIED_EXPERIENCE_MB_PER_POINT;
+    public final ModConfigSpec.IntValue LIQUIFIED_EXPERIENCE_POINTS_PER_OPERATION;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_PER_KILL;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_MAX_EV_PER_OPERATION;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_MODIFIER_PERCENT;
@@ -154,6 +157,26 @@ public class ServerConfig {
         builder.comment("Torment Nexus Configuration",
                 "Controls the EV upkeep and EV-yield modifier for the Torment Nexus ritual,",
                 "which simulates kills from caged spawners and trial spawners in its area.");
+        builder.comment("Array of Liquified Experience: moves experience between Tomes of Peritia",
+                "in the container below the array and an adjacent tank holding a #c:experience fluid.")
+                .push("liquified_experience");
+
+        LIQUIFIED_EXPERIENCE_FLUID = builder
+                .comment("Fluid the array reads and writes, as modid:fluid_id.",
+                        "Leave empty to use Neo Vitae's own Liquified Experience.",
+                        "Set this if another mod in your pack provides the experience fluid you would rather use,",
+                        "for example 'industrialforegoing:essence'. Unknown ids fall back to Neo Vitae's fluid.")
+                .define("preferred_fluid", "");
+        LIQUIFIED_EXPERIENCE_MB_PER_POINT = builder
+                .comment("Millibuckets of experience fluid produced per point of stored experience.",
+                        "Set this to match whichever mod provides the #c:experience fluid.")
+                .defineInRange("mb_per_point", 20, 1, 10000);
+        LIQUIFIED_EXPERIENCE_POINTS_PER_OPERATION = builder
+                .comment("Maximum experience points moved per operation. The array runs once per second.")
+                .defineInRange("points_per_operation", 100, 1, 1000000);
+
+        builder.pop();
+
         builder.push("torment_nexus");
 
         TORMENT_NEXUS_EV_PER_KILL = builder

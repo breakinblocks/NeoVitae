@@ -22,6 +22,8 @@ public class NVMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<HellfireForgeMenu>> HELLFIRE_FORGE = MENUS.register("hellfire_forge", () -> IMenuTypeExtension.create(HellfireForgeMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<ExperienceTomeMenu>> EXPERIENCE_TOME = MENUS.register("experience_tome", () -> IMenuTypeExtension.create(ExperienceTomeMenu::new));
+
     public static final DeferredHolder<MenuType<?>, MenuType<SigilHoldingMenu>> SIGIL_HOLDING = MENUS.register("sigil_holding", () -> IMenuTypeExtension.create(SigilHoldingMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<RoutingNodeMenu>> ROUTING_NODE = MENUS.register("routing_node", () -> IMenuTypeExtension.create(RoutingNodeMenu::new));

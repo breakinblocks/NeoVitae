@@ -19,6 +19,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -58,6 +59,7 @@ import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.fluid.EssentiaLogging;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.IBindable;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -269,6 +271,16 @@ public class CommonEventHandler {
                 event.setCanceled(true);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onBlockPlacedInEssentiaVitae(BlockEvent.EntityPlaceEvent event) {
+        if (event.isCanceled() || event.getLevel().isClientSide()) return;
+        BlockState placed = event.getPlacedBlock();
+        if (!EssentiaLogging.canLog(placed)) return;
+        BlockState replaced = event.getBlockSnapshot().getState();
+        if (!EssentiaLogging.isEssentiaVitae(replaced.getFluidState().getType())) return;
+        event.getLevel().setBlock(event.getPos(), placed.setValue(EssentiaLogging.ESSENTIA_LOGGED, true), 3);
     }
 
     @SubscribeEvent

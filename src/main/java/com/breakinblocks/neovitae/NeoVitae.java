@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -24,6 +25,10 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.api.fluid.EssentiaLoggingAPI;
+import com.breakinblocks.neovitae.common.block.AlchemyArrayBlock;
+import com.breakinblocks.neovitae.common.block.BloodLightBlock;
+import com.breakinblocks.neovitae.common.fluid.EssentiaLogging;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -98,6 +103,9 @@ public class NeoVitae {
             LOGGER.error("Failed to register game test setup", e);
         }
 
+        EssentiaLoggingAPI.support(AlchemyArrayBlock.class);
+        EssentiaLoggingAPI.support(BloodLightBlock.class);
+
         MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);
@@ -143,6 +151,8 @@ public class NeoVitae {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         NeoVitaeAPI.setInstance(NeoVitaeAPIImpl.INSTANCE);
+        event.enqueueWork(Blocks::rebuildCache);
+        event.enqueueWork(EssentiaLogging::reportUnsupportedBlocks);
         event.enqueueWork(NVHarvestHandlers::init);
         event.enqueueWork(AnointmentRegistrar::init);
         event.enqueueWork(ModRoomPools::init);

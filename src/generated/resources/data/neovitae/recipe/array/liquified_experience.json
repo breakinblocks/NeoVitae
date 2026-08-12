@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "minecraft:lapis_lazuli"
+  },
+  "baseinput": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "effect_type": "liquified_experience",
+  "texture": "neovitae:textures/models/alchemyarrays/liquifiedexperiencearray.png"
+}

@@ -7,6 +7,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.StairsShape;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -26,6 +30,7 @@ import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.fluid.EssentiaLogging;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 public class NVBlockStateProvider extends BlockStateProvider {
@@ -518,4 +523,31 @@ public class NVBlockStateProvider extends BlockStateProvider {
 
         return b;
     }
+
+    @Override
+    public void stairsBlock(StairBlock block, ModelFile stairs, ModelFile stairsInner, ModelFile stairsOuter) {
+        getVariantBuilder(block)
+                .forAllStatesExcept(state -> {
+                    Direction facing = state.getValue(StairBlock.FACING);
+                    Half half = state.getValue(StairBlock.HALF);
+                    StairsShape shape = state.getValue(StairBlock.SHAPE);
+                    int yRot = (int) facing.getClockWise().toYRot();
+                    if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT) {
+                        yRot += 270;
+                    }
+                    if (shape != StairsShape.STRAIGHT && half == Half.TOP) {
+                        yRot += 90;
+                    }
+                    yRot %= 360;
+                    boolean uvlock = yRot != 0 || half == Half.TOP;
+                    return ConfiguredModel.builder()
+                            .modelFile(shape == StairsShape.STRAIGHT ? stairs
+                                    : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? stairsInner : stairsOuter)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180)
+                            .rotationY(yRot)
+                            .uvLock(uvlock)
+                            .build();
+                }, StairBlock.WATERLOGGED, EssentiaLogging.ESSENTIA_LOGGED);
+    }
+
 }

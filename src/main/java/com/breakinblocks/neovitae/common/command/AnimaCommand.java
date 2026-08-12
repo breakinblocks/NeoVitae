@@ -46,7 +46,7 @@ public class AnimaCommand {
     private static int setNetwork(CommandContext<CommandSourceStack> context, ServerPlayer target, int amount) {
         Anima anima = AnimaHelper.getAnima(target);
         int setAmount = anima.set(AnimaTicket.create(amount), Integer.MAX_VALUE);
-        context.getSource().sendSuccess(() -> Component.literal("Successfully set " + target.getGameProfile().getName() + "'s Essence to " + setAmount), true);
+        context.getSource().sendSuccess(() -> Component.literal("Successfully set " + target.getGameProfile().getName() + "'s Essentia Vitae to " + setAmount), true);
         return 1;
     }
 

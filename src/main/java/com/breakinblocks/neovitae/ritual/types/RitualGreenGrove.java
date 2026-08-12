@@ -60,6 +60,8 @@ public class RitualGreenGrove extends Ritual {
     private static final double WILL_PER_LEECH = 1.0;
     private static final double WILL_PER_VENGEFUL_GROWTH = 0.3;
 
+    private static final float EXTRA_GROWTH_CHANCE = 0.25f;
+
     private int refreshTime = 20;
 
     public RitualGreenGrove() {
@@ -105,7 +107,6 @@ public class RitualGreenGrove extends Ritual {
             if (totalGrowths >= maxGrowths) break;
 
             BlockState state = ctx.level().getBlockState(pos);
-            Block block = state.getBlock();
 
             // Vengeful: scale growth chance
             if (doVengeful && (will.getVindicta() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
@@ -115,42 +116,14 @@ public class RitualGreenGrove extends Ritual {
                 }
             }
 
-            boolean grew = false;
-
-            // Try bonemeal-based growth first
-            if (block instanceof BonemealableBlock growable) {
-                if (growable.isValidBonemealTarget(ctx.level(), pos, state)) {
-                    if (growable.isBonemealSuccess(ctx.level(), ctx.level().random, pos, state)) {
-                        growable.performBonemeal(serverLevel, ctx.level().random, pos, state);
-                        grew = true;
-                    } else {
-                        state.randomTick(serverLevel, pos, ctx.level().getRandom());
-                        grew = true;
-                    }
-                }
-            }
-
-            // Support cactus, sugar cane, bamboo via randomTick
-            if (!grew && (block == Blocks.CACTUS || block == Blocks.SUGAR_CANE || block == Blocks.BAMBOO)) {
-                state.randomTick(serverLevel, pos, ctx.level().getRandom());
-                grew = true;
-            }
-
-            if (!grew && RitualHelper.isBuddingBlock(state)) {
-                RitualHelper.accelerateBudding(serverLevel, pos, 1);
-                grew = true;
-            }
-
-            if (!grew && block instanceof BlockSpiritusCrystal) {
-                BlockEntity be = ctx.level().getBlockEntity(pos);
-                if (be instanceof SpiritusCrystalBlockEntity crystal) {
-                    double applied = crystal.growCrystalWithSpiritusAmount(0, 0.05);
-                    if (applied > 0) grew = true;
-                }
-            }
+            boolean grew = tryGrow(ctx, serverLevel, pos, state);
 
             if (grew) {
                 totalGrowths++;
+                if (totalGrowths < maxGrowths && ctx.level().random.nextFloat() < EXTRA_GROWTH_CHANCE
+                        && tryGrow(ctx, serverLevel, pos, ctx.level().getBlockState(pos))) {
+                    totalGrowths++;
+                }
                 if (doVengeful && (will.getVindicta() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                     vengefulSpiritusUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
@@ -206,6 +179,38 @@ public class RitualGreenGrove extends Ritual {
                 0, corrosiveSpiritusUsed, 0, vengefulSpiritusUsed, steadfastSpiritusUsed);
 
         ctx.syphon(getRefreshCost() * totalGrowths);
+    }
+
+    private boolean tryGrow(RitualContext ctx, ServerLevel serverLevel, BlockPos pos, BlockState state) {
+        Block block = state.getBlock();
+
+        if (block instanceof BonemealableBlock growable && growable.isValidBonemealTarget(ctx.level(), pos, state)) {
+            if (growable.isBonemealSuccess(ctx.level(), ctx.level().random, pos, state)) {
+                growable.performBonemeal(serverLevel, ctx.level().random, pos, state);
+            } else {
+                state.randomTick(serverLevel, pos, ctx.level().getRandom());
+            }
+            return true;
+        }
+
+        if (block == Blocks.CACTUS || block == Blocks.SUGAR_CANE || block == Blocks.BAMBOO) {
+            state.randomTick(serverLevel, pos, ctx.level().getRandom());
+            return true;
+        }
+
+        if (RitualHelper.isBuddingBlock(state)) {
+            RitualHelper.accelerateBudding(serverLevel, pos, 1);
+            return true;
+        }
+
+        if (block instanceof BlockSpiritusCrystal) {
+            BlockEntity be = ctx.level().getBlockEntity(pos);
+            if (be instanceof SpiritusCrystalBlockEntity crystal) {
+                return crystal.growCrystalWithSpiritusAmount(0, 0.05) > 0;
+            }
+        }
+
+        return false;
     }
 
     @Override

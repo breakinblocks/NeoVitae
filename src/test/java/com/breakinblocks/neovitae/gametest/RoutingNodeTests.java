@@ -140,6 +140,39 @@ public class RoutingNodeTests {
         return count;
     }
 
+    // ==================== Connection Hygiene ====================
+
+    /**
+     * A node destroyed while a neighbour could not be notified used to leave the survivor
+     * pointing at an empty position forever, which kept a connection beam rendered.
+     */
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void staleConnectionsArePruned(GameTestHelper helper) {
+        RoutingTestContext ctx = setupLinearNetwork(helper);
+
+        InputRoutingNodeBlockEntity input = (InputRoutingNodeBlockEntity) helper.getBlockEntity(ctx.input);
+        BlockPos absGhost = helper.absolutePos(new BlockPos(2, 1, 2));
+        input.addConnection(absGhost);
+
+        if (!input.getConnected().contains(absGhost)) {
+            helper.fail("Test setup failed: ghost connection was not recorded");
+            return;
+        }
+
+        helper.runAfterDelay(120, () -> {
+            InputRoutingNodeBlockEntity node = (InputRoutingNodeBlockEntity) helper.getBlockEntity(ctx.input);
+            if (node.getConnected().contains(absGhost)) {
+                helper.fail("Connection to a position with no routing node was never pruned");
+                return;
+            }
+            if (!node.getConnected().contains(helper.absolutePos(ctx.master))) {
+                helper.fail("Pruning also dropped the live connection to the master");
+                return;
+            }
+            helper.succeed();
+        });
+    }
+
     // ==================== Core Transfer Tests ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 80)
@@ -662,7 +695,7 @@ public class RoutingNodeTests {
         setNodeFilter(input, Direction.WEST, passAll);
         setNodeFilter(output, Direction.EAST, passAll);
 
-        // Fill source tank with 4000 mB of Life Essence
+        // Fill source tank with 4000 mB of Essentia Vitae
         IFluidHandler srcHandler = helper.getLevel().getCapability(
                 Capabilities.FluidHandler.BLOCK, helper.absolutePos(srcTankPos), null);
         if (srcHandler == null) {

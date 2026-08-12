@@ -4,7 +4,13 @@
   "package": "com.breakinblocks.neovitae.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EnchantmentHelperMixin"
+    "BaseSpawnerMixin",
+    "BlockMixin",
+    "BlockStateBaseMixin",
+    "EnchantmentHelperMixin",
+    "SimpleWaterloggedBlockMixin",
+    "TrialSpawnerMixin",
+    "WallBlockMixin"
   ],
   "client": [],
   "injectors": {

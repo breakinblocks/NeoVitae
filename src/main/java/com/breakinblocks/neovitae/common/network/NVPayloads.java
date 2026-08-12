@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
+import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
@@ -26,6 +27,7 @@ import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.common.menu.AbstractBlockEntityMenu;
+import com.breakinblocks.neovitae.common.menu.ExperienceTomeMenu;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
@@ -47,6 +49,12 @@ public class NVPayloads {
                 SigilHoldingSelectionPayload.TYPE,
                 SigilHoldingSelectionPayload.STREAM_CODEC,
                 NVPayloads::handleSigilHoldingSelection
+        );
+
+        registrar.playToServer(
+                ExperienceTomeTransferPayload.TYPE,
+                ExperienceTomeTransferPayload.STREAM_CODEC,
+                NVPayloads::handleExperienceTomeTransfer
         );
 
         registrar.playToServer(
@@ -374,6 +382,24 @@ public class NVPayloads {
             Player player = context.player();
             if (player.containerMenu instanceof SigilHoldingMenu menu) {
                 menu.setSelectedSlot(payload.selectedSlot());
+            }
+        });
+    }
+
+    private static void handleExperienceTomeTransfer(ExperienceTomeTransferPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (!(player.containerMenu instanceof ExperienceTomeMenu menu)) {
+                return;
+            }
+            ItemStack tome = menu.getTome(player);
+            if (!(tome.getItem() instanceof ExperienceTomeItem)) {
+                return;
+            }
+            if (payload.deposit()) {
+                ExperienceTomeItem.depositLevels(player, tome, payload.levels());
+            } else {
+                ExperienceTomeItem.withdrawLevels(player, tome, payload.levels());
             }
         });
     }

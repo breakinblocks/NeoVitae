@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Käytetyn Dungeonin Sinetti",
   "book.neovitae.altar_tier_info.header.runes": "Runes",
   "book.neovitae.altar_tier_info.header.tier": "Taso",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Juoksee tason mukaan",
+  "chat.neovitae.dungeon.seal.collapsed": "Sinetti himmentää ja kuolee. Mikään ei ole sen ulkopuolella.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Tämä sinetti käytetään. Tie sen taakse on mennyt.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Ei tarpeeksi Spiritus: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Helmi nikkarointiin rako polttoainetta veneen sijaan helmi korttipaikka",
   "jei.neovitae.recipe.meteor.random_pool": "Valitse satunnainen %s -lohkosta",

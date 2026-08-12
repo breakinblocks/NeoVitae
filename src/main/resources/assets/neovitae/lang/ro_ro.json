@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Sigiliul din Tembeon cheltuit",
   "book.neovitae.altar_tier_info.header.runes": "Rune",
   "book.neovitae.altar_tier_info.header.tier": "Nivel",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Rulează după Nivel",
+  "chat.neovitae.dungeon.seal.collapsed": "Sigiliul se întunecă şi moare. Nimic nu se află dincolo de ea.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Acest sigiliu este cheltuit. Calea dincolo de ea a dispărut.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Nu sunt destule piride: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "O bijuterie într-un slot meșteșugind alimentează ambarcațiunea în locul slotului de bijuterii",
   "jei.neovitae.recipe.meteor.random_pool": "Alege aleatoriu de la blocuri %s",

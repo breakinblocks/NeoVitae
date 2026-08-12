@@ -133,7 +133,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
 
         if (stack.getItem() instanceof ItemActivationCrystal crystal) {
             Binding binding = stack.get(NVDataComponents.BINDING.get());
-            if (binding == null || binding.uuid() == null) {
+            if (binding == null || binding.isEmpty()) {
                 player.sendOverlayMessage(
                         Component.translatable("chat.neovitae.crystal.notBound").withStyle(ChatFormatting.RED));
                 return InteractionResult.FAIL;

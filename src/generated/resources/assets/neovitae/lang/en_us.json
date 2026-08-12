@@ -2649,6 +2649,7 @@
   "message.neovitae.vitae_link.locked": "Cannot change tier while crafting",
   "message.neovitae.vitae_link.tier": "Craft Tier: %s / %s",
   "pack.neovitae.materials": "NeoVitae Generated Materials",
+  "ritual.neovitae.activation.blocked": "Something is preventing this ritual from activating.",
   "ritual.neovitae.activation.insufficient": "Not enough Essentia Vitae to activate this ritual.",
   "ritual.neovitae.armour_evolve": "Ritual of Sentient Evolution",
   "ritual.neovitae.armour_evolve.desc": "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.",

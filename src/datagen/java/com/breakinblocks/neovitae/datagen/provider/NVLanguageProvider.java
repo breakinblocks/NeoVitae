@@ -779,6 +779,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("ritual.neovitae.crystalLevel.insufficient", "Crystal tier is too low to activate this ritual.");
         add("ritual.neovitae.structure.invalid", "Ritual structure is incomplete or invalid.");
         add("ritual.neovitae.activation.insufficient", "Not enough Essentia Vitae to activate this ritual.");
+        add("ritual.neovitae.activation.blocked", "Something is preventing this ritual from activating.");
         add("ritual.neovitae.dungeon.no_space", "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.");
 
         add("hud.neovitae.altar.tier", "Tier: %s");

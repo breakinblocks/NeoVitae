@@ -113,9 +113,10 @@ public class BloodOrbItem extends Item implements IBindable {
         }
 
         if (!level.isClientSide) {
-            if (healthSacrificed > 0) {
-                player.invulnerableTime = 0;
-                player.hurt(AltarUtil.sacrificeDamage(player), healthSacrificed);
+            if (healthSacrificed > 0 && AltarUtil.takeSacrifice(player, healthSacrificed) <= 0) {
+                // Nothing was actually given up, so nothing is owed in return.
+                player.displayClientMessage(Component.translatable("message.neovitae.altar_blood_refused"), true);
+                return InteractionResultHolder.fail(stack);
             }
             if (toAltar) {
                 altar.addSacrificeEV(Math.max(0, evAdded), false);

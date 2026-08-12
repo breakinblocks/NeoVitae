@@ -68,6 +68,33 @@ public class AltarUtil {
         return sources.source(NVDamageSources.SELF_SACRIFICE);
     }
 
+    /**
+     * Takes a self-sacrifice toll in real health. Vanilla spends the absorption pool before
+     * touching health and there is no damage tag that opts out of that, so the shield is lifted
+     * for the duration of the blow and put back untouched afterwards: a ward may protect you from
+     * the world, but not from a price you offered to pay yourself.
+     *
+     * <p>The damage still travels the normal pipeline, so protections that cancel it outright are
+     * respected and the caller can see that nothing was taken.
+     *
+     * @return the health actually given up
+     */
+    public static float takeSacrifice(Player player, float amount) {
+        float shield = player.getAbsorptionAmount();
+        float before = player.getHealth();
+
+        if (shield > 0) {
+            player.setAbsorptionAmount(0);
+        }
+        player.invulnerableTime = 0;
+        player.hurt(sacrificeDamage(player), amount);
+        if (shield > 0) {
+            player.setAbsorptionAmount(shield);
+        }
+
+        return Math.max(0, before - player.getHealth());
+    }
+
     public static int getTier(Level level, BlockPos altarPos) {
         int tier = -1;
         for (int i = 0; i < NVMultiblock.TIER_VALIDATORS.length; i++) {

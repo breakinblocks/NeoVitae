@@ -56,6 +56,19 @@ public class RitualMagneticEntry extends EntryProvider {
                 + "until you mine them out. When the volume is also full, the ritual idles patiently until you "
                 + "make room.");
 
+        this.page("backfill", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Closing the Wounds");
+        this.pageText("Left to itself the circle takes the ore and leaves the hollow, and in time the ground "
+                + "beneath a quarry becomes more hole than earth.\n\n"
+                + "Let [#](4A0080)Spiritus Invictus[#]() gather in the chunk and the rite grows tidier: each "
+                + "emptied slot is packed with the [#](8B0000)surrounding stone[#]() as the ore leaves it. The fill "
+                + "takes after whatever the quarry is cutting through, so deepslate closes over deepslate and "
+                + "netherrack over netherrack, and the seam is invisible.\n\n"
+                + "Only honest rock is used to seal the gap; nothing you have built and nothing of worth will ever "
+                + "be drawn in to fill a hole. Withhold the Invictus and the quarry digs as it always did.");
+
         this.page("foundation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

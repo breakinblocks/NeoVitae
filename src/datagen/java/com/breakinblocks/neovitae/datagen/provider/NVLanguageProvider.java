@@ -917,6 +917,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
         add("message.neovitae.altar_draws_blood", "The altar draws the blood it needs...");
+        add("message.neovitae.altar_blood_refused", "The altar reaches for your blood and finds nothing it can take.");
 
         add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
         add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
@@ -947,8 +948,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.UPGRADE_TOME.get(), "Upgrade Tome");
         add(NVItems.EXPERIENCE_TOME.get(), "Tome of Peritia");
         addTooltip("experience_tome.stored", "Stored XP: %s");
-        addTooltip("experience_tome.sneak_use", "Sneak + Use: Store XP");
-        addTooltip("experience_tome.use", "Use: Open");
+        addTooltip("experience_tome.sneak_use", "Use: Open the tome");
+        addTooltip("experience_tome.use", "Store or withdraw levels in bulk");
         add("gui.neovitae.experience_tome.stored", "%s levels stored (%s xp)");
         add("gui.neovitae.experience_tome.deposit", "Store");
         add("gui.neovitae.experience_tome.withdraw", "Withdraw");
@@ -1279,7 +1280,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds. Place a chest atop the Master Ritual Stone to collect the yield; otherwise it drops where it grew.");
         addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
-        addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a chest at the configured chest position (directly above the master stone by default) if one is present; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
+        addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a chest at the configured chest position (directly above the master stone by default) if one is present; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock. Spiritus Invictus packs each emptied slot with the surrounding stone instead of leaving a hole.");
+        add("ritual.neovitae.magnetism.spiritus.invictus", "Spiritus Invictus: Fills each mined slot with the surrounding stone instead of leaving it open.");
         addRitual("shepherd", "Ritual of the Shepherd", "Tends the animals in range: it hastens the growth of the young and coaxes ready adults into breeding, spending a little Essentia Vitae to feed them so no food or chest is required. Raw Spiritus quickens its pulse.");
         addRitual("butchering", "Ritual of Butchering", "Slaughters adult animals in range and gathers their drops into an adjacent chest, always leaving enough of each species alive to keep breeding. Set how many of each to spare with the Ritual Configurator.");
         addRitual("felling", "Ritual of Fallen Trees", "Fells every tree in range and drops the logs into an adjacent chest.");

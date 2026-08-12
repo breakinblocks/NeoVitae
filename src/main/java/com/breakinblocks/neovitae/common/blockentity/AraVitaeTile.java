@@ -369,17 +369,17 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 p -> p.isAlive() && !p.isInvulnerable() && !p.getAbilities().instabuild
                         && p.getHealth() > BOOTSTRAP_LEECH_FLOOR && !hasBloodOrb(p));
         for (Player player : players) {
-            float before = player.getHealth();
-            player.invulnerableTime = 0;
-            player.hurt(AltarUtil.sacrificeDamage(player), BOOTSTRAP_LEECH_HP);
-            float lost = before - player.getHealth();
-            if (lost > 0) {
-                int ev = (int) (AltarUtil.calculateSelfSacrificeLP(player, Math.max(1, (int) Math.ceil(lost)))
-                        * BOOTSTRAP_LEECH_EFFICIENCY);
-                addSacrificeEV(ev, false);
-                player.displayClientMessage(Component.translatable("message.neovitae.altar_draws_blood"), true);
-                StreamPresets.bloodTendril(player, searchAnchor).build().sendToNearby(serverLevel, searchAnchor, 32);
+            float lost = AltarUtil.takeSacrifice(player, BOOTSTRAP_LEECH_HP);
+            if (lost <= 0) {
+                player.displayClientMessage(Component.translatable("message.neovitae.altar_blood_refused"), true);
+                continue;
             }
+
+            int ev = (int) (AltarUtil.calculateSelfSacrificeLP(player, Math.max(1, (int) Math.ceil(lost)))
+                    * BOOTSTRAP_LEECH_EFFICIENCY);
+            addSacrificeEV(ev, false);
+            player.displayClientMessage(Component.translatable("message.neovitae.altar_draws_blood"), true);
+            StreamPresets.bloodTendril(player, searchAnchor).build().sendToNearby(serverLevel, searchAnchor, 32);
         }
     }
 

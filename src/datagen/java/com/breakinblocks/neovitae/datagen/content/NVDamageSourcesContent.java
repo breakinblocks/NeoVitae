@@ -32,6 +32,22 @@ public class NVDamageSourcesContent {
                 .add(NVDamageSources.SELF_SACRIFICE)
                 .add(NVDamageSources.SACRIFICE);
 
+        setter.apply(DamageTypeTags.BYPASSES_RESISTANCE)
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
+
+        setter.apply(DamageTypeTags.BYPASSES_ENCHANTMENTS)
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
+
+        setter.apply(DamageTypeTags.BYPASSES_SHIELD)
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
+
+        setter.apply(DamageTypeTags.BYPASSES_COOLDOWN)
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
+
         setter.apply(DamageTypeTags.NO_IMPACT)
                 .add(NVDamageSources.SELF_SACRIFICE)
                 .add(NVDamageSources.SACRIFICE);

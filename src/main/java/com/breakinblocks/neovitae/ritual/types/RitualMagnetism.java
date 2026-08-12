@@ -6,9 +6,13 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -18,6 +22,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -31,6 +36,7 @@ public class RitualMagnetism extends Ritual {
     public static final String CHEST_RANGE = "chestRange";
     private static final int MAX_CHECKS_PER_REFRESH = 100;
     private static final int MAX_ORES_PER_REFRESH = 3;
+    private static final double STEADFAST_DRAIN = 0.01;
 
     private BlockPos lastPos;
 
@@ -50,6 +56,9 @@ public class RitualMagnetism extends Ritual {
         Level world = ctx.level();
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
+
+        SpiritusState will = RitualHelper.querySpiritus(world, masterPos, STEADFAST_DRAIN);
+        boolean backfill = will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         IItemHandler container = world.getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
@@ -79,7 +88,7 @@ public class RitualMagnetism extends Ritual {
                     BlockState state = world.getBlockState(srcPos);
                     if (state.is(Tags.Blocks.ORES)
                             && BlockProtectionHelper.canBreakBlock(world, srcPos, owner)
-                            && moveOre(ctx, world, srcPos, state, container, masterPos)) {
+                            && moveOre(ctx, world, srcPos, state, container, masterPos, backfill, will)) {
                         oresMoved++;
                         if (oresMoved >= MAX_ORES_PER_REFRESH) {
                             k++;
@@ -100,13 +109,13 @@ public class RitualMagnetism extends Ritual {
     }
 
     private boolean moveOre(RitualContext ctx, Level world, BlockPos srcPos, BlockState state,
-                            IItemHandler container, BlockPos masterPos) {
+                            IItemHandler container, BlockPos masterPos, boolean backfill, SpiritusState will) {
         if (container != null) {
             ItemStack oreStack = new ItemStack(state.getBlock().asItem());
             if (!oreStack.isEmpty() && oreStack.getItem() != Items.AIR) {
                 ItemStack remainder = insertAll(container, oreStack);
                 if (remainder.isEmpty()) {
-                    world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                    clearOre(world, srcPos, backfill, will, masterPos);
                     ctx.syphon(getRefreshCost());
                     return true;
                 }
@@ -117,9 +126,38 @@ public class RitualMagnetism extends Ritual {
         if (destination == null) return false;
         if (!world.isEmptyBlock(destination)) return false;
         if (!world.setBlock(destination, state, Block.UPDATE_ALL)) return false;
-        world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        clearOre(world, srcPos, backfill, will, masterPos);
         ctx.syphon(getRefreshCost());
         return true;
+    }
+
+    /**
+     * Leaves the mined slot as air, or packs it with the surrounding stone when the ritual is
+     * fed Spiritus Invictus, so a long-running quarry does not hollow out the ground beneath it.
+     */
+    private void clearOre(Level world, BlockPos srcPos, boolean backfill, SpiritusState will, BlockPos masterPos) {
+        if (backfill && will.getInvictus() >= STEADFAST_DRAIN) {
+            world.setBlock(srcPos, fillerFor(world, srcPos), Block.UPDATE_ALL);
+            RitualHelper.drainSpiritus(will, world, masterPos, 0, 0, 0, 0, STEADFAST_DRAIN);
+            return;
+        }
+        world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+    }
+
+    /**
+     * Matches the surrounding rock so the fill is invisible, falling back to plain stone.
+     * Only natural stone is copied, so nothing the player built can be duplicated.
+     */
+    public static BlockState fillerFor(Level world, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            BlockState neighbour = world.getBlockState(pos.relative(direction));
+            if (neighbour.is(BlockTags.BASE_STONE_OVERWORLD)
+                    || neighbour.is(BlockTags.BASE_STONE_NETHER)
+                    || neighbour.is(Blocks.END_STONE)) {
+                return neighbour;
+            }
+        }
+        return Blocks.STONE.defaultBlockState();
     }
 
     private static ItemStack insertAll(IItemHandler handler, ItemStack stack) {
@@ -169,6 +207,14 @@ public class RitualMagnetism extends Ritual {
             tag.putInt("lastPosY", lastPos.getY());
             tag.putInt("lastPosZ", lastPos.getZ());
         }
+    }
+
+    @Override
+    public Component[] provideInformationOfRitualToPlayer(Player player) {
+        return new Component[]{
+                Component.translatable(getTranslationKey() + ".info"),
+                Component.translatable(getTranslationKey() + ".spiritus.invictus")
+        };
     }
 
     @Override

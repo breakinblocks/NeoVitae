@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Sello de Mazmorra Espenta",
   "book.neovitae.altar_tier_info.header.runes": "Runas",
   "book.neovitae.altar_tier_info.header.tier": "Nivel",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runas por nivel",
+  "chat.neovitae.dungeon.seal.collapsed": "El sello se oscurece y muere. Nada más allá.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Este sello se gasta. El camino más allá se ha ido.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "No hay suficiente espíritu: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Una joya en una ranura de fabricación alimenta la nave en lugar de la ranura de gemas",
   "jei.neovitae.recipe.meteor.random_pool": "Elegir aleatoriamente desde bloques %s",

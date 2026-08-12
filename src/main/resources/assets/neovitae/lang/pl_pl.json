@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Zużyte Pieczęć Lochu",
   "book.neovitae.altar_tier_info.header.runes": "Runy",
   "book.neovitae.altar_tier_info.header.tier": "Poziom",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Runy według poziomu",
+  "chat.neovitae.dungeon.seal.collapsed": "Uciemnienia i umierają. Nic nie leży poza tym.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Ta pieczęć została wydana. Wyjdź dalej.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Za mało Spirytu: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Klejnot w slocie rzemieślniczym paliwuje rzemiosło zamiast gniazda klejnotów.",
   "jei.neovitae.recipe.meteor.random_pool": "Losowy wybór z bloków %s",

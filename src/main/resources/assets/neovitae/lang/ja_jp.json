@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "使用済みの地下牢シール（地下牢）",
   "book.neovitae.altar_tier_info.header.runes": "Runes",
   "book.neovitae.altar_tier_info.header.tier": "段階",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "階層別Runes",
+  "chat.neovitae.dungeon.seal.collapsed": "封印は暗くなり、死ぬ。その向こうには何も横たわっていない。",
+  "chat.neovitae.dungeon.seal.inaccessible": "この封印は使われています。向こうの道は消えています。",
   "gui.neovitae.hellfire_forge.needs_spiritus": "精神が不足しています: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "クラフトスロットの宝石は宝石スロットの代わりにクラフトを燃料にします",
   "jei.neovitae.recipe.meteor.random_pool": "%s ブロックからランダムに選択",

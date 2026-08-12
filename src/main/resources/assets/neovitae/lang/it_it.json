@@ -1,7 +1,10 @@
 {
+  "block.neovitae.dungeon_seal_inaccessible": "Sigillo Dungeon Speso",
   "book.neovitae.altar_tier_info.header.runes": "Rune",
   "book.neovitae.altar_tier_info.header.tier": "Livello",
   "book.neovitae.guide.altar.ara_vitae.tier_table.title": "Rune per livello",
+  "chat.neovitae.dungeon.seal.collapsed": "Il sigillo scura e muore. Nulla si trova al di là di esso.",
+  "chat.neovitae.dungeon.seal.inaccessible": "Questo sigillo è speso. La strada oltre è andata.",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Spirito insufficiente: %s / %s",
   "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Una gemma in uno slot di fabbricazione alimenta il mestiere invece dello slot gemma",
   "jei.neovitae.recipe.meteor.random_pool": "Scelta casuale dai blocchi %s",

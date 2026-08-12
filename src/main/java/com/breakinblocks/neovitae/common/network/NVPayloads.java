@@ -412,6 +412,12 @@ public class NVPayloads {
 
             }
 
+            if (player instanceof ServerPlayer serverPlayer) {
+
+                serverPlayer.inventoryMenu.broadcastChanges();
+
+            }
+
         });
 
     }

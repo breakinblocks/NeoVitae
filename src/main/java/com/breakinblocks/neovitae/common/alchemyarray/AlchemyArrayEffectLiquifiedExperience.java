@@ -59,15 +59,14 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
         }
 
         int perPoint = NeoVitae.SERVER_CONFIG.LIQUIFIED_EXPERIENCE_MB_PER_POINT.get();
-        int budget = NeoVitae.SERVER_CONFIG.LIQUIFIED_EXPERIENCE_POINTS_PER_OPERATION.get();
-        if (perPoint <= 0 || budget <= 0) {
+        if (perPoint <= 0) {
             return false;
         }
 
         boolean reversed = level.hasNeighborSignal(arrayPos);
         int moved = reversed
-                ? fillTomes(container, tank, experience, perPoint, budget)
-                : drainTomes(container, tank, experience, perPoint, budget);
+                ? fillTomes(container, tank, experience, perPoint)
+                : drainTomes(container, tank, experience, perPoint);
 
         if (moved > 0 && level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), reversed ? 0x66DD33 : 0x88FF44),
@@ -78,10 +77,10 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
     }
 
     private static int drainTomes(ResourceHandler<ItemResource> container, ResourceHandler<FluidResource> tank,
-                                  Fluid experience, int perPoint, int budget) {
+                                  Fluid experience, int perPoint) {
         FluidResource resource = FluidResource.of(experience);
         int moved = 0;
-        for (int slot = 0; slot < container.size() && budget > 0; slot++) {
+        for (int slot = 0; slot < container.size(); slot++) {
             ItemStack stack = container.getResource(slot).toStack(container.getAmountAsInt(slot));
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
@@ -90,14 +89,14 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             if (stored <= 0) {
                 continue;
             }
-            int points = Math.min(stored, budget);
+            int offer = (int) Math.min((long) stored * perPoint, Integer.MAX_VALUE);
             int accepted;
             try (Transaction probe = Transaction.openRoot()) {
-                accepted = insertAll(tank, resource, points * perPoint, probe);
+                accepted = insertAll(tank, resource, offer, probe);
             }
-            points = accepted / perPoint;
+            int points = accepted / perPoint;
             if (points <= 0) {
-                continue;
+                break;
             }
             try (Transaction tx = Transaction.openRoot()) {
                 if (insertAll(tank, resource, points * perPoint, tx) < points * perPoint) {
@@ -107,37 +106,40 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             }
             ExperienceTomeItem.addXpToTome(stack, -points);
             writeBack(container, slot, stack);
-            budget -= points;
             moved += points;
         }
         return moved;
     }
 
     private static int fillTomes(ResourceHandler<ItemResource> container, ResourceHandler<FluidResource> tank,
-                                 Fluid experience, int perPoint, int budget) {
+                                 Fluid experience, int perPoint) {
         int moved = 0;
-        for (int slot = 0; slot < container.size() && budget > 0; slot++) {
+        for (int slot = 0; slot < container.size(); slot++) {
             ItemStack stack = container.getResource(slot).toStack(container.getAmountAsInt(slot));
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
             }
+            int headroom = Integer.MAX_VALUE - ExperienceTomeItem.getStoredXp(stack);
+            if (headroom <= 0) {
+                continue;
+            }
+            int limit = (int) Math.min((long) headroom * perPoint, Integer.MAX_VALUE);
             int drained = 0;
             try (Transaction tx = Transaction.openRoot()) {
-                for (int tankIndex = 0; tankIndex < tank.size() && drained < budget * perPoint; tankIndex++) {
+                for (int tankIndex = 0; tankIndex < tank.size() && drained < limit; tankIndex++) {
                     FluidResource held = tank.getResource(tankIndex);
                     if (held.isEmpty() || held.getFluid() != experience) continue;
-                    drained += tank.extract(tankIndex, held, budget * perPoint - drained, tx);
+                    drained += tank.extract(tankIndex, held, limit - drained, tx);
                 }
-                int points = drained / perPoint;
-                if (points <= 0) {
+                if (drained / perPoint <= 0) {
                     break;
                 }
                 tx.commit();
-                ExperienceTomeItem.addXpToTome(stack, points);
-                writeBack(container, slot, stack);
-                budget -= points;
-                moved += points;
             }
+            int points = drained / perPoint;
+            ExperienceTomeItem.addXpToTome(stack, points);
+            writeBack(container, slot, stack);
+            moved += points;
         }
         return moved;
     }

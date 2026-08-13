@@ -37,6 +37,7 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.loot.NVLootFunctions;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
+import com.breakinblocks.neovitae.common.world.BoundTreasureLeases;
 import com.breakinblocks.neovitae.common.structure.NVAltarBookSync;
 import com.breakinblocks.neovitae.common.structure.NVRitualBookSync;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
@@ -127,6 +128,7 @@ public class NeoVitae {
         }
         NVMenus.register(modBus);
         NVTabs.register(modBus);
+        BoundTreasureLeases.register(modBus);
 
         CuriosCompat.init(modBus);
 

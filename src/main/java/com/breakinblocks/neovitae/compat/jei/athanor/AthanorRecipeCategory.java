@@ -39,17 +39,20 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     private static final int HEIGHT = 100;
 
     private static final SpiritusType[] TYPES = SpiritusType.values();
-    private static final int[] TYPE_COLORS = {
-            0xFFAA3333, 0xFF33AA33, 0xFFDD8822, 0xFF3355BB, 0xFFAA33CC
-    };
-    private static final String[] TYPE_NAMES = {"Raw", "Ruina", "Nihilum", "Vindicta", "Invictus"};
-    private static final String[] TYPE_KEYS = {
-            "spiritus.neovitae.raw",
-            "spiritus.neovitae.ruina",
-            "spiritus.neovitae.nihilum",
-            "spiritus.neovitae.vindicta",
-            "spiritus.neovitae.invictus"
-    };
+
+    private static int typeColor(SpiritusType type) {
+        return switch (type) {
+            case RAW -> 0xFFAA3333;
+            case RUINA -> 0xFF33AA33;
+            case NIHILUM -> 0xFFDD8822;
+            case INVICTUS -> 0xFF3355BB;
+            case VINDICTA -> 0xFFAA33CC;
+        };
+    }
+
+    private static Component typeName(SpiritusType type) {
+        return Component.translatable("spiritus.neovitae." + type.getSerializedName());
+    }
 
     // Grid layout
     // Row 0 (y=2):  inputs col 0-2, tool, outputs col 0-1
@@ -185,13 +188,13 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
         int col = 0;
         int baseX = 1;
-        for (int i = 0; i < TYPES.length; i++) {
-            Double amount = costs.get(TYPES[i]);
+        for (SpiritusType type : TYPES) {
+            Double amount = costs.get(type);
             if (amount == null || amount <= 0) continue;
 
             int x = baseX + col * 83;
-            guiGraphics.fill(x, y + 1, x + 4, y + 5, TYPE_COLORS[i]);
-            guiGraphics.text(mc.font, String.format("%.0f %s", amount, TYPE_NAMES[i]), x + 6, y, 0xFFFFFFFF);
+            guiGraphics.fill(x, y + 1, x + 4, y + 5, typeColor(type));
+            guiGraphics.text(mc.font, String.format("%.0f %s", amount, type.toCapitalized()), x + 6, y, 0xFFFFFFFF);
 
             col++;
             if (col >= 2) {
@@ -204,7 +207,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
     private void drawSpiritusBoost(GuiGraphicsExtractor guiGraphics, Minecraft mc, int startY) {
         guiGraphics.text(mc.font, Component.literal("Raw Spiritus Bonus"), 1, startY, 0xFFAAAAAA);
-        guiGraphics.fill(1, startY + 11, 5, startY + 15, TYPE_COLORS[0]);
+        guiGraphics.fill(1, startY + 11, 5, startY + 15, typeColor(SpiritusType.RAW));
         int textX = 7;
         int textMaxWidth = WIDTH - textX - 1;
         int lineY = startY + 10;
@@ -236,11 +239,11 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
             int y = 68;
             int col = 0;
-            for (int i = 0; i < TYPES.length; i++) {
-                Double amount = costs.get(TYPES[i]);
+            for (SpiritusType type : TYPES) {
+                Double amount = costs.get(type);
                 if (amount == null || amount <= 0) continue;
                 if (mouseY >= y - 1 && mouseY < y + 9 && mouseX >= 0 && mouseX <= WIDTH) {
-                    tooltip.add(Component.translatable("jei.neovitae.athanor.spiritus_requirement", String.format("%.1f", amount), Component.translatable(TYPE_KEYS[i])));
+                    tooltip.add(Component.translatable("jei.neovitae.athanor.spiritus_requirement", String.format("%.1f", amount), typeName(type)));
                 }
                 col++;
                 if (col >= 2) {

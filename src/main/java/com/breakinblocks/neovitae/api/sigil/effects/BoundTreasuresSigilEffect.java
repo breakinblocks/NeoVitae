@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.world.BoundTreasureLeases;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.function.Supplier;
@@ -75,6 +76,7 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
 
         if (menuProvider != null) {
             serverPlayer.openMenu(menuProvider, chestPos);
+            BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
             return true;
         }
 

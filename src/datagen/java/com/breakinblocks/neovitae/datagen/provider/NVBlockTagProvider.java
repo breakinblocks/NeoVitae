@@ -230,7 +230,8 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Crystallum Fractura ritual - harvestable crystal blocks (mature clusters)
         // Other mods (AE2, GeoOres, etc.) can add their clusters via datapacks
         this.tag(NVTags.Blocks.GEODE_HARVESTABLE)
-                .add(Blocks.AMETHYST_CLUSTER);
+                .add(Blocks.AMETHYST_CLUSTER)
+                .addOptionalTag(Tags.Blocks.CLUSTERS);
 
         this.tag(NVTags.Blocks.GEODE_ACCELERATABLE)
                 .add(Blocks.BUDDING_AMETHYST)

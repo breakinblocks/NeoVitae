@@ -3,14 +3,12 @@ package com.breakinblocks.neovitae.ritual.types;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,6 +20,8 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
+import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -157,7 +157,9 @@ public class RitualCrystallumFractura extends Ritual {
             return state.hasProperty(BlockSpiritusCrystal.AGE)
                     && state.getValue(BlockSpiritusCrystal.AGE) == 6;
         }
-        if (state.is(NVTags.Blocks.GEODE_HARVESTABLE) || isMatureCluster(state.getBlock())) {
+        if (isProtected(state)) return false;
+        if (state.is(NVTags.Blocks.GEODE_HARVESTABLE)) {
+            if (state.getBlock() instanceof BuddingAmethystBlock) return false;
             if (state.hasProperty(BlockStateProperties.AGE_3)) {
                 return state.getValue(BlockStateProperties.AGE_3) == 3;
             }
@@ -169,12 +171,11 @@ public class RitualCrystallumFractura extends Ritual {
         return false;
     }
 
-    private boolean isMatureCluster(Block block) {
-        if (block instanceof BuddingAmethystBlock) return false;
-        String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
-        if (path.contains("bud")) return false;
-        if (path.endsWith("_small") || path.endsWith("_medium") || path.endsWith("_large")) return false;
-        return block instanceof AmethystClusterBlock || path.contains("cluster");
+    private boolean isProtected(BlockState state) {
+        return state.getBlock() instanceof BlockRitualStone
+                || state.getBlock() instanceof BlockMasterRitualStone
+                || state.is(NVTags.Blocks.T5_CAPSTONES)
+                || state.is(NVTags.Blocks.T6_CAPSTONES);
     }
 
     private void accelerateBuddingBlocks(ServerLevel level, List<BlockPos> positions, UUID owner) {

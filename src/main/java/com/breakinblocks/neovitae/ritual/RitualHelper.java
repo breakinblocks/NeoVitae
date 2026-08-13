@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -49,8 +48,7 @@ public final class RitualHelper {
 
     public static boolean isBuddingBlock(BlockState state) {
         if (state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) return true;
-        if (state.getBlock() instanceof BuddingAmethystBlock) return true;
-        return BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().contains("budding");
+        return state.getBlock() instanceof BuddingAmethystBlock;
     }
 
     public static void accelerateBudding(ServerLevel level, BlockPos pos, int ticks) {

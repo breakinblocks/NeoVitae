@@ -36,7 +36,7 @@ Right-click a blood light with **Redstone Dust** to toggle redstone sensitivity;
 A vessel within a vessel, capable of containing up to five other sigils simultaneously. While held, it channels their passive effects and allows you to activate any of them at will. Press the **Open Holding** keybind to access its inventory; use the cycle keybinds or hold sneak and scroll to switch between stored sigils.
 
 ### Sigil of Bound Treasures
-Links to a container and allows you to access its contents from anywhere. Shift-right-click a chest, barrel, or any container to bind it; right-click in the air to open the linked container remotely at a cost of **200 EV**. The container must be in a loaded chunk; if it is destroyed, the link is broken. Crafted with an **Eye of Ender** base and an **Tabula Animata** catalyst.
+Links to a container and allows you to access its contents from anywhere. Shift-right-click a chest, barrel, or any container to bind it; right-click in the air to open the linked container remotely at a cost of **200 EV**. The container must be in a loaded chunk to open it, and its chunk is then held loaded for as long as you have it open, plus a minute after you close it. If the container is destroyed, the link is broken. Crafted with an **Eye of Ender** base and an **Tabula Animata** catalyst.
 
 ### Sigil of Magnetism
 Bends the subtle forces between you and nearby objects, extending item pickup range to **7 blocks**. Hold sneak and press [Use] to toggle. Drains **50 EV every 5 seconds** while active.

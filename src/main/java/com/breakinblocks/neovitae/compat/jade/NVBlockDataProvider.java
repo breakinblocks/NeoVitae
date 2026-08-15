@@ -18,9 +18,15 @@ import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import snownee.jade.api.BlockAccessor;
@@ -102,6 +108,31 @@ public enum NVBlockDataProvider implements IServerDataProvider<BlockAccessor> {
         if (be instanceof OrbFillingLinkBlockEntity orbLink) {
             data.putBoolean("orb_link_linked", orbLink.isLinked());
             data.putInt("orb_link_network", orbLink.getNetworkPercent());
+        }
+
+        if (be instanceof SpiritAccumulatorBlockEntity accumulator) {
+            data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
+            data.putDouble("accumulator_stored", accumulator.getStored());
+        }
+
+        if (be instanceof VasMaleficumBlockEntity vas) {
+            ItemStack stack = vas.inventory.getStackInSlot(0);
+            boolean powered = accessor.getLevel().hasNeighborSignal(accessor.getPosition());
+            if (stack.getItem() instanceof SpiritusCrystalItem crystal) {
+                data.putString("vas_type", crystal.getSpiritusType().getSerializedName());
+                data.putDouble("vas_stored", crystal.getSpiritus(stack));
+                data.putString("vas_mode", powered ? "idle" : "seeding");
+            } else if (SpiritusHelper.hasSpiritus(stack)) {
+                SpiritusType type = SpiritusHelper.getCurrentType(stack);
+                data.putString("vas_type", type.getSerializedName());
+                data.putDouble("vas_stored", SpiritusHelper.getSpiritus(stack, type));
+                data.putDouble("vas_max", SpiritusHelper.resolveMaxSpiritus(stack, type));
+                if (SpiritusHelper.isRechargeable(stack)) {
+                    data.putString("vas_mode", powered ? "filling" : "releasing");
+                } else {
+                    data.putString("vas_mode", powered ? "idle" : "releasing");
+                }
+            }
         }
     }
 

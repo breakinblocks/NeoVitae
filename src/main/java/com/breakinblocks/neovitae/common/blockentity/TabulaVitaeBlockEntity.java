@@ -337,20 +337,23 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     private boolean syphonEV(ItemStack orbStack, int totalSyphon, int totalTicks) {
-        int syphonPerTick = totalSyphon / Math.max(1, totalTicks);
-        if (syphonPerTick > 0 && orbStack.getItem() instanceof BloodOrbItem) {
-            Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-            if (!binding.isEmpty()) {
-                Anima network = AnimaHelper.getAnima(binding);
-                if (network != null) {
-                    int syphoned = network.syphon(AnimaTicket.create(syphonPerTick));
-                    if (syphoned < syphonPerTick) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+        if (totalSyphon <= 0) return true;
+        if (!(orbStack.getItem() instanceof BloodOrbItem)) return false;
+
+        Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        if (binding.isEmpty()) return false;
+
+        Anima network = AnimaHelper.getAnima(binding);
+        if (network == null) return false;
+
+        int ticks = Math.max(1, totalTicks);
+        int elapsed = Math.min(Math.max(burnTime, 0), ticks - 1);
+        long drained = (long) totalSyphon * elapsed / ticks;
+        int syphonThisTick = (int) ((long) totalSyphon * (elapsed + 1) / ticks - drained);
+        if (syphonThisTick <= 0) return true;
+
+        if (network.getCurrentEV() < syphonThisTick) return false;
+        return network.syphon(AnimaTicket.create(syphonThisTick)) >= syphonThisTick;
     }
 
     private void craftItem(TabulaVitaeRecipe recipe) {

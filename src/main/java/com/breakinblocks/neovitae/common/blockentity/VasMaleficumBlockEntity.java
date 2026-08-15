@@ -122,7 +122,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
                 double drained = SpiritusHelper.drainSpiritus(stack, type, canDrain, true);
                 if (drained > 0) {
                     WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, drained);
-                    setChanged();
+                    inventory.setStackInSlot(0, stack);
                 }
             }
         }
@@ -139,7 +139,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
                 double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, worldPosition, type, canFill);
                 if (drained > 0) {
                     SpiritusHelper.fillSpiritus(stack, type, drained, true);
-                    setChanged();
+                    inventory.setStackInSlot(0, stack);
                 }
             }
         }
@@ -161,8 +161,9 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
                 WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, drained);
                 if (SpiritusHelper.getSpiritus(stack, type) <= 0) {
                     inventory.setStackInSlot(0, ItemStack.EMPTY);
+                } else {
+                    inventory.setStackInSlot(0, stack);
                 }
-                setChanged();
             }
         }
     }
@@ -175,7 +176,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
             double added = WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, SPIRITUS_PER_CRYSTAL);
             if (added > 0) {
                 stack.shrink(1);
-                setChanged();
+                inventory.setStackInSlot(0, stack.isEmpty() ? ItemStack.EMPTY : stack);
             }
         }
     }

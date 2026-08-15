@@ -622,6 +622,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
+        add(NVBlocks.SPIRIT_ACCUMULATOR, "Spirit Accumulator");
+        add("chat.neovitae.spirit_accumulator.locked", "Attuned to %s until fully emptied");
         add(NVBlocks.VITAE_LINK, "Vitae Link");
         add(NVBlocks.ORB_FILLING_LINK, "Orb Vitae Link");
 
@@ -713,7 +715,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.reader.rangeSelected", "Range selected: %s");
         add("chat.neovitae.reader.corner1Set", "Corner 1 set at %d, %d, %d");
         add("chat.neovitae.reader.areaSet", "Area '%s' updated successfully.");
-        add("chat.neovitae.reader.areaRetry", " Corner kept; click another block to try again.");
+        add("chat.neovitae.reader.areaRetry", " Corner kept; click another block to try again, or Sneak and Use in the air to cancel.");
+        add("chat.neovitae.reader.cornerRejected", " Pick a corner closer to the Master Ritual Stone.");
         add("chat.neovitae.reader.invalidRange", "Invalid range key.");
         add("chat.neovitae.reader.spiritusType", "Spiritus type set to: %s");
         add("chat.neovitae.gem.spawner_no_spiritus", "Not enough Spiritus. Capturing a spawner needs %s.");
@@ -930,6 +933,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("jade.neovitae.orb_link.linked", "Linked");
         add("jade.neovitae.orb_link.unlinked", "Unlinked");
         add("jade.neovitae.orb_link.network", "Network: %s%%");
+        add("jade.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("jade.neovitae.spiritus_stored", "%s: %s / %s");
+        add("jade.neovitae.spiritus_amount", "%s: %s");
+        add("jade.neovitae.vas.filling", "Filling gem from chunk");
+        add("jade.neovitae.vas.releasing", "Releasing into chunk");
+        add("jade.neovitae.vas.seeding", "Dissolving crystals into chunk");
+        add("jade.neovitae.vas.idle", "Idle");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");

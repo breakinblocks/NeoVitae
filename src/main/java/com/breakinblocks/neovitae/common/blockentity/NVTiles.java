@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRendere
 import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.OrbFillingLinkRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.SpiritAccumulatorRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.VasMaleficumRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.VitaeLinkRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -171,6 +172,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpiritCacheBlockEntity>> SPIRIT_CACHE_TYPE =
             registerTile("spirit_cache", SpiritCacheBlockEntity::new, NVBlocks.SPIRIT_CACHE.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpiritAccumulatorBlockEntity>> SPIRIT_ACCUMULATOR_TYPE =
+            registerTile("spirit_accumulator", SpiritAccumulatorBlockEntity::new, NVBlocks.SPIRIT_ACCUMULATOR.block());
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VitaeLinkBlockEntity>> VITAE_LINK_TYPE =
             registerTile("vitae_link", VitaeLinkBlockEntity::new, NVBlocks.VITAE_LINK.block());
 
@@ -240,6 +244,7 @@ public class NVTiles {
         event.registerBlockEntityRenderer(MASTER_RITUAL_STONE_TYPE.get(), MasterRitualStoneRenderer::new);
         event.registerBlockEntityRenderer(VITAE_LINK_TYPE.get(), VitaeLinkRenderer::new);
         event.registerBlockEntityRenderer(ORB_FILLING_LINK_TYPE.get(), OrbFillingLinkRenderer::new);
+        event.registerBlockEntityRenderer(SPIRIT_ACCUMULATOR_TYPE.get(), SpiritAccumulatorRenderer::new);
     }
 
     public static void register(IEventBus modBus) {

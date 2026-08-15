@@ -34,7 +34,7 @@ public record Binding(UUID uuid, String name) implements TooltipProvider {
 
     private static final UUID NONE = UUID.nameUUIDFromBytes("NOPLAYER: EMPTY NONAME".getBytes(StandardCharsets.UTF_8));
     public boolean isEmpty() {
-        return this == EMPTY || (this.uuid == NONE && this.name.isEmpty());
+        return this == EMPTY || this.uuid == null || NONE.equals(this.uuid);
     }
 
     public static final Binding EMPTY = new Binding(NONE, "");

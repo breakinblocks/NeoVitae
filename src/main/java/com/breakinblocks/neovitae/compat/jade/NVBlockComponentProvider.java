@@ -4,6 +4,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -102,6 +105,48 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
             } else {
                 tooltip.add(Component.translatable("jade.neovitae.orb_link.unlinked").withStyle(ChatFormatting.RED));
             }
+        }
+
+        if (data.contains("accumulator_stored")) {
+            SpiritusType type = typeByName(data.getStringOr("accumulator_type", ""));
+            if (type == null) {
+                tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unattuned").withStyle(ChatFormatting.GRAY));
+            } else {
+                addSpiritusLine(tooltip, type, data.getDoubleOr("accumulator_stored", 0d), SpiritAccumulatorBlockEntity.CAPACITY);
+            }
+        }
+
+        if (data.contains("vas_type")) {
+            SpiritusType type = typeByName(data.getStringOr("vas_type", ""));
+            if (type != null) {
+                addSpiritusLine(tooltip, type, data.getDoubleOr("vas_stored", 0d), data.getDoubleOr("vas_max", 0d));
+            }
+            switch (data.getStringOr("vas_mode", "")) {
+                case "filling" -> tooltip.add(Component.translatable("jade.neovitae.vas.filling").withStyle(ChatFormatting.GREEN));
+                case "releasing" -> tooltip.add(Component.translatable("jade.neovitae.vas.releasing").withStyle(ChatFormatting.GOLD));
+                case "seeding" -> tooltip.add(Component.translatable("jade.neovitae.vas.seeding").withStyle(ChatFormatting.LIGHT_PURPLE));
+                case "idle" -> tooltip.add(Component.translatable("jade.neovitae.vas.idle").withStyle(ChatFormatting.DARK_GRAY));
+                default -> { }
+            }
+        }
+    }
+
+    private static SpiritusType typeByName(String name) {
+        for (SpiritusType candidate : SpiritusType.values()) {
+            if (candidate.getSerializedName().equals(name)) {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    private static void addSpiritusLine(ITooltip tooltip, SpiritusType type, double stored, double max) {
+        Component typeName = Component.translatable("tooltip.neovitae.spiritus." + type.getSerializedName())
+                .withColor(SpiritusTooltipHelper.spiritusColor(type));
+        if (max > 0) {
+            tooltip.add(Component.translatable("jade.neovitae.spiritus_stored", typeName, FORMAT.format(stored), FORMAT.format(max)));
+        } else {
+            tooltip.add(Component.translatable("jade.neovitae.spiritus_amount", typeName, FORMAT.format(stored)));
         }
     }
 

@@ -30,7 +30,9 @@ public class NVGameTestRegistration {
         RoutingNodeTests.register(r);
         SacrificeTests.register(r);
         SpawnerSuppressionTests.register(r);
+        SpiritAccumulatorTests.register(r);
         SpiritusTests.register(r);
         TabulaVitaeTests.register(r);
+        VasMaleficumTests.register(r);
     }
 }

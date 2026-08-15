@@ -28,6 +28,7 @@ import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu.RangeInfo;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,6 +182,9 @@ public class ItemRitualReader extends Item {
                 }
                 return InteractionResult.SUCCESS;
             }
+            if (mrs != null && ritual != null && !isCornerWithinBounds(stack, mrs, ritual, clickedPos, player)) {
+                return InteractionResult.SUCCESS;
+            }
             setCorner1(stack, clickedPos);
             setState(stack, EnumRitualReaderState.SET_AREA_CORNER_2);
             player.sendOverlayMessage(
@@ -205,10 +209,35 @@ public class ItemRitualReader extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if (applyArea(stack, mrs, ritual, getCorner1(stack), clickedPos, player)) {
+        BlockPos corner1 = getCorner1(stack);
+        if (applyArea(stack, mrs, ritual, corner1, clickedPos, player)) {
             setState(stack, EnumRitualReaderState.INFORMATION);
+        } else if (!isCornerWithinBounds(stack, mrs, ritual, corner1, null)) {
+            setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    private boolean isCornerWithinBounds(ItemStack stack, MasterRitualStoneBlockEntity mrs, Ritual ritual,
+                                         BlockPos corner, @Nullable Player player) {
+        String rangeKey = getRangeKey(stack);
+        AreaDescriptor current = mrs.getBlockRange(rangeKey);
+        if (current == null) current = ritual.getBlockRange(rangeKey);
+        if (current == null) return true;
+
+        BlockPos offset = corner.subtract(mrs.getBlockPos());
+        if (ritual.canBlockRangeBeModified(rangeKey, current.copy(), mrs, offset, offset)
+                == EnumReaderBoundaries.SUCCESS) {
+            return true;
+        }
+
+        if (player != null) {
+            player.sendOverlayMessage(
+                    ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset, offset).copy()
+                            .append(Component.translatable("chat.neovitae.reader.cornerRejected"))
+                            .withStyle(ChatFormatting.RED));
+        }
+        return false;
     }
 
     private boolean applyArea(ItemStack stack, MasterRitualStoneBlockEntity mrs, Ritual ritual,

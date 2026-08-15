@@ -53,6 +53,8 @@ public class NVBlocks {
             BLOCK_REG.register("teleposer", TeleposerBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<SpiritCacheBlock, BlockItem> SPIRIT_CACHE =
             BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new, defaultBlockProps());
+    public static final BlockWithItemHolder<SpiritAccumulatorBlock, BlockItem> SPIRIT_ACCUMULATOR =
+            BLOCK_REG.register("spirit_accumulator", SpiritAccumulatorBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK =
             BLOCK_REG.register("vitae_link", VitaeLinkBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<OrbFillingLinkBlock, BlockItem> ORB_FILLING_LINK =

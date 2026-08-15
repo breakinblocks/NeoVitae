@@ -2,6 +2,8 @@ package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -89,6 +91,23 @@ public final class AnimaTests {
                 int syphoned = anima.syphon(AnimaTicket.create(500));
                 if (syphoned > 100) {
                     helper.fail("Should not syphon more than available, got " + syphoned);
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("anima/binding_decoded_from_nbt_still_reports_unbound", 30, helper -> {
+            helper.runAfterDelay(1, () -> {
+                Tag encoded = Binding.BASIC_CODEC.encodeStart(NbtOps.INSTANCE, Binding.EMPTY).getOrThrow();
+                Binding decoded = Binding.BASIC_CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow();
+
+                if (decoded == Binding.EMPTY) {
+                    helper.fail("Decoded binding should be a distinct instance for this test to mean anything");
+                    return;
+                }
+                if (!decoded.isEmpty()) {
+                    helper.fail("A binding decoded from an unbound one must still report as unbound");
                     return;
                 }
                 helper.succeed();

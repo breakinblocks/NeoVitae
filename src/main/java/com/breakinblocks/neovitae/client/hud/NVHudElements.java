@@ -8,7 +8,6 @@ import com.breakinblocks.neovitae.client.hud.element.HoldingElement;
 import com.breakinblocks.neovitae.client.hud.element.SpiritusAuraElement;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
-import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -30,7 +29,7 @@ public final class NVHudElements {
                 new ElementDivinedInformation<AraVitaeTile>(2, ElementDivinedInformation.SigilGate.SIMPLE, AraVitaeTile.class) {
                     @Override
                     public void gatherInformation(Consumer<Function<AraVitaeTile, Component>> rows) {
-                        rows.accept(a -> Component.translatable("hud.neovitae.altar.tier", NumeralHelper.toRoman(a.getTier() + 1)));
+                        rows.accept(a -> Component.translatable("hud.neovitae.altar.tier", a.getTier()));
                         rows.accept(a -> Component.translatable("hud.neovitae.altar.ev", a.getCurrentBlood(), a.getCapacity()));
                     }
                 }, new Vec2(0.01f, 0.30f));
@@ -39,7 +38,7 @@ public final class NVHudElements {
                 new ElementDivinedInformation<AraVitaeTile>(5, ElementDivinedInformation.SigilGate.ADVANCED, AraVitaeTile.class) {
                     @Override
                     public void gatherInformation(Consumer<Function<AraVitaeTile, Component>> rows) {
-                        rows.accept(a -> Component.translatable("hud.neovitae.altar.tier", NumeralHelper.toRoman(a.getTier() + 1)));
+                        rows.accept(a -> Component.translatable("hud.neovitae.altar.tier", a.getTier()));
                         rows.accept(a -> Component.translatable("hud.neovitae.altar.ev", a.getCurrentBlood(), a.getCapacity()));
                         rows.accept(a -> a.isActive()
                                 ? Component.translatable("hud.neovitae.altar.progress", a.getCraftingProgress(), a.getLiquidRequired())

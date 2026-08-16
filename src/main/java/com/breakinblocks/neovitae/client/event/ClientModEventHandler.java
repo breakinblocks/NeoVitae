@@ -16,6 +16,8 @@ import net.minecraft.client.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
+import com.breakinblocks.neovitae.client.render.item.SpiritAccumulatorSpecialRenderer;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
@@ -132,6 +134,11 @@ public class ClientModEventHandler {
         event.register(NVMenus.RITUAL_DIVINER.get(), RitualDivinerScreen::new);
         event.register(NVMenus.RITUAL_CONFIGURATOR.get(), RitualConfiguratorScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerSpecialModelRenderers(RegisterSpecialModelRendererEvent event) {
+        event.register(NeoVitae.rl("spirit_accumulator"), SpiritAccumulatorSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent

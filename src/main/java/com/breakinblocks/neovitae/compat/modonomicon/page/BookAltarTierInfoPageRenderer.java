@@ -42,7 +42,7 @@ public class BookAltarTierInfoPageRenderer extends BookPageRenderer<BookAltarTie
         y += ROW_HEIGHT + 2;
 
         for (TierRow row : collectTiers()) {
-            guiGraphics.text(this.font, String.valueOf(row.tier + 1), TIER_X, y, 0xFF555555, false);
+            guiGraphics.text(this.font, String.valueOf(row.tier), TIER_X, y, 0xFF555555, false);
             guiGraphics.text(this.font, String.valueOf(row.runeBlocks), RUNE_X, y, 0xFF555555, false);
             y += ROW_HEIGHT;
         }

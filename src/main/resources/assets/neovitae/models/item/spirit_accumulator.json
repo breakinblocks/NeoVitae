@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/block",
   "textures": {
-    "layer0": "neovitae:item/spirit_accumulator"
+    "particle": "neovitae:block/spirit_accumulator"
   }
 }

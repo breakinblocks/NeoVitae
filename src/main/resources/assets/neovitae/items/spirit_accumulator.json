@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "neovitae:item/spirit_accumulator"
+    "type": "minecraft:special",
+    "base": "neovitae:item/spirit_accumulator",
+    "model": {
+      "type": "neovitae:spirit_accumulator"
+    }
   }
 }

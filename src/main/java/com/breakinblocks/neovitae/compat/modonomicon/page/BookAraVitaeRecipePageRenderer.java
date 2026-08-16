@@ -46,9 +46,9 @@ public class BookAraVitaeRecipePageRenderer extends BookNVRecipePageRenderer<Ara
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 82, recipeY + 3, mouseX, mouseY, recipe.getResult());
 
         int textY = recipeY + 28;
-        int tier = recipe.getMinTier() + 1;
+        int tier = recipe.getMinTier();
         String lpFormatted = String.format("%,d", recipe.getTotalBlood());
-        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " LP");
+        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " EV");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, textY, 0xFF555555, 1.0f);
     }

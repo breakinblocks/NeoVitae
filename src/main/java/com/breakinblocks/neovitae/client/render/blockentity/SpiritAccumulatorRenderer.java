@@ -77,19 +77,32 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         poseStack.pushPose();
         poseStack.translate(0.5, 0.55 + s.bobY, 0.5);
 
-        boolean hasCore = s.hasCore;
-        int color = s.coreColor;
-        float fill = s.fill;
-        float alpha = s.coreAlpha;
-        int light = s.lightCoords;
+        submitCrystal(poseStack, collector, s.lightCoords,
+                s.hasCore ? s.coreColor : null, s.fill, s.coreAlpha);
+
+        poseStack.popPose();
+    }
+
+    public static void submitCrystal(PoseStack poseStack, SubmitNodeCollector collector, int light,
+                                     @Nullable Integer coreColor, float fill, float coreAlpha) {
         collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(TEXTURE), (pose, buf) -> {
-            if (hasCore) {
-                drawCore(pose, buf, color, fill, alpha);
+            if (coreColor != null) {
+                drawCore(pose, buf, coreColor, fill, coreAlpha);
             }
             drawShell(pose, buf, light);
         });
+    }
 
-        poseStack.popPose();
+    public static float halfWidth() {
+        return W;
+    }
+
+    public static float topHeight() {
+        return HT;
+    }
+
+    public static float bottomHeight() {
+        return HB;
     }
 
     private static void drawShell(PoseStack.Pose pose, VertexConsumer buf, int light) {

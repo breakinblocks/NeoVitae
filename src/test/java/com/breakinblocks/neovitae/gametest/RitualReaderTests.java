@@ -97,7 +97,7 @@ public class RitualReaderTests {
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 80)
     public void readerFallsBackToNearbySearchWithoutStoredStone(GameTestHelper helper) {
-        BlockPos harvestPos = new BlockPos(2, 1, 2);
+        BlockPos harvestPos = new BlockPos(2, 41, 2);
         MasterRitualStoneBlockEntity harvestMrs = placeMrs(helper, harvestPos);
 
         helper.runAfterDelay(5, () -> {

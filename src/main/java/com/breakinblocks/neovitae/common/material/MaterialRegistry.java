@@ -47,7 +47,8 @@ public class MaterialRegistry {
             "copper_fragment", "copper_gravel", "copper_dust",
             "netherite_scrap_fragment", "netherite_scrap_gravel", "netherite_scrap_dust",
             "fragment_netherite_scrap", "gravel_netherite_scrap",
-            "demonite_fragment", "demonite_gravel"
+            "demonite_fragment", "demonite_gravel",
+            "hellforged_dust"
     );
     private static InMemoryPack GENERATED_PACK;
     private static boolean firstRun = false;

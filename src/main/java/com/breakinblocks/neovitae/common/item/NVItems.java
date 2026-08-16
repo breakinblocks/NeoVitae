@@ -401,57 +401,57 @@ public class NVItems {
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_IGNIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_ignis_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_IGNIS, 0x2D0A0A, 0xFF4500,
+                    NVEntities.DAEMONIUM_IGNIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_cruoris_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_CRUORIS, 0x3A1010, 0x8B0000,
+                    NVEntities.DAEMONIUM_CRUORIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_corrodis_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_CORRODIS, 0x2A1A2A, 0x6B3FA0,
+                    NVEntities.DAEMONIUM_CORRODIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_glaciaris_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_GLACIARIS, 0xA0D4E8, 0x4FC3F7,
+                    NVEntities.DAEMONIUM_GLACIARIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_pestis_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_PESTIS, 0x0D0F1E, 0x2A2656,
+                    NVEntities.DAEMONIUM_PESTIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_voraxis_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_VORAXIS, 0x0D0D14, 0x4A1A5C,
+                    NVEntities.DAEMONIUM_VORAXIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_doloris_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_DOLORIS, 0x1A1A1A, 0x4A6B3A,
+                    NVEntities.DAEMONIUM_DOLORIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_fervidis_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_FERVIDIS, 0x3A2A1A, 0x6B4423,
+                    NVEntities.DAEMONIUM_FERVIDIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_animaris_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_ANIMARIS, 0x2A2A2A, 0x8B1A1A,
+                    NVEntities.DAEMONIUM_ANIMARIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_rancoris_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.DAEMONIUM_RANCORIS, 0x1A1A2E, 0x7B9EBF,
+                    NVEntities.DAEMONIUM_RANCORIS, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.register("slime_vitae_spawn_egg",
             () -> new DeferredSpawnEggItem(
-                    NVEntities.SLIME_VITAE, 0x8B0000, 0xFF2222,
+                    NVEntities.SLIME_VITAE, 0xFFFFFF, 0xFFFFFF,
                     new Item.Properties()));
 
     // Array effect dummy items for JEI visibility

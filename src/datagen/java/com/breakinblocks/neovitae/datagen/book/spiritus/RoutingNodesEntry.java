@@ -170,7 +170,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Spiritus Channel");
-        this.pageText("An [#](8B0000)Output Node[#]() carries a third tab, [#](8B0000)Spiritus[#](), unlike any "
+        this.pageText("An [#](8B0000)Output Node[#]() carries a fourth tab, [#](8B0000)Spiritus[#](), unlike any "
                 + "other. It has no ghost grid and no chosen face, for it serves no adjacent block at all: "
                 + "it seeds the [#](4A0080)Aura[#]() of the very chunk the node stands in.\\\n\\\n"
                 + "Name an [#](8B0000)Aspect[#]() and a [#](8B0000)Keep[#]() figure, and the node holds that "
@@ -268,8 +268,10 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "as well. Any [#](2E8B57)enabled[#]() side automatically carries all three resource types to "
                 + "compatible adjacent blocks; you need only flip a face on in the node's interface.\\\n\\\n"
                 + "An enabled side facing a [#](8B0000)Blood Tank[#]() allows [#](4A0080)Essentia Vitae[#]() to flow "
-                + "through the network; one facing a machine's power input transfers energy. Energy is "
-                + "gated solely by the [#](8B0000)Enable[#]() flag; it has no whitelist or blacklist of its own.");
+                + "through the network; one facing a machine's power input transfers energy. Energy has no "
+                + "whitelist or blacklist of its own; the [#](8B0000)Energy[#]() tab holds a single "
+                + "[#](8B0000)On / Off[#]() switch for the chosen face, and it stands On until you say "
+                + "otherwise. Silence it there when a face should carry only items or fluids.");
 
         this.page("fluid_energy2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

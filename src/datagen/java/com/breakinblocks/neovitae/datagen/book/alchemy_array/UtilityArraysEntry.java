@@ -26,6 +26,20 @@ public class UtilityArraysEntry extends EntryProvider {
                 + "The [#](8B0000)Light Array[#]() radiates illumination from invisible sources above the array, "
                 + "keeping an area well-lit without cluttering it with torches.");
 
+        this.page("light", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Light Array");
+        this.pageText("The [#](8B0000)Light Array[#]() hangs [#](8B0000)25[#]() invisible lights in the air "
+                + "above itself, filling every open space within [#](8B0000)3[#]() blocks of the array in a "
+                + "diamond. Each burns at full strength, so the whole span is lit as brightly as daylight.\\\n\\\n"
+                + "A [#](8B0000)redstone signal[#]() snuffs them out; cut the signal and they return. Break "
+                + "the array and the lights go with it.\\\n\\\n"
+                + "[#](2E8B57)Feed it a block of Glowstone and the working turns permanent: the lights it has "
+                + "hung will remain even after the array is taken up.[#]()\\\n\\\n"
+                + "Should you tire of them, scribe a fresh array on the same spot and break it; an array "
+                + "gathers up any lights already standing in its reach.");
+
         this.page("furnace", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Furnace Array[#]() transmutes raw materials dropped nearby into their "

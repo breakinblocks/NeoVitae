@@ -18,8 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Set;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.api.routing.ISpiritusExportNode;
+import com.breakinblocks.neovitae.common.blockentity.routing.OmniRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 
@@ -42,7 +44,9 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_SIDE_FLUID_MODE_START = 19;   // +6 for each direction
     public static final int DATA_SPIRITUS_TYPE = 25;
     public static final int DATA_SPIRITUS_STOCK = 26;
-    public static final int DATA_SIZE = 27;
+    public static final int DATA_SIDE_ENERGY_START = 27;       // +6 for each direction
+    public static final int DATA_SIDE_DIRECTION_START = 33;    // +6 for each direction
+    public static final int DATA_SIZE = 39;
 
     private static final int GHOST_COLS = SideFilterConfig.PAGE_COLUMNS;
     private static final int GHOST_ROWS = SideFilterConfig.PAGE_ROWS;
@@ -73,13 +77,17 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         return tile.priorities[index - DATA_PRIORITY_DOWN];
                     } else if (index >= DATA_SIDE_ENABLED_START && index < DATA_SIDE_ENABLED_START + 6) {
                         return tile.getSideFilter(index - DATA_SIDE_ENABLED_START).isEnabled() ? 1 : 0;
+                    } else if (index >= DATA_SIDE_ENERGY_START && index < DATA_SIDE_ENERGY_START + 6) {
+                        return tile.getSideFilter(index - DATA_SIDE_ENERGY_START).isEnergyEnabled() ? 1 : 0;
+                    } else if (index >= DATA_SIDE_DIRECTION_START && index < DATA_SIDE_DIRECTION_START + 6) {
+                        return tile.getSideFilter(index - DATA_SIDE_DIRECTION_START).getDirection().ordinal();
                     } else if (index >= DATA_SIDE_ITEM_MODE_START && index < DATA_SIDE_ITEM_MODE_START + 6) {
                         return tile.getSideFilter(index - DATA_SIDE_ITEM_MODE_START).getItemMode().ordinal();
                     } else if (index >= DATA_SIDE_FLUID_MODE_START && index < DATA_SIDE_FLUID_MODE_START + 6) {
                         return tile.getSideFilter(index - DATA_SIDE_FLUID_MODE_START).getFluidMode().ordinal();
-                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof OutputRoutingNodeBlockEntity output) {
+                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof ISpiritusExportNode output) {
                         return output.getSpiritusExportType() == null ? 0 : output.getSpiritusExportType().ordinal() + 1;
-                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof OutputRoutingNodeBlockEntity output) {
+                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof ISpiritusExportNode output) {
                         return output.getSpiritusStockTarget();
                     }
                     return 0;
@@ -93,6 +101,10 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         tile.priorities[index - DATA_PRIORITY_DOWN] = value;
                     } else if (index >= DATA_SIDE_ENABLED_START && index < DATA_SIDE_ENABLED_START + 6) {
                         tile.getSideFilter(index - DATA_SIDE_ENABLED_START).setEnabled(value != 0);
+                    } else if (index >= DATA_SIDE_ENERGY_START && index < DATA_SIDE_ENERGY_START + 6) {
+                        tile.getSideFilter(index - DATA_SIDE_ENERGY_START).setEnergyEnabled(value != 0);
+                    } else if (index >= DATA_SIDE_DIRECTION_START && index < DATA_SIDE_DIRECTION_START + 6) {
+                        tile.getSideFilter(index - DATA_SIDE_DIRECTION_START).setDirection(FaceDirection.byOrdinal(value));
                     } else if (index >= DATA_SIDE_ITEM_MODE_START && index < DATA_SIDE_ITEM_MODE_START + 6) {
                         FilterMode[] values = FilterMode.values();
                         int idx = Math.max(0, Math.min(values.length - 1, value));
@@ -101,11 +113,11 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         FilterMode[] values = FilterMode.values();
                         int idx = Math.max(0, Math.min(values.length - 1, value));
                         tile.getSideFilter(index - DATA_SIDE_FLUID_MODE_START).setFluidMode(values[idx]);
-                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof OutputRoutingNodeBlockEntity output) {
+                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof ISpiritusExportNode output) {
                         SpiritusType[] types = SpiritusType.values();
                         int clamped = Math.max(0, Math.min(types.length, value));
                         output.setSpiritusExport(clamped == 0 ? null : types[clamped - 1], output.getSpiritusStockTarget());
-                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof OutputRoutingNodeBlockEntity output) {
+                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof ISpiritusExportNode output) {
                         output.setSpiritusExport(output.getSpiritusExportType(), value);
                     }
                 }
@@ -273,6 +285,20 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public boolean isSideEnabled(int sideIndex) {
         if (sideIndex < 0 || sideIndex >= 6) return false;
         return data.get(DATA_SIDE_ENABLED_START + sideIndex) != 0;
+    }
+
+    public boolean isOmniNode() {
+        return tile instanceof OmniRoutingNodeBlockEntity;
+    }
+
+    public FaceDirection getSideDirection(int sideIndex) {
+        if (sideIndex < 0 || sideIndex >= 6) return FaceDirection.OFF;
+        return FaceDirection.byOrdinal(data.get(DATA_SIDE_DIRECTION_START + sideIndex));
+    }
+
+    public boolean isSideEnergyEnabled(int sideIndex) {
+        if (sideIndex < 0 || sideIndex >= 6) return false;
+        return data.get(DATA_SIDE_ENERGY_START + sideIndex) != 0;
     }
 
     public FilterMode getSideItemMode(int sideIndex) {

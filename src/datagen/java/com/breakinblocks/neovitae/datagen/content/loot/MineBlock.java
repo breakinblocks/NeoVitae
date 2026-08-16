@@ -90,6 +90,7 @@ public class MineBlock extends BlockLootSubProvider {
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);
         copyComponents(NVBlocks.DEMON_LANTERN);
+        copyComponents(NVBlocks.SPIRIT_ACCUMULATOR);
 
         generateTauLoot(NVBlocks.WEAK_TAU);
         generateTauLoot(NVBlocks.STRONG_TAU);

@@ -6,9 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
@@ -22,12 +20,12 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
 
     @Override
     public boolean isInputNode(BlockEntity be) {
-        return be instanceof InputRoutingNodeBlockEntity;
+        return be instanceof IInputItemRoutingNode;
     }
 
     @Override
     public boolean isOutputNode(BlockEntity be) {
-        return be instanceof OutputRoutingNodeBlockEntity;
+        return be instanceof IOutputItemRoutingNode;
     }
 
     @Override
@@ -37,12 +35,12 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
 
     @Override
     public boolean isInputSide(BlockEntity be, Direction side) {
-        return be instanceof InputRoutingNodeBlockEntity;
+        return be instanceof IInputItemRoutingNode node && node.isInput(side);
     }
 
     @Override
     public boolean isOutputSide(BlockEntity be, Direction side) {
-        return be instanceof OutputRoutingNodeBlockEntity;
+        return be instanceof IOutputItemRoutingNode node && node.isOutput(side);
     }
 
     @Override
@@ -54,7 +52,7 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
     @Nullable
     public IEnergyFilter getInputFilter(BlockEntity be, Direction side) {
         if (!(be instanceof FilteredRoutingNodeBlockEntity node)) return null;
-        if (!node.getSideFilter(side).isEnabled()) return null;
+        if (!node.getSideFilter(side).isEnabled() || !node.getSideFilter(side).isEnergyEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
         EnergyHandler storage = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
@@ -67,7 +65,7 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
     @Nullable
     public IEnergyFilter getOutputFilter(BlockEntity be, Direction side) {
         if (!(be instanceof FilteredRoutingNodeBlockEntity node)) return null;
-        if (!node.getSideFilter(side).isEnabled()) return null;
+        if (!node.getSideFilter(side).isEnabled() || !node.getSideFilter(side).isEnergyEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
         EnergyHandler storage = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());

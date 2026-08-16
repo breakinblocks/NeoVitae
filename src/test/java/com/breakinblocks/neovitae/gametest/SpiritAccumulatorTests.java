@@ -8,16 +8,21 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.AccumulatorContent;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
+
+import java.util.List;
 
 public final class SpiritAccumulatorTests {
 
@@ -188,6 +193,72 @@ public final class SpiritAccumulatorTests {
                 }
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).getCount() != 2) {
                     helper.fail("Shard should not be consumed, count=" + player.getItemInHand(InteractionHand.MAIN_HAND).getCount());
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("spirit_accumulator/break_keeps_contents", 40, helper -> {
+            BlockPos pos = new BlockPos(3, 1, 2);
+            SpiritAccumulatorBlockEntity be = place(helper, pos);
+
+            helper.runAfterDelay(1, () -> {
+                if (be == null) return;
+                be.attuneTo(SpiritusType.NIHILUM);
+                be.insertSpiritus(SpiritusType.NIHILUM, 250);
+
+                BlockPos worldPos = helper.absolutePos(pos);
+                BlockState state = helper.getLevel().getBlockState(worldPos);
+                List<ItemStack> drops = Block.getDrops(state, helper.getLevel(), worldPos, be, null, ItemStack.EMPTY);
+                if (drops.size() != 1) {
+                    helper.fail("Breaking should drop exactly one accumulator, got " + drops.size());
+                    return;
+                }
+
+                AccumulatorContent content = drops.getFirst().get(NVDataComponents.ACCUMULATOR_CONTENT.get());
+                if (content == null) {
+                    helper.fail("The dropped accumulator should carry its contents");
+                    return;
+                }
+                if (content.typeOrNull() != SpiritusType.NIHILUM || content.stored() != 250 || !content.locked()) {
+                    helper.fail("Dropped contents wrong: type=" + content.typeOrNull()
+                            + " stored=" + content.stored() + " locked=" + content.locked());
+                    return;
+                }
+
+                helper.setBlock(pos, Blocks.AIR.defaultBlockState());
+                helper.setBlock(pos, NVBlocks.SPIRIT_ACCUMULATOR.block().get().defaultBlockState());
+                SpiritAccumulatorBlockEntity replaced = helper.getBlockEntity(pos, SpiritAccumulatorBlockEntity.class);
+                if (replaced == null) {
+                    helper.fail("Expected a replaced accumulator");
+                    return;
+                }
+                replaced.applyComponentsFromItemStack(drops.getFirst());
+                if (replaced.getAttunedType() != SpiritusType.NIHILUM || replaced.getStored() != 250 || !replaced.isLocked()) {
+                    helper.fail("Replacing should restore contents: type=" + replaced.getAttunedType()
+                            + " stored=" + replaced.getStored() + " locked=" + replaced.isLocked());
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("spirit_accumulator/break_while_empty_drops_plain_item", 40, helper -> {
+            BlockPos pos = new BlockPos(3, 1, 2);
+            SpiritAccumulatorBlockEntity be = place(helper, pos);
+
+            helper.runAfterDelay(1, () -> {
+                if (be == null) return;
+                BlockPos worldPos = helper.absolutePos(pos);
+                BlockState state = helper.getLevel().getBlockState(worldPos);
+                List<ItemStack> drops = Block.getDrops(state, helper.getLevel(), worldPos, be, null, ItemStack.EMPTY);
+                if (drops.size() != 1) {
+                    helper.fail("Breaking should drop exactly one accumulator, got " + drops.size());
+                    return;
+                }
+                if (drops.getFirst().has(NVDataComponents.ACCUMULATOR_CONTENT.get())) {
+                    helper.fail("An untouched accumulator should drop without contents attached");
                     return;
                 }
                 helper.succeed();

@@ -23,54 +23,73 @@ public class AlchemyArrayEffectLight extends AlchemyArrayEffect {
 
     private static final int RADIUS = 3;
     private static final int LIGHT_LEVEL = 15;
+    private static final int FIRST_CHECK_TICK = 11;
+    private static final int RECHECK_INTERVAL = 100;
     private final List<BlockPos> placedLights = new ArrayList<>();
-    private boolean initialized = false;
+    private boolean persistent = false;
 
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
         if (level == null || level.isClientSide()) return false;
 
-        if (!initialized && ticksActive > 10) {
-            placeLight(level, tile.getBlockPos());
-            initialized = true;
+        BlockPos pos = tile.getBlockPos();
+        if (ticksActive == FIRST_CHECK_TICK || (ticksActive > FIRST_CHECK_TICK && ticksActive % RECHECK_INTERVAL == 0)) {
+            refresh(level, pos);
         }
 
-        if (ticksActive % 40 == 0 && level instanceof ServerLevel serverLevel) {
-            BlockPos pos = tile.getBlockPos();
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xFFDD44),
+        if (ticksActive % 40 == 0 && level instanceof ServerLevel serverLevel && !placedLights.isEmpty()) {
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), persistent ? 0xFFFFAA : 0xFFDD44),
                     pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 3, 0.3, 0.3, 0.3, 0.01);
         }
 
         return false;
     }
 
-    private void placeLight(Level level, BlockPos center) {
-        BlockPos above = center.above();
-        if (level.isEmptyBlock(above) || level.getBlockState(above).is(Blocks.LIGHT)) {
-            BlockState lightState = Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, LIGHT_LEVEL).setValue(LightBlock.WATERLOGGED, false);
-            level.setBlockAndUpdate(above, lightState);
-            placedLights.add(above);
-        }
+    @Override
+    public void onNeighborChanged(AlchemyArrayBlockEntity tile, BlockPos neighborPos) {
+        Level level = tile.getLevel();
+        if (level == null || level.isClientSide()) return;
+        refresh(level, tile.getBlockPos());
+    }
 
+    private void refresh(Level level, BlockPos pos) {
+        if (level.hasNeighborSignal(pos)) {
+            if (!placedLights.isEmpty()) {
+                clearLights(level);
+            }
+        } else if (placedLights.isEmpty()) {
+            placeLight(level, pos);
+        }
+    }
+
+    public boolean isPersistent() {
+        return persistent;
+    }
+
+    public void setPersistent(boolean persistent) {
+        this.persistent = persistent;
+    }
+
+    private void placeLight(Level level, BlockPos center) {
         for (int dx = -RADIUS; dx <= RADIUS; dx++) {
             for (int dz = -RADIUS; dz <= RADIUS; dz++) {
-                if (dx == 0 && dz == 0) continue;
                 if (Math.abs(dx) + Math.abs(dz) > RADIUS) continue;
 
                 BlockPos target = center.offset(dx, 1, dz);
-                if (level.isEmptyBlock(target)) {
-                    int dist = Math.abs(dx) + Math.abs(dz);
-                    int ll = Math.max(1, LIGHT_LEVEL - dist * 3);
-                    BlockState lightState = Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, ll).setValue(LightBlock.WATERLOGGED, false);
-                    level.setBlockAndUpdate(target, lightState);
-                    placedLights.add(target);
-                }
+                BlockState current = level.getBlockState(target);
+                if (!current.isAir() && !current.is(Blocks.LIGHT)) continue;
+
+                BlockState lightState = Blocks.LIGHT.defaultBlockState()
+                        .setValue(LightBlock.LEVEL, LIGHT_LEVEL)
+                        .setValue(LightBlock.WATERLOGGED, false);
+                level.setBlockAndUpdate(target, lightState);
+                placedLights.add(target);
             }
         }
     }
 
-    public void removeLights(Level level) {
+    private void clearLights(Level level) {
         for (BlockPos pos : placedLights) {
             if (level.getBlockState(pos).is(Blocks.LIGHT)) {
                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -79,9 +98,17 @@ public class AlchemyArrayEffectLight extends AlchemyArrayEffect {
         placedLights.clear();
     }
 
+    public void removeLights(Level level) {
+        if (persistent) {
+            placedLights.clear();
+            return;
+        }
+        clearLights(level);
+    }
+
     @Override
     public void writeToNBT(CompoundTag tag) {
-        tag.putBoolean("initialized", initialized);
+        tag.putBoolean("persistent", persistent);
         int[] coords = new int[placedLights.size() * 3];
         for (int i = 0; i < placedLights.size(); i++) {
             BlockPos p = placedLights.get(i);
@@ -94,7 +121,7 @@ public class AlchemyArrayEffectLight extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        initialized = tag.getBooleanOr("initialized", false);
+        persistent = tag.getBooleanOr("persistent", false);
         placedLights.clear();
         int[] coords = tag.getIntArray("lightPositions").orElse(new int[0]);
         for (int i = 0; i + 2 < coords.length; i += 3) {

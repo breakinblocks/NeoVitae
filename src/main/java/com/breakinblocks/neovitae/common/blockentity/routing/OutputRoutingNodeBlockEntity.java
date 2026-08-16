@@ -28,7 +28,7 @@ import com.breakinblocks.neovitae.util.Utils;
 /**
  * Output routing node - pushes items to connected inventories.
  */
-public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity implements IOutputItemRoutingNode, IOutputFluidRoutingNode, MenuProvider {
+public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity implements IOutputItemRoutingNode, IOutputFluidRoutingNode, ISpiritusExportNode, MenuProvider {
 
     @Nullable
     private SpiritusType spiritusExportType;
@@ -42,15 +42,18 @@ public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity
         this(NVTiles.OUTPUT_ROUTING_NODE_TYPE.get(), pos, state);
     }
 
+    @Override
     @Nullable
     public SpiritusType getSpiritusExportType() {
         return spiritusExportType;
     }
 
+    @Override
     public int getSpiritusStockTarget() {
         return spiritusStockTarget;
     }
 
+    @Override
     public void cycleSpiritusType(int direction) {
         SpiritusType[] types = SpiritusType.values();
         int current = spiritusExportType == null ? 0 : spiritusExportType.ordinal() + 1;
@@ -58,10 +61,12 @@ public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity
         setSpiritusExport(next == 0 ? null : types[next - 1], spiritusStockTarget);
     }
 
+    @Override
     public void adjustSpiritusStock(int delta) {
         setSpiritusExport(spiritusExportType, Math.min(1000, Math.max(0, spiritusStockTarget + delta)));
     }
 
+    @Override
     public void setSpiritusExport(@Nullable SpiritusType type, int stockTarget) {
         this.spiritusExportType = type;
         this.spiritusStockTarget = Math.max(0, stockTarget);

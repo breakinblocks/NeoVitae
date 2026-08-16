@@ -32,6 +32,8 @@ public class NVGameTestRegistration {
         SacrificeTests.register(r);
         SpawnerSuppressionTests.register(r);
         SanguineWardTests.register(r);
+        LightArrayTests.register(r);
+        OmniRoutingNodeTests.register(r);
         SpiritAccumulatorTests.register(r);
         SpiritusRoutingTests.register(r);
         SpiritusTests.register(r);

@@ -7,6 +7,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -29,6 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectLight;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import net.minecraft.util.RandomSource;
@@ -113,6 +118,20 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         ItemStack playerItem = player.getItemInHand(hand);
         if (playerItem.isEmpty()) {
             return InteractionResult.PASS;
+        }
+
+        if (playerItem.is(Items.GLOWSTONE) && array.arrayEffect instanceof AlchemyArrayEffectLight lightEffect) {
+            if (world.isClientSide()) return InteractionResult.SUCCESS;
+            if (lightEffect.isPersistent()) {
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.light_array.already_persistent"));
+                return InteractionResult.SUCCESS;
+            }
+            lightEffect.setPersistent(true);
+            playerItem.consume(1, player);
+            array.setChanged();
+            world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.6f, 1.4f);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.light_array.persistent"));
+            return InteractionResult.SUCCESS;
         }
 
         for (int slot = 0; slot < 2; slot++) {

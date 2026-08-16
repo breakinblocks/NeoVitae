@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.AraVitaeBlockItem;
 import com.breakinblocks.neovitae.common.item.DemonLanternItem;
 import com.breakinblocks.neovitae.common.item.block.BloodTankBlockItem;
+import com.breakinblocks.neovitae.common.item.block.SpiritAccumulatorBlockItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
@@ -54,7 +55,8 @@ public class NVBlocks {
     public static final BlockWithItemHolder<SpiritCacheBlock, BlockItem> SPIRIT_CACHE =
             BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<SpiritAccumulatorBlock, BlockItem> SPIRIT_ACCUMULATOR =
-            BLOCK_REG.register("spirit_accumulator", SpiritAccumulatorBlock::new, defaultBlockProps());
+            BLOCK_REG.register("spirit_accumulator", SpiritAccumulatorBlock::new, defaultBlockProps(),
+                    SpiritAccumulatorBlockItem::new, new Item.Properties());
     public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK =
             BLOCK_REG.register("vitae_link", VitaeLinkBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<OrbFillingLinkBlock, BlockItem> ORB_FILLING_LINK =
@@ -170,6 +172,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockRoutingConduit, BlockItem> ROUTING_CONDUIT = BLOCK_REG.register("routing_conduit", BlockRoutingConduit::new, routing_node_properties_src());
     public static final BlockWithItemHolder<BlockInputRoutingNode, BlockItem> INPUT_ROUTING_NODE = BLOCK_REG.register("input_routing_node", BlockInputRoutingNode::new, routing_node_properties_src());
     public static final BlockWithItemHolder<BlockOutputRoutingNode, BlockItem> OUTPUT_ROUTING_NODE = BLOCK_REG.register("output_routing_node", BlockOutputRoutingNode::new, routing_node_properties_src());
+    public static final BlockWithItemHolder<BlockOmniRoutingNode, BlockItem> OMNI_ROUTING_NODE = BLOCK_REG.register("omni_routing_node", BlockOmniRoutingNode::new, routing_node_properties_src());
     public static final BlockWithItemHolder<BlockMasterRoutingNode, BlockItem> MASTER_ROUTING_NODE = BLOCK_REG.register("master_routing_node", BlockMasterRoutingNode::new, routing_node_properties_src());
 
     private static BlockBehaviour.Properties charge_properties_src() {

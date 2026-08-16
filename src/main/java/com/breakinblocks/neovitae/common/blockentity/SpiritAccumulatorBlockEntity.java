@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -10,6 +12,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.spiritus.ISpiritusStorage;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.AccumulatorContent;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
@@ -187,6 +191,22 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         setChanged();
         syncToClients();
         return toVent;
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter componentInput) {
+        super.applyImplicitComponents(componentInput);
+        AccumulatorContent content = componentInput.getOrDefault(NVDataComponents.ACCUMULATOR_CONTENT.get(), AccumulatorContent.EMPTY);
+        attunedType = content.typeOrNull();
+        stored = Math.min(content.stored(), CAPACITY);
+        locked = content.locked() && attunedType != null;
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (attunedType == null && stored <= 0 && !locked) return;
+        components.set(NVDataComponents.ACCUMULATOR_CONTENT.get(), AccumulatorContent.of(attunedType, stored, locked));
     }
 
     @Override

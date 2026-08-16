@@ -32,6 +32,7 @@
     "neovitae:routing_conduit",
     "neovitae:input_routing_node",
     "neovitae:output_routing_node",
+    "neovitae:omni_routing_node",
     "neovitae:master_routing_node",
     "neovitae:shaped_charge",
     "neovitae:aug_shaped_charge",

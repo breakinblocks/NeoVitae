@@ -53,6 +53,8 @@ The Aura is capped at 100 per Aspect and cannot leave its chunk on its own. The 
 
 **Retuning.** A locked Accumulator refuses every other Aspect. To retune it, empty it first: crouch and right-click to vent **50** back into the chunk. Once it is empty, the next crouch-click releases the lock and the Aspect can be cycled again. Being drained by the network does **not** release the lock, so a network buffer keeps collecting its Aspect indefinitely. Spiritus cannot be put into an Accumulator by hand.
 
+**Moving one.** Breaking an Accumulator loses nothing. The dropped item carries its Aspect, its stock and its lock, and setting it down again restores all three.
+
 **Skimming.** Once locked, the Accumulator draws up to **25** of its Aspect each tick from its own chunk's Aura, but only from the surplus above **30**. It never pulls the chunk below that mark. That floor is low enough that a single crystal burned in a Vas Maleficum (which lifts its Aspect to 50) will feed it, and on a saturated farm chunk it doubles as an overflow catcher: every crystal burned past the 100 cap is captured rather than wasted.
 
 The stored Aspect and amount are visible in Jade, and the crystal's inner core shows the fill level in the Aspect's color; it glows dim while unlocked.

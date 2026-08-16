@@ -108,6 +108,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.ROUTING_CONDUIT.block().get())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().get())
                 .add(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.OMNI_ROUTING_NODE.block().get())
                 .add(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 // Explosive charges
                 .add(NVBlocks.SHAPED_CHARGE.block().get())
@@ -149,6 +150,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.ROUTING_CONDUIT.block().get())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().get())
                 .add(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.OMNI_ROUTING_NODE.block().get())
                 .add(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 // Explosive charges
                 .add(NVBlocks.SHAPED_CHARGE.block().get())

@@ -24,6 +24,8 @@ public record RoutingNodePayload(BlockPos pos, int action, int value) implements
     public static final int ACTION_CLEAR_FLUID_GHOST = 8;
     public static final int ACTION_CYCLE_SPIRITUS_TYPE = 9;
     public static final int ACTION_ADJUST_SPIRITUS_STOCK = 10;
+    public static final int ACTION_TOGGLE_SIDE_ENERGY = 11;
+    public static final int ACTION_CYCLE_SIDE_DIRECTION = 12;
 
     public static final CustomPacketPayload.Type<RoutingNodePayload> TYPE =
             new CustomPacketPayload.Type<>(NeoVitae.rl("routing_node"));

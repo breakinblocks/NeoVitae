@@ -119,6 +119,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVBlocks.ROUTING_CONDUIT, "Routing Conduit");
         add(NVBlocks.INPUT_ROUTING_NODE, "Input Routing Node");
         add(NVBlocks.OUTPUT_ROUTING_NODE, "Output Routing Node");
+        add(NVBlocks.OMNI_ROUTING_NODE, "Omni Routing Node");
         add(NVBlocks.MASTER_ROUTING_NODE, "Master Routing Node");
 
         // Tau Blocks
@@ -623,6 +624,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
         add(NVBlocks.SPIRIT_ACCUMULATOR, "Spirit Accumulator");
+        add("tooltip.neovitae.spirit_accumulator.stored", "%s: %s / %s");
+        add("tooltip.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("tooltip.neovitae.spirit_accumulator.unlocked", "Unlocked");
+        add("chat.neovitae.light_array.persistent", "The lights are fixed in place");
+        add("chat.neovitae.light_array.already_persistent", "These lights are already fixed in place");
         add("chat.neovitae.spirit_accumulator.locked", "Locked to %s");
         add("chat.neovitae.spirit_accumulator.attuned", "Tuning to %s");
         add("chat.neovitae.spirit_accumulator.unattuned", "Unattuned");
@@ -1517,6 +1523,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.routing.spiritus", "Spiritus");
         add("gui.neovitae.routing.spiritus_off", "Off");
         add("gui.neovitae.routing.spiritus_keep", "Keep: %s");
+        add("gui.neovitae.routing.energy", "Energy");
+        add("gui.neovitae.routing.direction_off", "Face: Off");
+        add("gui.neovitae.routing.direction_input", "Face: Input");
+        add("gui.neovitae.routing.direction_output", "Face: Output");
+        add("gui.neovitae.routing.direction_both", "Face: Both");
+        add("gui.neovitae.routing.energy_on", "Energy: On");
+        add("gui.neovitae.routing.energy_off", "Energy: Off");
         add("gui.neovitae.routing.direction.down", "Down");
         add("gui.neovitae.routing.direction.up", "Up");
         add("gui.neovitae.routing.direction.north", "North");

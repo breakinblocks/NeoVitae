@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
+import com.breakinblocks.neovitae.api.routing.ISpiritusExportNode;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -277,15 +278,21 @@ public class NVPayloads {
                             var cfg = tile.getSideFilter(currentSide);
                             tile.setSideEnabled(currentSide, !cfg.isEnabled());
                         }
+                        case RoutingNodePayload.ACTION_CYCLE_SIDE_DIRECTION ->
+                                tile.cycleSideDirection(currentSide, payload.value() < 0);
+                        case RoutingNodePayload.ACTION_TOGGLE_SIDE_ENERGY -> {
+                            var cfg = tile.getSideFilter(currentSide);
+                            tile.setSideEnergyEnabled(currentSide, !cfg.isEnergyEnabled());
+                        }
                         case RoutingNodePayload.ACTION_TOGGLE_SIDE_ITEM_MODE -> tile.toggleSideItemMode(currentSide);
                         case RoutingNodePayload.ACTION_CLEAR_ITEM_GHOST -> tile.clearItemGhost(currentSide, payload.value());
                         case RoutingNodePayload.ACTION_TOGGLE_SIDE_FLUID_MODE -> tile.toggleSideFluidMode(currentSide);
                         case RoutingNodePayload.ACTION_CLEAR_FLUID_GHOST -> tile.clearFluidGhost(currentSide, payload.value());
                         case RoutingNodePayload.ACTION_CYCLE_SPIRITUS_TYPE -> {
-                            if (tile instanceof OutputRoutingNodeBlockEntity output) output.cycleSpiritusType(payload.value());
+                            if (tile instanceof ISpiritusExportNode output) output.cycleSpiritusType(payload.value());
                         }
                         case RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK -> {
-                            if (tile instanceof OutputRoutingNodeBlockEntity output) output.adjustSpiritusStock(payload.value());
+                            if (tile instanceof ISpiritusExportNode output) output.adjustSpiritusStock(payload.value());
                         }
                     }
                 }

@@ -32,6 +32,8 @@ public final class SideFilterConfig {
     public static final int PAGE_SIZE = PAGE_COLUMNS * PAGE_ROWS;
 
     private boolean enabled;
+    private boolean energyEnabled;
+    private FaceDirection direction;
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
     private final List<Integer> itemAmounts = new ArrayList<>();
@@ -42,6 +44,8 @@ public final class SideFilterConfig {
 
     public SideFilterConfig() {
         this.enabled = false;
+        this.energyEnabled = true;
+        this.direction = FaceDirection.OFF;
         this.itemMode = FilterMode.WHITELIST;
         this.fluidMode = FilterMode.AUTO_MATCH;
     }
@@ -52,6 +56,23 @@ public final class SideFilterConfig {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public FaceDirection getDirection() {
+        return direction;
+    }
+
+    public void setDirection(FaceDirection direction) {
+        this.direction = direction;
+        this.enabled = direction != FaceDirection.OFF;
+    }
+
+    public boolean isEnergyEnabled() {
+        return energyEnabled;
+    }
+
+    public void setEnergyEnabled(boolean energyEnabled) {
+        this.energyEnabled = energyEnabled;
     }
 
     public FilterMode getItemMode() {
@@ -195,6 +216,8 @@ public final class SideFilterConfig {
 
     public void save(ValueOutput out) {
         out.putBoolean("enabled", enabled);
+        out.putBoolean("energyEnabled", energyEnabled);
+        out.putString("direction", direction.name());
         out.putString("itemMode", itemMode.name());
         out.putString("fluidMode", fluidMode.name());
         out.store("items", ItemStack.OPTIONAL_CODEC.listOf(), itemGhosts);
@@ -206,6 +229,14 @@ public final class SideFilterConfig {
 
     public void load(ValueInput in) {
         enabled = in.getBooleanOr("enabled", false);
+        energyEnabled = in.getBooleanOr("energyEnabled", true);
+        direction = FaceDirection.OFF;
+        in.getString("direction").ifPresent(s2 -> {
+            try {
+                direction = FaceDirection.valueOf(s2);
+            } catch (IllegalArgumentException ignored) {
+            }
+        });
         in.getString("itemMode").ifPresent(s -> {
             try {
                 itemMode = FilterMode.valueOf(s);

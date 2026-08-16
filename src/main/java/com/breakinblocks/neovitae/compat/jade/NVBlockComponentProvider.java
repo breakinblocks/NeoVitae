@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.compat.jade;
 
-import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectBounce;
@@ -75,7 +74,7 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
 
         if (data.contains("altar_tier")) {
             tooltip.add(Component.translatable("hud.neovitae.altar.tier",
-                    NumeralHelper.toRoman(data.getInt("altar_tier") + 1)).withStyle(ChatFormatting.GOLD));
+                    data.getInt("altar_tier")).withStyle(ChatFormatting.GOLD));
             if (data.getBoolean("altar_active")) {
                 tooltip.add(Component.translatable("jade.neovitae.altar.crafting").withStyle(ChatFormatting.GREEN));
             }
@@ -141,6 +140,9 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
                 tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unattuned").withStyle(ChatFormatting.GRAY));
             } else {
                 addSpiritusLine(tooltip, type, data.getDouble("accumulator_stored"), SpiritAccumulatorBlockEntity.CAPACITY);
+                if (data.contains("accumulator_locked") && !data.getBoolean("accumulator_locked")) {
+                    tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unlocked").withStyle(ChatFormatting.GRAY));
+                }
             }
         }
 
@@ -253,6 +255,7 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
 
         if (be instanceof SpiritAccumulatorBlockEntity accumulator) {
             data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
+            data.putBoolean("accumulator_locked", accumulator.isLocked());
             data.putDouble("accumulator_stored", accumulator.getStored());
         }
 

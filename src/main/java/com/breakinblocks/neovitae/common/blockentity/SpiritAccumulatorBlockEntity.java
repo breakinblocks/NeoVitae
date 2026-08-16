@@ -15,12 +15,13 @@ import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity implements ISpiritusStorage {
     public static final double CAPACITY = 1000.0;
-    public static final double SATURATION_FLOOR = 75.0;
+    public static final double SATURATION_FLOOR = 30.0;
     public static final double FILL_RATE = 25.0;
     public static final double TIP_HEIGHT = 0.85;
 
     @Nullable
     private SpiritusType attunedType;
+    private boolean locked;
     private double stored;
     private int syncTimer;
 
@@ -35,7 +36,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     }
 
     private void serverTick() {
-        if (attunedType == null || stored >= CAPACITY || level == null) return;
+        if (!locked || attunedType == null || stored >= CAPACITY || level == null) return;
 
         double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, attunedType);
         double available = chunkAmount - SATURATION_FLOOR;
@@ -82,6 +83,51 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         return attunedType;
     }
 
+    public boolean isLocked() {
+        return locked;
+    }
+
+    @Nullable
+    public SpiritusType cycleAttunement() {
+        if (locked) return attunedType;
+        SpiritusType[] types = SpiritusType.values();
+        if (attunedType == null) {
+            attunedType = types[0];
+        } else {
+            int next = attunedType.ordinal() + 1;
+            attunedType = next >= types.length ? null : types[next];
+        }
+        setChanged();
+        syncToClients();
+        return attunedType;
+    }
+
+    public boolean lock() {
+        if (locked || attunedType == null) return false;
+        locked = true;
+        setChanged();
+        syncToClients();
+        return true;
+    }
+
+    public boolean unlock() {
+        if (!locked || stored > 0) return false;
+        locked = false;
+        setChanged();
+        syncToClients();
+        return true;
+    }
+
+    public boolean attuneTo(SpiritusType type) {
+        if (attunedType == type && locked) return false;
+        if (attunedType != type && stored > 0) return false;
+        attunedType = type;
+        locked = true;
+        setChanged();
+        syncToClients();
+        return true;
+    }
+
     @Override
     public double getStored() {
         return stored;
@@ -98,7 +144,6 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         double inserted = Math.min(amount, CAPACITY - stored);
         if (inserted <= 0) return 0;
         if (!simulate) {
-            attunedType = type;
             stored += inserted;
             setChanged();
             syncToClients();
@@ -124,7 +169,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     }
 
     public boolean canAccept(SpiritusType type) {
-        return attunedType == null || (attunedType == type && stored < CAPACITY);
+        return locked && attunedType == type && stored < CAPACITY;
     }
 
     public boolean insertSpiritus(SpiritusType type, double amount) {
@@ -138,7 +183,6 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         stored -= toVent;
         if (stored <= 0.0001) {
             stored = 0;
-            attunedType = null;
         }
         setChanged();
         syncToClients();
@@ -149,6 +193,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putString("attunedType", attunedType == null ? "" : attunedType.getSerializedName());
+        tag.putBoolean("locked", locked);
         tag.putDouble("stored", stored);
     }
 
@@ -165,6 +210,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
                 }
             }
         }
+        locked = tag.contains("locked") ? tag.getBoolean("locked") : attunedType != null;
         stored = tag.getDouble("stored");
     }
 }

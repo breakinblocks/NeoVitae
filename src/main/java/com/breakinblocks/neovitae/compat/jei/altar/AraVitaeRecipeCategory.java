@@ -35,7 +35,6 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
     public static final RecipeType<AraVitaeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "ara_vitae", AraVitaeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
-    private static final String[] ROMAN_NUMERALS = {"I", "II", "III", "IV", "V", "VI"};
 
     private static final int WIDTH = 155;
     private static final int HEIGHT = 65;
@@ -89,7 +88,7 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
         background.draw(guiGraphics);
 
         Minecraft mc = Minecraft.getInstance();
-        Component tierText = Component.translatable("hud.neovitae.altar.tier", toRoman(recipe.getMinTier() + 1));
+        Component tierText = Component.translatable("hud.neovitae.altar.tier", recipe.getMinTier());
         String lpText = recipe.getTotalBlood() + " EV";
 
         guiGraphics.drawString(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB(), false);
@@ -108,13 +107,6 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
         IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 32, 1);
         input.addIngredients(recipe.getInput());
-    }
-
-    private static String toRoman(int number) {
-        if (number >= 1 && number <= ROMAN_NUMERALS.length) {
-            return ROMAN_NUMERALS[number - 1];
-        }
-        return String.valueOf(number);
     }
 
     @Override

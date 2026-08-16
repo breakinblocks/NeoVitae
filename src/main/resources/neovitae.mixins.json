@@ -7,7 +7,6 @@
     "BaseSpawnerMixin",
     "BlockMixin",
     "BlockStateBaseMixin",
-    "EnchantmentHelperMixin",
     "PlayerMixin",
     "ServerPlayerMixin",
     "SimpleWaterloggedBlockMixin",

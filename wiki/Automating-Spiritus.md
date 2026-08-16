@@ -9,7 +9,7 @@ A mature setup turns [Spiritus](Spiritus-Aspects-and-Crystals) into a self-susta
 3. **Harvest.** The **Crystallum Fractura** ritual (see [Rituals](Rituals)) auto-harvests fully-grown clusters in range, dropping shards into a chest atop the Master Ritual Stone. It also **doubles** crystal growth and adds **+25% to Spiritus injection** across its chunks. Bias that bonus toward a chosen Aspect with the Ritual Configurator (carry exactly one aspect crystal in your hotbar in SET_WILL_CONFIG mode).
 4. **Burn.** A **Vas Maleficum** consumes Spiritus Crystals fed into it and releases their Spiritus into the chunk's **Aura** (50 per spire; a net gain over the growth cost, and far more when same-Aspect catalysts have supercharged the cluster).
 5. **Route.** Point a **Routing Node** at the harvest chest and feed the shards into the Vas Maleficum to keep the chunk saturated, closing the loop. To move Aura to where it is used, chain **Spira Infernalis** pylons from the saturated chunk toward your worksite; each pulls Aura from a richer chunk 16 blocks away.
-6. **Bank and distribute.** A **Spirit Accumulator** on the farm chunk skims everything above 75 into a 1,000-point reserve, and an **Output Node** in any other chunk keeps that chunk stocked from the same network. This carries Aura any distance the network reaches, without a pylon chain.
+6. **Bank and distribute.** A **Spirit Accumulator** on the farm chunk skims everything above 30 into a 1,000-point reserve, and an **Output Node** in any other chunk keeps that chunk stocked from the same network. This carries Aura any distance the network reaches, without a pylon chain.
 7. **Consume.** Rituals draw on the Aura, a redstone-charged Vas Maleficum fills empty gems from the chunk's Aura, and the Athanor's ore-yield boost scales with local Raw Spiritus.
 
 ## The closed loop
@@ -18,13 +18,13 @@ Catalyst + Crystallum Fractura + a Routing Node is a hands-off farm: the ritual 
 
 ## Banking the surplus
 
-A farm chunk pinned at the 100 cap wastes every crystal it burns after that. Park a **[Spirit Accumulator](Spiritus-Aspects-and-Crystals)** in it, attuned with a single shard of the farmed Aspect, and it skims the surplus above **75** into a **1,000**-point reserve at up to 25 per tick. The chunk stays saturated enough to keep growing crystals, and the overflow is banked instead of lost.
+A farm chunk pinned at the 100 cap wastes every crystal it burns after that. Park a **[Spirit Accumulator](Spiritus-Aspects-and-Crystals)** in it, right-click to cycle it to the farmed Aspect and crouch-click to lock it, and it skims the surplus above **30** into a **1,000**-point reserve at up to 25 per tick. The chunk stays saturated enough to keep growing crystals, and the overflow is banked instead of lost.
 
 Bind the Accumulator to a Master (it auto-binds within 16 blocks, same as any node) and that reserve becomes network stock. Now put an **Output Node** wherever you want Aura, open its **Spiritus** tab, pick the Aspect and a Keep figure, and the network holds that chunk at that level. The node needs no adjacent block; it can stand alone in the middle of the chunk it feeds.
 
 That covers the distances a Spira Infernalis chain used to handle, and it holds a level rather than equilibrating. One Accumulator on the farm plus one Output Node per worksite keeps a ritual chunk, an Athanor chunk, and a Crystallarium chunk all topped up from a single crystal farm.
 
-> A Spirit Accumulator in the **same chunk** as an Output Node stocking the **same Aspect** will skim back whatever the node delivers above 75. Keep them in separate chunks, or set the node's Keep figure to 75 or lower.
+> A Spirit Accumulator in the **same chunk** as an Output Node stocking the **same Aspect** will skim back whatever the node delivers above 30. Keep them in separate chunks, or set the node's Keep figure to 30 or lower.
 
 ## Running multiple Aspects
 

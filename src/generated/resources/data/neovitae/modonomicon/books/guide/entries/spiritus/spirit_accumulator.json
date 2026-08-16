@@ -64,6 +64,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.spirit_accumulator.retuning.text",
+      "title": "book.neovitae.guide.spiritus.spirit_accumulator.retuning.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.spirit_accumulator.skimming.text",
       "title": "book.neovitae.guide.spiritus.spirit_accumulator.skimming.title",
       "use_markdown_in_title": false

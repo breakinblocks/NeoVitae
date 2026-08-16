@@ -27,6 +27,11 @@ import net.minecraft.client.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import com.breakinblocks.neovitae.client.render.item.SpiritAccumulatorItemRenderer;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
@@ -189,6 +194,21 @@ public class ClientModEventHandler {
         event.register(NVMenus.RITUAL_DIVINER.get(), RitualDivinerScreen::new);
         event.register(NVMenus.RITUAL_CONFIGURATOR.get(), RitualConfiguratorScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(new IClientItemExtensions() {
+            private SpiritAccumulatorItemRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) {
+                    renderer = new SpiritAccumulatorItemRenderer();
+                }
+                return renderer;
+            }
+        }, NVBlocks.SPIRIT_ACCUMULATOR.asItem());
     }
 
     @SubscribeEvent

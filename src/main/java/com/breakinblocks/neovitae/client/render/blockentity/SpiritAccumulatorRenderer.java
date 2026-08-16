@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -25,6 +26,8 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
     private static final float HB = 0.34f;
     private static final float CORE_SCALE = 0.72f;
     private static final float MIN_CORE_FILL = 0.08f;
+    private static final float LOCKED_ALPHA = 0.95f;
+    private static final float UNLOCKED_ALPHA = 0.4f;
 
     private static final float[][] DIRS = { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
     private static final float[] TOP_SHADE = { 1.0f, 0.9f, 0.82f, 0.9f };
@@ -39,18 +42,22 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         poseStack.pushPose();
         poseStack.translate(0.5, 0.55 + bobY, 0.5);
 
-        VertexConsumer buf = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
-
         SpiritusType type = be.getAttunedType();
-        if (type != null) {
-            int color = SpiritusTooltipHelper.spiritusColor(type);
-            float fill = Math.max(MIN_CORE_FILL, be.getFillFraction());
-            drawCore(poseStack.last(), buf, color, fill);
-        }
-
-        drawShell(poseStack.last(), buf, packedLight);
+        Integer color = type == null ? null : SpiritusTooltipHelper.spiritusColor(type);
+        float fill = type == null ? 0f : Math.max(MIN_CORE_FILL, be.getFillFraction());
+        renderCrystal(poseStack, bufferSource, packedLight, color, fill,
+                be.isLocked() ? LOCKED_ALPHA : UNLOCKED_ALPHA);
 
         poseStack.popPose();
+    }
+
+    public static void renderCrystal(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight,
+                                     @Nullable Integer coreColor, float fill, float coreAlpha) {
+        VertexConsumer buf = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
+        if (coreColor != null) {
+            drawCore(poseStack.last(), buf, coreColor, fill, coreAlpha);
+        }
+        drawShell(poseStack.last(), buf, packedLight);
     }
 
     private static void drawShell(PoseStack.Pose pose, VertexConsumer buf, int light) {
@@ -72,11 +79,10 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         }
     }
 
-    private static void drawCore(PoseStack.Pose pose, VertexConsumer buf, int color, float fill) {
+    private static void drawCore(PoseStack.Pose pose, VertexConsumer buf, int color, float fill, float a) {
         float r = ((color >> 16) & 0xFF) / 255f;
         float g = ((color >> 8) & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
-        float a = 0.95f;
         int light = LightTexture.FULL_BRIGHT;
 
         float w = W * CORE_SCALE;

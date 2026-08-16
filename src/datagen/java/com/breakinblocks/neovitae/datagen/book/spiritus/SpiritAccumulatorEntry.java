@@ -48,27 +48,39 @@ public class SpiritAccumulatorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Attunement");
-        this.pageText("A new Accumulator is empty and unattuned; it will take whichever Aspect reaches it "
-                + "first. [#](8B0000)Right-click[#]() it with a Spiritus shard to attune it and pour in "
-                + "[#](8B0000)50[#]() Spiritus per shard.\\\n\\\n"
-                + "From that moment it refuses every other Aspect. To change its allegiance you must empty "
-                + "it completely: [#](8B0000)crouch and right-click[#]() with an empty hand to vent "
-                + "[#](8B0000)50[#]() back into the surrounding chunk. Vent it to nothing and the "
-                + "attunement lifts.\\\n\\\n"
-                + "[#](2E8B57)Drawing it dry through the network does not release the attunement. A buffer "
+        this.pageText("A newly placed Accumulator hangs dark and unattuned. It gathers nothing at all until "
+                + "you have told it what to seek.\\\n\\\n"
+                + "[#](8B0000)Right-click[#]() it to cycle the Aspect: Raw, Ruina, Nihilum, Invictus, "
+                + "Vindicta, and dark again. [#](8B0000)Crouch and right-click[#]() to lock the choice. Only "
+                + "once locked does it begin to drink.\\\n\\\n"
+                + "[#](8B0000)Right-click with a Spiritus crystal[#]() of any Aspect and it takes that Aspect "
+                + "at once and locks. The crystal is not consumed.");
+
+        this.page("retuning", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Retuning");
+        this.pageText("A locked Accumulator refuses every other Aspect. To change its allegiance you must "
+                + "empty it first: [#](8B0000)crouch and right-click[#]() to vent [#](8B0000)50[#]() back "
+                + "into the surrounding chunk.\\\n\\\n"
+                + "Once it stands empty, the next crouch-click releases the lock and the Aspect may be "
+                + "cycled again.\\\n\\\n"
+                + "[#](2E8B57)Drawing it dry through the network does not release the lock. A locked buffer "
                 + "keeps gathering its chosen Aspect no matter how hard the network leans on it.[#]()");
 
         this.page("skimming", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Skimming the Aura");
-        this.pageText("Left alone, the Accumulator drinks from the chunk it stands in: up to "
+        this.pageText("Once locked, the Accumulator drinks from the chunk it stands in: up to "
                 + "[#](8B0000)25[#]() Spiritus each tick, but only from the surplus above "
-                + "[#](8B0000)75[#](). It will never draw the chunk below that mark.\\\n\\\n"
-                + "Set one in a saturated crystal farm and it becomes an overflow vessel. The chunk stays "
-                + "rich enough to keep its clusters growing, while everything the Vas Maleficum burns past "
-                + "the ceiling is caught and banked instead of squandered.\\\n\\\n"
-                + "[#](2E8B57)The crystal's inner light shows both its Aspect and how full it stands.[#]()");
+                + "[#](8B0000)30[#](). It will never draw the chunk below that mark.\\\n\\\n"
+                + "That floor sits low enough that a single crystal burned in a "
+                + "[#](8B0000)Vas Maleficum[#]() will feed it, for a crystal lifts its Aspect to "
+                + "[#](8B0000)50[#](). Set one in a saturated crystal farm instead and it becomes an "
+                + "overflow vessel, catching everything burned past the ceiling.\\\n\\\n"
+                + "[#](2E8B57)The crystal's inner light shows its Aspect and how full it stands; it burns "
+                + "dim while unlocked.[#]()");
 
         this.page("network", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -78,8 +90,8 @@ public class SpiritAccumulatorEntry extends EntryProvider {
                 + "[#](8B0000)16 blocks[#]() of a network and it binds on its own, exactly as an "
                 + "[#](8B0000)Input Node[#]() would; the [#](8B0000)Node Router[#]() links it by hand when "
                 + "auto-binding will not reach. Its thread springs from the very tip of the crystal.\\\n\\\n"
-                + "Whatever it holds is then offered to the whole network. It gives only; shards and the "
-                + "chunk beneath it are the only things that fill it.");
+                + "Whatever it holds is then offered to the whole network. It gives only; the chunk beneath "
+                + "it is the one thing that fills it.");
 
         this.page("export", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -104,7 +116,8 @@ public class SpiritAccumulatorEntry extends EntryProvider {
                 + "Run one Accumulator per Aspect you farm; a single network may hold as many as you like, "
                 + "and each Output Node draws only from those matching the Aspect it names.\\\n\\\n"
                 + "[#](8B0000)Beware:[#]() an Accumulator sharing a chunk with an Output Node of the same "
-                + "Aspect will skim back whatever that node delivers above 75. Keep them in separate chunks.");
+                + "Aspect will skim back whatever that node delivers above 30. Keep them in separate chunks, "
+                + "or set the node's Keep figure to 30 or lower.");
     }
 
     @Override

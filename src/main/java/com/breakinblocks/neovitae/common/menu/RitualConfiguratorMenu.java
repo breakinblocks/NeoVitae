@@ -150,6 +150,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
             if (reader.getRangeKey(stack).isEmpty() && !ranges.isEmpty()) {
                 reader.setRangeKey(stack, ranges.get(0).key());
             }
+            reader.setMasterPos(stack, masterPos);
             reader.setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
             if (player instanceof ServerPlayer sp) {
                 sp.inventoryMenu.broadcastChanges();

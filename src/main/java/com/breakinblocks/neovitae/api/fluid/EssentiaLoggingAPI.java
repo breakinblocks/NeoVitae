@@ -71,6 +71,10 @@ import java.util.List;
  *     MY_BLOCKS.register(modBus);
  * }
  * }</pre>
+ *
+ * <p>Players and pack makers can turn the whole feature off with
+ * {@code essentiaLogging = false} in {@code config/neovitae-startup.toml};
+ * when disabled, no block receives the property and this registry is ignored.</p>
  */
 public final class EssentiaLoggingAPI {
 

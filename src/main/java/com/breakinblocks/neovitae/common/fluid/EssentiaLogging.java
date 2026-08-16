@@ -71,6 +71,10 @@ public final class EssentiaLogging {
     }
 
     public static void reportUnsupportedBlocks() {
+        if (!EssentiaLoggingConfig.isEnabled()) {
+            LOGGER.info("Essentia logging is disabled in neovitae-startup.toml; blocks will not hold Essentia Vitae");
+            return;
+        }
         List<Identifier> skipped = new ArrayList<>();
         for (Block block : BuiltInRegistries.BLOCK) {
             if (block instanceof SimpleWaterloggedBlock && !EssentiaLoggingAPI.isSupported(block)) {

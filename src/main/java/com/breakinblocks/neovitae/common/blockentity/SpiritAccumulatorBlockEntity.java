@@ -1,18 +1,23 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import com.breakinblocks.neovitae.api.spiritus.ISpiritusStorage;
+import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
-public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
+public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity implements ISpiritusStorage {
     public static final double CAPACITY = 1000.0;
     public static final double SATURATION_FLOOR = 75.0;
     public static final double FILL_RATE = 25.0;
+    public static final double TIP_HEIGHT = 0.85;
 
     @Nullable
     private SpiritusType attunedType;
@@ -24,8 +29,21 @@ public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpiritAccumulatorBlockEntity tile) {
+        tile.tick(level, pos, state);
         if (level.isClientSide()) return;
         tile.serverTick();
+    }
+
+    public static float bobOffset(BlockPos pos) {
+        float phase = ((pos.getX() * 31 + pos.getY() * 13 + pos.getZ() * 17) & 0xFF) / 255f * Mth.TWO_PI;
+        float angle = (System.currentTimeMillis() % 4000L) / 4000f * Mth.TWO_PI;
+        return Mth.sin(angle + phase) * 0.05f;
+    }
+
+    @Override
+    public Vec3 getBeamAnchor() {
+        BlockPos pos = getBlockPos();
+        return new Vec3(pos.getX() + 0.5, pos.getY() + TIP_HEIGHT + bobOffset(pos), pos.getZ() + 0.5);
     }
 
     private void serverTick() {
@@ -42,10 +60,21 @@ public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
         stored += drained;
         if (++syncTimer >= 20 || stored >= CAPACITY) {
             syncTimer = 0;
-            setChanged();
-        } else {
-            setChangedNoSync();
+            syncToClients();
         }
+        setChanged();
+    }
+
+    public void syncToClients() {
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    @Override
+    @Nullable
+    public SpiritusType getStoredType() {
+        return attunedType;
     }
 
     @Nullable
@@ -53,8 +82,41 @@ public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
         return attunedType;
     }
 
+    @Override
     public double getStored() {
         return stored;
+    }
+
+    @Override
+    public double getCapacity() {
+        return CAPACITY;
+    }
+
+    @Override
+    public double insert(SpiritusType type, double amount, boolean simulate) {
+        if (amount <= 0 || !canAccept(type)) return 0;
+        double inserted = Math.min(amount, CAPACITY - stored);
+        if (inserted <= 0) return 0;
+        if (!simulate) {
+            attunedType = type;
+            stored += inserted;
+            setChanged();
+            syncToClients();
+        }
+        return inserted;
+    }
+
+    @Override
+    public double extract(SpiritusType type, double amount, boolean simulate) {
+        if (amount <= 0 || attunedType != type) return 0;
+        double extracted = Math.min(amount, stored);
+        if (extracted <= 0) return 0;
+        if (!simulate) {
+            stored -= extracted;
+            setChanged();
+            syncToClients();
+        }
+        return extracted;
     }
 
     public float getFillFraction() {
@@ -66,11 +128,7 @@ public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
     }
 
     public boolean insertSpiritus(SpiritusType type, double amount) {
-        if (!canAccept(type)) return false;
-        attunedType = type;
-        stored = Math.min(CAPACITY, stored + amount);
-        setChanged();
-        return true;
+        return insert(type, amount, false) > 0;
     }
 
     public double vent(double amount) {
@@ -83,6 +141,7 @@ public class SpiritAccumulatorBlockEntity extends BaseBlockEntity {
             attunedType = null;
         }
         setChanged();
+        syncToClients();
         return toVent;
     }
 

@@ -182,6 +182,9 @@ public class NVTiles {
             registerTile("orb_filling_link", OrbFillingLinkBlockEntity::new, NVBlocks.ORB_FILLING_LINK.block());
 
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(NVCapabilities.SPIRITUS_STORAGE, SPIRIT_ACCUMULATOR_TYPE.get(),
+                (be, side) -> be);
+
         event.registerBlockEntity(Capabilities.Item.BLOCK, HELLFIRE_FORGE_TYPE.get(),
                 (be, side) -> be.getInventory(side));
 

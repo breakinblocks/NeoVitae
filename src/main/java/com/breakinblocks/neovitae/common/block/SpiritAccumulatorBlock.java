@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -22,7 +23,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import com.breakinblocks.neovitae.api.routing.IRoutingNode;
+import com.breakinblocks.neovitae.api.routing.IRoutingNodeHost;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
+import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
@@ -30,7 +34,7 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-public class SpiritAccumulatorBlock extends BaseEntityBlock {
+public class SpiritAccumulatorBlock extends BaseEntityBlock implements IRoutingNodeHost {
 
     public static final MapCodec<SpiritAccumulatorBlock> CODEC = simpleCodec(SpiritAccumulatorBlock::new);
 
@@ -69,6 +73,15 @@ public class SpiritAccumulatorBlock extends BaseEntityBlock {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.isClientSide()) return;
+        if (level.getBlockEntity(pos) instanceof IRoutingNode node) {
+            RoutingLinkHelper.tryAutoBind(level, pos, node);
+        }
     }
 
     @Override

@@ -59,19 +59,25 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/no_fill_below_saturation", 80, helper -> {
+        r.add("spirit_accumulator/no_fill_below_saturation", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
-            helper.runAfterDelay(1, () -> {
+            helper.runAfterDelay(40, () -> {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
-                WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.RUINA, 1_000_000);
-                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.RUINA, 50);
-                be.insertSpiritus(SpiritusType.RUINA, 50);
+                WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 1_000_000);
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 50);
+                be.insertSpiritus(SpiritusType.NIHILUM, 50);
+                double storedBefore = be.getStored();
 
-                helper.runAfterDelay(40, () -> {
-                    if (be.getStored() > 50) {
+                helper.runAfterDelay(5, () -> {
+                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.NIHILUM);
+                    if (chunkAmount > SpiritAccumulatorBlockEntity.SATURATION_FLOOR) {
+                        helper.fail("Neighbouring test raised the chunk to " + chunkAmount + "; cannot measure the floor");
+                        return;
+                    }
+                    if (be.getStored() > storedBefore) {
                         helper.fail("Accumulator filled from an unsaturated chunk, stored=" + be.getStored());
                         return;
                     }
@@ -84,19 +90,20 @@ public final class SpiritAccumulatorTests {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
-            helper.runAfterDelay(1, () -> {
+            helper.runAfterDelay(40, () -> {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
-                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.RUINA, 100);
-                be.insertSpiritus(SpiritusType.RUINA, 50);
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.VINDICTA, 100);
+                be.insertSpiritus(SpiritusType.VINDICTA, 50);
+                double storedBefore = be.getStored();
 
-                helper.runAfterDelay(40, () -> {
-                    if (be.getStored() <= 50) {
+                helper.runAfterDelay(5, () -> {
+                    if (be.getStored() <= storedBefore) {
                         helper.fail("Accumulator should fill from a saturated chunk, stored=" + be.getStored()
-                                + " chunk=" + WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.RUINA));
+                                + " chunk=" + WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.VINDICTA));
                         return;
                     }
-                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.RUINA);
+                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.VINDICTA);
                     if (chunkAmount < SpiritAccumulatorBlockEntity.SATURATION_FLOOR - 0.0001) {
                         helper.fail("Accumulator drained the chunk below the saturation floor, chunk=" + chunkAmount);
                         return;

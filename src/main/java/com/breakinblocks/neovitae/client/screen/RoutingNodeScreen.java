@@ -18,6 +18,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetAmountPayload;
@@ -47,7 +50,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     };
 
     /** Client-side UI tab - server never needs to know which tab the player is viewing. */
-    private enum Tab { ITEMS, FLUIDS }
+    private enum Tab { ITEMS, FLUIDS, SPIRITUS }
 
     private Tab activeTab = Tab.ITEMS;
 
@@ -59,6 +62,9 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button tabButton;
     private Button pagePrevButton;
     private Button pageNextButton;
+    private Button spiritusTypeButton;
+    private Button stockDownButton;
+    private Button stockUpButton;
 
     private static final int PICKER_WIDTH = 174;
     private int componentPickerSlot = -1;
@@ -95,10 +101,37 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         this.addRenderableWidget(enableButton);
 
         tabButton = Button.builder(Component.translatable("gui.neovitae.routing.items"), btn -> {
-            activeTab = activeTab == Tab.ITEMS ? Tab.FLUIDS : Tab.ITEMS;
+            activeTab = switch (activeTab) {
+                case ITEMS -> Tab.FLUIDS;
+                case FLUIDS -> isSpiritusCapable() ? Tab.SPIRITUS : Tab.ITEMS;
+                case SPIRITUS -> Tab.ITEMS;
+            };
             menu.setShowItemGhosts(activeTab == Tab.ITEMS);
         }).bounds(leftPos + 8, topPos + 36, 50, 16).build();
         this.addRenderableWidget(tabButton);
+
+        spiritusTypeButton = Button.builder(Component.translatable("gui.neovitae.routing.spiritus_off"), btn ->
+                ClientPacketDistributor.sendToServer(new RoutingNodePayload(
+                        menu.tile.getBlockPos(), RoutingNodePayload.ACTION_CYCLE_SPIRITUS_TYPE, 1)))
+                .bounds(leftPos + 8, topPos + 76, 110, 16).build();
+        spiritusTypeButton.visible = false;
+        this.addRenderableWidget(spiritusTypeButton);
+
+        stockDownButton = Button.builder(Component.literal("-"), btn ->
+                ClientPacketDistributor.sendToServer(new RoutingNodePayload(
+                        menu.tile.getBlockPos(), RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
+                        KeyboardHelper.isShiftDown() ? -100 : -10)))
+                .bounds(leftPos + 8, topPos + 96, 14, 16).build();
+        stockDownButton.visible = false;
+        this.addRenderableWidget(stockDownButton);
+
+        stockUpButton = Button.builder(Component.literal("+"), btn ->
+                ClientPacketDistributor.sendToServer(new RoutingNodePayload(
+                        menu.tile.getBlockPos(), RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
+                        KeyboardHelper.isShiftDown() ? 100 : 10)))
+                .bounds(leftPos + 104, topPos + 96, 14, 16).build();
+        stockUpButton.visible = false;
+        this.addRenderableWidget(stockUpButton);
 
         modeButton = Button.builder(Component.translatable("gui.neovitae.routing.whitelist"), btn -> {
             int action = activeTab == Tab.ITEMS
@@ -130,6 +163,10 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             ClientPacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_INCREMENT_PRIORITY, 0));
         }).bounds(leftPos + 98, topPos + 40, 14, 16).build();
         this.addRenderableWidget(priorityUpButton);
+    }
+
+    private boolean isSpiritusCapable() {
+        return menu.tile instanceof OutputRoutingNodeBlockEntity;
     }
 
     private Button createDirectionButton(int x, int y, int dirIndex, String label) {
@@ -175,15 +212,44 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         enableButton.setMessage(Component.translatable(enabled ? "gui.neovitae.routing.enabled" : "gui.neovitae.routing.disabled")
                 .withStyle(enabled ? ChatFormatting.GREEN : ChatFormatting.RED));
 
-        tabButton.setMessage(Component.translatable(activeTab == Tab.ITEMS ? "gui.neovitae.routing.items" : "gui.neovitae.routing.fluids"));
-        tabButton.active = enabled;
+        tabButton.setMessage(Component.translatable(switch (activeTab) {
+            case ITEMS -> "gui.neovitae.routing.items";
+            case FLUIDS -> "gui.neovitae.routing.fluids";
+            case SPIRITUS -> "gui.neovitae.routing.spiritus";
+        }));
+        tabButton.active = enabled || activeTab == Tab.SPIRITUS;
 
-        modeButton.active = enabled;
+        boolean spiritusTab = activeTab == Tab.SPIRITUS;
+        modeButton.visible = !spiritusTab;
+        pagePrevButton.visible = !spiritusTab;
+        pageNextButton.visible = !spiritusTab;
+        priorityUpButton.visible = !spiritusTab;
+        priorityDownButton.visible = !spiritusTab;
+        enableButton.visible = !spiritusTab;
+        spiritusTypeButton.visible = spiritusTab;
+        stockDownButton.visible = spiritusTab;
+        stockUpButton.visible = spiritusTab;
+
+        if (spiritusTab) {
+            int typeOrdinal = menu.getSpiritusTypeOrdinal();
+            if (typeOrdinal <= 0) {
+                spiritusTypeButton.setMessage(Component.translatable("gui.neovitae.routing.spiritus_off")
+                        .withStyle(ChatFormatting.GRAY));
+            } else {
+                SpiritusType type = SpiritusType.values()[Math.min(typeOrdinal - 1, SpiritusType.values().length - 1)];
+                spiritusTypeButton.setMessage(Component.translatable("tooltip.neovitae.spiritus." + type.getSerializedName())
+                        .withColor(SpiritusTooltipHelper.spiritusColor(type)));
+            }
+            Component keep = Component.translatable("gui.neovitae.routing.spiritus_keep", menu.getSpiritusStock());
+            guiGraphics.text(this.font, keep, 63 - this.font.width(keep) / 2, 100, 0xFFFFFFFF);
+        }
+
+        modeButton.active = enabled && !spiritusTab;
         if (activeTab == Tab.ITEMS) {
             FilterMode mode = menu.getSideItemMode(currentSlot);
             modeButton.setMessage(Component.translatable(mode == FilterMode.WHITELIST ? "gui.neovitae.routing.whitelist" : "gui.neovitae.routing.blacklist")
                     .withStyle(mode == FilterMode.WHITELIST ? ChatFormatting.GREEN : ChatFormatting.RED));
-        } else {
+        } else if (activeTab == Tab.FLUIDS) {
             FilterMode mode = menu.getSideFluidMode(currentSlot);
             String key = switch (mode) {
                 case WHITELIST -> "gui.neovitae.routing.whitelist";
@@ -208,7 +274,9 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         if (activeTab == Tab.FLUIDS) {
             renderFluidGhosts(guiGraphics);
         }
-        renderGhostAmounts(guiGraphics);
+        if (!spiritusTab) {
+            renderGhostAmounts(guiGraphics);
+        }
 
         if (componentPickerSlot >= 0) {
             renderComponentPicker(guiGraphics, mouseX, mouseY);

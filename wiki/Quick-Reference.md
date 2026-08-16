@@ -99,6 +99,8 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Crystallarium Maleficum**. Seeder block. When air is above and the chunk holds enough Aura (default 99), it spends that Aura over time to form the first **[Spiritus Crystal](Spiritus-Aspects-and-Crystals)** of the chunk's dominant Aspect on its top face. Further growth is then handled by the crystal itself.
 
+**Spirit Accumulator**. Aura reservoir. Holds 1000 Spiritus of one Aspect, attuned by the first shard fed to it and locked until emptied. Skims up to 25 per tick from its own chunk, never below 75. Acts as a routing input node. See [Spiritus](Spiritus-Aspects-and-Crystals).
+
 ## Networks
 
 **Routing Conduit**. Pipe for item/fluid/energy routing.
@@ -106,6 +108,8 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 **Input Routing Node**, **Output Routing Node**. The endpoints of a routing network.
 
 **Master Routing Node**. The brain of a routing network. Configures priorities, energy rates, filters.
+
+**Spiritus channel**. Output Nodes carry a Spiritus tab: pick an Aspect and a Keep figure, and the node holds its own chunk's Aura at that level, drawing from Spirit Accumulators on the network. No adjacent block required.
 
 See [Routing Network](Routing-Network).
 
@@ -119,7 +123,7 @@ See [Routing Network](Routing-Network).
 
 ## Defenses
 
-**Sanguine Ward**. A passive shield that absorbs damage at a cost of EV per second while you hold an Orb of Vitae. See [Blood Orbs and Anima](Blood-Orbs-and-Anima).
+**Sanguine Ward**. A shield raised with an Orb of Vitae in the off-hand. Stops ranged attacks from your front arc; melee still lands. Ordinary shots are consumed, while tridents and Throwing Daggers drop at the ward for retrieval. Costs EV per second while held. See [Blood Orbs and Anima](Blood-Orbs-and-Anima).
 
 **Soul Snare**. Invisible status effect applied by Throwing Daggers to hostile mobs on hit. A snared mob, when killed, yields **Raw Spiritus** to its killer (this is how daggers harvest before a Sentient Sword is in hand). Does not affect mob behavior.
 

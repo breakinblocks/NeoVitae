@@ -1,11 +1,13 @@
 package com.breakinblocks.neovitae.common.event;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
+import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,7 +22,8 @@ public class BloodShieldHandler {
         if (!(event.getEntity() instanceof Player player)) return;
         if (player.level().isClientSide()) return;
         if (!(player.getOffhandItem().getItem() instanceof BloodOrbItem)) return;
-        if (!player.isUsingItem() || player.getUsedItemHand() != InteractionHand.OFF_HAND) return;
+        if (!BloodOrbItem.isShieldActive(player)) return;
+        if (!event.getSource().is(DamageTypeTags.IS_PROJECTILE)) return;
 
         Vec3 sourcePos = null;
         if (event.getSource().getDirectEntity() != null) {
@@ -44,7 +47,23 @@ public class BloodShieldHandler {
         event.setCanceled(true);
 
         if (event.getSource().getDirectEntity() instanceof Projectile projectile) {
-            projectile.discard();
+            if (isRetrievable(projectile)) {
+                dropAtWard(player, projectile);
+            } else {
+                projectile.discard();
+            }
         }
+    }
+
+    private static boolean isRetrievable(Projectile projectile) {
+        return projectile instanceof ThrownTrident || projectile instanceof AbstractEntityThrowingDagger;
+    }
+
+    private static void dropAtWard(Player player, Projectile projectile) {
+        float yawRad = (float) Math.toRadians(player.getYRot());
+        projectile.setPos(
+                player.getX() - Math.sin(yawRad) * BloodShieldEntity.SHIELD_DISTANCE,
+                player.getY() + player.getBbHeight() * 0.5,
+                player.getZ() + Math.cos(yawRad) * BloodShieldEntity.SHIELD_DISTANCE);
     }
 }

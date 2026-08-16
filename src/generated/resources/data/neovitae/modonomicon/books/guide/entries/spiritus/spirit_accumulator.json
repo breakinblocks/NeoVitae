@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:spiritus",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_routing_nodes",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.spiritus.routing_nodes.name"
+        }
+      ]
+    }
+  },
+  "description": "book.neovitae.guide.spiritus.spirit_accumulator.description",
+  "icon": {
+    "id": "neovitae:spirit_accumulator"
+  },
+  "id": "neovitae:spiritus/spirit_accumulator",
+  "name": "book.neovitae.guide.spiritus.spirit_accumulator.name",
+  "parents": [
+    {
+      "entry": "neovitae:spiritus/routing_nodes"
+    }
+  ],
+  "sort_number": 16,
+  "x": -6,
+  "y": 0
+}

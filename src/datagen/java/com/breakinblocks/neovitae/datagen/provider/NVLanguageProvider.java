@@ -1129,7 +1129,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("config.jade.plugin_neovitae.block_info", "Neo Vitae Block Info");
 
         // Blood Orb
-        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that blocks all frontal damage. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
+        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that stops ranged attacks from your front arc. Melee still lands, and tridents or Throwing Daggers drop at the ward instead of being destroyed. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
         add("jei.neovitae.disenchant.info", "With a Sanguine Reverter in the Athanor's tool slot, you can disenchant items.\n\nPlace a stack of Books and one enchanted item (gear, a tool, or an enchanted book) in the inputs. Each operation lifts one enchantment onto a book and removes it from the item, costing 5 raw spiritus and 100 mB of Essentia Vitae.\n\nWhen the item has no enchantments left, it moves to the output. It runs only while you have books to fill and room in the output to hold them.");
         add("jei.neovitae.disenchant.any_item", "Any Enchanted Item");
         add("jei.neovitae.disenchant.per_enchant", "Per enchantment:");
@@ -1508,6 +1508,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.routing.whitelist", "Whitelist");
         add("gui.neovitae.routing.blacklist", "Blacklist");
         add("gui.neovitae.routing.auto_match", "Auto-Match");
+        add("gui.neovitae.routing.spiritus", "Spiritus");
+        add("gui.neovitae.routing.spiritus_off", "Off");
+        add("gui.neovitae.routing.spiritus_keep", "Keep: %s");
         add("gui.neovitae.routing.direction.down", "Down");
         add("gui.neovitae.routing.direction.up", "Up");
         add("gui.neovitae.routing.direction.north", "North");

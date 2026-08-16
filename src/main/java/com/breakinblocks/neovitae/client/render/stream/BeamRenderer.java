@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
 
@@ -29,11 +30,19 @@ public final class BeamRenderer {
                                   BlockPos source, BlockPos target,
                                   float r, float g, float bl,
                                   long gameTime, float partialTick) {
-        int dx = target.getX() - source.getX();
-        int dy = target.getY() - source.getY();
-        int dz = target.getZ() - source.getZ();
+        submitBeam(poseStack, collector, Vec3.atCenterOf(source), Vec3.atCenterOf(target),
+                r, g, bl, gameTime, partialTick);
+    }
 
-        double subLength = Mth.sqrt(dx * dx + dz * dz);
+    public static void submitBeam(PoseStack poseStack, SubmitNodeCollector collector,
+                                  Vec3 source, Vec3 target,
+                                  float r, float g, float bl,
+                                  long gameTime, float partialTick) {
+        double dx = target.x - source.x;
+        double dy = target.y - source.y;
+        double dz = target.z - source.z;
+
+        double subLength = Math.sqrt(dx * dx + dz * dz);
         float distance = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
         if (distance < 0.001f) return;
 
@@ -41,7 +50,7 @@ public final class BeamRenderer {
         float rotPitch = (float) (Math.atan2(dy, subLength) * 180.0D / Math.PI);
 
         poseStack.pushPose();
-        poseStack.translate(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
+        poseStack.translate(source.x, source.y, source.z);
         poseStack.mulPose(Axis.YP.rotationDegrees(-rotYaw));
         poseStack.mulPose(Axis.XN.rotationDegrees(rotPitch - 90f));
 

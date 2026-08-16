@@ -12,6 +12,7 @@ import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.ClipboardClientHelper;
 import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
@@ -280,6 +281,12 @@ public class NVPayloads {
                         case RoutingNodePayload.ACTION_CLEAR_ITEM_GHOST -> tile.clearItemGhost(currentSide, payload.value());
                         case RoutingNodePayload.ACTION_TOGGLE_SIDE_FLUID_MODE -> tile.toggleSideFluidMode(currentSide);
                         case RoutingNodePayload.ACTION_CLEAR_FLUID_GHOST -> tile.clearFluidGhost(currentSide, payload.value());
+                        case RoutingNodePayload.ACTION_CYCLE_SPIRITUS_TYPE -> {
+                            if (tile instanceof OutputRoutingNodeBlockEntity output) output.cycleSpiritusType(payload.value());
+                        }
+                        case RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK -> {
+                            if (tile instanceof OutputRoutingNodeBlockEntity output) output.adjustSpiritusStock(payload.value());
+                        }
                     }
                 }
             }

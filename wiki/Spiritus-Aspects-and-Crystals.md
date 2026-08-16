@@ -43,6 +43,20 @@ This reversal is how an aspected gem is made. Saturate a chunk with a single Asp
 
 While the **Spiritus Aura Gauge** rests in your inventory, it projects a spectral reading onto your vision. From top to bottom the bars measure Raw, Ruina, Invictus, Nihilum, and Vindicta. Hold sneak for a precise numerical reading (0 to 100 per Aspect).
 
+### Spirit Accumulator
+
+The Aura is capped at 100 per Aspect and cannot leave its chunk on its own. The **Spirit Accumulator** is the reservoir that lifts that ceiling: a floating crystal that holds **1,000 Spiritus** of a **single Aspect** and hands it to the [Routing Network](Routing-Network) on demand.
+
+**Making one.** The Athanor forges it with a Resonator from an **Animus Mote** (found only in [Demon Realm](The-Endless-Dungeon) loot), a **Common Spiritus Gem**, a **Tabula Spiritus**, a **Raw Spiritus Crystal shard**, a **Blood Tank**, and 2,000 mB of Essentia Vitae. The chunk it is forged in must also hold **45 Raw** Spiritus. A single Raw shard burned in a Vas Maleficum covers that outright, since a shard adds 50 whenever its Aspect sits below 50 in the chunk. Check the [Aura Gauge](#aura-gauge) before starting the Athanor.
+
+**Attunement.** A fresh Accumulator is unattuned and accepts any Aspect. Right-click it with a Spiritus shard to attune it and add **50** Spiritus per shard. Once attuned it refuses every other Aspect until it is completely empty. Crouch and right-click with an empty hand to vent **50** back into the chunk; venting it to zero clears the attunement, so it can be re-attuned to something else. Being drained by the network does **not** clear it, so a network buffer keeps collecting its Aspect indefinitely.
+
+**Skimming.** Each tick the Accumulator draws up to **25** of its Aspect from its own chunk's Aura, but only from the surplus above **75**. It never pulls the chunk below that mark. A chunk sitting at the 100 cap therefore yields 25 immediately and then only whatever new Spiritus arrives, which makes the Accumulator a natural overflow catcher on a saturated farm chunk: every crystal burned past the cap is captured rather than wasted.
+
+The stored Aspect and amount are visible in Jade, and the crystal's inner core shows the fill level in the Aspect's color.
+
+**On the network.** An Accumulator is a routing node. It auto-binds within **16 blocks** of a network exactly like an Input Node, links by hand with the **Node Router**, and draws its connection beam from the tip of the crystal. Whatever it holds becomes available to any Output Node configured for that Aspect. It only gives to the network; it is filled by shards and by skimming its chunk, never by the network itself.
+
 ## Crystallized Spiritus
 
 The **Crystallarium Maleficum** seeds the first spire of a cluster: place it with open air above, and once the chunk's Aura holds at least **99 Spiritus** of any single Aspect, it spends that Aura over roughly 1,000 ticks to form a single **Spiritus Crystal** of the chunk's dominant Aspect on its top face. After that first spire stands, the crystal grows under its own power; the Crystallarium has done its work.

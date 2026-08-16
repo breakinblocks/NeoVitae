@@ -36,22 +36,22 @@ public final class VasMaleficumTests {
         r.add("vas_maleficum/powered_fills_gem_from_chunk", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             VasMaleficumBlockEntity be = place(helper, pos);
-            helper.setBlock(pos.east(), Blocks.REDSTONE_BLOCK.defaultBlockState());
+            helper.setBlock(pos.below(), Blocks.REDSTONE_BLOCK.defaultBlockState());
 
             helper.runAfterDelay(1, () -> {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
-                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.RAW, 100);
-                be.inventory.setStackInSlot(0, gemWith(SpiritusType.RAW, 0));
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 100);
+                be.inventory.setStackInSlot(0, gemWith(SpiritusType.NIHILUM, 1));
 
                 helper.runAfterDelay(40, () -> {
                     ItemStack gem = be.inventory.getStackInSlot(0);
-                    double stored = SpiritusHelper.getSpiritus(gem, SpiritusType.RAW);
-                    if (stored <= 0) {
+                    double stored = SpiritusHelper.getSpiritus(gem, SpiritusType.NIHILUM);
+                    if (stored <= 1) {
                         helper.fail("Powered vas should fill the gem from the chunk, gem has " + stored);
                         return;
                     }
-                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.RAW);
+                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.NIHILUM);
                     if (chunkAmount >= 100) {
                         helper.fail("Chunk spiritus should decrease as the gem fills, chunk=" + chunkAmount);
                         return;
@@ -68,17 +68,17 @@ public final class VasMaleficumTests {
             helper.runAfterDelay(1, () -> {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
-                WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.RAW, 1_000_000);
-                be.inventory.setStackInSlot(0, gemWith(SpiritusType.RAW, 500));
+                WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 1_000_000);
+                be.inventory.setStackInSlot(0, gemWith(SpiritusType.NIHILUM, 500));
 
                 helper.runAfterDelay(40, () -> {
                     ItemStack gem = be.inventory.getStackInSlot(0);
-                    double stored = SpiritusHelper.getSpiritus(gem, SpiritusType.RAW);
+                    double stored = SpiritusHelper.getSpiritus(gem, SpiritusType.NIHILUM);
                     if (stored >= 500) {
                         helper.fail("Unpowered vas should drain the gem, gem still has " + stored);
                         return;
                     }
-                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.RAW);
+                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.NIHILUM);
                     double moved = 500 - stored;
                     if (chunkAmount > moved + 0.0001) {
                         helper.fail("Chunk gained " + chunkAmount + " but the gem only lost " + moved + " (dupe)");

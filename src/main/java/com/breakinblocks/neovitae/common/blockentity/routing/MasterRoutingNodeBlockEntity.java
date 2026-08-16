@@ -155,7 +155,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
             if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) continue;
 
             BlockState state = level.getBlockState(pos);
-            if (!(state.getBlock() instanceof BlockRoutingNode)) {
+            if (!(state.getBlock() instanceof IRoutingNodeHost)) {
                 toRemove.add(pos);
             }
         }

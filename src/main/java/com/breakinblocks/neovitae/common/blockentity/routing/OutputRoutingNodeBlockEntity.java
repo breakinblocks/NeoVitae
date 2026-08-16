@@ -11,11 +11,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.routing.*;
@@ -26,12 +30,71 @@ import com.breakinblocks.neovitae.util.Utils;
  */
 public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity implements IOutputItemRoutingNode, IOutputFluidRoutingNode, MenuProvider {
 
+    @Nullable
+    private SpiritusType spiritusExportType;
+    private int spiritusStockTarget;
+
     public OutputRoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     public OutputRoutingNodeBlockEntity(BlockPos pos, BlockState state) {
         this(NVTiles.OUTPUT_ROUTING_NODE_TYPE.get(), pos, state);
+    }
+
+    @Nullable
+    public SpiritusType getSpiritusExportType() {
+        return spiritusExportType;
+    }
+
+    public int getSpiritusStockTarget() {
+        return spiritusStockTarget;
+    }
+
+    public void cycleSpiritusType(int direction) {
+        SpiritusType[] types = SpiritusType.values();
+        int current = spiritusExportType == null ? 0 : spiritusExportType.ordinal() + 1;
+        int next = Math.floorMod(current + (direction < 0 ? -1 : 1), types.length + 1);
+        setSpiritusExport(next == 0 ? null : types[next - 1], spiritusStockTarget);
+    }
+
+    public void adjustSpiritusStock(int delta) {
+        setSpiritusExport(spiritusExportType, Math.min(1000, Math.max(0, spiritusStockTarget + delta)));
+    }
+
+    public void setSpiritusExport(@Nullable SpiritusType type, int stockTarget) {
+        this.spiritusExportType = type;
+        this.spiritusStockTarget = Math.max(0, stockTarget);
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            if (level.getBlockEntity(getMasterPos()) instanceof IMasterRoutingNode master) {
+                master.addNodeToList(this);
+            }
+        }
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        tag.putString("spiritusExportType", spiritusExportType == null ? "" : spiritusExportType.getSerializedName());
+        tag.putInt("spiritusStockTarget", spiritusStockTarget);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        String typeStr = tag.getStringOr("spiritusExportType", "");
+        spiritusExportType = null;
+        if (!typeStr.isEmpty()) {
+            for (SpiritusType type : SpiritusType.values()) {
+                if (type.getSerializedName().equals(typeStr)) {
+                    spiritusExportType = type;
+                    break;
+                }
+            }
+        }
+        spiritusStockTarget = tag.getIntOr("spiritusStockTarget", 0);
     }
 
     @Override

@@ -106,6 +106,11 @@ public class SpiritusCategory extends CategoryProvider {
         routingNodes.withCondition(this.condition().entryViewedOnce(nodeRouter));
         routingNodes.hideWhileLocked(false);
 
+        var spiritAccumulator = this.add(new SpiritAccumulatorEntry(this).generate('q'));
+        spiritAccumulator.withParent(this.parent(routingNodes));
+        spiritAccumulator.withCondition(this.condition().entryViewedOnce(routingNodes));
+        spiritAccumulator.hideWhileLocked(false);
+
         var upgrades = this.add(new UpgradesEntry(this).generate('x'));
         upgrades.withParent(this.parent(routingNodes));
         upgrades.withCondition(this.condition().entryViewedOnce(routingNodes));

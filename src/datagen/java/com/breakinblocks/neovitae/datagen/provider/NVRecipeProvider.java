@@ -1966,6 +1966,18 @@ public class NVRecipeProvider extends RecipeProvider {
                 .guaranteedOutput(NVItems.SIGIL_NECROMANCY.get())
                 .save(output, rKey(NeoVitae.rl("sigil_necromancy")));
 
+        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
+                .input(NVItems.ANIMUS_MOTE.get())
+                .input(NVItems.SPIRITUS_GEM_COMMON.get())
+                .input(NVItems.TABULA_SPIRITUS.get())
+                .input(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get())
+                .input(NVBlocks.BLOOD_TANK.item().get())
+                .fluidInput(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 2000)
+                .spiritusCost(SpiritusType.RAW, 45.0)
+                .guaranteedOutput(NVBlocks.SPIRIT_ACCUMULATOR.item().get())
+                .unlockedBy("has_animus_mote", has(NVItems.ANIMUS_MOTE.get()))
+                .save(output, rKey(NeoVitae.rl("spirit_accumulator")));
+
         ForgeSpiritusInfusionRecipeBuilder.build()
                 .gemInput(NVTags.Items.SPIRITUS_GEM)
                 .minSpiritus(1)

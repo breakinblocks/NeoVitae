@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:athanor",
+  "guaranteed_outputs": [
+    {
+      "id": "neovitae:spirit_accumulator"
+    }
+  ],
+  "input_fluid": {
+    "amount": 2000,
+    "ingredient": "neovitae:essentia_vitae_source"
+  },
+  "inputs": [
+    "neovitae:animus_mote",
+    "neovitae:spiritus_gem_common",
+    "neovitae:tabula_spiritus",
+    "neovitae:raw_crystal_shard",
+    "neovitae:blood_tank"
+  ],
+  "spiritus_costs": {
+    "raw": 45.0
+  },
+  "tool": "#neovitae:athanor_tool/resonator"
+}

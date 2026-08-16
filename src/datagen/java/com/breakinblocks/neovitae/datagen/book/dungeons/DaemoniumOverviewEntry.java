@@ -40,28 +40,9 @@ public class DaemoniumOverviewEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spoils of the Damned");
-        this.pageText("Every Daemonium drops [#](8B0000)Tainted Flesh[#](), an edible but risky food source. "
-                + "Most also yield [#](4A0080)Spiritus Essences[#]() aligned with their nature; Ruina-aligned "
-                + "demons favor Spiritus Ruina, Nihilum-aligned brutes yield Spiritus Nihilum.\\\n\\\n"
+        this.pageText("Every Daemonium drops [#](8B0000)Tainted Flesh[#](), an edible but risky food source.\\\n\\\n"
                 + "More importantly, each species carries a [#](8B0000)unique trophy material[#]() that serves "
                 + "as a crafting component for powerful items unavailable through any other means.");
-
-        this.page("spiritus_types", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Spiritus Affinities");
-        this.pageText("Each demon species has a natural [#](4A0080)Spiritus[#]() affinity that determines "
-                + "which type of essence it drops:\\\n\\\n"
-                + "Cruoris: Raw/Nihilum\\\n"
-                + "Corrodis: Ruina/Vindicta\\\n"
-                + "Pestis: Ruina/Raw\\\n"
-                + "Voraxis: Nihilum/Ruina\\\n"
-                + "Rancoris: Vindicta/Invictus\\\n"
-                + "Animaris: Invictus/Vindicta\\\n"
-                + "Fervidis: Nihilum/Invictus\\\n"
-                + "Doloris: Vindicta/Nihilum\\\n"
-                + "Ignis: Nihilum/Ruina\\\n"
-                + "Glaciaris: All types");
     }
 
     @Override

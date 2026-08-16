@@ -59,6 +59,7 @@ import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.routing.EnergyRoutingChannel;
 import com.breakinblocks.neovitae.common.routing.FluidRoutingChannel;
 import com.breakinblocks.neovitae.common.routing.ItemRoutingChannel;
+import com.breakinblocks.neovitae.common.routing.SpiritusRoutingChannel;
 import com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconCompat;
 import com.breakinblocks.neovitae.impl.AltarRuneBlockRegistry;
 import com.breakinblocks.neovitae.impl.NeoVitaeAPIImpl;
@@ -96,6 +97,7 @@ public class NeoVitae {
         RoutingChannelRegistry.register(new ItemRoutingChannel());
         RoutingChannelRegistry.register(new FluidRoutingChannel());
         RoutingChannelRegistry.register(new EnergyRoutingChannel());
+        RoutingChannelRegistry.register(new SpiritusRoutingChannel());
 
         EssentiaLoggingAPI.support(AlchemyArrayBlock.class);
         EssentiaLoggingAPI.support(BloodLightBlock.class);

@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.compat.ftbultimine.FTBUltimineCompat;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
+import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +41,16 @@ import java.util.UUID;
  */
 public class BlockProtectionHelper {
 
+    @Nullable
+    private static Player automationPlayer(Level level, @Nullable Player player) {
+        if (player == null || player instanceof FakePlayer || !(level instanceof ServerLevel serverLevel)) {
+            return player;
+        }
+        FakePlayer fake = FakePlayerFactory.get(serverLevel, player.getGameProfile());
+        fake.setPos(player.getX(), player.getY(), player.getZ());
+        return fake;
+    }
+
     public static boolean tryBreakBlock(Level level, BlockPos pos, @Nullable Player player) {
         if (level.isClientSide()) {
             return false;
@@ -49,13 +61,15 @@ public class BlockProtectionHelper {
             return true; // Already air, nothing to break
         }
 
+        Player breaker = automationPlayer(level, player);
+
         // Fire break event - protection mods can cancel this
-        if (!fireBreakEvent(level, pos, state, player)) {
+        if (!fireBreakEvent(level, pos, state, breaker)) {
             return false;
         }
 
         // Perform the break
-        return level.destroyBlock(pos, true, player);
+        return level.destroyBlock(pos, true, breaker);
     }
 
     public static boolean tryBreakBlockNoDrops(Level level, BlockPos pos, @Nullable Player player) {
@@ -68,11 +82,13 @@ public class BlockProtectionHelper {
             return true;
         }
 
-        if (!fireBreakEvent(level, pos, state, player)) {
+        Player breaker = automationPlayer(level, player);
+
+        if (!fireBreakEvent(level, pos, state, breaker)) {
             return false;
         }
 
-        return level.destroyBlock(pos, false, player);
+        return level.destroyBlock(pos, false, breaker);
     }
 
     public static boolean tryRemoveBlock(Level level, BlockPos pos, @Nullable Player player) {
@@ -144,7 +160,7 @@ public class BlockProtectionHelper {
             return true;
         }
 
-        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(serverLevel, pos, state, player);
+        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(serverLevel, pos, state, automationPlayer(level, player));
         FTBUltimineCompat.beginSuppress();
         try {
             NeoForge.EVENT_BUS.post(event);
@@ -164,7 +180,7 @@ public class BlockProtectionHelper {
         }
 
         BlockSnapshot snapshot = BlockSnapshot.create(serverLevel.dimension(), serverLevel, pos);
-        BlockEvent.EntityPlaceEvent event = new BlockEvent.EntityPlaceEvent(snapshot, oldState, player);
+        BlockEvent.EntityPlaceEvent event = new BlockEvent.EntityPlaceEvent(snapshot, oldState, automationPlayer(level, player));
         NeoForge.EVENT_BUS.post(event);
         return !event.isCanceled();
     }

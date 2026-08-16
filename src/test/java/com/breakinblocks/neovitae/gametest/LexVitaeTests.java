@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -19,6 +20,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -34,6 +36,8 @@ public class LexVitaeTests {
     private static Player armedPlayer(GameTestHelper helper, int radius) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, activeLexVitae(radius));
+        Vec3 standAt = helper.absoluteVec(Vec3.atCenterOf(new BlockPos(2, 1, 3)));
+        player.setPos(standAt.x, standAt.y, standAt.z);
         return player;
     }
 
@@ -127,6 +131,25 @@ public class LexVitaeTests {
         helper.runAfterDelay(1, () -> {
             postBreak(helper, player, helper.absolutePos(center));
             helper.assertBlockPresent(Blocks.STONE, neighbor);
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void lexVitaeAoeIgnoresAutomatedBreaks(GameTestHelper helper) {
+        BlockPos below = new BlockPos(2, 0, 2);
+        BlockPos target = new BlockPos(2, 1, 2);
+        BlockPos neighbor = new BlockPos(2, 2, 2);
+        helper.setBlock(below, Blocks.STONE.defaultBlockState());
+        helper.setBlock(target, Blocks.STONE.defaultBlockState());
+        helper.setBlock(neighbor, Blocks.STONE.defaultBlockState());
+        Player player = armedPlayer(helper, 1);
+
+        helper.runAfterDelay(1, () -> {
+            BlockProtectionHelper.tryBreakBlock(helper.getLevel(), helper.absolutePos(target), player);
+            helper.assertBlockNotPresent(Blocks.STONE, target);
+            helper.assertBlockPresent(Blocks.STONE, neighbor);
+            helper.assertBlockPresent(Blocks.STONE, below);
             helper.succeed();
         });
     }

@@ -33,6 +33,7 @@ public final class LexVitaeAoeHandler {
         if (AOE_BREAKING.get()) return;
         Player player = event.getPlayer();
         if (player == null) return;
+        if (!player.canInteractWithBlock(event.getPos(), 1.0)) return;
         ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof LexVitaeItem)) return;
         if (!LexVitaeItem.isActive(stack)) return;

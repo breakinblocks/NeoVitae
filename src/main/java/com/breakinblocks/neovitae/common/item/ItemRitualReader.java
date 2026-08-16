@@ -81,6 +81,16 @@ public class ItemRitualReader extends Item {
         stack.set(NVDataComponents.READER_CORNER1.get(), pos);
     }
 
+    @Nullable
+    public BlockPos getMasterPos(ItemStack stack) {
+        BlockPos pos = stack.get(NVDataComponents.READER_MASTER_POS.get());
+        return pos == null || BlockPos.ZERO.equals(pos) ? null : pos;
+    }
+
+    public void setMasterPos(ItemStack stack, BlockPos pos) {
+        stack.set(NVDataComponents.READER_MASTER_POS.get(), pos);
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
@@ -174,7 +184,7 @@ public class ItemRitualReader extends Item {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         if (state == EnumRitualReaderState.SET_AREA_CORNER_1) {
-            MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player);
+            MasterRitualStoneBlockEntity mrs = resolveEditingMasterRitualStone(stack, level, player);
             Ritual ritual = mrs != null ? resolveRitual(mrs) : null;
             if (mrs != null && ritual != null && ritual.getMaxVolumeForRange(getRangeKey(stack)) == 1) {
                 if (applyArea(stack, mrs, ritual, clickedPos, clickedPos, player)) {
@@ -193,7 +203,7 @@ public class ItemRitualReader extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player);
+        MasterRitualStoneBlockEntity mrs = resolveEditingMasterRitualStone(stack, level, player);
         if (mrs == null) {
             player.sendOverlayMessage(
                     Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
@@ -274,6 +284,16 @@ public class ItemRitualReader extends Item {
                 errorMsg.copy().append(Component.translatable("chat.neovitae.reader.areaRetry"))
                         .withStyle(ChatFormatting.RED));
         return false;
+    }
+
+    private MasterRitualStoneBlockEntity resolveEditingMasterRitualStone(ItemStack stack, Level level, Player player) {
+        BlockPos storedPos = getMasterPos(stack);
+        if (storedPos != null && level.isLoaded(storedPos)
+                && level.getBlockEntity(storedPos) instanceof MasterRitualStoneBlockEntity mrs
+                && resolveRitual(mrs) != null) {
+            return mrs;
+        }
+        return findNearbyMasterRitualStone(level, player);
     }
 
     private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, Player player) {

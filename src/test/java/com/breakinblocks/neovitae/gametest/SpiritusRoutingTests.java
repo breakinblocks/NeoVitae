@@ -54,17 +54,18 @@ public final class SpiritusRoutingTests {
                 Network net = buildNetwork(helper, SpiritusType.RUINA);
                 if (net == null) return;
 
+                net.accumulator().attuneTo(SpiritusType.RUINA);
                 net.accumulator().insertSpiritus(SpiritusType.RUINA, 500);
-                net.output().setSpiritusExport(SpiritusType.RUINA, 50);
+                net.output().setSpiritusExport(SpiritusType.RUINA, 25);
 
                 helper.runAfterDelay(180, () -> {
                     double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.RUINA);
-                    if (Math.abs(chunkAmount - 50) > 0.0001) {
-                        helper.fail("Output chunk should be stocked to 50 ruina, has " + chunkAmount);
+                    if (Math.abs(chunkAmount - 25) > 0.0001) {
+                        helper.fail("Output chunk should be stocked to 25 ruina, has " + chunkAmount);
                         return;
                     }
-                    if (Math.abs(net.accumulator().getStored() - 450) > 0.0001) {
-                        helper.fail("Accumulator should have paid 50, stored=" + net.accumulator().getStored());
+                    if (Math.abs(net.accumulator().getStored() - 475) > 0.0001) {
+                        helper.fail("Accumulator should have paid 25, stored=" + net.accumulator().getStored());
                         return;
                     }
                     helper.succeed();
@@ -78,6 +79,7 @@ public final class SpiritusRoutingTests {
                 Network net = buildNetwork(helper, SpiritusType.NIHILUM, SpiritusType.RAW);
                 if (net == null) return;
 
+                net.accumulator().attuneTo(SpiritusType.NIHILUM);
                 net.accumulator().insertSpiritus(SpiritusType.NIHILUM, 500);
                 net.output().setSpiritusExport(SpiritusType.RAW, 50);
 
@@ -98,6 +100,7 @@ public final class SpiritusRoutingTests {
                 Network net = buildNetwork(helper, SpiritusType.INVICTUS);
                 if (net == null) return;
 
+                net.accumulator().attuneTo(SpiritusType.INVICTUS);
                 net.accumulator().insertSpiritus(SpiritusType.INVICTUS, 500);
                 net.output().setSpiritusExport(SpiritusType.INVICTUS, 1000);
 
@@ -123,8 +126,9 @@ public final class SpiritusRoutingTests {
                 Network net = buildNetwork(helper, SpiritusType.VINDICTA);
                 if (net == null) return;
 
-                net.accumulator().insertSpiritus(SpiritusType.VINDICTA, 50);
-                net.output().setSpiritusExport(SpiritusType.VINDICTA, 50);
+                net.accumulator().attuneTo(SpiritusType.VINDICTA);
+                net.accumulator().insertSpiritus(SpiritusType.VINDICTA, 25);
+                net.output().setSpiritusExport(SpiritusType.VINDICTA, 25);
 
                 helper.runAfterDelay(180, () -> {
                     if (net.accumulator().getStored() != 0) {

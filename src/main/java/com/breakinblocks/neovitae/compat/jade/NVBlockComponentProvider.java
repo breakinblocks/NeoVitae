@@ -113,6 +113,9 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
                 tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unattuned").withStyle(ChatFormatting.GRAY));
             } else {
                 addSpiritusLine(tooltip, type, data.getDoubleOr("accumulator_stored", 0d), SpiritAccumulatorBlockEntity.CAPACITY);
+                if (!data.getBooleanOr("accumulator_locked", true)) {
+                    tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unlocked").withStyle(ChatFormatting.GRAY));
+                }
             }
         }
 

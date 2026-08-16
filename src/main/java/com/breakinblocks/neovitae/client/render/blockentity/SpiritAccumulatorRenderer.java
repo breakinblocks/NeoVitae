@@ -32,6 +32,8 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
     private static final float HB = 0.34f;
     private static final float CORE_SCALE = 0.72f;
     private static final float MIN_CORE_FILL = 0.08f;
+    private static final float LOCKED_ALPHA = 0.95f;
+    private static final float UNLOCKED_ALPHA = 0.4f;
 
     private static final float[][] DIRS = { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
     private static final float[] TOP_SHADE = { 1.0f, 0.9f, 0.82f, 0.9f };
@@ -43,6 +45,7 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         public float bobY;
         public boolean hasCore;
         public int coreColor;
+        public float coreAlpha;
         public float fill;
     }
 
@@ -65,6 +68,7 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         if (s.hasCore) {
             s.coreColor = SpiritusTooltipHelper.spiritusColor(type);
             s.fill = Math.max(MIN_CORE_FILL, be.getFillFraction());
+            s.coreAlpha = be.isLocked() ? LOCKED_ALPHA : UNLOCKED_ALPHA;
         }
     }
 
@@ -76,10 +80,11 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         boolean hasCore = s.hasCore;
         int color = s.coreColor;
         float fill = s.fill;
+        float alpha = s.coreAlpha;
         int light = s.lightCoords;
         collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(TEXTURE), (pose, buf) -> {
             if (hasCore) {
-                drawCore(pose, buf, color, fill);
+                drawCore(pose, buf, color, fill, alpha);
             }
             drawShell(pose, buf, light);
         });
@@ -106,11 +111,10 @@ public class SpiritAccumulatorRenderer implements BlockEntityRenderer<SpiritAccu
         }
     }
 
-    private static void drawCore(PoseStack.Pose pose, VertexConsumer buf, int color, float fill) {
+    private static void drawCore(PoseStack.Pose pose, VertexConsumer buf, int color, float fill, float a) {
         float r = ((color >> 16) & 0xFF) / 255f;
         float g = ((color >> 8) & 0xFF) / 255f;
         float b = (color & 0xFF) / 255f;
-        float a = 0.95f;
         int light = LightCoordsUtil.FULL_BRIGHT;
 
         float w = W * CORE_SCALE;

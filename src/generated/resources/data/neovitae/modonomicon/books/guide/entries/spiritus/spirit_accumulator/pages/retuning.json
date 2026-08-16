@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "retuning",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.spiritus.spirit_accumulator.retuning.text",
+  "title": "book.neovitae.guide.spiritus.spirit_accumulator.retuning.title"
+}

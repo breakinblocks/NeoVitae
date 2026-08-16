@@ -34,28 +34,71 @@ public final class SpiritAccumulatorTests {
     }
 
     public static void register(NVTestRegistrar r) {
-        r.add("spirit_accumulator/attunes_and_locks", 40, helper -> {
+        r.add("spirit_accumulator/starts_unattuned_and_unlocked", 40, helper -> {
             SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
             helper.runAfterDelay(1, () -> {
                 if (be == null) return;
-                if (!be.insertSpiritus(SpiritusType.RUINA, 50)) {
-                    helper.fail("Fresh accumulator should accept any type");
+                if (be.getAttunedType() != null || be.isLocked()) {
+                    helper.fail("A placed accumulator should be unattuned and unlocked, type="
+                            + be.getAttunedType() + " locked=" + be.isLocked());
                     return;
                 }
-                if (be.getAttunedType() != SpiritusType.RUINA) {
-                    helper.fail("Accumulator should attune to the inserted type, got " + be.getAttunedType());
-                    return;
-                }
-                if (be.canAccept(SpiritusType.NIHILUM)) {
-                    helper.fail("Attuned accumulator must reject other types");
-                    return;
-                }
-                if (!be.canAccept(SpiritusType.RUINA)) {
-                    helper.fail("Attuned accumulator must keep accepting its own type");
+                if (be.insertSpiritus(SpiritusType.RUINA, 50)) {
+                    helper.fail("An unattuned accumulator must not accept spiritus");
                     return;
                 }
                 helper.succeed();
+            });
+        });
+
+        r.add("spirit_accumulator/cycles_and_locks", 40, helper -> {
+            SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (be == null) return;
+                if (be.cycleAttunement() != SpiritusType.RAW) {
+                    helper.fail("First cycle should select the first aspect, got " + be.getAttunedType());
+                    return;
+                }
+                if (be.cycleAttunement() != SpiritusType.RUINA) {
+                    helper.fail("Second cycle should advance the aspect, got " + be.getAttunedType());
+                    return;
+                }
+                if (!be.lock()) {
+                    helper.fail("Locking an attuned accumulator should succeed");
+                    return;
+                }
+                if (be.cycleAttunement() != SpiritusType.RUINA) {
+                    helper.fail("A locked accumulator must not cycle, got " + be.getAttunedType());
+                    return;
+                }
+                if (!be.canAccept(SpiritusType.RUINA) || be.canAccept(SpiritusType.NIHILUM)) {
+                    helper.fail("A locked accumulator should accept only its own aspect");
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("spirit_accumulator/unlocked_does_not_draw", 120, helper -> {
+            BlockPos pos = new BlockPos(3, 1, 2);
+            SpiritAccumulatorBlockEntity be = place(helper, pos);
+
+            helper.runAfterDelay(40, () -> {
+                if (be == null) return;
+                BlockPos worldPos = helper.absolutePos(pos);
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.RUINA, 100);
+                be.cycleAttunement();
+                be.cycleAttunement();
+
+                helper.runAfterDelay(5, () -> {
+                    if (be.getStored() > 0) {
+                        helper.fail("An unlocked accumulator must not draw from the chunk, stored=" + be.getStored());
+                        return;
+                    }
+                    helper.succeed();
+                });
             });
         });
 
@@ -67,8 +110,8 @@ public final class SpiritAccumulatorTests {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
                 WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 1_000_000);
-                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 50);
-                be.insertSpiritus(SpiritusType.NIHILUM, 50);
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.NIHILUM, 20);
+                be.attuneTo(SpiritusType.NIHILUM);
                 double storedBefore = be.getStored();
 
                 helper.runAfterDelay(5, () -> {
@@ -86,20 +129,21 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/fills_from_saturated_chunk", 120, helper -> {
+        r.add("spirit_accumulator/fills_from_burnt_crystal", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
             helper.runAfterDelay(40, () -> {
                 if (be == null) return;
                 BlockPos worldPos = helper.absolutePos(pos);
-                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.VINDICTA, 100);
-                be.insertSpiritus(SpiritusType.VINDICTA, 50);
+                WorldSpiritusHandler.drainSpiritusFromChunk(helper.getLevel(), worldPos, SpiritusType.VINDICTA, 1_000_000);
+                WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), worldPos, SpiritusType.VINDICTA, 50);
+                be.attuneTo(SpiritusType.VINDICTA);
                 double storedBefore = be.getStored();
 
                 helper.runAfterDelay(5, () -> {
                     if (be.getStored() <= storedBefore) {
-                        helper.fail("Accumulator should fill from a saturated chunk, stored=" + be.getStored()
+                        helper.fail("Accumulator should fill from a chunk above the floor, stored=" + be.getStored()
                                 + " chunk=" + WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.VINDICTA));
                         return;
                     }
@@ -113,7 +157,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/shard_use_attunes", 60, helper -> {
+        r.add("spirit_accumulator/crystal_locks_without_being_consumed", 60, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -133,16 +177,17 @@ public final class SpiritAccumulatorTests {
                     helper.fail("Using a shard on the accumulator should succeed, got " + result);
                     return;
                 }
-                if (be.getAttunedType() != SpiritusType.RUINA) {
-                    helper.fail("Shard use should attune the accumulator, type=" + be.getAttunedType());
+                if (be.getAttunedType() != SpiritusType.RUINA || !be.isLocked()) {
+                    helper.fail("Shard use should attune and lock the accumulator, type=" + be.getAttunedType()
+                            + " locked=" + be.isLocked());
                     return;
                 }
-                if (be.getStored() != 50) {
-                    helper.fail("One shard should add 50 spiritus, stored=" + be.getStored());
+                if (be.getStored() != 0) {
+                    helper.fail("A shard should not deposit spiritus, stored=" + be.getStored());
                     return;
                 }
-                if (player.getItemInHand(InteractionHand.MAIN_HAND).getCount() != 1) {
-                    helper.fail("Shard should be consumed, count=" + player.getItemInHand(InteractionHand.MAIN_HAND).getCount());
+                if (player.getItemInHand(InteractionHand.MAIN_HAND).getCount() != 2) {
+                    helper.fail("Shard should not be consumed, count=" + player.getItemInHand(InteractionHand.MAIN_HAND).getCount());
                     return;
                 }
                 helper.succeed();
@@ -154,15 +199,23 @@ public final class SpiritAccumulatorTests {
 
             helper.runAfterDelay(1, () -> {
                 if (be == null) return;
+                be.attuneTo(SpiritusType.VINDICTA);
                 be.insertSpiritus(SpiritusType.VINDICTA, 50);
-                be.vent(SpiritAccumulatorBlockEntity.CAPACITY);
-                if (be.getAttunedType() != null || be.getStored() != 0) {
-                    helper.fail("Fully vented accumulator should clear its attunement, type="
-                            + be.getAttunedType() + " stored=" + be.getStored());
+                if (be.unlock()) {
+                    helper.fail("A stocked accumulator should not unlock");
                     return;
                 }
-                if (!be.insertSpiritus(SpiritusType.NIHILUM, 50) || be.getAttunedType() != SpiritusType.NIHILUM) {
-                    helper.fail("Emptied accumulator should re-attune to a new type");
+                be.vent(SpiritAccumulatorBlockEntity.CAPACITY);
+                if (be.getStored() != 0) {
+                    helper.fail("Venting should empty the accumulator, stored=" + be.getStored());
+                    return;
+                }
+                if (!be.unlock() || be.isLocked()) {
+                    helper.fail("An emptied accumulator should unlock");
+                    return;
+                }
+                if (be.cycleAttunement() != null || be.cycleAttunement() != SpiritusType.RAW) {
+                    helper.fail("An unlocked accumulator should cycle onwards, type=" + be.getAttunedType());
                     return;
                 }
                 helper.succeed();

@@ -112,6 +112,7 @@ public enum NVBlockDataProvider implements IServerDataProvider<BlockAccessor> {
 
         if (be instanceof SpiritAccumulatorBlockEntity accumulator) {
             data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
+            data.putBoolean("accumulator_locked", accumulator.isLocked());
             data.putDouble("accumulator_stored", accumulator.getStored());
         }
 

@@ -99,7 +99,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Crystallarium Maleficum**. Seeder block. When air is above and the chunk holds enough Aura (default 99), it spends that Aura over time to form the first **[Spiritus Crystal](Spiritus-Aspects-and-Crystals)** of the chunk's dominant Aspect on its top face. Further growth is then handled by the crystal itself.
 
-**Spirit Accumulator**. Aura reservoir. Holds 1000 Spiritus of one Aspect, attuned by the first shard fed to it and locked until emptied. Skims up to 25 per tick from its own chunk, never below 75. Acts as a routing input node. See [Spiritus](Spiritus-Aspects-and-Crystals).
+**Spirit Accumulator**. Aura reservoir. Holds 1000 Spiritus of one Aspect. Placed unattuned; right-click to cycle the Aspect, crouch-click to lock it, or right-click with a Spiritus crystal to lock straight to that Aspect. Skims up to 25 per tick from its own chunk once locked, never below 30. Acts as a routing input node. See [Spiritus](Spiritus-Aspects-and-Crystals).
 
 ## Networks
 

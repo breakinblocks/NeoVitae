@@ -28,6 +28,7 @@ import com.breakinblocks.neovitae.api.routing.IRoutingNodeHost;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
@@ -37,6 +38,8 @@ import javax.annotation.Nullable;
 public class SpiritAccumulatorBlock extends BaseEntityBlock implements IRoutingNodeHost {
 
     public static final MapCodec<SpiritAccumulatorBlock> CODEC = simpleCodec(SpiritAccumulatorBlock::new);
+
+    private static final double VENT_AMOUNT = 50.0;
 
     private static final VoxelShape SHAPE = Shapes.or(
             box(7.2, 2.8, 7.2, 8.8, 5, 8.8),
@@ -86,18 +89,60 @@ public class SpiritAccumulatorBlock extends BaseEntityBlock implements IRoutingN
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!player.isShiftKeyDown()) {
-            return InteractionResult.PASS;
-        }
         if (!(level.getBlockEntity(pos) instanceof SpiritAccumulatorBlockEntity accumulator)) {
             return InteractionResult.PASS;
         }
         if (level.isClientSide()) return InteractionResult.SUCCESS;
-        if (accumulator.vent(50.0) > 0) {
-            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.6f, 0.8f);
+
+        if (player.isShiftKeyDown()) {
+            return toggleLock(level, pos, player, accumulator);
+        }
+
+        if (accumulator.isLocked()) {
+            sendAttunement(player, accumulator.getAttunedType(), "chat.neovitae.spirit_accumulator.locked");
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+
+        SpiritusType cycled = accumulator.cycleAttunement();
+        level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.5f, cycled == null ? 0.8f : 1.2f);
+        if (cycled == null) {
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.spirit_accumulator.unattuned"));
+        } else {
+            sendAttunement(player, cycled, "chat.neovitae.spirit_accumulator.attuned");
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    private static InteractionResult toggleLock(Level level, BlockPos pos, Player player, SpiritAccumulatorBlockEntity accumulator) {
+        if (!accumulator.isLocked()) {
+            if (!accumulator.lock()) {
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.spirit_accumulator.select_first"));
+                return InteractionResult.SUCCESS;
+            }
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.6f, 1.2f);
+            sendAttunement(player, accumulator.getAttunedType(), "chat.neovitae.spirit_accumulator.locked");
+            return InteractionResult.SUCCESS;
+        }
+
+        if (accumulator.unlock()) {
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.6f, 0.8f);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.spirit_accumulator.unlocked"));
+            return InteractionResult.SUCCESS;
+        }
+
+        double vented = accumulator.vent(VENT_AMOUNT);
+        if (vented > 0) {
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.6f, 0.8f);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.spirit_accumulator.venting"));
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    private static void sendAttunement(Player player, @Nullable SpiritusType type, String key) {
+        if (type == null) return;
+        player.sendOverlayMessage(Component.translatable(key,
+                Component.translatable("tooltip.neovitae.spiritus." + type.getSerializedName())
+                        .withColor(SpiritusTooltipHelper.spiritusColor(type))));
     }
 
     @Override
@@ -105,24 +150,18 @@ public class SpiritAccumulatorBlock extends BaseEntityBlock implements IRoutingN
         if (!(level.getBlockEntity(pos) instanceof SpiritAccumulatorBlockEntity accumulator)) {
             return InteractionResult.PASS;
         }
-
-        if (stack.getItem() instanceof SpiritusCrystalItem crystal) {
-            if (level.isClientSide()) return InteractionResult.SUCCESS;
-            if (!accumulator.canAccept(crystal.getSpiritusType())) {
-                if (accumulator.getAttunedType() != null) {
-                    player.sendOverlayMessage(Component.translatable("chat.neovitae.spirit_accumulator.locked",
-                            Component.translatable("tooltip.neovitae.spiritus." + accumulator.getAttunedType().getSerializedName())
-                                    .withColor(SpiritusTooltipHelper.spiritusColor(accumulator.getAttunedType()))));
-                }
-                return InteractionResult.PASS;
-            }
-            if (accumulator.insertSpiritus(crystal.getSpiritusType(), crystal.getSpiritus(stack.copyWithCount(1)))) {
-                stack.consume(1, player);
-                level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.7f, 1.1f);
-                return InteractionResult.SUCCESS;
-            }
+        if (!(stack.getItem() instanceof SpiritusCrystalItem crystal)) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-        return InteractionResult.PASS;
+        SpiritusType type = crystal.getSpiritusType();
+        if (accumulator.attuneTo(type)) {
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.6f, 1.2f);
+            sendAttunement(player, type, "chat.neovitae.spirit_accumulator.locked");
+        } else {
+            sendAttunement(player, accumulator.getAttunedType(), "chat.neovitae.spirit_accumulator.locked");
+        }
+        return InteractionResult.SUCCESS;
     }
 }

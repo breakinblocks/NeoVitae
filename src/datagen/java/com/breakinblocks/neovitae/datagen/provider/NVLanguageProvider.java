@@ -623,7 +623,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
         add(NVBlocks.SPIRIT_ACCUMULATOR, "Spirit Accumulator");
-        add("chat.neovitae.spirit_accumulator.locked", "Attuned to %s until fully emptied");
+        add("chat.neovitae.spirit_accumulator.locked", "Locked to %s");
+        add("chat.neovitae.spirit_accumulator.attuned", "Tuning to %s");
+        add("chat.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("chat.neovitae.spirit_accumulator.unlocked", "Unlocked, right-click to retune");
+        add("chat.neovitae.spirit_accumulator.select_first", "Choose an Aspect before locking");
+        add("chat.neovitae.spirit_accumulator.venting", "Venting into the chunk, empty it to unlock");
         add(NVBlocks.VITAE_LINK, "Vitae Link");
         add(NVBlocks.ORB_FILLING_LINK, "Orb Vitae Link");
 
@@ -934,6 +939,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("jade.neovitae.orb_link.unlinked", "Unlinked");
         add("jade.neovitae.orb_link.network", "Network: %s%%");
         add("jade.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("jade.neovitae.spirit_accumulator.unlocked", "Unlocked");
         add("jade.neovitae.spiritus_stored", "%s: %s / %s");
         add("jade.neovitae.spiritus_amount", "%s: %s");
         add("jade.neovitae.vas.filling", "Filling gem from chunk");

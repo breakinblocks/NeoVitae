@@ -712,7 +712,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.reader.rangeSelected", "Range selected: %s");
         add("chat.neovitae.reader.corner1Set", "Corner 1 set at %d, %d, %d");
         add("chat.neovitae.reader.areaSet", "Area '%s' updated successfully.");
-        add("chat.neovitae.reader.areaRetry", " Corner kept; click another block to try again.");
+        add("chat.neovitae.reader.areaRetry", " Corner kept; click another block to try again, or Sneak and Use in the air to cancel.");
+        add("chat.neovitae.reader.cornerRejected", " Pick a corner closer to the Master Ritual Stone.");
         add("chat.neovitae.reader.invalidRange", "Invalid range key.");
         add("chat.neovitae.reader.spiritusType", "Spiritus type set to: %s");
         add("chat.neovitae.gem.spawner_no_spiritus", "Not enough Spiritus. Capturing a spawner needs %s.");

@@ -619,6 +619,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
+        add(NVBlocks.SPIRIT_ACCUMULATOR, "Spirit Accumulator");
+        add("chat.neovitae.spirit_accumulator.locked", "Attuned to %s until fully emptied");
         add(NVBlocks.VITAE_LINK, "Vitae Link");
         add(NVBlocks.ORB_FILLING_LINK, "Orb Vitae Link");
 
@@ -928,6 +930,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jade.neovitae.orb_link.linked", "Linked");
         add("jade.neovitae.orb_link.unlinked", "Unlinked");
         add("jade.neovitae.orb_link.network", "Network: %s%%");
+        add("jade.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("jade.neovitae.spiritus_stored", "%s: %s / %s");
+        add("jade.neovitae.spiritus_amount", "%s: %s");
+        add("jade.neovitae.vas.filling", "Filling gem from chunk");
+        add("jade.neovitae.vas.releasing", "Releasing into chunk");
+        add("jade.neovitae.vas.seeding", "Dissolving crystals into chunk");
+        add("jade.neovitae.vas.idle", "Idle");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
@@ -1117,7 +1126,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("config.jade.plugin_neovitae.block_info", "Neo Vitae Block Info");
 
         // Blood Orb
-        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that blocks all frontal damage. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
+        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that stops ranged attacks from your front arc. Melee still lands, and tridents or Throwing Daggers drop at the ward instead of being destroyed. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
 
         add("jei.neovitae.disenchant.info", "With a Sanguine Reverter in the Athanor's tool slot, you can disenchant items.\n\nPlace a stack of Books and one enchanted item (gear, a tool, or an enchanted book) in the inputs. Each operation lifts one enchantment onto a book and removes it from the item, costing 5 raw spiritus and 100 mB of Essentia Vitae.\n\nWhen the item has no enchantments left, it moves to the output. It runs only while you have books to fill and room in the output to hold them.");
         add("jei.neovitae.disenchant.any_item", "Any Enchanted Item");

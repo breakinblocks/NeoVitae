@@ -2,7 +2,7 @@
 
 > *Hauling materials by hand is beneath a blood mage of your stature.*
 
-The **Routing Network** is NeoVitae's logistics layer, moving items, fluids, and Forge Energy through invisible channels at your decree, sorted and filtered face by face. This page is more technical than the dungeon material; read it once, build a small test network, then come back for the details.
+The **Routing Network** is NeoVitae's logistics layer, moving items, fluids, Forge Energy, and Spiritus through invisible channels at your decree, sorted and filtered face by face. This page is more technical than the dungeon material; read it once, build a small test network, then come back for the details.
 
 For spatial transport of *blocks themselves*, see [Teleposer](Teleposer). For running an [Ara Vitae](Ara-Vitae-and-Runes) unattended from the network, see [Automating the Ara Vitae](Automating-the-Ara-Vitae).
 
@@ -18,6 +18,8 @@ A complete Routing Network has exactly three kinds of node, and a network needs 
 | **Routing Conduit** | A passive relay that extends reach between active nodes. Pure plumbing. |
 
 Every network requires **exactly one Master**. All other nodes must trace a path back to it, either directly or via conduits. Input and Output nodes interact with any **adjacent** block that supports item, fluid, or energy transfer; they have no internal storage of their own.
+
+One further block joins a network without being a node block of its own: the **[Spirit Accumulator](Spiritus-Aspects-and-Crystals)** binds and links exactly like an Input Node, and offers whatever Spiritus it holds to the network. See [Spiritus](#spiritus) below.
 
 ## How Connections Happen
 
@@ -75,6 +77,21 @@ Keep amounts apply only to **Whitelist** ghosts; Blacklist and Auto-Match ignore
 ### Energy
 
 Energy has **no whitelist or blacklist**. Any enabled face carries Forge Energy to compatible neighbors alongside items and fluids. The only gates are the face's **Enable** flag and the Master's **Energy Throttle**.
+
+### Spiritus
+
+The **Spiritus** tab is the odd one out: it has no ghost grid, no faces, and no adjacent block. It appears on **Output Nodes** only, and it stocks the node's **own chunk** with Spiritus drawn from [Spirit Accumulators](Spiritus-Aspects-and-Crystals) elsewhere on the network.
+
+Two controls:
+
+- **Type**. Cycles through **Off** and the five Aspects (Raw, Ruina, Nihilum, Vindicta, Invictus). Off disables the channel for this node.
+- **Keep**. The amount of that Aspect to maintain in the node's chunk. Adjust in steps of **10**, or **100** with **Shift** held, up to **1000**. Zero disables the channel.
+
+The node tops its chunk up toward the Keep figure and stops, exactly like a Keep Amount on an Output face, and it never pushes past the chunk's own Aura ceiling (**100** per Aspect by default), so a Keep figure larger than the ceiling simply fills the chunk. Face **Enable** flags and Priority work as usual; the Spiritus channel reads the **Up** face's priority.
+
+Since no neighbor block is involved, an Output Node dedicated to Spiritus can sit alone in the chunk it feeds. Place one in each chunk that needs Aura and let the network keep them all supplied.
+
+See [Automating Spiritus](Automating-Spiritus) for the full supply chain.
 
 ## The Master Routing Node
 

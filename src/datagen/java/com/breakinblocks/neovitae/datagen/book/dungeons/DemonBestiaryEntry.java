@@ -39,31 +39,31 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "The [#](8B0000)Blood Demon[#](). A shambling melee creature that attacks with "
                         + "necrotic claw swipes and grave leaps. Relatively fragile at 30 HP but can close "
                         + "distance quickly.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Gore-Clotted Fang, Tainted Flesh, Default/Spiritus Nihilum");
+                        + "[#](2E8B57)Drops[#](): Gore-Clotted Fang, Tainted Flesh, Rotten Flesh");
 
         // --- Daemonium Pestis ---
         addMob("pestis", "neovitae:daemonium_pestis", "Daemonium Pestis", 0.5f,
                 "The [#](2E8B57)Pestilence Spider[#](). A venomous creature with fang bites and "
                         + "shadow lunges. Low health (30 HP) but its poison is deadly in groups.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Venomgland Sac, Tainted Flesh, Ruina/Raw Spiritus, Spider Eye");
+                        + "[#](2E8B57)Drops[#](): Venomgland Sac, Tainted Flesh, Spider Eye, String");
 
         // --- Daemonium Rancoris ---
         addMob("rancoris", "neovitae:daemonium_rancoris", "Daemonium Rancoris", 0.4f,
                 "The [#](4A0080)Spite Phantom[#](). A spectral ranged attacker that fires spectral "
                         + "bolts and ectoplasmic bursts. Fragile (45 HP) but dangerous at range.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Ectoplasmic Residue, Tainted Flesh, Vindicta/Spiritus Invictus");
+                        + "[#](2E8B57)Drops[#](): Ectoplasmic Residue, Tainted Flesh, Arrows, Bone");
 
         // --- Daemonium Animaris ---
         addMob("animaris", "neovitae:daemonium_animaris", "Daemonium Animaris", 0.6f,
                 "The [#](4A0080)Soul Wraith[#](). A flying spectral entity that charges through "
                         + "targets. Elusive and difficult to pin down at 30 HP.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Animus Mote, Invictus/Spiritus Vindicta, Phantom Membrane (rare)");
+                        + "[#](2E8B57)Drops[#](): Animus Mote, Phantom Membrane (rare)");
 
         // --- Daemonium Voraxis ---
         addMob("voraxis", "neovitae:daemonium_voraxis", "Daemonium Voraxis", 0.4f,
                 "The [#](8B0000)Voracious Oni[#](). A mid-tier threat with life-draining slash "
                         + "attacks and hunger effects. Sturdy at 60 HP with decent armor.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Hollow Gut, Tainted Flesh, Nihilum/Spiritus Ruina, "
+                        + "[#](2E8B57)Drops[#](): Hollow Gut, Tainted Flesh, Leather, "
                         + "Raw Demonite (rare)");
 
         // --- Daemonium Corrodis ---
@@ -71,7 +71,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "[#](8B0000)The Wither Knight[#](). An elite melee combatant clad in heavy armor "
                         + "with three attack phases. Every blow carries a withering curse that rots flesh on contact, "
                         + "and its strikes often leave victims drained and enfeebled.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Ruina/Spiritus Vindicta, "
+                        + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Tainted Flesh, Bone, "
                         + "Wither Skeleton Skull (rare)");
 
         // --- Daemonium Ignis ---
@@ -79,8 +79,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "The [#](8B0000)Fire Demon[#](). An apex predator wreathed in flame, immune to fire, "
                         + "that alternates between fireball barrages, ground slams, and rapid sword "
                         + "combos that leave victims barely able to move.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Cinder Heart Fragment, Raw Demonite, Nihilum/Ruina "
-                        + "Spiritus, Blaze Rod (rare)");
+                        + "[#](2E8B57)Drops[#](): Cinder Heart Fragment, Tainted Flesh, Blaze Rod (rare)");
 
         // --- Daemonium Fervidis ---
         addMob("fervidis", "neovitae:daemonium_fervidis", "Daemonium Fervidis", 0.3f,
@@ -88,7 +87,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "swings, revenant smash leaps, and a defensive bear stance that grants "
                         + "near-invulnerability.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Revenant Plate, Gore-Clotted Fang (rare), Raw Demonite, "
-                        + "Nihilum/Spiritus Invictus");
+                        + "Tainted Flesh, Gold Ingot");
 
         // --- Daemonium Doloris ---
         addMob("doloris", "neovitae:daemonium_doloris", "Daemonium Doloris", 0.3f,
@@ -98,7 +97,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "A vastly empowered variant known as [#](8B0000)The Foreman[#]() (600 HP, 25 damage, "
                         + "16 armor) guards the mine entrance. Defeating it drops a clutch of [#](8B0000)Mine Dungeon Keys[#]().\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, "
-                        + "Vindicta/Spiritus Nihilum");
+                        + "Tainted Flesh, Ice");
 
         // --- Daemonium Glaciaris ---
         addMob("glaciaris", "neovitae:daemonium_glaciaris", "Daemonium Glaciaris", 0.25f,
@@ -106,7 +105,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "(250 HP) with ice projectiles, beam attacks, ice wall summons, shard bursts, and a "
                         + "mist phase that renders it briefly invulnerable.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Permafrost Core, Frozen Marrow Shard (rare), Raw Demonite, "
-                        + "all Spiritus types");
+                        + "Blue Ice");
     }
 
     private void addMob(String id, String entityId, String name, float scale, String description) {

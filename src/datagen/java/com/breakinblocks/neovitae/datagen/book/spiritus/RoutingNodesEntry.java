@@ -25,7 +25,8 @@ public class RoutingNodesEntry extends EntryProvider {
         this.pageTitle("Routing Nodes");
         this.pageText("Hauling materials by hand is beneath a blood mage of your stature. With [#](8B0000)Spiritus[#]() "
                 + "at your command, you have devised [#](8B0000)Routing Nodes[#](), an arcane logistics network "
-                + "that transports, sorts, and filters [#](8B0000)items[#](), [#](8B0000)fluids[#](), and [#](8B0000)Forge Energy[#]() "
+                + "that transports, sorts, and filters [#](8B0000)items[#](), [#](8B0000)fluids[#](), "
+                + "[#](8B0000)Forge Energy[#](), and the [#](4A0080)Aura[#]() itself "
                 + "through invisible channels at your decree.");
 
         this.page("components", () -> BookTextPageModel.create()
@@ -165,6 +166,18 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "behind and draws only the surplus.\\\n\\\n"
                 + "[#](2E8B57)Fluids honor the same rule, measured in millibuckets.[#]()");
 
+        this.page("spiritus_channel", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Spiritus Channel");
+        this.pageText("An [#](8B0000)Output Node[#]() carries a third tab, [#](8B0000)Spiritus[#](), unlike any "
+                + "other. It has no ghost grid and no chosen face, for it serves no adjacent block at all: "
+                + "it seeds the [#](4A0080)Aura[#]() of the very chunk the node stands in.\\\n\\\n"
+                + "Name an [#](8B0000)Aspect[#]() and a [#](8B0000)Keep[#]() figure, and the node holds that "
+                + "chunk at that level, drawing on any [#](8B0000)Spirit Accumulator[#]() bound to the "
+                + "network. It will not push the Aura past its natural ceiling.\\\n\\\n"
+                + "[#](2E8B57)Set Type to Off, or Keep to zero, and the channel sleeps.[#]()");
+
         this.page("auto_bind", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
@@ -275,7 +288,7 @@ public class RoutingNodesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "An arcane logistics network for items, fluids, and energy.";
+        return "An arcane logistics network for items, fluids, energy, and Aura.";
     }
 
     @Override

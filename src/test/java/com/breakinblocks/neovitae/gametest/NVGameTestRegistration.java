@@ -31,5 +31,9 @@ public class NVGameTestRegistration {
         event.register(QuarryBackfillTests.class);
 
         event.register(BloodOrbTests.class);
+        event.register(SpiritAccumulatorTests.class);
+        event.register(VasMaleficumTests.class);
+        event.register(SpiritusRoutingTests.class);
+        event.register(SanguineWardTests.class);
     }
 }

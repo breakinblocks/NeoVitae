@@ -56,6 +56,7 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.ORB_FILLING_LINK);
         addDropSelf(NVBlocks.CRYSTALLARIUM_MALEFICUM);
         addDropSelf(NVBlocks.VAS_MALEFICUM);
+        addDropSelf(NVBlocks.SPIRIT_ACCUMULATOR);
         addDropSelf(NVBlocks.SPIRA_INFERNALIS);
         addDropSelf(NVBlocks.INPUT_ROUTING_NODE);
         addDropSelf(NVBlocks.OUTPUT_ROUTING_NODE);

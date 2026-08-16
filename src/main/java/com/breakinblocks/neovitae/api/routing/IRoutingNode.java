@@ -7,6 +7,7 @@ package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface IRoutingNode {
      * Gets the current block position of this node.
      */
     BlockPos getCurrentBlockPos();
+
+    default Vec3 getBeamAnchor() {
+        return Vec3.atCenterOf(getCurrentBlockPos());
+    }
 
     /**
      * Gets the list of connected node positions.

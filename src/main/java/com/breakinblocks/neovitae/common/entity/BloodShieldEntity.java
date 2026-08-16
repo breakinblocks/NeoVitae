@@ -24,7 +24,7 @@ import java.util.UUID;
 public class BloodShieldEntity extends Entity implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(BloodShieldEntity.class, EntityDataSerializers.INT);
-    private static final float SHIELD_DISTANCE = 2.5f;
+    public static final float SHIELD_DISTANCE = 2.5f;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Nullable
@@ -97,13 +97,21 @@ public class BloodShieldEntity extends Entity implements GeoEntity {
     public void tick() {
         super.tick();
         Player owner = getOwner();
+
+        if (level().isClientSide()) {
+            if (owner != null) {
+                updatePosition(owner);
+            }
+            return;
+        }
+
         if (owner == null || !owner.isAlive()
                 || !BloodOrbItem.isShieldActive(owner)
                 || !(owner.getOffhandItem().getItem() instanceof BloodOrbItem)) {
             discard();
             return;
         }
-        if (!level().isClientSide() && owner.tickCount % 20 == 0) {
+        if (owner.tickCount % 20 == 0) {
             IAnima network = NeoVitaeAPI.getInstance().getAnima(owner.getUUID());
             if (network == null || network.getCurrentEV() < BloodOrbItem.getShieldDrain()) {
                 BloodOrbItem.setShieldActive(owner, false);

@@ -45,9 +45,9 @@ Should even the Divinus Orb not sate your ambitions, **Runes of the Orb** carved
 
 Any Orb of Vitae held in the off-hand may be raised as a ward. Hold the **use key** to conjure a translucent barrier of crystallised Essentia Vitae before you. The ward persists for as long as you hold the key and vanishes the instant you release it.
 
-While active, the ward blocks all damage originating from your **front arc**, draining **50 EV per second** from your Anima to maintain it. If your Anima falls below **200 EV**, the ward cannot be raised. The exact drain rate and threshold are configurable in `config/neovitae-server.toml`, so pack-makers may tune the cost to taste.
+While active, the ward stops **ranged attacks** that come from your **front arc**: arrows, tridents, fireballs, and anything else that flies. Ordinary shots are consumed outright, but anything you would normally get back, a **trident** or a **Throwing Dagger**, is set down at the face of the ward instead and falls to the ground for you to collect. Maintaining the ward drains **50 EV per second** from your Anima, and it cannot be raised at all if your Anima is below **200 EV**. The exact drain rate and threshold are configurable in `config/neovitae-server.toml`, so pack-makers may tune the cost to taste.
 
-> The ward moves with you, always positioned directly ahead. Attacks from behind or the sides bypass it entirely. Step carefully when surrounded.
+> The ward turns aside arrows, not axes. Melee blows land through it as normal, and anything arriving from behind or the sides bypasses it entirely. It is an answer to skeletons and blaze fire, not to a creeper in your face.
 
 ## Reading the Anima
 

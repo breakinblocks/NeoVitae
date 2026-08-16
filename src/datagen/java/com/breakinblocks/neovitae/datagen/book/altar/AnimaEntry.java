@@ -87,12 +87,14 @@ public class AnimaEntry extends EntryProvider {
                 + "Hold the [#](8B0000)Blood Shield[#]() key (right-click by default, rebindable in Controls) to conjure a "
                 + "translucent barrier of crystallised [#](4A0080)Essentia Vitae[#]() before you. The ward persists for "
                 + "as long as you hold the key and vanishes the instant you release it."
-                + "\\\n\\\nWhile active, the ward blocks all damage originating from your front arc, "
-                + "draining [#](8B0000)50 EV per second[#]() from your [#](4A0080)Anima[#]() to maintain it. "
-                + "If your [#](4A0080)Anima[#]() falls below [#](8B0000)200 EV[#](), "
-                + "the ward cannot be raised."
-                + "\\\n\\\n[#](2E8B57)The ward moves with you, always positioned directly ahead. "
-                + "Attacks from behind or the sides will bypass it entirely.[#]()");
+                + "\\\n\\\nWhile active, the ward turns aside [#](8B0000)ranged attacks[#]() from your front arc: "
+                + "arrows, tridents, fireballs, and all else that flies. Common shot is unmade against it, but "
+                + "a [#](8B0000)trident[#]() or [#](8B0000)Throwing Dagger[#]() is laid down at the ward's face "
+                + "to be taken up again. "
+                + "Holding it drains [#](8B0000)50 EV per second[#]() from your [#](4A0080)Anima[#](), "
+                + "and it cannot be raised at all below [#](8B0000)200 EV[#]()."
+                + "\\\n\\\n[#](2E8B57)It is a ward against arrows, not against axes. A blade will find you "
+                + "through it, as will anything striking from behind or the sides.[#]()");
     }
 
     @Override

@@ -20,7 +20,14 @@ import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -127,6 +134,48 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
                 tooltip.add(Component.translatable("jade.neovitae.orb_link.unlinked").withStyle(ChatFormatting.RED));
             }
         }
+
+        if (data.contains("accumulator_stored")) {
+            SpiritusType type = typeByName(data.getString("accumulator_type"));
+            if (type == null) {
+                tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unattuned").withStyle(ChatFormatting.GRAY));
+            } else {
+                addSpiritusLine(tooltip, type, data.getDouble("accumulator_stored"), SpiritAccumulatorBlockEntity.CAPACITY);
+            }
+        }
+
+        if (data.contains("vas_type")) {
+            SpiritusType type = typeByName(data.getString("vas_type"));
+            if (type != null) {
+                addSpiritusLine(tooltip, type, data.getDouble("vas_stored"), data.getDouble("vas_max"));
+            }
+            switch (data.getString("vas_mode")) {
+                case "filling" -> tooltip.add(Component.translatable("jade.neovitae.vas.filling").withStyle(ChatFormatting.GREEN));
+                case "releasing" -> tooltip.add(Component.translatable("jade.neovitae.vas.releasing").withStyle(ChatFormatting.GOLD));
+                case "seeding" -> tooltip.add(Component.translatable("jade.neovitae.vas.seeding").withStyle(ChatFormatting.LIGHT_PURPLE));
+                case "idle" -> tooltip.add(Component.translatable("jade.neovitae.vas.idle").withStyle(ChatFormatting.DARK_GRAY));
+                default -> { }
+            }
+        }
+    }
+
+    private static SpiritusType typeByName(String name) {
+        for (SpiritusType candidate : SpiritusType.values()) {
+            if (candidate.getSerializedName().equals(name)) {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    private static void addSpiritusLine(ITooltip tooltip, SpiritusType type, double stored, double max) {
+        Component typeName = Component.translatable("tooltip.neovitae.spiritus." + type.getSerializedName())
+                .withColor(SpiritusTooltipHelper.spiritusColor(type));
+        if (max > 0) {
+            tooltip.add(Component.translatable("jade.neovitae.spiritus_stored", typeName, FORMAT.format(stored), FORMAT.format(max)));
+        } else {
+            tooltip.add(Component.translatable("jade.neovitae.spiritus_amount", typeName, FORMAT.format(stored)));
+        }
     }
 
     @Override
@@ -200,6 +249,31 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         if (be instanceof OrbFillingLinkBlockEntity orbLink) {
             data.putBoolean("orb_link_linked", orbLink.isLinked());
             data.putInt("orb_link_network", orbLink.getNetworkPercent());
+        }
+
+        if (be instanceof SpiritAccumulatorBlockEntity accumulator) {
+            data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
+            data.putDouble("accumulator_stored", accumulator.getStored());
+        }
+
+        if (be instanceof VasMaleficumBlockEntity vas) {
+            ItemStack stack = vas.getInventory().getStackInSlot(0);
+            boolean powered = accessor.getLevel().hasNeighborSignal(accessor.getPosition());
+            if (stack.getItem() instanceof SpiritusCrystalItem crystal) {
+                data.putString("vas_type", crystal.getSpiritusType().getSerializedName());
+                data.putDouble("vas_stored", crystal.getSpiritus(stack));
+                data.putString("vas_mode", powered ? "idle" : "seeding");
+            } else if (SpiritusHelper.hasSpiritus(stack)) {
+                SpiritusType type = SpiritusHelper.getCurrentType(stack);
+                data.putString("vas_type", type.getSerializedName());
+                data.putDouble("vas_stored", SpiritusHelper.getSpiritus(stack, type));
+                data.putDouble("vas_max", SpiritusHelper.resolveMaxSpiritus(stack, type));
+                if (SpiritusHelper.isRechargeable(stack)) {
+                    data.putString("vas_mode", powered ? "filling" : "releasing");
+                } else {
+                    data.putString("vas_mode", powered ? "idle" : "releasing");
+                }
+            }
         }
     }
 

@@ -18,6 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Set;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 
@@ -38,7 +40,9 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_SIDE_ENABLED_START = 7;       // +6 for each direction
     public static final int DATA_SIDE_ITEM_MODE_START = 13;    // +6 for each direction
     public static final int DATA_SIDE_FLUID_MODE_START = 19;   // +6 for each direction
-    public static final int DATA_SIZE = 25;
+    public static final int DATA_SPIRITUS_TYPE = 25;
+    public static final int DATA_SPIRITUS_STOCK = 26;
+    public static final int DATA_SIZE = 27;
 
     private static final int GHOST_COLS = SideFilterConfig.PAGE_COLUMNS;
     private static final int GHOST_ROWS = SideFilterConfig.PAGE_ROWS;
@@ -73,6 +77,10 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         return tile.getSideFilter(index - DATA_SIDE_ITEM_MODE_START).getItemMode().ordinal();
                     } else if (index >= DATA_SIDE_FLUID_MODE_START && index < DATA_SIDE_FLUID_MODE_START + 6) {
                         return tile.getSideFilter(index - DATA_SIDE_FLUID_MODE_START).getFluidMode().ordinal();
+                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof OutputRoutingNodeBlockEntity output) {
+                        return output.getSpiritusExportType() == null ? 0 : output.getSpiritusExportType().ordinal() + 1;
+                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof OutputRoutingNodeBlockEntity output) {
+                        return output.getSpiritusStockTarget();
                     }
                     return 0;
                 }
@@ -93,6 +101,12 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         FilterMode[] values = FilterMode.values();
                         int idx = Math.max(0, Math.min(values.length - 1, value));
                         tile.getSideFilter(index - DATA_SIDE_FLUID_MODE_START).setFluidMode(values[idx]);
+                    } else if (index == DATA_SPIRITUS_TYPE && tile instanceof OutputRoutingNodeBlockEntity output) {
+                        SpiritusType[] types = SpiritusType.values();
+                        int clamped = Math.max(0, Math.min(types.length, value));
+                        output.setSpiritusExport(clamped == 0 ? null : types[clamped - 1], output.getSpiritusStockTarget());
+                    } else if (index == DATA_SPIRITUS_STOCK && tile instanceof OutputRoutingNodeBlockEntity output) {
+                        output.setSpiritusExport(output.getSpiritusExportType(), value);
                     }
                 }
 
@@ -267,6 +281,14 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         int ord = data.get(DATA_SIDE_ITEM_MODE_START + sideIndex);
         FilterMode[] values = FilterMode.values();
         return values[Math.max(0, Math.min(values.length - 1, ord))];
+    }
+
+    public int getSpiritusTypeOrdinal() {
+        return data.get(DATA_SPIRITUS_TYPE);
+    }
+
+    public int getSpiritusStock() {
+        return data.get(DATA_SPIRITUS_STOCK);
     }
 
     public FilterMode getSideFluidMode(int sideIndex) {

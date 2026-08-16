@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  * Holds the multipart connection state and the graph-teardown hook; concrete
  * subclasses supply their own {@link #codec()} and {@link #newBlockEntity}.
  */
-public abstract class BlockRoutingNode extends BaseEntityBlock {
+public abstract class BlockRoutingNode extends BaseEntityBlock implements IRoutingNodeHost {
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
     public static final BooleanProperty DOWN = BooleanProperty.create("down");

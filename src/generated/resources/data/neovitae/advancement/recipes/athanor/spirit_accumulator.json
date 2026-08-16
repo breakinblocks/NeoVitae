@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_animus_mote": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:animus_mote"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:spirit_accumulator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_animus_mote"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:spirit_accumulator"
+    ]
+  }
+}

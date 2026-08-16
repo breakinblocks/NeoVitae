@@ -133,12 +133,11 @@ public class SpiritusTests {
             gem.set(NVDataComponents.SPIRITUS_AMOUNT, 50.0);
             crucible.handleInteraction(gem);
 
-            double willBefore = getChunkSpiritus(helper, cruciblePos);
-
             helper.runAfterDelay(60, () -> {
-                double willAfter = getChunkSpiritus(helper, cruciblePos);
-                if (willAfter <= willBefore) {
-                    helper.fail("Crucible should drain gem will into chunk, but will didn't increase (before=" + willBefore + " after=" + willAfter + ")");
+                double gemAfter = crucible.getInventory().getStackInSlot(0)
+                        .getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
+                if (gemAfter >= 50.0) {
+                    helper.fail("Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
                 }
                 helper.succeed();
             });

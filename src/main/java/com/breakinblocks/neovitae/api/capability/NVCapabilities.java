@@ -6,6 +6,7 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.altar.IAraVitae;
+import com.breakinblocks.neovitae.api.spiritus.ISpiritusStorage;
 
 /**
  * NeoVitae capability definitions.
@@ -56,5 +57,11 @@ public final class NVCapabilities {
             BlockCapability.createSided(
                     ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae"),
                     IAraVitae.class
+            );
+
+    public static final BlockCapability<ISpiritusStorage, @Nullable Direction> SPIRITUS_STORAGE =
+            BlockCapability.createSided(
+                    ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "spiritus_storage"),
+                    ISpiritusStorage.class
             );
 }

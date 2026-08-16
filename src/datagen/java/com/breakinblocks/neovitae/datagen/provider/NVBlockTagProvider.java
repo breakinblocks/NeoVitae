@@ -95,6 +95,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().getKey())
                 .add(NVBlocks.IMPERFECT_RITUAL_STONE.block().getKey())
                 .add(NVBlocks.VAS_MALEFICUM.block().getKey())
+                .add(NVBlocks.SPIRIT_ACCUMULATOR.block().getKey())
                 .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().getKey())
                 .add(NVBlocks.SPIRA_INFERNALIS.block().getKey())
                 // Demon crystals

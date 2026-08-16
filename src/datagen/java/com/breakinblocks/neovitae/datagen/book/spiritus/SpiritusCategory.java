@@ -106,6 +106,11 @@ public class SpiritusCategory extends CategoryProvider {
         routingNodes.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/node_router"));
         routingNodes.hideWhileLocked(false);
 
+        var spiritAccumulator = this.add(new SpiritAccumulatorEntry(this).generate('q'));
+        spiritAccumulator.withParent(this.parent(routingNodes));
+        spiritAccumulator.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/routing_nodes"));
+        spiritAccumulator.hideWhileLocked(false);
+
         var upgrades = this.add(new UpgradesEntry(this).generate('x'));
         upgrades.withParent(this.parent(routingNodes));
         upgrades.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/routing_nodes"));

@@ -81,13 +81,20 @@ public final class RoutingBeamHandler {
         }
 
         for (Edge edge : edges) {
-            BeamRenderer.renderBeam(poseStack, bufferSource, edge.a(), edge.b(),
+            BeamRenderer.renderBeam(poseStack, bufferSource, anchorOf(mc, edge.a()), anchorOf(mc, edge.b()),
                     r, g, b, gameTime, partialTick);
         }
 
         poseStack.popPose();
 
         BeamRenderer.endBatch(bufferSource);
+    }
+
+    private static Vec3 anchorOf(Minecraft mc, BlockPos pos) {
+        if (mc.level.getBlockEntity(pos) instanceof IRoutingNode node) {
+            return node.getBeamAnchor();
+        }
+        return Vec3.atCenterOf(pos);
     }
 
     @SubscribeEvent

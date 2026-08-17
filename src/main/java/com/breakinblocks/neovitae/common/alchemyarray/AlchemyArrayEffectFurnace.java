@@ -68,7 +68,7 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
                     if (!binding.isEmpty()) {
                         Anima network = AnimaHelper.getAnima(binding);
                         if (network != null) {
-                            int cost = getEvCost() * stack.getCount();
+                            int cost = getEvCost();
                             if (cost > 0 && network.syphon(AnimaTicket.create(cost)) < cost) {
                                 hasLP = false;
                             }

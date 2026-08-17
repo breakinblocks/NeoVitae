@@ -177,6 +177,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ISigil.revokeFakeBinding(player.getItemInHand(hand), player);
         ItemStack stack = resolveStackForUse(player, hand);
         if (stack == null) {
             return InteractionResult.FAIL;
@@ -209,6 +210,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         }
 
         if (!isUnusable(stack)) {
+            if (!ISigil.canPayFor(binding, player,
+                    getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player))) {
+                return InteractionResult.CONSUME;
+            }
             ISigilEffect effect = getSigilEffect(stack, level);
             if (effect != null && effect.useOnAir(level, player, stack)) {
                 if (!level.isClientSide()) {
@@ -237,6 +242,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         BlockPos blockPos = context.getClickedPos();
         Player player = context.getPlayer();
         ItemStack stack = ISigil.resolveHeldStack(context.getItemInHand(), player);
+        ISigil.revokeFakeBinding(stack, player);
 
         Binding binding = getBinding(stack);
         if (binding == null) {
@@ -244,6 +250,11 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                 bind(player, stack);
             }
             return InteractionResult.SUCCESS;
+        }
+
+        if (!ISigil.canPayFor(binding, player,
+                getReducedCost(getLpCost(stack, level, SigilType.UseContext.BLOCK), player))) {
+            return InteractionResult.CONSUME;
         }
 
         ISigilEffect effect = getSigilEffect(stack, level);
@@ -271,6 +282,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         ItemStack useStack = ISigil.resolveHeldStack(stack, player);
+        ISigil.revokeFakeBinding(useStack, player);
 
         Binding binding = getBinding(useStack);
         if (binding == null) {
@@ -278,6 +290,11 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         }
 
         Level level = player.level();
+        if (!ISigil.canPayFor(binding, player,
+                getReducedCost(getLpCost(useStack, level, SigilType.UseContext.ENTITY), player))) {
+            return InteractionResult.CONSUME;
+        }
+
         ISigilEffect effect = getSigilEffect(useStack, level);
         if (effect != null && effect.useOnEntity(level, player, useStack, target)) {
             if (!level.isClientSide() && !player.isCreative()) {
@@ -298,6 +315,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
         if (entity instanceof Player player) {
+            ISigil.revokeFakeBinding(stack, player);
             serverTickActive(stack, level, player, -1, slot == EquipmentSlot.MAINHAND);
         }
     }

@@ -30,6 +30,7 @@ public class NVGameTestRegistration {
         RitualReaderTests.register(r);
         RoutingNodeTests.register(r);
         SacrificeTests.register(r);
+        SigilFakePlayerTests.register(r);
         SpawnerSuppressionTests.register(r);
         SanguineWardTests.register(r);
         LightArrayTests.register(r);

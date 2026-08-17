@@ -63,8 +63,9 @@ public interface IAnima {
      *
      * @param user The player to damage
      * @param syphon The amount that couldn't be syphoned
+     * @return true if the cost was paid, false if the user could not be damaged
      */
-    void hurtPlayer(Player user, float syphon);
+    boolean hurtPlayer(Player user, float syphon);
 
     /**
      * Syphons EV and damages the player if not enough is available.

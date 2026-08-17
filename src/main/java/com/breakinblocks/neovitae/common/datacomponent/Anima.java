@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.api.soul.SyphonResult;
+import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 import com.breakinblocks.neovitae.common.world.NVSavedData;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.util.BooleanResult;
@@ -105,17 +106,16 @@ public class Anima implements IAnima {
     }
 
     @Override
-    public void hurtPlayer(Player user, float syphon) {
-        if (user != null) {
-            if (syphon > 0) {
-                if (!user.isCreative()) {
-                    int dmg = Math.ceilDiv((int) syphon, 100);
-                    user.invulnerableTime = 0;
-                    Level level = user.level();
-                    user.hurtServer((ServerLevel) user.level(), level.damageSources().source(NVDamageSources.SACRIFICE, user), dmg);
-                }
-            }
-        }
+    public boolean hurtPlayer(Player user, float syphon) {
+        if (user == null || syphon <= 0) return false;
+        if (user.isCreative()) return true;
+        if (PlayerHelper.isFakePlayer(user)) return false;
+
+        int dmg = Math.ceilDiv((int) syphon, 100);
+        user.invulnerableTime = 0;
+        Level level = user.level();
+        user.hurtServer((ServerLevel) user.level(), level.damageSources().source(NVDamageSources.SACRIFICE, user), dmg);
+        return true;
     }
 
     @Override
@@ -127,10 +127,10 @@ public class Anima implements IAnima {
         int amount = ticket.getAmount();
         int drainAmount = syphon(ticket);
 
-        if (drainAmount < amount) {
-            hurtPlayer(user, amount - drainAmount);
+        if (drainAmount >= amount) {
+            return SyphonResult.of(true, drainAmount);
         }
 
-        return SyphonResult.of(true, amount);
+        return SyphonResult.of(hurtPlayer(user, amount - drainAmount), drainAmount);
     }
 }

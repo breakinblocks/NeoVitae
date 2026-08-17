@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -337,6 +338,8 @@ public final class RoutingShowcase {
         accumulator.attuneTo(SpiritusType.RAW);
         accumulator.insert(SpiritusType.RAW, SpiritAccumulatorBlockEntity.CAPACITY, false);
         out.setSpiritusExport(SpiritusType.RAW, 500);
+        WorldSpiritusHandler.drainSpiritusFromChunk(level, outPos, SpiritusType.RAW,
+                WorldSpiritusHandler.getCurrentSpiritus(level, outPos, SpiritusType.RAW));
 
         bind(level, accumulator, accumulatorPos, master, masterPos);
         bind(level, out, outPos, master, masterPos);

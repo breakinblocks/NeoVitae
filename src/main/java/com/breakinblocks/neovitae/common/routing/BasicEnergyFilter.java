@@ -16,11 +16,13 @@ public class BasicEnergyFilter implements IEnergyFilter {
     private final BlockEntity tile;
     private final IEnergyStorage storage;
     private final boolean isOutput;
+    private final int rateLimit;
 
-    public BasicEnergyFilter(BlockEntity tile, IEnergyStorage storage, boolean isOutput) {
+    public BasicEnergyFilter(BlockEntity tile, IEnergyStorage storage, boolean isOutput, int rateLimit) {
         this.tile = tile;
         this.storage = storage;
         this.isOutput = isOutput;
+        this.rateLimit = Math.max(0, rateLimit);
     }
 
     @Override
@@ -32,7 +34,10 @@ public class BasicEnergyFilter implements IEnergyFilter {
     public int transferEnergyThroughOutputFilter(int amount) {
         if (!storage.canReceive()) return 0;
 
-        int received = storage.receiveEnergy(amount, false);
+        int capped = Math.min(amount, rateLimit);
+        if (capped <= 0) return 0;
+
+        int received = storage.receiveEnergy(capped, false);
         if (received > 0 && tile != null) {
             Level level = tile.getLevel();
             BlockPos pos = tile.getBlockPos();
@@ -45,7 +50,10 @@ public class BasicEnergyFilter implements IEnergyFilter {
     public int transferThroughInputFilter(IEnergyFilter outputFilter, int maxTransfer) {
         if (!storage.canExtract()) return 0;
 
-        int available = storage.extractEnergy(maxTransfer, true);
+        int capped = Math.min(maxTransfer, rateLimit);
+        if (capped <= 0) return 0;
+
+        int available = storage.extractEnergy(capped, true);
         if (available <= 0) return 0;
 
         int accepted = outputFilter.transferEnergyThroughOutputFilter(available);

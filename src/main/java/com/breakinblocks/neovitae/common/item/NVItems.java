@@ -25,6 +25,7 @@ import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskLingering;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskThrowable;
 import com.breakinblocks.neovitae.common.item.routing.ItemNodeRouter;
+import com.breakinblocks.neovitae.common.item.routing.RoutingUpgradeItem;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilDamned;
@@ -220,8 +221,8 @@ public class NVItems {
     public static final DeferredHolder<Item, CrystalCatalystItem> SPIRITUS_INVICTUS_CATALYST = BASIC_ITEMS.register("spiritus_invictus_catalyst", () -> new CrystalCatalystItem(SpiritusType.INVICTUS, 200, 10, 25, 400));
 
     public static final DeferredHolder<Item, ItemNodeRouter> NODE_ROUTER = BASIC_ITEMS.register("node_router", ItemNodeRouter::new);
-    public static final DeferredHolder<Item, Item> MASTER_NODE_UPGRADE = plainItem("master_core");
-    public static final DeferredHolder<Item, Item> MASTER_NODE_UPGRADE_SPEED = plainItem("master_core_speed");
+    public static final DeferredHolder<Item, RoutingUpgradeItem> MASTER_NODE_UPGRADE = BASIC_ITEMS.register("master_core", () -> new RoutingUpgradeItem(false));
+    public static final DeferredHolder<Item, RoutingUpgradeItem> MASTER_NODE_UPGRADE_SPEED = BASIC_ITEMS.register("master_core_speed", () -> new RoutingUpgradeItem(true));
 
     public static final DeferredHolder<Item, ItemThrowingDagger> THROWING_DAGGER = BASIC_ITEMS.register("throwing_dagger", () -> new ItemThrowingDagger());
     public static final DeferredHolder<Item, ItemThrowingDagger> THROWING_DAGGER_AMETHYST = BASIC_ITEMS.register("amethyst_throwing_dagger", () -> new ItemThrowingDagger());

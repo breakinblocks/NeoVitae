@@ -36,6 +36,7 @@ public final class SideFilterConfig {
 
     private boolean enabled;
     private boolean energyEnabled;
+    private int energyRate;
     private FaceDirection direction;
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
@@ -67,6 +68,14 @@ public final class SideFilterConfig {
 
     public void setEnergyEnabled(boolean energyEnabled) {
         this.energyEnabled = energyEnabled;
+    }
+
+    public int getEnergyRate() {
+        return energyRate;
+    }
+
+    public void setEnergyRate(int energyRate) {
+        this.energyRate = Math.max(0, energyRate);
     }
 
     public FaceDirection getDirection() {
@@ -221,6 +230,7 @@ public final class SideFilterConfig {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("enabled", enabled);
         tag.putBoolean("energyEnabled", energyEnabled);
+        if (energyRate > 0) tag.putInt("energyRate", energyRate);
         tag.putByte("direction", (byte) direction.ordinal());
         tag.putByte("itemMode", (byte) itemMode.ordinal());
         tag.putByte("fluidMode", (byte) fluidMode.ordinal());
@@ -265,6 +275,7 @@ public final class SideFilterConfig {
     public void load(CompoundTag tag, HolderLookup.Provider registries) {
         this.enabled = tag.getBoolean("enabled");
         this.energyEnabled = !tag.contains("energyEnabled", Tag.TAG_BYTE) || tag.getBoolean("energyEnabled");
+        this.energyRate = Math.max(0, tag.getInt("energyRate"));
         this.direction = FaceDirection.byOrdinal(tag.getByte("direction"));
         FilterMode[] values = FilterMode.values();
 

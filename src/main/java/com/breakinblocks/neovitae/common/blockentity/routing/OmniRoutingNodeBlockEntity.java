@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,12 +23,9 @@ import com.breakinblocks.neovitae.api.routing.IItemFilter;
 import com.breakinblocks.neovitae.api.routing.IOutputFluidRoutingNode;
 import com.breakinblocks.neovitae.api.routing.IOutputItemRoutingNode;
 import com.breakinblocks.neovitae.api.routing.ISpiritusExportNode;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
-import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.RoutingFilterFactory;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 import com.breakinblocks.neovitae.util.Utils;
@@ -38,50 +34,12 @@ public class OmniRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity
         implements IInputItemRoutingNode, IOutputItemRoutingNode,
         IInputFluidRoutingNode, IOutputFluidRoutingNode, ISpiritusExportNode, MenuProvider {
 
-    private static final int PARTICLE_INTERVAL = 20;
-    private static final int PULL_COLOR = 0x4488FF;
-    private static final int PUSH_COLOR = 0xFF8744;
-
     @Nullable
     private SpiritusType spiritusExportType;
     private int spiritusStockTarget;
-    private int particleTimer;
 
     public OmniRoutingNodeBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.OMNI_ROUTING_NODE_TYPE.get(), pos, state);
-    }
-
-    @Override
-    public void tick(Level level, BlockPos pos, BlockState state) {
-        super.tick(level, pos, state);
-        if (level.isClientSide) return;
-        if (++particleTimer < PARTICLE_INTERVAL) return;
-        particleTimer = 0;
-        emitFaceParticles(level, pos);
-    }
-
-    private void emitFaceParticles(Level level, BlockPos pos) {
-        if (!(level instanceof ServerLevel serverLevel) || getMasterPos().equals(BlockPos.ZERO)) return;
-
-        for (Direction side : Direction.values()) {
-            FaceDirection direction = getSideFilter(side).getDirection();
-            if (direction == FaceDirection.OFF || !hasRoutableNeighbor(level, pos, side)) continue;
-
-            int color = direction == FaceDirection.OUTPUT ? PUSH_COLOR : PULL_COLOR;
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color, true),
-                    pos.getX() + 0.5 + side.getStepX() * 0.6,
-                    pos.getY() + 0.5 + side.getStepY() * 0.6,
-                    pos.getZ() + 0.5 + side.getStepZ() * 0.6,
-                    1, 0.08, 0.08, 0.08, 0.0);
-        }
-    }
-
-    private static boolean hasRoutableNeighbor(Level level, BlockPos pos, Direction side) {
-        BlockPos neighbor = pos.relative(side);
-        Direction face = side.getOpposite();
-        return level.getCapability(Capabilities.ItemHandler.BLOCK, neighbor, face) != null
-                || level.getCapability(Capabilities.FluidHandler.BLOCK, neighbor, face) != null
-                || level.getCapability(Capabilities.EnergyStorage.BLOCK, neighbor, face) != null;
     }
 
     @Override

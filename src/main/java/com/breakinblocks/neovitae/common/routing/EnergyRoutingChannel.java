@@ -58,7 +58,8 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         IEnergyStorage storage = be.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side.getOpposite());
         if (storage == null || !storage.canExtract()) return null;
 
-        return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, false);
+        return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, false,
+                node.getEffectiveEnergyRate(side.get3DDataValue()));
     }
 
     @Override
@@ -71,12 +72,13 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         IEnergyStorage storage = be.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side.getOpposite());
         if (storage == null || !storage.canReceive()) return null;
 
-        return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, true);
+        return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, true,
+                node.getEffectiveEnergyRate(side.get3DDataValue()));
     }
 
     @Override
     public int getMaxTransfer(BlockEntity masterNode) {
-        return ((MasterRoutingNodeBlockEntity) masterNode).getEffectiveEnergyRate();
+        return ((MasterRoutingNodeBlockEntity) masterNode).getMaxEnergyTransfer();
     }
 
     @Override

@@ -22,7 +22,9 @@ import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
@@ -50,6 +52,10 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         CompoundTag data = accessor.getServerData();
         if (data == null || data.isEmpty()) return;
+
+        if (data.contains("routing_max_items")) {
+            appendMasterCaps(tooltip, data);
+        }
 
         if (data.contains("array_effect")) {
             tooltip.add(Component.literal(data.getString("array_effect")).withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -161,6 +167,21 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         }
     }
 
+    private static void appendMasterCaps(ITooltip tooltip, CompoundTag data) {
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_items",
+                FORMAT.format(data.getInt("routing_max_items"))).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_fluid",
+                FORMAT.format(data.getInt("routing_max_fluid"))).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_energy",
+                FORMAT.format(data.getInt("routing_max_energy"))).withStyle(ChatFormatting.GRAY));
+
+        int tickRate = data.getInt("routing_tick_rate");
+        tooltip.add(Component.translatable(tickRate == 1
+                        ? "jade.neovitae.routing.pulse_one"
+                        : "jade.neovitae.routing.pulse", tickRate)
+                .withStyle(ChatFormatting.DARK_GRAY));
+    }
+
     private static SpiritusType typeByName(String name) {
         for (SpiritusType candidate : SpiritusType.values()) {
             if (candidate.getSerializedName().equals(name)) {
@@ -183,6 +204,15 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
     @Override
     public void appendServerData(CompoundTag data, BlockAccessor accessor) {
         BlockEntity be = accessor.getBlockEntity();
+
+        if (be instanceof MasterRoutingNodeBlockEntity master) {
+            data.putInt("routing_max_items", master.getMaxTransfer());
+            data.putInt("routing_max_fluid", master.getMaxFluidTransfer());
+            data.putInt("routing_max_energy", master.getMaxEnergyTransfer());
+            data.putInt("routing_tick_rate", RoutingNodeHelper.getEffectiveTickRate(
+                    master.getBlockState().getBlock(),
+                    master.getItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE).getCount()));
+        }
 
         if (be instanceof AlchemyArrayBlockEntity array) {
             AlchemyArrayEffect effect = array.arrayEffect;

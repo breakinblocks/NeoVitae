@@ -376,8 +376,18 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.NODE_ROUTER.get(), "Node Router");
         add(NVItems.MASTER_NODE_UPGRADE.get(), "Routing Stack Upgrade");
         add(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), "Routing Speed Upgrade");
+        addTooltip("routing_upgrade.slot", "Place in a Master Routing Node's upgrade slot");
+        addTooltip("routing_upgrade.speed.effect", "Each one cuts 1 tick off the time between transfers");
+        addTooltip("routing_upgrade.speed.limits", "Base %s ticks, up to %s upgrades");
+        addTooltip("routing_upgrade.stack.effect", "Each one adds +%s items, +%s mB and +%s FE per transfer");
+        addTooltip("routing_upgrade.stack.limits", "Base %s items, %s mB, %s FE, up to %s upgrades");
         addTooltip("noderouter.coords", "Stored Position: %d, %d, %d");
+        addTooltip("noderouter.unlink", "Sneak + right-click the stored node to cut all its links");
+        addTooltip("noderouter.clear", "Sneak + right-click the air to forget the stored position");
         add("chat.neovitae.routing.remove", "Stored position cleared.");
+        add("chat.neovitae.routing.noStored", "No stored position to clear.");
+        add("chat.neovitae.routing.unlink", "Node unlinked from its network.");
+        add("chat.neovitae.routing.unlink.master", "Master Routing Node unlinked from every node.");
         add("chat.neovitae.routing.set", "Position stored.");
         add("chat.neovitae.routing.distance", "Nodes are too far apart! Maximum distance is 16 blocks.");
         add("chat.neovitae.routing.same", "Cannot link a node to itself!");
@@ -950,6 +960,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jade.neovitae.vas.releasing", "Releasing into chunk");
         add("jade.neovitae.vas.seeding", "Dissolving crystals into chunk");
         add("jade.neovitae.vas.idle", "Idle");
+        add("jade.neovitae.routing.cap_items", "Items: %s / pulse");
+        add("jade.neovitae.routing.cap_fluid", "Fluid: %s mB / pulse");
+        add("jade.neovitae.routing.cap_energy", "Energy: %s FE / pulse");
+        add("jade.neovitae.routing.pulse", "Pulse every %s ticks");
+        add("jade.neovitae.routing.pulse_one", "Pulse every tick");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");

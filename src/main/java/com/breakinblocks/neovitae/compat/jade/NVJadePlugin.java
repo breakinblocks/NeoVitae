@@ -4,6 +4,7 @@ import com.breakinblocks.neovitae.common.block.AlchemyArrayBlock;
 import com.breakinblocks.neovitae.common.block.AraVitaeBlock;
 import com.breakinblocks.neovitae.common.block.BlockIncenseAltar;
 import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
+import com.breakinblocks.neovitae.common.block.BlockMasterRoutingNode;
 import com.breakinblocks.neovitae.common.block.BloodLightBlock;
 import com.breakinblocks.neovitae.common.block.BloodTankBlock;
 import com.breakinblocks.neovitae.common.block.HellfireForgeBlock;
@@ -18,6 +19,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
@@ -43,6 +45,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, OrbFillingLinkBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, SpiritAccumulatorBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, VasMaleficumBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, MasterRoutingNodeBlockEntity.class);
     }
 
     @Override
@@ -58,6 +61,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, OrbFillingLinkBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, SpiritAccumulatorBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, VasMaleficumBlock.class);
+        registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BlockMasterRoutingNode.class);
         registration.addRayTraceCallback((hitResult, accessor, original) -> {
             if (accessor instanceof snownee.jade.api.EntityAccessor entityAccessor
                     && entityAccessor.getEntity() instanceof com.breakinblocks.neovitae.common.entity.BloodShieldEntity) {

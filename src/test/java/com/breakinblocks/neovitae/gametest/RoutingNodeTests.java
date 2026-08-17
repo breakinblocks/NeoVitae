@@ -15,9 +15,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.routing.*;
+import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
+import com.breakinblocks.neovitae.common.routing.RoutingTint;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 import com.breakinblocks.neovitae.api.routing.IMasterRoutingNode;
 import com.breakinblocks.neovitae.api.routing.IRoutingNode;
@@ -810,6 +813,74 @@ public class RoutingNodeTests {
         });
     }
 
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void energyPerSideRateLimit(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos srcPos = new BlockPos(1, 1, 1);
+        BlockPos inputPos = new BlockPos(2, 1, 1);
+        BlockPos masterPos = new BlockPos(3, 1, 1);
+        BlockPos outputPos = new BlockPos(4, 1, 1);
+        BlockPos dstPos = new BlockPos(5, 1, 1);
+
+        TestEnergyBlock.TestEnergyBlockEntity srcEnergy = placeEnergyBlock(helper, srcPos);
+        InputRoutingNodeBlockEntity input = placeAndGet(helper, inputPos, NVBlocks.INPUT_ROUTING_NODE.block().get(), InputRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+        OutputRoutingNodeBlockEntity output = placeAndGet(helper, outputPos, NVBlocks.OUTPUT_ROUTING_NODE.block().get(), OutputRoutingNodeBlockEntity.class);
+        TestEnergyBlock.TestEnergyBlockEntity dstEnergy = placeEnergyBlock(helper, dstPos);
+
+        BlockPos absMaster = helper.absolutePos(masterPos);
+        connectToMaster(helper, input, master, helper.absolutePos(inputPos), absMaster);
+        connectToMaster(helper, output, master, helper.absolutePos(outputPos), absMaster);
+
+        FilterSpec passAll = createBlacklistFilter();
+        setNodeFilter(input, Direction.WEST, passAll);
+        setNodeFilter(output, Direction.EAST, passAll);
+
+        int ceiling = input.getMasterEnergyCeiling();
+        if (ceiling != 10_000) {
+            helper.fail("Unupgraded master ceiling should be 10000 FE, was " + ceiling);
+        }
+        if (master.getMaxEnergyTransfer() != ceiling) {
+            helper.fail("Node ceiling should match the master, node=" + ceiling
+                    + " master=" + master.getMaxEnergyTransfer());
+        }
+
+        input.setSideEnergyRate(Direction.WEST.get3DDataValue(), 100);
+        if (input.getEffectiveEnergyRate(Direction.WEST.get3DDataValue()) != 100) {
+            helper.fail("Input side rate should be 100, was "
+                    + input.getEffectiveEnergyRate(Direction.WEST.get3DDataValue()));
+        }
+
+        input.setSideEnergyRate(Direction.WEST.get3DDataValue(), ceiling + 5000);
+        if (input.getSideEnergyRate(Direction.WEST.get3DDataValue()) != 0) {
+            helper.fail("Over-ceiling rate should store as unthrottled, was "
+                    + input.getSideEnergyRate(Direction.WEST.get3DDataValue()));
+        }
+        if (input.getEffectiveEnergyRate(Direction.WEST.get3DDataValue()) != ceiling) {
+            helper.fail("Over-ceiling rate should resolve to the ceiling " + ceiling + ", was "
+                    + input.getEffectiveEnergyRate(Direction.WEST.get3DDataValue()));
+        }
+
+        input.setSideEnergyRate(Direction.WEST.get3DDataValue(), 100);
+        srcEnergy.storage.receiveEnergy(50000, false);
+
+        helper.runAfterDelay(TICK_RATE * 4, () -> {
+            int moved = dstEnergy.storage.getEnergyStored();
+            if (moved == 0) {
+                helper.fail("No energy transferred under a 100 FE/t side limit");
+            }
+            if (moved > 500) {
+                helper.fail("Side rate limit ignored: moved " + moved + " FE, expected at most 500");
+            }
+            helper.succeed();
+        });
+    }
+
     @GameTest(template = "empty_5x5x7", timeoutTicks = 80)
     public void energyNoFilterNoTransfer(GameTestHelper helper) {
         for (int x = 0; x < 7; x++) {
@@ -866,5 +937,178 @@ public class RoutingNodeTests {
             }
             helper.succeed();
         });
+    }
+
+    // ==================== Omni Node Tests ====================
+
+    private static void setOmniSide(OmniRoutingNodeBlockEntity omni, Direction side,
+                                     FaceDirection direction, Item item, int amount) {
+        SideFilterConfig cfg = omni.getSideFilter(side);
+        cfg.setDirection(direction);
+        cfg.setItemMode(FilterMode.WHITELIST);
+        cfg.clearItemGhosts();
+        cfg.setItemGhost(0, new ItemStack(item));
+        cfg.setItemAmount(0, amount);
+        omni.setChanged();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void omniPullsOneSidePushesAnother(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos omniPos = new BlockPos(3, 2, 1);
+        BlockPos westChestPos = new BlockPos(2, 2, 1);
+        BlockPos downChestPos = new BlockPos(3, 1, 1);
+        BlockPos masterPos = new BlockPos(4, 2, 1);
+
+        helper.setBlock(westChestPos, Blocks.CHEST.defaultBlockState());
+        helper.setBlock(downChestPos, Blocks.CHEST.defaultBlockState());
+        OmniRoutingNodeBlockEntity omni = placeAndGet(helper, omniPos, NVBlocks.OMNI_ROUTING_NODE.block().get(), OmniRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+
+        connectToMaster(helper, omni, master, helper.absolutePos(omniPos), helper.absolutePos(masterPos));
+
+        setOmniSide(omni, Direction.WEST, FaceDirection.INPUT, Items.COBBLESTONE, 16);
+        setOmniSide(omni, Direction.DOWN, FaceDirection.OUTPUT, Items.COBBLESTONE, 16);
+
+        ChestBlockEntity westChest = (ChestBlockEntity) helper.getBlockEntity(westChestPos);
+        westChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            int west = countItem((ChestBlockEntity) helper.getBlockEntity(westChestPos), Items.COBBLESTONE);
+            int down = countItem((ChestBlockEntity) helper.getBlockEntity(downChestPos), Items.COBBLESTONE);
+
+            if (down != 16) {
+                helper.fail("Omni output side should stock 16 cobblestone below, got down=" + down + " west=" + west);
+            }
+            if (west != 48) {
+                helper.fail("Omni input side should keep 16 and move the rest, got west=" + west + " down=" + down);
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void omniBothSideDoesNotRouteIntoItself(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos omniPos = new BlockPos(3, 2, 1);
+        BlockPos westChestPos = new BlockPos(2, 2, 1);
+        BlockPos downChestPos = new BlockPos(3, 1, 1);
+        BlockPos masterPos = new BlockPos(4, 2, 1);
+
+        helper.setBlock(westChestPos, Blocks.CHEST.defaultBlockState());
+        helper.setBlock(downChestPos, Blocks.CHEST.defaultBlockState());
+        OmniRoutingNodeBlockEntity omni = placeAndGet(helper, omniPos, NVBlocks.OMNI_ROUTING_NODE.block().get(), OmniRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+
+        connectToMaster(helper, omni, master, helper.absolutePos(omniPos), helper.absolutePos(masterPos));
+
+        setOmniSide(omni, Direction.WEST, FaceDirection.BOTH, Items.COBBLESTONE, 0);
+        setOmniSide(omni, Direction.DOWN, FaceDirection.OUTPUT, Items.COBBLESTONE, 0);
+        omni.priorities[Direction.WEST.get3DDataValue()] = 5;
+
+        ChestBlockEntity westChest = (ChestBlockEntity) helper.getBlockEntity(westChestPos);
+        westChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            int west = countItem((ChestBlockEntity) helper.getBlockEntity(westChestPos), Items.COBBLESTONE);
+            int down = countItem((ChestBlockEntity) helper.getBlockEntity(downChestPos), Items.COBBLESTONE);
+
+            if (down == 0) {
+                helper.fail("A BOTH side starved the other output, west=" + west + " down=" + down);
+            }
+            if (west + down != 64) {
+                helper.fail("Items lost! west=" + west + " down=" + down);
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void omniTintTracksConfiguredFaces(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos omniPos = new BlockPos(3, 2, 1);
+        BlockPos westChestPos = new BlockPos(2, 2, 1);
+        BlockPos downChestPos = new BlockPos(3, 1, 1);
+        BlockPos masterPos = new BlockPos(4, 2, 1);
+
+        helper.setBlock(westChestPos, Blocks.CHEST.defaultBlockState());
+        helper.setBlock(downChestPos, Blocks.CHEST.defaultBlockState());
+        OmniRoutingNodeBlockEntity omni = placeAndGet(helper, omniPos, NVBlocks.OMNI_ROUTING_NODE.block().get(), OmniRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+
+        if (helper.getBlockState(omniPos).getValue(BlockRoutingNode.TINT) != RoutingTint.NONE) {
+            helper.fail("An unbound omni node should carry no tint");
+            return;
+        }
+
+        connectToMaster(helper, omni, master, helper.absolutePos(omniPos), helper.absolutePos(masterPos));
+        setOmniSide(omni, Direction.WEST, FaceDirection.INPUT, Items.COBBLESTONE, 0);
+
+        helper.runAfterDelay(TICK_RATE + 2, () -> {
+            if (helper.getBlockState(omniPos).getValue(BlockRoutingNode.TINT) != RoutingTint.INPUT) {
+                helper.fail("A pull-only omni node should tint as input, got "
+                        + helper.getBlockState(omniPos).getValue(BlockRoutingNode.TINT));
+                return;
+            }
+
+            setOmniSide((OmniRoutingNodeBlockEntity) helper.getBlockEntity(omniPos),
+                    Direction.DOWN, FaceDirection.OUTPUT, Items.COBBLESTONE, 0);
+
+            helper.runAfterDelay(TICK_RATE + 2, () -> {
+                if (helper.getBlockState(omniPos).getValue(BlockRoutingNode.TINT) != RoutingTint.BOTH) {
+                    helper.fail("An omni node that pulls and pushes should tint as both, got "
+                            + helper.getBlockState(omniPos).getValue(BlockRoutingNode.TINT));
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 80)
+    public void brokenOmniLeavesNoGraphEntry(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos omniPos = new BlockPos(3, 1, 1);
+        BlockPos masterPos = new BlockPos(4, 1, 1);
+
+        OmniRoutingNodeBlockEntity omni = placeAndGet(helper, omniPos, NVBlocks.OMNI_ROUTING_NODE.block().get(), OmniRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+
+        BlockPos absOmni = helper.absolutePos(omniPos);
+        connectToMaster(helper, omni, master, absOmni, helper.absolutePos(masterPos));
+
+        if (!master.graphContains(absOmni)) {
+            helper.fail("Test setup failed: master never recorded the omni node");
+            return;
+        }
+
+        helper.setBlock(omniPos, Blocks.AIR.defaultBlockState());
+
+        MasterRoutingNodeBlockEntity reloaded = (MasterRoutingNodeBlockEntity) helper.getBlockEntity(masterPos);
+        if (reloaded.graphContains(absOmni)) {
+            helper.fail("Master still holds a graph entry for the broken omni node");
+            return;
+        }
+        helper.succeed();
     }
 }

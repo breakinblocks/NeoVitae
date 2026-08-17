@@ -30,6 +30,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import com.breakinblocks.neovitae.client.color.RoutingNodeColor;
 import com.breakinblocks.neovitae.client.render.item.SpiritAccumulatorItemRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -209,6 +210,14 @@ public class ClientModEventHandler {
                 return renderer;
             }
         }, NVBlocks.SPIRIT_ACCUMULATOR.asItem());
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register(new RoutingNodeColor(),
+                NVBlocks.INPUT_ROUTING_NODE.block().get(),
+                NVBlocks.OUTPUT_ROUTING_NODE.block().get(),
+                NVBlocks.OMNI_ROUTING_NODE.block().get());
     }
 
     @SubscribeEvent

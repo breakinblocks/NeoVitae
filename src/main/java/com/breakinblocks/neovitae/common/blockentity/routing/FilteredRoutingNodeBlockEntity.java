@@ -10,28 +10,71 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandler;
+import com.breakinblocks.neovitae.api.routing.IInputItemRoutingNode;
+import com.breakinblocks.neovitae.api.routing.IOutputItemRoutingNode;
+import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
+import com.breakinblocks.neovitae.common.routing.RoutingTint;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 import com.breakinblocks.neovitae.util.Constants;
 
 /** Routing node with per-side {@link SideFilterConfig} stored directly on the BE. */
 public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
 
+    private static final int TINT_REFRESH_INTERVAL = 20;
+
     protected final SideFilterConfig[] sideFilters = new SideFilterConfig[6];
     private int currentActiveSlot = -1;
+    private int tintRefreshTimer = 0;
     public int[] priorities = new int[6];
 
     public FilteredRoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         for (int i = 0; i < 6; i++) {
             sideFilters[i] = new SideFilterConfig();
+        }
+    }
+
+    @Override
+    public void tick(Level level, BlockPos pos, BlockState state) {
+        super.tick(level, pos, state);
+        if (level.isClientSide) return;
+        if (++tintRefreshTimer >= TINT_REFRESH_INTERVAL) {
+            tintRefreshTimer = 0;
+            refreshTint();
+        }
+    }
+
+    protected void refreshTint() {
+        if (level == null || level.isClientSide) return;
+
+        BlockState state = getBlockState();
+        if (!state.hasProperty(BlockRoutingNode.TINT)) return;
+
+        RoutingTint tint = RoutingTint.NONE;
+        if (!getMasterPos().equals(BlockPos.ZERO)) {
+            boolean pulls = false;
+            boolean pushes = false;
+            for (Direction side : Direction.values()) {
+                if (this instanceof IInputItemRoutingNode in && in.isInput(side)) pulls = true;
+                if (this instanceof IOutputItemRoutingNode out && out.isOutput(side)) pushes = true;
+            }
+            tint = RoutingTint.of(pulls, pushes);
+        }
+
+        if (state.getValue(BlockRoutingNode.TINT) != tint) {
+            level.setBlock(worldPosition, state.setValue(BlockRoutingNode.TINT, tint), Block.UPDATE_CLIENTS);
         }
     }
 
@@ -146,6 +189,35 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
         markUpdated();
     }
 
+    public int getMasterEnergyCeiling() {
+        BlockPos master = getMasterPos();
+        if (level != null && !master.equals(BlockPos.ZERO)
+                && level.hasChunk(master.getX() >> 4, master.getZ() >> 4)
+                && level.getBlockEntity(master) instanceof MasterRoutingNodeBlockEntity tile) {
+            return tile.getMaxEnergyTransfer();
+        }
+        return RoutingNodeHelper.getEffectiveEnergyTransfer(NVBlocks.MASTER_ROUTING_NODE.block().get(), 0);
+    }
+
+    public int getSideEnergyRate(int sideIndex) {
+        if (sideIndex < 0 || sideIndex >= 6) return 0;
+        return sideFilters[sideIndex].getEnergyRate();
+    }
+
+    public int getEffectiveEnergyRate(int sideIndex) {
+        int ceiling = getMasterEnergyCeiling();
+        if (sideIndex < 0 || sideIndex >= 6) return ceiling;
+        int configured = sideFilters[sideIndex].getEnergyRate();
+        return configured <= 0 ? ceiling : Math.min(configured, ceiling);
+    }
+
+    public void setSideEnergyRate(int sideIndex, int rate) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        int ceiling = getMasterEnergyCeiling();
+        sideFilters[sideIndex].setEnergyRate(rate <= 0 || rate >= ceiling ? 0 : rate);
+        markUpdated();
+    }
+
     public void cycleSideDirection(int sideIndex, boolean backwards) {
         if (sideIndex < 0 || sideIndex >= 6) return;
         SideFilterConfig cfg = sideFilters[sideIndex];
@@ -225,6 +297,7 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
             level.sendBlockUpdated(worldPosition, state, state, 3);
         }
         setChanged();
+        refreshTint();
     }
 
     public String getNeighborName(Direction dir) {

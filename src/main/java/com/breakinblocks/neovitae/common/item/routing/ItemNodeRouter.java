@@ -5,10 +5,15 @@
 
 package com.breakinblocks.neovitae.common.item.routing;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,6 +45,26 @@ public class ItemNodeRouter extends Item {
             tooltip.add(Component.translatable("tooltip.neovitae.noderouter.coords",
                     coords.getX(), coords.getY(), coords.getZ()));
         }
+        tooltip.add(Component.translatable("tooltip.neovitae.noderouter.unlink").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.neovitae.noderouter.clear").withStyle(ChatFormatting.GRAY));
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (level.isClientSide || !player.isShiftKeyDown()) {
+            return InteractionResultHolder.pass(stack);
+        }
+
+        BlockPos stored = getBlockPos(stack);
+        if (stored == null || stored.equals(BlockPos.ZERO)) {
+            player.displayClientMessage(Component.translatable("chat.neovitae.routing.noStored"), true);
+            return InteractionResultHolder.success(stack);
+        }
+
+        setBlockPos(stack, BlockPos.ZERO);
+        player.displayClientMessage(Component.translatable("chat.neovitae.routing.remove"), true);
+        return InteractionResultHolder.success(stack);
     }
 
     @Override
@@ -54,6 +79,10 @@ public class ItemNodeRouter extends Item {
         }
 
         BlockEntity tileHit = level.getBlockEntity(pos);
+
+        if (player.isShiftKeyDown() && tileHit instanceof IRoutingNode selected && pos.equals(getBlockPos(stack))) {
+            return unlinkNode(level, player, stack, selected, pos);
+        }
 
         if (!(tileHit instanceof IRoutingNode node)) {
             BlockPos containedPos = getBlockPos(stack);
@@ -95,6 +124,24 @@ public class ItemNodeRouter extends Item {
         }
 
         return connectNodes(level, player, stack, node, pastNode, pos, containedPos);
+    }
+
+    private InteractionResult unlinkNode(Level level, Player player, ItemStack stack,
+                                          IRoutingNode node, BlockPos nodePos) {
+        BlockPos masterPos = node.getMasterPos();
+        boolean isMaster = node instanceof IMasterRoutingNode;
+
+        node.removeAllConnections();
+        if (!masterPos.equals(BlockPos.ZERO)) {
+            node.removeConnection(masterPos);
+        }
+
+        setBlockPos(stack, BlockPos.ZERO);
+        level.playSound(null, nodePos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 0.4F, 1.6F);
+        player.displayClientMessage(Component.translatable(isMaster
+                ? "chat.neovitae.routing.unlink.master"
+                : "chat.neovitae.routing.unlink"), true);
+        return InteractionResult.SUCCESS;
     }
 
     private InteractionResult connectToMaster(Level level, Player player, ItemStack stack,

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -16,6 +17,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.lwjgl.glfw.GLFW;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
@@ -62,6 +64,22 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button spiritusTypeButton;
     private Button stockDownButton;
     private Button stockUpButton;
+    private EditBox energyRateBox;
+    private Button energyRateSetButton;
+    private int lastSyncedEnergyRate = -1;
+    private int pendingEnergyRate = -1;
+    private int lastEnergySide = -1;
+
+    private static final int FILTER_GRID_X = 7;
+    private static final int FILTER_GRID_Y = 75;
+    private static final int FILTER_GRID_WIDTH = 163;
+    private static final int FILTER_GRID_HEIGHT = 55;
+    private static final int FILTER_GRID_BLANK_V = 20;
+
+    private static final int ENERGY_BOX_X = 74;
+    private static final int ENERGY_BOX_Y = 102;
+    private static final int ENERGY_BOX_W = 56;
+    private static final int ENERGY_BOX_H = 14;
 
     private static final int PICKER_WIDTH = 174;
     private int componentPickerSlot = -1;
@@ -121,16 +139,31 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         energyButton = Button.builder(Component.literal("Energy: On"), btn ->
                 PacketDistributor.sendToServer(new RoutingNodePayload(
                         menu.tile.getBlockPos(), RoutingNodePayload.ACTION_TOGGLE_SIDE_ENERGY, 0)))
-                .bounds(leftPos + 8, topPos + 76, 110, 16).build();
+                .bounds(leftPos + 8, topPos + 80, 160, 16).build();
         energyButton.visible = false;
         this.addRenderableWidget(energyButton);
+
+        energyRateBox = new EditBox(this.font, leftPos + ENERGY_BOX_X, topPos + ENERGY_BOX_Y,
+                ENERGY_BOX_W, ENERGY_BOX_H, Component.literal("Rate"));
+        energyRateBox.setMaxLength(7);
+        energyRateBox.setFilter(s -> s.isEmpty() || s.chars().allMatch(Character::isDigit));
+        lastSyncedEnergyRate = menu.getEnergyRate();
+        energyRateBox.setValue(String.valueOf(lastSyncedEnergyRate));
+        energyRateBox.visible = false;
+        this.addRenderableWidget(energyRateBox);
+
+        energyRateSetButton = Button.builder(Component.literal("Set"), btn -> commitEnergyRate())
+                .bounds(leftPos + ENERGY_BOX_X + ENERGY_BOX_W + 4, topPos + ENERGY_BOX_Y, 26, ENERGY_BOX_H)
+                .build();
+        energyRateSetButton.visible = false;
+        this.addRenderableWidget(energyRateSetButton);
 
         spiritusTypeButton = Button.builder(Component.literal("Off"), btn -> {
             PacketDistributor.sendToServer(new RoutingNodePayload(
                     menu.tile.getBlockPos(),
                     RoutingNodePayload.ACTION_CYCLE_SPIRITUS_TYPE,
                     1));
-        }).bounds(leftPos + 8, topPos + 76, 110, 16).build();
+        }).bounds(leftPos + 8, topPos + 80, 160, 16).build();
         spiritusTypeButton.visible = false;
         this.addRenderableWidget(spiritusTypeButton);
 
@@ -139,7 +172,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     menu.tile.getBlockPos(),
                     RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
                     Screen.hasShiftDown() ? -100 : -10));
-        }).bounds(leftPos + 8, topPos + 96, 14, 16).build();
+        }).bounds(leftPos + 8, topPos + 102, 14, 16).build();
         stockDownButton.visible = false;
         this.addRenderableWidget(stockDownButton);
 
@@ -148,7 +181,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     menu.tile.getBlockPos(),
                     RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
                     Screen.hasShiftDown() ? 100 : 10));
-        }).bounds(leftPos + 104, topPos + 96, 14, 16).build();
+        }).bounds(leftPos + 154, topPos + 102, 14, 16).build();
         stockUpButton.visible = false;
         this.addRenderableWidget(stockUpButton);
 
@@ -182,6 +215,36 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             PacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_INCREMENT_PRIORITY, 0));
         }).bounds(leftPos + 98, topPos + 40, 14, 16).build();
         this.addRenderableWidget(priorityUpButton);
+    }
+
+    private void commitEnergyRate() {
+        if (energyRateBox == null || menu.tile == null) return;
+        String value = energyRateBox.getValue();
+        if (value.isEmpty()) return;
+        int parsed;
+        try {
+            parsed = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return;
+        }
+        int ceiling = menu.getEnergyCeiling();
+        int applied = (parsed <= 0 || parsed >= ceiling) ? ceiling : parsed;
+        energyRateBox.setValue(String.valueOf(applied));
+        energyRateBox.setFocused(false);
+        pendingEnergyRate = applied;
+        lastSyncedEnergyRate = applied;
+        PacketDistributor.sendToServer(new RoutingNodePayload(
+                menu.tile.getBlockPos(), RoutingNodePayload.ACTION_SET_SIDE_ENERGY_RATE, applied));
+    }
+
+    private boolean energyBoxShowsSyncedValue() {
+        if (energyRateBox == null) return false;
+        String value = energyRateBox.getValue();
+        try {
+            return !value.isEmpty() && Integer.parseInt(value) == lastSyncedEnergyRate;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean isSpiritusCapable() {
@@ -219,10 +282,37 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }).bounds(leftPos + x, topPos + y, 16, 16).build();
     }
 
+    private boolean isFilterTab() {
+        return activeTab == Tab.ITEMS || activeTab == Tab.FLUIDS;
+    }
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        updateWidgets();
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
+        if (activeTab == Tab.SPIRITUS) {
+            guiGraphics.drawCenteredString(this.font,
+                    Component.literal("Keep: " + menu.getSpiritusStock()),
+                    leftPos + 88, topPos + 106, 0xFFFFFF);
+        }
+
+        if (activeTab == Tab.FLUIDS) {
+            renderFluidGhosts(guiGraphics);
+        }
+
+        if (isFilterTab()) {
+            renderGhostAmounts(guiGraphics);
+        }
+
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
+
+        if (componentPickerSlot >= 0) {
+            renderComponentPicker(guiGraphics, mouseX, mouseY);
+        }
+    }
+
+    private void updateWidgets() {
         // Direction button active state
         int currentSlot = menu.getCurrentSlot();
         for (int i = 0; i < 6; i++) {
@@ -236,10 +326,10 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         if (omni) {
             FaceDirection facing = menu.getSideDirection(currentSlot);
             directionButton.setMessage(Component.literal(switch (facing) {
-                case OFF -> "Face: Off";
-                case INPUT -> "Face: Input";
-                case OUTPUT -> "Face: Output";
-                case BOTH -> "Face: Both";
+                case OFF -> "Off";
+                case INPUT -> "Input";
+                case OUTPUT -> "Output";
+                case BOTH -> "Both";
             }).withStyle(switch (facing) {
                 case OFF -> ChatFormatting.RED;
                 case INPUT -> ChatFormatting.AQUA;
@@ -254,11 +344,12 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             case ENERGY -> "Energy";
             case SPIRITUS -> "Spiritus";
         }));
-        tabButton.active = enabled || activeTab == Tab.SPIRITUS || activeTab == Tab.ENERGY;
+        tabButton.active = true;
 
         boolean spiritusTab = activeTab == Tab.SPIRITUS;
         boolean energyTab = activeTab == Tab.ENERGY;
-        boolean filterTab = !spiritusTab && !energyTab;
+        boolean filterTab = isFilterTab();
+        menu.setGhostSlotsVisible(filterTab);
         for (Button button : directionButtons) {
             button.visible = !spiritusTab;
         }
@@ -274,11 +365,32 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         stockDownButton.visible = spiritusTab;
         stockUpButton.visible = spiritusTab;
 
+        energyRateBox.visible = energyTab;
+        energyRateSetButton.visible = energyTab;
+
         if (energyTab) {
             boolean energyOn = menu.isSideEnergyEnabled(currentSlot);
             energyButton.setMessage(Component.literal(energyOn ? "Energy: On" : "Energy: Off")
                     .withStyle(energyOn ? ChatFormatting.GREEN : ChatFormatting.RED));
             energyButton.active = enabled;
+
+            int serverRate = menu.getEnergyRate();
+            if (currentSlot != lastEnergySide) {
+                lastEnergySide = currentSlot;
+                pendingEnergyRate = -1;
+                lastSyncedEnergyRate = serverRate;
+                energyRateBox.setValue(String.valueOf(serverRate));
+                energyRateBox.setFocused(false);
+            } else if (pendingEnergyRate >= 0) {
+                if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
+            } else if (serverRate != lastSyncedEnergyRate && energyBoxShowsSyncedValue()) {
+                lastSyncedEnergyRate = serverRate;
+                energyRateBox.setValue(String.valueOf(serverRate));
+            }
+            energyRateBox.setEditable(enabled);
+            energyRateSetButton.active = enabled;
+        } else if (energyRateBox.isFocused()) {
+            energyRateBox.setFocused(false);
         }
 
         if (spiritusTab) {
@@ -290,9 +402,6 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 spiritusTypeButton.setMessage(Component.translatable("tooltip.neovitae.spiritus." + type.getSerializedName())
                         .withColor(SpiritusTooltipHelper.spiritusColor(type)));
             }
-            guiGraphics.drawCenteredString(this.font,
-                    Component.literal("Keep: " + menu.getSpiritusStock()),
-                    leftPos + 63, topPos + 100, 0xFFFFFF);
         }
 
         modeButton.active = enabled && filterTab;
@@ -321,20 +430,6 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }
         pagePrevButton.active = menu.getCurrentPage() > 0;
         pageNextButton.active = menu.getCurrentPage() < pageCount - 1;
-
-        if (activeTab == Tab.FLUIDS) {
-            renderFluidGhosts(guiGraphics);
-        }
-
-        if (filterTab) {
-            renderGhostAmounts(guiGraphics);
-        }
-
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
-
-        if (componentPickerSlot >= 0) {
-            renderComponentPicker(guiGraphics, mouseX, mouseY);
-        }
     }
 
     private int pickerHeight() {
@@ -457,20 +552,36 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x404040, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0x404040, false);
 
-        String pageStr = (menu.getCurrentPage() + 1) + "/" + menu.getPageCount();
-        guiGraphics.drawString(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0x404040, false);
+        if (isFilterTab()) {
+            String pageStr = (menu.getCurrentPage() + 1) + "/" + menu.getPageCount();
+            guiGraphics.drawString(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0x404040, false);
+        }
 
         int currentSlot = menu.getCurrentSlot();
         if (currentSlot < 0 || currentSlot >= 6) return;
 
-        int priority = menu.getCurrentPriority();
-        String priorityStr = "P:" + priority;
-        guiGraphics.drawString(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0x404040, false);
+        if (activeTab != Tab.SPIRITUS) {
+            int priority = menu.getCurrentPriority();
+            String priorityStr = "P:" + priority;
+            guiGraphics.drawString(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0x404040, false);
+        }
+
+        if (activeTab == Tab.ENERGY) {
+            int ceiling = menu.getEnergyCeiling();
+            guiGraphics.drawString(font, "Rate (FE/t):", 8, ENERGY_BOX_Y + 3, 0x808080, false);
+            int color = menu.getEnergyRate() > ceiling ? 0xC00000 : 0x808080;
+            guiGraphics.drawString(font, "Max: " + ceiling + " FE/t",
+                    ENERGY_BOX_X, ENERGY_BOX_Y + ENERGY_BOX_H + 4, color, false);
+        }
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        if (!isFilterTab()) {
+            guiGraphics.blit(BACKGROUND, leftPos + FILTER_GRID_X, topPos + FILTER_GRID_Y,
+                    FILTER_GRID_X, FILTER_GRID_BLANK_V, FILTER_GRID_WIDTH, FILTER_GRID_HEIGHT);
+        }
     }
 
     @Override
@@ -553,10 +664,49 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             }
         }
 
-        if (enableButton.isHovered()) {
+        if (enableButton.visible && enableButton.isHovered()) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.literal("Toggle routing for this side"));
             tooltip.add(Component.literal("Disabled sides block all transfer").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+        if (directionButton.visible && directionButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Face mode for this side"));
+            tooltip.add(Component.literal("Input: pulls from the neighbor").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Output: pushes into the neighbor").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Both: does either").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Shift-click to cycle backwards").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+        if (energyButton.visible && energyButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Toggle energy transfer for this side"));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+        if (energyRateBox.visible && energyRateBox.isMouseOver(mouseX, mouseY)) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Most this side will move per transfer"));
+            tooltip.add(Component.literal("Capped by the linked master node's upgrades").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Anything at or above the cap tracks the master").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Enter or Set to apply").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+        if (spiritusTypeButton.visible && spiritusTypeButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Spiritus aspect this node exports"));
+            tooltip.add(Component.literal("Applies to the whole node, not one side").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+        if ((stockDownButton.visible && stockDownButton.isHovered()) || (stockUpButton.visible && stockUpButton.isHovered())) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Amount to leave behind in the source"));
+            tooltip.add(Component.literal("Shift for steps of 100").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             return;
         }
@@ -565,10 +715,14 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             tooltip.add(Component.literal("Switch filter target"));
             tooltip.add(Component.literal("Items: per-item whitelist/blacklist").withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.literal("Fluids: whitelist/blacklist/auto-match").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.literal("Energy: per-side on/off").withStyle(ChatFormatting.GRAY));
+            if (isSpiritusCapable()) {
+                tooltip.add(Component.literal("Spiritus: aspect and reserve").withStyle(ChatFormatting.GRAY));
+            }
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             return;
         }
-        if (modeButton.isHovered()) {
+        if (modeButton.visible && modeButton.isHovered()) {
             List<Component> tooltip = new ArrayList<>();
             if (activeTab == Tab.ITEMS) {
                 tooltip.add(Component.literal("Item filter mode"));
@@ -582,13 +736,13 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             return;
         }
-        if (priorityUpButton.isHovered()) {
+        if (priorityUpButton.visible && priorityUpButton.isHovered()) {
             guiGraphics.renderTooltip(font, Component.literal("Increase Priority"), mouseX, mouseY);
         }
-        if (priorityDownButton.isHovered()) {
+        if (priorityDownButton.visible && priorityDownButton.isHovered()) {
             guiGraphics.renderTooltip(font, Component.literal("Decrease Priority"), mouseX, mouseY);
         }
-        if (pagePrevButton.isHovered() || pageNextButton.isHovered()) {
+        if ((pagePrevButton.visible && pagePrevButton.isHovered()) || (pageNextButton.visible && pageNextButton.isHovered())) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.literal("Filter Page " + (menu.getCurrentPage() + 1) + " of " + menu.getPageCount()));
             tooltip.add(Component.literal("A new page opens as you fill the last").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
@@ -706,6 +860,11 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (componentPickerSlot >= 0 && keyCode == 256) {
             componentPickerSlot = -1;
+            return true;
+        }
+        if ((keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER)
+                && energyRateBox != null && energyRateBox.isFocused()) {
+            commitEnergyRate();
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);

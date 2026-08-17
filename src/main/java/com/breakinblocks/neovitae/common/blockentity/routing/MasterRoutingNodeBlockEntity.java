@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,12 +25,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.apache.commons.lang3.tuple.Triple;
 import com.breakinblocks.neovitae.client.event.RoutingBeamHandler;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
@@ -46,15 +43,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     public static final int SLOT_STACK_UPGRADE = 0;
     public static final int SLOT_SPEED_UPGRADE = 1;
 
-    public static final int ENERGY_RATE_DEFAULT = 500;
-    /** Hard storage cap; effective rate is further clamped by {@link #getUpgradeEnergyCeiling()}. */
-    public static final int ENERGY_RATE_MAX = 1_000_000;
-    public static final int ENERGY_RATE_MIN = 0;
-
     private static final int PHANTOM_SWEEP_INTERVAL_TICKS = 1200;
 
     private int currentInput;
-    private int configuredEnergyRate = ENERGY_RATE_DEFAULT;
     /** Authoritative adjacency map; BFS over this drives connectivity without loading any BEs. */
     private TreeMap<BlockPos, List<BlockPos>> connectionMap = new TreeMap<>();
     private List<BlockPos> generalNodeList = new ArrayList<>();
@@ -312,10 +303,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
             for (FilterEntry<F> outEntry : outputEntry.getValue()) {
                 for (Entry<Integer, List<FilterEntry<F>>> inputEntry : inputMap.entrySet()) {
                     for (FilterEntry<F> inEntry : inputEntry.getValue()) {
+                        if (isSameTarget(inEntry.filter(), outEntry.filter())) continue;
+
                         int transferred = channel.transfer(inEntry.filter(), outEntry.filter(), maxTransfer);
-                        if (transferred > 0) {
-                            spawnActivityParticles(level, outEntry.nodePos(), inEntry.nodePos());
-                        }
                         maxTransfer -= transferred;
                         if (maxTransfer <= 0) return;
                     }
@@ -324,16 +314,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         }
     }
 
-    private static void spawnActivityParticles(Level level, BlockPos outputNodePos, BlockPos inputNodePos) {
-        if (!(level instanceof ServerLevel sl)) return;
-        ColoredParticleOptions outputGlow = new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xFF8744, true);
-        ColoredParticleOptions inputGlow = new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x4488FF, true);
-        sl.sendParticles(outputGlow,
-                outputNodePos.getX() + 0.5, outputNodePos.getY() + 0.6, outputNodePos.getZ() + 0.5,
-                4, 0.25, 0.25, 0.25, 0.0);
-        sl.sendParticles(inputGlow,
-                inputNodePos.getX() + 0.5, inputNodePos.getY() + 0.6, inputNodePos.getZ() + 0.5,
-                4, 0.25, 0.25, 0.25, 0.0);
+    private static boolean isSameTarget(IRoutingFilter input, IRoutingFilter output) {
+        BlockPos inPos = input.getNodePos();
+        return inPos != null && inPos.equals(output.getNodePos());
     }
 
     public int getMaxTransfer() {
@@ -350,37 +333,17 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         );
     }
 
-    /** Raw value the player has entered in the UI ("I want up to this much per pulse"). */
-    public int getConfiguredEnergyRate() {
-        return configuredEnergyRate;
-    }
-
-    public void setConfiguredEnergyRate(int rate) {
-        int clamped = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, rate));
-        if (clamped != this.configuredEnergyRate) {
-            this.configuredEnergyRate = clamped;
-            setChanged();
-        }
-    }
-
-    /** Ceiling derived from installed stack upgrades via the datamap formula. */
-    public int getUpgradeEnergyCeiling() {
+    public int getMaxEnergyTransfer() {
         return RoutingNodeHelper.getEffectiveEnergyTransfer(
                 getBlockState().getBlock(),
                 getItem(SLOT_STACK_UPGRADE).getCount()
         );
     }
 
-    /** The configured throttle clamped by the upgrade-derived ceiling. */
-    public int getEffectiveEnergyRate() {
-        return Math.min(configuredEnergyRate, getUpgradeEnergyCeiling());
-    }
-
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         ContainerHelper.saveAllItems(tag, items, registries);
-        tag.putInt("configuredEnergyRate", configuredEnergyRate);
         savePosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL, generalNodeList);
 
         ListTag graphTag = new ListTag();
@@ -413,11 +376,6 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         ContainerHelper.loadAllItems(tag, items, registries);
-        if (tag.contains("configuredEnergyRate", Tag.TAG_INT)) {
-            this.configuredEnergyRate = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, tag.getInt("configuredEnergyRate")));
-        } else {
-            this.configuredEnergyRate = ENERGY_RATE_DEFAULT;
-        }
         generalNodeList = loadPosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL);
 
         connectionMap.clear();

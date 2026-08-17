@@ -952,6 +952,14 @@ public class RoutingNodeTests {
         omni.setChanged();
     }
 
+    private static void setOmniPassAllSide(OmniRoutingNodeBlockEntity omni, Direction side, FaceDirection direction) {
+        SideFilterConfig cfg = omni.getSideFilter(side);
+        cfg.setDirection(direction);
+        cfg.setItemMode(FilterMode.BLACKLIST);
+        cfg.clearItemGhosts();
+        omni.setChanged();
+    }
+
     @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
     public void omniPullsOneSidePushesAnother(GameTestHelper helper) {
         for (int x = 0; x < 7; x++) {
@@ -1025,6 +1033,47 @@ public class RoutingNodeTests {
 
             if (down == 0) {
                 helper.fail("A BOTH side starved the other output, west=" + west + " down=" + down);
+            }
+            if (west + down != 64) {
+                helper.fail("Items lost! west=" + west + " down=" + down);
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void omniBothSidePassAllDoesNotRouteIntoItself(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos omniPos = new BlockPos(3, 2, 1);
+        BlockPos westChestPos = new BlockPos(2, 2, 1);
+        BlockPos downChestPos = new BlockPos(3, 1, 1);
+        BlockPos masterPos = new BlockPos(4, 2, 1);
+
+        helper.setBlock(westChestPos, Blocks.CHEST.defaultBlockState());
+        helper.setBlock(downChestPos, Blocks.CHEST.defaultBlockState());
+        OmniRoutingNodeBlockEntity omni = placeAndGet(helper, omniPos, NVBlocks.OMNI_ROUTING_NODE.block().get(), OmniRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+
+        connectToMaster(helper, omni, master, helper.absolutePos(omniPos), helper.absolutePos(masterPos));
+
+        setOmniPassAllSide(omni, Direction.WEST, FaceDirection.BOTH);
+        setOmniPassAllSide(omni, Direction.DOWN, FaceDirection.OUTPUT);
+        omni.priorities[Direction.WEST.get3DDataValue()] = 5;
+
+        ChestBlockEntity westChest = (ChestBlockEntity) helper.getBlockEntity(westChestPos);
+        westChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            int west = countItem((ChestBlockEntity) helper.getBlockEntity(westChestPos), Items.COBBLESTONE);
+            int down = countItem((ChestBlockEntity) helper.getBlockEntity(downChestPos), Items.COBBLESTONE);
+
+            if (down == 0) {
+                helper.fail("A pass-all BOTH side starved the other output, west=" + west + " down=" + down);
             }
             if (west + down != 64) {
                 helper.fail("Items lost! west=" + west + " down=" + down);

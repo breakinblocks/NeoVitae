@@ -27,6 +27,11 @@ public class BlacklistItemFilter implements IItemFilter {
     protected IItemHandler itemHandler;
 
     @Override
+    public BlockPos getNodePos() {
+        return accessedTile != null ? accessedTile.getBlockPos() : null;
+    }
+
+    @Override
     public void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, IItemHandler itemHandler, boolean isFilterOutput) {
         this.accessedTile = tile;
         this.itemHandler = itemHandler;

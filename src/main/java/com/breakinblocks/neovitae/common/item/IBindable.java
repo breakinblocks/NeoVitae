@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 
 import javax.annotation.Nullable;
 
@@ -25,6 +26,7 @@ public interface IBindable {
     }
 
     default void bind(Player player, ItemStack stack) {
+        if (PlayerHelper.isFakePlayer(player)) return;
         if (onBind(player, stack)) {
             Binding binding = new Binding(player.getUUID(), player.getName().getString());
             stack.set(NVDataComponents.BINDING.get(), binding);

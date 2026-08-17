@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:input_routing_node"
+    },
+    {
+      "item": "neovitae:output_routing_node"
+    },
+    {
+      "tag": "c:gems/diamond"
+    },
+    {
+      "item": "neovitae:spiritus_gem_lesser"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:omni_routing_node"
+  },
+  "syphon": 2500,
+  "ticks": 100,
+  "upgradeLevel": 2
+}

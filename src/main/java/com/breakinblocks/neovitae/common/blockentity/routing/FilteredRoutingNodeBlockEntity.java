@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandler;
+import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.common.routing.SideFilterConfig;
 import com.breakinblocks.neovitae.util.Constants;
@@ -136,6 +137,21 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
     public void setSideEnabled(int sideIndex, boolean enabled) {
         if (sideIndex < 0 || sideIndex >= 6) return;
         sideFilters[sideIndex].setEnabled(enabled);
+        markUpdated();
+    }
+
+    public void setSideEnergyEnabled(int sideIndex, boolean enabled) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        sideFilters[sideIndex].setEnergyEnabled(enabled);
+        markUpdated();
+    }
+
+    public void cycleSideDirection(int sideIndex, boolean backwards) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        SideFilterConfig cfg = sideFilters[sideIndex];
+        FaceDirection[] values = FaceDirection.values();
+        int step = backwards ? values.length - 1 : 1;
+        cfg.setDirection(values[(cfg.getDirection().ordinal() + step) % values.length]);
         markUpdated();
     }
 

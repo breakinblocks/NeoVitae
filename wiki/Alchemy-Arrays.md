@@ -70,9 +70,17 @@ Crafting Arrays are among the simplest expressions of the art. The array inscrib
 | Array | Effect |
 |-------|--------|
 | Collection Array | Draws dropped items within 2 blocks toward its center. Place atop a chest and collected items deposit directly inside. |
-| Light Array | Radiates illumination from invisible sources above the array, lighting an area without cluttering it with torches. |
+| Light Array | Hangs 25 invisible full-strength lights in the open air one block above itself, filling a radius-3 diamond. A redstone signal takes them down; cutting the signal puts them back. Breaking the array removes them, unless you have fed it a block of Glowstone to make them permanent (see below). |
 | Furnace Array | Transmutes raw materials dropped nearby into their smelted forms (10 EV per stack from the owner's network). Items within its radius will not despawn while awaiting processing; processes all valid stacks simultaneously, with cook times matching a standard furnace. |
 | Endless Fountain Array | Scribed with a Block of Lapis and awakened by a Sea Pickle. Pipes water into every fluid container touching its six faces; every 5 ticks it deposits up to 6 buckets, spread evenly across neighbors. Only whole-bucket fills commit. The cache of adjacent tanks reacts instantly to neighbor changes, backs off progressively when every tank is full (with a slate-gray particle puff to signal the stall), and parks completely on a redstone signal. |
+
+### The Light Array
+
+The Light Array fills a **radius-3 diamond** (25 blocks) one block above itself with invisible light blocks, each at **full strength**. It only fills open air, so it will not push lights into your walls, and it re-checks the space every time it lights up.
+
+- **Redstone.** A signal takes the lights down; cutting the signal puts them straight back. Handy for a room you want dark on demand.
+- **Persistence.** Right-click the array with a **block of Glowstone** to fix the lights in place. The Glowstone is consumed, and from then on the lights stay when the array is broken, letting you light a build and take the array with you.
+- **Clearing left-behind lights.** A Light Array adopts any light blocks already sitting in its diamond, so scribe a fresh one on the same spot and break it, and the old lights go with it. The same is true of a light block you placed by hand.
 
 ## Companions
 

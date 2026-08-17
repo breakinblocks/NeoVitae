@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.DemonLanternItem;
+import com.breakinblocks.neovitae.common.item.block.SpiritAccumulatorBlockItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
@@ -44,7 +45,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<AthanorBlock, BlockItem> ATHANOR_BLOCK = BLOCK_REG.register("athanor", AthanorBlock::new);
     public static final BlockWithItemHolder<TeleposerBlock, BlockItem> TELEPOSER = BLOCK_REG.register("teleposer", TeleposerBlock::new);
     public static final BlockWithItemHolder<SpiritCacheBlock, BlockItem> SPIRIT_CACHE = BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new);
-    public static final BlockWithItemHolder<SpiritAccumulatorBlock, BlockItem> SPIRIT_ACCUMULATOR = BLOCK_REG.register("spirit_accumulator", SpiritAccumulatorBlock::new);
+    public static final BlockWithItemHolder<SpiritAccumulatorBlock, BlockItem> SPIRIT_ACCUMULATOR = BLOCK_REG.register("spirit_accumulator", SpiritAccumulatorBlock::new, block -> new SpiritAccumulatorBlockItem(block, new Item.Properties()));
     public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK = BLOCK_REG.register("vitae_link", VitaeLinkBlock::new);
     public static final BlockWithItemHolder<OrbFillingLinkBlock, BlockItem> ORB_FILLING_LINK = BLOCK_REG.register("orb_filling_link", OrbFillingLinkBlock::new);
 
@@ -146,6 +147,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockRoutingConduit, BlockItem> ROUTING_CONDUIT = BLOCK_REG.register("routing_conduit", () -> new BlockRoutingConduit(routing_node_properties));
     public static final BlockWithItemHolder<BlockInputRoutingNode, BlockItem> INPUT_ROUTING_NODE = BLOCK_REG.register("input_routing_node", () -> new BlockInputRoutingNode(routing_node_properties));
     public static final BlockWithItemHolder<BlockOutputRoutingNode, BlockItem> OUTPUT_ROUTING_NODE = BLOCK_REG.register("output_routing_node", () -> new BlockOutputRoutingNode(routing_node_properties));
+    public static final BlockWithItemHolder<BlockOmniRoutingNode, BlockItem> OMNI_ROUTING_NODE = BLOCK_REG.register("omni_routing_node", () -> new BlockOmniRoutingNode(routing_node_properties));
     public static final BlockWithItemHolder<BlockMasterRoutingNode, BlockItem> MASTER_ROUTING_NODE = BLOCK_REG.register("master_routing_node", () -> new BlockMasterRoutingNode(routing_node_properties));
 
     private static final BlockBehaviour.Properties charge_properties = BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion();

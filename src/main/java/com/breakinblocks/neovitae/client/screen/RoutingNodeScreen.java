@@ -21,7 +21,8 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.network.PacketDistributor;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.api.routing.ISpiritusExportNode;
+import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
@@ -44,7 +45,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private static final String[] DIRECTION_NAMES = {"Down", "Up", "North", "South", "West", "East"};
 
     /** Client-side UI tab - server never needs to know which tab the player is viewing. */
-    private enum Tab { ITEMS, FLUIDS, SPIRITUS }
+    private enum Tab { ITEMS, FLUIDS, ENERGY, SPIRITUS }
 
     private Tab activeTab = Tab.ITEMS;
 
@@ -56,6 +57,8 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button tabButton;
     private Button pagePrevButton;
     private Button pageNextButton;
+    private Button directionButton;
+    private Button energyButton;
     private Button spiritusTypeButton;
     private Button stockDownButton;
     private Button stockUpButton;
@@ -99,12 +102,28 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         tabButton = Button.builder(Component.literal("Items"), btn -> {
             activeTab = switch (activeTab) {
                 case ITEMS -> Tab.FLUIDS;
-                case FLUIDS -> isSpiritusCapable() ? Tab.SPIRITUS : Tab.ITEMS;
+                case FLUIDS -> Tab.ENERGY;
+                case ENERGY -> isSpiritusCapable() ? Tab.SPIRITUS : Tab.ITEMS;
                 case SPIRITUS -> Tab.ITEMS;
             };
             menu.setShowItemGhosts(activeTab == Tab.ITEMS);
         }).bounds(leftPos + 8, topPos + 36, 50, 16).build();
         this.addRenderableWidget(tabButton);
+
+        directionButton = Button.builder(Component.literal("Face: Off"), btn ->
+                PacketDistributor.sendToServer(new RoutingNodePayload(
+                        menu.tile.getBlockPos(), RoutingNodePayload.ACTION_CYCLE_SIDE_DIRECTION,
+                        Screen.hasShiftDown() ? -1 : 1)))
+                .bounds(leftPos + 8, topPos + 18, 50, 16).build();
+        directionButton.visible = false;
+        this.addRenderableWidget(directionButton);
+
+        energyButton = Button.builder(Component.literal("Energy: On"), btn ->
+                PacketDistributor.sendToServer(new RoutingNodePayload(
+                        menu.tile.getBlockPos(), RoutingNodePayload.ACTION_TOGGLE_SIDE_ENERGY, 0)))
+                .bounds(leftPos + 8, topPos + 76, 110, 16).build();
+        energyButton.visible = false;
+        this.addRenderableWidget(energyButton);
 
         spiritusTypeButton = Button.builder(Component.literal("Off"), btn -> {
             PacketDistributor.sendToServer(new RoutingNodePayload(
@@ -166,7 +185,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     }
 
     private boolean isSpiritusCapable() {
-        return menu.tile instanceof OutputRoutingNodeBlockEntity;
+        return menu.tile instanceof ISpiritusExportNode;
     }
 
     public boolean isItemsTab() {
@@ -209,27 +228,58 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         for (int i = 0; i < 6; i++) {
             directionButtons[i].active = (i != currentSlot);
         }
+        boolean omni = menu.isOmniNode();
         boolean enabled = menu.isSideEnabled(currentSlot);
         enableButton.setMessage(Component.literal(enabled ? "Enabled" : "Disabled")
                 .withStyle(enabled ? ChatFormatting.GREEN : ChatFormatting.RED));
 
+        if (omni) {
+            FaceDirection facing = menu.getSideDirection(currentSlot);
+            directionButton.setMessage(Component.literal(switch (facing) {
+                case OFF -> "Face: Off";
+                case INPUT -> "Face: Input";
+                case OUTPUT -> "Face: Output";
+                case BOTH -> "Face: Both";
+            }).withStyle(switch (facing) {
+                case OFF -> ChatFormatting.RED;
+                case INPUT -> ChatFormatting.AQUA;
+                case OUTPUT -> ChatFormatting.GOLD;
+                case BOTH -> ChatFormatting.GREEN;
+            }));
+        }
+
         tabButton.setMessage(Component.literal(switch (activeTab) {
             case ITEMS -> "Items";
             case FLUIDS -> "Fluids";
+            case ENERGY -> "Energy";
             case SPIRITUS -> "Spiritus";
         }));
-        tabButton.active = enabled || activeTab == Tab.SPIRITUS;
+        tabButton.active = enabled || activeTab == Tab.SPIRITUS || activeTab == Tab.ENERGY;
 
         boolean spiritusTab = activeTab == Tab.SPIRITUS;
-        modeButton.visible = !spiritusTab;
-        pagePrevButton.visible = !spiritusTab;
-        pageNextButton.visible = !spiritusTab;
+        boolean energyTab = activeTab == Tab.ENERGY;
+        boolean filterTab = !spiritusTab && !energyTab;
+        for (Button button : directionButtons) {
+            button.visible = !spiritusTab;
+        }
+        modeButton.visible = filterTab;
+        pagePrevButton.visible = filterTab;
+        pageNextButton.visible = filterTab;
         priorityUpButton.visible = !spiritusTab;
         priorityDownButton.visible = !spiritusTab;
-        enableButton.visible = !spiritusTab;
+        enableButton.visible = !spiritusTab && !omni;
+        directionButton.visible = !spiritusTab && omni;
+        energyButton.visible = energyTab;
         spiritusTypeButton.visible = spiritusTab;
         stockDownButton.visible = spiritusTab;
         stockUpButton.visible = spiritusTab;
+
+        if (energyTab) {
+            boolean energyOn = menu.isSideEnergyEnabled(currentSlot);
+            energyButton.setMessage(Component.literal(energyOn ? "Energy: On" : "Energy: Off")
+                    .withStyle(energyOn ? ChatFormatting.GREEN : ChatFormatting.RED));
+            energyButton.active = enabled;
+        }
 
         if (spiritusTab) {
             int typeOrdinal = menu.getSpiritusTypeOrdinal();
@@ -245,7 +295,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     leftPos + 63, topPos + 100, 0xFFFFFF);
         }
 
-        modeButton.active = enabled && !spiritusTab;
+        modeButton.active = enabled && filterTab;
         if (activeTab == Tab.ITEMS) {
             FilterMode mode = menu.getSideItemMode(currentSlot);
             modeButton.setMessage(Component.literal(mode == FilterMode.WHITELIST ? "Whitelist" : "Blacklist")
@@ -276,7 +326,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             renderFluidGhosts(guiGraphics);
         }
 
-        if (!spiritusTab) {
+        if (filterTab) {
             renderGhostAmounts(guiGraphics);
         }
 
@@ -470,7 +520,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         for (int i = 0; i < 6; i++) {
-            if (directionButtons[i].isHovered()) {
+            if (directionButtons[i].visible && directionButtons[i].isHovered()) {
                 List<Component> tooltip = new ArrayList<>();
                 tooltip.add(Component.literal(DIRECTION_NAMES[i] + " Face"));
 
@@ -555,7 +605,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         // Right-click on a direction button swaps priorities with the current slot.
         if (button == 1) {
             for (int i = 0; i < 6; i++) {
-                if (directionButtons[i].isHovered() && i != menu.getCurrentSlot()) {
+                if (directionButtons[i].visible && directionButtons[i].isHovered() && i != menu.getCurrentSlot()) {
                     if (menu.tile != null) {
                         menu.tile.swapPriorityWith(i);
                         PacketDistributor.sendToServer(new RoutingNodePayload(

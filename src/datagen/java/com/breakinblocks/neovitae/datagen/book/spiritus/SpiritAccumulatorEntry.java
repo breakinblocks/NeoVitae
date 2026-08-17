@@ -66,7 +66,9 @@ public class SpiritAccumulatorEntry extends EntryProvider {
                 + "Once it stands empty, the next crouch-click releases the lock and the Aspect may be "
                 + "cycled again.\\\n\\\n"
                 + "[#](2E8B57)Drawing it dry through the network does not release the lock. A locked buffer "
-                + "keeps gathering its chosen Aspect no matter how hard the network leans on it.[#]()");
+                + "keeps gathering its chosen Aspect no matter how hard the network leans on it.[#]()\\\n\\\n"
+                + "Break one and nothing is spilled: the crystal carries its Aspect and its whole reserve in "
+                + "your hand, and surrenders them again wherever you set it down.");
 
         this.page("skimming", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

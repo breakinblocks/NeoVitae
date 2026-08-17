@@ -35,6 +35,8 @@ public final class SideFilterConfig {
     public static final int PAGE_SIZE = PAGE_COLUMNS * PAGE_ROWS;
 
     private boolean enabled;
+    private boolean energyEnabled;
+    private FaceDirection direction;
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
     private final List<Integer> itemAmounts = new ArrayList<>();
@@ -45,6 +47,8 @@ public final class SideFilterConfig {
 
     public SideFilterConfig() {
         this.enabled = false;
+        this.energyEnabled = true;
+        this.direction = FaceDirection.OFF;
         this.itemMode = FilterMode.WHITELIST;
         this.fluidMode = FilterMode.AUTO_MATCH;
     }
@@ -55,6 +59,23 @@ public final class SideFilterConfig {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isEnergyEnabled() {
+        return energyEnabled;
+    }
+
+    public void setEnergyEnabled(boolean energyEnabled) {
+        this.energyEnabled = energyEnabled;
+    }
+
+    public FaceDirection getDirection() {
+        return direction;
+    }
+
+    public void setDirection(FaceDirection direction) {
+        this.direction = direction;
+        this.enabled = direction != FaceDirection.OFF;
     }
 
     public FilterMode getItemMode() {
@@ -199,6 +220,8 @@ public final class SideFilterConfig {
     public CompoundTag save(HolderLookup.Provider registries) {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("enabled", enabled);
+        tag.putBoolean("energyEnabled", energyEnabled);
+        tag.putByte("direction", (byte) direction.ordinal());
         tag.putByte("itemMode", (byte) itemMode.ordinal());
         tag.putByte("fluidMode", (byte) fluidMode.ordinal());
 
@@ -241,6 +264,8 @@ public final class SideFilterConfig {
 
     public void load(CompoundTag tag, HolderLookup.Provider registries) {
         this.enabled = tag.getBoolean("enabled");
+        this.energyEnabled = !tag.contains("energyEnabled", Tag.TAG_BYTE) || tag.getBoolean("energyEnabled");
+        this.direction = FaceDirection.byOrdinal(tag.getByte("direction"));
         FilterMode[] values = FilterMode.values();
 
         int itemModeIdx = tag.contains("itemMode", Tag.TAG_BYTE)

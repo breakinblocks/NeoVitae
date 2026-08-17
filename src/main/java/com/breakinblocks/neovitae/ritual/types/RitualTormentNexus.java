@@ -338,26 +338,14 @@ public class RitualTormentNexus extends Ritual {
             double cycles = vanillaSpawnerAccumulators.getOrDefault(pos, 0.0) + (refreshTicks / Math.max(1.0, snap.averageDelay()));
             int wholeCycles = (int) cycles;
             vanillaSpawnerAccumulators.put(pos, cycles - wholeCycles);
-            if (wholeCycles <= 0) continue;
-            for (int c = 0; c < wholeCycles; c++) {
-                for (int n = 0; n < snap.spawnCount(); n++) {
-                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
-                    if (charge > 0 && ctx.network().getCurrentEV() < charge) { ranOutOfEv = true; break; }
-                    if (snap.entityType() == null) continue;
-                    KillResult kr = simulateKill(level, snap.entityType(), pos, fakePlayer, evModPercent, chestInv);
-                    if (charge > 0) {
-                        ctx.syphon(charge);
-                        evCharged += charge;
-                    }
-                    if (altar != null && kr.ev > 0) {
-                        altar.addSacrificeEV(kr.ev, true);
-                    }
-                    pendingXp += kr.xp;
-                    totalKills++;
-                }
-                if (ranOutOfEv) break;
-            }
-            if (ranOutOfEv) break;
+            if (wholeCycles <= 0 || snap.entityType() == null) continue;
+            long kills = (long) wholeCycles * snap.spawnCount();
+            BatchResult br = simulateKillBatch(ctx, level, pos, snap.entityType(), kills, fakePlayer,
+                    evPerKill, evModPercent, maxEvPerOperation, evCharged, altar, chestInv);
+            evCharged += br.charged();
+            pendingXp += br.xp();
+            totalKills += br.performed();
+            if (br.ranOutOfEv()) { ranOutOfEv = true; break; }
             level.sendParticles(ParticleTypes.SOUL, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 6, 0.3, 0.3, 0.3, 0.02);
         }
 
@@ -375,22 +363,14 @@ public class RitualTormentNexus extends Ritual {
                 double cycles = trialSpawnerAccumulators.getOrDefault(pos, 0.0) + refreshTicks * rate;
                 int wholeKills = (int) cycles;
                 trialSpawnerAccumulators.put(pos, cycles - wholeKills);
-                for (int n = 0; n < wholeKills; n++) {
-                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
-                    if (charge > 0 && ctx.network().getCurrentEV() < charge) { ranOutOfEv = true; break; }
-                    EntityType<?> et = snap.entityType();
-                    KillResult kr = simulateKill(level, et, pos, fakePlayer, evModPercent, chestInv);
-                    if (charge > 0) {
-                        ctx.syphon(charge);
-                        evCharged += charge;
-                    }
-                    if (altar != null && kr.ev > 0) {
-                        altar.addSacrificeEV(kr.ev, true);
-                    }
-                    pendingXp += kr.xp;
-                    totalKills++;
+                if (wholeKills > 0) {
+                    BatchResult br = simulateKillBatch(ctx, level, pos, snap.entityType(), wholeKills, fakePlayer,
+                            evPerKill, evModPercent, maxEvPerOperation, evCharged, altar, chestInv);
+                    evCharged += br.charged();
+                    pendingXp += br.xp();
+                    totalKills += br.performed();
+                    if (br.ranOutOfEv()) { ranOutOfEv = true; break; }
                 }
-                if (ranOutOfEv) break;
 
                 double rewardProgress = trialRewardAccumulators.getOrDefault(pos, 0.0) + refreshTicks;
                 int rewards = (int) (rewardProgress / snap.cooldownTicks());
@@ -514,17 +494,93 @@ public class RitualTormentNexus extends Ritual {
 
     private record KillResult(int ev, int xp) {}
 
-    private KillResult simulateKill(ServerLevel level, EntityType<?> type, BlockPos at, FakePlayer fakePlayer, int evModPercent, IItemHandler chestInv) {
+    private record BatchResult(long performed, long charged, long xp, boolean ranOutOfEv) {}
+
+    private BatchResult simulateKillBatch(RitualContext ctx, ServerLevel level, BlockPos at, EntityType<?> type,
+            long kills, FakePlayer fakePlayer, int evPerKill, int evModPercent, int maxEvPerOperation,
+            long evCharged, AraVitaeTile altar, IItemHandler chestInv) {
+        long performed = kills;
+        long charged = 0;
+        boolean ranOutOfEv = false;
+        if (evPerKill > 0) {
+            long available = ctx.network().getCurrentEV();
+            long budget = maxEvPerOperation > 0 ? Math.max(0, maxEvPerOperation - evCharged) : Long.MAX_VALUE;
+            long wanted = Math.min(kills * evPerKill, budget);
+            if (wanted <= available) {
+                charged = wanted;
+            } else {
+                performed = available / evPerKill;
+                charged = performed * evPerKill;
+                ranOutOfEv = true;
+            }
+            if (charged > 0) ctx.syphon((int) Math.min(charged, Integer.MAX_VALUE));
+        }
+        if (performed <= 0) {
+            return new BatchResult(0, charged, 0, ranOutOfEv);
+        }
+
         Entity proto = type.create(level);
         if (!(proto instanceof LivingEntity living)) {
             if (proto != null) proto.discard();
-            return new KillResult(0, 0);
+            return new BatchResult(performed, charged, 0, ranOutOfEv);
         }
         try {
             living.moveTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
-            return reapLiving(level, living, fakePlayer, evModPercent, chestInv);
+
+            int baseEv = EntitySacrificeHelper.calculateEV(living, living.getMaxHealth());
+            long evPerYield = Math.max(0L, ((long) baseEv * evModPercent) / 100L);
+            if (altar != null && evPerYield > 0) {
+                long totalEv = evPerYield * performed;
+                altar.addSacrificeEV((int) Math.min(totalEv, Integer.MAX_VALUE), true);
+            }
+
+            long xp = 0;
+            if (living instanceof Mob mob) {
+                xp = (long) mob.getExperienceReward(level, fakePlayer) * performed;
+            }
+
+            if (chestInv != null) {
+                rollScaledLoot(level, living, fakePlayer, performed, chestInv);
+            }
+            return new BatchResult(performed, charged, xp, ranOutOfEv);
         } finally {
             living.discard();
+        }
+    }
+
+    private void rollScaledLoot(ServerLevel level, LivingEntity living, FakePlayer fakePlayer,
+            long performed, IItemHandler chestInv) {
+        ResourceKey<LootTable> lootKey = living.getLootTable();
+        if (lootKey == BuiltInLootTables.EMPTY) return;
+        LootTable table = level.getServer().reloadableRegistries().getLootTable(lootKey);
+        if (table == LootTable.EMPTY) return;
+        try {
+            LootParams params = new LootParams.Builder(level)
+                    .withParameter(LootContextParams.THIS_ENTITY, living)
+                    .withParameter(LootContextParams.ORIGIN, living.position())
+                    .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().source(NVDamageSources.RITUAL, fakePlayer))
+                    .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, fakePlayer)
+                    .withOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER, fakePlayer)
+                    .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, fakePlayer)
+                    .create(LootContextParamSets.ENTITY);
+            long rolls = Math.min(performed, NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_MAX_LOOT_ROLLS.get());
+            double scale = performed / (double) rolls;
+            RandomSource rng = level.getRandom();
+            for (long r = 0; r < rolls; r++) {
+                for (ItemStack drop : table.getRandomItems(params)) {
+                    if (drop.isEmpty()) continue;
+                    double scaled = drop.getCount() * scale;
+                    long count = (long) scaled;
+                    if (rng.nextDouble() < scaled - count) count++;
+                    int maxStack = drop.getMaxStackSize();
+                    while (count > 0) {
+                        ItemStack piece = drop.copyWithCount((int) Math.min(count, maxStack));
+                        count -= piece.getCount();
+                        ItemHandlerHelper.insertItemStacked(chestInv, piece, false);
+                    }
+                }
+            }
+        } catch (Throwable ignored) {
         }
     }
 

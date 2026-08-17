@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.OmniRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -122,6 +123,9 @@ public class NVTiles {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OutputRoutingNodeBlockEntity>> OUTPUT_ROUTING_NODE_TYPE =
             registerTile("output_routing_node", OutputRoutingNodeBlockEntity::new, NVBlocks.OUTPUT_ROUTING_NODE.block());
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmniRoutingNodeBlockEntity>> OMNI_ROUTING_NODE_TYPE =
+            registerTile("omni_routing_node", OmniRoutingNodeBlockEntity::new, NVBlocks.OMNI_ROUTING_NODE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterRoutingNodeBlockEntity>> MASTER_ROUTING_NODE_TYPE =
             registerTile("master_routing_node", MasterRoutingNodeBlockEntity::new, NVBlocks.MASTER_ROUTING_NODE.block());

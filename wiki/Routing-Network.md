@@ -15,6 +15,7 @@ A complete Routing Network has exactly three kinds of node, and a network needs 
 | **Master Routing Node** | The brain. One per network. Holds upgrades, energy throttle, and the graph itself. |
 | **Input Routing Node** | Pulls items, fluids, or FE out of an adjacent inventory / tank / energy buffer. |
 | **Output Routing Node** | Pushes items, fluids, or FE into an adjacent inventory / tank / energy buffer. |
+| **Omni Routing Node** | Both of the above in one block. Each of its faces is set to Input, Output, Both, or Off. |
 | **Routing Conduit** | A passive relay that extends reach between active nodes. Pure plumbing. |
 
 Every network requires **exactly one Master**. All other nodes must trace a path back to it, either directly or via conduits. Input and Output nodes interact with any **adjacent** block that supports item, fluid, or energy transfer; they have no internal storage of their own.
@@ -47,7 +48,7 @@ Open the node's UI. The right column hosts directional buttons **D**own, **U**p,
 On the left column there are three controls:
 
 - **Enable / Disable**. Wakes the selected side. A disabled face blocks *everything* regardless of filter configuration.
-- **Items / Fluids tab**. Switches the ghost grid between item and fluid filtering.
+- **Items / Fluids / Energy tab**. Cycles the panel between item filtering, fluid filtering, and the per-face energy switch. Output Nodes add a fourth stop, **Spiritus**.
 - **Mode**. Toggles the filter behavior. See below.
 
 The center of the UI is the **ghost grid**, a nine-wide field the currently-selected side uses to record what it permits or denies. When you fill the visible slots, a fresh **page** opens automatically; the **<** and **>** arrows above the grid page through them, so a single face can hold as many filters as you need. **Priority** buttons raise and lower the side's weight; **higher priority is served first** within the network.
@@ -76,7 +77,17 @@ Keep amounts apply only to **Whitelist** ghosts; Blacklist and Auto-Match ignore
 
 ### Energy
 
-Energy has **no whitelist or blacklist**. Any enabled face carries Forge Energy to compatible neighbors alongside items and fluids. The only gates are the face's **Enable** flag and the Master's **Energy Throttle**.
+Energy has **no whitelist or blacklist**. The **Energy** tab carries a single **Energy: On / Off** switch per face, and it starts **On**, so an enabled face moves Forge Energy to compatible neighbors alongside items and fluids exactly as before. Switch it off on a face you want carrying only items or fluids. Beyond that switch, the gates are the face's **Enable** flag and the Master's **Energy Throttle**; face priority applies to energy the same way it does to items.
+
+### The Omni Node
+
+The **Omni Routing Node** is one block that plays both parts. Its interface is the same as any other node's, except the **Enable** button is replaced by a **Face** button cycling **Off / Input / Output / Both**. Set the face against a chest to Input and the face against a furnace to Output, and one node runs the whole line.
+
+Everything else works exactly as it does on the dedicated nodes: per-face item and fluid filters, keep amounts, priority, the Energy switch, and the Spiritus tab. **Both** makes a face pull *and* push, which is only useful against a block that should be topped up and drained on the same side; give it filters or keep amounts, or it will happily shuffle a stack back and forth.
+
+It is crafted in the [Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments) from an **Input Node**, an **Output Node**, a **diamond**, and a **Lesser Spiritus Gem**, on a **tier 2** orb for **2,500 EV**.
+
+The Omni Node has **no connection stubs**. Where the other nodes grow a visible nub toward whatever they are attached to, the Omni Node is a bare twelve-sided crystal that throws a spark toward each face it is actually working: **blue** where it pulls, **orange** where it pushes. A face that is Off, or that faces a block with nothing to route, stays dark.
 
 ### Spiritus
 

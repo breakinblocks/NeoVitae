@@ -11,17 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:copy_components",
-              "source": "block_entity"
-            }
-          ],
-          "name": "neovitae:spirit_accumulator"
+          "name": "neovitae:omni_routing_node"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "neovitae:blocks/spirit_accumulator"
+  "random_sequence": "neovitae:blocks/omni_routing_node"
 }

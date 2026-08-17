@@ -61,6 +61,7 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.INPUT_ROUTING_NODE);
         addDropSelf(NVBlocks.OUTPUT_ROUTING_NODE);
         addDropSelf(NVBlocks.MASTER_ROUTING_NODE);
+        addDropSelf(NVBlocks.OMNI_ROUTING_NODE);
         addDropSelf(NVBlocks.ROUTING_CONDUIT);
         addDropSelf(NVBlocks.INVERSION_PILLAR);
         addDropSelf(NVBlocks.INVERSION_PILLAR_CAP);
@@ -105,6 +106,7 @@ public class MineBlock extends BlockLootSubProvider {
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);
         copyComponents(NVBlocks.DEMON_LANTERN);
+        copyComponents(NVBlocks.SPIRIT_ACCUMULATOR);
 
         // Tau crops - drop 1 seed always, plus bonus seeds at max age with fortune
         generateTauLoot(NVBlocks.WEAK_TAU);

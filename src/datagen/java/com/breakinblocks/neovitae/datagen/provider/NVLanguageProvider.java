@@ -114,6 +114,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.ROUTING_CONDUIT, "Routing Conduit");
         add(NVBlocks.INPUT_ROUTING_NODE, "Input Routing Node");
         add(NVBlocks.OUTPUT_ROUTING_NODE, "Output Routing Node");
+        add(NVBlocks.OMNI_ROUTING_NODE, "Omni Routing Node");
         add(NVBlocks.MASTER_ROUTING_NODE, "Master Routing Node");
 
         // Tau Blocks
@@ -620,6 +621,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
         add(NVBlocks.SPIRIT_ACCUMULATOR, "Spirit Accumulator");
+        add("tooltip.neovitae.spirit_accumulator.stored", "%s: %s / %s");
+        add("tooltip.neovitae.spirit_accumulator.unattuned", "Unattuned");
+        add("tooltip.neovitae.spirit_accumulator.unlocked", "Unlocked");
+        add("chat.neovitae.light_array.persistent", "The lights are fixed in place");
+        add("chat.neovitae.light_array.already_persistent", "These lights are already fixed in place");
         add("chat.neovitae.spirit_accumulator.locked", "Locked to %s");
         add("chat.neovitae.spirit_accumulator.attuned", "Tuning to %s");
         add("chat.neovitae.spirit_accumulator.unattuned", "Unattuned");

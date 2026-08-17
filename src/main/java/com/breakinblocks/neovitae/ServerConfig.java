@@ -44,6 +44,7 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_PER_KILL;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_MAX_EV_PER_OPERATION;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_MODIFIER_PERCENT;
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_MAX_LOOT_ROLLS;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_HORIZONTAL_RANGE;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_VERTICAL_RANGE;
 
@@ -187,6 +188,12 @@ public class ServerConfig {
                 .comment("Percent modifier on the EV produced per simulated kill.",
                         "1 = 1% of the mob's natural sacrifice value, 100 = unchanged, 1000 = 10x.")
                 .defineInRange("ev_modifier_percent", 100, 1, 1000);
+        TORMENT_NEXUS_MAX_LOOT_ROLLS = builder
+                .comment("Maximum loot table rolls per spawner per ritual operation. When more kills than this",
+                        "occur in one operation, the sampled drops are scaled up to match the full kill count,",
+                        "so total loot stays the same while loot tables (and other mods' loot modifiers) run",
+                        "far less often. Higher values give more variety per operation at a performance cost.")
+                .defineInRange("max_loot_rolls_per_spawner", 5, 1, 1024);
         TORMENT_NEXUS_HORIZONTAL_RANGE = builder
                 .comment("Default horizontal radius (in blocks) of the spawner-scan area centered on the Master Ritual Stone.",
                         "5 produces an 11x11 area on the XZ plane.")

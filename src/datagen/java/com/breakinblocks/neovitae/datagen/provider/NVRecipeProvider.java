@@ -2312,6 +2312,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "reagent_lava");
 
+        // Omni Routing Node - one input node, one output node, a diamond and a lesser gem
+        TabulaVitaeRecipeBuilder.build(NVBlocks.OMNI_ROUTING_NODE.asItem())
+                .input(NVBlocks.INPUT_ROUTING_NODE.asItem())
+                .input(NVBlocks.OUTPUT_ROUTING_NODE.asItem())
+                .input(Tags.Items.GEMS_DIAMOND)
+                .input(NVItems.SPIRITUS_GEM_LESSER.get())
+                .syphon(2500)
+                .ticks(100)
+                .minimumTier(2)
+                .save(output, "omni_routing_node");
+
         // Reagent Air - ghast tear, feather x2
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_AIR.get())
                 .input(Items.GHAST_TEAR)

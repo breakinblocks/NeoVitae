@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -25,6 +26,7 @@ import com.breakinblocks.neovitae.api.routing.IRoutingNodeHost;
 import com.breakinblocks.neovitae.common.blockentity.routing.OmniRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
+import com.breakinblocks.neovitae.common.routing.RoutingTint;
 
 import javax.annotation.Nullable;
 
@@ -36,6 +38,12 @@ public class BlockOmniRoutingNode extends BaseEntityBlock implements IRoutingNod
 
     public BlockOmniRoutingNode(BlockBehaviour.Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockRoutingNode.TINT, RoutingTint.NONE));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BlockRoutingNode.TINT);
     }
 
     @Override
@@ -56,7 +64,7 @@ public class BlockOmniRoutingNode extends BaseEntityBlock implements IRoutingNod
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.INVISIBLE;
+        return RenderShape.MODEL;
     }
 
     @Override

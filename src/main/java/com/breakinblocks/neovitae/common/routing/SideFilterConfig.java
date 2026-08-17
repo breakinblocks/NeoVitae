@@ -33,6 +33,7 @@ public final class SideFilterConfig {
 
     private boolean enabled;
     private boolean energyEnabled;
+    private int energyRate;
     private FaceDirection direction;
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
@@ -73,6 +74,14 @@ public final class SideFilterConfig {
 
     public void setEnergyEnabled(boolean energyEnabled) {
         this.energyEnabled = energyEnabled;
+    }
+
+    public int getEnergyRate() {
+        return energyRate;
+    }
+
+    public void setEnergyRate(int energyRate) {
+        this.energyRate = Math.max(0, energyRate);
     }
 
     public FilterMode getItemMode() {
@@ -217,6 +226,7 @@ public final class SideFilterConfig {
     public void save(ValueOutput out) {
         out.putBoolean("enabled", enabled);
         out.putBoolean("energyEnabled", energyEnabled);
+        if (energyRate > 0) out.putInt("energyRate", energyRate);
         out.putString("direction", direction.name());
         out.putString("itemMode", itemMode.name());
         out.putString("fluidMode", fluidMode.name());
@@ -230,6 +240,7 @@ public final class SideFilterConfig {
     public void load(ValueInput in) {
         enabled = in.getBooleanOr("enabled", false);
         energyEnabled = in.getBooleanOr("energyEnabled", true);
+        energyRate = Math.max(0, in.getIntOr("energyRate", 0));
         direction = FaceDirection.OFF;
         in.getString("direction").ifPresent(s2 -> {
             try {

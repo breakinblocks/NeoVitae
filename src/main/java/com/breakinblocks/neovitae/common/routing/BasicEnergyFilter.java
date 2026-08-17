@@ -17,11 +17,13 @@ public class BasicEnergyFilter implements IEnergyFilter {
     private final BlockEntity tile;
     private final EnergyHandler storage;
     private final boolean isOutput;
+    private final int rateLimit;
 
-    public BasicEnergyFilter(BlockEntity tile, EnergyHandler storage, boolean isOutput) {
+    public BasicEnergyFilter(BlockEntity tile, EnergyHandler storage, boolean isOutput, int rateLimit) {
         this.tile = tile;
         this.storage = storage;
         this.isOutput = isOutput;
+        this.rateLimit = Math.max(0, rateLimit);
     }
 
     @Override
@@ -31,9 +33,12 @@ public class BasicEnergyFilter implements IEnergyFilter {
 
     @Override
     public int transferEnergyThroughOutputFilter(int amount) {
+        int capped = Math.min(amount, rateLimit);
+        if (capped <= 0) return 0;
+
         int received;
         try (Transaction tx = Transaction.openRoot()) {
-            received = storage.insert(amount, tx);
+            received = storage.insert(capped, tx);
             tx.commit();
         }
         if (received > 0 && tile != null) {
@@ -46,9 +51,12 @@ public class BasicEnergyFilter implements IEnergyFilter {
 
     @Override
     public int transferThroughInputFilter(IEnergyFilter outputFilter, int maxTransfer) {
+        int capped = Math.min(maxTransfer, rateLimit);
+        if (capped <= 0) return 0;
+
         int available;
         try (Transaction tx = Transaction.openRoot()) {
-            available = storage.extract(maxTransfer, tx);
+            available = storage.extract(capped, tx);
         }
         if (available <= 0) return 0;
 

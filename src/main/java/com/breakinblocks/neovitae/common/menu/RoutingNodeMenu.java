@@ -46,7 +46,11 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_SPIRITUS_STOCK = 26;
     public static final int DATA_SIDE_ENERGY_START = 27;       // +6 for each direction
     public static final int DATA_SIDE_DIRECTION_START = 33;    // +6 for each direction
-    public static final int DATA_SIZE = 39;
+    public static final int DATA_ENERGY_RATE_LO = 39;
+    public static final int DATA_ENERGY_RATE_HI = 40;
+    public static final int DATA_ENERGY_CEILING_LO = 41;
+    public static final int DATA_ENERGY_CEILING_HI = 42;
+    public static final int DATA_SIZE = 43;
 
     private static final int GHOST_COLS = SideFilterConfig.PAGE_COLUMNS;
     private static final int GHOST_ROWS = SideFilterConfig.PAGE_ROWS;
@@ -59,6 +63,9 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
 
     private int currentPage = 0;
     private boolean showItemGhosts = true;
+    private boolean ghostSlotsVisible = true;
+
+    private final int[] energySync = new int[4];
 
     public RoutingNodeMenu(int containerId, Inventory playerInventory, FilteredRoutingNodeBlockEntity tile) {
         super(NVMenus.ROUTING_NODE.get(), containerId);
@@ -89,6 +96,14 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         return output.getSpiritusExportType() == null ? 0 : output.getSpiritusExportType().ordinal() + 1;
                     } else if (index == DATA_SPIRITUS_STOCK && tile instanceof ISpiritusExportNode output) {
                         return output.getSpiritusStockTarget();
+                    } else if (index == DATA_ENERGY_RATE_LO) {
+                        return low(displayEnergyRate(tile));
+                    } else if (index == DATA_ENERGY_RATE_HI) {
+                        return high(displayEnergyRate(tile));
+                    } else if (index == DATA_ENERGY_CEILING_LO) {
+                        return low(tile.getMasterEnergyCeiling());
+                    } else if (index == DATA_ENERGY_CEILING_HI) {
+                        return high(tile.getMasterEnergyCeiling());
                     }
                     return 0;
                 }
@@ -119,6 +134,8 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                         output.setSpiritusExport(clamped == 0 ? null : types[clamped - 1], output.getSpiritusStockTarget());
                     } else if (index == DATA_SPIRITUS_STOCK && tile instanceof ISpiritusExportNode output) {
                         output.setSpiritusExport(output.getSpiritusExportType(), value);
+                    } else if (index >= DATA_ENERGY_RATE_LO && index <= DATA_ENERGY_CEILING_HI) {
+                        energySync[index - DATA_ENERGY_RATE_LO] = value;
                     }
                 }
 
@@ -175,6 +192,10 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         int pages = getPageCount();
         this.currentPage = Math.max(0, Math.min(pages - 1, page));
         refreshGhostContainer();
+    }
+
+    public void setGhostSlotsVisible(boolean visible) {
+        this.ghostSlotsVisible = visible;
     }
 
     /** Toggle whether the item-ghost slots render; the Fluids tab hides them. */
@@ -312,6 +333,31 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         return data.get(DATA_SPIRITUS_TYPE);
     }
 
+    public int getEnergyRate() {
+        return combine(0);
+    }
+
+    public int getEnergyCeiling() {
+        return combine(2);
+    }
+
+    private int combine(int loIndex) {
+        return ((energySync[loIndex + 1] & 0xFFFF) << 16) | (energySync[loIndex] & 0xFFFF);
+    }
+
+    private static int displayEnergyRate(FilteredRoutingNodeBlockEntity tile) {
+        int configured = tile.getSideEnergyRate(tile.getCurrentActiveSlot());
+        return configured > 0 ? configured : tile.getMasterEnergyCeiling();
+    }
+
+    private static int low(int value) {
+        return value & 0xFFFF;
+    }
+
+    private static int high(int value) {
+        return (value >>> 16) & 0xFFFF;
+    }
+
     public int getSpiritusStock() {
         return data.get(DATA_SPIRITUS_STOCK);
     }
@@ -407,9 +453,14 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         return tile != null && Container.stillValidBlockEntity(tile, player);
     }
 
-    private static class GhostSlot extends Slot {
+    private class GhostSlot extends Slot {
         public GhostSlot(Container container, int index, int x, int y) {
             super(container, index, x, y);
+        }
+
+        @Override
+        public boolean isActive() {
+            return ghostSlotsVisible;
         }
 
         @Override

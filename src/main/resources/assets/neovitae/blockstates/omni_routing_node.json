@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "neovitae:block/routing/omniroutingnodecore"
+  "multipart": [
+    {
+      "apply": {
+        "model": "neovitae:block/routing/omniroutingnodecore"
+      }
     }
-  }
+  ]
 }

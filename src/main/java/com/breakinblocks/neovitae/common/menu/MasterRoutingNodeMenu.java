@@ -23,12 +23,12 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     private static final int DATA_INPUT_COUNT = 1;
     private static final int DATA_OUTPUT_COUNT = 2;
     private static final int DATA_TICK_RATE = 3;
-    private static final int DATA_MAX_TRANSFER_LO = 4;
-    private static final int DATA_MAX_TRANSFER_HI = 5;
-    private static final int DATA_ENERGY_RATE_LO = 6;
-    private static final int DATA_ENERGY_RATE_HI = 7;
-    private static final int DATA_ENERGY_CEILING_LO = 8;
-    private static final int DATA_ENERGY_CEILING_HI = 9;
+    private static final int DATA_MAX_ITEM_LO = 4;
+    private static final int DATA_MAX_ITEM_HI = 5;
+    private static final int DATA_MAX_FLUID_LO = 6;
+    private static final int DATA_MAX_FLUID_HI = 7;
+    private static final int DATA_MAX_ENERGY_LO = 8;
+    private static final int DATA_MAX_ENERGY_HI = 9;
     private static final int DATA_SIZE = 10;
 
     public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
@@ -59,12 +59,12 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
                                 tile.getBlockState().getBlock(),
                                 tile.getItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE).getCount()
                         );
-                        case DATA_MAX_TRANSFER_LO -> low(tile.getMaxTransfer());
-                        case DATA_MAX_TRANSFER_HI -> high(tile.getMaxTransfer());
-                        case DATA_ENERGY_RATE_LO -> low(tile.getConfiguredEnergyRate());
-                        case DATA_ENERGY_RATE_HI -> high(tile.getConfiguredEnergyRate());
-                        case DATA_ENERGY_CEILING_LO -> low(tile.getUpgradeEnergyCeiling());
-                        case DATA_ENERGY_CEILING_HI -> high(tile.getUpgradeEnergyCeiling());
+                        case DATA_MAX_ITEM_LO -> low(tile.getMaxTransfer());
+                        case DATA_MAX_ITEM_HI -> high(tile.getMaxTransfer());
+                        case DATA_MAX_FLUID_LO -> low(tile.getMaxFluidTransfer());
+                        case DATA_MAX_FLUID_HI -> high(tile.getMaxFluidTransfer());
+                        case DATA_MAX_ENERGY_LO -> low(tile.getMaxEnergyTransfer());
+                        case DATA_MAX_ENERGY_HI -> high(tile.getMaxEnergyTransfer());
                         default -> 0;
                     };
                 }
@@ -105,19 +105,19 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     }
 
     public int getMaxTransfer() {
-        return combine(DATA_MAX_TRANSFER_LO, DATA_MAX_TRANSFER_HI);
+        return combine(DATA_MAX_ITEM_LO, DATA_MAX_ITEM_HI);
+    }
+
+    public int getMaxFluidTransfer() {
+        return combine(DATA_MAX_FLUID_LO, DATA_MAX_FLUID_HI);
+    }
+
+    public int getMaxEnergyTransfer() {
+        return combine(DATA_MAX_ENERGY_LO, DATA_MAX_ENERGY_HI);
     }
 
     public int getTickRate() {
         return data.get(DATA_TICK_RATE);
-    }
-
-    public int getEnergyRate() {
-        return combine(DATA_ENERGY_RATE_LO, DATA_ENERGY_RATE_HI);
-    }
-
-    public int getEnergyCeiling() {
-        return combine(DATA_ENERGY_CEILING_LO, DATA_ENERGY_CEILING_HI);
     }
 
     private int combine(int loIndex, int hiIndex) {

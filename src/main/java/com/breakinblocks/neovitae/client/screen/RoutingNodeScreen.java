@@ -3,8 +3,10 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Direction;
@@ -38,6 +40,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.lwjgl.glfw.GLFW;
 
 public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> {
     private static final Identifier BACKGROUND = NeoVitae.rl("textures/gui/routingnode.png");
@@ -69,6 +72,22 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button spiritusTypeButton;
     private Button stockDownButton;
     private Button stockUpButton;
+    private EditBox energyRateBox;
+    private Button energyRateSetButton;
+    private int lastSyncedEnergyRate = -1;
+    private int pendingEnergyRate = -1;
+    private int lastEnergySide = -1;
+
+    private static final int FILTER_GRID_X = 7;
+    private static final int FILTER_GRID_Y = 75;
+    private static final int FILTER_GRID_WIDTH = 163;
+    private static final int FILTER_GRID_HEIGHT = 55;
+    private static final int FILTER_GRID_BLANK_V = 20;
+
+    private static final int ENERGY_BOX_X = 74;
+    private static final int ENERGY_BOX_Y = 102;
+    private static final int ENERGY_BOX_W = 56;
+    private static final int ENERGY_BOX_H = 14;
 
     private static final int PICKER_WIDTH = 174;
     private int componentPickerSlot = -1;
@@ -126,14 +145,29 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         energyButton = Button.builder(Component.translatable("gui.neovitae.routing.energy_on"), btn ->
                 ClientPacketDistributor.sendToServer(new RoutingNodePayload(
                         menu.tile.getBlockPos(), RoutingNodePayload.ACTION_TOGGLE_SIDE_ENERGY, 0)))
-                .bounds(leftPos + 8, topPos + 76, 110, 16).build();
+                .bounds(leftPos + 8, topPos + 80, 160, 16).build();
         energyButton.visible = false;
         this.addRenderableWidget(energyButton);
+
+        energyRateBox = new EditBox(this.font, leftPos + ENERGY_BOX_X, topPos + ENERGY_BOX_Y,
+                ENERGY_BOX_W, ENERGY_BOX_H, Component.translatable("gui.neovitae.routing.rate"));
+        energyRateBox.setMaxLength(7);
+        energyRateBox.setFilter(str -> str.isEmpty() || str.chars().allMatch(Character::isDigit));
+        lastSyncedEnergyRate = menu.getEnergyRate();
+        energyRateBox.setValue(String.valueOf(lastSyncedEnergyRate));
+        energyRateBox.visible = false;
+        this.addRenderableWidget(energyRateBox);
+
+        energyRateSetButton = Button.builder(Component.translatable("gui.neovitae.routing.set"), btn -> commitEnergyRate())
+                .bounds(leftPos + ENERGY_BOX_X + ENERGY_BOX_W + 4, topPos + ENERGY_BOX_Y, 26, ENERGY_BOX_H)
+                .build();
+        energyRateSetButton.visible = false;
+        this.addRenderableWidget(energyRateSetButton);
 
         spiritusTypeButton = Button.builder(Component.translatable("gui.neovitae.routing.spiritus_off"), btn ->
                 ClientPacketDistributor.sendToServer(new RoutingNodePayload(
                         menu.tile.getBlockPos(), RoutingNodePayload.ACTION_CYCLE_SPIRITUS_TYPE, 1)))
-                .bounds(leftPos + 8, topPos + 76, 110, 16).build();
+                .bounds(leftPos + 8, topPos + 80, 160, 16).build();
         spiritusTypeButton.visible = false;
         this.addRenderableWidget(spiritusTypeButton);
 
@@ -141,7 +175,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 ClientPacketDistributor.sendToServer(new RoutingNodePayload(
                         menu.tile.getBlockPos(), RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
                         KeyboardHelper.isShiftDown() ? -100 : -10)))
-                .bounds(leftPos + 8, topPos + 96, 14, 16).build();
+                .bounds(leftPos + 8, topPos + 102, 14, 16).build();
         stockDownButton.visible = false;
         this.addRenderableWidget(stockDownButton);
 
@@ -149,7 +183,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 ClientPacketDistributor.sendToServer(new RoutingNodePayload(
                         menu.tile.getBlockPos(), RoutingNodePayload.ACTION_ADJUST_SPIRITUS_STOCK,
                         KeyboardHelper.isShiftDown() ? 100 : 10)))
-                .bounds(leftPos + 104, topPos + 96, 14, 16).build();
+                .bounds(leftPos + 154, topPos + 102, 14, 16).build();
         stockUpButton.visible = false;
         this.addRenderableWidget(stockUpButton);
 
@@ -183,6 +217,40 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             ClientPacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_INCREMENT_PRIORITY, 0));
         }).bounds(leftPos + 98, topPos + 40, 14, 16).build();
         this.addRenderableWidget(priorityUpButton);
+    }
+
+    private void commitEnergyRate() {
+        if (energyRateBox == null || menu.tile == null) return;
+        String value = energyRateBox.getValue();
+        if (value.isEmpty()) return;
+        int parsed;
+        try {
+            parsed = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return;
+        }
+        int ceiling = menu.getEnergyCeiling();
+        int applied = (parsed <= 0 || parsed >= ceiling) ? ceiling : parsed;
+        energyRateBox.setValue(String.valueOf(applied));
+        energyRateBox.setFocused(false);
+        pendingEnergyRate = applied;
+        lastSyncedEnergyRate = applied;
+        ClientPacketDistributor.sendToServer(new RoutingNodePayload(
+                menu.tile.getBlockPos(), RoutingNodePayload.ACTION_SET_SIDE_ENERGY_RATE, applied));
+    }
+
+    private boolean energyBoxShowsSyncedValue() {
+        if (energyRateBox == null) return false;
+        String value = energyRateBox.getValue();
+        try {
+            return !value.isEmpty() && Integer.parseInt(value) == lastSyncedEnergyRate;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isFilterTab() {
+        return activeTab == Tab.ITEMS || activeTab == Tab.FLUIDS;
     }
 
     private boolean isSpiritusCapable() {
@@ -254,11 +322,12 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             case ENERGY -> "gui.neovitae.routing.energy";
             case SPIRITUS -> "gui.neovitae.routing.spiritus";
         }));
-        tabButton.active = enabled || activeTab == Tab.SPIRITUS || activeTab == Tab.ENERGY;
+        tabButton.active = true;
 
         boolean spiritusTab = activeTab == Tab.SPIRITUS;
         boolean energyTab = activeTab == Tab.ENERGY;
-        boolean filterTab = !spiritusTab && !energyTab;
+        boolean filterTab = isFilterTab();
+        menu.setGhostSlotsVisible(filterTab);
         for (Button button : directionButtons) {
             button.visible = !spiritusTab;
         }
@@ -274,12 +343,33 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         stockDownButton.visible = spiritusTab;
         stockUpButton.visible = spiritusTab;
 
+        energyRateBox.visible = energyTab;
+        energyRateSetButton.visible = energyTab;
+
         if (energyTab) {
             boolean energyOn = menu.isSideEnergyEnabled(currentSlot);
             energyButton.setMessage(Component.translatable(energyOn
                     ? "gui.neovitae.routing.energy_on" : "gui.neovitae.routing.energy_off")
                     .withStyle(energyOn ? ChatFormatting.GREEN : ChatFormatting.RED));
             energyButton.active = enabled;
+
+            int serverRate = menu.getEnergyRate();
+            if (currentSlot != lastEnergySide) {
+                lastEnergySide = currentSlot;
+                pendingEnergyRate = -1;
+                lastSyncedEnergyRate = serverRate;
+                energyRateBox.setValue(String.valueOf(serverRate));
+                energyRateBox.setFocused(false);
+            } else if (pendingEnergyRate >= 0) {
+                if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
+            } else if (serverRate != lastSyncedEnergyRate && energyBoxShowsSyncedValue()) {
+                lastSyncedEnergyRate = serverRate;
+                energyRateBox.setValue(String.valueOf(serverRate));
+            }
+            energyRateBox.setEditable(enabled);
+            energyRateSetButton.active = enabled;
+        } else if (energyRateBox.isFocused()) {
+            energyRateBox.setFocused(false);
         }
 
         if (spiritusTab) {
@@ -461,7 +551,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             return;
         }
 
-        if (activeTab != Tab.ENERGY) {
+        if (isFilterTab()) {
             Component pageStr = Component.literal((menu.getCurrentPage() + 1) + "/" + menu.getPageCount());
             guiGraphics.text(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0xFF404040, false);
         }
@@ -472,11 +562,24 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         int priority = menu.getCurrentPriority();
         Component priorityStr = Component.translatable("gui.neovitae.routing.priority_short", priority);
         guiGraphics.text(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0xFF404040, false);
+
+        if (activeTab == Tab.ENERGY) {
+            int ceiling = menu.getEnergyCeiling();
+            guiGraphics.text(font, Component.translatable("gui.neovitae.routing.rate_label"),
+                    8, ENERGY_BOX_Y + 3, 0xFF808080, false);
+            int color = menu.getEnergyRate() > ceiling ? 0xFFC00000 : 0xFF808080;
+            guiGraphics.text(font, Component.translatable("gui.neovitae.routing.rate_max", ceiling),
+                    ENERGY_BOX_X, ENERGY_BOX_Y + ENERGY_BOX_H + 4, color, false);
+        }
     }
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
+        if (!isFilterTab()) {
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos + FILTER_GRID_X, topPos + FILTER_GRID_Y,
+                    FILTER_GRID_X, FILTER_GRID_BLANK_V, FILTER_GRID_WIDTH, FILTER_GRID_HEIGHT, 256, 256);
+        }
     }
 
     @Override
@@ -563,10 +666,47 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             }
         }
 
-        if (enableButton.isHovered()) {
+        if (enableButton.visible && enableButton.isHovered()) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.translatable("gui.neovitae.routing.side.toggle"));
             tooltip.add(Component.translatable("gui.neovitae.routing.side.disabled_blocks").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+            return;
+        }
+        if (directionButton.visible && directionButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.translatable("gui.neovitae.routing.face_mode"));
+            tooltip.add(Component.translatable("gui.neovitae.routing.face_mode.input").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.face_mode.output").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.face_mode.both").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.face_mode.cycle").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+            return;
+        }
+        if (energyButton.visible && energyButton.isHovered()) {
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.routing.energy_toggle"), mouseX, mouseY);
+            return;
+        }
+        if (energyRateBox.visible && energyRateBox.isMouseOver(mouseX, mouseY)) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.translatable("gui.neovitae.routing.rate.title"));
+            tooltip.add(Component.translatable("gui.neovitae.routing.rate.capped").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.rate.tracks").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.rate.apply").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+            return;
+        }
+        if (spiritusTypeButton.visible && spiritusTypeButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.translatable("gui.neovitae.routing.spiritus_aspect"));
+            tooltip.add(Component.translatable("gui.neovitae.routing.spiritus_aspect.desc").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+            return;
+        }
+        if ((stockDownButton.visible && stockDownButton.isHovered()) || (stockUpButton.visible && stockUpButton.isHovered())) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.translatable("gui.neovitae.routing.spiritus_reserve"));
+            tooltip.add(Component.translatable("gui.neovitae.routing.spiritus_reserve.hint").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
             return;
         }
@@ -575,10 +715,14 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             tooltip.add(Component.translatable("gui.neovitae.routing.filter.switch"));
             tooltip.add(Component.translatable("gui.neovitae.routing.filter.items_desc").withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable("gui.neovitae.routing.filter.fluids_desc").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("gui.neovitae.routing.filter.energy_desc").withStyle(ChatFormatting.GRAY));
+            if (isSpiritusCapable()) {
+                tooltip.add(Component.translatable("gui.neovitae.routing.filter.spiritus_desc").withStyle(ChatFormatting.GRAY));
+            }
             guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
             return;
         }
-        if (modeButton.isHovered()) {
+        if (modeButton.visible && modeButton.isHovered()) {
             List<Component> tooltip = new ArrayList<>();
             if (activeTab == Tab.ITEMS) {
                 tooltip.add(Component.translatable("gui.neovitae.routing.filter.item_mode"));
@@ -592,17 +736,17 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
             return;
         }
-        if (pagePrevButton.isHovered() || pageNextButton.isHovered()) {
+        if ((pagePrevButton.visible && pagePrevButton.isHovered()) || (pageNextButton.visible && pageNextButton.isHovered())) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.translatable("gui.neovitae.routing.page", menu.getCurrentPage() + 1, menu.getPageCount()));
             tooltip.add(Component.translatable("gui.neovitae.routing.page_hint").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
             return;
         }
-        if (priorityUpButton.isHovered()) {
+        if (priorityUpButton.visible && priorityUpButton.isHovered()) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.routing.priority.increase"), mouseX, mouseY);
         }
-        if (priorityDownButton.isHovered()) {
+        if (priorityDownButton.visible && priorityDownButton.isHovered()) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.routing.priority.decrease"), mouseX, mouseY);
         }
     }
@@ -685,6 +829,20 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }
 
         return super.mouseClicked(event, dragging);
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (componentPickerSlot >= 0 && event.key() == GLFW.GLFW_KEY_ESCAPE) {
+            componentPickerSlot = -1;
+            return true;
+        }
+        if ((event.key() == GLFW.GLFW_KEY_ENTER || event.key() == GLFW.GLFW_KEY_KP_ENTER)
+                && energyRateBox != null && energyRateBox.isFocused()) {
+            commitEnergyRate();
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

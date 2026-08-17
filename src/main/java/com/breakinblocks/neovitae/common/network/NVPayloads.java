@@ -95,12 +95,6 @@ public class NVPayloads {
         );
 
         registrar.playToServer(
-                MasterRoutingNodeEnergyRatePayload.TYPE,
-                MasterRoutingNodeEnergyRatePayload.STREAM_CODEC,
-                NVPayloads::handleMasterRoutingNodeEnergyRate
-        );
-
-        registrar.playToServer(
                 SigilHoldingCyclePayload.TYPE,
                 SigilHoldingCyclePayload.STREAM_CODEC,
                 NVPayloads::handleSigilHoldingCycle
@@ -278,6 +272,8 @@ public class NVPayloads {
                             var cfg = tile.getSideFilter(currentSide);
                             tile.setSideEnabled(currentSide, !cfg.isEnabled());
                         }
+                        case RoutingNodePayload.ACTION_SET_SIDE_ENERGY_RATE ->
+                                tile.setSideEnergyRate(currentSide, payload.value());
                         case RoutingNodePayload.ACTION_CYCLE_SIDE_DIRECTION ->
                                 tile.cycleSideDirection(currentSide, payload.value() < 0);
                         case RoutingNodePayload.ACTION_TOGGLE_SIDE_ENERGY -> {
@@ -363,21 +359,6 @@ public class NVPayloads {
                     } else {
                         tile.setItemAmount(currentSide, payload.ghostSlot(), payload.amount());
                     }
-                }
-            }
-        });
-    }
-
-    private static void handleMasterRoutingNodeEnergyRate(MasterRoutingNodeEnergyRatePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            Player player = context.player();
-            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
-                return;
-            }
-            BlockEntity be = player.level().getBlockEntity(payload.pos());
-            if (be instanceof MasterRoutingNodeBlockEntity tile) {
-                if (player.containerMenu instanceof MasterRoutingNodeMenu menu && menu.tile == tile) {
-                    tile.setConfiguredEnergyRate(payload.rate());
                 }
             }
         });

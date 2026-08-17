@@ -24,11 +24,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
+import com.breakinblocks.neovitae.common.routing.RoutingTint;
 import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
@@ -49,12 +51,14 @@ public abstract class BlockRoutingNode extends BaseEntityBlock implements IRouti
     public static final BooleanProperty EAST = BooleanProperty.create("east");
     public static final BooleanProperty SOUTH = BooleanProperty.create("south");
     public static final BooleanProperty WEST = BooleanProperty.create("west");
+    public static final EnumProperty<RoutingTint> TINT = EnumProperty.create("tint", RoutingTint.class);
 
     protected static final VoxelShape SHAPE = Block.box(6.0D, 6.0D, 6.0D, 10.0D, 10.0D, 10.0D);
 
     protected BlockRoutingNode(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
+                .setValue(TINT, RoutingTint.NONE)
                 .setValue(DOWN, false)
                 .setValue(UP, false)
                 .setValue(NORTH, false)
@@ -125,7 +129,7 @@ public abstract class BlockRoutingNode extends BaseEntityBlock implements IRouti
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST);
+        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, TINT);
     }
 
     @Override

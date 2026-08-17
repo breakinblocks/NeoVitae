@@ -1,138 +1,65 @@
 package com.breakinblocks.neovitae.client.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
-import com.breakinblocks.neovitae.common.network.MasterRoutingNodeEnergyRatePayload;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-import org.lwjgl.glfw.GLFW;
 
 public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRoutingNodeMenu> {
     private static final Identifier BACKGROUND = NeoVitae.rl("textures/gui/masterroutingnode.png");
+    private static final DecimalFormat FORMAT = new DecimalFormat("#,###");
 
-    private static final int ENERGY_BOX_X = 80;
-    private static final int ENERGY_BOX_Y = 38;
-    private static final int ENERGY_BOX_W = 56;
-    private static final int ENERGY_BOX_H = 14;
+    private static final int WELL_X = 79;
+    private static final int WELL_Y = 37;
+    private static final int WELL_W = 58;
+    private static final int WELL_H = 16;
+    private static final int WELL_BLANK_U = 8;
+    private static final int WELL_BLANK_V = 35;
 
-    private EditBox energyRateBox;
-    private int lastSyncedEnergyRate = -1;
-    private int pendingEnergyRate = -1;
+    private static final int STATS_X = 8;
+    private static final int STATS_Y = 33;
+    private static final int STATS_LINE_HEIGHT = 9;
+    private static final int STATS_VALUE_RIGHT = 168;
 
     public MasterRoutingNodeScreen(MasterRoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 176, 146);
         this.titleLabelX = 38;
-        this.inventoryLabelY = 52;
     }
 
-    @Override
-    protected void init() {
-        super.init();
-
-        int initialRate = menu.getEnergyRate();
-        if (initialRate <= 0) initialRate = MasterRoutingNodeBlockEntity.ENERGY_RATE_DEFAULT;
-        lastSyncedEnergyRate = initialRate;
-
-        energyRateBox = new EditBox(
-                this.font,
-                leftPos + ENERGY_BOX_X,
-                topPos + ENERGY_BOX_Y,
-                ENERGY_BOX_W,
-                ENERGY_BOX_H,
-                Component.translatable("gui.neovitae.master_routing.energy_rate")
-        );
-        energyRateBox.setMaxLength(7);
-        energyRateBox.setFilter(s -> s.isEmpty() || s.chars().allMatch(Character::isDigit));
-        energyRateBox.setValue(String.valueOf(initialRate));
-        this.addRenderableWidget(energyRateBox);
-        this.setInitialFocus(energyRateBox);
-
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.neovitae.master_routing.set"), b -> commitEnergyRate())
-                .bounds(leftPos + ENERGY_BOX_X + ENERGY_BOX_W + 2, topPos + ENERGY_BOX_Y, 26, ENERGY_BOX_H)
-                .build());
-    }
-
-    private void commitEnergyRate() {
-        if (energyRateBox == null) return;
-        String value = energyRateBox.getValue();
-        if (value.isEmpty()) return;
-        int parsed;
-        try {
-            parsed = Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            return;
-        }
-        int clamped = Math.max(MasterRoutingNodeBlockEntity.ENERGY_RATE_MIN,
-                Math.min(MasterRoutingNodeBlockEntity.ENERGY_RATE_MAX, parsed));
-        energyRateBox.setValue(String.valueOf(clamped));
-        energyRateBox.setFocused(false);
-        pendingEnergyRate = clamped;
-        lastSyncedEnergyRate = clamped;
-        ClientPacketDistributor.sendToServer(new MasterRoutingNodeEnergyRatePayload(
-                menu.tile.getBlockPos(),
-                clamped
-        ));
-    }
-
-    @Override
-    public boolean keyPressed(KeyEvent event) {
-        if ((event.key() == GLFW.GLFW_KEY_ENTER || event.key() == GLFW.GLFW_KEY_KP_ENTER)
-                && energyRateBox != null && energyRateBox.isFocused()) {
-            commitEnergyRate();
-            return true;
-        }
-        return super.keyPressed(event);
-    }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
-
-        int serverRate = menu.getEnergyRate();
-        if (pendingEnergyRate >= 0) {
-            if (serverRate == pendingEnergyRate) pendingEnergyRate = -1;
-        } else if (serverRate != lastSyncedEnergyRate && boxShowsSyncedValue()) {
-            lastSyncedEnergyRate = serverRate;
-            energyRateBox.setValue(String.valueOf(serverRate));
-        }
-    }
-
-    private boolean boxShowsSyncedValue() {
-        if (energyRateBox == null) return false;
-        String value = energyRateBox.getValue();
-        try {
-            return !value.isEmpty() && Integer.parseInt(value) == lastSyncedEnergyRate;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private void drawStat(GuiGraphicsExtractor guiGraphics, int line, Component label, Component value) {
+        int y = STATS_Y + line * STATS_LINE_HEIGHT;
+        guiGraphics.text(this.font, label, STATS_X, y, 0xFF808080, false);
+        guiGraphics.text(this.font, value, STATS_VALUE_RIGHT - font.width(value), y, 0xFFB0A0A4, false);
     }
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040, false);
-        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0xFF404040, false);
-        guiGraphics.text(this.font, Component.translatable("gui.neovitae.master_routing.energy_rate_label"), 8, ENERGY_BOX_Y + 3, 0xFF404040, false);
 
-        int ceiling = menu.getEnergyCeiling();
-        int configured = menu.getEnergyRate();
-        int color = configured > ceiling ? 0xFFC00000 : 0xFF808080;
-        guiGraphics.text(this.font, "Max: " + ceiling + " FE/t", ENERGY_BOX_X, ENERGY_BOX_Y + ENERGY_BOX_H + 1, color, false);
+        drawStat(guiGraphics, 0,
+                Component.translatable("gui.neovitae.master_routing.stat.items"),
+                Component.translatable("gui.neovitae.master_routing.stat.items_value", FORMAT.format(menu.getMaxTransfer())));
+        drawStat(guiGraphics, 1,
+                Component.translatable("gui.neovitae.master_routing.stat.fluid"),
+                Component.translatable("gui.neovitae.master_routing.stat.fluid_value", FORMAT.format(menu.getMaxFluidTransfer())));
+        drawStat(guiGraphics, 2,
+                Component.translatable("gui.neovitae.master_routing.stat.energy"),
+                Component.translatable("gui.neovitae.master_routing.stat.energy_value", FORMAT.format(menu.getMaxEnergyTransfer())));
     }
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos + WELL_X, topPos + WELL_Y,
+                WELL_BLANK_U, WELL_BLANK_V, WELL_W, WELL_H, 256, 256);
     }
 
     @Override
@@ -142,24 +69,28 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         boolean slotEmpty = hoveredSlot == null || !hoveredSlot.hasItem();
 
         if (slotEmpty && isHovering(62, 15, 16, 16, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.master_routing.stack_upgrade_slot"), mouseX, mouseY);
+            List<Component> lines = new ArrayList<>();
+            lines.add(Component.translatable("gui.neovitae.master_routing.stack_upgrade_slot"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.stack_upgrade_slot.desc"));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
+            return;
         }
 
         if (slotEmpty && isHovering(98, 15, 16, 16, mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.master_routing.speed_upgrade_slot"), mouseX, mouseY);
+            List<Component> lines = new ArrayList<>();
+            lines.add(Component.translatable("gui.neovitae.master_routing.speed_upgrade_slot"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.speed_upgrade_slot.desc"));
+            guiGraphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
+            return;
         }
 
-        if (isHovering(ENERGY_BOX_X, ENERGY_BOX_Y, ENERGY_BOX_W, ENERGY_BOX_H, mouseX, mouseY)) {
-            int ceiling = menu.getEnergyCeiling();
-            int configured = menu.getEnergyRate();
+        int statsHeight = 3 * STATS_LINE_HEIGHT;
+        if (isHovering(STATS_X, STATS_Y, STATS_VALUE_RIGHT - STATS_X, statsHeight, mouseX, mouseY)) {
             List<Component> lines = new ArrayList<>();
-            lines.add(Component.translatable("gui.neovitae.master_routing.transfer_rate.title"));
-            lines.add(Component.translatable("gui.neovitae.master_routing.transfer_rate.desc"));
-            lines.add(Component.translatable("gui.neovitae.routing.master.upgrade_ceiling", ceiling));
-            if (configured > ceiling) {
-                lines.add(Component.translatable("gui.neovitae.routing.master.throttle_exceeds", ceiling));
-            }
-            lines.add(Component.translatable("gui.neovitae.master_routing.transfer_rate.install_more"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.title"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.desc"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.pulse", menu.getTickRate()));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.faces"));
             guiGraphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
         }
     }

@@ -25,6 +25,11 @@ public class BlacklistFluidFilter implements IFluidFilter {
     protected ResourceHandler<FluidResource> fluidHandler;
 
     @Override
+    public BlockPos getNodePos() {
+        return accessedTile != null ? accessedTile.getBlockPos() : null;
+    }
+
+    @Override
     public void initializeFilter(List<FluidStack> filteredFluids, BlockEntity tile, ResourceHandler<FluidResource> fluidHandler, boolean isFilterOutput) {
         this.accessedTile = tile;
         this.fluidHandler = fluidHandler;

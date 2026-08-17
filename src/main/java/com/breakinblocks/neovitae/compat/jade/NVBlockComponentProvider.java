@@ -5,7 +5,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusTooltipHelper;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -23,6 +25,10 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         CompoundTag data = accessor.getServerData();
         if (data == null || data.isEmpty()) return;
+
+        if (data.contains("routing_max_items")) {
+            appendMasterCaps(tooltip, data);
+        }
 
         if (data.contains("array_effect")) {
             tooltip.add(Component.translatable(data.getStringOr("array_effect", "jade.neovitae.array_effect.generic")).withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -131,6 +137,21 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
                 default -> { }
             }
         }
+    }
+
+    private static void appendMasterCaps(ITooltip tooltip, CompoundTag data) {
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_items",
+                FORMAT.format(data.getIntOr("routing_max_items", 0))).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_fluid",
+                FORMAT.format(data.getIntOr("routing_max_fluid", 0))).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("jade.neovitae.routing.cap_energy",
+                FORMAT.format(data.getIntOr("routing_max_energy", 0))).withStyle(ChatFormatting.GRAY));
+
+        int tickRate = data.getIntOr("routing_tick_rate", 20);
+        tooltip.add(Component.translatable(tickRate == 1
+                        ? "jade.neovitae.routing.pulse_one"
+                        : "jade.neovitae.routing.pulse", tickRate)
+                .withStyle(ChatFormatting.DARK_GRAY));
     }
 
     private static SpiritusType typeByName(String name) {

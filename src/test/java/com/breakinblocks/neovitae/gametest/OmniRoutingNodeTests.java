@@ -6,12 +6,14 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OmniRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.FaceDirection;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
+import com.breakinblocks.neovitae.common.routing.RoutingTint;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 
 public final class OmniRoutingNodeTests {
@@ -137,5 +139,113 @@ public final class OmniRoutingNodeTests {
                 });
             });
         });
+        r.add("omni_routing_node/tint_tracks_configured_faces", 200, helper -> {
+            OmniRoutingNodeBlockEntity omni = build(helper);
+
+            helper.runAfterDelay(5, () -> {
+                if (omni == null) return;
+                var pull = omni.getSideFilter(Direction.NORTH.get3DDataValue());
+                pull.setDirection(FaceDirection.INPUT);
+                pull.setItemMode(FilterMode.BLACKLIST);
+
+                helper.runAfterDelay(30, () -> {
+                    if (helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT) != RoutingTint.INPUT) {
+                        helper.fail("A pull-only omni node should tint as input, got "
+                                + helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT));
+                        return;
+                    }
+
+                    var push = omni.getSideFilter(Direction.SOUTH.get3DDataValue());
+                    push.setDirection(FaceDirection.OUTPUT);
+                    push.setItemMode(FilterMode.BLACKLIST);
+
+                    helper.runAfterDelay(30, () -> {
+                        if (helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT) != RoutingTint.BOTH) {
+                            helper.fail("An omni node that pulls and pushes should tint as both, got "
+                                    + helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT));
+                            return;
+                        }
+                        helper.succeed();
+                    });
+                });
+            });
+        });
+
+        r.add("omni_routing_node/both_side_does_not_route_into_itself", 400, helper -> {
+            OmniRoutingNodeBlockEntity omni = build(helper);
+
+            helper.runAfterDelay(5, () -> {
+                if (omni == null) return;
+                ChestBlockEntity source = helper.getBlockEntity(SOURCE_POS, ChestBlockEntity.class);
+                if (source == null) {
+                    helper.fail("No source chest");
+                    return;
+                }
+                source.setItem(0, Items.COBBLESTONE.getDefaultInstance().copyWithCount(64));
+
+                var both = omni.getSideFilter(Direction.NORTH.get3DDataValue());
+                var push = omni.getSideFilter(Direction.SOUTH.get3DDataValue());
+                both.setDirection(FaceDirection.BOTH);
+                both.setItemMode(FilterMode.BLACKLIST);
+                push.setDirection(FaceDirection.OUTPUT);
+                push.setItemMode(FilterMode.BLACKLIST);
+                omni.priorities[Direction.NORTH.get3DDataValue()] = 5;
+
+                helper.runAfterDelay(300, () -> {
+                    ChestBlockEntity target = helper.getBlockEntity(TARGET_POS, ChestBlockEntity.class);
+                    ChestBlockEntity src = helper.getBlockEntity(SOURCE_POS, ChestBlockEntity.class);
+                    if (target == null || src == null) {
+                        helper.fail("Missing a chest");
+                        return;
+                    }
+                    int moved = count(target);
+                    int left = count(src);
+                    if (moved <= 0) {
+                        helper.fail("A Both side starved the other output, source=" + left + " target=" + moved);
+                        return;
+                    }
+                    if (moved + left != 64) {
+                        helper.fail("Items lost! source=" + left + " target=" + moved);
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("omni_routing_node/broken_node_leaves_no_graph_entry", 80, helper -> {
+            OmniRoutingNodeBlockEntity omni = build(helper);
+
+            helper.runAfterDelay(5, () -> {
+                if (omni == null) return;
+                MasterRoutingNodeBlockEntity master = helper.getBlockEntity(MASTER_POS, MasterRoutingNodeBlockEntity.class);
+                BlockPos absOmni = helper.absolutePos(OMNI_POS);
+                if (master == null || !master.graphContains(absOmni)) {
+                    helper.fail("Test setup failed: master never recorded the omni node");
+                    return;
+                }
+
+                helper.setBlock(OMNI_POS, Blocks.AIR.defaultBlockState());
+
+                helper.runAfterDelay(2, () -> {
+                    MasterRoutingNodeBlockEntity reloaded = helper.getBlockEntity(MASTER_POS, MasterRoutingNodeBlockEntity.class);
+                    if (reloaded == null || reloaded.graphContains(absOmni)) {
+                        helper.fail("Master still holds a graph entry for the broken omni node");
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+    }
+
+    private static int count(ChestBlockEntity chest) {
+        int total = 0;
+        for (int i = 0; i < chest.getContainerSize(); i++) {
+            if (chest.getItem(i).is(Items.COBBLESTONE)) {
+                total += chest.getItem(i).getCount();
+            }
+        }
+        return total;
     }
 }

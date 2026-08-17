@@ -378,8 +378,18 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.NODE_ROUTER.get(), "Node Router");
         add(NVItems.MASTER_NODE_UPGRADE.get(), "Routing Stack Upgrade");
         add(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), "Routing Speed Upgrade");
+        addTooltip("routing_upgrade.slot", "Place in a Master Routing Node's upgrade slot");
+        addTooltip("routing_upgrade.speed.effect", "Each one cuts 1 tick off the time between transfers");
+        addTooltip("routing_upgrade.speed.limits", "Base %s ticks, up to %s upgrades");
+        addTooltip("routing_upgrade.stack.effect", "Each one adds +%s items, +%s mB and +%s FE per transfer");
+        addTooltip("routing_upgrade.stack.limits", "Base %s items, %s mB, %s FE, up to %s upgrades");
         addTooltip("noderouter.coords", "Stored Position: %d, %d, %d");
+        addTooltip("noderouter.unlink", "Sneak + right-click the stored node to cut all its links");
+        addTooltip("noderouter.clear", "Sneak + right-click the air to forget the stored position");
         add("chat.neovitae.routing.remove", "Stored position cleared.");
+        add("chat.neovitae.routing.noStored", "No stored position to clear.");
+        add("chat.neovitae.routing.unlink", "Node unlinked from its network.");
+        add("chat.neovitae.routing.unlink.master", "Master Routing Node unlinked from every node.");
         add("chat.neovitae.routing.set", "Position stored.");
         add("chat.neovitae.routing.distance", "Nodes are too far apart! Maximum distance is 16 blocks.");
         add("chat.neovitae.routing.same", "Cannot link a node to itself!");
@@ -952,6 +962,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("jade.neovitae.vas.releasing", "Releasing into chunk");
         add("jade.neovitae.vas.seeding", "Dissolving crystals into chunk");
         add("jade.neovitae.vas.idle", "Idle");
+        add("jade.neovitae.routing.cap_items", "Items: %s / pulse");
+        add("jade.neovitae.routing.cap_fluid", "Fluid: %s mB / pulse");
+        add("jade.neovitae.routing.cap_energy", "Energy: %s FE / pulse");
+        add("jade.neovitae.routing.pulse", "Pulse every %s ticks");
+        add("jade.neovitae.routing.pulse_one", "Pulse every tick");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
@@ -1503,14 +1518,20 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.dungeon_seal.key_name", "%s");
 
         // GUI - Master Routing Node
-        add("gui.neovitae.master_routing.energy_rate", "Transfer Rate");
-        add("gui.neovitae.master_routing.energy_rate_label", "Rate");
-        add("gui.neovitae.master_routing.set", "Set");
         add("gui.neovitae.master_routing.stack_upgrade_slot", "Stack upgrade slot");
+        add("gui.neovitae.master_routing.stack_upgrade_slot.desc", "Each upgrade raises every transfer cap");
         add("gui.neovitae.master_routing.speed_upgrade_slot", "Speed upgrade slot");
-        add("gui.neovitae.master_routing.transfer_rate.title", "Transfer Rate");
-        add("gui.neovitae.master_routing.transfer_rate.desc", "Items routed per cycle, fluid mB per tick");
-        add("gui.neovitae.master_routing.transfer_rate.install_more", "Install upgrade modules to raise the ceiling");
+        add("gui.neovitae.master_routing.speed_upgrade_slot.desc", "Each upgrade shortens the pulse by one tick");
+        add("gui.neovitae.master_routing.stat.items", "Items");
+        add("gui.neovitae.master_routing.stat.items_value", "%s / pulse");
+        add("gui.neovitae.master_routing.stat.fluid", "Fluid");
+        add("gui.neovitae.master_routing.stat.fluid_value", "%s mB / pulse");
+        add("gui.neovitae.master_routing.stat.energy", "Energy");
+        add("gui.neovitae.master_routing.stat.energy_value", "%s FE / pulse");
+        add("gui.neovitae.master_routing.caps.title", "Transfer Caps");
+        add("gui.neovitae.master_routing.caps.desc", "Most this network moves in one pulse");
+        add("gui.neovitae.master_routing.caps.pulse", "Pulse every %s ticks");
+        add("gui.neovitae.master_routing.caps.faces", "Individual node faces may set a lower rate");
 
         // GUI - Routing
         add("gui.neovitae.routing.disabled", "Disabled");
@@ -1558,8 +1579,26 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.routing.filter.fluid_mode", "Fluid mode");
         add("gui.neovitae.routing.filter.fluid_explicit", "Explicit: only the listed fluids");
         add("gui.neovitae.routing.filter.fluid_automatch", "Auto-match: any fluid present in the network");
-        add("gui.neovitae.routing.master.upgrade_ceiling", "Upgrade ceiling: %s");
-        add("gui.neovitae.routing.master.throttle_exceeds", "Throttled below ceiling of %s");
+        add("gui.neovitae.routing.rate", "Rate");
+        add("gui.neovitae.routing.rate_label", "Rate (FE/t):");
+        add("gui.neovitae.routing.rate_max", "Max: %s FE/t");
+        add("gui.neovitae.routing.set", "Set");
+        add("gui.neovitae.routing.rate.title", "Most this side will move per transfer");
+        add("gui.neovitae.routing.rate.capped", "Capped by the linked master node's upgrades");
+        add("gui.neovitae.routing.rate.tracks", "Anything at or above the cap tracks the master");
+        add("gui.neovitae.routing.rate.apply", "Enter or Set to apply");
+        add("gui.neovitae.routing.energy_toggle", "Toggle energy transfer for this side");
+        add("gui.neovitae.routing.face_mode", "Face mode for this side");
+        add("gui.neovitae.routing.face_mode.input", "Input: pulls from the neighbor");
+        add("gui.neovitae.routing.face_mode.output", "Output: pushes into the neighbor");
+        add("gui.neovitae.routing.face_mode.both", "Both: does either");
+        add("gui.neovitae.routing.face_mode.cycle", "Shift-click to cycle backwards");
+        add("gui.neovitae.routing.spiritus_aspect", "Spiritus aspect this node exports");
+        add("gui.neovitae.routing.spiritus_aspect.desc", "Applies to the whole node, not one side");
+        add("gui.neovitae.routing.spiritus_reserve", "Amount to leave behind in the source");
+        add("gui.neovitae.routing.spiritus_reserve.hint", "Shift for steps of 100");
+        add("gui.neovitae.routing.filter.energy_desc", "Energy: per-side on/off");
+        add("gui.neovitae.routing.filter.spiritus_desc", "Spiritus: aspect and reserve");
         add("gui.neovitae.routing.keep", "Keep: %s");
         add("gui.neovitae.routing.keep_mb", "Keep: %s mB");
         add("gui.neovitae.routing.keep_unlimited", "Keep: Unlimited");

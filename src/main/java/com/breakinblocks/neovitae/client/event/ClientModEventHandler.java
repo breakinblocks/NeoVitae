@@ -70,7 +70,11 @@ import com.breakinblocks.neovitae.client.screen.RitualConfiguratorScreen;
 import com.breakinblocks.neovitae.client.screen.RitualDivinerScreen;
 import com.breakinblocks.neovitae.client.screen.SpiritCacheScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
+import com.breakinblocks.neovitae.client.color.RoutingNodeColor;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
+
+import java.util.List;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.StrayRenderer;
@@ -139,6 +143,14 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerSpecialModelRenderers(RegisterSpecialModelRendererEvent event) {
         event.register(NeoVitae.rl("spirit_accumulator"), SpiritAccumulatorSpecialRenderer.Unbaked.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockTintSources(RegisterColorHandlersEvent.BlockTintSources event) {
+        event.register(List.of(new RoutingNodeColor()),
+                NVBlocks.INPUT_ROUTING_NODE.block().get(),
+                NVBlocks.OUTPUT_ROUTING_NODE.block().get(),
+                NVBlocks.OMNI_ROUTING_NODE.block().get());
     }
 
     @SubscribeEvent

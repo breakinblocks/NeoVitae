@@ -36,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.entity.SignText;
@@ -81,27 +82,13 @@ public class ShowcaseCommand {
         int blockSectionDepth = blockRows * BLOCK_STRIDE;
         int itemCols = items.isEmpty() ? 0 : (items.size() + WALL_HEIGHT - 1) / WALL_HEIGHT;
 
-        int altarWidth = altarSectionWidth(tiers);
         int altarDepth = altarSectionDepth(tiers);
 
         int ritualRows = rituals.isEmpty() ? 0 : (rituals.size() + RITUAL_COLS - 1) / RITUAL_COLS;
-        int ritualWidth = ritualRows == 0 ? 0 : RITUAL_COLS * RITUAL_CELL;
         int ritualDepth = ritualRows * RITUAL_CELL;
 
         int imperfectRows = imperfects.isEmpty() ? 0 : (imperfects.size() + IMPERFECT_COLS - 1) / IMPERFECT_COLS;
-        int imperfectWidth = imperfectRows == 0 ? 0 : IMPERFECT_COLS * IMPERFECT_CELL;
         int imperfectDepth = imperfectRows * IMPERFECT_CELL;
-
-        int totalWidth = Math.max(Math.max(BLOCK_COLS * BLOCK_STRIDE, itemCols),
-                Math.max(altarWidth, Math.max(ritualWidth, imperfectWidth)));
-
-        int totalDepth = blockSectionDepth
-                + (itemCols > 0 ? SECTION_GAP + 2 : 0)
-                + (altarDepth > 0 ? SECTION_GAP + altarDepth : 0)
-                + (ritualDepth > 0 ? SECTION_GAP + ritualDepth : 0)
-                + (imperfectDepth > 0 ? SECTION_GAP + imperfectDepth : 0);
-
-        floorPlatform(level, origin.getX() - 1, baseY - 1, origin.getZ() - 1, totalWidth + 2, totalDepth + 2);
 
         int placedBlocks = placeBlockGrid(level, blocks, origin.getX(), baseY, origin.getZ());
 
@@ -131,12 +118,18 @@ public class ShowcaseCommand {
         if (imperfectDepth > 0) {
             cursorZ += SECTION_GAP;
             placedImperfects = placeImperfectRituals(level, imperfects, origin.getX(), baseY, cursorZ);
+            cursorZ += imperfectDepth;
         }
 
-        final int b = placedBlocks, it = placedItems, a = placedAltars, r = placedRituals, ir = placedImperfects;
+        cursorZ += SECTION_GAP;
+        int placedRigs = RoutingShowcase.place(level, origin.getX(), baseY, cursorZ);
+
+        final int b = placedBlocks, it = placedItems, a = placedAltars, r = placedRituals,
+                ir = placedImperfects, rig = placedRigs;
         source.sendSuccess(() -> Component.literal(
                 "Showcase placed: " + b + " blocks, " + it + " framed items, "
-                        + a + " altar tiers, " + r + " rituals, " + ir + " imperfect rituals"), true);
+                        + a + " altar tiers, " + r + " rituals, " + ir + " imperfect rituals, "
+                        + rig + " routing rigs"), true);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -244,17 +237,6 @@ public class ShowcaseCommand {
     }
 
     // ---------- altars ----------
-
-    private static int altarSectionWidth(AltarTier[] tiers) {
-        if (tiers == null || tiers.length == 0) return 0;
-        int width = 0;
-        for (AltarTier tier : tiers) {
-            if (tier == null) continue;
-            int[] bb = tierBoundingBox(tier);
-            width += (bb[3] - bb[0] + 1) + ALTAR_PADDING;
-        }
-        return Math.max(0, width - ALTAR_PADDING);
-    }
 
     private static int altarSectionDepth(AltarTier[] tiers) {
         if (tiers == null || tiers.length == 0) return 0;
@@ -437,22 +419,17 @@ public class ShowcaseCommand {
 
     // ---------- shared helpers ----------
 
-    private static void floorPlatform(ServerLevel level, int x, int y, int z, int width, int depth) {
-        BlockState stone = Blocks.SMOOTH_STONE.defaultBlockState();
-        for (int dx = 0; dx < width; dx++) {
-            for (int dz = 0; dz < depth; dz++) {
-                level.setBlock(new BlockPos(x + dx, y, z + dz), stone, 2);
-            }
-        }
+    private static void placeLabel(ServerLevel level, BlockPos pos, String name) {
+        placeLabel(level, pos, 0, wrapLabel(name));
     }
 
-    private static void placeLabel(ServerLevel level, BlockPos pos, String name) {
+    static void placeLabel(ServerLevel level, BlockPos pos, int rotation, String... lines) {
         try {
-            level.setBlock(pos, Blocks.OAK_SIGN.defaultBlockState(), 2);
+            level.setBlock(pos, Blocks.OAK_SIGN.defaultBlockState()
+                    .setValue(StandingSignBlock.ROTATION, rotation), 2);
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SignBlockEntity sign) {
                 SignText text = sign.getFrontText();
-                String[] lines = wrapLabel(name);
                 for (int i = 0; i < lines.length && i < 4; i++) {
                     text = text.setMessage(i, Component.literal(lines[i]));
                 }

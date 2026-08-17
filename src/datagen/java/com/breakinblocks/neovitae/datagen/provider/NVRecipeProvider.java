@@ -1020,16 +1020,6 @@ public class NVRecipeProvider extends RecipeProvider {
         //         .unlockedBy("has_bloodstone", has(NVBlocks.BLOODSTONE.block().get()))
         //         .save(output, NeoVitae.rl("sentient_station"));
 
-        // Training Bracelet
-        HellfireForgeRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
-                .requires(Items.GOLD_INGOT, 2)
-                .requires(Items.STRING)
-                .requires(NVItems.RAW_SPIRITUS.get())
-                .minSpiritus(10)
-                .drain(5)
-                .unlockedBy("has_raw_will", has(NVItems.RAW_SPIRITUS.get()))
-                .save(output, NeoVitae.rl("training_bracelet"));
-
         ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
                 .transformInput(Items.IRON_SWORD)
                 .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())

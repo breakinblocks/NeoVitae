@@ -4,9 +4,9 @@ import net.minecraft.util.StringRepresentable;
 
 public enum RoutingTint implements StringRepresentable {
     NONE("none", -1),
-    INPUT("input", 0x4488FF),
-    OUTPUT("output", 0xFF8744),
-    BOTH("both", 0xAA66FF);
+    INPUT("input", 0xFF4488FF),
+    OUTPUT("output", 0xFFFF8744),
+    BOTH("both", 0xFFAA66FF);
 
     private final String name;
     private final int color;

@@ -75,6 +75,7 @@ public class RitualStatsProvider implements DataProvider {
         add(NVRituals.PLACER, RitualStats.timed(5000, 10, 5, 0));
         add(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
         add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
+        add(NVRituals.ENCHANTED_VITAE, RitualStats.timed(50000, 0, 4, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

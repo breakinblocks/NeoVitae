@@ -37,6 +37,12 @@
       "crystal_level": 1,
       "refresh_cost": 10000
     },
+    "neovitae:enchanted_vitae": {
+      "activation_cost": 50000,
+      "crystal_level": 1,
+      "refresh_cost": 0,
+      "refresh_time": 4
+    },
     "neovitae:expulsion": {
       "activation_cost": 2000,
       "refresh_cost": 5,

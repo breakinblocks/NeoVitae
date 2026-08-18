@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "conflict",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.rituals.ritual_enchanted_vitae.conflict.text",
+  "title": "book.neovitae.guide.rituals.ritual_enchanted_vitae.conflict.title"
+}

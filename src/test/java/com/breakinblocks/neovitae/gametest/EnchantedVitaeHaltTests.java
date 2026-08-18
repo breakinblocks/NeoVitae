@@ -44,6 +44,7 @@ public final class EnchantedVitaeHaltTests {
         private final Level level;
         private final BlockPos pos;
         final List<Component> messages = new ArrayList<>();
+        boolean stopped = false;
 
         StubMaster(Level level, BlockPos pos) {
             this.level = level;
@@ -114,6 +115,7 @@ public final class EnchantedVitaeHaltTests {
 
         @Override
         public void stopRitual(Ritual.BreakType breakType) {
+            stopped = true;
         }
 
         @Override
@@ -227,7 +229,6 @@ public final class EnchantedVitaeHaltTests {
                 return;
             }
 
-            // The player grabs the offending book and sweeps up a good one with it.
             silkTouch.discard();
             efficiency.discard();
 
@@ -237,7 +238,6 @@ public final class EnchantedVitaeHaltTests {
                 return;
             }
 
-            // Noticing the mistake, the player puts the missing book back. Still halted.
             ItemEntity efficiencyAgain = drop(helper, book(helper, Enchantments.EFFICIENCY, 5));
             run(ritual, master, 60);
             if (!EnchantmentHelper.getEnchantmentsForCrafting(pickaxe.getItem()).isEmpty()) {
@@ -245,7 +245,6 @@ public final class EnchantedVitaeHaltTests {
                 return;
             }
 
-            // Offering the item again is the only thing that lifts the halt.
             ItemStack carried = pickaxe.getItem();
             pickaxe.discard();
             master.messages.clear();
@@ -273,6 +272,23 @@ public final class EnchantedVitaeHaltTests {
             helper.succeed();
         });
 
+        r.add("enchanted_vitae/idle_rite_stays_active", 100, helper -> {
+            fundOwner();
+            helper.setBlock(MASTER, Blocks.STONE);
+            StubMaster master = new StubMaster(helper.getLevel(), helper.absolutePos(MASTER));
+            RitualEnchantedVitae ritual = new RitualEnchantedVitae();
+
+            drop(helper, new ItemStack(Items.DIAMOND_SWORD));
+
+            run(ritual, master, 60);
+
+            if (master.stopped) {
+                helper.fail("A rite with nothing to bind should keep waiting, not shut itself off");
+                return;
+            }
+            helper.succeed();
+        });
+
         r.add("enchanted_vitae/clean_run_binds_without_being_offered_twice", 100, helper -> {
             fundOwner();
             helper.setBlock(MASTER, Blocks.STONE);
@@ -290,6 +306,10 @@ public final class EnchantedVitaeHaltTests {
             }
             if (!master.messages.isEmpty()) {
                 helper.fail("A clean run should not announce anything, got " + master.messages.size() + " messages");
+                return;
+            }
+            if (!master.stopped) {
+                helper.fail("The rite should stop itself once it has bound the enchantments");
                 return;
             }
             helper.succeed();

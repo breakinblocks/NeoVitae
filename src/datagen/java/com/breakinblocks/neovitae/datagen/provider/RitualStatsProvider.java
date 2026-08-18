@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 /**
  * Data provider that generates the ritual_stats datamap file.
@@ -33,49 +34,53 @@ public class RitualStatsProvider implements DataProvider {
     }
 
     protected void addRituals() {
+        declare(this::add);
+    }
+
+    public static void declare(BiConsumer<DeferredHolder<Ritual, ? extends Ritual>, RitualStats> out) {
         // ==================== Essential Rituals ====================
-        add(NVRituals.WATER, RitualStats.timed(500, 25, 1, 0));
-        add(NVRituals.LAVA, RitualStats.timed(10000, 500, 10, 0));
-        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0)
+        out.accept(NVRituals.WATER, RitualStats.timed(500, 25, 1, 0));
+        out.accept(NVRituals.LAVA, RitualStats.timed(10000, 500, 10, 0));
+        out.accept(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0)
                 .withAmbientSound(NeoVitae.rl("overgrowth")));
-        add(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
-        add(NVRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
-        add(NVRituals.HARVEST, RitualStats.timed(20000, 3, 20, 0));
+        out.accept(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
+        out.accept(NVRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
+        out.accept(NVRituals.HARVEST, RitualStats.timed(20000, 3, 20, 0));
 
         // ==================== Common Rituals ====================
-        add(NVRituals.REGENERATION, RitualStats.timed(500, 50, 40, 0));
-        add(NVRituals.SPEED, RitualStats.timed(500, 5, 1, 0));
-        add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 40, 0));
-        add(NVRituals.SHEPHERD, RitualStats.timed(500, 30, 20, 0));
-        add(NVRituals.BUTCHERING, RitualStats.timed(25000, 25, 40, 0));
-        add(NVRituals.FELLING, RitualStats.timed(2000, 10, 20, 0));
-        add(NVRituals.SUPPRESSION, RitualStats.timed(3000, 5, 10, 0));
-        add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 5, 5, 0));
-        add(NVRituals.EXPULSION, RitualStats.timed(2000, 5, 5, 0));
-        add(NVRituals.ZEPHYR, RitualStats.timed(1000, 2, 5, 0));
-        add(NVRituals.PUMP, RitualStats.timed(2500, 50, 20, 0));
+        out.accept(NVRituals.REGENERATION, RitualStats.timed(500, 50, 40, 0));
+        out.accept(NVRituals.SPEED, RitualStats.timed(500, 5, 1, 0));
+        out.accept(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 40, 0));
+        out.accept(NVRituals.SHEPHERD, RitualStats.timed(500, 30, 20, 0));
+        out.accept(NVRituals.BUTCHERING, RitualStats.timed(25000, 25, 40, 0));
+        out.accept(NVRituals.FELLING, RitualStats.timed(2000, 10, 20, 0));
+        out.accept(NVRituals.SUPPRESSION, RitualStats.timed(3000, 5, 10, 0));
+        out.accept(NVRituals.CONTAINMENT, RitualStats.timed(2000, 5, 5, 0));
+        out.accept(NVRituals.EXPULSION, RitualStats.timed(2000, 5, 5, 0));
+        out.accept(NVRituals.ZEPHYR, RitualStats.timed(1000, 2, 5, 0));
+        out.accept(NVRituals.PUMP, RitualStats.timed(2500, 50, 20, 0));
 
         // ==================== Advanced Rituals ====================
-        add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(2000, 1, 1, 0));
-        add(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 160, 100, 1));
-        add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 10000, 20, 1));
-        add(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 1));
-        add(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
-        add(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));
+        out.accept(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(2000, 1, 1, 0));
+        out.accept(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 160, 100, 1));
+        out.accept(NVRituals.DOWNGRADE, RitualStats.timed(20000, 10000, 20, 1).withPerOperation());
+        out.accept(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 1));
+        out.accept(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
+        out.accept(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));
 
         // ==================== Dusk Tier Rituals ====================
-        add(NVRituals.CONDOR, RitualStats.timed(10000, 100, 20, 1));
-        add(NVRituals.SPHERE, RitualStats.timed(20000, 10, 1, 0));
-        add(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 25000, 20, 1));
-        add(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 10000, 20, 1));
-        add(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 1));
-        add(NVRituals.YAWNING_VOID, RitualStats.timed(5000, 10, 10, 0));
+        out.accept(NVRituals.CONDOR, RitualStats.timed(10000, 100, 20, 1));
+        out.accept(NVRituals.SPHERE, RitualStats.timed(20000, 10, 1, 0));
+        out.accept(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 25000, 20, 1).withPerOperation());
+        out.accept(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 10000, 20, 1).withPerOperation());
+        out.accept(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 1));
+        out.accept(NVRituals.YAWNING_VOID, RitualStats.timed(5000, 10, 10, 0));
 
         // ==================== Utility Rituals ====================
-        add(NVRituals.PLACER, RitualStats.timed(5000, 10, 5, 0));
-        add(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
-        add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
-        add(NVRituals.ENCHANTED_VITAE, RitualStats.timed(50000, 0, 4, 1));
+        out.accept(NVRituals.PLACER, RitualStats.timed(5000, 10, 5, 0));
+        out.accept(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
+        out.accept(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
+        out.accept(NVRituals.ENCHANTED_VITAE, RitualStats.timed(10000, 0, 4, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {
@@ -152,6 +157,10 @@ public class RitualStatsProvider implements DataProvider {
 
         stats.ambientSound().ifPresent(sound ->
                 statsJson.addProperty("ambient_sound", sound.toString()));
+
+        if (stats.perOperation()) {
+            statsJson.addProperty("per_operation", true);
+        }
 
         return statsJson;
     }

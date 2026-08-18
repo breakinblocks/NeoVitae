@@ -184,7 +184,7 @@ public final class HellfireForgeTests {
             });
         });
 
-        r.add("hellfire_forge/gem_slot_not_drained_by_input_gem_craft", 200, helper -> {
+        r.add("hellfire_forge/gem_slot_fuels_the_craft_when_it_can_pay", 200, helper -> {
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
 
@@ -201,11 +201,53 @@ public final class HellfireForgeTests {
                     ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
                     if (output.isEmpty()) {
                         helper.fail("Lesser gem upgrade did not craft with gem slot occupied, progress=" + forge.getProgress());
+                        return;
                     }
                     ItemStack sideGem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
                     double sideSpiritus = sideGem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-                    if (sideSpiritus != 64.0) {
-                        helper.fail("Gem slot did not fuel this craft and must not be drained, expected 64 got " + sideSpiritus);
+                    if (sideSpiritus != 44.0) {
+                        helper.fail("The gem slot should have fuelled this craft and been drained 64 - 20 = 44, got " + sideSpiritus);
+                        return;
+                    }
+                    double carried = output.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                    if (carried != 0.0) {
+                        helper.fail("A craft fuelled by the gem slot must not carry charge into the output, got " + carried);
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("hellfire_forge/falls_back_to_crafting_gem_when_gem_slot_is_short", 200, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (forge == null) return;
+
+                forge.inv.setStackInSlot(0, createGemWithSpiritus(64.0));
+                forge.inv.setStackInSlot(1, new ItemStack(Items.DIAMOND));
+                forge.inv.setStackInSlot(2, new ItemStack(Items.REDSTONE_BLOCK));
+                forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_BLOCK));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
+
+                helper.runAfterDelay(150, () -> {
+                    ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
+                    if (output.isEmpty()) {
+                        helper.fail("A gem slot too weak to pay should fall back to the crafting-slot gem, progress=" + forge.getProgress());
+                        return;
+                    }
+                    ItemStack sideGem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
+                    double sideSpiritus = sideGem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                    if (sideSpiritus != 10.0) {
+                        helper.fail("A gem slot that could not pay must not be drained, expected 10 got " + sideSpiritus);
+                        return;
+                    }
+                    double carried = output.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                    if (carried != 44.0) {
+                        helper.fail("The crafting-slot gem should have carried 64 - 20 = 44 across, got " + carried);
+                        return;
                     }
                     helper.succeed();
                 });

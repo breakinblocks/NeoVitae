@@ -2109,7 +2109,7 @@
   "gui.neovitae.experience_tome.stored": "%s levels stored (%s xp)",
   "gui.neovitae.experience_tome.withdraw": "Withdraw",
   "gui.neovitae.hellfire_forge.needs_spiritus": "Not enough Spiritus: %s / %s",
-  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "A gem in a crafting slot fuels the craft instead of the gem slot",
+  "gui.neovitae.hellfire_forge.needs_spiritus.hint": "Put a charged Spiritus Gem in the gem slot to fuel the craft",
   "gui.neovitae.hud.cancel": "Cancel",
   "gui.neovitae.hud.default": "Default",
   "gui.neovitae.hud.save": "Save",

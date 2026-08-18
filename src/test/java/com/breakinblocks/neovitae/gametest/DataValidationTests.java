@@ -1,5 +1,7 @@
 package com.breakinblocks.neovitae.gametest;
 
+import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -15,6 +17,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeStats;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.common.network.StreamPayload;
@@ -33,6 +36,47 @@ public final class DataValidationTests {
     private DataValidationTests() {}
 
     public static void register(NVTestRegistrar r) {
+        r.add("data/ritual_stats_json_without_per_operation_still_loads", 30, helper -> {
+            String legacy = "{\"activation_cost\":20000,\"refresh_cost\":10000,\"refresh_time\":40,\"crystal_level\":1}";
+            RitualStats decoded = RitualStats.CODEC
+                    .parse(JsonOps.INSTANCE, JsonParser.parseString(legacy))
+                    .resultOrPartial(err -> helper.fail("Legacy ritual stats JSON failed to decode: " + err))
+                    .orElse(null);
+            if (decoded == null) {
+                return;
+            }
+            if (decoded.perOperation()) {
+                helper.fail("A datapack written before per_operation existed must default to false");
+                return;
+            }
+            if (decoded.activationCost() != 20000 || decoded.refreshCost() != 10000
+                    || decoded.refreshTime() != 40 || decoded.crystalLevel() != 1) {
+                helper.fail("Legacy fields were not preserved: " + decoded);
+                return;
+            }
+
+            RitualStats flagged = RitualStats.CODEC
+                    .parse(JsonOps.INSTANCE, JsonParser.parseString(
+                            "{\"activation_cost\":1,\"refresh_cost\":2,\"per_operation\":true}"))
+                    .resultOrPartial(err -> helper.fail("per_operation JSON failed to decode: " + err))
+                    .orElse(null);
+            if (flagged == null) {
+                return;
+            }
+            if (!flagged.perOperation()) {
+                helper.fail("per_operation:true should decode as true");
+                return;
+            }
+
+            RitualStats viaOldConstructor = new RitualStats(1, 2, 20, 0, java.util.Map.of(), true,
+                    java.util.Optional.empty());
+            if (viaOldConstructor.perOperation()) {
+                helper.fail("The pre-existing constructor shape should default per_operation to false");
+                return;
+            }
+            helper.succeed();
+        });
+
         r.add("data/all_rituals_have_components", 30, helper -> {
             helper.runAfterDelay(1, () -> {
                 Collection<Ritual> rituals = RitualRegistry.getAllRituals();

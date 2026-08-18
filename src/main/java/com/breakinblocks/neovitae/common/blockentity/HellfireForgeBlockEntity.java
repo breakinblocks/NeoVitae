@@ -145,9 +145,19 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         absorbSpiritusFromChunk(level, pos, tile);
 
         ForgeInput input = tile.getInput();
-        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level instanceof ServerLevel serverLevel
-                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, serverLevel)
-                : Optional.empty();
+        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = findRecipe(level, input);
+
+        if (recipeOptional.isEmpty() || !recipeOptional.get().value().hasEnoughSpiritus(input)) {
+            ForgeInput craftingGemInput = tile.getCraftingGemInput();
+            if (craftingGemInput.getGemIndex() != input.getGemIndex()) {
+                Optional<RecipeHolder<ForgeRecipe>> fallback = findRecipe(level, craftingGemInput);
+                if (fallback.isPresent() && fallback.get().value().hasEnoughSpiritus(craftingGemInput)) {
+                    input = craftingGemInput;
+                    recipeOptional = fallback;
+                }
+            }
+        }
+
         if (recipeOptional.isEmpty()) {
             tile.abortCraft(STATUS_IDLE, 0, 0);
             return;
@@ -234,6 +244,12 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         tile.setChanged();
     }
 
+    private static Optional<RecipeHolder<ForgeRecipe>> findRecipe(Level level, ForgeInput input) {
+        return level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, serverLevel)
+                : Optional.empty();
+    }
+
     private void abortCraft(int newStatus, double required, double stored) {
         boolean wasCrafting = progress > 0;
         progress = 0;
@@ -271,18 +287,34 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     }
 
     public ForgeInput getInput() {
-        ItemStack gemStack = inv.getStackInSlot(GEM_SLOT);
+        return buildInput(true);
+    }
+
+    public ForgeInput getCraftingGemInput() {
+        return buildInput(false);
+    }
+
+    private ForgeInput buildInput(boolean preferGemSlot) {
+        ItemStack fuelGem = inv.getStackInSlot(GEM_SLOT);
         List<ItemStack> stacks = new ArrayList<>();
-        int gemIndex = GEM_SLOT;
+        ItemStack craftingGem = ItemStack.EMPTY;
+        int craftingGemIndex = -1;
         for (int i = SOUTH; i < GEM_SLOT; i++) {
             ItemStack testStack = inv.getStackInSlot(i);
             stacks.add(testStack);
             if (testStack.is(NVTags.Items.SPIRITUS_GEM)) {
-                gemStack = testStack;
-                gemIndex = i;
+                craftingGem = testStack;
+                craftingGemIndex = i;
             }
         }
-        return new ForgeInput(stacks, gemStack, gemIndex);
+
+        if (preferGemSlot && !fuelGem.isEmpty()) {
+            return new ForgeInput(stacks, fuelGem, GEM_SLOT);
+        }
+        if (craftingGemIndex >= 0) {
+            return new ForgeInput(stacks, craftingGem, craftingGemIndex);
+        }
+        return new ForgeInput(stacks, fuelGem, GEM_SLOT);
     }
 
     @Override

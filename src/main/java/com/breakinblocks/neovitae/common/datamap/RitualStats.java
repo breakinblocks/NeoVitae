@@ -24,8 +24,14 @@ public record RitualStats(
         int crystalLevel,
         Map<String, RangeLimit> rangeLimits,
         boolean enabled,
-        Optional<Identifier> ambientSound
+        Optional<Identifier> ambientSound,
+        boolean perOperation
 ) {
+
+    public RitualStats(int activationCost, int refreshCost, int refreshTime, int crystalLevel,
+                       Map<String, RangeLimit> rangeLimits, boolean enabled, Optional<Identifier> ambientSound) {
+        this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, false);
+    }
     public static final Codec<RitualStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("activation_cost").forGetter(RitualStats::activationCost),
             Codec.INT.fieldOf("refresh_cost").forGetter(RitualStats::refreshCost),
@@ -35,7 +41,8 @@ public record RitualStats(
                     .optionalFieldOf("range_limits", Map.of())
                     .forGetter(RitualStats::rangeLimits),
             Codec.BOOL.optionalFieldOf("enabled", true).forGetter(RitualStats::enabled),
-            Identifier.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound)
+            Identifier.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound),
+            Codec.BOOL.optionalFieldOf("per_operation", false).forGetter(RitualStats::perOperation)
     ).apply(instance, RitualStats::new));
 
     /**
@@ -56,7 +63,11 @@ public record RitualStats(
      * Returns a copy of this RitualStats with the given ambient sound.
      */
     public RitualStats withAmbientSound(Identifier sound) {
-        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound));
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound), perOperation);
+    }
+
+    public RitualStats withPerOperation() {
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, true);
     }
 
     /**

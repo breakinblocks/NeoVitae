@@ -124,6 +124,7 @@ Customize activation costs, refresh costs, and range limits for rituals. See [Ri
 | `crystal_level` | Integer | Required activation crystal (0=weak, 1=awakened, 2=creative) |
 | `range_limits` | Object | Map of range names to limit objects |
 | `enabled` | Boolean | Whether the ritual is enabled (default: true). Disabled rituals cannot be activated and are hidden from JEI. |
+| `per_operation` | Boolean | Whether `refresh_cost` is charged once per completed operation rather than continuously (default: false). Affects how the cost is worded in the guide book; it does not change what the ritual charges. Set it on rituals that only draw EV when they actually process something, such as Sentient Extraction. |
 
 **Range limit object:**
 

@@ -35,12 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-/**
- * Ritual of Enchanted Vitae - applies every enchantment offered by the books
- * thrown onto the master ritual stone to a single item thrown alongside them.
- * The books are read, not consumed. Two enchantments that cannot share an item
- * halt the rite until the player removes one of them.
- */
 public class RitualEnchantedVitae extends Ritual {
 
     public static final String NAME = "enchanted_vitae";
@@ -63,7 +57,7 @@ public class RitualEnchantedVitae extends Ritual {
     private final Map<ItemEntity, Long> glowingUntil = new HashMap<>();
 
     public RitualEnchantedVitae() {
-        super(NAME, 1, 50000, "ritual." + NeoVitae.MODID + "." + NAME);
+        super(NAME, 1, 10000, "ritual." + NeoVitae.MODID + "." + NAME);
         addBlockRange(ENCHANT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-2, 1, -2), 5, 2, 5));
         setMaximumVolumeAndDistanceOfRange(ENCHANT_RANGE, 50, 5, 5);
     }
@@ -161,6 +155,7 @@ public class RitualEnchantedVitae extends Ritual {
         }
 
         applyEnchantments(target, plan.enchantments());
+        targetEntity.setItem(target.copy());
         ctx.syphon(cost);
         chargeTicks = 0;
         jobSignature = 0;
@@ -172,12 +167,10 @@ public class RitualEnchantedVitae extends Ritual {
                 ctx.masterPos().getX() + 0.5, ctx.masterPos().getY() + 1.2, ctx.masterPos().getZ() + 0.5,
                 80, 1.2, 0.8, 1.2, 0.35);
         ctx.level().playSound(null, ctx.masterPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0f, 0.7f);
+
+        masterRitualStone.stopRitual(BreakType.DEACTIVATE);
     }
 
-    /**
-     * Works out what the books can give the item. A pair of enchantments that
-     * cannot share an item stops the whole plan and is reported instead.
-     */
     public static EnchantPlan planEnchantments(ItemStack target, List<ItemStack> books) {
         Map<Holder<Enchantment>, Integer> offered = new HashMap<>();
         for (ItemStack book : books) {
@@ -246,11 +239,6 @@ public class RitualEnchantedVitae extends Ritual {
         jobSignature = 0;
     }
 
-    /**
-     * A halt is only lifted by taking the item off the stone and offering it
-     * again, so scooping up a stray book alongside the offending one cannot
-     * restart the rite on a smaller set of enchantments.
-     */
     private void clearHaltIfItemWasReoffered(@Nullable ItemEntity targetEntity) {
         if (!haltedByConflict) return;
         if (targetEntity != null && targetEntity.getId() == haltedTargetId) return;

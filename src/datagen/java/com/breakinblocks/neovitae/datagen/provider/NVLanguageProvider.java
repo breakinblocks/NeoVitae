@@ -1343,6 +1343,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Dusk-tier.");
+        addRitual("enchanted_vitae", "Ritual of Enchanted Vitae", "Throw one item and any number of enchanted books onto the master stone; the ritual reads the books and binds every enchantment the item can take, at whatever level the book carries, charging Essentia Vitae for each level. Two enchantments that cannot share an item halt the rite; remove one and offer the item again to resume. The books survive.");
+        add("ritual.neovitae.enchanted_vitae.insufficient", "The rite stalls: %s Essentia Vitae is needed to bind these enchantments.");
+        add("ritual.neovitae.enchanted_vitae.conflict", "The rite refuses %s alongside %s. Take one of the marked books off the stone, then offer the item again to resume.");
+        add("ritual.neovitae.enchanted_vitae.will_bind", "The rite will bind: %s");
         add("ritual.neovitae.crafting.spiritus.invictus", "Spiritus Invictus: Attempts a Hellfire Forge recipe first, falling back to vanilla crafting if none match.");
         add("ritual.neovitae.crafting.spiritus.ruina", "Spiritus Ruina: Attempts a Tabula Vitae recipe first, falling back to vanilla crafting if none match.");
         addRitual("yawning_void", "All Consuming Void", "Erases blocks in a small box directly beneath the master ritual stone, one block per refresh. No drops. Spiritus Invictus moves the block to a placement volume above instead of consuming it; Spiritus Ruina limits consumption to blocks matching items in the chest above; Raw Spiritus accelerates the refresh rate.");

@@ -36,5 +36,7 @@ public class NVGameTestRegistration {
         event.register(SpiritusRoutingTests.class);
         event.register(RitualReaderTests.class);
         event.register(SanguineWardTests.class);
+        event.register(EnchantedVitaeTests.class);
+        event.register(EnchantedVitaeHaltTests.class);
     }
 }

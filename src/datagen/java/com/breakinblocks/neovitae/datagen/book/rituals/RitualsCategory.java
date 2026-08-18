@@ -29,7 +29,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__t_u_v_w_x________",
                 "___________________",
                 "__y_z_1_2_3________",
-                "__4_5_6_7__________"
+                "__4_5_6_7_9________"
         };
     }
 
@@ -230,6 +230,11 @@ public class RitualsCategory extends CategoryProvider {
         crystalCatalyst.withParent(this.parent(crystals));
         crystalCatalyst.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
         crystalCatalyst.hideWhileLocked(false);
+
+        var enchantedVitae = this.add(new RitualEnchantedVitaeEntry(this).generate('9'));
+        enchantedVitae.withParent(this.parent(crystals));
+        enchantedVitae.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
+        enchantedVitae.hideWhileLocked(false);
     }
 
     @Override

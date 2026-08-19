@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -156,6 +157,9 @@ public class RitualEnchantedVitae extends Ritual {
 
         applyEnchantments(target, plan.enchantments());
         targetEntity.setItem(target.copy());
+        if (shouldConsumeBooks()) {
+            consumeBooks(books, plan.enchantments());
+        }
         ctx.syphon(cost);
         chargeTicks = 0;
         jobSignature = 0;
@@ -215,6 +219,32 @@ public class RitualEnchantedVitae extends Ritual {
             if (!Enchantment.areCompatible(holder, other)) return other;
         }
         return null;
+    }
+
+    private boolean shouldConsumeBooks() {
+        RitualStats stats = getStats();
+        return stats != null && stats.consumeBooks();
+    }
+
+    public static void consumeBooks(List<ItemEntity> books, Map<Holder<Enchantment>, Integer> plan) {
+        for (ItemEntity book : books) {
+            if (!contributedTo(book.getItem(), plan)) continue;
+            ItemStack stack = book.getItem().copy();
+            stack.shrink(1);
+            if (stack.isEmpty()) {
+                book.discard();
+            } else {
+                book.setItem(stack);
+            }
+        }
+    }
+
+    public static boolean contributedTo(ItemStack book, Map<Holder<Enchantment>, Integer> plan) {
+        ItemEnchantments stored = EnchantmentHelper.getEnchantmentsForCrafting(book);
+        for (Holder<Enchantment> holder : stored.keySet()) {
+            if (plan.containsKey(holder)) return true;
+        }
+        return false;
     }
 
     public static int costFor(Map<Holder<Enchantment>, Integer> plan) {

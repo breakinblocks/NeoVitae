@@ -164,6 +164,10 @@ public class RitualStatsProvider implements DataProvider {
             statsJson.addProperty("per_operation", true);
         }
 
+        if (stats.consumeBooks()) {
+            statsJson.addProperty("consume_books", true);
+        }
+
         return statsJson;
     }
 

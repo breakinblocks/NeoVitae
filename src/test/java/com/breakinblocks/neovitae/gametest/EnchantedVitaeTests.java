@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -180,6 +181,45 @@ public class EnchantedVitaeTests {
             helper.fail("A higher offer should upgrade the existing enchantment");
             return;
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void consumingBooksOnlyEatsTheOnesThatContributed(GameTestHelper helper) {
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        ItemStack sharpness = book(helper, Enchantments.SHARPNESS, 5);
+        ItemStack bystander = book(helper, Enchantments.EFFICIENCY, 5);
+
+        EnchantPlan plan = RitualEnchantedVitae.planEnchantments(sword, List.of(sharpness, bystander));
+
+        if (!RitualEnchantedVitae.contributedTo(sharpness, plan.enchantments())) {
+            helper.fail("The Sharpness book fed this craft and should count as a contributor");
+            return;
+        }
+        if (RitualEnchantedVitae.contributedTo(bystander, plan.enchantments())) {
+            helper.fail("Efficiency is not valid on a sword, so that book contributed nothing");
+            return;
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void aStackOfBooksLosesOnlyOne(GameTestHelper helper) {
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        ItemStack stack = book(helper, Enchantments.SHARPNESS, 5);
+        stack.setCount(4);
+
+        EnchantPlan plan = RitualEnchantedVitae.planEnchantments(sword, List.of(stack));
+        ItemEntity entity = new ItemEntity(helper.getLevel(), 0, 0, 0, stack);
+        helper.getLevel().addFreshEntity(entity);
+
+        RitualEnchantedVitae.consumeBooks(List.of(entity), plan.enchantments());
+
+        if (entity.getItem().getCount() != 3) {
+            helper.fail("A stack of books should lose exactly one, got " + entity.getItem().getCount());
+            return;
+        }
+        entity.discard();
         helper.succeed();
     }
 

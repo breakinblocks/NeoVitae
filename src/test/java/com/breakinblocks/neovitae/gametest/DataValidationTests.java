@@ -40,6 +40,27 @@ import java.util.List;
 public class DataValidationTests {
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public void shippedRitualStatsDoNotConsumeBooks(GameTestHelper helper) {
+        helper.runAfterDelay(1, () -> {
+            Ritual ritual = RitualRegistry.getRitual("enchanted_vitae");
+            if (ritual == null) {
+                helper.fail("Ritual of Enchanted Vitae is not registered");
+                return;
+            }
+            RitualStats stats = RitualRegistry.getStats(ritual);
+            if (stats == null) {
+                helper.fail("Ritual of Enchanted Vitae has no stats in the datamap");
+                return;
+            }
+            if (stats.consumeBooks()) {
+                helper.fail("consume_books must ship disabled; packs opt in, we do not ship it on");
+                return;
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
     public void ritualStatsJsonWithoutPerOperationStillLoads(GameTestHelper helper) {
         String legacy = "{\"activation_cost\":20000,\"refresh_cost\":10000,\"refresh_time\":40,\"crystal_level\":1}";
         RitualStats decoded = RitualStats.CODEC
@@ -51,6 +72,10 @@ public class DataValidationTests {
         }
         if (decoded.perOperation()) {
             helper.fail("A datapack written before per_operation existed must default to false");
+            return;
+        }
+        if (decoded.consumeBooks()) {
+            helper.fail("A datapack written before consume_books existed must default to false");
             return;
         }
         if (decoded.activationCost() != 20000 || decoded.refreshCost() != 10000
@@ -69,6 +94,23 @@ public class DataValidationTests {
         }
         if (!flagged.perOperation()) {
             helper.fail("per_operation:true should decode as true");
+            return;
+        }
+
+        RitualStats consuming = RitualStats.CODEC
+                .parse(JsonOps.INSTANCE, JsonParser.parseString(
+                        "{\"activation_cost\":1,\"refresh_cost\":2,\"consume_books\":true}"))
+                .resultOrPartial(err -> helper.fail("consume_books JSON failed to decode: " + err))
+                .orElse(null);
+        if (consuming == null) {
+            return;
+        }
+        if (!consuming.consumeBooks()) {
+            helper.fail("consume_books:true should decode as true");
+            return;
+        }
+        if (consuming.perOperation()) {
+            helper.fail("consume_books should not disturb per_operation");
             return;
         }
 

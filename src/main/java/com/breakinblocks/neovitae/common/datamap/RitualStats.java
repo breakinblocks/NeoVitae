@@ -25,12 +25,19 @@ public record RitualStats(
         Map<String, RangeLimit> rangeLimits,
         boolean enabled,
         Optional<ResourceLocation> ambientSound,
-        boolean perOperation
+        boolean perOperation,
+        boolean consumeBooks
 ) {
 
     public RitualStats(int activationCost, int refreshCost, int refreshTime, int crystalLevel,
                        Map<String, RangeLimit> rangeLimits, boolean enabled, Optional<ResourceLocation> ambientSound) {
-        this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, false);
+        this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, false, false);
+    }
+
+    public RitualStats(int activationCost, int refreshCost, int refreshTime, int crystalLevel,
+                       Map<String, RangeLimit> rangeLimits, boolean enabled, Optional<ResourceLocation> ambientSound,
+                       boolean perOperation) {
+        this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, perOperation, false);
     }
     public static final Codec<RitualStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("activation_cost").forGetter(RitualStats::activationCost),
@@ -42,7 +49,8 @@ public record RitualStats(
                     .forGetter(RitualStats::rangeLimits),
             Codec.BOOL.optionalFieldOf("enabled", true).forGetter(RitualStats::enabled),
             ResourceLocation.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound),
-            Codec.BOOL.optionalFieldOf("per_operation", false).forGetter(RitualStats::perOperation)
+            Codec.BOOL.optionalFieldOf("per_operation", false).forGetter(RitualStats::perOperation),
+            Codec.BOOL.optionalFieldOf("consume_books", false).forGetter(RitualStats::consumeBooks)
     ).apply(instance, RitualStats::new));
 
     /**
@@ -63,11 +71,15 @@ public record RitualStats(
      * Returns a copy of this RitualStats with the given ambient sound.
      */
     public RitualStats withAmbientSound(ResourceLocation sound) {
-        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound), perOperation);
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound), perOperation, consumeBooks);
     }
 
     public RitualStats withPerOperation() {
-        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, true);
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, true, consumeBooks);
+    }
+
+    public RitualStats withConsumeBooks() {
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, perOperation, true);
     }
 
     /**

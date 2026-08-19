@@ -34,7 +34,7 @@ public class RitualEnchantedVitaeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Enchanted Vitae");
-        this.pageText("Throw a single item onto the master stone along with as many [#](8B0000)enchanted books[#]() as you care to offer. The rite reads each book in turn and binds every enchantment the item is able to carry, then hands the books back untouched."
+        this.pageText("Throw a single item onto the master stone along with as many [#](8B0000)enchanted books[#]() as you care to offer. The rite reads each book in turn and binds every enchantment the item is able to carry, then hands the books back untouched, unless the pack you are playing has set them to be spent."
                 + "\n\nOnly [#](B8860B)one[#]() item may lie in the zone at a time. Books stack freely beside it.");
 
         this.page("rules", () -> BookTextPageModel.create()

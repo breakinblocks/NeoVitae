@@ -71,6 +71,13 @@ repositories {
             includeGroup "dev.ryanhcode.sable-companion"
         }
     }
+    maven {
+        name = "FTB"
+        url = "https://maven.ftb.dev/releases"
+        content {
+            includeGroup "dev.ftb.mods"
+        }
+    }
 }
 
 base {
@@ -173,6 +180,8 @@ dependencies {
 
     // KubeJS - compile-only soft dependency for the optional plugin under compat/kubejs/
     compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+
+    compileOnly("dev.ftb.mods:ftb-chunks-neoforge:${ftb_chunks_version}") {transitive=false}
 
     compileOnly("curse.maven:sable-1312371:8242682")
     compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")

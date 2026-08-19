@@ -6,7 +6,7 @@
   "input": {
     "item": "minecraft:ender_eye"
   },
-  "minTier": 3,
+  "minTier": 2,
   "output": {
     "count": 1,
     "id": "neovitae:teleposer_focus"

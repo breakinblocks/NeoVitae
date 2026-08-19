@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 
 import java.util.function.Supplier;
@@ -47,6 +48,10 @@ public record GreenGroveSigilEffect(int range, int verticalRange) implements Sig
     @Override
     public boolean useOnBlock(Level level, Player player, ItemStack stack, BlockPos blockPos, Direction side, Vec3 hitVec) {
         if (PlayerHelper.isFakePlayer(player)) {
+            return false;
+        }
+
+        if (!BlockProtectionHelper.canModifyBlock(level, blockPos, player)) {
             return false;
         }
 
@@ -78,6 +83,10 @@ public record GreenGroveSigilEffect(int range, int verticalRange) implements Sig
 
                         if (block instanceof BonemealableBlock growable && block != Blocks.GRASS_BLOCK) {
                             if (level.random.nextInt(50) == 0) {
+                                if (!BlockProtectionHelper.canModifyBlock(level, blockPos, player)) {
+                                    continue;
+                                }
+
                                 BlockState preBlockState = level.getBlockState(blockPos);
                                 if (growable.isValidBonemealTarget(serverWorld, blockPos, preBlockState)) {
                                     if (growable.isBonemealSuccess(level, level.random, blockPos, state)) {

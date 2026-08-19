@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/placer",
-      "multiblock_name": "Domain of the Filler",
+      "multiblock_name": "Ritual of the Mason",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_placer.multiblock.text"
     },
@@ -42,6 +42,28 @@
       "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_placer.info.text",
       "title": "book.neovitae.guide.rituals.ritual_placer.info.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_placer.shapes.text",
+      "title": "book.neovitae.guide.rituals.ritual_placer.shapes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_placer.aura.text",
+      "title": "book.neovitae.guide.rituals.ritual_placer.aura.title",
       "use_markdown_in_title": false
     }
   ],

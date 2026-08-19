@@ -38,5 +38,6 @@ public class NVGameTestRegistration {
         event.register(SanguineWardTests.class);
         event.register(EnchantedVitaeTests.class);
         event.register(EnchantedVitaeHaltTests.class);
+        event.register(PlacerTests.class);
     }
 }

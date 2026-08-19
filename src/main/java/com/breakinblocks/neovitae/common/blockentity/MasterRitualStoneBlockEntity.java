@@ -54,6 +54,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private static final long STRUCTURE_CHECK_INTERVAL_MILLIS = 5000L;
     private SpiritusType activeSpiritusAspect = SpiritusType.RAW;
     private int keepCount = 2;
+    private EnumFillMode fillMode = EnumFillMode.SOLID;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
     private ResourceLocation rangesConfiguredFor;
@@ -245,6 +246,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return false;
         }
 
+        Map<String, AreaDescriptor> preservedRanges = new HashMap<>(blockRanges);
         if (active && currentRitual != null) {
             stopRitual(Ritual.BreakType.ACTIVATE);
         }
@@ -255,7 +257,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         this.active = true;
         this.runningTime = 0;
 
-        initializeBlockRanges(ritual);
+        initializeBlockRanges(ritual, preservedRanges);
 
         network.syphon(ticket(ritual.getActivationCost()));
 
@@ -279,6 +281,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public void forceActivateRitual(Ritual ritual, @Nullable Player player) {
         if (level == null || level.isClientSide()) return;
 
+        Map<String, AreaDescriptor> preservedRanges = new HashMap<>(blockRanges);
         if (active && currentRitual != null) {
             stopRitual(Ritual.BreakType.ACTIVATE);
         }
@@ -289,7 +292,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         this.active = true;
         this.runningTime = 0;
 
-        initializeBlockRanges(ritual);
+        initializeBlockRanges(ritual, preservedRanges);
 
         level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
         ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 10, 0.4, 0.2, 0.4, 0);
@@ -363,6 +366,24 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         return false;
     }
 
+    public Ritual findStructureRitual() {
+        if (level == null) return null;
+        Ritual best = null;
+        int bestSize = -1;
+        for (Ritual candidate : RitualRegistry.getAllRituals()) {
+            for (Direction dir : new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}) {
+                if (!checkStructureWithDirection(candidate, dir)) continue;
+                int size = getRitualComponents(candidate).size();
+                if (size > bestSize) {
+                    bestSize = size;
+                    best = candidate;
+                }
+                break;
+            }
+        }
+        return best;
+    }
+
     private boolean checkStructureWithDirection(Ritual ritual, Direction dir) {
         for (RitualComponent component : getRitualComponents(ritual)) {
             BlockPos rotatedOffset = rotateOffset(component.offset(), dir);
@@ -419,9 +440,9 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         setChanged();
     }
 
-    private void initializeBlockRanges(Ritual ritual) {
+    private void initializeBlockRanges(Ritual ritual, Map<String, AreaDescriptor> source) {
         boolean keepPresets = rangesConfiguredFor != null && rangesConfiguredFor.equals(currentRitualId);
-        Map<String, AreaDescriptor> preconfigured = keepPresets ? new HashMap<>(blockRanges) : Map.of();
+        Map<String, AreaDescriptor> preconfigured = keepPresets ? new HashMap<>(source) : Map.of();
         blockRanges.clear();
         for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
             AreaDescriptor preset = preconfigured.get(entry.getKey());
@@ -454,6 +475,16 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
     public void setKeepCount(int count) {
         this.keepCount = Math.max(0, Math.min(count, 64));
+        setChanged();
+    }
+
+    @Override
+    public EnumFillMode getFillMode() {
+        return fillMode;
+    }
+
+    public void setFillMode(EnumFillMode mode) {
+        this.fillMode = mode;
         setChanged();
     }
 
@@ -511,6 +542,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         tag.putString("direction", direction.getName());
         tag.putString("activeAspect", activeSpiritusAspect.getSerializedName());
         tag.putInt("keepCount", keepCount);
+        tag.putString("fillMode", fillMode.getSerializedName());
 
         if (currentRitual != null && currentRitualId != null) {
             tag.putString("ritual", currentRitualId.toString());
@@ -554,6 +586,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         cooldown = tag.getInt("cooldown");
         runningTime = tag.getLong("runningTime");
         keepCount = tag.contains("keepCount") ? tag.getInt("keepCount") : 2;
+        fillMode = EnumFillMode.byName(tag.contains("fillMode") ? tag.getString("fillMode") : "solid", EnumFillMode.SOLID);
 
         if (tag.contains("direction")) {
             direction = Direction.byName(tag.getString("direction"));

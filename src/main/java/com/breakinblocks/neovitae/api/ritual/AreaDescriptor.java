@@ -166,6 +166,10 @@ public abstract class AreaDescriptor {
                    pos.getZ() >= minimumOffset.getZ() && pos.getZ() <= maximumOffset.getZ();
         }
 
+        public boolean hasCachedPositions() {
+            return cachedPositions != null;
+        }
+
         @Override
         public List<BlockPos> getContainedPositions(BlockPos masterPos) {
             if (cachedPositions != null && masterPos.equals(cachedMasterPos)) {

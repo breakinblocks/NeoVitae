@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.ItemRitualReader;
+import com.breakinblocks.neovitae.ritual.EnumFillMode;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu.RangeInfo;
 
@@ -36,11 +37,17 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     };
 
     private static final int KEEP_ROW_H = 18;
+    private static final int FILL_LABEL_H = 14;
+    private static final int FILL_ROW_H = 20;
+    private static final int FILL_COLS = 3;
+    private static final int FILL_ROWS = 2;
 
     private final List<RangeInfo> ranges;
     private final boolean usesKeepCount;
+    private final boolean usesFillMode;
     private int selectedAspect;
     private int keepCount;
+    private EnumFillMode fillMode;
 
     public RitualConfiguratorScreen(RitualConfiguratorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -49,8 +56,11 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         this.usesKeepCount = menu.usesKeepCount();
         this.keepCount = menu.getInitialKeepCount();
         this.imageWidth = PANEL_WIDTH;
+        this.usesFillMode = menu.usesFillMode();
+        this.fillMode = menu.getInitialFillMode();
         this.imageHeight = TITLE_HEIGHT + ranges.size() * ROW_HEIGHT
                 + ASPECT_LABEL_H + ASPECT_ROW_H + (usesKeepCount ? GAP + KEEP_ROW_H : 0)
+                + (usesFillMode ? GAP + FILL_LABEL_H + FILL_ROWS * FILL_ROW_H : 0)
                 + GAP + BUTTON_H + PAD_BOTTOM;
     }
 
@@ -74,9 +84,39 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         return leftPos + imageWidth - LIST_X - 48;
     }
 
-    private int editButtonY() {
+    private int afterKeepY() {
         int afterAspect = aspectRowY() + ASPECT_ROW_H;
-        return (usesKeepCount ? keepRowY() + KEEP_ROW_H : afterAspect) + GAP;
+        return usesKeepCount ? keepRowY() + KEEP_ROW_H : afterAspect;
+    }
+
+    private int fillLabelY() {
+        return afterKeepY() + GAP;
+    }
+
+    private int fillRowY() {
+        return fillLabelY() + FILL_LABEL_H;
+    }
+
+    private int fillButtonWidth() {
+        return (imageWidth - LIST_X * 2) / FILL_COLS;
+    }
+
+    private int fillButtonX(int index) {
+        return leftPos + LIST_X + (index % FILL_COLS) * fillButtonWidth();
+    }
+
+    private int fillButtonY(int index) {
+        return fillRowY() + (index / FILL_COLS) * FILL_ROW_H;
+    }
+
+    private boolean overFillButton(int index, double mouseX, double mouseY) {
+        int bx = fillButtonX(index);
+        int by = fillButtonY(index);
+        return mouseX >= bx && mouseX < bx + fillButtonWidth() - 1 && mouseY >= by && mouseY < by + FILL_ROW_H - 1;
+    }
+
+    private int editButtonY() {
+        return (usesFillMode ? fillRowY() + FILL_ROWS * FILL_ROW_H : afterKeepY()) + GAP;
     }
 
     private String selectedRangeKey() {
@@ -134,6 +174,28 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
             int lw = font.width(label);
             int color = isSelected ? ASPECT_COLORS[i] : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
             g.drawString(font, label, bx + (btnW - lw) / 2, by + (ASPECT_ROW_H - 8) / 2, color, false);
+        }
+
+        if (usesFillMode) {
+            g.drawString(font, Component.translatable("gui.neovitae.configurator.fill_mode"),
+                    leftPos + LIST_X + 2, fillLabelY() + 3, 0xFFA05050, false);
+            EnumFillMode[] modes = EnumFillMode.values();
+            int fbw = fillButtonWidth();
+            for (int i = 0; i < modes.length; i++) {
+                int bx = fillButtonX(i);
+                int by = fillButtonY(i);
+                boolean hovered = overFillButton(i, mouseX, mouseY);
+                boolean isSelected = modes[i] == fillMode;
+                int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
+                g.fill(bx, by, bx + fbw - 1, by + FILL_ROW_H - 1, fill);
+                if (isSelected) {
+                    g.fill(bx, by, bx + fbw - 1, by + 2, 0xFFB8860B);
+                }
+                Component label = Component.translatable(modes[i].translationKey());
+                int lw = font.width(label);
+                int color = isSelected ? 0xFFB8860B : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
+                g.drawString(font, label, bx + (fbw - lw) / 2, by + (FILL_ROW_H - 8) / 2, color, false);
+            }
         }
 
         if (usesKeepCount) {
@@ -225,6 +287,18 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                 }
             }
 
+            if (usesFillMode) {
+                EnumFillMode[] modes = EnumFillMode.values();
+                for (int i = 0; i < modes.length; i++) {
+                    if (overFillButton(i, mouseX, mouseY)) {
+                        fillMode = modes[i];
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
+                                RitualConfiguratorMenu.FILL_MODE_BUTTON_BASE + i);
+                        return true;
+                    }
+                }
+            }
+
             int eby = editButtonY();
             if (mouseX >= leftPos + LIST_X && mouseX < leftPos + imageWidth - LIST_X
                     && mouseY >= eby && mouseY < eby + BUTTON_H) {
@@ -255,6 +329,22 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                 return;
             }
         }
+        if (usesFillMode) {
+            EnumFillMode[] modes = EnumFillMode.values();
+            for (int i = 0; i < modes.length; i++) {
+                if (overFillButton(i, mouseX, mouseY)) {
+                    g.renderComponentTooltip(font, fillTooltip(modes[i]), mouseX, mouseY);
+                    return;
+                }
+            }
+        }
+    }
+
+    private List<Component> fillTooltip(EnumFillMode mode) {
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable(mode.translationKey()));
+        lines.add(Component.translatable(mode.translationKey() + ".desc"));
+        return lines;
     }
 
     private List<Component> aspectTooltip(SpiritusType type) {

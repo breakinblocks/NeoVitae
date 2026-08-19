@@ -4,16 +4,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -25,10 +25,15 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.item.ItemRitualReader;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
+import com.breakinblocks.neovitae.ritual.Ritual;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
@@ -38,6 +43,14 @@ public class SeerRitualAreaRenderer {
             0x4FC3F7, 0xFFD54F, 0xE57373, 0x81C784, 0xBA68C8, 0xFF8A65, 0x4DB6AC
     };
 
+    private static final int NEARBY_RADIUS = 32;
+    private static final int NEARBY_CHUNK_RADIUS = (NEARBY_RADIUS >> 4) + 1;
+    private static final long RESOLVE_INTERVAL_TICKS = 40L;
+
+    private static final Map<BlockPos, Resolved> RESOLVED = new HashMap<>();
+
+    private record Resolved(long expiresAt, List<AABB> boxes) {}
+
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
@@ -46,31 +59,15 @@ public class SeerRitualAreaRenderer {
 
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
-        if (player == null) return;
+        ClientLevel level = mc.level;
+        if (player == null || level == null) return;
 
-        HitResult hitResult = mc.hitResult;
-        if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) {
-            return;
-        }
+        if (!playerHasSeerSigil(player)) return;
 
-        Level level = player.level();
-        BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
-        BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof MasterRitualStoneBlockEntity mrs)) {
-            return;
-        }
-        if (!mrs.isActive() || mrs.getCurrentRitual() == null) {
-            return;
-        }
-
-        Map<String, AreaDescriptor> ranges = mrs.getBlockRanges();
-        if (ranges.isEmpty()) {
-            return;
-        }
-
-        if (!playerHasSeerSigil(player)) {
-            return;
-        }
+        List<MasterRitualStoneBlockEntity> targets = holdingConfigurator(player)
+                ? nearbyMasterStones(level, player)
+                : targetedMasterStone(mc, level);
+        if (targets.isEmpty()) return;
 
         Camera camera = mc.gameRenderer.getMainCamera();
         Vec3 cam = camera.getPosition();
@@ -81,27 +78,97 @@ public class SeerRitualAreaRenderer {
         poseStack.pushPose();
         poseStack.translate(-cam.x, -cam.y, -cam.z);
 
-        int index = 0;
-        for (AreaDescriptor descriptor : ranges.values()) {
-            AABB box = descriptor.getAABB(pos);
-            int color = RANGE_COLORS[index % RANGE_COLORS.length];
-            float r = ((color >> 16) & 0xFF) / 255f;
-            float g = ((color >> 8) & 0xFF) / 255f;
-            float b = (color & 0xFF) / 255f;
-            LevelRenderer.renderLineBox(poseStack, lines, box, r, g, b, 1.0f);
-            index++;
+        long now = level.getGameTime();
+        for (MasterRitualStoneBlockEntity mrs : targets) {
+            List<AABB> boxes = boxesFor(mrs, now);
+            for (int i = 0; i < boxes.size(); i++) {
+                int color = RANGE_COLORS[i % RANGE_COLORS.length];
+                float r = ((color >> 16) & 0xFF) / 255f;
+                float g = ((color >> 8) & 0xFF) / 255f;
+                float b = (color & 0xFF) / 255f;
+                LevelRenderer.renderLineBox(poseStack, lines, boxes.get(i), r, g, b, 1.0f);
+            }
         }
 
         poseStack.popPose();
         buffers.endBatch(RenderType.lines());
     }
 
+    private static List<AABB> boxesFor(MasterRitualStoneBlockEntity mrs, long now) {
+        BlockPos pos = mrs.getBlockPos();
+
+        Map<String, AreaDescriptor> configured = mrs.getBlockRanges();
+        if (!configured.isEmpty()) {
+            RESOLVED.remove(pos);
+            List<AABB> boxes = new ArrayList<>();
+            for (AreaDescriptor descriptor : configured.values()) {
+                boxes.add(descriptor.getAABB(pos));
+            }
+            return boxes;
+        }
+
+        Resolved cached = RESOLVED.get(pos);
+        if (cached != null && now < cached.expiresAt()) {
+            return cached.boxes();
+        }
+
+        List<AABB> boxes = new ArrayList<>();
+        Ritual ritual = mrs.findStructureRitual();
+        if (ritual != null) {
+            for (AreaDescriptor descriptor : ritual.getModifiableRanges().values()) {
+                boxes.add(descriptor.getAABB(pos));
+            }
+        }
+        if (RESOLVED.size() > 256) RESOLVED.clear();
+        RESOLVED.put(pos.immutable(), new Resolved(now + RESOLVE_INTERVAL_TICKS, boxes));
+        return boxes;
+    }
+
+    private static List<MasterRitualStoneBlockEntity> targetedMasterStone(Minecraft mc, ClientLevel level) {
+        HitResult hitResult = mc.hitResult;
+        if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) {
+            return List.of();
+        }
+        BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
+        if (!(level.getBlockEntity(pos) instanceof MasterRitualStoneBlockEntity mrs)) {
+            return List.of();
+        }
+        if (!mrs.isActive() || mrs.getCurrentRitual() == null || mrs.getBlockRanges().isEmpty()) {
+            return List.of();
+        }
+        return List.of(mrs);
+    }
+
+    private static List<MasterRitualStoneBlockEntity> nearbyMasterStones(ClientLevel level, Player player) {
+        List<MasterRitualStoneBlockEntity> found = new ArrayList<>();
+        int centerX = player.blockPosition().getX() >> 4;
+        int centerZ = player.blockPosition().getZ() >> 4;
+        double radiusSqr = (double) NEARBY_RADIUS * NEARBY_RADIUS;
+
+        for (int cx = centerX - NEARBY_CHUNK_RADIUS; cx <= centerX + NEARBY_CHUNK_RADIUS; cx++) {
+            for (int cz = centerZ - NEARBY_CHUNK_RADIUS; cz <= centerZ + NEARBY_CHUNK_RADIUS; cz++) {
+                LevelChunk chunk = level.getChunkSource().getChunk(cx, cz, false);
+                if (chunk == null) continue;
+                for (Map.Entry<BlockPos, BlockEntity> entry : chunk.getBlockEntities().entrySet()) {
+                    if (!(entry.getValue() instanceof MasterRitualStoneBlockEntity mrs)) continue;
+                    if (entry.getKey().distToCenterSqr(player.position()) > radiusSqr) continue;
+                    found.add(mrs);
+                }
+            }
+        }
+        return found;
+    }
+
+    private static boolean holdingConfigurator(Player player) {
+        return player.getMainHandItem().getItem() instanceof ItemRitualReader
+                || player.getOffhandItem().getItem() instanceof ItemRitualReader;
+    }
+
     private static boolean playerHasSeerSigil(Player player) {
         Item seer = NVItems.SIGIL_SEER.get();
-        for (ItemStack stack : player.getInventory().items) {
-            if (containsSigil(stack, seer)) return true;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            if (containsSigil(player.getInventory().getItem(i), seer)) return true;
         }
-        if (containsSigil(player.getOffhandItem(), seer)) return true;
         for (ItemStack stack : CuriosCompat.getCuriosInventory(player)) {
             if (containsSigil(stack, seer)) return true;
         }
@@ -112,11 +179,8 @@ public class SeerRitualAreaRenderer {
         if (stack.isEmpty()) return false;
         if (stack.is(sigil)) return true;
         if (stack.getItem() instanceof ItemSigilHolding) {
-            NonNullList<ItemStack> inner = ItemSigilHolding.getInternalInventory(stack);
-            if (inner != null) {
-                for (ItemStack held : inner) {
-                    if (!held.isEmpty() && held.is(sigil)) return true;
-                }
+            for (ItemStack inner : ItemSigilHolding.getInternalInventory(stack)) {
+                if (inner.is(sigil)) return true;
             }
         }
         return false;

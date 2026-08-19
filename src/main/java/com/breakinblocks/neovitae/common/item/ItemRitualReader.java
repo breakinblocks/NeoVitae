@@ -152,9 +152,9 @@ public class ItemRitualReader extends Item {
                     (int) Math.round(box.getXsize()),
                     (int) Math.round(box.getYsize()),
                     (int) Math.round(box.getZsize()),
-                    ritual.getMaxVolumeForRange(key),
-                    ritual.getMaxHorizontalRadiusForRange(key),
-                    ritual.getMaxVerticalRadiusForRange(key)));
+                    ritual.getMaxVolumeForRange(key, mrs),
+                    ritual.getMaxHorizontalRadiusForRange(key, mrs),
+                    ritual.getMaxVerticalRadiusForRange(key, mrs)));
         }
 
         ItemStack stack = serverPlayer.getItemInHand(hand);
@@ -170,11 +170,13 @@ public class ItemRitualReader extends Item {
         boolean active = mrs.isActive();
         boolean usesKeepCount = ritual.usesKeepCount();
         int keepCount = mrs.getKeepCount();
+        boolean usesFillMode = ritual.usesFillMode();
+        EnumFillMode fillMode = mrs.getFillMode();
 
         serverPlayer.openMenu(new SimpleMenuProvider(
-                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount),
+                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount, usesFillMode, fillMode),
                 Component.translatable("container.neovitae.ritual_configurator")
-        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount));
+        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount, usesFillMode, fillMode));
 
         return InteractionResult.SUCCESS;
     }

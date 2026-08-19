@@ -22,7 +22,7 @@ public class RitualPlacerEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/placer"))
-                .withMultiblockName("Domain of the Filler")
+                .withMultiblockName("Ritual of the Mason")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -34,11 +34,32 @@ public class RitualPlacerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Mason's Spiritus");
         this.pageText("This ritual draws blocks from a nearby chest and places them into empty spaces within its domain, filling voids, building foundations, and shaping terrain with tireless precision. Where the [#](8B0000)Yawning of the Void[#]() devours, this circle creates.");
+
+        this.page("shapes", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Shaping the Work");
+        this.pageText("The [#](8B0000)Ritual Configurator[#]() sets the shape the Mason lays into its domain:"
+                + "\n\n- [#](B8860B)Solid[#](): the whole volume"
+                + "\n- [#](B8860B)Shell[#](): the outer skin only"
+                + "\n- [#](B8860B)Floor[#]() and [#](B8860B)Roof[#](): a single layer"
+                + "\n- [#](B8860B)Walls[#](): the four upright sides"
+                + "\n- [#](B8860B)Frame[#](): the twelve edges alone"
+                + "\n\nA domain one block thick has no inside, so Shell fills it solid and Frame traces its outline.");
+
+        this.page("aura", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Quickening Aura");
+        this.pageText("Left to itself the Mason sets one block a pulse across a domain of 5,000. [#](8B0000)Raw Spiritus[#]() in the chunk quickens it and widens what you may mark out:"
+                + "\n\n- [#](B8860B)20 raw[#](): four blocks a pulse, 20,000 of room"
+                + "\n- [#](B8860B)50 raw[#](): eight blocks a pulse, 80,000 of room"
+                + "\n\nThe aura is spent as it works, so the circle settles at whatever pace your supply sustains; it never stalls, only slows. Should the aura fade you keep the domain you marked, but you cannot widen it again until the Spiritus returns.");
     }
 
     @Override
     protected String entryName() {
-        return "Domain of the Filler";
+        return "Ritual of the Mason";
     }
 
     @Override

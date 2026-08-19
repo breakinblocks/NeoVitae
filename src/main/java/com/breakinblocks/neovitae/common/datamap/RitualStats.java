@@ -16,6 +16,9 @@ import java.util.Optional;
  * @param crystalLevel Required activation crystal tier (0 = weak, 1 = standard, 2 = awakened)
  * @param rangeLimits Map of range name to RangeLimit for area customization
  * @param enabled Whether the ritual is enabled (disabled rituals cannot be activated)
+ * @param perOperation Whether refreshCost is charged once per completed operation rather
+ *                     than continuously every refresh. Display-only; rituals that work this
+ *                     way already syphon on success only.
  */
 public record RitualStats(
         int activationCost,
@@ -24,8 +27,17 @@ public record RitualStats(
         int crystalLevel,
         Map<String, RangeLimit> rangeLimits,
         boolean enabled,
-        Optional<ResourceLocation> ambientSound
+        Optional<ResourceLocation> ambientSound,
+        boolean perOperation
 ) {
+
+    /**
+     * Retained for callers written against the pre-{@code perOperation} record shape.
+     */
+    public RitualStats(int activationCost, int refreshCost, int refreshTime, int crystalLevel,
+                       Map<String, RangeLimit> rangeLimits, boolean enabled, Optional<ResourceLocation> ambientSound) {
+        this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, false);
+    }
     public static final Codec<RitualStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("activation_cost").forGetter(RitualStats::activationCost),
             Codec.INT.fieldOf("refresh_cost").forGetter(RitualStats::refreshCost),
@@ -35,7 +47,8 @@ public record RitualStats(
                     .optionalFieldOf("range_limits", Map.of())
                     .forGetter(RitualStats::rangeLimits),
             Codec.BOOL.optionalFieldOf("enabled", true).forGetter(RitualStats::enabled),
-            ResourceLocation.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound)
+            ResourceLocation.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound),
+            Codec.BOOL.optionalFieldOf("per_operation", false).forGetter(RitualStats::perOperation)
     ).apply(instance, RitualStats::new));
 
     /**
@@ -56,7 +69,14 @@ public record RitualStats(
      * Returns a copy of this RitualStats with the given ambient sound.
      */
     public RitualStats withAmbientSound(ResourceLocation sound) {
-        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound));
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound), perOperation);
+    }
+
+    /**
+     * Marks this ritual's refresh cost as a one-off charge per completed operation.
+     */
+    public RitualStats withPerOperation() {
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, true);
     }
 
     /**

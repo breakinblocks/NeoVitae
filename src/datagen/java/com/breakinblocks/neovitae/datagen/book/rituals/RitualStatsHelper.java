@@ -1,5 +1,7 @@
 package com.breakinblocks.neovitae.datagen.book.rituals;
 
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
+import com.breakinblocks.neovitae.datagen.provider.RitualStatsProvider;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
@@ -13,18 +15,32 @@ import java.util.*;
  */
 public class RitualStatsHelper {
 
+    private static Map<ResourceLocation, RitualStats> statsTable;
+
+    private static Map<ResourceLocation, RitualStats> stats() {
+        if (statsTable == null) {
+            Map<ResourceLocation, RitualStats> table = new HashMap<>();
+            RitualStatsProvider.declare((holder, stats) -> table.put(holder.getId(), stats));
+            statsTable = table;
+        }
+        return statsTable;
+    }
+
     public static String generateStats(String ritualName) {
         Ritual ritual = RitualRegistry.getRitual(ritualName);
         if (ritual == null) return "Ritual data unavailable.";
 
+        ResourceLocation id = RitualRegistry.getId(ritual);
+        RitualStats stats = id == null ? null : stats().get(id);
+
         StringBuilder sb = new StringBuilder();
 
         // Activation cost
-        int activationCost = ritual.getActivationCost();
+        int activationCost = stats != null ? stats.activationCost() : ritual.getActivationCost();
         sb.append("[#](8B0000)Activation Cost:[#]() ").append(String.format("%,d", activationCost)).append(" EV\\\n");
 
         // Crystal level
-        int crystalLevel = ritual.getCrystalLevel();
+        int crystalLevel = stats != null ? stats.crystalLevel() : ritual.getCrystalLevel();
         String crystalName = switch (crystalLevel) {
             case 0 -> "Weak Activation Crystal";
             case 1 -> "Awakened Activation Crystal";
@@ -34,14 +50,20 @@ public class RitualStatsHelper {
         sb.append("[#](8B0000)Crystal:[#]() ").append(crystalName).append("\\\n");
 
         // Refresh cost
-        int refreshCost = ritual.getRefreshCost();
-        int refreshTime = ritual.getRefreshTime();
+        int refreshCost = stats != null ? stats.refreshCost() : ritual.getRefreshCost();
+        int refreshTime = stats != null ? stats.refreshTime() : ritual.getRefreshTime();
         if (refreshCost > 0) {
-            sb.append("[#](8B0000)Upkeep:[#]() ").append(String.format("%,d", refreshCost)).append(" EV");
-            if (refreshTime != 20) {
-                sb.append(" every ").append(refreshTime).append(" ticks");
-            } else {
+            boolean perOperation = stats != null && stats.perOperation();
+            sb.append(perOperation ? "[#](8B0000)Cost:[#]() " : "[#](8B0000)Upkeep:[#]() ")
+                    .append(String.format("%,d", refreshCost)).append(" EV");
+            if (perOperation) {
+                sb.append(" per use");
+            } else if (refreshTime == 1) {
+                sb.append("/tick");
+            } else if (refreshTime == 20) {
                 sb.append("/sec");
+            } else {
+                sb.append(" every ").append(refreshTime).append(" ticks");
             }
             sb.append("\\\n");
         }

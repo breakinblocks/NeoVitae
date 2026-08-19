@@ -3,6 +3,7 @@
     "neovitae:armour_evolve": {
       "activation_cost": 50000,
       "crystal_level": 1,
+      "per_operation": true,
       "refresh_cost": 25000
     },
     "neovitae:butchering": {
@@ -35,10 +36,11 @@
     "neovitae:downgrade": {
       "activation_cost": 20000,
       "crystal_level": 1,
+      "per_operation": true,
       "refresh_cost": 10000
     },
     "neovitae:enchanted_vitae": {
-      "activation_cost": 50000,
+      "activation_cost": 10000,
       "crystal_level": 1,
       "refresh_cost": 0,
       "refresh_time": 4
@@ -141,6 +143,7 @@
     "neovitae:upgrade_remove": {
       "activation_cost": 20000,
       "crystal_level": 1,
+      "per_operation": true,
       "refresh_cost": 10000
     },
     "neovitae:water": {

@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 2,500 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Water Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 20 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 2,500 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 50 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Water Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 20 runes",
       "title": ""
     },
     {

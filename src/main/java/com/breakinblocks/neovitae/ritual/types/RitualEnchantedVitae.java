@@ -62,7 +62,7 @@ public class RitualEnchantedVitae extends Ritual {
     private final Map<ItemEntity, Long> glowingUntil = new HashMap<>();
 
     public RitualEnchantedVitae() {
-        super(NAME, 1, 50000, "ritual." + NeoVitae.MODID + "." + NAME);
+        super(NAME, 1, 10000, "ritual." + NeoVitae.MODID + "." + NAME);
         addBlockRange(ENCHANT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-2, 1, -2), 5, 2, 5));
         setMaximumVolumeAndDistanceOfRange(ENCHANT_RANGE, 50, 5, 5);
     }
@@ -160,6 +160,7 @@ public class RitualEnchantedVitae extends Ritual {
         }
 
         applyEnchantments(target, plan.enchantments());
+        targetEntity.setItem(target.copy());
         ctx.syphon(cost);
         chargeTicks = 0;
         jobSignature = 0;
@@ -171,6 +172,8 @@ public class RitualEnchantedVitae extends Ritual {
                 ctx.masterPos().getX() + 0.5, ctx.masterPos().getY() + 1.2, ctx.masterPos().getZ() + 0.5,
                 80, 1.2, 0.8, 1.2, 0.35);
         ctx.level().playSound(null, ctx.masterPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0f, 0.7f);
+
+        masterRitualStone.stopRitual(BreakType.DEACTIVATE);
     }
 
     /**

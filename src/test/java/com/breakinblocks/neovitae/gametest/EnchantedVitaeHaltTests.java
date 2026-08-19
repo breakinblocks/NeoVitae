@@ -46,6 +46,7 @@ public class EnchantedVitaeHaltTests {
         private final Level level;
         private final BlockPos pos;
         final List<Component> messages = new ArrayList<>();
+        boolean stopped = false;
 
         StubMaster(Level level, BlockPos pos) {
             this.level = level;
@@ -116,6 +117,7 @@ public class EnchantedVitaeHaltTests {
 
         @Override
         public void stopRitual(Ritual.BreakType breakType) {
+            stopped = true;
         }
 
         @Override
@@ -276,6 +278,24 @@ public class EnchantedVitaeHaltTests {
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 100)
+    public void anIdleRiteStaysActive(GameTestHelper helper) {
+        fundOwner();
+        helper.setBlock(MASTER, Blocks.STONE);
+        StubMaster master = new StubMaster(helper.getLevel(), helper.absolutePos(MASTER));
+        RitualEnchantedVitae ritual = new RitualEnchantedVitae();
+
+        drop(helper, new ItemStack(Items.DIAMOND_SWORD));
+
+        run(ritual, master, 60);
+
+        if (master.stopped) {
+            helper.fail("A rite with nothing to bind should keep waiting, not shut itself off");
+            return;
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 100)
     public void aCleanRunBindsWithoutBeingOfferedTwice(GameTestHelper helper) {
         fundOwner();
         helper.setBlock(MASTER, Blocks.STONE);
@@ -293,6 +313,10 @@ public class EnchantedVitaeHaltTests {
         }
         if (!master.messages.isEmpty()) {
             helper.fail("A clean run should not announce anything, got " + master.messages.size() + " messages");
+            return;
+        }
+        if (!master.stopped) {
+            helper.fail("The rite should stop itself once it has bound the enchantments");
             return;
         }
         helper.succeed();

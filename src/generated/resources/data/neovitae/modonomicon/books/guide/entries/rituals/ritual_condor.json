@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 10,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  20x Air Ritual Stone\\\n  8x Dusk Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 10,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 100 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  20x Air Ritual Stone\\\n  8x Dusk Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
       "title": ""
     },
     {

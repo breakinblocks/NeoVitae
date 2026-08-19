@@ -1,6 +1,5 @@
-// Derived from Blood Magic (https://github.com/WayofTime/BloodMagic), licensed under CC BY 4.0
 // SPDX-FileCopyrightText: 2024-2026 Saereth <https://github.com/breakinblocks/NeoVitae>
-// SPDX-License-Identifier: CC-BY-4.0 AND MIT
+// SPDX-License-Identifier: MIT
 
 package com.breakinblocks.neovitae.util.helper;
 
@@ -13,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.compat.ftbchunks.FTBChunksCompat;
 import com.breakinblocks.neovitae.compat.ftbultimine.FTBUltimineCompat;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
@@ -194,6 +194,18 @@ public class BlockProtectionHelper {
 
         BlockState state = level.getBlockState(pos);
         return fireBreakEvent(level, pos, state, player);
+    }
+
+    public static boolean canModifyBlock(Level level, BlockPos pos, @Nullable Player player) {
+        if (level.isClientSide() || player == null) {
+            return true;
+        }
+
+        if (!level.mayInteract(player, pos)) {
+            return false;
+        }
+
+        return FTBChunksCompat.canEditBlock(player, pos);
     }
 
     public static boolean canPlaceBlock(Level level, BlockPos pos, BlockState newState, @Nullable Player player) {

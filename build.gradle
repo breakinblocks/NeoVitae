@@ -169,6 +169,7 @@ dependencies {
 
     compileOnly("dev.ftb.mods:ftb-ultimine-neoforge:${ftb_ultimine_version}") {transitive=false}
     compileOnly("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}") {transitive=false}
+    compileOnly("dev.ftb.mods:ftb-chunks-neoforge:${ftb_chunks_version}") {transitive=false}
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

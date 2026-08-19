@@ -838,14 +838,14 @@ public class NVRecipeProvider extends RecipeProvider {
         // Teleposer Focus - eye of ender on tier 3 altar
         AltarRecipeBuilder.build(NVItems.TELEPOSER_FOCUS.get())
                 .from(Items.ENDER_EYE)
-                .minTier(3)
+                .minTier(2)
                 .bloodNeeded(2000)
                 .consumption(10)
                 .drain(10)
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output, rKey(NeoVitae.rl("teleposer_focus")));
 
-        // Enhanced Teleposer Focus - from teleposer focus on tier 3 altar
+        // Enhanced Teleposer Focus - from teleposer focus on tier 4 altar
         AltarRecipeBuilder.build(NVItems.TELEPOSER_FOCUS_ENHANCED.get())
                 .from(NVItems.TELEPOSER_FOCUS.get())
                 .minTier(3)

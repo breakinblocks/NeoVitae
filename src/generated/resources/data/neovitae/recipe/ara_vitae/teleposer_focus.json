@@ -4,7 +4,7 @@
   "craftSpeed": 10,
   "drainSpeed": 10,
   "input": "minecraft:ender_eye",
-  "minTier": 3,
+  "minTier": 2,
   "output": {
     "id": "neovitae:teleposer_focus"
   }

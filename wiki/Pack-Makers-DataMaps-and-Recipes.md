@@ -123,6 +123,9 @@ Customize activation costs, refresh costs, and range limits for rituals. See [Ri
 | `refresh_time` | Integer | Ticks between refreshes (default: 20 = 1s) |
 | `crystal_level` | Integer | Required activation crystal (0=weak, 1=awakened, 2=creative) |
 | `range_limits` | Object | Map of range names to limit objects |
+
+> **Ritual of the Mason:** its `placerRange` limits are normally derived from the Raw Spiritus in the chunk (5,000 blocks at reach 15, rising to 20,000 at reach 24 and 80,000 at reach 40). Supplying an explicit `range_limits.placerRange` entry replaces that with a fixed cap and disables the Spiritus scaling entirely. Note the all-or-nothing behaviour above applies: setting only `max_volume` also accepts the codec defaults of 256 for both radii.
+
 | `enabled` | Boolean | Whether the ritual is enabled (default: true). Disabled rituals cannot be activated and are hidden from JEI. |
 | `per_operation` | Boolean | Whether `refresh_cost` is charged once per completed operation rather than continuously (default: false). Affects how the cost is worded in the guide book; it does not change what the ritual charges. Set it on rituals that only draw EV when they actually process something, such as Sentient Extraction. |
 | `consume_books` | Boolean | Ritual of Enchanted Vitae only. When true the rite consumes one of each enchanted book that actually contributed an enchantment to the item (default: false, books are returned unspent). Books that offered nothing the item could take are never consumed. The in-game guide notes that packs may change this. |

@@ -729,6 +729,19 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.configurator.tooltip.reach", "Max reach: %s wide, %s tall");
         add("gui.neovitae.configurator.tooltip.single", "Single block slot, placed with one click");
         add("gui.neovitae.configurator.tooltip.area", "Resized by clicking two corners");
+        add("gui.neovitae.configurator.fill_mode", "Fill shape:");
+        add("gui.neovitae.configurator.fill.solid", "Solid");
+        add("gui.neovitae.configurator.fill.solid.desc", "Fills the whole area.");
+        add("gui.neovitae.configurator.fill.hollow", "Shell");
+        add("gui.neovitae.configurator.fill.hollow.desc", "Fills only the outer skin, leaving the inside empty. An area one block thick has no inside, so this fills it solid.");
+        add("gui.neovitae.configurator.fill.floor", "Floor");
+        add("gui.neovitae.configurator.fill.floor.desc", "Fills only the bottom layer.");
+        add("gui.neovitae.configurator.fill.walls", "Walls");
+        add("gui.neovitae.configurator.fill.walls.desc", "Fills the four upright sides, leaving the floor and roof open.");
+        add("gui.neovitae.configurator.fill.roof", "Roof");
+        add("gui.neovitae.configurator.fill.roof.desc", "Fills only the top layer.");
+        add("gui.neovitae.configurator.fill.frame", "Frame");
+        add("gui.neovitae.configurator.fill.frame.desc", "Fills only the twelve edges, leaving a bare frame. On a flat area this traces its outline.");
         add("chat.neovitae.reader.noRitual", "No ritual active on this Master Ritual Stone.");
         add("chat.neovitae.reader.noMRS", "No active Master Ritual Stone found nearby.");
         add("chat.neovitae.reader.noRangeSelected", "No range selected. Click on an active MRS first.");
@@ -1339,7 +1352,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Dusk Tier Rituals
         addRitual("condor", "Soaring Skies", "Bestows true flight upon every practitioner within the circle. Dusk-tier.");
         addRitual("grounding", "The Sinner's Burden", "Imposes heavy gravity within the area; entities that try to fly are dragged back to the earth. Spiritus aspects shift between Heavy Heart, Suspended, and Levitation effects.");
-        addRitual("placer", "Ritual of the Mason", "Places blocks drawn from an adjacent chest across the configured area.");
+        addRitual("placer", "Ritual of the Mason", "Places blocks drawn from an adjacent chest across the configured area. Raw Spiritus sets how large an area you may configure and how fast it fills, and the Ritual Configurator chooses the shape.");
+        add("ritual.neovitae.placer.placerRange.info", "The area the Mason fills.");
+        add("ritual.neovitae.placer.spiritus.raw", "Raw Spiritus quickens the work and widens the domain: 20 raw for four blocks a pulse and 20,000 blocks of room, 50 raw for eight and 80,000.");
         addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");

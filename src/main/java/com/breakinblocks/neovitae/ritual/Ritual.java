@@ -19,6 +19,8 @@ import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -60,6 +62,10 @@ public abstract class Ritual {
     public abstract void performRitual(IMasterRitualStone masterRitualStone);
 
     public boolean usesKeepCount() {
+        return false;
+    }
+
+    public boolean usesFillMode() {
         return false;
     }
 
@@ -134,9 +140,9 @@ public abstract class Ritual {
 
     public EnumReaderBoundaries canBlockRangeBeModified(String key, AreaDescriptor descriptor,
                                                         IMasterRitualStone master, BlockPos offset1, BlockPos offset2) {
-        int maxVolume = getMaxVolumeForRange(key);
-        int maxVertical = getMaxVerticalRadiusForRange(key);
-        int maxHorizontal = getMaxHorizontalRadiusForRange(key);
+        int maxVolume = getMaxVolumeForRange(key, master);
+        int maxVertical = getMaxVerticalRadiusForRange(key, master);
+        int maxHorizontal = getMaxHorizontalRadiusForRange(key, master);
 
         if (maxVolume > 0 && !checkVolumeForOffsets(descriptor, offset1, offset2, maxVolume)) {
             return EnumReaderBoundaries.VOLUME_TOO_LARGE;
@@ -153,10 +159,10 @@ public abstract class Ritual {
         int dx = Math.abs(offset2.getX() - offset1.getX()) + 1;
         int dy = Math.abs(offset2.getY() - offset1.getY()) + 1;
         int dz = Math.abs(offset2.getZ() - offset1.getZ()) + 1;
-        return dx * dy * dz <= maxVolume;
+        return (long) dx * dy * dz <= maxVolume;
     }
 
-    private RitualStats.RangeLimit getRangeLimit(String key) {
+    protected RitualStats.RangeLimit getRangeLimit(String key) {
         RitualStats stats = getStats();
         return stats != null ? stats.rangeLimits().get(key) : null;
     }
@@ -177,6 +183,18 @@ public abstract class Ritual {
         RitualStats.RangeLimit limit = getRangeLimit(key);
         if (limit != null) return limit.maxHorizontalRadius();
         return horizontalLimits.getOrDefault(key, 256);
+    }
+
+    public int getMaxVolumeForRange(String key, @Nullable IMasterRitualStone master) {
+        return getMaxVolumeForRange(key);
+    }
+
+    public int getMaxVerticalRadiusForRange(String key, @Nullable IMasterRitualStone master) {
+        return getMaxVerticalRadiusForRange(key);
+    }
+
+    public int getMaxHorizontalRadiusForRange(String key, @Nullable IMasterRitualStone master) {
+        return getMaxHorizontalRadiusForRange(key);
     }
 
     public void readFromNBT(CompoundTag tag) {

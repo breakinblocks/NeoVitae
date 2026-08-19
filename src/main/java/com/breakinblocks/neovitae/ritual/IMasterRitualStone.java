@@ -75,6 +75,10 @@ public interface IMasterRitualStone {
         return 2;
     }
 
+    default EnumFillMode getFillMode() {
+        return EnumFillMode.SOLID;
+    }
+
     void provideInformationOfRitualToPlayer(Player player);
 
     void provideInformationOfRangeToPlayer(Player player, String key);

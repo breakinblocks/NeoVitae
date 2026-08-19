@@ -273,11 +273,6 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         return buildInput(true);
     }
 
-    /**
-     * The same inputs, but fuelled by a gem sitting in a crafting slot. Used as a
-     * fallback when the gem slot cannot pay for the craft, and it is what carries
-     * a gem's charge across when the recipe upgrades that gem into a larger one.
-     */
     public ForgeInput getCraftingGemInput() {
         return buildInput(false);
     }

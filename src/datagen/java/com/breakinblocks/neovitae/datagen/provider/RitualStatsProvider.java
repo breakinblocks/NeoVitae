@@ -37,11 +37,6 @@ public class RitualStatsProvider implements DataProvider {
         declare(this::add);
     }
 
-    /**
-     * Single source of truth for every ritual's stats. The provider writes these
-     * to the datamap; book datagen reads them back, because the datamap itself is
-     * not loaded while data is being generated.
-     */
     public static void declare(BiConsumer<DeferredHolder<Ritual, ? extends Ritual>, RitualStats> out) {
         // activation cost, refresh cost (EV/op), refresh time (ticks), crystal level
 

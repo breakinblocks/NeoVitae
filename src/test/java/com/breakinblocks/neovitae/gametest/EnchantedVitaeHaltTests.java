@@ -231,7 +231,6 @@ public class EnchantedVitaeHaltTests {
             return;
         }
 
-        // The player grabs the offending book and sweeps up a good one with it.
         silkTouch.discard();
         efficiency.discard();
 
@@ -241,7 +240,6 @@ public class EnchantedVitaeHaltTests {
             return;
         }
 
-        // Noticing the mistake, the player puts the missing book back. Still halted.
         ItemEntity efficiencyAgain = drop(helper, book(helper, Enchantments.EFFICIENCY, 5));
         run(ritual, master, 60);
         if (!EnchantmentHelper.getEnchantmentsForCrafting(pickaxe.getItem()).isEmpty()) {
@@ -249,7 +247,6 @@ public class EnchantedVitaeHaltTests {
             return;
         }
 
-        // Offering the item again is the only thing that lifts the halt.
         ItemStack carried = pickaxe.getItem();
         pickaxe.discard();
         master.messages.clear();

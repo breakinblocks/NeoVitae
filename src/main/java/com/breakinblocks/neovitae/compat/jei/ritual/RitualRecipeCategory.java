@@ -34,12 +34,17 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###");
 
     // Layout dimensions
-    private static final int WIDTH = 160;
-    private static final int HEIGHT = 85;
+    private static final int LINE = 10;
+    private static final int COLUMN_TOP = 16;
+
+    private static final int RUNE_LINES = EnumRuneType.values().length;
+
+    private static final int WIDTH = 170;
+    private static final int HEIGHT = COLUMN_TOP + LINE + RUNE_LINES * LINE + 4;
 
     // Column positions
     private static final int LEFT_COL = 4;
-    private static final int RIGHT_COL = 85;
+    private static final int RIGHT_COL = 88;
 
     @Nonnull
     private final IDrawable background;
@@ -85,7 +90,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
         int nameWidth = mc.font.width(ritualName);
         guiGraphics.drawString(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, 0x404040, false);
 
-        int leftY = 16;
+        int leftY = COLUMN_TOP;
 
         Component crystalTier = recipe.getCrystalTierName();
         guiGraphics.drawString(mc.font, crystalTier, LEFT_COL, leftY, 0x606060, false);
@@ -100,10 +105,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
         leftY += 10;
         guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0x808080, false);
 
-        int rightY = 28;
+        int rightY = COLUMN_TOP;
 
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.total_runes", recipe.getTotalRunes()), RIGHT_COL, rightY, 0x606060, false);
-        rightY += 12;
+        rightY += LINE;
 
         for (EnumRuneType runeType : EnumRuneType.values()) {
             int count = recipe.getRuneCount(runeType);
@@ -113,7 +118,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
                         .withStyle(runeType.colorCode);
                 guiGraphics.drawString(mc.font, runeText, RIGHT_COL + 4, rightY, runeType.colorCode.getColor() != null ?
                         runeType.colorCode.getColor() : 0x808080, false);
-                rightY += 10;
+                rightY += LINE;
             }
         }
     }

@@ -16,9 +16,6 @@ import java.util.Optional;
  * @param crystalLevel Required activation crystal tier (0 = weak, 1 = standard, 2 = awakened)
  * @param rangeLimits Map of range name to RangeLimit for area customization
  * @param enabled Whether the ritual is enabled (disabled rituals cannot be activated)
- * @param perOperation Whether refreshCost is charged once per completed operation rather
- *                     than continuously every refresh. Display-only; rituals that work this
- *                     way already syphon on success only.
  */
 public record RitualStats(
         int activationCost,
@@ -31,9 +28,6 @@ public record RitualStats(
         boolean perOperation
 ) {
 
-    /**
-     * Retained for callers written against the pre-{@code perOperation} record shape.
-     */
     public RitualStats(int activationCost, int refreshCost, int refreshTime, int crystalLevel,
                        Map<String, RangeLimit> rangeLimits, boolean enabled, Optional<ResourceLocation> ambientSound) {
         this(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, false);
@@ -72,9 +66,6 @@ public record RitualStats(
         return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound), perOperation);
     }
 
-    /**
-     * Marks this ritual's refresh cost as a one-off charge per completed operation.
-     */
     public RitualStats withPerOperation() {
         return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, ambientSound, true);
     }

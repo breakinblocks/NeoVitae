@@ -1007,9 +1007,6 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.experience_tome.withdraw", "Withdraw");
         add("gui.neovitae.experience_tome.all", "ALL");
 
-        add(NVItems.UPGRADE_SCRAP.get(), "Upgrade Tome Scrap");
-        add(NVItems.SYNTHETIC_POINT.get(), "Synthetic Upgrade Points");
-        addTooltip("scrap", "Contained Upgrade Points: %s");
 
         add(NVItems.TRAINING_BRACELET.get(), "Sentient Training Bracelet");
         add("trainer.neovitae.allow_others", "Allow Others");

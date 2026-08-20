@@ -59,8 +59,6 @@ public class NVItems {
             props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL, ArmorType.BOOTS)));
     public static final DeferredHolder<Item, UpgradeTomeItem> UPGRADE_TOME = TAB_REQ.registerItem("upgrade_tome", UpgradeTomeItem::new);
 
-    public static final DeferredHolder<Item, ScrapItem> UPGRADE_SCRAP = BASIC_ITEMS.registerItem("upgrade_scrap", props -> new ScrapItem(props.stacksTo(1)));
-    public static final DeferredHolder<Item, ScrapItem> SYNTHETIC_POINT = BASIC_ITEMS.registerItem("synthetic_point", props -> new ScrapItem(props.component(NVDataComponents.UPGRADE_SCRAP, 1)));
 
     public static final DeferredHolder<Item, ExperienceTomeItem> EXPERIENCE_TOME = BASIC_ITEMS.registerItem("experience_tome", ExperienceTomeItem::new);
 

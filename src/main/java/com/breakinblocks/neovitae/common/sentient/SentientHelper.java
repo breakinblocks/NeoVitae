@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.common.sentient;
 
-import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.minecraft.ChatFormatting;
@@ -451,18 +450,6 @@ public class SentientHelper {
         chest.set(NVDataComponents.CURRENT_UPGRADE_POINTS, total);
 
         return total;
-    }
-
-    public static Pair<Integer, Float> scrapFromTome(UpgradeTome tome) {
-        Map.Entry<Integer, Integer> expEntry = tome.upgrade().value().levels().expToLevel().floorEntry((int) tome.exp());
-        int scrap = 0;
-        float expUsed = 0;
-        if (expEntry != null) {
-            scrap = tome.upgrade().value().levels().levelToCost().getOrDefault(expEntry.getValue(), 0);
-            expUsed = expEntry.getKey();
-        }
-
-        return Pair.of(scrap, expUsed);
     }
 
     public static int getExpForLevel(Holder<SentientUpgrade> upgrade, int level) {

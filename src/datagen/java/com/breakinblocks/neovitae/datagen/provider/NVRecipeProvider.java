@@ -230,17 +230,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_glass", has(NVBlocks.BLOOD_STAINED_GLASS.block().get()))
                 .save(output, NeoVitae.rl("blood_stained_glass_pane"));
 
-        // Synthetic Point - iron nuggets corners, meat edges, redstone center
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.SYNTHETIC_POINT.get(), 2)
-                .pattern("imi")
-                .pattern("mrm")
-                .pattern("imi")
-                .define('i', Tags.Items.NUGGETS_IRON)
-                .define('m', ItemTags.MEAT)
-                .define('r', Tags.Items.DUSTS_REDSTONE)
-                .unlockedBy("has_meat", has(ItemTags.MEAT))
-                .save(output);
-
         // Blank Rune - stone around, blank slate at top center, blood orb (tier 1) in center
         // Pattern: asa / aoa / aaa
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.RUNE_BLANK.block().get())

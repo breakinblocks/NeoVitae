@@ -55,9 +55,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ArmorItem> SENTIENT_BOOTS = BASIC_ITEMS.register("sentient_boots", makeSentientArmour(ArmorItem.Type.BOOTS));
     public static final DeferredHolder<Item, UpgradeTomeItem> UPGRADE_TOME = TAB_REQ.register("upgrade_tome", UpgradeTomeItem::new);
 
-    public static final DeferredHolder<Item, ScrapItem> UPGRADE_SCRAP = BASIC_ITEMS.register("upgrade_scrap", () -> new ScrapItem(new Item.Properties().stacksTo(1)));
-    public static final DeferredHolder<Item, ScrapItem> SYNTHETIC_POINT = BASIC_ITEMS.register("synthetic_point", () -> new ScrapItem(new Item.Properties().component(NVDataComponents.UPGRADE_SCRAP, 1)));
-
     public static final DeferredHolder<Item, ExperienceTomeItem> EXPERIENCE_TOME = BASIC_ITEMS.register("experience_tome", ExperienceTomeItem::new);
 
     public static final DeferredHolder<Item, TrainerItem> TRAINING_BRACELET = BASIC_ITEMS.register("training_bracelet", TrainerItem::new);

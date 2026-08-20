@@ -72,9 +72,9 @@ import java.util.List;
  * }
  * }</pre>
  *
- * <p>Players and pack makers can turn the whole feature off with
- * {@code essentiaLogging = false} in {@code config/neovitae-startup.toml};
- * when disabled, no block receives the property and this registry is ignored.</p>
+ * <p>The feature is experimental and off by default. Players and pack makers turn
+ * it on with {@code essentiaLogging = true} in {@code config/neovitae-startup.toml};
+ * while disabled, no block receives the property and this registry is ignored.</p>
  */
 public final class EssentiaLoggingAPI {
 

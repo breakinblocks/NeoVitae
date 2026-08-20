@@ -34,17 +34,18 @@ public final class EssentiaLoggingConfig {
                         }
                     }
                 }
-                return true;
+                return false;
             }
             Files.write(path, List.of(
-                    "#Read before block registration; changing it needs a full game restart.",
-                    "#Set to false if another mod's blocks crash the game at startup once Neo Vitae",
-                    "#adds its essentia_logged blockstate property to them.",
-                    "essentiaLogging = true"
+                    "#Experimental. Read before block registration; changing it needs a full game restart.",
+                    "#Set to true to let Essentia Vitae fill waterloggable blocks. Some other mods'",
+                    "#blocks can crash the game at startup once Neo Vitae adds its essentia_logged",
+                    "#blockstate property to them.",
+                    "essentiaLogging = false"
             ));
         } catch (IOException e) {
-            LOGGER.warn("Could not read {}; essentia logging stays enabled", path, e);
+            LOGGER.warn("Could not read {}; essentia logging stays disabled", path, e);
         }
-        return true;
+        return false;
     }
 }

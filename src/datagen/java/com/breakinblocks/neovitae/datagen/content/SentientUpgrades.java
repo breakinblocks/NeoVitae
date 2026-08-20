@@ -472,6 +472,7 @@ public class SentientUpgrades {
         context.register(
                 exp(ARROW_PROTECT),
                 new SentientUpgrade.Builder()
+                        .level(1, 0)
                         .withEffect(SentientEffectComponents.DAMAGE_TAKEN_EXP.get(), new ValueBasedExp(lookup.getOrThrow(ARROW_PROTECT), ValueBasedExp.THIS_ENTITY), arrowDamage)
                         .build()
         );

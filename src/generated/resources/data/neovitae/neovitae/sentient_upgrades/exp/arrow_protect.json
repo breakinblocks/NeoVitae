@@ -26,7 +26,11 @@
     ]
   },
   "levels": {
-    "exp_to_level": {},
-    "level_to_cost": {}
+    "exp_to_level": {
+      "1": 1
+    },
+    "level_to_cost": {
+      "1": 0
+    }
   }
 }

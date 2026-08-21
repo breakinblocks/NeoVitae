@@ -62,7 +62,7 @@ public final class RoutingBeamHandler {
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
         Set<Edge> edges = new HashSet<>();
-        NODES.removeIf(BlockEntity::isRemoved);
+        NODES.removeIf(be -> be.isRemoved() || be.getLevel() != mc.level);
         for (BlockEntity be : NODES) {
             IRoutingNode node = (IRoutingNode) be;
             List<BlockPos> connections = node.getConnected();

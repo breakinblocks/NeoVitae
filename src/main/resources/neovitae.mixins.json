@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BaseSpawnerMixin",
+    "BlockItemMixin",
     "BlockMixin",
     "BlockStateBaseMixin",
     "PlayerMixin",

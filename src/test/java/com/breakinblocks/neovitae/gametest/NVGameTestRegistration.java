@@ -27,6 +27,7 @@ public class NVGameTestRegistration {
         event.register(RecipeSyntaxTests.class);
         event.register(SacrificeTests.class);
         event.register(SpawnerSuppressionTests.class);
+        event.register(SpawnerCaptureTests.class);
         event.register(EssentiaLoggingTests.class);
         event.register(QuarryBackfillTests.class);
 

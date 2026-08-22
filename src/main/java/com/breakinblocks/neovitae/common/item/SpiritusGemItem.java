@@ -84,6 +84,7 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity != null) {
             blockEntity.saveToItem(drop, level.registryAccess());
+            drop.set(NVDataComponents.CAPTURED_SPAWNER.get(), true);
         }
 
         SpiritusHelper.drainSpiritus(gem, type, cost, true);

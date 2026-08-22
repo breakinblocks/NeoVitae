@@ -160,7 +160,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
 
         // Progress arrow tooltip
         if (isOverProgressArrow(x, y)) {
-            guiGraphics.renderTooltip(this.font, Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW), x, y);
+            guiGraphics.renderTooltip(this.font, Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW), x, y);
         }
 
         // Spiritus gauge tooltip

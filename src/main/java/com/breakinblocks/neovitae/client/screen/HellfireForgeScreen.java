@@ -51,7 +51,7 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
                         menu.tile.dataAccess.get(HellfireForgeBlockEntity.DATA_REQUIRED_SPIRITUS)).withStyle(ChatFormatting.RED));
                 lines.add(Component.translatable("gui.neovitae.hellfire_forge.needs_spiritus.hint").withStyle(ChatFormatting.GRAY));
             }
-            lines.add(Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW));
+            lines.add(Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW));
             guiGraphics.renderTooltip(this.font, lines, Optional.empty(), mouseX, mouseY);
         }
     }

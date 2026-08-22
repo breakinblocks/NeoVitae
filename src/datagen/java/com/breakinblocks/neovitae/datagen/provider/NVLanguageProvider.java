@@ -165,6 +165,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.tabula_vitae.slot.input", "Input slot %s");
         add("gui.neovitae.tabula_vitae.slot.orb", "Orb slot");
         add("gui.neovitae.tabula_vitae.slot.output", "Output slot");
+        add("gui.neovitae.tabula_vitae.idle.no_recipe", "These items make nothing here");
+        add("gui.neovitae.tabula_vitae.idle.no_orb", "Needs a blood orb");
+        add("gui.neovitae.tabula_vitae.idle.orb_unbound", "That orb is not bound to anyone");
+        add("gui.neovitae.tabula_vitae.idle.tier_too_low", "Needs a higher tier blood orb");
+        add("gui.neovitae.tabula_vitae.idle.not_enough_ev", "Not enough Essentia Vitae in the network");
+        add("gui.neovitae.tabula_vitae.idle.output_blocked", "The output slot is full");
+        add("gui.neovitae.show_recipes", "Click to view recipes (JEI)");
         add("gui.neovitae.side.down", "Bottom");
         add("gui.neovitae.side.up", "Top");
         add("gui.neovitae.side.north", "North");

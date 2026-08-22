@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCatego
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> {
@@ -146,7 +147,14 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
         if (isOverProgress(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW), mouseX, mouseY);
+            List<Component> lines = new ArrayList<>();
+            TabulaVitaeBlockEntity.IdleReason reason = menu.getIdleReason();
+            if (reason != TabulaVitaeBlockEntity.IdleReason.NONE) {
+                lines.add(Component.translatable("gui.neovitae.tabula_vitae.idle." + reason.name().toLowerCase(Locale.ROOT))
+                        .withStyle(ChatFormatting.RED));
+            }
+            lines.add(Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW));
+            guiGraphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
             return;
         }
         if (isOverActiveSlot(mouseX, mouseY)) {

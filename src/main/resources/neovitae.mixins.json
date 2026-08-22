@@ -6,13 +6,9 @@
   "mixins": [
     "BaseSpawnerMixin",
     "BlockItemMixin",
-    "BlockMixin",
-    "BlockStateBaseMixin",
     "PlayerMixin",
     "ServerPlayerMixin",
-    "SimpleWaterloggedBlockMixin",
-    "TrialSpawnerMixin",
-    "WallBlockMixin"
+    "TrialSpawnerMixin"
   ],
   "client": [],
   "injectors": {

@@ -30,7 +30,6 @@ import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.common.fluid.EssentiaLogging;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 public class NVBlockStateProvider extends BlockStateProvider {
@@ -547,7 +546,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
                             .rotationY(yRot)
                             .uvLock(uvlock)
                             .build();
-                }, StairBlock.WATERLOGGED, EssentiaLogging.ESSENTIA_LOGGED);
+                }, StairBlock.WATERLOGGED);
     }
 
 }

@@ -28,7 +28,7 @@ public class NVGameTestRegistration {
         event.register(SacrificeTests.class);
         event.register(SpawnerSuppressionTests.class);
         event.register(SpawnerCaptureTests.class);
-        event.register(EssentiaLoggingTests.class);
+        event.register(EssentiaVitaeFluidTests.class);
         event.register(QuarryBackfillTests.class);
 
         event.register(BloodOrbTests.class);

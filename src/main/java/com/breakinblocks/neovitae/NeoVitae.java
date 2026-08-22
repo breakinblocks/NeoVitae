@@ -24,10 +24,6 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
-import com.breakinblocks.neovitae.api.fluid.EssentiaLoggingAPI;
-import com.breakinblocks.neovitae.common.block.AlchemyArrayBlock;
-import com.breakinblocks.neovitae.common.block.BloodLightBlock;
-import com.breakinblocks.neovitae.common.fluid.EssentiaLogging;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -100,8 +96,6 @@ public class NeoVitae {
         RoutingChannelRegistry.register(new EnergyRoutingChannel());
         RoutingChannelRegistry.register(new SpiritusRoutingChannel());
 
-        EssentiaLoggingAPI.support(AlchemyArrayBlock.class);
-        EssentiaLoggingAPI.support(BloodLightBlock.class);
 
         MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
@@ -172,8 +166,6 @@ public class NeoVitae {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         NeoVitaeAPI.setInstance(NeoVitaeAPIImpl.INSTANCE);
-        event.enqueueWork(EssentiaLogging::rebuildFluidCache);
-        event.enqueueWork(EssentiaLogging::reportUnsupportedBlocks);
         event.enqueueWork(NVHarvestHandlers::init);
         event.enqueueWork(AnointmentRegistrar::init);
         event.enqueueWork(ModRoomPools::init);

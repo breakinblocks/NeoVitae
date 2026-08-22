@@ -7,10 +7,7 @@
   "mixins": [
     "BaseSpawnerMixin",
     "BlockItemMixin",
-    "BlockMixin",
-    "BlockStateBaseMixin",
     "ServerPlayerMixin",
-    "SimpleWaterloggedBlockMixin",
     "TrialSpawnerMixin"
   ],
   "client": [

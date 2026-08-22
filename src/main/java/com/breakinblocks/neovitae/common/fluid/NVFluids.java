@@ -46,6 +46,7 @@ public class NVFluids {
                 .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
                 .canHydrate(canHydrate)
                 .viscosity(1000)
+                .isWaterLike(true)
         );
     }
 

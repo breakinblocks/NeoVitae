@@ -90,6 +90,7 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
             TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
             blockEntity.saveCustomOnly(output);
             BlockItem.setBlockEntityData(drop, blockEntity.getType(), output);
+            drop.set(NVDataComponents.CAPTURED_SPAWNER.get(), true);
         }
 
         SpiritusHelper.drainSpiritus(gem, type, cost, true);

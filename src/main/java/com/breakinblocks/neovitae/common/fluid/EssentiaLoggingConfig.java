@@ -39,6 +39,10 @@ public final class EssentiaLoggingConfig {
     }
 
     private static boolean load() {
+        String override = System.getProperty("neovitae.essentiaLogging");
+        if (override != null) {
+            return Boolean.parseBoolean(override);
+        }
         Path path = FMLPaths.CONFIGDIR.get().resolve("neovitae-startup.toml");
         try {
             if (!Files.exists(path)) {

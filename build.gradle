@@ -120,6 +120,7 @@ neoForge {
             type = "gameTestServer"
             loadedMods = [ mods.mod ]
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            systemProperty 'neovitae.essentiaLogging', 'true'
             gameDirectory = project.file('run-gametest')
         }
 

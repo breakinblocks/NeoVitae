@@ -108,6 +108,10 @@ public final class PlacerTests {
         return found;
     }
 
+    private static long advanced(long from, long to, long volume) {
+        return to >= from ? to - from : to + volume - from;
+    }
+
     private static long savedCursor(RitualPlacer ritual) {
         CompoundTag tag = new CompoundTag();
         ritual.writeToNBT(tag);
@@ -340,7 +344,7 @@ public final class PlacerTests {
         r.add("placer/cursor_resumes_instead_of_restarting", 200, helper -> {
             BlockPos master = new BlockPos(2, 1, 2);
             BlockPos absMaster = helper.absolutePos(master);
-            AreaDescriptor.Rectangle range = new AreaDescriptor.Rectangle(new BlockPos(-7, 1, -7), 15, 5, 15);
+            AreaDescriptor.Rectangle range = new AreaDescriptor.Rectangle(new BlockPos(-10, 1, -10), 21, 5, 21);
 
             for (BlockPos p : range.getContainedPositions(absMaster)) {
                 helper.getLevel().setBlockAndUpdate(p, Blocks.STONE.defaultBlockState());
@@ -349,15 +353,21 @@ public final class PlacerTests {
             StubMaster stub = masonAt(helper, master, range, EnumFillMode.SOLID);
             chestOf(helper, master.below(), new ItemStack(Blocks.STONE, 64));
 
+            long volume = AreaCursor.of(range, absMaster).volume();
             RitualPlacer ritual = new RitualPlacer();
+            long start = savedCursor(ritual);
             ritual.performRitual(stub);
-            long afterOne = savedCursor(ritual);
+            long first = savedCursor(ritual);
             ritual.performRitual(stub);
+            long second = savedCursor(ritual);
             ritual.performRitual(stub);
-            long afterThree = savedCursor(ritual);
+            long third = savedCursor(ritual);
+
+            long afterOne = advanced(start, first, volume);
+            long afterThree = afterOne + advanced(first, second, volume) + advanced(second, third, volume);
 
             if (afterOne <= 0) {
-                helper.fail("The first refresh should have swept forward, cursor sat at " + afterOne);
+                helper.fail("The first refresh should have swept forward, cursor sat at " + first);
                 return;
             }
             if (afterThree < afterOne * 2) {

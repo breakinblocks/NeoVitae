@@ -6,6 +6,7 @@
   "refmap": "neovitae.refmap.json",
   "mixins": [
     "BaseSpawnerMixin",
+    "BlockItemMixin",
     "BlockMixin",
     "BlockStateBaseMixin",
     "ServerPlayerMixin",

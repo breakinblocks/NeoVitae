@@ -248,12 +248,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, rKey(NeoVitae.rl("corrupted_tiny_dust_from_corrupted")));
 
         // Raw Demonite smelting -> Hellforged Ingot
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0.7f, 200)
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
                 .save(output, rKey(NeoVitae.rl("smelting/hellforged_ingot_from_raw")));
 
         // Raw Demonite blasting -> Hellforged Ingot
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 100)
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0.7f, 100)
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
                 .save(output, rKey(NeoVitae.rl("blasting/hellforged_ingot_from_raw")));
 
@@ -3864,11 +3864,11 @@ public class NVRecipeProvider extends RecipeProvider {
                 .guaranteedOutput(NVItems.HELLFORGED_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustshellforged")));
 
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0.7f, 200)
                 .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
                 .save(output, rKey(NeoVitae.rl("smelting/hellforged_ingot_from_dust")));
 
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 100)
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0.7f, 100)
                 .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
                 .save(output, rKey(NeoVitae.rl("blasting/hellforged_ingot_from_dust")));
 

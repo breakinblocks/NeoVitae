@@ -30,6 +30,8 @@ public final class TabulaVitaeTests {
     private static final Binding DRAINED_BINDING = new Binding(DRAINED_UUID, "DrainedTestPlayer");
     private static final UUID FUNDED_UUID = UUID.fromString("0f4d2ab3-5e6c-4f1a-9d8b-7c2e4a6b0d32");
     private static final Binding FUNDED_BINDING = new Binding(FUNDED_UUID, "SyphonTestPlayer");
+    private static final UUID TIER_UUID = UUID.fromString("0f4d2ab3-5e6c-4f1a-9d8b-7c2e4a6b0d33");
+    private static final Binding TIER_BINDING = new Binding(TIER_UUID, "TierTestPlayer");
 
     private static TabulaVitaeBlockEntity placeTable(GameTestHelper helper, BlockPos pos) {
         helper.setBlock(pos, NVBlocks.TABULA_VITAE.block().get().defaultBlockState());
@@ -212,6 +214,104 @@ public final class TabulaVitaeTests {
                         return;
                     }
                     helper.succeed();
+                });
+            });
+        });
+
+        r.add("tabula_vitae/crafts_throwing_daggers", 300, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            TabulaVitaeBlockEntity table = placeTable(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (table == null) return;
+                Anima anima = AnimaHelper.getAnima(TIER_UUID);
+                anima.add(AnimaTicket.create(20000), 100000);
+                ItemStack orb = new ItemStack(NVItems.ORB_APPRENTICE.get());
+                orb.set(NVDataComponents.BINDING, TIER_BINDING);
+
+                table.inv.setStackInSlot(0, new ItemStack(Items.IRON_INGOT));
+                table.inv.setStackInSlot(1, new ItemStack(Items.IRON_INGOT));
+                table.inv.setStackInSlot(2, new ItemStack(Items.STRING));
+                table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, orb);
+
+                helper.runAfterDelay(230, () -> {
+                    ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
+                    if (output.isEmpty()) {
+                        helper.fail("Throwing dagger recipe never crafted (burnTime=" + table.burnTime + ")");
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("tabula_vitae/crafts_arcane_scribe_tool", 300, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            TabulaVitaeBlockEntity table = placeTable(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (table == null) return;
+                Anima anima = AnimaHelper.getAnima(TIER_UUID);
+                anima.add(AnimaTicket.create(20000), 100000);
+                ItemStack orb = new ItemStack(NVItems.ORB_APPRENTICE.get());
+                orb.set(NVDataComponents.BINDING, TIER_BINDING);
+
+                table.inv.setStackInSlot(0, new ItemStack(Items.REDSTONE));
+                table.inv.setStackInSlot(1, new ItemStack(Items.WHITE_DYE));
+                table.inv.setStackInSlot(2, new ItemStack(Items.GUNPOWDER));
+                table.inv.setStackInSlot(3, new ItemStack(Items.COAL));
+                table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, orb);
+
+                helper.runAfterDelay(230, () -> {
+                    ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
+                    if (output.isEmpty()) {
+                        helper.fail("Arcane scribe tool recipe never crafted (burnTime=" + table.burnTime + ")");
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("tabula_vitae/reports_why_it_is_idle", 120, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            TabulaVitaeBlockEntity table = placeTable(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(1, () -> {
+                if (table == null) return;
+
+                table.inv.setStackInSlot(0, new ItemStack(Items.DIRT));
+                helper.runAfterDelay(3, () -> {
+                    if (table.getIdleReason() != TabulaVitaeBlockEntity.IdleReason.NO_RECIPE) {
+                        helper.fail("Junk input should report NO_RECIPE, got " + table.getIdleReason());
+                        return;
+                    }
+
+                    table.inv.setStackInSlot(0, new ItemStack(Items.GRAVEL));
+                    table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
+                    ItemStack unbound = new ItemStack(NVItems.ORB_MAGICIAN.get());
+                    table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, unbound);
+                    helper.runAfterDelay(3, () -> {
+                        if (table.getIdleReason() != TabulaVitaeBlockEntity.IdleReason.ORB_UNBOUND) {
+                            helper.fail("Unbound orb should report ORB_UNBOUND, got " + table.getIdleReason());
+                            return;
+                        }
+
+                        Anima drained = AnimaHelper.getAnima(DRAINED_UUID);
+                        while (drained.getCurrentEV() > 0) {
+                            drained.syphon(AnimaTicket.create(drained.getCurrentEV()));
+                        }
+                        ItemStack broke = new ItemStack(NVItems.ORB_MAGICIAN.get());
+                        broke.set(NVDataComponents.BINDING, DRAINED_BINDING);
+                        table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, broke);
+                        helper.runAfterDelay(3, () -> {
+                            if (table.getIdleReason() != TabulaVitaeBlockEntity.IdleReason.NOT_ENOUGH_EV) {
+                                helper.fail("Empty network should report NOT_ENOUGH_EV, got " + table.getIdleReason());
+                                return;
+                            }
+                            helper.succeed();
+                        });
+                    });
                 });
             });
         });

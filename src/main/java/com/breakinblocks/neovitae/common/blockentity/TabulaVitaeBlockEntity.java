@@ -55,6 +55,18 @@ import java.util.Collections;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider, SideConfigurable {
+    public enum IdleReason {
+        NONE, NO_RECIPE, NO_ORB, ORB_UNBOUND, TIER_TOO_LOW, NOT_ENOUGH_EV, OUTPUT_BLOCKED;
+
+        private static final IdleReason[] VALUES = values();
+
+        public static IdleReason byIndex(int index) {
+            return index >= 0 && index < VALUES.length ? VALUES[index] : NONE;
+        }
+    }
+
+    private IdleReason idleReason = IdleReason.NONE;
+
     public static final int ORB_SLOT = 6;
     public static final int OUTPUT_SLOT = 7;
     public static final int SLOT_COUNT = 8;
@@ -245,12 +257,14 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             ticksRequired = flaskRecipe.getTicks();
 
             if (orbTier < flaskRecipe.getMinimumTier()) {
+                idleReason = IdleReason.TIER_TOO_LOW;
                 burnTime = 0;
                 return;
             }
 
             ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
             if (!currentOutput.isEmpty()) {
+                idleReason = IdleReason.OUTPUT_BLOCKED;
                 burnTime = 0;
                 return;
             }
@@ -258,6 +272,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             if (!syphonEV(orbStack, flaskRecipe.getSyphon(), flaskRecipe.getTicks())) {
                 return;
             }
+            idleReason = IdleReason.NONE;
 
             if (burnTime == 0) {
                 level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
@@ -279,6 +294,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
         Optional<TabulaVitaeRecipe> recipeOpt = getRecipe();
         if (recipeOpt.isEmpty()) {
+            idleReason = hasAnyInput() ? IdleReason.NO_RECIPE : IdleReason.NONE;
             burnTime = 0;
             return;
         }
@@ -287,6 +303,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         ticksRequired = recipe.getTicks();
 
         if (orbTier < recipe.getMinimumTier()) {
+            idleReason = IdleReason.TIER_TOO_LOW;
             burnTime = 0;
             return;
         }
@@ -294,6 +311,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         ItemStack output = recipe.getOutput();
         ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
         if (!currentOutput.isEmpty() && (!ItemStack.isSameItemSameComponents(currentOutput, output) || currentOutput.getCount() + output.getCount() > currentOutput.getMaxStackSize())) {
+            idleReason = IdleReason.OUTPUT_BLOCKED;
             burnTime = 0;
             return;
         }
@@ -301,6 +319,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         if (!syphonEV(orbStack, recipe.getSyphon(), recipe.getTicks())) {
             return;
         }
+        idleReason = IdleReason.NONE;
 
         if (burnTime == 0) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
@@ -338,13 +357,22 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
     private boolean syphonEV(ItemStack orbStack, int totalSyphon, int totalTicks) {
         if (totalSyphon <= 0) return true;
-        if (!(orbStack.getItem() instanceof BloodOrbItem)) return false;
+        if (!(orbStack.getItem() instanceof BloodOrbItem)) {
+            idleReason = IdleReason.NO_ORB;
+            return false;
+        }
 
         Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-        if (binding.isEmpty()) return false;
+        if (binding.isEmpty()) {
+            idleReason = IdleReason.ORB_UNBOUND;
+            return false;
+        }
 
         Anima network = AnimaHelper.getAnima(binding);
-        if (network == null) return false;
+        if (network == null) {
+            idleReason = IdleReason.NOT_ENOUGH_EV;
+            return false;
+        }
 
         int ticks = Math.max(1, totalTicks);
         int elapsed = Math.min(Math.max(burnTime, 0), ticks - 1);
@@ -352,8 +380,15 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         int syphonThisTick = (int) ((long) totalSyphon * (elapsed + 1) / ticks - drained);
         if (syphonThisTick <= 0) return true;
 
-        if (network.getCurrentEV() < syphonThisTick) return false;
-        return network.syphon(AnimaTicket.create(syphonThisTick)) >= syphonThisTick;
+        if (network.getCurrentEV() < syphonThisTick) {
+            idleReason = IdleReason.NOT_ENOUGH_EV;
+            return false;
+        }
+        if (network.syphon(AnimaTicket.create(syphonThisTick)) < syphonThisTick) {
+            idleReason = IdleReason.NOT_ENOUGH_EV;
+            return false;
+        }
+        return true;
     }
 
     private void craftItem(TabulaVitaeRecipe recipe) {
@@ -532,6 +567,12 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         return recipe;
     }
 
+    private boolean hasAnyInput() {
+        for (int i = 0; i < ORB_SLOT; i++) {
+            if (!inv.getStackInSlot(i).isEmpty()) return true;
+        }
+        return false;
+    }
     private TabulaVitaeInput createInput() {
         List<ItemStack> items = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
@@ -572,6 +613,13 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         return new TabulaVitaeMenu(containerId, playerInventory, this);
     }
 
+    public IdleReason getIdleReason() {
+        return idleReason;
+    }
+
+    public void setIdleReasonFromNetwork(int index) {
+        this.idleReason = IdleReason.byIndex(index);
+    }
     public double getProgressForGui() {
         if (ticksRequired <= 0) return 0;
         return (burnTime * getInputCuttingFluidSpeed()) / (double) ticksRequired;

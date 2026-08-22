@@ -35,10 +35,28 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
         }
     };
 
+    private final DataSlot idleData = new DataSlot() {
+        private int clientValue;
+
+        @Override
+        public int get() {
+            if (tile.getLevel() != null && !tile.getLevel().isClientSide()) {
+                return tile.getIdleReason().ordinal();
+            }
+            return clientValue;
+        }
+
+        @Override
+        public void set(int value) {
+            this.clientValue = value;
+            tile.setIdleReasonFromNetwork(value);
+        }
+    };
     public TabulaVitaeMenu(int containerId, Inventory playerInventory, TabulaVitaeBlockEntity tile) {
         super(NVMenus.TABULA_VITAE.get(), containerId, tile, TILE_SLOTS);
 
         this.addDataSlot(progressData);
+        this.addDataSlot(idleData);
 
         this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 0, 62, 15));
         this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 1, 80, 51));
@@ -67,6 +85,9 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
         this(containerId, playerInventory, (TabulaVitaeBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 
+    public TabulaVitaeBlockEntity.IdleReason getIdleReason() {
+        return TabulaVitaeBlockEntity.IdleReason.byIndex(idleData.get());
+    }
     public double getProgress() {
         return progressData.get() / 1000.0;
     }

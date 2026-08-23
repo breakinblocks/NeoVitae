@@ -9,15 +9,22 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.world.BoundTreasureLeases;
+import com.breakinblocks.neovitae.compat.ae2.AE2Compat;
+import com.breakinblocks.neovitae.compat.arsnouveau.ArsNouveauCompat;
+import com.breakinblocks.neovitae.compat.occultism.OccultismCompat;
+import com.breakinblocks.neovitae.compat.refinedstorage.RefinedStorageCompat;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.function.Supplier;
@@ -39,12 +46,22 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
         if (level.isClientSide) return false;
         if (!player.isShiftKeyDown()) return false;
 
-        BlockState state = level.getBlockState(blockPos);
-        if (state.getMenuProvider(level, blockPos) != null || level.getBlockEntity(blockPos) instanceof MenuProvider) {
-            stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
-            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
-            player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.linked"), true);
+        if (!BoundTreasureLeases.isContainer(level, blockPos)) {
+            player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.not_a_container"), true);
+            return false;
         }
+
+        stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
+        stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
+
+        Direction terminalSide = AE2Compat.findTerminalSide(level, blockPos, hitVec);
+        if (terminalSide != null) {
+            stack.set(NVDataComponents.BOUND_TREASURE_SIDE.get(), terminalSide);
+        } else {
+            stack.remove(NVDataComponents.BOUND_TREASURE_SIDE.get());
+        }
+
+        player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.linked"), true);
         return false;
     }
 
@@ -68,16 +85,46 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
             return false;
         }
 
-        BlockState state = targetLevel.getBlockState(chestPos);
-        MenuProvider menuProvider = state.getMenuProvider(targetLevel, chestPos);
-        if (menuProvider == null && targetLevel.getBlockEntity(chestPos) instanceof MenuProvider be) {
-            menuProvider = be;
+        if (OccultismCompat.openStorageAccess(serverPlayer, targetLevel, chestPos)) {
+            BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
+            return true;
         }
 
+        if (ArsNouveauCompat.openStorageLectern(serverPlayer, targetLevel, chestPos)) {
+            BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
+            return true;
+        }
+
+        if (RefinedStorageCompat.openExtendedMenu(serverPlayer, targetLevel, chestPos)) {
+            BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
+            return true;
+        }
+
+        MenuProvider menuProvider = BoundTreasureLeases.findMenuProvider(targetLevel, chestPos);
         if (menuProvider != null) {
             serverPlayer.openMenu(menuProvider, chestPos);
             BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
             return true;
+        }
+
+        Direction boundSide = stack.get(NVDataComponents.BOUND_TREASURE_SIDE.get());
+        if (AE2Compat.openTerminal(serverPlayer, targetLevel, chestPos, boundSide)) {
+            BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
+            return true;
+        }
+
+        if (BoundTreasureLeases.isContainer(targetLevel, chestPos)) {
+            BlockState state = targetLevel.getBlockState(chestPos);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(chestPos), Direction.UP, chestPos, false);
+            ItemInteractionResult withItem = state.useItemOn(ItemStack.EMPTY, targetLevel, serverPlayer,
+                    InteractionHand.MAIN_HAND, hit);
+            if (withItem == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
+                state.useWithoutItem(targetLevel, serverPlayer, hit);
+            }
+            if (serverPlayer.containerMenu != serverPlayer.inventoryMenu) {
+                BoundTreasureLeases.open(serverPlayer, targetLevel, chestPos);
+                return true;
+            }
         }
 
         player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.missing"), true);

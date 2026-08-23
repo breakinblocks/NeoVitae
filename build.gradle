@@ -183,6 +183,14 @@ dependencies {
 
     compileOnly("dev.ftb.mods:ftb-chunks-neoforge:${ftb_chunks_version}") {transitive=false}
 
+    compileOnly("org.appliedenergistics:appliedenergistics2:${ae2_version}") {transitive=false}
+
+    compileOnly("maven.modrinth:refined-storage:${refinedstorage_version}") {transitive=false}
+
+    compileOnly("maven.modrinth:ars-nouveau:${ars_nouveau_version}") {transitive=false}
+
+    compileOnly("maven.modrinth:occultism:${occultism_version}") {transitive=false}
+
     compileOnly("curse.maven:sable-1312371:8242682")
     compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
 }

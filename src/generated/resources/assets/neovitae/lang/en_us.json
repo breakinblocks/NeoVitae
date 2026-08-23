@@ -2833,6 +2833,7 @@
   "tooltip.neovitae.blood_provider.slate.desc": "A simple ampoule containing 500 EV.",
   "tooltip.neovitae.bound_treasures.linked": "Container linked",
   "tooltip.neovitae.bound_treasures.missing": "Linked container no longer exists",
+  "tooltip.neovitae.bound_treasures.not_a_container": "That is not a container",
   "tooltip.neovitae.bound_treasures.not_linked": "No container linked. Shift right-click a container to bind.",
   "tooltip.neovitae.bound_treasures.unloaded": "Linked container is in an unloaded area",
   "tooltip.neovitae.container_tier": "Current Tier: %s",

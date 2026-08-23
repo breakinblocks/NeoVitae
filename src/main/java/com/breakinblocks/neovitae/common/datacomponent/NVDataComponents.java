@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.datacomponent;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -64,6 +65,7 @@ public class NVDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TELEPOSER_POS = DATA_COMPONENTS.registerComponentType("teleposer_pos", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> TELEPOSER_DIMENSION = DATA_COMPONENTS.registerComponentType("teleposer_dimension", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Direction>> BOUND_TREASURE_SIDE = DATA_COMPONENTS.registerComponentType("bound_treasure_side", builder -> builder.persistent(Direction.CODEC).networkSynchronized(Direction.STREAM_CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> CURRENT_RITUAL = DATA_COMPONENTS.registerComponentType("current_ritual", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DIVINER_DIRECTION = DATA_COMPONENTS.registerComponentType("diviner_direction", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));

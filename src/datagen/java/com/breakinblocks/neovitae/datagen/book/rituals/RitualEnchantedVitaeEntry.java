@@ -57,6 +57,13 @@ public class RitualEnchantedVitaeEntry extends EntryProvider {
         this.pageTitle("The Toll");
         this.pageText("Each bound level draws [#](4A0080)2,000 Essentia Vitae[#](), multiplied by how scarce the enchantment is in the world; the rarest command five times the toll."
                 + "\n\nThe whole sum is taken at once when the rite completes. If your [#](8B0000)Anima[#]() cannot cover it the pentacle stalls and nothing is bound.");
+
+        this.page("closes", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Rite Closes");
+        this.pageText("The pentacle goes dark of its own accord once the binding is done. It is no standing work; it turns once, spends itself, and stops."
+                + "\n\nTo enchant a second item, activate the rite afresh with an [#](8B0000)Activation Crystal[#](). Its [#](4A0080)10,000 Essentia Vitae[#]() of activation is paid again every turning, on top of the toll for the levels bound.");
     }
 
     @Override

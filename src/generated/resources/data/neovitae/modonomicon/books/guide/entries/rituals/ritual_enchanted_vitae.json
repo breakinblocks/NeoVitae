@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 10,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  35x Dusk Ritual Stone\\\n  1x Water Ritual Stone\\\n  1x Fire Ritual Stone\\\n  1x Earth Ritual Stone\\\n  1x Air Ritual Stone\\\n  1x Dawn Ritual Stone\\\n  [#](8B0000)Total:[#]() 40 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 10,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  36x Dusk Ritual Stone\\\n  1x Water Ritual Stone\\\n  1x Fire Ritual Stone\\\n  1x Earth Ritual Stone\\\n  1x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 40 runes",
       "title": ""
     },
     {
@@ -75,6 +75,17 @@
       "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_enchanted_vitae.cost.text",
       "title": "book.neovitae.guide.rituals.ritual_enchanted_vitae.cost.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_enchanted_vitae.closes.text",
+      "title": "book.neovitae.guide.rituals.ritual_enchanted_vitae.closes.title",
       "use_markdown_in_title": false
     }
   ],

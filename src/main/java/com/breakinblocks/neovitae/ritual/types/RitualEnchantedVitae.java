@@ -387,7 +387,7 @@ public class RitualEnchantedVitae extends Ritual {
         addRune(components, 3, 2, 0, EnumRuneType.FIRE);
         addRune(components, 0, 2, 3, EnumRuneType.EARTH);
         addRune(components, -3, 2, 0, EnumRuneType.AIR);
-        addRune(components, 3, 2, -3, EnumRuneType.DAWN);
+        addRune(components, 3, 2, -3, EnumRuneType.DUSK);
         addRune(components, 3, 2, 3, EnumRuneType.DUSK);
         addRune(components, -3, 2, 3, EnumRuneType.DUSK);
         addRune(components, -3, 2, -3, EnumRuneType.DUSK);

@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.world;
 
 import net.minecraft.core.BlockPos;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -47,6 +48,23 @@ public final class BoundTreasureLeases {
         NeoForge.EVENT_BUS.addListener(ServerStoppingEvent.class, event -> LEASES.clear());
     }
 
+    public static MenuProvider findMenuProvider(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        MenuProvider provider = state.getMenuProvider(level, pos);
+        if (provider != null) {
+            return provider;
+        }
+        return level.getBlockEntity(pos) instanceof MenuProvider be ? be : null;
+    }
+
+    public static boolean isContainer(Level level, BlockPos pos) {
+        if (findMenuProvider(level, pos) != null) {
+            return true;
+        }
+        return level.getBlockEntity(pos) != null
+                && level.getCapability(Capabilities.Item.BLOCK, pos, null) != null;
+    }
+
     public static void open(ServerPlayer player, ServerLevel level, BlockPos pos) {
         AbstractContainerMenu menu = player.containerMenu;
         if (menu == player.inventoryMenu) return;
@@ -79,9 +97,7 @@ public final class BoundTreasureLeases {
         ServerLevel level = server.getLevel(lease.dimension);
         if (level == null || !level.isLoaded(lease.pos)) return false;
 
-        BlockState state = level.getBlockState(lease.pos);
-        return state.getMenuProvider(level, lease.pos) != null
-                || level.getBlockEntity(lease.pos) instanceof MenuProvider;
+        return isContainer(level, lease.pos);
     }
 
     private static void onServerTick(ServerTickEvent.Post event) {

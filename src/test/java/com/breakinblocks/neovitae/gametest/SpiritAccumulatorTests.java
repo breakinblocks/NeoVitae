@@ -147,14 +147,16 @@ public final class SpiritAccumulatorTests {
                 double storedBefore = be.getStored();
 
                 helper.runAfterDelay(5, () -> {
-                    if (be.getStored() <= storedBefore) {
+                    double taken = be.getStored() - storedBefore;
+                    if (taken <= 0) {
                         helper.fail("Accumulator should fill from a chunk above the floor, stored=" + be.getStored()
                                 + " chunk=" + WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.VINDICTA));
                         return;
                     }
-                    double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), worldPos, SpiritusType.VINDICTA);
-                    if (chunkAmount < SpiritAccumulatorBlockEntity.SATURATION_FLOOR - 0.0001) {
-                        helper.fail("Accumulator drained the chunk below the saturation floor, chunk=" + chunkAmount);
+                    double headroom = 50 - SpiritAccumulatorBlockEntity.SATURATION_FLOOR;
+                    if (taken > headroom + 0.0001) {
+                        helper.fail("Accumulator took " + taken + " from a chunk holding only " + headroom
+                                + " above the saturation floor");
                         return;
                     }
                     helper.succeed();

@@ -241,6 +241,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("tooltip.neovitae.bound_treasures.not_linked", "No container linked. Shift right-click a container to bind.");
         add("tooltip.neovitae.bound_treasures.unloaded", "Linked container is in an unloaded area");
         add("tooltip.neovitae.bound_treasures.missing", "Linked container no longer exists");
+        add("tooltip.neovitae.bound_treasures.not_a_container", "That is not a container");
 
         // Alchemy & Misc
         add(NVItems.ARCANE_SCRIBE_TOOL.get(), "Arcane Scribe Tool");

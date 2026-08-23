@@ -190,10 +190,10 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_FIRE = BASIC_ITEMS.register("fire_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.FIRE));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_WATER = BASIC_ITEMS.register("water_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.WATER));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_EARTH = BASIC_ITEMS.register("earth_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.EARTH));
-    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_DUSK = BASIC_ITEMS.register("dusk_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.DUSK));
+    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_TENEBRAE = BASIC_ITEMS.register("tenebrae_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.TENEBRAE));
 
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.register("ritual_diviner", () -> new ItemRitualDiviner(0));
-    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DUSK = BASIC_ITEMS.register("ritual_diviner_dusk", () -> new ItemRitualDiviner(1));
+    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_TENEBRAE = BASIC_ITEMS.register("ritual_diviner_tenebrae", () -> new ItemRitualDiviner(1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.register("ritual_reader", ItemRitualReader::new);
     public static final DeferredHolder<Item, ItemRitualDesigner> RITUAL_DESIGNER = BASIC_ITEMS.register("ritual_designer", () -> new ItemRitualDesigner(new Item.Properties()));
 

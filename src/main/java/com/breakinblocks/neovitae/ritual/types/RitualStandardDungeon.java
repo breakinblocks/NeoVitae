@@ -110,8 +110,8 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         addRune(components, -1, 0, 0, EnumRuneType.FIRE);
         addRune(components, 0, 0, -1, EnumRuneType.WATER);
         addRune(components, 1, 0, 0, EnumRuneType.WATER);
-        addRune(components, -1, 0, 1, EnumRuneType.DUSK);
-        addRune(components, 1, 0, -1, EnumRuneType.DUSK);
+        addRune(components, -1, 0, 1, EnumRuneType.TENEBRAE);
+        addRune(components, 1, 0, -1, EnumRuneType.TENEBRAE);
 
         // Water cluster
         addRune(components, 2, 0, 2, EnumRuneType.WATER);
@@ -137,31 +137,31 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         addRune(components, 3, 0, -2, EnumRuneType.EARTH);
         addRune(components, 3, 0, -1, EnumRuneType.EARTH);
 
-        // Dusk clusters (corners)
-        addRune(components, 3, 0, 3, EnumRuneType.DUSK);
-        addRune(components, 3, 0, 4, EnumRuneType.DUSK);
-        addRune(components, 4, 0, 3, EnumRuneType.DUSK);
-        addRune(components, 2, 0, 4, EnumRuneType.DUSK);
-        addRune(components, 4, 0, 2, EnumRuneType.DUSK);
+        // Tenebrae clusters (corners)
+        addRune(components, 3, 0, 3, EnumRuneType.TENEBRAE);
+        addRune(components, 3, 0, 4, EnumRuneType.TENEBRAE);
+        addRune(components, 4, 0, 3, EnumRuneType.TENEBRAE);
+        addRune(components, 2, 0, 4, EnumRuneType.TENEBRAE);
+        addRune(components, 4, 0, 2, EnumRuneType.TENEBRAE);
 
-        addRune(components, -3, 0, -3, EnumRuneType.DUSK);
-        addRune(components, -3, 0, -4, EnumRuneType.DUSK);
-        addRune(components, -4, 0, -3, EnumRuneType.DUSK);
-        addRune(components, -2, 0, -4, EnumRuneType.DUSK);
-        addRune(components, -4, 0, -2, EnumRuneType.DUSK);
+        addRune(components, -3, 0, -3, EnumRuneType.TENEBRAE);
+        addRune(components, -3, 0, -4, EnumRuneType.TENEBRAE);
+        addRune(components, -4, 0, -3, EnumRuneType.TENEBRAE);
+        addRune(components, -2, 0, -4, EnumRuneType.TENEBRAE);
+        addRune(components, -4, 0, -2, EnumRuneType.TENEBRAE);
 
         // Upper tier runes
         addCornerRunes(components, 3, 4, EnumRuneType.EARTH);
-        addOffsetRunes(components, 2, 3, 4, EnumRuneType.DUSK);
-        addOffsetRunes(components, 2, 4, 4, EnumRuneType.DUSK);
+        addOffsetRunes(components, 2, 3, 4, EnumRuneType.TENEBRAE);
+        addOffsetRunes(components, 2, 4, 4, EnumRuneType.TENEBRAE);
         addOffsetRunes(components, 1, 4, 4, EnumRuneType.AIR);
         addParallelRunes(components, 4, 4, EnumRuneType.AIR);
 
         // Central column
         addRune(components, 0, 2, 0, EnumRuneType.EARTH);
-        addRune(components, 0, 3, 0, EnumRuneType.DUSK);
-        addRune(components, 0, 4, 0, EnumRuneType.DUSK);
-        addRune(components, 0, 5, 0, EnumRuneType.DUSK);
+        addRune(components, 0, 3, 0, EnumRuneType.TENEBRAE);
+        addRune(components, 0, 4, 0, EnumRuneType.TENEBRAE);
+        addRune(components, 0, 5, 0, EnumRuneType.TENEBRAE);
         addRune(components, 0, 6, 0, EnumRuneType.AIR);
     }
 

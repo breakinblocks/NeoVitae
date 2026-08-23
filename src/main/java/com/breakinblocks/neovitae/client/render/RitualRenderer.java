@@ -48,8 +48,8 @@ public class RitualRenderer {
     private static final ResourceLocation RITUAL_STONE_FIRE = NeoVitae.rl("block/fire_ritual_stone");
     private static final ResourceLocation RITUAL_STONE_EARTH = NeoVitae.rl("block/earth_ritual_stone");
     private static final ResourceLocation RITUAL_STONE_AIR = NeoVitae.rl("block/air_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_DAWN = NeoVitae.rl("block/dawn_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_DUSK = NeoVitae.rl("block/dusk_ritual_stone");
+    private static final ResourceLocation RITUAL_STONE_DEUS = NeoVitae.rl("block/deus_ritual_stone");
+    private static final ResourceLocation RITUAL_STONE_TENEBRAE = NeoVitae.rl("block/tenebrae_ritual_stone");
 
     private static final int GHOST_COLOR = 0xDDFFFFFF;
     private static final int FULL_BRIGHT = 0x00F000F0;
@@ -143,8 +143,8 @@ public class RitualRenderer {
             case FIRE -> RITUAL_STONE_FIRE;
             case EARTH -> RITUAL_STONE_EARTH;
             case AIR -> RITUAL_STONE_AIR;
-            case DAWN -> RITUAL_STONE_DAWN;
-            case DUSK -> RITUAL_STONE_DUSK;
+            case DEUS -> RITUAL_STONE_DEUS;
+            case TENEBRAE -> RITUAL_STONE_TENEBRAE;
         };
     }
 

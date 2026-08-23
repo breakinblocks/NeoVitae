@@ -111,7 +111,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Fourth Tier");
-        this.pageText("[#](B8860B)Tier III[#]() unlocks the [#](8B0000)Ritual Diviner [Dusk][#](), and with it, "
+        this.pageText("[#](B8860B)Tier III[#]() unlocks the [#](8B0000)Ritual Diviner [Tenebrae][#](), and with it, "
                 + "a vast repertoire of advanced rites. Automate your [#](4A0080)Essentia Vitae[#]() supply, "
                 + "soar in unfettered flight within your sanctum, or call down a devastating "
                 + "[#](4A0080)meteor[#]() laden with precious bounty from the heavens above.");
@@ -121,7 +121,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Evolution (Tier III)");
         this.pageText("Your [#](8B0000)Sentient Armor[#]() may have begun to feel constrained by its modest "
-                + "point cap. With the Dusk Diviner, you may now perform the "
+                + "point cap. With the Tenebrae Diviner, you may now perform the "
                 + "[#](4A0080)Ritual of Sentient Evolution[#](), raising your armor's capacity from "
                 + "[#](B8860B)100[#]() to [#](B8860B)300[#]() points.");
 

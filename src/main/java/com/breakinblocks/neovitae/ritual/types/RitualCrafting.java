@@ -46,7 +46,7 @@ import java.util.function.Consumer;
  *   <li><b>Corrosive</b> - Tabula Vitae recipe mode (tries alchemy table recipes first, falls back to vanilla)</li>
  * </ul>
  *
- * <p>This is a Dusk tier ritual.
+ * <p>This is a Tenebrae tier ritual.
  */
 public class RitualCrafting extends Ritual {
 
@@ -288,13 +288,13 @@ public class RitualCrafting extends Ritual {
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
-        addCornerRunes(components, 1, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 1, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 2, 0, EnumRuneType.FIRE);
         addCornerRunes(components, 2, 0, EnumRuneType.EARTH);
-        addParallelRunes(components, 3, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 3, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 3, 0, EnumRuneType.FIRE);
         addParallelRunes(components, 4, 0, EnumRuneType.EARTH);
-        addCornerRunes(components, 4, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 4, 0, EnumRuneType.TENEBRAE);
     }
 
     @Override

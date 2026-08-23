@@ -126,8 +126,8 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockRitualStone, BlockItem> WATER_RITUAL_STONE = BLOCK_REG.register("water_ritual_stone", () -> new BlockRitualStone(EnumRuneType.WATER));
     public static final BlockWithItemHolder<BlockRitualStone, BlockItem> FIRE_RITUAL_STONE = BLOCK_REG.register("fire_ritual_stone", () -> new BlockRitualStone(EnumRuneType.FIRE));
     public static final BlockWithItemHolder<BlockRitualStone, BlockItem> EARTH_RITUAL_STONE = BLOCK_REG.register("earth_ritual_stone", () -> new BlockRitualStone(EnumRuneType.EARTH));
-    public static final BlockWithItemHolder<BlockRitualStone, BlockItem> DUSK_RITUAL_STONE = BLOCK_REG.register("dusk_ritual_stone", () -> new BlockRitualStone(EnumRuneType.DUSK));
-    public static final BlockWithItemHolder<BlockRitualStone, BlockItem> DAWN_RITUAL_STONE = BLOCK_REG.register("dawn_ritual_stone", () -> new BlockRitualStone(EnumRuneType.DAWN));
+    public static final BlockWithItemHolder<BlockRitualStone, BlockItem> TENEBRAE_RITUAL_STONE = BLOCK_REG.register("tenebrae_ritual_stone", () -> new BlockRitualStone(EnumRuneType.TENEBRAE));
+    public static final BlockWithItemHolder<BlockRitualStone, BlockItem> DEUS_RITUAL_STONE = BLOCK_REG.register("deus_ritual_stone", () -> new BlockRitualStone(EnumRuneType.DEUS));
     public static final BlockWithItemHolder<BlockMasterRitualStone, BlockItem> MASTER_RITUAL_STONE = BLOCK_REG.register("master_ritual_stone", () -> new BlockMasterRitualStone(false));
     public static final BlockWithItemHolder<BlockMasterRitualStone, BlockItem> INVERTED_MASTER_RITUAL_STONE = BLOCK_REG.register("inverted_master_ritual_stone", () -> new BlockMasterRitualStone(true));
     public static final BlockWithItemHolder<BlockImperfectRitualStone, BlockItem> IMPERFECT_RITUAL_STONE = BLOCK_REG.register("imperfect_ritual_stone", BlockImperfectRitualStone::new);

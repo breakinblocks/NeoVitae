@@ -89,11 +89,11 @@ public class RitualDowngrade extends Ritual {
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.FIRE);
-        addParallelRunes(components, 2, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 2, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 2, 0, EnumRuneType.FIRE);
-        addParallelRunes(components, 3, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 3, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 3, 0, EnumRuneType.FIRE);
-        addCornerRunes(components, 4, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 4, 0, EnumRuneType.TENEBRAE);
     }
 
     @Override

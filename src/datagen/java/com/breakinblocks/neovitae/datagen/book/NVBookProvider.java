@@ -26,7 +26,7 @@ public class NVBookProvider extends SingleBookSubProvider {
         this.registerDefaultMacro("$air", "AAAA00");
         this.registerDefaultMacro("$fire", "AA0000");
         this.registerDefaultMacro("$earth", "00AA00");
-        this.registerDefaultMacro("$dusk", "9400D3");
+        this.registerDefaultMacro("$tenebrae", "9400D3");
         this.registerDefaultMacro("$raw", "36C6C6");
         this.registerDefaultMacro("$steadfast", "0000AA");
         this.registerDefaultMacro("$destructive", "AAAA00");

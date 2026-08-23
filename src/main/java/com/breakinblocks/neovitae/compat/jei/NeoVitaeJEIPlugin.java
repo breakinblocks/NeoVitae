@@ -148,8 +148,8 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.WATER_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "water rune"));
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.FIRE_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "fire rune"));
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.EARTH_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "earth rune"));
-        registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.DUSK_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "dusk rune"));
-        registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.DAWN_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "dawn rune"));
+        registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.TENEBRAE_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "tenebrae rune"));
+        registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.DEUS_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "deus rune"));
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "master rune"));
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "inverted rune"));
         registration.addAliases(VanillaTypes.ITEM_STACK, new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), List.of("rune", "ritual rune", "imperfect rune"));

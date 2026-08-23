@@ -24,7 +24,7 @@ public class RitualSentientArmourEvolveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/armour_evolve"))
                 .withMultiblockName("Ritual of Sentient Evolution")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("armour_evolve")));

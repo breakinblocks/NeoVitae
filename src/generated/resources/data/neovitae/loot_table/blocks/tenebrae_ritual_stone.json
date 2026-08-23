@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:dawn_ritual_stone"
+          "name": "neovitae:tenebrae_ritual_stone"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "neovitae:blocks/dawn_ritual_stone"
+  "random_sequence": "neovitae:blocks/tenebrae_ritual_stone"
 }

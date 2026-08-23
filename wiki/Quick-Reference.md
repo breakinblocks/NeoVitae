@@ -32,7 +32,7 @@ A glossary of every term, resource, and abbreviation you'll encounter.
 | **0** | Basic altar, Sacrificial Knife, Tabula Vitae, Hellfire Forge, Throwing Daggers |
 | **I** | Upgrade Runes, sigil expansion, potioncrafting, off-hand orb harvesting |
 | **II** | Rituals, Sentient Armor, Demon Realm peek (Breaching the Edge of Demon Realm) |
-| **III** | Dusk Diviner, Sentient Evolution, Aspected Spiritus, permanent Endless Realm gate |
+| **III** | Tenebrae Diviner, Sentient Evolution, Aspected Spiritus, permanent Endless Realm gate |
 | **IV** | Most devastating rituals, Hellforged Parts double rune power |
 | **V** | The pinnacle. Crystal Cluster capstones, nineteen runes per side, unlimited capacity |
 
@@ -56,7 +56,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Arcane Scribe Tool**. Strikes a circle on the ground; the starting Alchemy Array.
 
-**Ritual Diviner**. Inscribes ritual stone layouts in-world. Upgraded variants (**Dusk Diviner**) unlock more powerful rites.
+**Ritual Diviner**. Inscribes ritual stone layouts in-world. Upgraded variants (**Tenebrae Diviner**) unlock more powerful rites.
 
 **Training Bracelet**. Curio that lets you train into specific Sentient Armor upgrades over time.
 

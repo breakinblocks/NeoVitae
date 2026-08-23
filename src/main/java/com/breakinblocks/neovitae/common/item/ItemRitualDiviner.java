@@ -359,8 +359,8 @@ public class ItemRitualDiviner extends Item {
     public boolean canPlaceRitualStone(EnumRuneType rune, ItemStack stack) {
         return switch (rune) {
             case BLANK, AIR, EARTH, FIRE, WATER -> true;
-            case DUSK -> type >= 1;
-            case DAWN -> type >= 2;
+            case TENEBRAE -> type >= 1;
+            case DEUS -> type >= 2;
         };
     }
 

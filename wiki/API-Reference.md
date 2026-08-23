@@ -502,8 +502,8 @@ public record RitualComponent(BlockPos offset, EnumRuneType runeType) {
 | `FIRE` | Red | Fire elemental |
 | `EARTH` | Green | Earth elemental |
 | `AIR` | White | Air elemental |
-| `DUSK` | Dark Gray | Dusk rune |
-| `DAWN` | Gold | Dawn rune |
+| `TENEBRAE` | Dark Gray | Tenebrae rune |
+| `DEUS` | Gold | Deus rune |
 
 Public fields `colorCode` (`ChatFormatting`), `translationKey`, `bookColor`. Static helper `byMetadata(int)`.
 

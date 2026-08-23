@@ -17,7 +17,7 @@ public class RitualsCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         // Basics + prerequisite spine up top, then ritual bands by altar-tier access:
-        // rows 3-5 Tier <=2 (weak crystal), row 7 Tier 3 (dusk runes), rows 9-10 Tier 4 (awakened crystal).
+        // rows 3-5 Tier <=2 (weak crystal), row 7 Tier 3 (tenebrae runes), rows 9-10 Tier 4 (awakened crystal).
         return new String[]{
                 "_________R_________",
                 "____S__D__C__T_____",
@@ -159,7 +159,7 @@ public class RitualsCategory extends CategoryProvider {
         simpleDungeon.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
         simpleDungeon.hideWhileLocked(false);
 
-        // ---- Tier 3: requires Dusk runes (Weak Activation Crystal) ----
+        // ---- Tier 3: requires Tenebrae runes (Weak Activation Crystal) ----
         var featheredKnife = this.add(new RitualFeatheredKnifeEntry(this).generate('t'));
         featheredKnife.withParent(this.parent(stones));
         featheredKnife.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_stones"));

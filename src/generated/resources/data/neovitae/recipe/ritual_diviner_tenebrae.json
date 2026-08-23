@@ -9,7 +9,7 @@
       "item": "neovitae:ritual_diviner"
     },
     "t": {
-      "item": "neovitae:dusk_scribe_tool"
+      "item": "neovitae:tenebrae_scribe_tool"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "neovitae:ritual_diviner_dusk"
+    "id": "neovitae:ritual_diviner_tenebrae"
   }
 }

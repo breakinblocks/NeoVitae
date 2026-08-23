@@ -28,8 +28,8 @@ public class MultiblockTests {
             case FIRE -> NVBlocks.FIRE_RITUAL_STONE.block().get().defaultBlockState();
             case EARTH -> NVBlocks.EARTH_RITUAL_STONE.block().get().defaultBlockState();
             case AIR -> NVBlocks.AIR_RITUAL_STONE.block().get().defaultBlockState();
-            case DUSK -> NVBlocks.DUSK_RITUAL_STONE.block().get().defaultBlockState();
-            case DAWN -> NVBlocks.DAWN_RITUAL_STONE.block().get().defaultBlockState();
+            case TENEBRAE -> NVBlocks.TENEBRAE_RITUAL_STONE.block().get().defaultBlockState();
+            case DEUS -> NVBlocks.DEUS_RITUAL_STONE.block().get().defaultBlockState();
             default -> NVBlocks.BLANK_RITUAL_STONE.block().get().defaultBlockState();
         };
     }

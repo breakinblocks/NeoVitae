@@ -24,7 +24,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/well_of_suffering"))
                 .withMultiblockName("Well of Suffering")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("well_of_suffering")));

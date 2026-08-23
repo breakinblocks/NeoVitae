@@ -96,8 +96,8 @@ public class RitualStatsHelper {
             case FIRE -> "Fire Ritual Stone";
             case EARTH -> "Earth Ritual Stone";
             case AIR -> "Air Ritual Stone";
-            case DUSK -> "Dusk Ritual Stone";
-            case DAWN -> "Dawn Ritual Stone";
+            case TENEBRAE -> "Tenebrae Ritual Stone";
+            case DEUS -> "Deus Ritual Stone";
         };
     }
 }

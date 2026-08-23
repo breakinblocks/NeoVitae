@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/dusk_scribe_tool"
+    "layer0": "neovitae:item/ritual_diviner_tenebrae"
   }
 }

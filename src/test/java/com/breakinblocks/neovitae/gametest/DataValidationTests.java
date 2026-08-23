@@ -253,7 +253,7 @@ public class DataValidationTests {
                 "blood_orb_weak", "blood_orb_apprentice",
                 "tabula_rasa", "tabula_robur",
                 "sigil_divination", "alchemy_flask",
-                "ritual_diviner_dusk"
+                "ritual_diviner_tenebrae"
             };
 
             for (String name : expectedItems) {

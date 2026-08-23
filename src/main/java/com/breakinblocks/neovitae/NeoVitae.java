@@ -30,6 +30,7 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.common.crafting.NVIngredientTypes;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.registry.NVLegacyNames;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.loot.NVLootFunctions;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
@@ -105,6 +106,9 @@ public class NeoVitae {
         } catch (ReflectiveOperationException e) {
             LOGGER.error("Failed to register game test setup", e);
         }
+
+
+        NVLegacyNames.register();
 
 
         MaterialRegistry.register(modBus);

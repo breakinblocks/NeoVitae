@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "neovitae:block/dawn_ritual_stone"
+    "all": "neovitae:block/deus_ritual_stone"
   }
 }

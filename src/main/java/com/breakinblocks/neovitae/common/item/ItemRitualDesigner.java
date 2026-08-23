@@ -275,8 +275,8 @@ public class ItemRitualDesigner extends Item {
         map.put(NVBlocks.FIRE_RITUAL_STONE.block().get(), EnumRuneType.FIRE);
         map.put(NVBlocks.EARTH_RITUAL_STONE.block().get(), EnumRuneType.EARTH);
         map.put(NVBlocks.AIR_RITUAL_STONE.block().get(), EnumRuneType.AIR);
-        map.put(NVBlocks.DUSK_RITUAL_STONE.block().get(), EnumRuneType.DUSK);
-        map.put(NVBlocks.DAWN_RITUAL_STONE.block().get(), EnumRuneType.DAWN);
+        map.put(NVBlocks.TENEBRAE_RITUAL_STONE.block().get(), EnumRuneType.TENEBRAE);
+        map.put(NVBlocks.DEUS_RITUAL_STONE.block().get(), EnumRuneType.DEUS);
         return map;
     }
 

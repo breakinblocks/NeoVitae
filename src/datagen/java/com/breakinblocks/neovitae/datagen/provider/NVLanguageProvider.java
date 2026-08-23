@@ -127,8 +127,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.WATER_RITUAL_STONE, "Water Ritual Stone");
         add(NVBlocks.FIRE_RITUAL_STONE, "Fire Ritual Stone");
         add(NVBlocks.EARTH_RITUAL_STONE, "Earth Ritual Stone");
-        add(NVBlocks.DUSK_RITUAL_STONE, "Dusk Ritual Stone");
-        add(NVBlocks.DAWN_RITUAL_STONE, "Dawn Ritual Stone");
+        add(NVBlocks.TENEBRAE_RITUAL_STONE, "Tenebrae Ritual Stone");
+        add(NVBlocks.DEUS_RITUAL_STONE, "Deus Ritual Stone");
         add(NVBlocks.MASTER_RITUAL_STONE, "Master Ritual Stone");
         add(NVBlocks.INVERTED_MASTER_RITUAL_STONE, "Inverted Master Ritual Stone");
         add(NVBlocks.IMPERFECT_RITUAL_STONE, "Imperfect Ritual Stone");
@@ -673,12 +673,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.INSCRIPTION_TOOL_FIRE.get(), "Inscription Tool: Fire");
         add(NVItems.INSCRIPTION_TOOL_WATER.get(), "Inscription Tool: Water");
         add(NVItems.INSCRIPTION_TOOL_EARTH.get(), "Inscription Tool: Earth");
-        add(NVItems.INSCRIPTION_TOOL_DUSK.get(), "Inscription Tool: Dusk");
+        add(NVItems.INSCRIPTION_TOOL_TENEBRAE.get(), "Inscription Tool: Tenebrae");
         addTooltip("inscriber.desc", "The writing is on the wall...");
 
         // Ritual Diviners
         add(NVItems.RITUAL_DIVINER.get(), "Ritual Diviner");
-        add(NVItems.RITUAL_DIVINER_DUSK.get(), "Ritual Diviner [Dusk]");
+        add(NVItems.RITUAL_DIVINER_TENEBRAE.get(), "Ritual Diviner [Tenebrae]");
         addTooltip("diviner.desc", "Used to build rituals.");
         addTooltip("diviner.currentRitual", "Current Ritual: %s");
         addTooltip("diviner.currentDirection", "Current Direction: %s");
@@ -693,8 +693,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.waterRune", "Water Runes: %d");
         addTooltip("diviner.fireRune", "Fire Runes: %d");
         addTooltip("diviner.earthRune", "Earth Runes: %d");
-        addTooltip("diviner.duskRune", "Dusk Runes: %d");
-        addTooltip("diviner.dawnRune", "Dawn Runes: %d");
+        addTooltip("diviner.tenebraeRune", "Tenebrae Runes: %d");
+        addTooltip("diviner.deusRune", "Deus Runes: %d");
         addTooltip("diviner.totalRune", "Total Runes: %d");
         addTooltip("diviner.extraInfo", "Press shift for extra info.");
         addTooltip("diviner.extraExtraInfo", "-Hold shift + alt for augmentation info-");
@@ -1353,8 +1353,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
         addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
 
-        // Dusk Tier Rituals
-        addRitual("condor", "Soaring Skies", "Bestows true flight upon every practitioner within the circle. Dusk-tier.");
+        // Tenebrae Tier Rituals
+        addRitual("condor", "Soaring Skies", "Bestows true flight upon every practitioner within the circle. Tenebrae-tier.");
         addRitual("grounding", "The Sinner's Burden", "Imposes heavy gravity within the area; entities that try to fly are dragged back to the earth. Spiritus aspects shift between Heavy Heart, Suspended, and Levitation effects.");
         addRitual("placer", "Ritual of the Mason", "Places blocks drawn from an adjacent chest across the configured area. Raw Spiritus sets how large an area you may configure and how fast it fills, and the Ritual Configurator chooses the shape.");
         add("ritual.neovitae.placer.placerRange.info", "The area the Mason fills.");
@@ -1362,7 +1362,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
-        addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Dusk-tier.");
+        addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Tenebrae-tier.");
         addRitual("enchanted_vitae", "Ritual of Enchanted Vitae", "Throw one item and any number of enchanted books onto the master stone; the ritual reads the books and binds every enchantment the item can take, at whatever level the book carries, charging Essentia Vitae for each level. Two enchantments that cannot share an item halt the rite; remove one and offer the item again to resume. The books survive.");
         add("ritual.neovitae.enchanted_vitae.insufficient", "The rite stalls: %s Essentia Vitae is needed to bind these enchantments.");
         add("ritual.neovitae.enchanted_vitae.conflict", "The rite refuses %s alongside %s. Take one of the marked books off the stone, then offer the item again to resume.");

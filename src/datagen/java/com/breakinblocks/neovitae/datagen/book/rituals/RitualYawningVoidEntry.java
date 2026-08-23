@@ -24,7 +24,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/yawning_void"))
                 .withMultiblockName("All Consuming Void")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("yawning_void")));

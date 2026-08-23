@@ -64,8 +64,8 @@ public class NVBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(NVBlocks.WATER_RITUAL_STONE.block().get(), cubeAll(NVBlocks.WATER_RITUAL_STONE.block().get()));
         simpleBlockWithItem(NVBlocks.FIRE_RITUAL_STONE.block().get(), cubeAll(NVBlocks.FIRE_RITUAL_STONE.block().get()));
         simpleBlockWithItem(NVBlocks.EARTH_RITUAL_STONE.block().get(), cubeAll(NVBlocks.EARTH_RITUAL_STONE.block().get()));
-        simpleBlockWithItem(NVBlocks.DUSK_RITUAL_STONE.block().get(), cubeAll(NVBlocks.DUSK_RITUAL_STONE.block().get()));
-        simpleBlockWithItem(NVBlocks.DAWN_RITUAL_STONE.block().get(), cubeAll(NVBlocks.DAWN_RITUAL_STONE.block().get()));
+        simpleBlockWithItem(NVBlocks.TENEBRAE_RITUAL_STONE.block().get(), cubeAll(NVBlocks.TENEBRAE_RITUAL_STONE.block().get()));
+        simpleBlockWithItem(NVBlocks.DEUS_RITUAL_STONE.block().get(), cubeAll(NVBlocks.DEUS_RITUAL_STONE.block().get()));
         simpleBlockWithItem(NVBlocks.MASTER_RITUAL_STONE.block().get(), cubeAll(NVBlocks.MASTER_RITUAL_STONE.block().get()));
         // Inverted MRS uses same texture as regular MRS
         simpleBlockWithItem(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get(),

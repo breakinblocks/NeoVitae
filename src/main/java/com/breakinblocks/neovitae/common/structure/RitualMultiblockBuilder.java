@@ -87,8 +87,8 @@ public final class RitualMultiblockBuilder {
             case FIRE -> 'F';
             case EARTH -> 'E';
             case AIR -> 'A';
-            case DUSK -> 'D';
-            case DAWN -> 'd';
+            case TENEBRAE -> 'D';
+            case DEUS -> 'd';
         };
     }
 
@@ -99,8 +99,8 @@ public final class RitualMultiblockBuilder {
             case FIRE -> NVBlocks.FIRE_RITUAL_STONE.block().get();
             case EARTH -> NVBlocks.EARTH_RITUAL_STONE.block().get();
             case AIR -> NVBlocks.AIR_RITUAL_STONE.block().get();
-            case DUSK -> NVBlocks.DUSK_RITUAL_STONE.block().get();
-            case DAWN -> NVBlocks.DAWN_RITUAL_STONE.block().get();
+            case TENEBRAE -> NVBlocks.TENEBRAE_RITUAL_STONE.block().get();
+            case DEUS -> NVBlocks.DEUS_RITUAL_STONE.block().get();
         };
     }
 

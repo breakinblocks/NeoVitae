@@ -70,13 +70,13 @@ Perform the **Breaching the Edge of Demon Realm** ritual and you tear a wound in
 
 See **[The Endless Dungeon](The-Endless-Dungeon)** and **[Athanor and Materials](Athanor-and-Materials)**.
 
-## Tier III, The Dusk Diviner
+## Tier III, The Tenebrae Diviner
 
-Tier III unlocks the **Ritual Diviner [Dusk]** and a vast repertoire of advanced rites. Automate your EV supply, soar in unfettered flight within your sanctum, call down a **meteor** laden with bounty.
+Tier III unlocks the **Ritual Diviner [Tenebrae]** and a vast repertoire of advanced rites. Automate your EV supply, soar in unfettered flight within your sanctum, call down a **meteor** laden with bounty.
 
 ## Tier III, Sentient Evolution
 
-Your Sentient Armor may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armor's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armor's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
+Your Sentient Armor may start to feel cramped by its modest point cap. With the Tenebrae Diviner, perform the **Ritual of Sentient Evolution** to raise your armor's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armor's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
 
 See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 

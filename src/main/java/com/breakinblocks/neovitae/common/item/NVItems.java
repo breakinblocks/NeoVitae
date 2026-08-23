@@ -191,10 +191,10 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_FIRE = BASIC_ITEMS.registerItem("fire_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.FIRE));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_WATER = BASIC_ITEMS.registerItem("water_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.WATER));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_EARTH = BASIC_ITEMS.registerItem("earth_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.EARTH));
-    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_DUSK = BASIC_ITEMS.registerItem("dusk_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.DUSK));
+    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_TENEBRAE = BASIC_ITEMS.registerItem("tenebrae_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.TENEBRAE));
 
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.registerItem("ritual_diviner", props -> new ItemRitualDiviner(props, 0));
-    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DUSK = BASIC_ITEMS.registerItem("ritual_diviner_dusk", props -> new ItemRitualDiviner(props, 1));
+    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_TENEBRAE = BASIC_ITEMS.registerItem("ritual_diviner_tenebrae", props -> new ItemRitualDiviner(props, 1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.registerItem("ritual_reader", ItemRitualReader::new);
     public static final DeferredHolder<Item, ItemRitualDesigner> RITUAL_DESIGNER = BASIC_ITEMS.registerItem("ritual_designer", ItemRitualDesigner::new);
 

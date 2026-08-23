@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:dusk_ritual_stone"
+          "name": "neovitae:deus_ritual_stone"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "neovitae:blocks/dusk_ritual_stone"
+  "random_sequence": "neovitae:blocks/deus_ritual_stone"
 }

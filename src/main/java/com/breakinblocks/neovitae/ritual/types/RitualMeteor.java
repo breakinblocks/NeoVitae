@@ -102,15 +102,15 @@ public class RitualMeteor extends Ritual {
         // Large complex ritual pattern
         addCornerRunes(components, 1, 0, EnumRuneType.FIRE);
         addParallelRunes(components, 2, 0, EnumRuneType.FIRE);
-        addCornerRunes(components, 2, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 2, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 3, 0, EnumRuneType.EARTH);
-        addCornerRunes(components, 3, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 3, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 4, 0, EnumRuneType.FIRE);
         addCornerRunes(components, 4, 0, EnumRuneType.EARTH);
 
         // Elevated corners
-        addCornerRunes(components, 4, 1, EnumRuneType.DUSK);
-        addCornerRunes(components, 4, 2, EnumRuneType.DUSK);
+        addCornerRunes(components, 4, 1, EnumRuneType.TENEBRAE);
+        addCornerRunes(components, 4, 2, EnumRuneType.TENEBRAE);
     }
 
     @Override

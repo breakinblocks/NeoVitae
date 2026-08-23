@@ -80,10 +80,10 @@ public class RitualCondor extends Ritual {
         addCornerRunes(components, 1, 0, EnumRuneType.AIR);
         addParallelRunes(components, 2, 0, EnumRuneType.AIR);
         addCornerRunes(components, 2, 0, EnumRuneType.AIR);
-        addParallelRunes(components, 3, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 3, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 3, 0, EnumRuneType.AIR);
         addParallelRunes(components, 4, 0, EnumRuneType.AIR);
-        addCornerRunes(components, 4, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 4, 0, EnumRuneType.TENEBRAE);
     }
 
     @Override

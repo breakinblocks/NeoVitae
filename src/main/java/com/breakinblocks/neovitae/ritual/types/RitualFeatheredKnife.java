@@ -203,7 +203,7 @@ public class RitualFeatheredKnife extends Ritual {
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
-        addParallelRunes(components, 1, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 1, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 1, 0, EnumRuneType.AIR);
         addParallelRunes(components, 2, 0, EnumRuneType.AIR);
     }

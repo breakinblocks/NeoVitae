@@ -24,7 +24,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crafting"))
                 .withMultiblockName("Rhythm of the Beating Anvil")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("crafting")));

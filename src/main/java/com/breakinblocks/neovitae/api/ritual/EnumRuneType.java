@@ -25,10 +25,10 @@ public enum EnumRuneType implements StringRepresentable {
     EARTH(ChatFormatting.GREEN),
     /** Air elemental rune */
     AIR(ChatFormatting.WHITE),
-    /** Dusk rune for advanced rituals */
-    DUSK(ChatFormatting.DARK_GRAY),
-    /** Dawn rune for the most powerful rituals */
-    DAWN(ChatFormatting.GOLD);
+    /** Tenebrae rune for advanced rituals */
+    TENEBRAE(ChatFormatting.DARK_GRAY),
+    /** Deus rune for the most powerful rituals */
+    DEUS(ChatFormatting.GOLD);
 
     /** The chat formatting color for this rune type */
     public final ChatFormatting colorCode;

@@ -24,7 +24,7 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/speed"))
                 .withMultiblockName("Ritual of Speed")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("speed")));

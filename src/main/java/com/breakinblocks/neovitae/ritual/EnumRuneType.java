@@ -16,8 +16,8 @@ public enum EnumRuneType implements StringRepresentable {
     FIRE(ChatFormatting.RED),
     EARTH(ChatFormatting.GREEN),
     AIR(ChatFormatting.WHITE),
-    DUSK(ChatFormatting.DARK_GRAY),
-    DAWN(ChatFormatting.GOLD);
+    TENEBRAE(ChatFormatting.DARK_GRAY),
+    DEUS(ChatFormatting.GOLD);
 
     public final ChatFormatting colorCode;
     public final String translationKey = this.name().toLowerCase(Locale.ROOT) + "Rune";

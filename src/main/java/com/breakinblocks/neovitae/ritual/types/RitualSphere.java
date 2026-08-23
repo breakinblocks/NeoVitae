@@ -148,7 +148,7 @@ public class RitualSphere extends Ritual {
         addRune(components, 2, 2, 0, EnumRuneType.FIRE);
         addRune(components, 0, 2, 2, EnumRuneType.FIRE);
         addRune(components, -2, 2, 0, EnumRuneType.FIRE);
-        addRune(components, 0, 2, -2, EnumRuneType.DUSK);
+        addRune(components, 0, 2, -2, EnumRuneType.TENEBRAE);
     }
 
     @Override

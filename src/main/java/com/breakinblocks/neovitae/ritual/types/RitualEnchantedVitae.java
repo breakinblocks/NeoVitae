@@ -374,24 +374,24 @@ public class RitualEnchantedVitae extends Ritual {
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
-        addParallelRunes(components, 1, 0, EnumRuneType.DUSK);
-        addCornerRunes(components, 1, 0, EnumRuneType.DUSK);
-        addParallelRunes(components, 2, 0, EnumRuneType.DUSK);
-        addCornerRunes(components, 2, 0, EnumRuneType.DUSK);
-        addParallelRunes(components, 3, 0, EnumRuneType.DUSK);
-        addCornerRunes(components, 3, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 1, 0, EnumRuneType.TENEBRAE);
+        addCornerRunes(components, 1, 0, EnumRuneType.TENEBRAE);
+        addParallelRunes(components, 2, 0, EnumRuneType.TENEBRAE);
+        addCornerRunes(components, 2, 0, EnumRuneType.TENEBRAE);
+        addParallelRunes(components, 3, 0, EnumRuneType.TENEBRAE);
+        addCornerRunes(components, 3, 0, EnumRuneType.TENEBRAE);
 
-        addParallelRunes(components, 3, 1, EnumRuneType.DUSK);
-        addCornerRunes(components, 3, 1, EnumRuneType.DUSK);
+        addParallelRunes(components, 3, 1, EnumRuneType.TENEBRAE);
+        addCornerRunes(components, 3, 1, EnumRuneType.TENEBRAE);
 
         addRune(components, 0, 2, -3, EnumRuneType.WATER);
         addRune(components, 3, 2, 0, EnumRuneType.FIRE);
         addRune(components, 0, 2, 3, EnumRuneType.EARTH);
         addRune(components, -3, 2, 0, EnumRuneType.AIR);
-        addRune(components, 3, 2, -3, EnumRuneType.DUSK);
-        addRune(components, 3, 2, 3, EnumRuneType.DUSK);
-        addRune(components, -3, 2, 3, EnumRuneType.DUSK);
-        addRune(components, -3, 2, -3, EnumRuneType.DUSK);
+        addRune(components, 3, 2, -3, EnumRuneType.TENEBRAE);
+        addRune(components, 3, 2, 3, EnumRuneType.TENEBRAE);
+        addRune(components, -3, 2, 3, EnumRuneType.TENEBRAE);
+        addRune(components, -3, 2, -3, EnumRuneType.TENEBRAE);
     }
 
     @Override

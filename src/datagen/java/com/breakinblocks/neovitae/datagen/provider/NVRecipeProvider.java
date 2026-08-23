@@ -571,13 +571,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_inscription_tool", has(NVItems.INSCRIPTION_TOOL_AIR.get()))
                 .save(output);
 
-        // Ritual Diviner (dusk) - demonic slates, dusk inscription tool, base diviner
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER_DUSK.get())
+        // Ritual Diviner (tenebrae) - demonic slates, tenebrae inscription tool, base diviner
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER_TENEBRAE.get())
                 .pattern(" S ")
                 .pattern("tdt")
                 .pattern(" S ")
                 .define('S', NVItems.TABULA_SPIRITUS.get())
-                .define('t', NVItems.INSCRIPTION_TOOL_DUSK.get())
+                .define('t', NVItems.INSCRIPTION_TOOL_TENEBRAE.get())
                 .define('d', NVItems.RITUAL_DIVINER.get())
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output);
@@ -881,14 +881,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output, rKey(NeoVitae.rl("earth_tool")));
 
-        AltarRecipeBuilder.build(NVItems.INSCRIPTION_TOOL_DUSK.get())
+        AltarRecipeBuilder.build(NVItems.INSCRIPTION_TOOL_TENEBRAE.get())
                 .from(Tags.Items.STORAGE_BLOCKS_COAL)
                 .minTier(3)
                 .bloodNeeded(2000)
                 .consumption(20)
                 .drain(10)
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
-                .save(output, rKey(NeoVitae.rl("dusk_tool")));
+                .save(output, rKey(NeoVitae.rl("tenebrae_tool")));
 
         // Alchemy Flask - glass bottle on tier 1 altar
         AltarRecipeBuilder.build(NVItems.ALCHEMY_FLASK.get())

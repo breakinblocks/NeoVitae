@@ -238,9 +238,9 @@ public class RitualCrystallumFractura extends Ritual {
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.EARTH);
         addParallelRunes(components, 1, 0, EnumRuneType.AIR);
-        addCornerRunes(components, 2, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 2, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 2, 0, EnumRuneType.FIRE);
-        addCornerRunes(components, 3, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 3, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 3, 0, EnumRuneType.EARTH);
     }
 

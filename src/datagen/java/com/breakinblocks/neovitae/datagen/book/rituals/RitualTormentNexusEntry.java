@@ -24,7 +24,7 @@ public class RitualTormentNexusEntry extends EntryProvider {
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/torment_nexus"))
                 .withMultiblockName("The Torment Nexus")
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()\\\n\\\n"
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Tenebrae] for easier construction.[#]()\\\n\\\n"
                 + "Requires an [#](8B0000)Awakened Activation Crystal[#]() to start.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()

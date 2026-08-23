@@ -30,6 +30,7 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.common.crafting.NVIngredientTypes;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.registry.NVLegacyNames;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.loot.NVLootFunctions;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
@@ -100,6 +101,7 @@ public class NeoVitae {
         RoutingChannelRegistry.register(new SpiritusRoutingChannel());
 
 
+        NVLegacyNames.register();
         MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);

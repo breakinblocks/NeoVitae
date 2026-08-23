@@ -259,7 +259,7 @@ public class RitualYawningVoid extends Ritual {
         addParallelRunes(components, 4, 0, EnumRuneType.EARTH);
         addOffsetRunes(components, 1, 3, 0, EnumRuneType.WATER);
         addOffsetRunes(components, 3, 1, 0, EnumRuneType.WATER);
-        addCornerRunes(components, 2, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 2, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 3, 1, EnumRuneType.AIR);
         addParallelRunes(components, 2, 1, EnumRuneType.EARTH);
         addParallelRunes(components, 2, 2, EnumRuneType.EARTH);

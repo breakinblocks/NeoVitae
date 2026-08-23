@@ -356,8 +356,8 @@ public class ShowcaseCommand {
             case FIRE -> NVBlocks.FIRE_RITUAL_STONE.block().get();
             case EARTH -> NVBlocks.EARTH_RITUAL_STONE.block().get();
             case AIR -> NVBlocks.AIR_RITUAL_STONE.block().get();
-            case DUSK -> NVBlocks.DUSK_RITUAL_STONE.block().get();
-            case DAWN -> NVBlocks.DAWN_RITUAL_STONE.block().get();
+            case TENEBRAE -> NVBlocks.TENEBRAE_RITUAL_STONE.block().get();
+            case DEUS -> NVBlocks.DEUS_RITUAL_STONE.block().get();
         };
     }
 

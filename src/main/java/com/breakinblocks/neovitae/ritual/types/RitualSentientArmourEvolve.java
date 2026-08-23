@@ -22,7 +22,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 /**
  * Ritual of Sentient Evolution - Allows living armor to evolve and gain max upgrade points.
  * Player must stand on the Master Ritual Stone wearing living armor.
- * This is a Dusk tier ritual.
+ * This is a Tenebrae tier ritual.
  */
 public class RitualSentientArmourEvolve extends Ritual {
 
@@ -73,12 +73,12 @@ public class RitualSentientArmourEvolve extends Ritual {
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
-        addCornerRunes(components, 1, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 1, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 2, 0, EnumRuneType.FIRE);
-        addCornerRunes(components, 2, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 2, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 3, 0, EnumRuneType.EARTH);
         addCornerRunes(components, 3, 0, EnumRuneType.FIRE);
-        addParallelRunes(components, 4, 0, EnumRuneType.DUSK);
+        addParallelRunes(components, 4, 0, EnumRuneType.TENEBRAE);
         addCornerRunes(components, 4, 0, EnumRuneType.AIR);
     }
 

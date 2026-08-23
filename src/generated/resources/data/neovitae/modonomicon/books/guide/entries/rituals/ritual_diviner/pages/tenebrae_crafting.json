@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tenebrae_crafting",
+  "recipe_id_1": "neovitae:ritual_diviner_tenebrae",
+  "sort_number": 4,
+  "text": "book.neovitae.guide.rituals.ritual_diviner.tenebrae_crafting.text"
+}

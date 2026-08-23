@@ -66,11 +66,11 @@ public class BlockRitualStone extends Block implements IRitualStone {
             case BLANK:
                 runeBlock = NVBlocks.BLANK_RITUAL_STONE.block().get();
                 break;
-            case DAWN:
-                runeBlock = NVBlocks.DAWN_RITUAL_STONE.block().get();
+            case DEUS:
+                runeBlock = NVBlocks.DEUS_RITUAL_STONE.block().get();
                 break;
-            case DUSK:
-                runeBlock = NVBlocks.DUSK_RITUAL_STONE.block().get();
+            case TENEBRAE:
+                runeBlock = NVBlocks.TENEBRAE_RITUAL_STONE.block().get();
                 break;
             case EARTH:
                 runeBlock = NVBlocks.EARTH_RITUAL_STONE.block().get();

@@ -68,7 +68,7 @@ public class RitualStatsProvider implements DataProvider {
         out.accept(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
         out.accept(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));
 
-        // ==================== Dusk Tier Rituals ====================
+        // ==================== Tenebrae Tier Rituals ====================
         out.accept(NVRituals.CONDOR, RitualStats.timed(10000, 100, 20, 1));
         out.accept(NVRituals.SPHERE, RitualStats.timed(20000, 10, 1, 0));
         out.accept(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 25000, 20, 1).withPerOperation());

@@ -4,7 +4,7 @@
   "key": {
     "S": "neovitae:tabula_spiritus",
     "d": "neovitae:ritual_diviner",
-    "t": "neovitae:dusk_scribe_tool"
+    "t": "neovitae:tenebrae_scribe_tool"
   },
   "pattern": [
     " S ",
@@ -12,6 +12,6 @@
     " S "
   ],
   "result": {
-    "id": "neovitae:ritual_diviner_dusk"
+    "id": "neovitae:ritual_diviner_tenebrae"
   }
 }

@@ -3,7 +3,9 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import net.minecraft.network.chat.Component;
+import java.util.Locale;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -160,7 +162,14 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
 
         // Progress arrow tooltip
         if (isOverProgressArrow(x, y)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW), x, y);
+            List<Component> lines = new ArrayList<>();
+            AthanorBlockEntity.IdleReason reason = menu.getIdleReason();
+            if (reason != AthanorBlockEntity.IdleReason.NONE) {
+                lines.add(Component.translatable("gui.neovitae.athanor.idle." + reason.name().toLowerCase(Locale.ROOT))
+                        .withStyle(ChatFormatting.RED));
+            }
+            lines.add(Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW));
+            guiGraphics.renderComponentTooltip(this.font, lines, x, y);
         }
 
         // Spiritus gauge tooltip

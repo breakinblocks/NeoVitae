@@ -77,6 +77,26 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private final double[] chunkSpiritusMax = new double[SpiritusType.values().length];
     private boolean spiritusBlocked = false;
 
+    public enum IdleReason {
+        NONE, OUTPUT_FULL, SPENT_TOOL, NOT_ENOUGH_SPIRITUS;
+
+        private static final IdleReason[] VALUES = values();
+
+        public static IdleReason byIndex(int index) {
+            return index >= 0 && index < VALUES.length ? VALUES[index] : NONE;
+        }
+    }
+
+    private IdleReason idleReason = IdleReason.NONE;
+
+    public IdleReason getIdleReason() {
+        return idleReason;
+    }
+
+    public void setIdleReasonFromNetwork(int index) {
+        this.idleReason = IdleReason.byIndex(index);
+    }
+
     private boolean lastActive = false;
     private final double[] lastSyncedSpiritus = new double[SpiritusType.values().length];
     private final double[] lastSyncedSpiritusMax = new double[SpiritusType.values().length];
@@ -278,7 +298,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         double rawSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, blockPos, SpiritusType.RAW);
         double spiritusSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawSpiritus / 100.0);
         boolean didProgress = false;
-        if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
+        if (toolStack.is(NVTags.Items.ATHANOR_TOOL) || toolStack.isEmpty()) {
             if (toolStack.is(NVTags.Items.ATHANOR_FURNACE)) {
                 int furnaceSlot = -1;
                 RecipeHolder<? extends AbstractCookingRecipe> furnaceRecipe = null;
@@ -311,20 +331,25 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             } else {
                 AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStacks, athanorTile.inputTank.getFluidInTank(0));
                 Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, level);
-                if (athanorTile.canCraft(recipe, itemOutputHandler)) {
+                if (athanorTile.isToolSpent(toolStack)) {
+                    athanorTile.idleReason = IdleReason.SPENT_TOOL;
+                } else if (athanorTile.canCraft(recipe, itemOutputHandler)) {
                     AthanorRecipe athanorRecipe = recipe.get().value();
                     athanorTile.currentRecipeSpiritusCost = athanorRecipe.getSpiritusCosts();
 
                     if (athanorRecipe.hasSpiritusCosts()) {
                         if (!athanorTile.hasEnoughWill(level, blockPos, athanorRecipe)) {
                             athanorTile.spiritusBlocked = true;
+                            athanorTile.idleReason = IdleReason.NOT_ENOUGH_SPIRITUS;
                         } else {
                             athanorTile.spiritusBlocked = false;
+                            athanorTile.idleReason = IdleReason.NONE;
                             athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                             didProgress = true;
                         }
                     } else {
                         athanorTile.spiritusBlocked = false;
+                        athanorTile.idleReason = IdleReason.NONE;
                         athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                         didProgress = true;
                     }
@@ -409,11 +434,13 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         List<Pair<ItemStack, Double>> chanceOutputs = athanorRecipe.getAllListedOutputs();
         List<ItemStack> outputs = chanceOutputs.stream().map(Pair::getFirst).toList();
         if (!outputHandler.canTransferAllItemsToSlots(outputs, true)) {
+            idleReason = IdleReason.OUTPUT_FULL;
             return false;
         }
         if (athanorRecipe.getOutputFluid().isPresent()) {
             int filled = outputTank.fill(athanorRecipe.getOutputFluid().get(), FluidAction.SIMULATE);
             if (!(filled == athanorRecipe.getOutputFluid().get().getAmount())) {
+                idleReason = IdleReason.OUTPUT_FULL;
                 return false;
             }
         }
@@ -447,6 +474,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         damageTool();
     }
 
+    private boolean isToolSpent(ItemStack stack) {
+        return !stack.isEmpty() && stack.isDamageableItem() && stack.getDamageValue() >= stack.getMaxDamage();
+    }
+
     private void damageTool() {
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT);
         if (!toolStack.has(DataComponents.UNBREAKABLE)) {
@@ -456,8 +487,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                 int lost = EnchantmentHelper.processDurabilityChange((ServerLevel) level, toolStack, 1); // this *should* apply enchantments like unbreaking
                 int newDamage = toolStack.getOrDefault(DataComponents.DAMAGE, 0) + lost;
                 if (newDamage >= toolStack.getMaxDamage()) {
-                    // Tool is broken - clear the slot (handleSlots will move it to output if possible)
-                    athanorInv.setStackInSlot(TOOL_SLOT, ItemStack.EMPTY);
+                    toolStack.set(DataComponents.DAMAGE, toolStack.getMaxDamage());
                 } else {
                     toolStack.set(DataComponents.DAMAGE, newDamage);
                 }

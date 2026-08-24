@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.menu;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -14,6 +15,23 @@ import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
 
     private static final int TILE_SLOTS = 1 + AthanorBlockEntity.NUM_INPUTS + 2 + AthanorBlockEntity.NUM_OUTPUTS;
+
+    private final DataSlot idleData = new DataSlot() {
+        private int value;
+
+        @Override
+        public int get() {
+            return tile != null ? tile.getIdleReason().ordinal() : value;
+        }
+
+        @Override
+        public void set(int newValue) {
+            value = newValue;
+            if (tile != null) {
+                tile.setIdleReasonFromNetwork(newValue);
+            }
+        }
+    };
 
     public AthanorMenu(int containerId, Inventory playerInventory, AthanorBlockEntity tile) {
         super(NVMenus.ARC.get(), containerId, tile, TILE_SLOTS);
@@ -46,8 +64,14 @@ public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
             });
         }
 
+        this.addDataSlot(idleData);
+
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_208, MenuSlotHelper.HOTBAR_Y_208);
+    }
+
+    public AthanorBlockEntity.IdleReason getIdleReason() {
+        return AthanorBlockEntity.IdleReason.byIndex(idleData.get());
     }
 
     public AthanorMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {

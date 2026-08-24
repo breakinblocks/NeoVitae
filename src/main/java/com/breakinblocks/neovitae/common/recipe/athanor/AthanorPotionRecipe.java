@@ -40,12 +40,16 @@ public class AthanorPotionRecipe extends AthanorRecipe {
             Pair::new
     );
 
+    private Ingredient getRequiredTool() {
+        return getTool().orElseGet(Ingredient::of);
+    }
+
     private Ingredient getSingleInput() {
         return getInputs().isEmpty() ? Ingredient.of() : getInputs().getFirst();
     }
 
     public static final MapCodec<AthanorPotionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorPotionRecipe::getTool),
+            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorPotionRecipe::getRequiredTool),
             NVRecipeCodecs.INGREDIENT.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
             ItemStackTemplate.CODEC.listOf().optionalFieldOf("guaranteed_outputs", List.of()).forGetter(AthanorPotionRecipe::getGuaranteedOutput),
             Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().optionalFieldOf("chance_outputs", List.of()).forGetter(AthanorPotionRecipe::getChanceOutput),
@@ -54,7 +58,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     ).apply(inst, AthanorPotionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorPotionRecipe> STREAM_CODEC = StreamCodec.composite(
-            Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getTool,
+            Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getRequiredTool,
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getSingleInput,
             ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getGuaranteedOutput,
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getChanceOutput,
@@ -66,7 +70,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStackTemplate> guaranteedOutput,
                            List<Pair<ItemStackTemplate, Double>> chanceOutput,
                            Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack) {
-        super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, Map.of());
+        super(Optional.of(tool), List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, Map.of());
     }
 
     @Override

@@ -137,7 +137,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("AthanorRecipe must have at least one output (guaranteed, chanced, or fluid)");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        AthanorRecipe recipe = new AthanorRecipe(ingredientOf(toolTag), inputs, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid), Map.copyOf(spiritusCosts), spiritusBoost);
+        AthanorRecipe recipe = new AthanorRecipe(Optional.of(ingredientOf(toolTag)), inputs, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid), Map.copyOf(spiritusCosts), spiritusBoost);
         output.accept(
                 ResourceKey.create(Registries.RECIPE,
                         makeId(id.identifier(), toolTag.location())),

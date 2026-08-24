@@ -96,8 +96,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
         // Tool
         IRecipeSlotBuilder toolSlot = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, TOOL_COL + 1, ROW0 + 10);
-        toolSlot.add(recipe.getTool());
-
+        recipe.getTool().ifPresent(toolSlot::add);
         // Outputs: 2x2 grid
         List<Pair<ItemStackTemplate, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {

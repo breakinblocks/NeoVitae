@@ -49,7 +49,9 @@ public class BookAthanorRecipePageRenderer extends BookNVRecipePageRenderer<Atha
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 5, recipeY + 3, mouseX, mouseY, primaryInput);
 
         this.drawSlot(guiGraphics, recipeX + 2, recipeY + 26);
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 5, recipeY + 29, mouseX, mouseY, recipe.getTool());
+        if (recipe.getTool().isPresent()) {
+            this.parentScreen.renderIngredient(guiGraphics, recipeX + 5, recipeY + 29, mouseX, mouseY, recipe.getTool().get());
+        }
 
         Component toolLabel = Component.literal("Tool");
         guiGraphics.text(this.font, toolLabel, recipeX + 26, recipeY + 33, 0xFF999999, false);

@@ -10,6 +10,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import java.util.Optional;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
@@ -65,7 +66,7 @@ public final class RecipeSyntaxTests {
                 AthanorRecipe legacy = parse(helper, ops, LEGACY, "legacy");
                 if (legacy == null) return;
 
-                if (!sameIngredient(modern.getTool(), legacy.getTool())) {
+                if (!sameOptionalIngredient(modern.getTool(), legacy.getTool())) {
                     helper.fail("tool differs between modern and legacy syntax");
                     return;
                 }
@@ -121,7 +122,7 @@ public final class RecipeSyntaxTests {
             helper.runAfterDelay(1, () -> {
                 AthanorRecipe recipe = parse(helper, ops(helper), LEGACY_ITEM_FORM, "legacy item form");
                 if (recipe == null) return;
-                if (!recipe.getTool().test(new ItemStack(Items.STICK))) {
+                if (recipe.getTool().isEmpty() || !recipe.getTool().get().test(new ItemStack(Items.STICK))) {
                     helper.fail("legacy {\"item\":...} tool did not match stick");
                     return;
                 }
@@ -154,6 +155,13 @@ public final class RecipeSyntaxTests {
             return null;
         }
         return result.getOrThrow();
+    }
+
+    private static boolean sameOptionalIngredient(Optional<Ingredient> a, Optional<Ingredient> b) {
+        if (a.isEmpty() || b.isEmpty()) {
+            return a.isEmpty() && b.isEmpty();
+        }
+        return sameIngredient(a.get(), b.get());
     }
 
     private static boolean sameIngredient(Ingredient a, Ingredient b) {

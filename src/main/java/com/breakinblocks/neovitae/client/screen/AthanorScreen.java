@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
+import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,6 +18,8 @@ import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.Map;
 
 public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
@@ -162,7 +165,14 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         }
 
         if (isOverProgressArrow(x, y)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW), x, y);
+            List<Component> lines = new ArrayList<>();
+            AthanorBlockEntity.IdleReason reason = menu.getIdleReason();
+            if (reason != AthanorBlockEntity.IdleReason.NONE) {
+                lines.add(Component.translatable("gui.neovitae.athanor.idle." + reason.name().toLowerCase(Locale.ROOT))
+                        .withStyle(ChatFormatting.RED));
+            }
+            lines.add(Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW));
+            guiGraphics.setTooltipForNextFrame(this.font, lines, Optional.empty(), x, y);
         }
 
         Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeSpiritusCost();

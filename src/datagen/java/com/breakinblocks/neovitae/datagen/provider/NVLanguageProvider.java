@@ -175,6 +175,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.tabula_vitae.idle.not_enough_ev", "Not enough Essentia Vitae in the network");
         add("gui.neovitae.tabula_vitae.idle.output_blocked", "The output slot is full");
         add("gui.neovitae.tabula_vitae.idle.no_network", "Could not read that orb's Anima network");
+        add("gui.neovitae.athanor.idle.output_full", "The output slots are full");
+        add("gui.neovitae.athanor.idle.spent_tool", "The tool is worn out and needs collecting");
+        add("gui.neovitae.athanor.idle.not_enough_spiritus", "Not enough Spiritus in this chunk");
         add("gui.neovitae.side.down", "Bottom");
         add("gui.neovitae.side.up", "Top");
         add("gui.neovitae.side.north", "North");

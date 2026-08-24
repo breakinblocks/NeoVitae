@@ -55,7 +55,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Codec.unboundedMap(SpiritusType.CODEC, Codec.DOUBLE);
 
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorRecipe::getTool),
+            NVRecipeCodecs.INGREDIENT.optionalFieldOf("tool").forGetter(AthanorRecipe::getTool),
             NVRecipeCodecs.INGREDIENT.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
             ItemStackTemplate.CODEC.listOf().optionalFieldOf("guaranteed_outputs", List.of()).forGetter(AthanorRecipe::getGuaranteedOutput),
             Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().optionalFieldOf("chance_outputs", List.of()).forGetter(AthanorRecipe::getChanceOutput),
@@ -68,7 +68,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorRecipe> STREAM_CODEC = new StreamCodec<>() {
         @Override
         public AthanorRecipe decode(RegistryFriendlyByteBuf buf) {
-            Ingredient tool = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            Optional<Ingredient> tool = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buf);
             int inputCount = buf.readVarInt();
             List<Ingredient> inputs = new ArrayList<>(inputCount);
             for (int i = 0; i < inputCount; i++) {
@@ -89,7 +89,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
         @Override
         public void encode(RegistryFriendlyByteBuf buf, AthanorRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient input : recipe.inputs) {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buf, input);
@@ -107,7 +107,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         }
     };
 
-    private final Ingredient tool;
+    private final Optional<Ingredient> tool;
     private final List<Ingredient> inputs;
     private final List<ItemStackTemplate> guaranteedOutput;
     private final List<Pair<ItemStackTemplate, Double>> chanceOutput;
@@ -117,7 +117,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final boolean spiritusBoost;
     private volatile List<Pair<ItemStackTemplate, Double>> allListed;
 
-    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
+    public AthanorRecipe(Optional<Ingredient> tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
         this.tool = tool;
         this.inputs = List.copyOf(inputs);
         this.guaranteedOutput = guaranteedOutput;
@@ -128,12 +128,16 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         this.spiritusBoost = spiritusBoost;
     }
 
-    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+    public AthanorRecipe(Optional<Ingredient> tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts) {
         this(tool, inputs, guaranteedOutput, chanceOutput, inputFluid, outputStack, spiritusCosts, false);
     }
 
-    public Ingredient getTool() {
+    public Optional<Ingredient> getTool() {
         return tool;
+    }
+
+    public boolean requiresTool() {
+        return tool.isPresent();
     }
 
     public List<Ingredient> getInputs() {
@@ -181,7 +185,11 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     @Override
     public boolean matches(AthanorRecipeInput recipeInput, Level level) {
-        if (!tool.test(recipeInput.getItem(0))) {
+        if (tool.isPresent()) {
+            if (!tool.get().test(recipeInput.getItem(0))) {
+                return false;
+            }
+        } else if (!recipeInput.getItem(0).isEmpty()) {
             return false;
         }
         if (inputFluid.isPresent() && !inputFluid.get().test(recipeInput.getFluid())) {

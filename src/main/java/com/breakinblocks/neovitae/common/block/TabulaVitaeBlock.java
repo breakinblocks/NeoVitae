@@ -4,10 +4,12 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -36,7 +38,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     public static final MapCodec<TabulaVitaeBlock> CODEC = simpleCodec(TabulaVitaeBlock::new);
     public static final EnumProperty<Direction> DIRECTION = EnumProperty.create("direction", Direction.class, Direction.Plane.HORIZONTAL.stream().toArray(Direction[]::new));
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
-    protected static final VoxelShape BODY = Block.box(1, 0, 1, 15, 15, 15);
+    protected static final VoxelShape BODY = Block.box(0, 0, 0, 16, 15, 16);
 
     public TabulaVitaeBlock(BlockBehaviour.Properties properties) {
         super(properties.strength(2.0F, 5.0F).noOcclusion().isRedstoneConductor(TabulaVitaeBlock::isntSolid).isViewBlocking(TabulaVitaeBlock::isntSolid).requiresCorrectToolForDrops());
@@ -107,7 +109,31 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(DIRECTION, context.getHorizontalDirection().getOpposite());
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        BlockPos slavePos = context.getClickedPos().relative(direction);
+        if (!context.getLevel().getBlockState(slavePos).canBeReplaced(context)) {
+            return null;
+        }
+        return this.defaultBlockState().setValue(DIRECTION, direction);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.isClientSide() || state.getValue(INVISIBLE)) {
+            return;
+        }
+
+        Direction direction = state.getValue(DIRECTION);
+        BlockPos slavePos = pos.relative(direction);
+        level.setBlock(slavePos, state.setValue(INVISIBLE, true), Block.UPDATE_ALL);
+
+        if (level.getBlockEntity(pos) instanceof TabulaVitaeBlockEntity master) {
+            master.setInitialTableParameters(direction, false, slavePos);
+        }
+        if (level.getBlockEntity(slavePos) instanceof TabulaVitaeBlockEntity slave) {
+            slave.setInitialTableParameters(direction, true, pos);
+        }
     }
 
     @Override
@@ -132,7 +158,12 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
         BlockPos partner = partnerPos(state, pos);
-        if (worldIn.getBlockState(partner).is(this)) {
+        BlockState partnerState = worldIn.getBlockState(partner);
+        if (partnerState.is(this)
+                && partnerState.getValue(INVISIBLE) != state.getValue(INVISIBLE)
+                && worldIn.getBlockEntity(partner) instanceof TabulaVitaeBlockEntity partnerTable
+                && pos.equals(partnerTable.getConnectedPos())) {
+            partnerTable.dropItems();
             worldIn.setBlock(partner, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
         }
         super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);

@@ -26,6 +26,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.client.ClientAnimaCache;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
@@ -206,11 +207,18 @@ public class BloodOrbItem extends Item implements IBindable {
                     .withStyle(ChatFormatting.GRAY));
         }
 
+        Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        if (!binding.isEmpty() && ClientAnimaCache.has(binding.uuid())) {
+            tooltip.accept(Component.translatable("tooltip.neovitae.orb.network_ev", ClientAnimaCache.getCurrentEV())
+                    .withStyle(ChatFormatting.GRAY));
+        }
+
         SimpleFluidContent fluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
         int capacity = OrbFluidHandler.getOrbFluidCapacity(stack);
         if (capacity > 0) {
             int amount = fluid.isEmpty() ? 0 : fluid.getAmount();
             tooltip.accept(Component.translatable("tooltip.neovitae.orb.fluid", amount, capacity)
                     .withStyle(ChatFormatting.DARK_RED));
-        }}
+        }
+    }
 }

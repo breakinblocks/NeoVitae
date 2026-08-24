@@ -56,7 +56,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider, SideConfigurable {
     public enum IdleReason {
-        NONE, NO_RECIPE, NO_ORB, ORB_UNBOUND, TIER_TOO_LOW, NOT_ENOUGH_EV, OUTPUT_BLOCKED;
+        NONE, NO_RECIPE, NO_ORB, ORB_UNBOUND, TIER_TOO_LOW, NOT_ENOUGH_EV, OUTPUT_BLOCKED, NO_NETWORK;
 
         private static final IdleReason[] VALUES = values();
 
@@ -370,7 +370,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
         Anima network = AnimaHelper.getAnima(binding);
         if (network == null) {
-            idleReason = IdleReason.NOT_ENOUGH_EV;
+            idleReason = IdleReason.NO_NETWORK;
             return false;
         }
 

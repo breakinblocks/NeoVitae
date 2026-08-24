@@ -46,9 +46,10 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         addTooltip("current_owner", "Current Owner: %s");
         addTooltip("no_owner", "Not bound yet");
-        addTooltip("orb.fluid", "Essentia Vitae: %s / %s mB");
+        addTooltip("orb.fluid", "Stored Blood: %s / %s mB");
         addTooltip("orb.tier", "Tier %s");
         addTooltip("orb.anima_max", "Raises Anima Maximum to %s");
+        addTooltip("orb.network_ev", "Approximately %s Vitae in the Anima Network");
 
         // Death messages
         add("death.attack.spikes", "%1$s was impaled by spikes");
@@ -173,6 +174,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.tabula_vitae.idle.tier_too_low", "Needs a higher tier blood orb");
         add("gui.neovitae.tabula_vitae.idle.not_enough_ev", "Not enough Essentia Vitae in the network");
         add("gui.neovitae.tabula_vitae.idle.output_blocked", "The output slot is full");
+        add("gui.neovitae.tabula_vitae.idle.no_network", "Could not read that orb's Anima network");
         add("gui.neovitae.side.down", "Bottom");
         add("gui.neovitae.side.up", "Top");
         add("gui.neovitae.side.north", "North");

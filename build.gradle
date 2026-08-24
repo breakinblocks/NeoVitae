@@ -157,6 +157,12 @@ neoForge {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+def recipe_viewer_choice = (project.findProperty("recipe_viewer") ?: "jei").toString().toLowerCase()
+if (!(recipe_viewer_choice in ["jei", "emi", "none"])) {
+    throw new GradleException("recipe_viewer must be jei, emi or none (got: ${recipe_viewer_choice})")
+}
+logger.lifecycle("Recipe viewer for dev runs: ${recipe_viewer_choice}")
+
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
@@ -175,7 +181,14 @@ dependencies {
     compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")
 
-    localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    compileOnly("maven.modrinth:emi:${emi_version}")
+
+    if (recipe_viewer_choice == "jei") {
+        localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    } else if (recipe_viewer_choice == "emi") {
+        localRuntime("maven.modrinth:emi:${emi_version}")
+    }
+
     localRuntime("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}")
 
     // KubeJS - compile-only soft dependency for the optional plugin under compat/kubejs/
@@ -257,7 +270,7 @@ publishMods {
         clientRequired = true
         serverRequired = true
         requires("geckolib", "modonomicon")
-        optional("jei", "jade", "curios")
+        optional("jei", "emi", "jade", "curios")
     }
 
     modrinth {
@@ -265,7 +278,7 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.add(minecraft_version)
         requires("geckolib", "modonomicon")
-        optional("jei", "jade", "curios")
+        optional("jei", "emi", "jade", "curios")
     }
 }
 

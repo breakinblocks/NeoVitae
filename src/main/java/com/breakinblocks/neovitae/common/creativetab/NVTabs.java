@@ -7,7 +7,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -35,6 +37,8 @@ import java.util.function.Consumer;
 
 public class NVTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, NeoVitae.MODID);
+
+    private static final ResourceLocation MODONOMICON_TAB = ResourceLocation.fromNamespaceAndPath("modonomicon", "modonomicon");
 
     public static final Holder<CreativeModeTab> MAIN = TABS.register(
             "main",
@@ -210,5 +214,12 @@ public class NVTabs {
 
     public static void register(IEventBus modBus) {
         TABS.register(modBus);
+        modBus.addListener(NVTabs::addBookToModonomiconTab);
+    }
+
+    private static void addBookToModonomiconTab(BuildCreativeModeTabContentsEvent event) {
+        if (MODONOMICON_TAB.equals(event.getTabKey().location())) {
+            event.accept(new ItemStack(NVItems.GUIDE_BOOK));
+        }
     }
 }

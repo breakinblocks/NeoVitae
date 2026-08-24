@@ -1158,6 +1158,22 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.blood_tank_upgrade", "Blood Tank Upgrade");
         addJei("recipe.disenchant", "Disenchanting");
         addJei("recipe.imperfect_ritual", "Imperfect Ritual");
+
+        // EMI category titles
+        addEmiCategory("ara_vitae", "Ara Vitae");
+        addEmiCategory("hellfire_forge", "Hellfire Forge");
+        addEmiCategory("forge_upgrade", "Hellfire Forge Upgrades");
+        addEmiCategory("alchemy_array", "Array Crafting");
+        addEmiCategory("alchemy_array_effect", "Array Effects");
+        addEmiCategory("tabula_vitae", "Tabula Vitae");
+        addEmiCategory("meteor", "Meteor Ritual");
+        addEmiCategory("athanor", "Athanor");
+        addEmiCategory("flask", "Flask Brewing");
+        addEmiCategory("flask_combination", "Flask Combinations");
+        addEmiCategory("imperfect_ritual", "Imperfect Ritual");
+        addEmiCategory("ritual", "Ritual");
+        addEmiCategory("blood_tank_upgrade", "Blood Tank Upgrade");
+        addEmiCategory("disenchant", "Disenchanting");
         addJei("recipe.ritual", "Ritual");
 
         // Ritual JEI category
@@ -1507,6 +1523,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
     public void addJei(String name, String value) {
         add("jei.neovitae." + name, value);
+    }
+
+    public void addEmiCategory(String path, String value) {
+        add("emi.category.neovitae." + path, value);
     }
 
     public void addAnointment(String key, String name) {

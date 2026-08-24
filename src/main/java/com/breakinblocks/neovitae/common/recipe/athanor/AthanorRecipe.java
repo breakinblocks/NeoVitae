@@ -51,7 +51,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Codec.unboundedMap(SpiritusType.CODEC, Codec.DOUBLE);
 
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            NVRecipeCodecs.INGREDIENT.fieldOf("tool").forGetter(AthanorRecipe::getTool),
+            NVRecipeCodecs.INGREDIENT.optionalFieldOf("tool").forGetter(AthanorRecipe::getToolOptional),
             NVRecipeCodecs.INGREDIENT.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
             ItemStack.CODEC.listOf().optionalFieldOf("guaranteed_outputs", List.of()).forGetter(AthanorRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().optionalFieldOf("chance_outputs", List.of()).forGetter(AthanorRecipe::getChanceOutput),
@@ -64,7 +64,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorRecipe> STREAM_CODEC = new StreamCodec<>() {
         @Override
         public AthanorRecipe decode(RegistryFriendlyByteBuf buf) {
-            Ingredient tool = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            Ingredient tool = buf.readBoolean() ? Ingredient.CONTENTS_STREAM_CODEC.decode(buf) : Ingredient.EMPTY;
             int inputCount = buf.readVarInt();
             List<Ingredient> inputs = new ArrayList<>(inputCount);
             for (int i = 0; i < inputCount; i++) {
@@ -85,7 +85,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
         @Override
         public void encode(RegistryFriendlyByteBuf buf, AthanorRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
+            buf.writeBoolean(recipe.requiresTool());
+            if (recipe.requiresTool()) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
+            }
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient input : recipe.inputs) {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buf, input);
@@ -113,6 +116,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final boolean spiritusBoost;
     private final List<Pair<ItemStack, Double>> allListed;
 
+    public AthanorRecipe(Optional<Ingredient> tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
+        this(tool.orElse(Ingredient.EMPTY), inputs, guaranteedOutput, chanceOutput, inputFluid, outputStack, spiritusCosts, spiritusBoost);
+    }
+
     public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
         this.tool = tool;
         this.inputs = List.copyOf(inputs);
@@ -139,6 +146,14 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public Ingredient getTool() {
         return tool;
+    }
+
+    public Optional<Ingredient> getToolOptional() {
+        return tool.isEmpty() ? Optional.empty() : Optional.of(tool);
+    }
+
+    public boolean requiresTool() {
+        return !tool.isEmpty();
     }
 
     public List<Ingredient> getInputs() {
@@ -186,7 +201,11 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     @Override
     public boolean matches(AthanorRecipeInput recipeInput, Level level) {
-        if (!tool.test(recipeInput.getItem(0))) {
+        if (requiresTool()) {
+            if (!tool.test(recipeInput.getItem(0))) {
+                return false;
+            }
+        } else if (!recipeInput.getItem(0).isEmpty()) {
             return false;
         }
         if (inputFluid.isPresent() && !inputFluid.get().test(recipeInput.getFluid())) {

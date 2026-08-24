@@ -662,7 +662,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
 
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT).copy();
-        if (toolStack.getDamageValue() >= toolStack.getMaxDamage()) {
+        if (!toolStack.isEmpty() && toolStack.isDamageableItem() && toolStack.getDamageValue() >= toolStack.getMaxDamage()) {
             tempBucketList.clear();
             toolStack.setDamageValue(toolStack.getMaxDamage());
             tempBucketList.add(toolStack);

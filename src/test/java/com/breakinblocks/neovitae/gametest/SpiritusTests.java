@@ -37,35 +37,28 @@ public final class SpiritusTests {
     }
 
     public static void register(NVTestRegistrar r) {
-        r.add("spiritus/crystal_grows_with_chunk_spiritus", 300, helper -> {
+        r.addIsolated("spiritus/crystal_grows_with_chunk_spiritus", 300, helper -> {
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
 
             setChunkSpiritus(helper, crystalPos, 100.0);
 
-            helper.runAfterDelay(250, () -> {
+            helper.succeedWhen(() -> {
                 SpiritusCrystalBlockEntity crystal = helper.getBlockEntity(crystalPos, SpiritusCrystalBlockEntity.class);
-                if (crystal == null) {
-                    helper.fail("Expected SpiritusCrystalBlockEntity");
-                    return;
-                }
+                helper.assertTrue(crystal != null, "Expected SpiritusCrystalBlockEntity");
                 double remaining = WorldSpiritusHandler.getCurrentSpiritus(
                         helper.getLevel(), helper.absolutePos(crystalPos), SpiritusType.RAW);
                 boolean grew = crystal.progressToNextCrystal > 0
                         || crystal.getCrystalCount() > 1
                         || remaining < 100.0;
-                if (!grew) {
-                    helper.fail("Crystal should have grown with chunk spiritus present (progress="
+                helper.assertTrue(grew, "Crystal should have grown with chunk spiritus present (progress="
                             + crystal.progressToNextCrystal + ", count=" + crystal.getCrystalCount()
-                            + ", spiritus=" + remaining + ")");
-                    return;
-                }
-                helper.succeed();
+                            + ", spiritus=" + remaining + ")");
             });
         });
 
-        r.add("spiritus/crystal_does_not_grow_without_spiritus", 60, helper -> {
+        r.addIsolated("spiritus/crystal_does_not_grow_without_spiritus", 60, helper -> {
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
@@ -85,7 +78,7 @@ public final class SpiritusTests {
             });
         });
 
-        r.add("spiritus/crystal_breaks_when_support_removed", 60, helper -> {
+        r.addIsolated("spiritus/crystal_breaks_when_support_removed", 60, helper -> {
             BlockPos supportPos = new BlockPos(3, 0, 2);
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(supportPos, Blocks.STONE.defaultBlockState());
@@ -104,23 +97,20 @@ public final class SpiritusTests {
             });
         });
 
-        r.add("spiritus/crystal_drains_chunk_spiritus", 60, helper -> {
+        r.addIsolated("spiritus/crystal_drains_chunk_spiritus", 60, helper -> {
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
 
             setChunkSpiritus(helper, crystalPos, 50.0);
 
-            helper.runAfterDelay(40, () -> {
+            helper.succeedWhen(() -> {
                 double remaining = getChunkSpiritus(helper, crystalPos);
-                if (remaining >= 50.0) {
-                    helper.fail("Crystal should drain chunk spiritus, but it's still " + remaining);
-                }
-                helper.succeed();
+                helper.assertTrue(!(remaining >= 50.0), "Crystal should drain chunk spiritus, but it's still " + remaining);
             });
         });
 
-        r.add("spiritus/crucible_places_and_initializes", 60, helper -> {
+        r.addIsolated("spiritus/crucible_places_and_initializes", 60, helper -> {
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             BlockPos pos = new BlockPos(3, 1, 2);
             helper.setBlock(pos, NVBlocks.VAS_MALEFICUM.block().get().defaultBlockState());
@@ -135,7 +125,7 @@ public final class SpiritusTests {
             });
         });
 
-        r.add("spiritus/crucible_drains_gem_to_chunk", 100, helper -> {
+        r.addIsolated("spiritus/crucible_drains_gem_to_chunk", 100, helper -> {
             BlockPos cruciblePos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             helper.setBlock(cruciblePos, NVBlocks.VAS_MALEFICUM.block().get().defaultBlockState());
@@ -151,18 +141,15 @@ public final class SpiritusTests {
                 gem.set(NVDataComponents.SPIRITUS_AMOUNT, 50.0);
                 crucible.handleInteraction(gem);
 
-                helper.runAfterDelay(60, () -> {
+                helper.succeedWhen(() -> {
                     double gemAfter = crucible.getInventory().getStackInSlot(0)
                             .getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-                    if (gemAfter >= 50.0) {
-                        helper.fail("Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(gemAfter >= 50.0), "Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
                 });
             });
         });
 
-        r.add("spiritus/chunk_codec_round_trips_all_aspects", 5, helper -> {
+        r.addIsolated("spiritus/chunk_codec_round_trips_all_aspects", 5, helper -> {
             SpiritusChunk original = new SpiritusChunk(11, 22, 33, 44, 55, 6, 7, 8, 9, 10);
             JsonElement encoded = SpiritusChunk.CODEC.encodeStart(JsonOps.INSTANCE, original)
                     .getOrThrow(s -> new IllegalStateException("encode failed: " + s));
@@ -196,7 +183,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/injection_multiplier_boosts_raw_without_bias", 5, helper -> {
+        r.addIsolated("spiritus/injection_multiplier_boosts_raw_without_bias", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.setInjectionMultiplier(1.25, SpiritusType.RAW, 100, 0);
             chunk.addSpiritus(SpiritusType.RAW, 80);
@@ -208,7 +195,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/injection_multiplier_redirects_bonus_to_bias", 5, helper -> {
+        r.addIsolated("spiritus/injection_multiplier_redirects_bonus_to_bias", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.setInjectionMultiplier(1.25, SpiritusType.RUINA, 100, 0);
             chunk.addSpiritus(SpiritusType.RAW, 80);
@@ -225,7 +212,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/injection_multiplier_does_not_redirect_aspected", 5, helper -> {
+        r.addIsolated("spiritus/injection_multiplier_does_not_redirect_aspected", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.setInjectionMultiplier(1.25, SpiritusType.NIHILUM, 100, 0);
             chunk.addSpiritus(SpiritusType.RUINA, 80);
@@ -242,7 +229,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/no_multiplier_is_exact_add", 5, helper -> {
+        r.addIsolated("spiritus/no_multiplier_is_exact_add", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.addSpiritus(SpiritusType.RAW, 50);
             double raw = chunk.getSpiritus(SpiritusType.RAW);
@@ -253,7 +240,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/multipliers_decay_after_expiry", 5, helper -> {
+        r.addIsolated("spiritus/multipliers_decay_after_expiry", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.setGrowthMultiplier(2.0, 50, 1000);
             chunk.setInjectionMultiplier(1.25, SpiritusType.RUINA, 50, 1000);
@@ -278,7 +265,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/copy_preserves_transient_buffs", 5, helper -> {
+        r.addIsolated("spiritus/copy_preserves_transient_buffs", 5, helper -> {
             SpiritusChunk chunk = new SpiritusChunk();
             chunk.setGrowthMultiplier(2.0, 200, 500);
             chunk.setInjectionMultiplier(1.5, SpiritusType.VINDICTA, 200, 500);
@@ -298,7 +285,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/multiplier_applies_via_world_handler", 10, helper -> {
+        r.addIsolated("spiritus/multiplier_applies_via_world_handler", 10, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             BlockPos absPos = helper.absolutePos(pos);
             LevelChunk chunk = helper.getLevel().getChunkAt(absPos);
@@ -334,7 +321,7 @@ public final class SpiritusTests {
             helper.succeed();
         });
 
-        r.add("spiritus/crystal_reaches_max_age", 10, helper -> {
+        r.addIsolated("spiritus/crystal_reaches_max_age", 10, helper -> {
             BlockPos crystalPos = new BlockPos(3, 1, 2);
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState()

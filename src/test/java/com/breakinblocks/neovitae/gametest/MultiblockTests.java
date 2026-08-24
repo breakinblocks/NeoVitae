@@ -44,17 +44,10 @@ public final class MultiblockTests {
             helper.setBlock(altarPos.offset(-1, -1, 1), rune);
             helper.setBlock(altarPos.offset(-1, -1, -1), rune);
 
-            helper.runAfterDelay(150, () -> {
+            helper.succeedWhen(() -> {
                 AraVitaeTile altar = helper.getBlockEntity(altarPos, AraVitaeTile.class);
-                if (altar == null) {
-                    helper.fail("Missing altar BE");
-                    return;
-                }
-                if (altar.getTier() < 1) {
-                    helper.fail("Apprentice altar should be tier 1+, got " + altar.getTier());
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(altar != null, "Missing altar BE");
+                helper.assertTrue(!(altar.getTier() < 1), "Apprentice altar should be tier 1+, got " + altar.getTier());
             });
         });
 
@@ -68,17 +61,10 @@ public final class MultiblockTests {
             helper.setBlock(altarPos.offset(-1, -1, 0), rune);
             helper.setBlock(altarPos.offset(0, -1, 1), rune);
 
-            helper.runAfterDelay(150, () -> {
+            helper.succeedWhen(() -> {
                 AraVitaeTile altar = helper.getBlockEntity(altarPos, AraVitaeTile.class);
-                if (altar == null) {
-                    helper.fail("Missing altar BE");
-                    return;
-                }
-                if (altar.getTier() > 0) {
-                    helper.fail("Incomplete altar should be tier 0, got " + altar.getTier());
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(altar != null, "Missing altar BE");
+                helper.assertTrue(!(altar.getTier() > 0), "Incomplete altar should be tier 0, got " + altar.getTier());
             });
         });
 

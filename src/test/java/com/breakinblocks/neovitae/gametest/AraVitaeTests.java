@@ -76,12 +76,9 @@ public final class AraVitaeTests {
                 altar.addSacrificeEV(2000, false);
                 altar.inv.setStackInSlot(0, new ItemStack(Items.DEEPSLATE));
 
-                helper.runAfterDelay(250, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack result = altar.inv.getStackInSlot(0);
-                    if (!result.is(NVItems.TABULA_RASA.get())) {
-                        helper.fail("Expected blank slate, got " + result + " (progress=" + altar.getProgress() + ", mainTank=" + altar.getMainTank() + ")");
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(!result.is(NVItems.TABULA_RASA.get())), "Expected blank slate, got " + result + " (progress=" + altar.getProgress() + ", mainTank=" + altar.getMainTank() + ")");
                 });
             });
         });

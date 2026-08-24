@@ -47,15 +47,10 @@ public final class AthanorTests {
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.PRIMITIVE_FURNACE_CELL.get()));
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.RAW_IRON));
 
-                helper.runAfterDelay(250, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
-                    if (output.isEmpty()) {
-                        helper.fail("ARC should have smelted iron ore, output is empty");
-                    }
-                    if (!output.is(Items.IRON_INGOT)) {
-                        helper.fail("Expected iron ingot, got " + output);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(output.isEmpty()), "ARC should have smelted iron ore, output is empty");
+                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
                 });
             });
         });
@@ -70,15 +65,10 @@ public final class AthanorTests {
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.PRIMITIVE_FURNACE_CELL.get()));
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START + 3, new ItemStack(Items.RAW_IRON));
 
-                helper.runAfterDelay(250, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
-                    if (output.isEmpty()) {
-                        helper.fail("ARC should smelt input from a non-first slot, output is empty");
-                    }
-                    if (!output.is(Items.IRON_INGOT)) {
-                        helper.fail("Expected iron ingot, got " + output);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(output.isEmpty()), "ARC should smelt input from a non-first slot, output is empty");
+                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
                 });
             });
         });
@@ -131,12 +121,9 @@ public final class AthanorTests {
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.PRIMITIVE_FURNACE_CELL.get()));
                 arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.RAW_IRON));
 
-                helper.runAfterDelay(250, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack input = arc.athanorInv.getStackInSlot(AthanorBlockEntity.INPUT_START);
-                    if (!input.isEmpty()) {
-                        helper.fail("Input should be consumed after smelting, has " + input);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(input.isEmpty(), "Input should be consumed after smelting, has " + input);
                 });
             });
         });

@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 public final class NVTestRegistrar {
 
     private static final Identifier STRUCTURE = NeoVitae.rl("empty_5x5x7");
+    private static final Identifier ISOLATED_STRUCTURE = NeoVitae.rl("empty_24x5x24");
 
     private final RegisterGameTestsEvent event;
     private final Holder<TestEnvironmentDefinition<?>> environment;
@@ -28,10 +29,18 @@ public final class NVTestRegistrar {
         add(name, maxTicks, 0, body);
     }
 
+    public void addIsolated(String name, int maxTicks, Consumer<GameTestHelper> body) {
+        add(name, maxTicks, 0, ISOLATED_STRUCTURE, body);
+    }
+
     public void add(String name, int maxTicks, int setupTicks, Consumer<GameTestHelper> body) {
+        add(name, maxTicks, setupTicks, STRUCTURE, body);
+    }
+
+    public void add(String name, int maxTicks, int setupTicks, Identifier structure, Consumer<GameTestHelper> body) {
         TestData<Holder<TestEnvironmentDefinition<?>>> info = new TestData<>(
                 environment,
-                STRUCTURE,
+                structure,
                 maxTicks,
                 setupTicks,
                 true,

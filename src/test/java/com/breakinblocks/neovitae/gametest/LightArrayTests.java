@@ -44,7 +44,7 @@ public final class LightArrayTests {
             final int expectedLights = expected;
             array.attemptCraft();
 
-            helper.runAfterDelay(40, () -> {
+            helper.succeedWhen(() -> {
                 int lights = 0;
                 for (int dx = -2; dx <= 2; dx++) {
                     for (int dz = -3; dz <= 3; dz++) {
@@ -54,17 +54,10 @@ public final class LightArrayTests {
                         }
                     }
                 }
-                if (lights != expectedLights) {
-                    helper.fail("Light array should light every open spot in its diamond, placed "
+                helper.assertTrue(lights == expectedLights, "Light array should light every open spot in its diamond, placed "
                             + lights + " of " + expectedLights);
-                    return;
-                }
                 BlockState center = helper.getBlockState(ARRAY_POS.above());
-                if (!center.is(Blocks.LIGHT) || center.getValue(LightBlock.LEVEL) != 15) {
-                    helper.fail("The light above the array should be level 15, got " + center);
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(!center.is(Blocks.LIGHT) || center.getValue(LightBlock.LEVEL) != 15), "The light above the array should be level 15, got " + center);
             });
         });
         r.add("light_array/redstone_toggles_lights", 200, helper -> {

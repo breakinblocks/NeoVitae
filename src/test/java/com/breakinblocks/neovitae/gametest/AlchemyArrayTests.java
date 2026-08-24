@@ -71,13 +71,9 @@ public final class AlchemyArrayTests {
                 array.inv.setStackInSlot(0, new ItemStack(Items.REDSTONE));
                 array.inv.setStackInSlot(1, new ItemStack(NVItems.TABULA_RASA.get()));
                 array.attemptCraft();
-                helper.runAfterDelay(220, () -> {
+                helper.succeedWhen(() -> {
                     BlockPos absPos = helper.absolutePos(arrayPos);
-                    if (!helper.getLevel().getBlockState(absPos).isAir()) {
-                        helper.fail("Array should be replaced with air after crafting completes (counter=" + array.activeCounter + ")");
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(!helper.getLevel().getBlockState(absPos).isAir()), "Array should be replaced with air after crafting completes (counter=" + array.activeCounter + ")");
                 });
             });
         });

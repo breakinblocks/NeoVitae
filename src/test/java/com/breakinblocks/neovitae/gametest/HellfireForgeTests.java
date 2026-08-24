@@ -59,15 +59,10 @@ public final class HellfireForgeTests {
                 forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_LAZULI));
                 forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
 
-                helper.runAfterDelay(150, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
-                    if (output.isEmpty()) {
-                        helper.fail("Forge should have crafted petty gem, output is empty (progress=" + forge.getProgress() + ")");
-                    }
-                    if (!output.is(NVItems.SPIRITUS_GEM_PETTY.get())) {
-                        helper.fail("Expected petty gem, got " + output);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(output.isEmpty()), "Forge should have crafted petty gem, output is empty (progress=" + forge.getProgress() + ")");
+                    helper.assertTrue(!(!output.is(NVItems.SPIRITUS_GEM_PETTY.get())), "Expected petty gem, got " + output);
                 });
             });
         });
@@ -135,22 +130,17 @@ public final class HellfireForgeTests {
                 forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_LAZULI));
                 forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
 
-                helper.runAfterDelay(150, () -> {
+                helper.succeedWhen(() -> {
                     for (int i = 0; i < 4; i++) {
                         ItemStack slot = forge.inv.getStackInSlot(i);
-                        if (!slot.isEmpty()) {
-                            helper.fail("Input slot " + i + " should be empty after crafting, has " + slot);
-                        }
+                        helper.assertTrue(slot.isEmpty(), "Input slot " + i + " should be empty after crafting, has " + slot);
                     }
 
                     ItemStack gem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
                     if (!gem.isEmpty()) {
                         double remainingSpiritus = gem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-                        if (remainingSpiritus >= 10.0) {
-                            helper.fail("Gem should have less spiritus after crafting, has " + remainingSpiritus);
-                        }
-                    }
-                    helper.succeed();
+                        helper.assertTrue(!(remainingSpiritus >= 10.0), "Gem should have less spiritus after crafting, has " + remainingSpiritus);
+                    }
                 });
             });
         });
@@ -266,17 +256,12 @@ public final class HellfireForgeTests {
                 forge.inv.setStackInSlot(2, new ItemStack(Items.REDSTONE_BLOCK));
                 forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_BLOCK));
 
-                helper.runAfterDelay(20, () -> {
+                helper.succeedWhen(() -> {
                     int status = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_STATUS);
-                    if (status != HellfireForgeBlockEntity.STATUS_NEEDS_SPIRITUS) {
-                        helper.fail("Expected STATUS_NEEDS_SPIRITUS, got " + status);
-                    }
+                    helper.assertTrue(status == HellfireForgeBlockEntity.STATUS_NEEDS_SPIRITUS, "Expected STATUS_NEEDS_SPIRITUS, got " + status);
                     int required = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_REQUIRED_SPIRITUS);
                     int stored = forge.dataAccess.get(HellfireForgeBlockEntity.DATA_STORED_SPIRITUS);
-                    if (required != 60 || stored != 10) {
-                        helper.fail("Expected 10 / 60 reported, got " + stored + " / " + required);
-                    }
-                    helper.succeed();
+                    helper.assertTrue(required == 60 || stored != 10, "Expected 10 / 60 reported, got " + stored + " / " + required);
                 });
             });
         });

@@ -87,19 +87,12 @@ public final class FurnaceArrayTests {
 
             drop(helper, new ItemStack(Items.RAW_IRON, STACK));
 
-            helper.runAfterDelay(260, () -> {
+            helper.succeedWhen(() -> {
                 int spent = STARTING_EV - rig.anima().getCurrentEV();
                 int smelted = countAround(helper, Items.IRON_INGOT);
 
-                if (smelted != STACK) {
-                    helper.fail("Expected " + STACK + " smelted ingots, got " + smelted);
-                    return;
-                }
-                if (spent != EV_COST) {
-                    helper.fail("A stack of " + STACK + " should cost " + EV_COST + " EV, it cost " + spent);
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(smelted == STACK, "Expected " + STACK + " smelted ingots, got " + smelted);
+                helper.assertTrue(spent == EV_COST, "A stack of " + STACK + " should cost " + EV_COST + " EV, it cost " + spent);
             });
         });
 
@@ -109,19 +102,12 @@ public final class FurnaceArrayTests {
 
             drop(helper, new ItemStack(Items.RAW_IRON, 1));
 
-            helper.runAfterDelay(260, () -> {
+            helper.succeedWhen(() -> {
                 int spent = STARTING_EV - rig.anima().getCurrentEV();
                 int smelted = countAround(helper, Items.IRON_INGOT);
 
-                if (smelted != 1) {
-                    helper.fail("Expected 1 smelted ingot, got " + smelted);
-                    return;
-                }
-                if (spent != EV_COST) {
-                    helper.fail("A single item should cost " + EV_COST + " EV, it cost " + spent);
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(smelted == 1, "Expected 1 smelted ingot, got " + smelted);
+                helper.assertTrue(spent == EV_COST, "A single item should cost " + EV_COST + " EV, it cost " + spent);
             });
         });
     }

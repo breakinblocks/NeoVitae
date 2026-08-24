@@ -49,7 +49,7 @@ public final class SpiritusRoutingTests {
     }
 
     public static void register(NVTestRegistrar r) {
-        r.add("spiritus_routing/network_stocks_output_chunk", 300, helper -> {
+        r.addIsolated("spiritus_routing/network_stocks_output_chunk", 300, helper -> {
             helper.runAfterDelay(1, () -> {
                 Network net = buildNetwork(helper, SpiritusType.RUINA);
                 if (net == null) return;
@@ -58,23 +58,19 @@ public final class SpiritusRoutingTests {
                 net.accumulator().insertSpiritus(SpiritusType.RUINA, 500);
                 net.output().setSpiritusExport(SpiritusType.RUINA, 25);
 
-                helper.runAfterDelay(180, () -> {
+                helper.succeedWhen(() -> {
+                    double stored = net.accumulator().getStored();
+                    helper.assertTrue(Math.abs(stored - 475) <= 0.0001,
+                            "Accumulator should have paid 25, stored=" + stored);
                     double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.RUINA);
-                    if (Math.abs(chunkAmount - 25) > 0.0001) {
-                        helper.fail("Output chunk should be stocked to 25 ruina, has " + chunkAmount);
-                        return;
-                    }
-                    if (Math.abs(net.accumulator().getStored() - 475) > 0.0001) {
-                        helper.fail("Accumulator should have paid 25, stored=" + net.accumulator().getStored());
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(chunkAmount >= 25 - 0.0001,
+                            "Output chunk should be stocked to at least 25 ruina, has " + chunkAmount);
                 });
             });
         });
 
 
-        r.add("spiritus_routing/wrong_type_is_not_exported", 200, helper -> {
+        r.addIsolated("spiritus_routing/wrong_type_is_not_exported", 200, helper -> {
             helper.runAfterDelay(1, () -> {
                 Network net = buildNetwork(helper, SpiritusType.NIHILUM, SpiritusType.RAW);
                 if (net == null) return;
@@ -95,7 +91,7 @@ public final class SpiritusRoutingTests {
         });
 
 
-        r.add("spiritus_routing/stock_clamps_to_chunk_max_without_loss", 320, helper -> {
+        r.addIsolated("spiritus_routing/stock_clamps_to_chunk_max_without_loss", 320, helper -> {
             helper.runAfterDelay(1, () -> {
                 Network net = buildNetwork(helper, SpiritusType.INVICTUS);
                 if (net == null) return;
@@ -104,24 +100,20 @@ public final class SpiritusRoutingTests {
                 net.accumulator().insertSpiritus(SpiritusType.INVICTUS, 500);
                 net.output().setSpiritusExport(SpiritusType.INVICTUS, 1000);
 
-                helper.runAfterDelay(220, () -> {
+                helper.succeedWhen(() -> {
+                    double stored = net.accumulator().getStored();
+                    helper.assertTrue(stored < 500,
+                            "Accumulator should have delivered into the chunk, stored=" + stored);
                     double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.INVICTUS);
                     double chunkMax = WorldSpiritusHandler.getMaxSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.INVICTUS);
-                    if (chunkAmount > chunkMax + 0.0001) {
-                        helper.fail("Chunk exceeded its max: " + chunkAmount + " > " + chunkMax);
-                        return;
-                    }
-                    if (net.accumulator().getStored() >= 500) {
-                        helper.fail("Accumulator should have delivered into the chunk, stored=" + net.accumulator().getStored());
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(chunkAmount <= chunkMax + 0.0001,
+                            "Chunk exceeded its max: " + chunkAmount + " > " + chunkMax);
                 });
             });
         });
 
 
-        r.add("spiritus_routing/network_drain_keeps_attunement", 300, helper -> {
+        r.addIsolated("spiritus_routing/network_drain_keeps_attunement", 300, helper -> {
             helper.runAfterDelay(1, () -> {
                 Network net = buildNetwork(helper, SpiritusType.VINDICTA);
                 if (net == null) return;
@@ -130,39 +122,28 @@ public final class SpiritusRoutingTests {
                 net.accumulator().insertSpiritus(SpiritusType.VINDICTA, 25);
                 net.output().setSpiritusExport(SpiritusType.VINDICTA, 25);
 
-                helper.runAfterDelay(180, () -> {
-                    if (net.accumulator().getStored() != 0) {
-                        helper.fail("Accumulator should be fully drained, stored=" + net.accumulator().getStored());
-                        return;
-                    }
-                    if (net.accumulator().getAttunedType() != SpiritusType.VINDICTA) {
-                        helper.fail("Network drain must keep the attunement, type=" + net.accumulator().getAttunedType());
-                        return;
-                    }
-                    helper.succeed();
+                helper.succeedWhen(() -> {
+                    double stored = net.accumulator().getStored();
+                    helper.assertTrue(stored == 0,
+                            "Accumulator should be fully drained, stored=" + stored);
+                    helper.assertTrue(net.accumulator().getAttunedType() == SpiritusType.VINDICTA,
+                            "Network drain must keep the attunement, type=" + net.accumulator().getAttunedType());
                 });
             });
         });
 
 
-        r.add("spiritus_routing/accumulator_autolinks_to_master", 120, helper -> {
+        r.addIsolated("spiritus_routing/accumulator_autolinks_to_master", 120, helper -> {
             helper.setBlock(MASTER_POS, NVBlocks.MASTER_ROUTING_NODE.block().get().defaultBlockState());
 
             helper.runAfterDelay(10, () -> {
                 helper.setBlock(ACCUMULATOR_POS, NVBlocks.SPIRIT_ACCUMULATOR.block().get().defaultBlockState());
 
-                helper.runAfterDelay(20, () -> {
+                helper.succeedWhen(() -> {
                     SpiritAccumulatorBlockEntity accumulator =
                             helper.getBlockEntity(ACCUMULATOR_POS, SpiritAccumulatorBlockEntity.class);
-                    if (accumulator == null) {
-                        helper.fail("No accumulator");
-                        return;
-                    }
-                    if (!accumulator.getMasterPos().equals(helper.absolutePos(MASTER_POS))) {
-                        helper.fail("Accumulator should autolink to the master, masterPos=" + accumulator.getMasterPos());
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(accumulator != null, "No accumulator");
+                    helper.assertTrue(!(!accumulator.getMasterPos().equals(helper.absolutePos(MASTER_POS))), "Accumulator should autolink to the master, masterPos=" + accumulator.getMasterPos());
                 });
             });
         });

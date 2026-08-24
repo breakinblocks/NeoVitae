@@ -55,18 +55,11 @@ public final class VitaeLinkTests {
             placeAltar(helper, altarPos);
             VitaeLinkBlockEntity link = placeLink(helper, new BlockPos(1, 1, 2));
 
-            helper.runAfterDelay(20, () -> {
+            helper.succeedWhen(() -> {
                 if (link == null) return;
-                if (!link.isLinked()) {
-                    helper.fail("Link should bind to an altar within 8 blocks");
-                    return;
-                }
+                helper.assertTrue(link.isLinked(), "Link should bind to an altar within 8 blocks");
                 BlockPos bound = link.getAltarPos();
-                if (bound == null || !bound.equals(helper.absolutePos(altarPos))) {
-                    helper.fail("Link bound to " + bound + ", expected " + helper.absolutePos(altarPos));
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(bound == null || !bound.equals(helper.absolutePos(altarPos))), "Link bound to " + bound + ", expected " + helper.absolutePos(altarPos));
             });
         });
 
@@ -112,14 +105,10 @@ public final class VitaeLinkTests {
                 altar.addSacrificeEV(20000, false);
                 link.inv.setStackInSlot(VitaeLinkBlockEntity.INPUT_SLOT, new ItemStack(Items.DEEPSLATE));
 
-                helper.runAfterDelay(400, () -> {
+                helper.succeedWhen(() -> {
                     ItemStack out = link.inv.getStackInSlot(VitaeLinkBlockEntity.OUTPUT_SLOT);
-                    if (!out.is(NVItems.TABULA_RASA.get())) {
-                        helper.fail("Link capped at tier 0 should eject Tabula Rasa to output, got " + out
-                                + " (in=" + link.inv.getStackInSlot(VitaeLinkBlockEntity.INPUT_SLOT) + ")");
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(!out.is(NVItems.TABULA_RASA.get())), "Link capped at tier 0 should eject Tabula Rasa to output, got " + out
+                                + " (in=" + link.inv.getStackInSlot(VitaeLinkBlockEntity.INPUT_SLOT) + ")");
                 });
             });
         });

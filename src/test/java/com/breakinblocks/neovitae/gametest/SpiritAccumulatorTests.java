@@ -39,7 +39,7 @@ public final class SpiritAccumulatorTests {
     }
 
     public static void register(NVTestRegistrar r) {
-        r.add("spirit_accumulator/starts_unattuned_and_unlocked", 40, helper -> {
+        r.addIsolated("spirit_accumulator/starts_unattuned_and_unlocked", 40, helper -> {
             SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
             helper.runAfterDelay(1, () -> {
@@ -57,7 +57,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/cycles_and_locks", 40, helper -> {
+        r.addIsolated("spirit_accumulator/cycles_and_locks", 40, helper -> {
             SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
             helper.runAfterDelay(1, () -> {
@@ -86,7 +86,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/unlocked_does_not_draw", 120, helper -> {
+        r.addIsolated("spirit_accumulator/unlocked_does_not_draw", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -107,7 +107,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/no_fill_below_saturation", 120, helper -> {
+        r.addIsolated("spirit_accumulator/no_fill_below_saturation", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -134,7 +134,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/fills_from_burnt_crystal", 120, helper -> {
+        r.addIsolated("spirit_accumulator/fills_from_burnt_crystal", 120, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -164,7 +164,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/crystal_locks_without_being_consumed", 60, helper -> {
+        r.addIsolated("spirit_accumulator/crystal_locks_without_being_consumed", 60, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -201,7 +201,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/break_keeps_contents", 40, helper -> {
+        r.addIsolated("spirit_accumulator/break_keeps_contents", 40, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -246,7 +246,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/break_while_empty_drops_plain_item", 40, helper -> {
+        r.addIsolated("spirit_accumulator/break_while_empty_drops_plain_item", 40, helper -> {
             BlockPos pos = new BlockPos(3, 1, 2);
             SpiritAccumulatorBlockEntity be = place(helper, pos);
 
@@ -267,7 +267,7 @@ public final class SpiritAccumulatorTests {
             });
         });
 
-        r.add("spirit_accumulator/empties_and_retunes", 40, helper -> {
+        r.addIsolated("spirit_accumulator/empties_and_retunes", 40, helper -> {
             SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
             helper.runAfterDelay(1, () -> {

@@ -119,23 +119,16 @@ public final class OmniRoutingNodeTests {
                 pull.setItemMode(FilterMode.BLACKLIST);
                 push.setItemMode(FilterMode.BLACKLIST);
 
-                helper.runAfterDelay(300, () -> {
+                helper.succeedWhen(() -> {
                     ChestBlockEntity target = helper.getBlockEntity(TARGET_POS, ChestBlockEntity.class);
-                    if (target == null) {
-                        helper.fail("No target chest");
-                        return;
-                    }
+                    helper.assertTrue(target != null, "No target chest");
                     int moved = 0;
                     for (int i = 0; i < target.getContainerSize(); i++) {
                         if (target.getItem(i).is(Items.COBBLESTONE)) {
                             moved += target.getItem(i).getCount();
                         }
                     }
-                    if (moved <= 0) {
-                        helper.fail("A single omni node should pull from one face and push out the other");
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(moved <= 0), "A single omni node should pull from one face and push out the other");
                 });
             });
         });
@@ -159,13 +152,9 @@ public final class OmniRoutingNodeTests {
                     push.setDirection(FaceDirection.OUTPUT);
                     push.setItemMode(FilterMode.BLACKLIST);
 
-                    helper.runAfterDelay(30, () -> {
-                        if (helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT) != RoutingTint.BOTH) {
-                            helper.fail("An omni node that pulls and pushes should tint as both, got "
-                                    + helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT));
-                            return;
-                        }
-                        helper.succeed();
+                    helper.succeedWhen(() -> {
+                        helper.assertTrue(!(helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT) != RoutingTint.BOTH), "An omni node that pulls and pushes should tint as both, got "
+                                    + helper.getBlockState(OMNI_POS).getValue(BlockRoutingNode.TINT));
                     });
                 });
             });
@@ -191,24 +180,14 @@ public final class OmniRoutingNodeTests {
                 push.setItemMode(FilterMode.BLACKLIST);
                 omni.priorities[Direction.NORTH.get3DDataValue()] = 5;
 
-                helper.runAfterDelay(300, () -> {
+                helper.succeedWhen(() -> {
                     ChestBlockEntity target = helper.getBlockEntity(TARGET_POS, ChestBlockEntity.class);
                     ChestBlockEntity src = helper.getBlockEntity(SOURCE_POS, ChestBlockEntity.class);
-                    if (target == null || src == null) {
-                        helper.fail("Missing a chest");
-                        return;
-                    }
+                    helper.assertTrue(!(target == null || src == null), "Missing a chest");
                     int moved = count(target);
                     int left = count(src);
-                    if (moved <= 0) {
-                        helper.fail("A Both side starved the other output, source=" + left + " target=" + moved);
-                        return;
-                    }
-                    if (moved + left != 64) {
-                        helper.fail("Items lost! source=" + left + " target=" + moved);
-                        return;
-                    }
-                    helper.succeed();
+                    helper.assertTrue(!(moved <= 0), "A Both side starved the other output, source=" + left + " target=" + moved);
+                    helper.assertTrue(moved + left == 64, "Items lost! source=" + left + " target=" + moved);
                 });
             });
         });

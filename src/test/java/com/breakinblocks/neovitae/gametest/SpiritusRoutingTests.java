@@ -55,7 +55,7 @@ public class SpiritusRoutingTests {
         return new Network(master, accumulator, output);
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 300)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 300)
     public void networkStocksOutputChunk(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             Network net = buildNetwork(helper);
@@ -65,22 +65,15 @@ public class SpiritusRoutingTests {
             net.accumulator().insertSpiritus(SpiritusType.RUINA, 500);
             net.output().setSpiritusExport(SpiritusType.RUINA, 25);
 
-            helper.runAfterDelay(180, () -> {
+            helper.succeedWhen(() -> {
                 double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.RUINA);
-                if (Math.abs(chunkAmount - 25) > 0.0001) {
-                    helper.fail("Output chunk should be stocked to 25 ruina, has " + chunkAmount);
-                    return;
-                }
-                if (Math.abs(net.accumulator().getStored() - 475) > 0.0001) {
-                    helper.fail("Accumulator should have paid 25, stored=" + net.accumulator().getStored());
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(Math.abs(chunkAmount - 25) > 0.0001), "Output chunk should be stocked to 25 ruina, has " + chunkAmount);
+                helper.assertTrue(!(Math.abs(net.accumulator().getStored() - 475) > 0.0001), "Accumulator should have paid 25, stored=" + net.accumulator().getStored());
             });
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 200)
     public void wrongTypeIsNotExported(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             Network net = buildNetwork(helper);
@@ -105,7 +98,7 @@ public class SpiritusRoutingTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 320)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 320)
     public void stockClampsToChunkMaxWithoutLoss(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             Network net = buildNetwork(helper);
@@ -115,23 +108,16 @@ public class SpiritusRoutingTests {
             net.accumulator().insertSpiritus(SpiritusType.RUINA, 500);
             net.output().setSpiritusExport(SpiritusType.RUINA, 1000);
 
-            helper.runAfterDelay(220, () -> {
+            helper.succeedWhen(() -> {
                 double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.RUINA);
                 double chunkMax = WorldSpiritusHandler.getMaxSpiritus(helper.getLevel(), helper.absolutePos(OUTPUT_POS), SpiritusType.RUINA);
-                if (chunkAmount > chunkMax + 0.0001) {
-                    helper.fail("Chunk exceeded its max: " + chunkAmount + " > " + chunkMax);
-                    return;
-                }
-                if (net.accumulator().getStored() >= 500) {
-                    helper.fail("Accumulator should have delivered into the chunk, stored=" + net.accumulator().getStored());
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(chunkAmount > chunkMax + 0.0001), "Chunk exceeded its max: " + chunkAmount + " > " + chunkMax);
+                helper.assertTrue(!(net.accumulator().getStored() >= 500), "Accumulator should have delivered into the chunk, stored=" + net.accumulator().getStored());
             });
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 300)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 300)
     public void networkDrainKeepsAttunement(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             Network net = buildNetwork(helper);
@@ -141,21 +127,14 @@ public class SpiritusRoutingTests {
             net.accumulator().insertSpiritus(SpiritusType.RUINA, 25);
             net.output().setSpiritusExport(SpiritusType.RUINA, 25);
 
-            helper.runAfterDelay(180, () -> {
-                if (net.accumulator().getStored() != 0) {
-                    helper.fail("Accumulator should be fully drained, stored=" + net.accumulator().getStored());
-                    return;
-                }
-                if (net.accumulator().getAttunedType() != SpiritusType.RUINA) {
-                    helper.fail("Network drain must keep the attunement, type=" + net.accumulator().getAttunedType());
-                    return;
-                }
-                helper.succeed();
+            helper.succeedWhen(() -> {
+                helper.assertTrue(!(net.accumulator().getStored() != 0), "Accumulator should be fully drained, stored=" + net.accumulator().getStored());
+                helper.assertTrue(!(net.accumulator().getAttunedType() != SpiritusType.RUINA), "Network drain must keep the attunement, type=" + net.accumulator().getAttunedType());
             });
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 120)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 120)
     public void accumulatorAutolinksToMaster(GameTestHelper helper) {
         helper.setBlock(MASTER_POS, NVBlocks.MASTER_ROUTING_NODE.block().get().defaultBlockState());
 

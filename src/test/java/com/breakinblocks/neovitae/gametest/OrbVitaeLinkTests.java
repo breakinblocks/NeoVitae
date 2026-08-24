@@ -60,26 +60,13 @@ public class OrbVitaeLinkTests {
             orb.set(NVDataComponents.BINDING, new Binding(id, "test"));
             link.inv.setStackInSlot(OrbFillingLinkBlockEntity.ORB_SLOT, orb);
 
-            helper.runAfterDelay(80, () -> {
-                if (!link.isLinked()) {
-                    helper.fail("Orb link should bind to the nearby altar");
-                    return;
-                }
+            helper.succeedWhen(() -> {
+                helper.assertTrue(link.isLinked(), "Orb link should bind to the nearby altar");
                 Anima after = AnimaHelper.getAnima(id);
                 int ev = after == null ? 0 : after.getCurrentEV();
-                if (ev <= 0) {
-                    helper.fail("Orb link should fill the owner network from altar EV; net=" + ev);
-                    return;
-                }
-                if (altar.getMainTank() >= tankBaseline) {
-                    helper.fail("Altar EV should have drained; tank=" + altar.getMainTank() + " baseline=" + tankBaseline);
-                    return;
-                }
-                if (link.getComparatorSignal() <= 0) {
-                    helper.fail("Comparator should rise with network fill; signal=" + link.getComparatorSignal());
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(ev <= 0), "Orb link should fill the owner network from altar EV; net=" + ev);
+                helper.assertTrue(!(altar.getMainTank() >= tankBaseline), "Altar EV should have drained; tank=" + altar.getMainTank() + " baseline=" + tankBaseline);
+                helper.assertTrue(!(link.getComparatorSignal() <= 0), "Comparator should rise with network fill; signal=" + link.getComparatorSignal());
             });
         });
     }

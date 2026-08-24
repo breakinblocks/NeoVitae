@@ -67,19 +67,12 @@ public class LightArrayTests {
         AlchemyArrayBlockEntity array = start(helper);
         if (array == null) return;
 
-        helper.runAfterDelay(40, () -> {
+        helper.succeedWhen(() -> {
             int lights = countLights(helper);
-            if (lights != expectedLights) {
-                helper.fail("Light array should light every open spot in its diamond, placed "
+            helper.assertTrue(!(lights != expectedLights), "Light array should light every open spot in its diamond, placed "
                         + lights + " of " + expectedLights);
-                return;
-            }
             BlockState center = helper.getBlockState(ARRAY_POS.above());
-            if (!center.is(Blocks.LIGHT) || center.getValue(LightBlock.LEVEL) != 15) {
-                helper.fail("The light above the array should be level 15, got " + center);
-                return;
-            }
-            helper.succeed();
+            helper.assertTrue(!(!center.is(Blocks.LIGHT) || center.getValue(LightBlock.LEVEL) != 15), "The light above the array should be level 15, got " + center);
         });
     }
 

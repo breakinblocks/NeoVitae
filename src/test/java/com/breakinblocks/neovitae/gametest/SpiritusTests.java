@@ -41,7 +41,7 @@ public class SpiritusTests {
 
     // ==================== Crystal Growth ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 300)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 300)
     public void crystalGrowsWithChunkSpiritus(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
@@ -64,7 +64,7 @@ public class SpiritusTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 60)
     public void crystalDoesNotGrowWithoutSpiritus(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
@@ -86,7 +86,7 @@ public class SpiritusTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 60)
     public void crystalDrainsChunkWill(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
@@ -94,18 +94,15 @@ public class SpiritusTests {
 
         setChunkSpiritus(helper, crystalPos, 50.0);
 
-        helper.runAfterDelay(40, () -> {
+        helper.succeedWhen(() -> {
             double remaining = getChunkSpiritus(helper, crystalPos);
-            if (remaining >= 50.0) {
-                helper.fail("Crystal should drain chunk will, but it's still " + remaining);
-            }
-            helper.succeed();
+            helper.assertTrue(!(remaining >= 50.0), "Crystal should drain chunk will, but it's still " + remaining);
         });
     }
 
     // ==================== Crucible ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 60)
     public void cruciblePlacesAndInitializes(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
         helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.VAS_MALEFICUM.block().get().defaultBlockState());
@@ -120,7 +117,7 @@ public class SpiritusTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 100)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 100)
     public void crucibleDrainsGemToChunk(GameTestHelper helper) {
         BlockPos cruciblePos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
@@ -133,20 +130,17 @@ public class SpiritusTests {
             gem.set(NVDataComponents.SPIRITUS_AMOUNT, 50.0);
             crucible.handleInteraction(gem);
 
-            helper.runAfterDelay(60, () -> {
+            helper.succeedWhen(() -> {
                 double gemAfter = crucible.getInventory().getStackInSlot(0)
                         .getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-                if (gemAfter >= 50.0) {
-                    helper.fail("Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
-                }
-                helper.succeed();
+                helper.assertTrue(!(gemAfter >= 50.0), "Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
             });
         });
     }
 
     // ==================== Codec Roundtrip ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void chunkCodecRoundTripsAllAspects(GameTestHelper helper) {
         SpiritusChunk original = new SpiritusChunk(11, 22, 33, 44, 55, 6, 7, 8, 9, 10);
         JsonElement encoded = SpiritusChunk.CODEC.encodeStart(JsonOps.INSTANCE, original)
@@ -184,7 +178,7 @@ public class SpiritusTests {
 
     // ==================== Multipliers ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void injectionMultiplierBoostsRawWithoutBias(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.setInjectionMultiplier(1.25, SpiritusType.RAW, 100, 0);
@@ -197,7 +191,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void injectionMultiplierRedirectsBonusToBiasAspect(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.setInjectionMultiplier(1.25, SpiritusType.RUINA, 100, 0);
@@ -216,7 +210,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void injectionMultiplierDoesNotRedirectAspectedAdditions(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.setInjectionMultiplier(1.25, SpiritusType.NIHILUM, 100, 0);
@@ -235,7 +229,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void noMultiplierIsExactAdd(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.addSpiritus(SpiritusType.RAW, 50);
@@ -247,7 +241,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void multipliersDecayAfterExpiry(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.setGrowthMultiplier(2.0, 50, 1000);
@@ -273,7 +267,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 5)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 5)
     public void copyPreservesTransientBuffs(GameTestHelper helper) {
         SpiritusChunk chunk = new SpiritusChunk();
         chunk.setGrowthMultiplier(2.0, 200, 500);
@@ -297,7 +291,7 @@ public class SpiritusTests {
 
     // ==================== Through addSpiritusToChunk ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 10)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 10)
     public void multiplierAppliesViaWorldHandler(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         BlockPos absPos = helper.absolutePos(pos);
@@ -339,7 +333,7 @@ public class SpiritusTests {
 
     // ==================== Fully-grown gating ====================
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 10)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 10)
     public void crystalReachesMaxAge(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());

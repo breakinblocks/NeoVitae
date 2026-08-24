@@ -142,13 +142,9 @@ public class AnimaTests {
 
             int lpBefore = anima.getCurrentEV();
 
-            helper.runAfterDelay(250, () -> {
+            helper.succeedWhen(() -> {
                 int lpAfter = anima.getCurrentEV();
-                if (lpAfter <= lpBefore) {
-                    helper.fail("Orb filling should add EV to anima (before=" + lpBefore + " after=" + lpAfter + ")");
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(lpAfter <= lpBefore), "Orb filling should add EV to anima (before=" + lpBefore + " after=" + lpAfter + ")");
             });
         });
     }
@@ -168,17 +164,10 @@ public class AnimaTests {
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
             table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, createBoundOrb(10000));
 
-            helper.runAfterDelay(60, () -> {
+            helper.succeedWhen(() -> {
                 ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
-                if (output.isEmpty()) {
-                    helper.fail("Alchemy table should have crafted flint (burnTime=" + table.burnTime + ", ticksReq=" + table.ticksRequired + ")");
-                    return;
-                }
-                if (!output.is(Items.FLINT) || output.getCount() != 2) {
-                    helper.fail("Expected 2 flint, got " + output);
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(output.isEmpty()), "Alchemy table should have crafted flint (burnTime=" + table.burnTime + ", ticksReq=" + table.ticksRequired + ")");
+                helper.assertTrue(!(!output.is(Items.FLINT) || output.getCount() != 2), "Expected 2 flint, got " + output);
             });
         });
     }
@@ -204,13 +193,9 @@ public class AnimaTests {
 
             int lpBefore = anima2.getCurrentEV();
 
-            helper.runAfterDelay(50, () -> {
+            helper.succeedWhen(() -> {
                 int lpAfter = anima2.getCurrentEV();
-                if (lpAfter >= lpBefore) {
-                    helper.fail("Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(lpAfter >= lpBefore), "Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
             });
         });
     }

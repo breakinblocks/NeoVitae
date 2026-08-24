@@ -41,7 +41,7 @@ public class SpiritAccumulatorTests {
         return accumulator;
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
     public void accumulatorStartsUnattunedAndUnlocked(GameTestHelper helper) {
         SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
@@ -60,7 +60,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
     public void accumulatorCyclesAndLocks(GameTestHelper helper) {
         SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
@@ -90,7 +90,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 120)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 120)
     public void accumulatorUnlockedDoesNotDraw(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);
@@ -112,7 +112,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 120)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 120)
     public void accumulatorNoFillBelowSaturation(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);
@@ -140,7 +140,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 120)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 120)
     public void accumulatorFillsFromBurntCrystal(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);
@@ -171,7 +171,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 60)
     public void accumulatorCrystalLocksWithoutBeingConsumed(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);
@@ -209,7 +209,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
     public void accumulatorEmptiesAndRetunes(GameTestHelper helper) {
         SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
@@ -237,7 +237,7 @@ public class SpiritAccumulatorTests {
             helper.succeed();
         });
     }
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
     public void accumulatorBreakKeepsContents(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);
@@ -283,7 +283,7 @@ public class SpiritAccumulatorTests {
         });
     }
 
-    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
     public void accumulatorBreakWhileEmptyDropsPlainItem(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 2);
         SpiritAccumulatorBlockEntity be = place(helper, pos);

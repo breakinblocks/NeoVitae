@@ -57,13 +57,9 @@ public class MultiblockTests {
         helper.setBlock(altarPos.offset(-1, -1, -1), rune);
 
         // Wait for structure check (every 100 ticks)
-        helper.runAfterDelay(150, () -> {
+        helper.succeedWhen(() -> {
             AraVitaeTile altar = (AraVitaeTile) helper.getBlockEntity(altarPos);
-            if (altar.getTier() < 1) {
-                helper.fail("Apprentice altar should be tier 1+, got " + altar.getTier());
-                return;
-            }
-            helper.succeed();
+            helper.assertTrue(!(altar.getTier() < 1), "Apprentice altar should be tier 1+, got " + altar.getTier());
         });
     }
 
@@ -80,13 +76,9 @@ public class MultiblockTests {
         helper.setBlock(altarPos.offset(0, -1, 1), rune);
         // Missing: (0, -1, -1)
 
-        helper.runAfterDelay(150, () -> {
+        helper.succeedWhen(() -> {
             AraVitaeTile altar = (AraVitaeTile) helper.getBlockEntity(altarPos);
-            if (altar.getTier() > 0) {
-                helper.fail("Incomplete altar should be tier 0, got " + altar.getTier());
-                return;
-            }
-            helper.succeed();
+            helper.assertTrue(!(altar.getTier() > 0), "Incomplete altar should be tier 0, got " + altar.getTier());
         });
     }
 

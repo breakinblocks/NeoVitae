@@ -214,18 +214,11 @@ public class TabulaVitaeTests {
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
             table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, orb);
 
-            helper.runAfterDelay(60, () -> {
+            helper.succeedWhen(() -> {
                 ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
-                if (output.isEmpty()) {
-                    helper.fail("Table should have crafted with a funded orb (burnTime=" + table.burnTime + ")");
-                    return;
-                }
+                helper.assertTrue(!(output.isEmpty()), "Table should have crafted with a funded orb (burnTime=" + table.burnTime + ")");
                 int spent = before - anima.getCurrentEV();
-                if (spent < 50) {
-                    helper.fail("Flint recipe costs 50 EV, only " + spent + " was syphoned");
-                    return;
-                }
-                helper.succeed();
+                helper.assertTrue(!(spent < 50), "Flint recipe costs 50 EV, only " + spent + " was syphoned");
             });
         });
     }

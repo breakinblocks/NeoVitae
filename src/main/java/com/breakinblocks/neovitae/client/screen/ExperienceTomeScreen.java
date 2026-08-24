@@ -50,7 +50,7 @@ public class ExperienceTomeScreen extends AbstractContainerScreen<ExperienceTome
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.title, leftPos + this.titleLabelX, topPos + this.titleLabelY, HEADING, false);
+        guiGraphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, HEADING, false);
 
         ItemStack tome = menu.getTome(minecraft.player);
         int stored = ExperienceTomeItem.getStoredXp(tome);
@@ -60,21 +60,21 @@ public class ExperienceTomeScreen extends AbstractContainerScreen<ExperienceTome
         int available = imageWidth - READOUT_INSET * 2;
         if (readoutWidth <= available) {
             guiGraphics.text(this.font, readout,
-                    leftPos + (imageWidth - readoutWidth) / 2, topPos + READOUT_Y, TEXT, false);
+                    (imageWidth - readoutWidth) / 2, READOUT_Y, TEXT, false);
         } else {
             float scale = (float) available / readoutWidth;
             guiGraphics.pose().pushMatrix();
-            guiGraphics.pose().translate(leftPos + READOUT_INSET,
-                    topPos + READOUT_Y + (this.font.lineHeight * (1 - scale)) / 2f);
+            guiGraphics.pose().translate(READOUT_INSET,
+                    READOUT_Y + (this.font.lineHeight * (1 - scale)) / 2f);
             guiGraphics.pose().scale(scale, scale);
             guiGraphics.text(this.font, readout, 0, 0, TEXT, false);
             guiGraphics.pose().popMatrix();
         }
 
         guiGraphics.text(this.font, Component.translatable("gui.neovitae.experience_tome.deposit"),
-                leftPos + BUTTON_LEFT, topPos + DEPOSIT_Y - 11, HEADING, false);
+                BUTTON_LEFT, DEPOSIT_Y - 11, HEADING, false);
         guiGraphics.text(this.font, Component.translatable("gui.neovitae.experience_tome.withdraw"),
-                leftPos + BUTTON_LEFT, topPos + WITHDRAW_Y - 11, HEADING, false);
+                BUTTON_LEFT, WITHDRAW_Y - 11, HEADING, false);
     }
 
     private void renderRow(GuiGraphicsExtractor guiGraphics, int rowY, int mouseX, int mouseY) {

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.event;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -66,6 +67,7 @@ import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.common.network.AnimaSyncPayload;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -168,6 +170,32 @@ public class CommonEventHandler {
                 }
             }
         }
+    }
+
+    private static final int ANIMA_SYNC_INTERVAL = 60;
+    private static final int ANIMA_TOOLTIP_STEP = 500;
+    private static final Map<UUID, Integer> lastSyncedAnima = new HashMap<>();
+
+    @SubscribeEvent
+    public static void syncAnimaToClient(PlayerTickEvent.Post event) {
+        if (!(event.getEntity() instanceof ServerPlayer serverPlayer)) return;
+        if (serverPlayer.tickCount % ANIMA_SYNC_INTERVAL != 0) return;
+
+        Anima anima = AnimaHelper.getAnima(serverPlayer);
+        if (anima == null) return;
+
+        UUID id = serverPlayer.getUUID();
+        int approximate = Math.round(anima.getCurrentEV() / (float) ANIMA_TOOLTIP_STEP) * ANIMA_TOOLTIP_STEP;
+        Integer previous = lastSyncedAnima.get(id);
+        if (previous != null && previous == approximate) return;
+
+        lastSyncedAnima.put(id, approximate);
+        PacketDistributor.sendToPlayer(serverPlayer, new AnimaSyncPayload(id, approximate));
+    }
+
+    @SubscribeEvent
+    public static void clearAnimaSyncOnLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        lastSyncedAnima.remove(event.getEntity().getUUID());
     }
 
     @SubscribeEvent

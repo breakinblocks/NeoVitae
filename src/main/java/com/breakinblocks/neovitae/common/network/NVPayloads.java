@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.breakinblocks.neovitae.client.ClientAnimaCache;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.ClipboardClientHelper;
 import com.breakinblocks.neovitae.client.render.stream.StreamManager;
@@ -111,6 +112,12 @@ public class NVPayloads {
                 SpiritusSyncPayload.TYPE,
                 SpiritusSyncPayload.STREAM_CODEC,
                 NVPayloads::handleSpiritusChunkSync
+        );
+
+        registrar.playToClient(
+                AnimaSyncPayload.TYPE,
+                AnimaSyncPayload.STREAM_CODEC,
+                NVPayloads::handleAnimaSync
         );
 
         registrar.playToClient(
@@ -236,6 +243,10 @@ public class NVPayloads {
             StreamManager.getInstance()
                     .addStream(payload.effect());
         });
+    }
+
+    private static void handleAnimaSync(AnimaSyncPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> ClientAnimaCache.update(payload.owner(), payload.currentEV()));
     }
 
     private static void handleSpiritusChunkSync(SpiritusSyncPayload payload, IPayloadContext context) {

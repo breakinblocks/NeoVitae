@@ -22,6 +22,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.client.ClientAnimaCache;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -195,6 +196,12 @@ public class BloodOrbItem extends Item implements IBindable {
             tooltip.add(Component.translatable("tooltip.neovitae.orb.tier", stats.tier())
                     .withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable("tooltip.neovitae.orb.anima_max", stats.animaCapacity())
+                    .withStyle(ChatFormatting.GRAY));
+        }
+
+        Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        if (!binding.isEmpty() && ClientAnimaCache.has(binding.uuid())) {
+            tooltip.add(Component.translatable("tooltip.neovitae.orb.network_ev", ClientAnimaCache.getCurrentEV())
                     .withStyle(ChatFormatting.GRAY));
         }
 

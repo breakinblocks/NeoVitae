@@ -59,7 +59,7 @@ public class RitualFelling extends Ritual {
 
         ItemStack toolStack = new ItemStack(Items.NETHERITE_AXE);
 
-        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae", ctx.masterPos());
 
         RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
         BlockEntity inv = chest.tile();

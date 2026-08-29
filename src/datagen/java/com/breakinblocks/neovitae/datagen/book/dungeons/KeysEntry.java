@@ -27,6 +27,15 @@ public class KeysEntry extends EntryProvider {
                 + "chests or forged by your own hand; sturdier rooms call instead for a "
                 + "[#](8B0000)Standard Dungeon Key[#](). Each key opens only the kinds of door it was cut for.");
 
+        this.page("spawner_drops", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Keys from Spawners");
+        this.pageText("Keys drop from trial spawners, not just chests. Clear every wave a spawner sends and "
+                + "it rewards the same loot the dungeon chests hold.\\\n\\\nSpawners in the standard dungeon can "
+                + "drop [#](8B0000)Standard Dungeon Keys[#]() and [#](8B0000)Mine Entrance Keys[#](). Spawners in "
+                + "[#](8B0000)The Mines[#]() can drop [#](8B0000)Mine Dungeon Keys[#]().");
+
         this.page("distortions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("As you delve deeper, you may encounter [#](4A0080)Spatial Distortions[#](), anomalies "
@@ -58,9 +67,9 @@ public class KeysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mine Dungeon Key");
-        this.pageText("[#](8B0000)Mine Dungeon Keys[#]() cannot be forged; they are wrenched only from the "
-                + "[#](8B0000)Foreman[#]() who guards the mine, who yields several at once. Best him and the "
-                + "deeper doors are yours. Steel your nerves, practitioner.");
+        this.pageText("[#](8B0000)Mine Dungeon Keys[#]() cannot be forged. The [#](8B0000)Foreman[#]() who "
+                + "guards the mine drops several at once, and the trial spawners in the Mines can drop them too. "
+                + "Best him and the deeper doors are yours. Steel your nerves, practitioner.");
     }
 
     @Override

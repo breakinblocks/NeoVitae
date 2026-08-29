@@ -14,6 +14,8 @@ Every hostile room in the dungeon is policed by a **trial spawner**, a sealed pi
 
 The total wave **scales with the number of players nearby**; solo runs see manageable surges, while group runs spike accordingly. Most chambers in the dungeon hold at least one spawner; corridors, entrance halls, and the occasional empty puzzle room are the exceptions.
 
+Clearing every wave a spawner sends makes it eject a reward, drawn from the same loot tables the dungeon chests use. That includes **keys**: spawners in the standard dungeon can give **Standard Dungeon Keys** and **Mine Entrance Keys**, and spawners inside The Mines can give **Mine Dungeon Keys**. If you are short a key, fight the spawners rather than hunting for another chest.
+
 ## Spike Traps
 
 **Spike Traps** sit dormant and look innocuous until a redstone signal reaches them, whereupon serrated blades erupt from the housing with lethal intent. Whatever intelligence designed these clearly meant to discourage uninvited guests.
@@ -50,7 +52,7 @@ Prismatic Demonite does not drop a block form for replication and cannot be silk
 
 ## Demonite Ore
 
-**Demonite Ore** is found only in **The Mines**, the deepest tier of the dungeon, reached by unsealing the mine entrance with a [Mine Entrance Key](The-Endless-Dungeon); its deeper veins lie behind doors that only the **Mine Dungeon Keys** dropped by The Foreman will open. The ore is the only naturally occurring source of Hellforged metal, the foundation of [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most demanding [flask](Tabula-Vitae-Flasks-and-Anointments) recipes.
+**Demonite Ore** is found only in **The Mines**, the deepest tier of the dungeon, reached by unsealing the mine entrance with a [Mine Entrance Key](The-Endless-Dungeon); its deeper veins lie behind doors that only **Mine Dungeon Keys** will open, dropped by The Foreman and by the trial spawners inside the Mines. The ore is the only naturally occurring source of Hellforged metal, the foundation of [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most demanding [flask](Tabula-Vitae-Flasks-and-Anointments) recipes.
 
 | Tool used | Yield |
 | --- | --- |

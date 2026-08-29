@@ -53,7 +53,7 @@ The Foreman's chamber has manifested. Like the mine entrance itself, its door yi
 
 ### The Mines
 
-The Mines are a significant escalation. Veins of **Demonite Ore** thread the walls here, the only naturally occurring source of the Hellforged metal used in [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most advanced potion-craft. Within the Mines, the **Mine Dungeon Keys** wrenched from the Foreman open the remaining sealed doors. Alongside Demonite, you may pull enchanted armaments, anointments, potions, and rarer spoils from chests.
+The Mines are a significant escalation. Veins of **Demonite Ore** thread the walls here, the only naturally occurring source of the Hellforged metal used in [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most advanced potion-craft. Within the Mines, the **Mine Dungeon Keys** dropped by the Foreman and by the spawners down there open the remaining sealed doors. Alongside Demonite, you may pull enchanted armaments, anointments, potions, and rarer spoils from chests.
 
 ### Spent Seals
 
@@ -76,12 +76,12 @@ All keys, whether crafted or found, are listed below. See [Hellfire Forge and Se
 | Key | Source | Opens |
 | --- | --- | --- |
 | **Simple Dungeon Key** | Antechamber and dungeon chests, or forged in the Hellfire Forge (2 Iron Ingots + Corrupted Dust) | Ordinary sealed doors |
-| **Standard Dungeon Key** | Found in dungeon chests | Sturdier standard rooms |
-| **Mine Entrance Key** | Forged in the Hellfire Forge (Tabula Animata + Echo Shard + Diamond + a Simple Dungeon Key), or found in standard-dungeon chests | The Mines entrance *and* the Foreman's chamber |
-| **Mine Dungeon Key** | Dropped in a clutch by The Foreman boss | The deeper sealed doors *inside* the Mines |
+| **Standard Dungeon Key** | Dungeon chests and standard-dungeon trial spawners | Sturdier standard rooms |
+| **Mine Entrance Key** | Forged in the Hellfire Forge (Tabula Animata + Echo Shard + Diamond + a Simple Dungeon Key), or found in standard-dungeon chests and trial spawners | The Mines entrance *and* the Foreman's chamber |
+| **Mine Dungeon Key** | Dropped in a clutch by The Foreman boss, and by trial spawners inside the Mines | The deeper sealed doors *inside* the Mines |
 | **Boss Key** | A unique, uncraftable key concealed by Spatial Distortions | Boss, special, and treasure rooms |
 
-The Mine Dungeon Key and the Boss Key cannot be crafted; they are only wrested from their guardians or pried from a distortion. One wonders why the demons never thought to pick the locks themselves.
+The Mine Dungeon Key and the Boss Key cannot be crafted; they are only wrested from their guardians, cleared from a spawner, or pried from a distortion. One wonders why the demons never thought to pick the locks themselves.
 
 ## Dungeon Eyes
 

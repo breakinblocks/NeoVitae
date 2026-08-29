@@ -965,6 +965,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.blood_light.redstone_on", "Redstone Control: Enabled");
         add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
+        add("message.neovitae.sigil.necromancy.at_limit", "Summon limit reached (%s). Sneak and right-click a servant to dismiss it.");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
         add("message.neovitae.altar_draws_blood", "The altar draws the blood it needs...");
         add("message.neovitae.altar_blood_refused", "The altar reaches for your blood and finds nothing it can take.");

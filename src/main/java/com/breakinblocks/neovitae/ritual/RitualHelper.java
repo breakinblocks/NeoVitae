@@ -30,6 +30,7 @@ import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.compat.apotheosis.ApotheosisCompat;
 import com.breakinblocks.neovitae.util.Utils;
 
 import javax.annotation.Nullable;
@@ -238,8 +239,11 @@ public final class RitualHelper {
      * The display name is bracketed so the entity is obvious in logs and
      * protection mod allowlists.
      */
-    public static FakePlayer createRitualFakePlayer(ServerLevel level, UUID owner, String tag) {
-        return new FakePlayer(level, new GameProfile(owner, "[" + tag + "]"));
+    public static FakePlayer createRitualFakePlayer(ServerLevel level, UUID owner, String tag, BlockPos at) {
+        FakePlayer fakePlayer = new FakePlayer(level, new GameProfile(owner, "[" + tag + "]"));
+        fakePlayer.moveTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
+        ApotheosisCompat.applyOwnerWorldTier(fakePlayer, level, owner, at);
+        return fakePlayer;
     }
 
     /**

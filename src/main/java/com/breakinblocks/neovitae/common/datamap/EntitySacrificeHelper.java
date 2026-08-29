@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.datamap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 /**
  * Helper class for looking up entity sacrifice EV values from the datamap.
@@ -35,11 +36,18 @@ public final class EntitySacrificeHelper {
     }
 
     public static int calculateEV(LivingEntity entity, float damage) {
-        return getSacrificeValue(entity).calculateEV(damage);
+        return calculateEV(entity.getType(), damage);
     }
 
     public static int calculateEV(EntityType<?> entityType, float damage) {
+        if (isSacrificeBlocked(entityType)) {
+            return 0;
+        }
         return getSacrificeValue(entityType).calculateEV(damage);
+    }
+
+    public static boolean isSacrificeBlocked(EntityType<?> entityType) {
+        return BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(entityType).is(NVTags.Entities.NO_SACRIFICE);
     }
 
     public static int getEvPerDamage(LivingEntity entity) {

@@ -317,7 +317,7 @@ public class RitualTormentNexus extends Ritual {
         AraVitaeTile altar = findAltar(ctx);
 
         UUID owner = ctx.master().getOwner() != null ? ctx.master().getOwner() : UUID.randomUUID();
-        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus");
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus", masterPos);
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         BlockEntity chestBE = level.getBlockEntity(chestPos);
         IItemHandler chestInv = chestBE != null ? level.getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null) : null;
@@ -628,7 +628,7 @@ public class RitualTormentNexus extends Ritual {
         if (evPerKill > 0 && ctx.currentEV() < evPerKill) return false;
 
         UUID owner = master.getOwner() != null ? master.getOwner() : UUID.randomUUID();
-        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus");
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus", masterPos);
         BlockPos chestPos = RitualHelper.firstPositionInRange(master, this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         IItemHandler chestInv = level.getBlockEntity(chestPos) != null
                 ? level.getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null)

@@ -10,9 +10,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.Component;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.entity.mob.*;
@@ -29,6 +32,7 @@ public record NecromancySigilEffect() implements SigilEffect {
             SigilEffectRegistry.SIGIL_EFFECT_TYPES.register("necromancy", () -> CODEC);
 
     private static final double RANGE = 32.0;
+    private static final double SUMMON_SEARCH_RADIUS = 64.0;
 
     @Override
     public MapCodec<? extends SigilEffect> codec() {
@@ -38,6 +42,13 @@ public record NecromancySigilEffect() implements SigilEffect {
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
         if (level.isClientSide || !(level instanceof ServerLevel serverLevel)) return false;
+
+        int limit = NeoVitae.SERVER_CONFIG.NECROMANCY_MAX_SUMMONS.get();
+        if (limit > 0 && countOwnedSummons(serverLevel, player) >= limit) {
+            player.displayClientMessage(
+                    Component.translatable("message.neovitae.sigil.necromancy.at_limit", limit), true);
+            return false;
+        }
 
         Vec3 eye = player.getEyePosition();
         Vec3 end = eye.add(player.getLookAngle().scale(RANGE));
@@ -60,17 +71,20 @@ public record NecromancySigilEffect() implements SigilEffect {
         if (level.isClientSide) return false;
         if (!player.isShiftKeyDown()) return false;
 
-        if (target instanceof NecromancySummonEntity e && player.getUUID().equals(e.getOwnerUUID())
-                || target instanceof NecromancySummonHuskEntity e2 && player.getUUID().equals(e2.getOwnerUUID())
-                || target instanceof NecromancySummonSkeletonEntity e3 && player.getUUID().equals(e3.getOwnerUUID())
-                || target instanceof NecromancySummonStrayEntity e4 && player.getUUID().equals(e4.getOwnerUUID())) {
+        if (target instanceof INecromancySummon summon && player.getUUID().equals(summon.getOwnerUUID())) {
             target.discard();
-            return false;
         }
         return false;
     }
 
-    @SuppressWarnings("unchecked")
+    private static int countOwnedSummons(ServerLevel level, Player player) {
+        AABB search = player.getBoundingBox().inflate(SUMMON_SEARCH_RADIUS);
+        return level.getEntitiesOfClass(Mob.class, search,
+                mob -> mob instanceof INecromancySummon summon
+                        && mob.isAlive()
+                        && player.getUUID().equals(summon.getOwnerUUID())).size();
+    }
+
     private static Mob createRandomSummon(ServerLevel level, Player owner) {
         List<EntityType<? extends Mob>> types = List.of(
                 NVEntities.NECROMANCY_SUMMON.get(),
@@ -82,10 +96,9 @@ public record NecromancySigilEffect() implements SigilEffect {
         EntityType<? extends Mob> chosen = types.get(level.random.nextInt(types.size()));
         Mob mob = chosen.create(level);
 
-        if (mob instanceof NecromancySummonEntity e) e.setOwner(owner);
-        else if (mob instanceof NecromancySummonHuskEntity e) e.setOwner(owner);
-        else if (mob instanceof NecromancySummonSkeletonEntity e) e.setOwner(owner);
-        else if (mob instanceof NecromancySummonStrayEntity e) e.setOwner(owner);
+        if (mob instanceof INecromancySummon summon) {
+            summon.setOwner(owner);
+        }
 
         return mob;
     }

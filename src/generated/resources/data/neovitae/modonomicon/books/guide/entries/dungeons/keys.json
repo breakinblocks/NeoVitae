@@ -27,6 +27,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.keys.spawner_drops.text",
+      "title": "book.neovitae.guide.dungeons.keys.spawner_drops.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.dungeons.keys.distortions.text",
       "title": "",
       "use_markdown_in_title": false

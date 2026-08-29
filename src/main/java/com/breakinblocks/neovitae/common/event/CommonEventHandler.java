@@ -31,6 +31,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
+import com.breakinblocks.neovitae.compat.apotheosis.ApotheosisCompat;
 import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
 import net.minecraft.ChatFormatting;
@@ -130,6 +131,10 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer tierOwner) {
+            ApotheosisCompat.rememberWorldTier(tierOwner);
+        }
+
         if (!FMLLoader.isProduction() && event.getEntity() instanceof ServerPlayer serverPlayer) {
             var server = serverPlayer.getServer();
             if (server != null && !server.getPlayerList().isOp(serverPlayer.getGameProfile())) {

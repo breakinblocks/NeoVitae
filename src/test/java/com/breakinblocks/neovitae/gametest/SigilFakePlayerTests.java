@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.gametest;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +26,7 @@ public final class SigilFakePlayerTests {
     private static final int COST = 100;
 
     private static FakePlayer fakePlayer(GameTestHelper helper) {
-        return RitualHelper.createRitualFakePlayer(helper.getLevel(), UUID.randomUUID(), "NeoVitae Test");
+        return RitualHelper.createRitualFakePlayer(helper.getLevel(), UUID.randomUUID(), "NeoVitae Test", helper.absolutePos(BlockPos.ZERO));
     }
 
     private static Anima network(GameTestHelper helper, UUID owner, int ev) {

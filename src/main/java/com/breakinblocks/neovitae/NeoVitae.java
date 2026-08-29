@@ -46,6 +46,7 @@ import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.compat.ae2.AE2Compat;
 import com.breakinblocks.neovitae.compat.ftbchunks.FTBChunksCompat;
+import com.breakinblocks.neovitae.compat.apotheosis.ApotheosisCompat;
 import com.breakinblocks.neovitae.compat.occultism.OccultismCompat;
 import com.breakinblocks.neovitae.compat.refinedstorage.RefinedStorageCompat;
 import com.breakinblocks.neovitae.compat.ftbultimine.FTBUltimineCompat;
@@ -179,6 +180,7 @@ public class NeoVitae {
         event.enqueueWork(FTBChunksCompat::init);
         event.enqueueWork(AE2Compat::init);
         event.enqueueWork(OccultismCompat::init);
+        event.enqueueWork(ApotheosisCompat::init);
         event.enqueueWork(RefinedStorageCompat::init);
 
         if (ModList.get().isLoaded("modonomicon")) {

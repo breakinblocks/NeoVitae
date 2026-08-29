@@ -29,6 +29,7 @@ import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.minecraft.world.entity.Mob;
+import com.breakinblocks.neovitae.compat.apotheosis.ApotheosisCompat;
 import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerLevel;
@@ -149,6 +150,10 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer tierOwner) {
+            ApotheosisCompat.rememberWorldTier(tierOwner);
+        }
+
         FMLLoader loader = FMLLoader.getCurrentOrNull();
         boolean dev = loader == null || !loader.isProduction();
         if (dev && event.getEntity() instanceof ServerPlayer serverPlayer) {

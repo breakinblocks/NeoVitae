@@ -176,6 +176,9 @@ dependencies {
     compileOnly("maven.modrinth:refined-storage:${refinedstorage_version}") {transitive=false}
 
     compileOnly("maven.modrinth:occultism:${occultism_version}") {transitive=false}
+
+    compileOnly("maven.modrinth:apotheosis:${apotheosis_version}") {transitive=false}
+    compileOnly("maven.modrinth:placebo:${placebo_version}") {transitive=false}
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

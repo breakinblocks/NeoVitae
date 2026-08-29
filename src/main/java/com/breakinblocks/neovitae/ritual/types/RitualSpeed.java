@@ -181,6 +181,8 @@ public class RitualSpeed extends Ritual {
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.AIR);
+        addRune(components, 0, 0, -1, EnumRuneType.TENEBRAE);
+        addRune(components, 1, 0, 0, EnumRuneType.TENEBRAE);
         addParallelRunes(components, 2, 0, EnumRuneType.AIR);
         addCornerRunes(components, 2, 0, EnumRuneType.FIRE);
     }

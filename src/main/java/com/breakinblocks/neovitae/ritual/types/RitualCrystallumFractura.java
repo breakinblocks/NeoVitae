@@ -89,7 +89,7 @@ public class RitualCrystallumFractura extends Ritual {
 
         applyAuraBuffs(serverLevel, masterRitualStone, masterPos, bias, gameTime);
 
-        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae Crystallum Fractura");
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae Crystallum Fractura", masterPos);
 
         List<BlockPos> harvestPositions = RitualHelper.getRangePositions(ctx.master(), this, HARVEST_RANGE, masterPos);
         accelerateBuddingBlocks(serverLevel, harvestPositions, owner);

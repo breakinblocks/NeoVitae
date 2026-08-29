@@ -41,6 +41,8 @@ public class ServerConfig {
 
     public final ModConfigSpec.ConfigValue<String> LIQUIFIED_EXPERIENCE_FLUID;
     public final ModConfigSpec.IntValue LIQUIFIED_EXPERIENCE_MB_PER_POINT;
+    public final ModConfigSpec.IntValue NECROMANCY_MAX_SUMMONS;
+
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_PER_KILL;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_MAX_EV_PER_OPERATION;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_MODIFIER_PERCENT;
@@ -171,6 +173,14 @@ public class ServerConfig {
                 .comment("Millibuckets of experience fluid produced per point of stored experience.",
                         "Set this to match whichever mod provides the experience fluid.")
                 .defineInRange("mb_per_point", 20, 1, 10000);
+
+        builder.pop();
+
+        builder.push("sigil_of_necromancy");
+
+        NECROMANCY_MAX_SUMMONS = builder
+                .comment("Maximum summons a single player may have alive at once. 0 removes the per-player limit.")
+                .defineInRange("max_summons_per_player", 10, 0, 1024);
 
         builder.pop();
 

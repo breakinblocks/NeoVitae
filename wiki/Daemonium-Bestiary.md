@@ -106,7 +106,7 @@ The Foreman is a unique Daemonium Doloris variant that spawns once per dungeon, 
 
 - **600 HP**, **25 damage**, **16 armor**, 8 armor toughness.
 - Hosts a vanilla **boss bar** while alive.
-- On death, drops a clutch of **Mine Dungeon Keys**, which open the deeper sealed doors inside the Mines.
+- On death, drops a clutch of **Mine Dungeon Keys**, which open the deeper sealed doors inside the Mines. The trial spawners inside the Mines can drop them too.
 
 Treat it as a boss fight, not an elite encounter. Bring [sigils](Sigils) and [sentient weaponry](Hellfire-Forge-and-Sentient-Equipment); attempt it under-equipped at your peril.
 

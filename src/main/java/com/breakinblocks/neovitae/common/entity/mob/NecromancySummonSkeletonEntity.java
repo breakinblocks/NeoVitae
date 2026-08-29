@@ -15,7 +15,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class NecromancySummonSkeletonEntity extends Skeleton {
+public class NecromancySummonSkeletonEntity extends Skeleton implements INecromancySummon {
 
     private int lifetime = 0;
     @Nullable private UUID ownerUUID;
@@ -33,8 +33,8 @@ public class NecromancySummonSkeletonEntity extends Skeleton {
                 .add(Attributes.FOLLOW_RANGE, 32.0);
     }
 
-    public void setOwner(Player owner) { this.ownerUUID = owner.getUUID(); }
-    @Nullable public UUID getOwnerUUID() { return ownerUUID; }
+    @Override public void setOwner(Player owner) { this.ownerUUID = owner.getUUID(); }
+    @Override @Nullable public UUID getOwnerUUID() { return ownerUUID; }
 
     @Override protected void registerGoals() { SummonedUndeadHelper.registerRangedGoals(this); }
 

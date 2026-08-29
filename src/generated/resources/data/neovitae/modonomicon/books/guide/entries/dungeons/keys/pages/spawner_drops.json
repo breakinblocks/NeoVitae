@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spawner_drops",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.keys.spawner_drops.text",
+  "title": "book.neovitae.guide.dungeons.keys.spawner_drops.title"
+}

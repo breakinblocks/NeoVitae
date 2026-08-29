@@ -26,6 +26,7 @@ import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.event.RitualEvent;
+import com.breakinblocks.neovitae.compat.apotheosis.ApotheosisCompat;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
@@ -59,6 +60,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private static final long STRUCTURE_CHECK_INTERVAL_MILLIS = 5000L;
     private SpiritusType activeSpiritusAspect = SpiritusType.RAW;
     private int keepCount = 2;
+    private String ownerWorldTier = "";
     private EnumFillMode fillMode = EnumFillMode.SOLID;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
@@ -125,6 +127,18 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     @Override
     public BlockPos getBlockPos() {
         return worldPosition;
+    }
+
+    public String getOwnerWorldTier() {
+        return ownerWorldTier;
+    }
+
+    public void setOwnerWorldTier(String tier) {
+        if (tier == null || tier.equals(ownerWorldTier)) {
+            return;
+        }
+        ownerWorldTier = tier;
+        setChanged();
     }
 
     @Override
@@ -259,6 +273,9 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         this.currentRitualId = RitualRegistry.getId(ritual);  // Store ID from original, not the copy
         this.owner = player.getUUID();
         this.active = true;
+        if (player instanceof ServerPlayer serverPlayer) {
+            ApotheosisCompat.captureWorldTier(this, serverPlayer);
+        }
         this.runningTime = 0;
 
         initializeBlockRanges(ritual, preservedRanges);
@@ -545,6 +562,9 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         tag.putLong("runningTime", runningTime);
         tag.putString("direction", direction.getName());
         tag.putString("activeAspect", activeSpiritusAspect.getSerializedName());
+        if (!ownerWorldTier.isEmpty()) {
+            tag.putString("ownerWorldTier", ownerWorldTier);
+        }
         tag.putInt("keepCount", keepCount);
         tag.putString("fillMode", fillMode.getSerializedName());
 
@@ -590,6 +610,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         cooldown = tag.getIntOr("cooldown", 0);
         runningTime = tag.getLongOr("runningTime", 0L);
         keepCount = tag.getIntOr("keepCount", 2);
+        ownerWorldTier = tag.getStringOr("ownerWorldTier", "");
         fillMode = EnumFillMode.byName(tag.getStringOr("fillMode", "solid"), EnumFillMode.SOLID);
 
         tag.getString("direction").ifPresent(d -> {

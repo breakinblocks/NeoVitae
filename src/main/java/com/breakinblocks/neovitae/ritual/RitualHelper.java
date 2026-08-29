@@ -246,7 +246,7 @@ public final class RitualHelper {
         UUID fakeId = UUID.nameUUIDFromBytes(("neovitae_ritual:" + owner).getBytes(java.nio.charset.StandardCharsets.UTF_8));
         FakePlayer fakePlayer = new FakePlayer(level, new GameProfile(fakeId, "[" + tag + "]"));
         fakePlayer.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
-        ApotheosisCompat.applyOwnerWorldTier(fakePlayer, level, owner);
+        ApotheosisCompat.applyOwnerWorldTier(fakePlayer, level, owner, at);
         return fakePlayer;
     }
 

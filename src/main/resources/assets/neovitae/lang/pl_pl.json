@@ -132,6 +132,7 @@
   "gui.neovitae.routing.spiritus_off": "Wyłączony",
   "gui.neovitae.routing.spiritus_reserve": "Kwota do opuszczenia w źródle",
   "gui.neovitae.routing.spiritus_reserve.hint": "Przesuń dla kroków 100",
+  "gui.neovitae.tabula_vitae.idle.no_network": "Nie można odczytać tej sieci anima na orbie",
   "gui.neovitae.tabula_vitae.idle.no_orb": "Potrzebna krew",
   "gui.neovitae.tabula_vitae.idle.no_recipe": "Te przedmioty nic tutaj nie robią",
   "gui.neovitae.tabula_vitae.idle.not_enough_ev": "Za mało Essentia Vitae w sieci",

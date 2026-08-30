@@ -30,7 +30,7 @@ public class DefenseArraysEntry extends EntryProvider {
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Deflection Array requires an [#](8B0000)Tabula Animata[#]() and a diamond to inscribe, "
+        this.pageText("The Deflection Array requires a [#](8B0000)Tabula Animata[#]() and a diamond to inscribe, "
                 + "reflecting its advanced nature. It protects a column roughly 6 blocks tall and 3 blocks wide.\\\n\\\n"
                 + "The Repulsion Array needs only iron and lapis, making it accessible "
                 + "even to apprentice vitaemancers.\\\n\\\n"

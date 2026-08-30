@@ -32,7 +32,7 @@ public class BoundTreasuresSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Crafting");
         this.pageText("Inscribe an [#](8B0000)Alchemy Array[#]() with an [#](4A0080)Eye of Ender[#]() as the "
-                + "base and an [#](4A0080)Tabula Animata[#]() as the catalyst.");
+                + "base and a [#](4A0080)Tabula Animata[#]() as the catalyst.");
     }
 
     @Override

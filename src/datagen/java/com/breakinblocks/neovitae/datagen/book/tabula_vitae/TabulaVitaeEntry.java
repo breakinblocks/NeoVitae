@@ -33,7 +33,7 @@ public class TabulaVitaeEntry extends EntryProvider {
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "tabula_vitae"))
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)When studying recipes in these pages or through JEI, hover over the arrow "
-                + "marked with a EV label to reveal the drain cost, crafting time, and required tier.[#]()");
+                + "marked with an EV label to reveal the drain cost, crafting time, and required tier.[#]()");
 
         this.page("errors", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

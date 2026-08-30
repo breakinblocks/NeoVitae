@@ -62,7 +62,7 @@ public class DemonCraftingEntry extends EntryProvider {
         this.pageTitle("Grand Spiritus Gem");
         this.pageText("The [#](4A0080)Grand Spiritus Gem[#]() can now be forged using materials from "
                 + "the Demon Realm. It requires a [#](4A0080)Greater Spiritus Gem[#](), an "
-                + "[#](8B0000)Animus Mote[#](), an [#](8B0000)Tabula Aetherea[#](), and a "
+                + "[#](8B0000)Animus Mote[#](), a [#](8B0000)Tabula Aetherea[#](), and a "
                 + "[#](8B0000)Permafrost Core[#]().\\\n\\\n"
                 + "With 4000 minimum spiritus and 400 drain, this is among the most demanding recipes "
                 + "in the forge.");

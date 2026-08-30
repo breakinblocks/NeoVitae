@@ -30,8 +30,8 @@ Crafting Arrays are among the simplest expressions of the art. The array inscrib
 |-------|--------|
 | Spike Array | A cruel ward: any living creature that steps onto it suffers a full heart of damage. Nearly invisible once inscribed, ideal for defending passages or feeding automated arrangements. |
 | Repulsion Array | An invisible ward that pushes hostile creatures away in a 5-block radius. Crafted from iron and lapis, accessible to apprentices. |
-| Deflection Array | Projects a column of protective force (roughly 6 blocks tall, 3 wide) above it, reflecting any projectile that passes through back the way it came. Requires an Tabula Animata and a diamond. |
-| Spirit Siphon Array | Combines Spike's cruelty with a deeper purpose: when a non-player creature steps onto it, the array deals a heart of damage and releases 0.5 units of raw **[Spiritus](Spiritus-Aspects-and-Crystals)** into the surrounding chunk. Has a brief cooldown; players are immune. Requires an Tabula Animata. |
+| Deflection Array | Projects a column of protective force (roughly 6 blocks tall, 3 wide) above it, reflecting any projectile that passes through back the way it came. Requires a Tabula Animata and a diamond. |
+| Spirit Siphon Array | Combines Spike's cruelty with a deeper purpose: when a non-player creature steps onto it, the array deals a heart of damage and releases 0.5 units of raw **[Spiritus](Spiritus-Aspects-and-Crystals)** into the surrounding chunk. Has a brief cooldown; players are immune. Requires a Tabula Animata. |
 | Vortex Sigil | A drawing array that pulls every living thing within **8 blocks** toward the block immediately below it, at roughly rocket-boosted-elytra speed. Upkeep costs ~0.2 EV/sec from the owner's anima (1% chance per tick to draw 1 EV); the pull pauses on any tick the network cannot pay. **Ignored entities:** creative/spectator players, any practitioner holding an **Orb of Vitae** (any tier) in main or off-hand, and anything inside the radius while a redstone signal is applied to the array. Inscribed from a Tabula Robur plus a **Blood Pearl** (ender pearl transmuted on a Tier 1 Ara Vitae). |
 
 ## Environmental Arrays

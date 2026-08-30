@@ -36,7 +36,7 @@ public class SlatesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("[#](B8860B)Tabula Animata[#](): A Tabula Robur offered to a [#](B8860B)Tier 2[#]() altar. "
                 + "Cost: [#](8B0000)5,000 EV[#](). The stone now pulses with a faint, living warmth."
-                + "\\\n\\\n[#](B8860B)Tabula Spiritus[#](): An Tabula Animata consumed by a [#](B8860B)Tier 3[#]() altar. "
+                + "\\\n\\\n[#](B8860B)Tabula Spiritus[#](): A Tabula Animata consumed by a [#](B8860B)Tier 3[#]() altar. "
                 + "Cost: [#](8B0000)15,000 EV[#](). Dark veins thread through the tablet like frozen lightning.");
 
         this.page("ethereal", () -> BookTextPageModel.create()

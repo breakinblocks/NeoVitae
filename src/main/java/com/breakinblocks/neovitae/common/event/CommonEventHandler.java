@@ -419,13 +419,13 @@ public class CommonEventHandler {
         if (event.getEntity().level().isClientSide) return;
         if (!(event.getEntity() instanceof TamableAnimal pet)) return;
         if (!pet.isTame() || pet.getOwnerUUID() == null) return;
+        if (pet.getType().is(NVTags.Entities.LOYAL_FRIENDS_BLACKLIST)) return;
 
         Player owner = pet.level().getPlayerByUUID(pet.getOwnerUUID());
         if (owner == null) return;
 
         CompoundTag petData = new CompoundTag();
         pet.save(petData);
-        petData.remove("Inventory");
 
         DeadPetStorage storage = owner.getData(NVDataAttachments.DEAD_PET_STORAGE);
         owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), storage.addPet(petData));

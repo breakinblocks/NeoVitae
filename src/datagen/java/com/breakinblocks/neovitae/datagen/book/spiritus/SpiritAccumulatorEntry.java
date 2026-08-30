@@ -36,7 +36,7 @@ public class SpiritAccumulatorEntry extends EntryProvider {
         this.pageTitle("What It Asks");
         this.pageText("Beyond the reagents, the chunk in which the Athanor labors must hold "
                 + "[#](8B0000)45 Raw[#]() Spiritus. A single Raw [#](8B0000)shard[#]() burned in a "
-                + "[#](8B0000)Vas Maleficum[#]() settles that on its own, for a shard gives 50 whenever its "
+                + "[#](8B0000)Spiritus Crucible[#]() settles that on its own, for a shard gives 50 whenever its "
                 + "Aspect stands below 50.\\\n\\\n"
                 + "[#](2E8B57)An Animus Mote is required too, and those are found only in the deep "
                 + "vaults of the Demon Realm.[#]()");
@@ -78,7 +78,7 @@ public class SpiritAccumulatorEntry extends EntryProvider {
                 + "[#](8B0000)25[#]() Spiritus each tick, but only from the surplus above "
                 + "[#](8B0000)30[#](). It will never draw the chunk below that mark.\\\n\\\n"
                 + "That floor sits low enough that a single crystal burned in a "
-                + "[#](8B0000)Vas Maleficum[#]() will feed it, for a crystal lifts its Aspect to "
+                + "[#](8B0000)Spiritus Crucible[#]() will feed it, for a crystal lifts its Aspect to "
                 + "[#](8B0000)50[#](). Set one in a saturated crystal farm instead and it becomes an "
                 + "overflow vessel, catching everything burned past the ceiling.\\\n\\\n"
                 + "[#](2E8B57)The crystal's inner light shows its Aspect and how full it stands; it burns "

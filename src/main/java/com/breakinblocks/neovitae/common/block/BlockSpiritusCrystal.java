@@ -39,6 +39,8 @@ import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
  * ATTACHED property indicates which direction the crystal attaches to.
  */
 public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmentAmplifier {
+
+    public static final int HARVEST_SPIRITUS_REQUIRED = 512;
     public static final MapCodec<BlockSpiritusCrystal> CODEC = simpleCodec(p -> new BlockSpiritusCrystal(SpiritusType.RAW, p));
 
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 6);
@@ -179,7 +181,7 @@ public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmen
     private static boolean tryHarvest(SpiritusCrystalBlockEntity crystal, Player player) {
         double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
                 PlayerSpiritusHandler.getLargestSpiritusType(player), player);
-        return playerSpiritus > 512 && crystal.dropSingleCrystal();
+        return playerSpiritus > HARVEST_SPIRITUS_REQUIRED && crystal.dropSingleCrystal();
     }
 
     @Nullable

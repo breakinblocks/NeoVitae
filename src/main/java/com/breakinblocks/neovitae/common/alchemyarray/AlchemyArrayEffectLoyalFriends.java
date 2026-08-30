@@ -17,6 +17,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
@@ -25,6 +28,7 @@ import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -90,14 +94,28 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
         for (CompoundTag petData : storage.pets()) {
             Optional<Entity> entity = EntityType.create(petData, level);
             if (entity.isPresent() && entity.get() instanceof TamableAnimal pet) {
+                if (pet.getType().is(NVTags.Entities.LOYAL_FRIENDS_BLACKLIST)) continue;
                 pet.moveTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, level.random.nextFloat() * 360, 0);
                 pet.setHealth(pet.getMaxHealth());
                 pet.setOrderedToSit(false);
                 level.addFreshEntity(pet);
+                clearCarriedItems(pet);
             }
         }
 
         owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), DeadPetStorage.EMPTY);
+    }
+
+    private void clearCarriedItems(TamableAnimal pet) {
+        IItemHandler handler = pet.getCapability(Capabilities.ItemHandler.ENTITY);
+        if (handler == null) return;
+        for (int slot = 0; slot < handler.getSlots(); slot++) {
+            if (handler instanceof IItemHandlerModifiable modifiable) {
+                modifiable.setStackInSlot(slot, ItemStack.EMPTY);
+            } else {
+                handler.extractItem(slot, Integer.MAX_VALUE, false);
+            }
+        }
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Shaped Charge");
-        this.pageText("Obliterates a [#](B8860B)5x5x5[#]() cube on the face it strikes, dropping all blocks as though "
+        this.pageText("Obliterates a [#](B8860B)7x7x7[#]() cube on the face it strikes, dropping all blocks as though "
                 + "mined with a pickaxe. It cuts through Obsidian with ease and provides a most gratifying "
                 + "concussion.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
@@ -47,15 +47,15 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Augmented Shaped Charge");
-        this.pageText("A direct improvement. Destroys a [#](B8860B)7x7x7[#]() cube on the impacted face, and may "
+        this.pageText("A direct improvement. Destroys an [#](B8860B)11x11x11[#]() cube on the impacted face, and may "
                 + "be anointed with [#](B8860B)Fortune II[#]() as well.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("tunnelling", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tunnelling Shaped Charge");
-        this.pageText("Bores a [#](B8860B)5x5x20[#]() corridor straight through whatever it strikes. An invaluable "
+        this.pageTitle("Deep Shaped Charge");
+        this.pageText("Bores a [#](B8860B)7x7x9[#]() corridor straight through whatever it strikes. An invaluable "
                 + "companion for deep excavation.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 

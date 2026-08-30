@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.compat.jade;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectBounce;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectDay;
@@ -11,6 +12,7 @@ import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectSpike;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUndertow;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUpdraft;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
@@ -20,6 +22,7 @@ import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.CrystallariumMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
@@ -149,6 +152,26 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
                 if (data.contains("accumulator_locked") && !data.getBoolean("accumulator_locked")) {
                     tooltip.add(Component.translatable("jade.neovitae.spirit_accumulator.unlocked").withStyle(ChatFormatting.GRAY));
                 }
+            }
+        }
+
+        if (data.contains("crystallarium_type")) {
+            SpiritusType type = typeByName(data.getString("crystallarium_type"));
+            double chunk = data.getDouble("crystallarium_chunk");
+            double needed = data.getDouble("crystallarium_needed");
+            if (type != null) {
+                addSpiritusLine(tooltip, type, chunk, 0);
+            }
+            if (data.getBoolean("crystallarium_blocked")) {
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.blocked").withStyle(ChatFormatting.RED));
+            } else if (chunk < needed) {
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.starved",
+                        FORMAT.format(needed)).withStyle(ChatFormatting.GOLD));
+            } else {
+                double total = data.getDouble("crystallarium_total");
+                int percent = total > 0 ? (int) Math.floor(data.getDouble("crystallarium_progress") / total * 100.0) : 0;
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.forming",
+                        Math.min(100, Math.max(0, percent))).withStyle(ChatFormatting.GREEN));
             }
         }
 
@@ -287,6 +310,18 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
             data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
             data.putBoolean("accumulator_locked", accumulator.isLocked());
             data.putDouble("accumulator_stored", accumulator.getStored());
+        }
+
+        if (be instanceof CrystallariumMaleficumBlockEntity crystallarium) {
+            BlockPos above = accessor.getPosition().above();
+            boolean blocked = !accessor.getLevel().isEmptyBlock(above);
+            SpiritusType dominant = WorldSpiritusHandler.getDominantSpiritusType(accessor.getLevel(), accessor.getPosition());
+            data.putBoolean("crystallarium_blocked", blocked);
+            data.putString("crystallarium_type", dominant.getSerializedName());
+            data.putDouble("crystallarium_chunk", WorldSpiritusHandler.getCurrentSpiritus(accessor.getLevel(), accessor.getPosition(), dominant));
+            data.putDouble("crystallarium_needed", NeoVitae.SERVER_CONFIG.CRYSTAL_SPIRITUS_TO_FORM.get());
+            data.putDouble("crystallarium_progress", crystallarium.getInternalCounter());
+            data.putDouble("crystallarium_total", NeoVitae.SERVER_CONFIG.CRYSTAL_FORMATION_TIME.get());
         }
 
         if (be instanceof VasMaleficumBlockEntity vas) {

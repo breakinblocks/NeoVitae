@@ -100,9 +100,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.CRYSTAL_CLUSTER_BRICK, "Crystal Cluster Brick");
 
         // Spiritus Blocks
-        add(NVBlocks.VAS_MALEFICUM, "Vas Maleficum");
+        add(NVBlocks.VAS_MALEFICUM, "Spiritus Crucible");
         add(NVBlocks.CRYSTALLARIUM_MALEFICUM, "Crystallarium Maleficum");
-        add(NVBlocks.SPIRA_INFERNALIS, "Spira Infernalis");
+        add(NVBlocks.SPIRA_INFERNALIS, "Spiritus Conduit");
 
         // Demon Crystal Blocks
         add(NVBlocks.RAW_SPIRITUS_CRYSTAL, "Raw Crystal Cluster");
@@ -987,6 +987,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jade.neovitae.vas.releasing", "Releasing into chunk");
         add("jade.neovitae.vas.seeding", "Dissolving crystals into chunk");
         add("jade.neovitae.vas.idle", "Idle");
+        add("jade.neovitae.crystallarium.blocked", "Blocked: needs open air above");
+        add("jade.neovitae.crystallarium.starved", "Needs %s Spiritus in this chunk");
+        add("jade.neovitae.crystallarium.forming", "Forming crystal: %s%%");
         add("jade.neovitae.routing.cap_items", "Items: %s / pulse");
         add("jade.neovitae.routing.cap_fluid", "Fluid: %s mB / pulse");
         add("jade.neovitae.routing.cap_energy", "Energy: %s FE / pulse");
@@ -1198,6 +1201,17 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         add("jei.neovitae.disenchant.info", "With a Sanguine Reverter in the Athanor's tool slot, you can disenchant items.\n\nPlace a stack of Books and one enchanted item (gear, a tool, or an enchanted book) in the inputs. Each operation lifts one enchantment onto a book and removes it from the item, costing 5 raw spiritus and 100 mB of Essentia Vitae.\n\nWhen the item has no enchantments left, it moves to the output. It runs only while you have books to fill and room in the output to hold them.");
         add("jei.neovitae.disenchant.any_item", "Any Enchanted Item");
+        add("jei.neovitae.recipe.crystal_growth", "Spiritus Crystal Growth");
+        add("jei.neovitae.crystal_growth.aspect", "Aspect: %s");
+        add("jei.neovitae.crystal_growth.seed", "Seed: %s Spiritus, %ss");
+        add("jei.neovitae.crystal_growth.grow", "Rate scales with saturation");
+        add("jei.neovitae.crystal_growth.harvest", "Harvest: bare hand, %s held");
+        add("jei.neovitae.crystal_growth.harvest_hand", "Right-click with an empty hand while carrying over %s Spiritus of a single aspect.");
+        add("jei.neovitae.crystal_growth.harvest_regrow", "Takes one spire per click and leaves the cluster to regrow.");
+        add("jei.neovitae.crystal_growth.harvest_ritual", "The Crystallum Fractura ritual reaps every spire at once, with Fortune.");
+        add("jei.neovitae.crystal_growth.harvest_mining", "Mining the cluster returns the cluster block, not shards.");
+        add("jei.neovitae.crystal_growth.segment", "Grow: %s per spire, max %s");
+        add("jei.neovitae.crystal_growth.air", "Needs open air above");
         add("jei.neovitae.disenchant.per_enchant", "Per enchantment:");
         add("jei.neovitae.disenchant.spiritus", "5 Raw Spiritus");
         add("jei.neovitae.disenchant.ev", "100 mB Essentia Vitae");
@@ -1488,7 +1502,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("sentient_sword", "Sentient Blade", "Craft a Sentient Sword");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
         addAdvancement("blood_mending", "Self-Repairing", "Imbue an item with Blood Mending at the Hellfire Forge");
-        addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
+        addAdvancement("vas_maleficum", "Spiritus Crucible", "Craft a Spiritus Crucible");
         addAdvancement("sentient_armor", "Sentient Armor", "Craft Sentient Armor");
         addAdvancement("sentient_evolution", "Sentient Evolution", "Activate the Ritual of Sentient Evolution to push your Sentient Armor's upgrade capacity beyond its limit");
         addAdvancement("self_sacrifice", "Blood Pact", "Forge your first Orb of Vitae");

@@ -43,22 +43,23 @@ public class CrystallizedSpiritusEntry extends EntryProvider {
                 + "scales with saturation, accelerating as the Aura fills. A chunk's natural cap is "
                 + "[#](B8860B)100[#]() per Aspect, though certain Rituals can raise it.\\\n\\\n"
                 + "Each new spire costs [#](B8860B)45 Spiritus[#]() when the chunk's dominant Aspect matches the "
-                + "cluster, and yields 50 when burned in a Vas Maleficum, a net gain of 5 per spire. If the "
+                + "cluster, and yields 50 when burned in a Spiritus Crucible, a net gain of 5 per spire. If the "
                 + "chunk's dominant Aspect [#](2E8B57)does not match[#]() the cluster (for instance, a Raw chunk "
                 + "feeding a Ruina cluster), the cost rises to [#](B8860B)90 Spiritus[#]() per spire and growth "
                 + "runs at [#](B8860B)60%% speed[#](). Keep the chunk biased toward the Aspect you want to farm.");
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you carry more than [#](B8860B)512 total Spiritus[#]() in your inventory (across any number of "
-                + "[#](8B0000)Spiritus Gems[#](), of any single type), you may harvest these crystals by right-clicking "
-                + "the cluster with an empty hand. This strips all but the central spire.\\\n\\\n"
-                + "[#](2E8B57)In a hurry, or desperate for that last crystal? A pickaxe will shatter the entire "
-                + "cluster at once.[#]()");
+        this.pageText("If you carry more than [#](B8860B)512 Spiritus of a single Aspect[#]() (summed across every "
+                + "[#](8B0000)Spiritus Gem[#]() you hold), you may harvest a cluster by right-clicking it with an "
+                + "empty hand. Each click takes one spire and leaves the cluster standing to regrow.\\\n\\\n"
+                + "[#](2E8B57)Mining a cluster does not yield shards; it returns the cluster block itself, which "
+                + "replants at a single spire.[#]()");
 
         this.page("related", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Manual harvest yields a modest five Spiritus per cluster. To industrialise crystal "
+        this.pageText("Each harvested shard is worth [#](B8860B)50 Spiritus[#]() in a Spiritus Crucible against the "
+                + "[#](B8860B)45[#]() it cost to grow, a net gain of five per spire. To industrialise crystal "
                 + "production, build the [#](8B0000)Crystallum Fractura[#]() ritual: it auto-harvests every fully-grown "
                 + "cluster in range, doubles crystal growth speed, and amplifies any Spiritus injection by +25%%. "
                 + "To bootstrap aspected lineages, apply a [#](8B0000)Spiritus Catalyst[#]() (one per aspect) to a "

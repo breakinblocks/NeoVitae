@@ -120,7 +120,10 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
                     } else if (index >= DATA_SIDE_ENERGY_START && index < DATA_SIDE_ENERGY_START + 6) {
                         tile.getSideFilter(index - DATA_SIDE_ENERGY_START).setEnergyEnabled(value != 0);
                     } else if (index >= DATA_SIDE_DIRECTION_START && index < DATA_SIDE_DIRECTION_START + 6) {
-                        tile.getSideFilter(index - DATA_SIDE_DIRECTION_START).setDirection(FaceDirection.byOrdinal(value));
+                        SideFilterConfig cfg = tile.getSideFilter(index - DATA_SIDE_DIRECTION_START);
+                        boolean wasEnabled = cfg.isEnabled();
+                        cfg.setDirection(FaceDirection.byOrdinal(value));
+                        cfg.setEnabled(wasEnabled);
                     } else if (index >= DATA_SIDE_ITEM_MODE_START && index < DATA_SIDE_ITEM_MODE_START + 6) {
                         FilterMode[] values = FilterMode.values();
                         int idx = Math.max(0, Math.min(values.length - 1, value));

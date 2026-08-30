@@ -42,5 +42,6 @@ public class NVGameTestRegistration {
         event.register(EnchantedVitaeHaltTests.class);
         event.register(PlacerTests.class);
         event.register(AlternatorTests.class);
+        event.register(TrainerLimitTests.class);
     }
 }

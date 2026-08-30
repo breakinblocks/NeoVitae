@@ -1042,6 +1042,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("trainer.neovitae.allow_others", "Allow Others");
         add("trainer.neovitae.deny_others", "Deny Others");
         add("trainer.neovitae.save", "Save");
+        addTooltip("trainer.plan", "Training plan for your Living Armor:");
+        addTooltip("trainer.blocked", "%s blocked");
+        addTooltip("trainer.allow_others", "Other upgrades train freely.");
+        addTooltip("trainer.deny_others", "Other upgrades are blocked.");
+        addTooltip("trainer.unconfigured", "Wear Living Armor and use to set training limits.");
 
         add("item.neovitae.sentient_plate.dead", "Formerly Sentient Plate");
         addTooltip("has_living_stats", "Theres some kind of notes, but you cant decipher them");

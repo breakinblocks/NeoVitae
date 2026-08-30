@@ -40,6 +40,7 @@ public class MineBlock extends BlockLootSubProvider {
 
         Set<Block> skipAuto = new HashSet<>();
         skipAuto.addAll(specialDropList);
+        skipAuto.addAll(inscribedRitualStones);
         skipAuto.add(NVBlocks.DUNGEON_CONTROLLER.block().get());
         skipAuto.add(NVBlocks.DUNGEON_SEAL.block().get());
         skipAuto.add(NVBlocks.DUNGEON_SEAL_INACCESSIBLE.block().get());
@@ -61,6 +62,15 @@ public class MineBlock extends BlockLootSubProvider {
         });
     }
 
+    private final List<Block> inscribedRitualStones = List.of(
+            NVBlocks.AIR_RITUAL_STONE.block().get(),
+            NVBlocks.WATER_RITUAL_STONE.block().get(),
+            NVBlocks.FIRE_RITUAL_STONE.block().get(),
+            NVBlocks.EARTH_RITUAL_STONE.block().get(),
+            NVBlocks.TENEBRAE_RITUAL_STONE.block().get(),
+            NVBlocks.DEUS_RITUAL_STONE.block().get()
+    );
+
     private final List<Block> specialDropList = List.of(
             NVBlocks.BLOOD_TANK.block().get(),
             NVBlocks.ATHANOR_BLOCK.block().get(),
@@ -79,6 +89,7 @@ public class MineBlock extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         List<Block> list = new ArrayList<>();
         list.addAll(specialDropList);
+        list.addAll(inscribedRitualStones);
         list.addAll(dropSelfList);
         return list;
     }
@@ -86,6 +97,8 @@ public class MineBlock extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelfList.forEach(this::dropSelf);
+
+        inscribedRitualStones.forEach(block -> dropOther(block, NVBlocks.BLANK_RITUAL_STONE.item().get()));
 
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);

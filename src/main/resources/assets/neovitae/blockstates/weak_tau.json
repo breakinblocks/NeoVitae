@@ -1,7 +1,28 @@
 {
   "variants": {
-    "": {
-      "model": "neovitae:block/weak_tau"
+    "age=0": {
+      "model": "neovitae:block/weak_tau_stage0"
+    },
+    "age=1": {
+      "model": "neovitae:block/weak_tau_stage1"
+    },
+    "age=2": {
+      "model": "neovitae:block/weak_tau_stage2"
+    },
+    "age=3": {
+      "model": "neovitae:block/weak_tau_stage3"
+    },
+    "age=4": {
+      "model": "neovitae:block/weak_tau_stage4"
+    },
+    "age=5": {
+      "model": "neovitae:block/weak_tau_stage5"
+    },
+    "age=6": {
+      "model": "neovitae:block/weak_tau_stage6"
+    },
+    "age=7": {
+      "model": "neovitae:block/weak_tau_stage7"
     }
   }
 }

@@ -39,9 +39,13 @@ public class RitualWaterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tank Filling");
-        this.pageText("While any [#](8B0000)Raw Spiritus[#]() aura is present in the chunk, the ritual also fills "
-                + "any [#](8B0000)fluid tank[#]() placed directly above the Master Ritual Stone with water, [#](8B0000)1,000 mB per refresh[#](). "
-                + "A small expansion that turns the spring from a decoration into a quiet supply line for "
+        this.pageText("While the chunk holds [#](8B0000)Raw Spiritus[#](), the ritual also fills "
+                + "any [#](8B0000)fluid tank[#]() placed directly above the Master Ritual Stone with water. The aura is "
+                + "[#](2E8B57)never consumed[#](); it simply widens the flow. A bare trace moves "
+                + "[#](8B0000)1,000 mB per refresh[#](), and every point of Raw in the chunk adds another "
+                + "[#](8B0000)100 mB[#](), so a well-saturated chunk fills far larger tanks in a single pulse.\\\n\\\n"
+                + "Note that a tank above the stone takes the place of the water source, so the circle does one or the "
+                + "other. A small expansion that turns the spring from a decoration into a quiet supply line for "
                 + "alchemy, brewing, or anything else that drinks water.");
     }
 

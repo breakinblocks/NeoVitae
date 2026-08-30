@@ -30,6 +30,8 @@ A properly inscribed circle is inert without the spark of will to awaken it. The
 
 **Ritual Stones** are the foundation upon which every circle is inscribed. Each serves as a vessel for elemental resonance. The **Elemental Inscription Tools** can paint stones by hand and never break, so feel free to use them for decoration as well as function.
 
+Breaking an inscribed stone returns a **blank** Ritual Stone rather than the inscribed one, so a dismantled circle goes straight back into building the next. The Diviner re-inscribes whatever it places, so blanks are all you ever need to carry. Use the Inscription Tools if you want a specific element kept for decoration.
+
 The **Ritual Diviner** is the master architect's wand. Tap Use while aiming at a Master Ritual Stone and the Diviner constructs the selected ritual, consuming Ritual Stones from your inventory. It can clear soft obstructions like tall grass and snow, but not solid blocks. The base Diviner requires one of each Elemental Inscription Tool (1,000 EV each, Tier 2 altar). For the most advanced patterns, upgrade with **Tenebrae Inscription Tools** (2,000 EV each, Tier 3 altar). The Diviner and its Tenebrae variant are inexhaustible.
 
 You can also change the facing of the completed ritual by pressing Use in the air; this only matters for asymmetrical rituals such as the Ritual of Speed.

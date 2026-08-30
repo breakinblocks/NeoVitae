@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:deus_ritual_stone"
+          "name": "neovitae:ritual_stone"
         }
       ],
       "rolls": 1.0

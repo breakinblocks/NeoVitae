@@ -33,6 +33,9 @@ public class RitualWater extends Ritual {
     public static final String WATER_RANGE = "waterRange";
     public static final String TANK_RANGE = "tankRange";
 
+    private static final int MB_BASE = 1000;
+    private static final int MB_PER_RAW = 100;
+
     public RitualWater() {
         super("water", 0, 500, "ritual." + NeoVitae.MODID + ".water");
         addBlockRange(WATER_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
@@ -66,17 +69,19 @@ public class RitualWater extends Ritual {
         if (will.hasRaw()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
 
+            int amount = MB_BASE + (int) (will.getRaw() * MB_PER_RAW);
+
             for (BlockPos tankPos : tankPositions) {
                 ResourceHandler<FluidResource> fluidHandler = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
-                if (fluidHandler != null) {
-                    int filled;
-                    try (Transaction tx = Transaction.openRoot()) {
-                        filled = fluidHandler.insert(FluidResource.of(Fluids.WATER), 1000, tx);
-                        tx.commit();
-                    }
-                    if (filled > 0) {
-                        totalEffects++;
-                    }
+                if (fluidHandler == null) continue;
+
+                int filled;
+                try (Transaction tx = Transaction.openRoot()) {
+                    filled = fluidHandler.insert(FluidResource.of(Fluids.WATER), amount, tx);
+                    tx.commit();
+                }
+                if (filled > 0) {
+                    totalEffects++;
                 }
             }
         }

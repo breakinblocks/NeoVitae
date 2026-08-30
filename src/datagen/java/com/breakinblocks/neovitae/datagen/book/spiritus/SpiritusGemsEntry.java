@@ -68,7 +68,7 @@ public class SpiritusGemsEntry extends EntryProvider {
         this.page("common_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Your [#](8B0000)Lesser Spiritus Gem[#]() is a noted improvement, yet once more you press against "
-                + "its limits. Further refinement demands an [#](8B0000)Tabula Animata[#]() from the [#](8B0000)Ara Vitae[#](), "
+                + "its limits. Further refinement demands a [#](8B0000)Tabula Animata[#]() from the [#](8B0000)Ara Vitae[#](), "
                 + "combined with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#](), quadrupling capacity once again.");
 
         this.page("common", () -> BookTextPageModel.create()

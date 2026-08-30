@@ -29,7 +29,7 @@ public class SpiritSiphonArrayEntry extends EntryProvider {
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Requires an [#](8B0000)Tabula Animata[#]() to inscribe, reflecting the deeper understanding "
+        this.pageText("Requires a [#](8B0000)Tabula Animata[#]() to inscribe, reflecting the deeper understanding "
                 + "of spiritual energy needed to harness it.\\\n\\\n"
                 + "Each activation releases 0.5 units of raw (default) spiritus into the chunk. Players are "
                 + "immune to its effects.\\\n\\\n"

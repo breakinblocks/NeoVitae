@@ -19,7 +19,7 @@ The gem is a crystalline prison that contains and compresses Spiritus into somet
 |-----|---------|-------|
 | Petty | 64 | The first vessel. Crude but practical. |
 | Lesser | 256 | Reinforced with Diamond, Lapis, and Redstone in the Forge. |
-| Common | 1,024 | Requires an Tabula Animata, another Diamond, and a Block of Gold. |
+| Common | 1,024 | Requires a Tabula Animata, another Diamond, and a Block of Gold. |
 | Greater | 4,096 | A masterwork. Demands a Tabula Spiritus, a Weak Blood Shard, and a Spiritus Crystal. |
 | Grand | 16,384 | The pinnacle of containment. |
 

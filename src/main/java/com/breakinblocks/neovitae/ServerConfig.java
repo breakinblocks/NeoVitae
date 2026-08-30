@@ -107,7 +107,12 @@ public class ServerConfig {
                 .comment("Base growth speed multiplier (higher = faster crystal growth)")
                 .defineInRange("growth_speed", 1.0, 0.1, 10.0);
         CRYSTAL_GROWTH_THRESHOLD = builder
-                .comment("Minimum spiritus in chunk before crystals start growing (200 = vanilla)")
+                .comment("Reference saturation for the crystal growth rate curve. This is NOT a minimum:",
+                        "a cluster grows in any chunk holding more than 0.5 spiritus of its aspect.",
+                        "Rate is (1 / this) * sqrt(spiritus / this) progress per second and a segment",
+                        "completes at 1.0, so a segment takes roughly this many seconds in a chunk sitting",
+                        "at exactly this saturation, longer below it and shorter above.",
+                        "Raise to slow all crystal growth, lower to speed it up.")
                 .defineInRange("growth_threshold", 200.0, 1.0, 1000.0);
         CRYSTAL_MAX_COUNT = builder
                 .comment("Maximum number of crystal segments per cluster")

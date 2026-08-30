@@ -17,7 +17,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
@@ -91,14 +96,31 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
         for (CompoundTag petData : storage.pets()) {
             Entity loaded = EntityType.loadEntityRecursive(petData, level, EntitySpawnReason.TRIGGERED, e -> e);
             if (loaded instanceof TamableAnimal pet) {
+                if (pet.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.LOYAL_FRIENDS_BLACKLIST))) continue;
                 pet.snapTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, level.getRandom().nextFloat() * 360, 0);
                 pet.setHealth(pet.getMaxHealth());
                 pet.setOrderedToSit(false);
                 level.addFreshEntity(pet);
+                clearCarriedItems(pet);
             }
         }
 
         owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), DeadPetStorage.EMPTY);
+    }
+
+    private void clearCarriedItems(TamableAnimal pet) {
+        ResourceHandler<ItemResource> handler = pet.getCapability(Capabilities.Item.ENTITY);
+        if (handler == null) return;
+        try (Transaction tx = Transaction.openRoot()) {
+            for (int slot = 0; slot < handler.size(); slot++) {
+                ItemResource resource = handler.getResource(slot);
+                int amount = handler.getAmountAsInt(slot);
+                if (amount > 0) {
+                    handler.extract(slot, resource, amount, tx);
+                }
+            }
+            tx.commit();
+        }
     }
 
     @Override

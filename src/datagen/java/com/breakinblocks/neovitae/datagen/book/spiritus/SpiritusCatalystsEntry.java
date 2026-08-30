@@ -44,8 +44,8 @@ public class SpiritusCatalystsEntry extends EntryProvider {
                 + "[#](2E8B57)great_loot[#]() and [#](2E8B57)decent_loot[#]() Standard Dungeon chests. Four motes are enough to seed "
                 + "every Aspect lineage; thereafter you only need them when starting a new farm or seeding a "
                 + "fresh cluster type.\\\n\\\n"
-                + "[#](2E8B57)Once you have one aspected cluster of a given Aspect, burn its harvested shards in a Vas "
-                + "Maleficum to make that Aspect dominant in the chunk. The Crystallarium will then form new "
+                + "[#](2E8B57)Once you have one aspected cluster of a given Aspect, burn its harvested shards in a "
+                + "Spiritus Crucible to make that Aspect dominant in the chunk. The Crystallarium will then form new "
                 + "clusters of that Aspect natively, no further motes required.[#]()");
 
         this.page("acceleration", () -> BookTextPageModel.create()
@@ -66,7 +66,7 @@ public class SpiritusCatalystsEntry extends EntryProvider {
                 + "Master Ritual Stone attuned via the Ritual Configurator) can bias the +25%% injection bonus toward "
                 + "any Aspect you choose.\\\n\\\n"
                 + "A modest [#](8B0000)Routing Node[#]() arrangement can then ship harvested shards back into a "
-                + "[#](8B0000)Vas Maleficum[#]() to maintain saturation, closing the loop. The exact layout is left as "
+                + "[#](8B0000)Spiritus Crucible[#]() to maintain saturation, closing the loop. The exact layout is left as "
                 + "an exercise for the ambitious.");
     }
 

@@ -1,6 +1,9 @@
 package com.breakinblocks.neovitae.compat.jade;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.blockentity.CrystallariumMaleficumBlockEntity;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectBounce;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectDay;
@@ -24,6 +27,7 @@ import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
 import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -114,6 +118,18 @@ public enum NVBlockDataProvider implements IServerDataProvider<BlockAccessor> {
             data.putString("accumulator_type", accumulator.getAttunedType() == null ? "" : accumulator.getAttunedType().getSerializedName());
             data.putBoolean("accumulator_locked", accumulator.isLocked());
             data.putDouble("accumulator_stored", accumulator.getStored());
+        }
+
+        if (be instanceof CrystallariumMaleficumBlockEntity crystallarium) {
+            BlockPos above = accessor.getPosition().above();
+            boolean blocked = !accessor.getLevel().isEmptyBlock(above);
+            SpiritusType dominant = WorldSpiritusHandler.getDominantSpiritusType(accessor.getLevel(), accessor.getPosition());
+            data.putBoolean("crystallarium_blocked", blocked);
+            data.putString("crystallarium_type", dominant.getSerializedName());
+            data.putDouble("crystallarium_chunk", WorldSpiritusHandler.getCurrentSpiritus(accessor.getLevel(), accessor.getPosition(), dominant));
+            data.putDouble("crystallarium_needed", NeoVitae.SERVER_CONFIG.CRYSTAL_SPIRITUS_TO_FORM.get());
+            data.putDouble("crystallarium_progress", crystallarium.getInternalCounter());
+            data.putDouble("crystallarium_total", NeoVitae.SERVER_CONFIG.CRYSTAL_FORMATION_TIME.get());
         }
 
         if (be instanceof VasMaleficumBlockEntity vas) {

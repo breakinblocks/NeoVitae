@@ -450,6 +450,7 @@ public class CommonEventHandler {
         if (event.getEntity().level().isClientSide()) return;
         if (!(event.getEntity() instanceof TamableAnimal pet)) return;
         if (!pet.isTame()) return;
+        if (pet.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.LOYAL_FRIENDS_BLACKLIST))) return;
         var ownerRef = pet.getOwnerReference();
         if (ownerRef == null) return;
 
@@ -462,7 +463,6 @@ public class CommonEventHandler {
                     TagValueOutput.createWithContext(reporter, pet.level().registryAccess());
             if (pet.save(petOutput)) {
                 CompoundTag petData = petOutput.buildResult();
-                petData.remove("Inventory");
                 DeadPetStorage storage = owner.getData(NVDataAttachments.DEAD_PET_STORAGE);
                 owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), storage.addPet(petData));
             }

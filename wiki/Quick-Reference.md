@@ -93,9 +93,9 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Spiritus Crystal**. Placeable crystal that grows by drawing Spiritus from the local field.
 
-**Vas Maleficum**. The chunk Aura interface. Without redstone power, drains Spiritus from a held gem (or consumes a loose Spiritus item / Spiritus Crystal) into the surrounding chunk's Aura. With redstone power, reverses the flow and fills the gem from the Aura. See [Spiritus](Spiritus-Aspects-and-Crystals).
+**Spiritus Crucible**. The chunk Aura interface. Without redstone power, drains Spiritus from a held gem (or consumes a loose Spiritus item / Spiritus Crystal) into the surrounding chunk's Aura. With redstone power, reverses the flow and fills the gem from the Aura. See [Spiritus](Spiritus-Aspects-and-Crystals).
 
-**Spira Infernalis**. Long-range Aura pylon. Each tick, pulls Spiritus from a chunk 16 blocks away in each cardinal direction toward its own chunk. Chain pylons to move Aura across distance.
+**Spiritus Conduit**. Long-range Aura pylon. Each tick, pulls Spiritus from a chunk 16 blocks away in each cardinal direction toward its own chunk. Chain pylons to move Aura across distance.
 
 **Crystallarium Maleficum**. Seeder block. When air is above and the chunk holds enough Aura (default 99), it spends that Aura over time to form the first **[Spiritus Crystal](Spiritus-Aspects-and-Crystals)** of the chunk's dominant Aspect on its top face. Further growth is then handled by the crystal itself.
 

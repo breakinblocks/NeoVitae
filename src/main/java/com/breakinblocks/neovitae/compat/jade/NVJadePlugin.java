@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.common.block.BloodTankBlock;
 import com.breakinblocks.neovitae.common.block.HellfireForgeBlock;
 import com.breakinblocks.neovitae.common.block.OrbFillingLinkBlock;
 import com.breakinblocks.neovitae.common.block.SpiritAccumulatorBlock;
+import com.breakinblocks.neovitae.common.block.CrystallariumMaleficumBlock;
 import com.breakinblocks.neovitae.common.block.VasMaleficumBlock;
 import com.breakinblocks.neovitae.common.block.VitaeLinkBlock;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
@@ -22,6 +23,7 @@ import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntit
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiritAccumulatorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.CrystallariumMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
@@ -47,6 +49,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, OrbFillingLinkBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, SpiritAccumulatorBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, VasMaleficumBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, CrystallariumMaleficumBlockEntity.class);
     }
 
     @Override
@@ -62,6 +65,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, OrbFillingLinkBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, SpiritAccumulatorBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, VasMaleficumBlock.class);
+        registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, CrystallariumMaleficumBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BlockMasterRoutingNode.class);
         registration.addRayTraceCallback((hitResult, accessor, original) -> {
             if (accessor instanceof EntityAccessor entityAccessor

@@ -20,6 +20,8 @@ public class NVEntityTagProvider extends EntityTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(NVTags.Entities.TELEPOSE_BLACKLIST);
 
+        tag(NVTags.Entities.LOYAL_FRIENDS_BLACKLIST);
+
         tag(NVTags.Entities.RITUAL_BOSS_BLACKLIST)
                 .add(EntityType.ENDER_DRAGON)
                 .add(EntityType.WITHER)

@@ -33,7 +33,7 @@ public class AspectedSpiritusEntry extends EntryProvider {
                 + "- [#](8B0000)Spiritus Nihilum[#](): the final silence; weight without haste, an ending given form.\n\n"
                 + "- [#](8B0000)Spiritus Vindicta[#](): the swift reckoning; vengeance taken before the offense is voiced.\n\n"
                 + "- [#](8B0000)Spiritus Ruina[#](): the slow undoing; patient decay that wears all things to ruin.\\\n\\\n"
-                + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
+                + "Each Aspect can be burned in the [#](8B0000)Spiritus Crucible[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 
         this.page("sentient_aspects", () -> BookTextPageModel.create()
@@ -54,7 +54,7 @@ public class AspectedSpiritusEntry extends EntryProvider {
 
         this.page("filling_gems", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To fill a [#](8B0000)Spiritus Gem[#]() with a specific Aspect, feed a [#](8B0000)Vas Maleficum[#]() "
+        this.pageText("To fill a [#](8B0000)Spiritus Gem[#]() with a specific Aspect, feed a [#](8B0000)Spiritus Crucible[#]() "
                 + "Spiritus Crystals of that Aspect until the chunk's Aura runs thick with it. Then set the "
                 + "empty gem in that same Vas and [#](2E8B57)apply a redstone signal[#](); the vessel reverses its "
                 + "flow, and the gem drinks deeply from the Aura.\\\n\\\n"

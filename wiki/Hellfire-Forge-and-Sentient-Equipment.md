@@ -4,7 +4,7 @@ The **Hellfire Forge** stands as a second pillar of the art, twin to the **[Ara 
 
 ## Drawing from the Aura
 
-Crafting in the Forge spends the Spiritus stored in the **Spiritus Gem** placed in its gem slot. To keep that reserve from running dry, a gem seated in the Forge continuously absorbs Spiritus from the chunk's **[Aura](Spiritus-Aspects-and-Crystals)**, at the same rate a **Vas Maleficum** fills a gem (10 per tick per Aspect). Saturate the local Aura with a **Crystallum Fractura** farm and the Forge can run unattended, its gem refilling as fast as crafting drains it.
+Crafting in the Forge spends the Spiritus stored in the **Spiritus Gem** placed in its gem slot. To keep that reserve from running dry, a gem seated in the Forge continuously absorbs Spiritus from the chunk's **[Aura](Spiritus-Aspects-and-Crystals)**, at the same rate a **Spiritus Crucible** fills a gem (10 per tick per Aspect). Saturate the local Aura with a **Crystallum Fractura** farm and the Forge can run unattended, its gem refilling as fast as crafting drains it.
 
 ## Harvesting Spiritus
 
@@ -63,9 +63,9 @@ Each charge can be enhanced by **Anointing** it with certain reagents and a meas
 
 | Charge | Effect |
 |--------|--------|
-| Shaped Charge | Obliterates a 5x5x5 cube on the face it strikes; drops blocks as though pickaxe-mined. Cuts through Obsidian. |
-| Augmented Shaped Charge | 7x7x7 cube; also accepts **Fortunate II**. |
-| Tunnelling Shaped Charge | Bores a 5x5x20 corridor straight through whatever it strikes. |
+| Shaped Charge | Obliterates a 7x7x7 cube on the face it strikes; drops blocks as though pickaxe-mined. Cuts through Obsidian. |
+| Augmented Shaped Charge | 11x11x11 cube; also accepts **Fortunate II**. |
+| Deep Shaped Charge | Bores a 7x7x9 corridor straight through whatever it strikes. |
 | Deforester Charge | Strike a log or leaf and up to **two stacks** of wood come down with leaves stripped. |
 | Deforester Charge II | Fells up to **8 stacks** of logs, shearing all connecting leaves. |
 | Controlled Charge | Destroys only blocks identical to the block it strikes, seeking outward (up to 3 stacks). |

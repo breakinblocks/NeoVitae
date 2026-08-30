@@ -37,7 +37,7 @@ public class SpiritusInfusionEntry extends EntryProvider {
                 + "effects just as it would be from a gem in your inventory.\\\n\\\n"
                 + "A colored bar at the top of the item icon indicates the current charge level. "
                 + "The bar color reflects the spiritus type stored. Equipment can be recharged via a "
-                + "[#](8B0000)Vas Maleficum[#]() or by absorbing monster souls.");
+                + "[#](8B0000)Spiritus Crucible[#]() or by absorbing monster souls.");
     }
 
     @Override

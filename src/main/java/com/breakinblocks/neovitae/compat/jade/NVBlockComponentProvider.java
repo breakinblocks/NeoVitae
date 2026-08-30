@@ -124,6 +124,26 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
             }
         }
 
+        if (data.contains("crystallarium_type")) {
+            SpiritusType type = typeByName(data.getStringOr("crystallarium_type", ""));
+            double chunk = data.getDoubleOr("crystallarium_chunk", 0d);
+            double needed = data.getDoubleOr("crystallarium_needed", 0d);
+            if (type != null) {
+                addSpiritusLine(tooltip, type, chunk, 0);
+            }
+            if (data.getBooleanOr("crystallarium_blocked", false)) {
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.blocked").withStyle(ChatFormatting.RED));
+            } else if (chunk < needed) {
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.starved",
+                        FORMAT.format(needed)).withStyle(ChatFormatting.GOLD));
+            } else {
+                double total = data.getDoubleOr("crystallarium_total", 0d);
+                int percent = total > 0 ? (int) Math.floor(data.getDoubleOr("crystallarium_progress", 0d) / total * 100.0) : 0;
+                tooltip.add(Component.translatable("jade.neovitae.crystallarium.forming",
+                        Math.min(100, Math.max(0, percent))).withStyle(ChatFormatting.GREEN));
+            }
+        }
+
         if (data.contains("vas_type")) {
             SpiritusType type = typeByName(data.getStringOr("vas_type", ""));
             if (type != null) {

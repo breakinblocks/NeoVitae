@@ -29,15 +29,15 @@ A charged gem can also pocket a spawner. Sneak + right-click a Monster Spawner o
 
 ## The Spiritus Aura
 
-Demonic Spiritus can also exist in a diffused state throughout the very air. By burning Spiritus in a **Vas Maleficum**, you release it into the **Aura**, an invisible miasma that permeates each chunk of the world.
+Demonic Spiritus can also exist in a diffused state throughout the very air. By burning Spiritus in a **Spiritus Crucible**, you release it into the **Aura**, an invisible miasma that permeates each chunk of the world.
 
-Feed the Vas Maleficum a charged Spiritus Gem, loose Spiritus, or Spiritus Crystals of any Aspect. Crystals are consumed once the chunk's Spiritus dips below 50; loose Spiritus and gem contents are consumed gradually as needed.
+Feed the Spiritus Crucible a charged Spiritus Gem, loose Spiritus, or Spiritus Crystals of any Aspect. Crystals are consumed once the chunk's Spiritus dips below 50; loose Spiritus and gem contents are consumed gradually as needed.
 
 Apply a redstone signal and the Vas reverses direction: a Spiritus Gem placed inside is **filled** from the chunk's Aura instead of drained. The same vessel serves as both deposit and withdrawal point.
 
-The Aura is **chunk-based**. Spiritus burned in one chunk fills only that chunk, up to a cap of **100 per aspect**. Measure local concentration with a **Spiritus Aura Gauge** (see below). To move Spiritus across distances, place a **Spira Infernalis**: each tick it probes a position **16 blocks away** in each of the four cardinal directions, and if the probed position holds more Spiritus than the pylon's own chunk, the pylon pulls a small fraction of the difference. The flow equilibrates rather than draining the source dry, so chain pylons from a saturated chunk toward your worksite to ferry Aura over long distances.
+The Aura is **chunk-based**. Spiritus burned in one chunk fills only that chunk, up to a cap of **100 per aspect**. Measure local concentration with a **Spiritus Aura Gauge** (see below). To move Spiritus across distances, place a **Spiritus Conduit**: each tick it probes a position **16 blocks away** in each of the four cardinal directions, and if the probed position holds more Spiritus than the pylon's own chunk, the pylon pulls a small fraction of the difference. The flow equilibrates rather than draining the source dry, so chain pylons from a saturated chunk toward your worksite to ferry Aura over long distances.
 
-This reversal is how an aspected gem is made. Saturate a chunk with a single Aspect, leave an empty Spiritus Gem in a redstone-charged Vas Maleficum there, and the gem takes on that Aspect as it fills.
+This reversal is how an aspected gem is made. Saturate a chunk with a single Aspect, leave an empty Spiritus Gem in a redstone-charged Spiritus Crucible there, and the gem takes on that Aspect as it fills.
 
 ### Aura Gauge
 
@@ -47,7 +47,7 @@ While the **Spiritus Aura Gauge** rests in your inventory, it projects a spectra
 
 The Aura is capped at 100 per Aspect and cannot leave its chunk on its own. The **Spirit Accumulator** is the reservoir that lifts that ceiling: a floating crystal that holds **1,000 Spiritus** of a **single Aspect** and hands it to the [Routing Network](Routing-Network) on demand.
 
-**Making one.** The Athanor forges it with a Resonator from an **Animus Mote** (found only in [Demon Realm](The-Endless-Dungeon) loot), a **Common Spiritus Gem**, a **Tabula Spiritus**, a **Raw Spiritus Crystal shard**, a **Blood Tank**, and 2,000 mB of Essentia Vitae. The chunk it is forged in must also hold **45 Raw** Spiritus. A single Raw shard burned in a Vas Maleficum covers that outright, since a shard adds 50 whenever its Aspect sits below 50 in the chunk. Check the [Aura Gauge](#aura-gauge) before starting the Athanor.
+**Making one.** The Athanor forges it with a Resonator from an **Animus Mote** (found only in [Demon Realm](The-Endless-Dungeon) loot), a **Common Spiritus Gem**, a **Tabula Spiritus**, a **Raw Spiritus Crystal shard**, a **Blood Tank**, and 2,000 mB of Essentia Vitae. The chunk it is forged in must also hold **45 Raw** Spiritus. A single Raw shard burned in a Spiritus Crucible covers that outright, since a shard adds 50 whenever its Aspect sits below 50 in the chunk. Check the [Aura Gauge](#aura-gauge) before starting the Athanor.
 
 **Attunement.** A newly placed Accumulator is unattuned and gathers nothing at all. Right-click it to cycle its Aspect (Raw, Ruina, Nihilum, Invictus, Vindicta, then unattuned again), and crouch and right-click to lock the choice. It only starts drawing once locked. Right-clicking it with a Spiritus crystal of any Aspect sets that Aspect and locks it in one step, and the crystal is not consumed.
 
@@ -55,7 +55,7 @@ The Aura is capped at 100 per Aspect and cannot leave its chunk on its own. The 
 
 **Moving one.** Breaking an Accumulator loses nothing. The dropped item carries its Aspect, its stock and its lock, and setting it down again restores all three.
 
-**Skimming.** Once locked, the Accumulator draws up to **25** of its Aspect each tick from its own chunk's Aura, but only from the surplus above **30**. It never pulls the chunk below that mark. That floor is low enough that a single crystal burned in a Vas Maleficum (which lifts its Aspect to 50) will feed it, and on a saturated farm chunk it doubles as an overflow catcher: every crystal burned past the 100 cap is captured rather than wasted.
+**Skimming.** Once locked, the Accumulator draws up to **25** of its Aspect each tick from its own chunk's Aura, but only from the surplus above **30**. It never pulls the chunk below that mark. That floor is low enough that a single crystal burned in a Spiritus Crucible (which lifts its Aspect to 50) will feed it, and on a saturated farm chunk it doubles as an overflow catcher: every crystal burned past the 100 cap is captured rather than wasted.
 
 The stored Aspect and amount are visible in Jade, and the crystal's inner core shows the fill level in the Aspect's color; it glows dim while unlocked.
 
@@ -65,9 +65,9 @@ The stored Aspect and amount are visible in Jade, and the crystal's inner core s
 
 The **Crystallarium Maleficum** seeds the first spire of a cluster: place it with open air above, and once the chunk's Aura holds at least **99 Spiritus** of any single Aspect, it spends that Aura over roughly 1,000 ticks to form a single **Spiritus Crystal** of the chunk's dominant Aspect on its top face. After that first spire stands, the crystal grows under its own power; the Crystallarium has done its work.
 
-Spires grow whenever the chunk holds at least a trace of the cluster's Aspect, with growth rate scaling against saturation, accelerating as the Aura fills. A chunk's natural cap is **100 per Aspect**, though certain Rituals can raise it. Each new spire costs **45 Spiritus** when the chunk's dominant Aspect matches the cluster, and yields 50 when burned in a Vas Maleficum (a net gain of 5 per spire). If the chunk's dominant Aspect **does not match** the cluster (for instance, a Raw-dominant chunk feeding a Ruina cluster), the cost rises to **90 Spiritus** per spire and growth runs at **60% speed**. Keep the chunk biased toward the Aspect you want to farm. A cluster may grow up to **7 spires** tall.
+Spires grow whenever the chunk holds at least a trace of the cluster's Aspect, with growth rate scaling against saturation, accelerating as the Aura fills. A chunk's natural cap is **100 per Aspect**, though certain Rituals can raise it. Each new spire costs **45 Spiritus** when the chunk's dominant Aspect matches the cluster, and yields 50 when burned in a Spiritus Crucible (a net gain of 5 per spire). If the chunk's dominant Aspect **does not match** the cluster (for instance, a Raw-dominant chunk feeding a Ruina cluster), the cost rises to **90 Spiritus** per spire and growth runs at **60% speed**. Keep the chunk biased toward the Aspect you want to farm. A cluster may grow up to **7 spires** tall.
 
-If you carry more than **512 total Spiritus** in your inventory (across any gems, any type), you may harvest clusters by right-clicking with an empty hand. This strips all but the central spire, leaving the cluster to regrow. A pickaxe will shatter the entire cluster at once for the impatient. Manual harvest yields a modest 5 Spiritus per cluster.
+If you carry more than **512 Spiritus of a single Aspect** (summed across every gem you hold), you may harvest a cluster by right-clicking it with an empty hand. Each click takes one spire and leaves the cluster standing to regrow. Mining a cluster does **not** yield shards; it returns the cluster block itself, which replants at a single spire. Each harvested shard is worth 50 Spiritus in a Spiritus Crucible against the 45 it cost to grow, a net gain of 5 per spire.
 
 ## The Five Aspects
 
@@ -79,7 +79,7 @@ Raw clusters feel conflicted, as though warring natures strain against one anoth
 - **Spiritus Vindicta**. The swift reckoning; vengeance taken before the offense is voiced.
 - **Spiritus Ruina**. The slow undoing; patient decay that wears all things to ruin.
 
-Each Aspect can be burned in the Vas Maleficum just as Raw Spiritus can, feeding the Aura with its particular resonance for your Rituals to draw upon.
+Each Aspect can be burned in the Spiritus Crucible just as Raw Spiritus can, feeding the Aura with its particular resonance for your Rituals to draw upon.
 
 ### Aspect Behavior on Sentient Tools
 
@@ -93,7 +93,7 @@ Each Aspect also transforms the behavior of **Sentient Tools** and the **Sentien
 | Invictus | Moderate damage increase, and slaying a foe grants you a protective shield of Absorption. |
 | Nihilum | The greatest raw damage of any Aspect, at the cost of reduced attack speed. |
 
-To fill a gem with a specific Aspect, feed a Vas Maleficum Spiritus Crystals of that Aspect until the chunk's Aura is saturated, then place the empty gem in that same Vas and apply a redstone signal.
+To fill a gem with a specific Aspect, feed a Spiritus Crucible Spiritus Crystals of that Aspect until the chunk's Aura is saturated, then place the empty gem in that same Vas and apply a redstone signal.
 
 A gem holds only one Aspect at a time, and an empty gem takes whichever Aspect the Aura offers first. Where several are present they are taken in a fixed precedence: Raw first, then Ruina, Nihilum, Invictus, and Vindicta last. Any trace of Raw in the chunk will therefore claim an empty gem before any other Aspect is considered, so dedicate a separate chunk to each Aspect you intend to bottle.
 
@@ -111,7 +111,7 @@ A Crystallarium Maleficum will only grow Raw clusters until the chunk's Aura is 
 
 Transmutation also demands one **Animus Mote** be present in your inventory. The mote splinters the cluster's natures into a single focused Aspect. Animus Motes drop from **Daemonium Animaris** in Standard Dungeons, and appear in `great_loot` and `decent_loot` Standard Dungeon chests. Four motes are enough to seed every Aspect lineage; thereafter you only need them for new farms.
 
-Once you have one aspected cluster of a given Aspect, burn its harvested shards in a Vas Maleficum to make that Aspect dominant in the chunk. The Crystallarium will then form new clusters of that Aspect natively, no further motes required.
+Once you have one aspected cluster of a given Aspect, burn its harvested shards in a Spiritus Crucible to make that Aspect dominant in the chunk. The Crystallarium will then form new clusters of that Aspect natively, no further motes required.
 
 ### Accelerating Existing Clusters
 
@@ -119,13 +119,13 @@ Right-click a cluster with a **matching-Aspect** catalyst (e.g., Ruina catalyst 
 
 ### Automation Loop
 
-Pair the catalyst with the **Crystallum Fractura** ritual (see **[Rituals](Rituals)**) for a hands-off farm; the ritual auto-harvests fully-grown clusters, doubles crystal growth speed, and amplifies any Spiritus injection by +25% across the chunks in range. With the Master Ritual Stone attuned via the Ritual Configurator (carry exactly one aspect crystal in your hotbar in SET_WILL_CONFIG mode), the +25% injection bonus is biased toward any Aspect you choose. A modest **Routing Node** arrangement can then ship harvested shards back into a Vas Maleficum to maintain saturation, closing the loop.
+Pair the catalyst with the **Crystallum Fractura** ritual (see **[Rituals](Rituals)**) for a hands-off farm; the ritual auto-harvests fully-grown clusters, doubles crystal growth speed, and amplifies any Spiritus injection by +25% across the chunks in range. With the Master Ritual Stone attuned via the Ritual Configurator (carry exactly one aspect crystal in your hotbar in SET_WILL_CONFIG mode), the +25% injection bonus is biased toward any Aspect you choose. A modest **Routing Node** arrangement can then ship harvested shards back into a Spiritus Crucible to maintain saturation, closing the loop.
 
 ## Spiritus Infusion
 
 Through the Hellfire Forge, a practitioner can bind a Spiritus Gem directly into a piece of equipment, granting it the ability to store Spiritus internally. Capacity matches the gem tier: Petty 64, Lesser 256, Common 1,024, Greater 4,096, Grand 16,384.
 
-Place any wearable armor, tool, weapon, or shield alongside a Spiritus Gem in the Hellfire Forge to infuse it (the gem is consumed). Infused equipment stores Spiritus directly, drawn upon by Sentient Tools and other Spiritus-consuming effects just as it would be from a gem in your inventory. A colored bar at the top of the item icon indicates current charge level; bar color reflects the Aspect stored. Recharge via a Vas Maleficum or by absorbing monster souls.
+Place any wearable armor, tool, weapon, or shield alongside a Spiritus Gem in the Hellfire Forge to infuse it (the gem is consumed). Infused equipment stores Spiritus directly, drawn upon by Sentient Tools and other Spiritus-consuming effects just as it would be from a gem in your inventory. A colored bar at the top of the item icon indicates current charge level; bar color reflects the Aspect stored. Recharge via a Spiritus Crucible or by absorbing monster souls.
 
 ## Blood Mending
 

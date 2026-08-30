@@ -6,7 +6,7 @@ A working list of planned reworks, new systems, and ideas. Order is indicative, 
 
 ### Living Spiritus Fluid Creation
 
-A new crafting mechanic for **Living Spiritus**: liquefied will produced and consumed by a new process, layered alongside the existing systems rather than replacing anything. Open design questions: how is it produced (Vas Maleficum variant? new dedicated multiblock?), what consumes it, and whether aspect tinting carries through the fluid form.
+A new crafting mechanic for **Living Spiritus**: liquefied will produced and consumed by a new process, layered alongside the existing systems rather than replacing anything. Open design questions: how is it produced (Spiritus Crucible variant? new dedicated multiblock?), what consumes it, and whether aspect tinting carries through the fluid form.
 
 ### Sentient Armor -> Manifestation Baubles
 
@@ -96,7 +96,7 @@ Bind a defeated daemonium's residue into a vessel item; the vessel can be summon
 
 ### 3. Spiritus Conduits
 
-Placeable blocks that pipe spiritus between non-adjacent chunks. Loss factor per block and per cross-dimension hop, set by aspect (Ruina cheap, Invictus expensive). Solves the "Vas Maleficum has to be on top of the consumer" placement constraint.
+Placeable blocks that pipe spiritus between non-adjacent chunks. Loss factor per block and per cross-dimension hop, set by aspect (Ruina cheap, Invictus expensive). Solves the "Spiritus Crucible has to be on top of the consumer" placement constraint.
 
 ### 4. Personal Sanctum Sigil
 

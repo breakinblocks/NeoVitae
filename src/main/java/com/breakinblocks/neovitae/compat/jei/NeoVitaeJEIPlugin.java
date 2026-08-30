@@ -68,6 +68,10 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
+import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.compat.jei.crystal.CrystalGrowthCategory;
+import com.breakinblocks.neovitae.compat.jei.crystal.CrystalGrowthJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
@@ -188,6 +192,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new BloodTankUpgradeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DisenchantCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new CrystalGrowthCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -201,9 +206,42 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 athanorInventoryStart, 36);
     }
 
+    private static List<CrystalGrowthJEIRecipe> buildCrystalGrowthRecipes() {
+        double toForm = NeoVitae.SERVER_CONFIG.CRYSTAL_SPIRITUS_TO_FORM.get();
+        int formTicks = (int) Math.round(NeoVitae.SERVER_CONFIG.CRYSTAL_FORMATION_TIME.get());
+        double perSegment = NeoVitae.SERVER_CONFIG.CRYSTAL_SAME_SPIRITUS_RATE.get();
+        int maxSegments = NeoVitae.SERVER_CONFIG.CRYSTAL_MAX_COUNT.get();
+        int harvest = BlockSpiritusCrystal.HARVEST_SPIRITUS_REQUIRED;
+
+        List<CrystalGrowthJEIRecipe> recipes = new ArrayList<>();
+        recipes.add(new CrystalGrowthJEIRecipe(SpiritusType.RAW,
+                new ItemStack(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get()),
+                new ItemStack(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get()),
+                toForm, formTicks, perSegment, maxSegments, harvest));
+        recipes.add(new CrystalGrowthJEIRecipe(SpiritusType.RUINA,
+                new ItemStack(NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get()),
+                new ItemStack(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get()),
+                toForm, formTicks, perSegment, maxSegments, harvest));
+        recipes.add(new CrystalGrowthJEIRecipe(SpiritusType.NIHILUM,
+                new ItemStack(NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block().get()),
+                new ItemStack(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get()),
+                toForm, formTicks, perSegment, maxSegments, harvest));
+        recipes.add(new CrystalGrowthJEIRecipe(SpiritusType.VINDICTA,
+                new ItemStack(NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block().get()),
+                new ItemStack(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get()),
+                toForm, formTicks, perSegment, maxSegments, harvest));
+        recipes.add(new CrystalGrowthJEIRecipe(SpiritusType.INVICTUS,
+                new ItemStack(NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block().get()),
+                new ItemStack(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get()),
+                toForm, formTicks, perSegment, maxSegments, harvest));
+        return recipes;
+    }
+
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addCraftingStation(HellfireForgeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
+        registration.addCraftingStation(CrystalGrowthCategory.RECIPE_TYPE, new ItemStack(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get()));
+        registration.addCraftingStation(CrystalGrowthCategory.RECIPE_TYPE, new ItemStack(NVBlocks.VAS_MALEFICUM.block().get()));
         registration.addCraftingStation(ForgeUpgradeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
         registration.addCraftingStation(AraVitaeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.ARA_VITAE.block().get()));
         registration.addCraftingStation(AlchemyArrayCraftingCategory.RECIPE_TYPE, new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()));
@@ -325,6 +363,8 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
             NVJeiRecipeIds.put(disenchantRecipe, NeoVitae.rl("disenchant"));
             registration.addRecipes(DisenchantCategory.RECIPE_TYPE, List.of(disenchantRecipe));
         }
+
+        registration.addRecipes(CrystalGrowthCategory.RECIPE_TYPE, buildCrystalGrowthRecipes());
 
         List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {

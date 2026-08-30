@@ -407,6 +407,21 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.routing.same", "Cannot link a node to itself!");
         add("chat.neovitae.routing.link.master", "Node linked to Master Routing Node.");
         add("chat.neovitae.routing.link", "Nodes linked together.");
+        addTooltip("noderouter.alternator", "Linking receivers for the Alternator at %d, %d, %d");
+        addTooltip("noderouter.alternator.hint", "Sneak + right-click an Alternator, then other blocks, to link them to its pulse");
+        add("chat.neovitae.alternator.selected", "Alternator selected. Sneak + right-click blocks to link them.");
+        add("chat.neovitae.alternator.link", "Block linked to the Alternator (%d / %d).");
+        add("chat.neovitae.alternator.unlink", "Block link cleared.");
+        add("chat.neovitae.alternator.limit", "This Alternator already has %d linked blocks.");
+        add("chat.neovitae.alternator.distance", "Too far from the Alternator! Maximum range is %d blocks.");
+        add("chat.neovitae.alternator.protected", "You don't have permission to link blocks there.");
+        add("container.neovitae.alternator", "Dungeon Alternator");
+        add("gui.neovitae.alternator.delay", "Pulse delay (ticks)");
+        add("gui.neovitae.alternator.delay.hint", "0 = off, 1 = constant signal");
+        add("gui.neovitae.alternator.redstone.on", "Stop on Redstone: On");
+        add("gui.neovitae.alternator.redstone.off", "Stop on Redstone: Off");
+        add("gui.neovitae.alternator.receivers", "Linked blocks: %d / %d");
+        add("gui.neovitae.alternator.receivers.hint", "Link blocks with the Node Router");
         add("chat.neovitae.undertow.upward", "Undertow Array: bubble column now pushes upward.");
         add("chat.neovitae.undertow.downward", "Undertow Array: bubble column now drags downward.");
 

@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
@@ -61,6 +62,10 @@ public class PotionCraftingEntry extends EntryProvider {
                 + "A [#](8B0000)Lingering Flask[#]() may be combined with 8 [#](8B0000)Amethyst Throwing Daggers[#]() in the "
                 + "[#](8B0000)Athanor[#]() to forge [#](8B0000)Tipped Amethyst Throwing Daggers[#](). "
                 + "Any creature struck by such a dagger suffers the flask's effects on impact.");
+
+        this.page("splash_linger_recipes", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/flask_splash")
+                .withRecipeId2("neovitae:flask/flask_lingering"));
 
         this.page("multi_effects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

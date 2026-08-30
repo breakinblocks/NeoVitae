@@ -64,6 +64,7 @@ import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
 import com.breakinblocks.neovitae.client.screen.HellfireForgeScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
+import com.breakinblocks.neovitae.client.screen.AlternatorScreen;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
 import com.breakinblocks.neovitae.client.screen.RitualConfiguratorScreen;
@@ -138,6 +139,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.RITUAL_DIVINER.get(), RitualDivinerScreen::new);
         event.register(NVMenus.RITUAL_CONFIGURATOR.get(), RitualConfiguratorScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
+        event.register(NVMenus.ALTERNATOR.get(), AlternatorScreen::new);
     }
 
     @SubscribeEvent

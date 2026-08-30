@@ -44,12 +44,11 @@ A Focus, once bound to a target Teleposer, retains that binding until you re-bin
 
 ## Redstone Activation
 
-The Teleposer is **deliberately picky** about its activation signal to minimize misfires. Two rules:
+Any redstone signal activates the Teleposer: redstone dust running into the side, a repeater or comparator pointed at the block, a lever or button placed directly on it, or an adjacent redstone block.
 
-- **Strong redstone power is required.** A redstone block placed adjacent will *not* work; weak power propagation does not satisfy the activation check.
-- **Direct sources do.** Redstone dust running into the side, a repeater pointed at the block, or a lever or button placed directly on the Teleposer all qualify.
+The Teleposer fires on the rising edge of the signal, so a sustained signal produces exactly one exchange. The signal must drop back to zero before the next activation.
 
-If you build a Teleposer-driven elevator, the cleanest trigger is **a button on the side of the Teleposer itself**: it produces strong power, it self-clears, and it cannot misfire from an adjacent circuit you forgot you wired.
+If you build a Teleposer-driven elevator, the cleanest trigger is **a button on the side of the Teleposer itself**: it self-clears, ready for the next press.
 
 ## Topologies of Transport
 

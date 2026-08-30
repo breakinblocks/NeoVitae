@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "neovitae:block/dungeon/dungeon_alternator_static"
+    "all": "neovitae:block/dungeon/dungeon_alternator"
   }
 }

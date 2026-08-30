@@ -71,11 +71,10 @@ public class TeleposerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("A Note on Redstone");
-        this.pageText("[#](2E8B57)The Teleposer requires strong redstone power to activate. A redstone block "
-                + "placed adjacent will not suffice - you need redstone dust or a repeater pointing into "
-                + "its side, or a lever or button placed directly upon it.[#]()\\\n\\\n"
-                + "[#](4A0080)Essentia Vitae[#]() is not free, and the Teleposer is deliberately designed "
-                + "to minimize accidental misfires. Precision in all things.");
+        this.pageText("[#](2E8B57)Any redstone signal will rouse the Teleposer: dust running into its side, "
+                + "a repeater, a lever or button upon it, even an adjacent redstone block.[#]()\\\n\\\n"
+                + "[#](4A0080)Essentia Vitae[#]() is not free, so the Teleposer fires but once per signal. "
+                + "The current must fall away entirely before it will fire again. Precision in all things.");
 
         this.page("spawners", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

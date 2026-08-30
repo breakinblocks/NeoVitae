@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:flask_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "splash_linger_recipes",
+  "recipe_id_1": "neovitae:flask/flask_splash",
+  "recipe_id_2": "neovitae:flask/flask_lingering",
+  "sort_number": 6
+}

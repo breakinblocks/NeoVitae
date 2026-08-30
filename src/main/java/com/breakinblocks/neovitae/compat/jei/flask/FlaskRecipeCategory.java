@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.flask.FlaskItemTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 
 import javax.annotation.Nonnull;
@@ -82,7 +83,11 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
         ItemStack outputStack = recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects());
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
-        output.add(outputStack);
+        if (recipe instanceof FlaskItemTransformRecipe transform) {
+            output.addItemStacks(List.of(outputStack, transform.getOutputItem().copy()));
+        } else {
+            output.add(outputStack);
+        }
 
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
@@ -99,7 +104,11 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
             int x = flaskSlot % 3;
             int y = flaskSlot / 3;
             IRecipeSlotBuilder flaskInput = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            flaskInput.add(recipe.getExampleFlask());
+            if (recipe instanceof FlaskItemTransformRecipe) {
+                flaskInput.addItemStacks(List.of(recipe.getExampleFlask(), new ItemStack(NVItems.ALCHEMY_FLASK.get())));
+            } else {
+                flaskInput.add(recipe.getExampleFlask());
+            }
         }
     }
 

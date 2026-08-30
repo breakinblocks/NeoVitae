@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 16.0,
+  "inputs": [
+    "#c:ingots/iron",
+    "minecraft:smooth_stone",
+    "#c:dusts/redstone",
+    "neovitae:tabula_rasa"
+  ],
+  "minDrain": 16.0,
+  "output": {
+    "id": "neovitae:alternator"
+  }
+}

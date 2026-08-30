@@ -104,7 +104,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
             return;
         }
 
-        int currentInput = getLevel().getDirectSignalTo(worldPosition);
+        int currentInput = getLevel().getBestNeighborSignal(worldPosition);
 
         if (previousInput == 0 && currentInput != 0) {
             previousInput = currentInput;

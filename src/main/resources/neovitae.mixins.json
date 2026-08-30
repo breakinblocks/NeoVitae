@@ -7,7 +7,9 @@
   "mixins": [
     "BaseSpawnerMixin",
     "BlockItemMixin",
+    "LevelMixin",
     "ServerPlayerMixin",
+    "SignalGetterMixin",
     "TrialSpawnerMixin"
   ],
   "client": [

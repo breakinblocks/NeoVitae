@@ -1359,7 +1359,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.imprisonment", "Place atop a mob spawner. The next mob killed within 11x11x11 becomes the spawner's new mob, and the array is consumed.");
 
         // Rituals
-        addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
+        addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone, faster the more saturated the chunk. The aura is not consumed.");
         addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
         addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
         add("ritual.neovitae.green_grove.spiritus.raw", "Raw Spiritus: Hastens the refresh rate (20 ticks down to 10 as raw rises).");

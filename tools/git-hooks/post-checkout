@@ -1,0 +1,14 @@
+#!/bin/sh
+# Args: <prev-HEAD> <new-HEAD> <is-branch-checkout>
+# The datagen HashCache is gitignored, so it survives branch switches while the
+# files it describes are swapped underneath it. A path whose newly generated
+# content matches the hash recorded on the other branch is then skipped, leaving
+# that branch's file on disk. Drop the cache so the next runData is authoritative.
+[ "$3" = "1" ] || exit 0
+[ "$1" = "$2" ] && exit 0
+
+cache="$(git rev-parse --show-toplevel)/src/generated/resources/.cache"
+if [ -d "$cache" ]; then
+    rm -rf "$cache"
+    echo "post-checkout: cleared datagen HashCache (branch changed)"
+fi

@@ -1,0 +1,3 @@
+src/generated/** text eol=lf
+tools/git-hooks/* text eol=lf
+tools/*.sh text eol=lf

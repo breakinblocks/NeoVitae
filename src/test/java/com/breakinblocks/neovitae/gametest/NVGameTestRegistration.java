@@ -47,5 +47,6 @@ public class NVGameTestRegistration {
         EnchantedVitaeHaltTests.register(r);
         PlacerTests.register(r);
         AlternatorTests.register(r);
+        TrainerLimitTests.register(r);
     }
 }

@@ -453,6 +453,9 @@ public class SentientHelper {
     }
 
     public static int getExpForLevel(Holder<SentientUpgrade> upgrade, int level) {
+        if (level <= 0) {
+            return 0;
+        }
         AtomicInteger exp = new AtomicInteger(-1);
         upgrade.value().levels().expToLevel().forEach((k, v) -> {
             if (v == level) {

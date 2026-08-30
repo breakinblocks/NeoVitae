@@ -14,6 +14,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.minecraft.util.TriState;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
@@ -141,6 +142,7 @@ public class SpiritusEventHandler {
 
         if (remaining.isEmpty() || PlayerSpiritusHandler.hasSpiritusGem(player)) {
             event.getItemEntity().discard();
+            event.setCanPickup(TriState.FALSE);
         }
     }
 }

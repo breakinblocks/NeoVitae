@@ -1870,6 +1870,26 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(400)
                 .unlockedBy("has_greater_gem", has(NVItems.SPIRITUS_GEM_GREATER.get()))
                 .save(output, NeoVitae.rl("spiritus_gem_grand"));
+
+        HellfireForgeRecipeBuilder.build(DungeonBlocks.ALTERNATOR.block().get())
+                .requires(Tags.Items.INGOTS_IRON)
+                .requires(Items.SMOOTH_STONE)
+                .requires(Tags.Items.DUSTS_REDSTONE)
+                .requires(NVItems.TABULA_RASA.get())
+                .minSpiritus(16)
+                .drain(16)
+                .unlockedBy("has_blank_slate", has(NVItems.TABULA_RASA.get()))
+                .save(output, NeoVitae.rl("alternator"));
+
+        HellfireForgeRecipeBuilder.build(NVBlocks.ETHEREAL_MIMIC.block().get(), 16)
+                .requires(Items.SMOOTH_STONE)
+                .requires(NVItems.TABULA_ANIMATA.get())
+                .requires(Items.PHANTOM_MEMBRANE)
+                .requires(Tags.Items.INGOTS_GOLD)
+                .minSpiritus(32)
+                .drain(32)
+                .unlockedBy("has_imbued_slate", has(NVItems.TABULA_ANIMATA.get()))
+                .save(output, NeoVitae.rl("ethereal_mimic"));
     }
 
     // Helper methods

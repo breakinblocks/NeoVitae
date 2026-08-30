@@ -29,7 +29,9 @@ import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.api.routing.ISpiritusExportNode;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
 import com.breakinblocks.neovitae.common.menu.AbstractBlockEntityMenu;
+import com.breakinblocks.neovitae.common.menu.AlternatorMenu;
 import com.breakinblocks.neovitae.common.menu.ExperienceTomeMenu;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
@@ -167,6 +169,27 @@ public class NVPayloads {
                 LexModeCyclePayload.STREAM_CODEC,
                 NVPayloads::handleLexModeCycle
         );
+
+        registrar.playToServer(
+                AlternatorConfigPayload.TYPE,
+                AlternatorConfigPayload.STREAM_CODEC,
+                NVPayloads::handleAlternatorConfig
+        );
+    }
+
+    private static void handleAlternatorConfig(AlternatorConfigPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof DungeonAlternatorBlockEntity tile
+                    && player.containerMenu instanceof AlternatorMenu menu && menu.tile == tile) {
+                tile.setDelay(payload.delay());
+                tile.setStopOnRedstone(payload.stopOnRedstone());
+            }
+        });
     }
 
     private static void handleLexModeCycle(LexModeCyclePayload payload, IPayloadContext context) {

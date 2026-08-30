@@ -6,8 +6,10 @@
   "mixins": [
     "BaseSpawnerMixin",
     "BlockItemMixin",
+    "LevelMixin",
     "PlayerMixin",
     "ServerPlayerMixin",
+    "SignalGetterMixin",
     "TrialSpawnerMixin"
   ],
   "client": [],

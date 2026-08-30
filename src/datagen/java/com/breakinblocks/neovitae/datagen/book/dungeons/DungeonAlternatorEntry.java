@@ -18,12 +18,14 @@ public class DungeonAlternatorEntry extends EntryProvider {
     protected void generatePages() {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Dungeon Alternator[#]() pulses with a ceaseless rhythm, emitting a "
-                + "redstone signal that oscillates between powered and dormant states at fixed intervals. "
-                + "It is the heartbeat of the realm's trap mechanisms, a [#](4A0080)demonic clockwork[#]() "
-                + "device of elegant simplicity.\\\n\\\n"
-                + "[#](2E8B57)These can be repurposed as compact redstone clocks in your own constructions. "
-                + "Consult JEI for the crafting recipe.[#]()");
+        this.pageText("The [#](8B0000)Dungeon Alternator[#]() is a [#](4A0080)demonic clockwork[#]() "
+                + "timer. Right-click it to set a pulse delay in ticks; it then emits a redstone pulse "
+                + "from every side on that rhythm. A delay of 1 makes it a constant signal source, and a "
+                + "freshly placed Alternator sits dormant until given a delay. While it is set to stop on "
+                + "redstone, a hard redstone signal pauses it until the signal is removed.\\\n\\\n"
+                + "[#](2E8B57)Sneak + right-click it with a Node Router, then sneak + right-click up to "
+                + "8 other blocks within 256 blocks, and they will pulse in step with it, as if a "
+                + "redstone signal were applied directly to each. Consult JEI for the crafting recipe.[#]()");
     }
 
     @Override

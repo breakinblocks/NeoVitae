@@ -38,6 +38,8 @@ public class NVMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<RitualConfiguratorMenu>> RITUAL_CONFIGURATOR = MENUS.register("ritual_configurator", () -> IMenuTypeExtension.create(RitualConfiguratorMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<AlternatorMenu>> ALTERNATOR = MENUS.register("alternator", () -> IMenuTypeExtension.create(AlternatorMenu::new));
+
     public static void register(IEventBus modbus) {
         MENUS.register(modbus);
     }

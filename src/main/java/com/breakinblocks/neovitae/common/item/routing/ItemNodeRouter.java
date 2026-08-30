@@ -22,9 +22,14 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.server.level.ServerLevel;
+import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
+import com.breakinblocks.neovitae.common.world.AlternatorLinks;
 import com.breakinblocks.neovitae.util.Constants;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +39,9 @@ import java.util.List;
  */
 public class ItemNodeRouter extends Item {
 
+    private static final String NBT_ALTERNATOR_MODE = "alternatorLink";
+    private static final String NBT_ALTERNATOR_DIM = "alternatorDim";
+
     public ItemNodeRouter() {
         super(new Item.Properties().stacksTo(1));
     }
@@ -42,11 +50,17 @@ public class ItemNodeRouter extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         BlockPos coords = getBlockPos(stack);
         if (coords != null && !coords.equals(BlockPos.ZERO)) {
-            tooltip.add(Component.translatable("tooltip.neovitae.noderouter.coords",
-                    coords.getX(), coords.getY(), coords.getZ()));
+            if (isAlternatorMode(stack)) {
+                tooltip.add(Component.translatable("tooltip.neovitae.noderouter.alternator",
+                        coords.getX(), coords.getY(), coords.getZ()));
+            } else {
+                tooltip.add(Component.translatable("tooltip.neovitae.noderouter.coords",
+                        coords.getX(), coords.getY(), coords.getZ()));
+            }
         }
         tooltip.add(Component.translatable("tooltip.neovitae.noderouter.unlink").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.neovitae.noderouter.clear").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.neovitae.noderouter.alternator.hint").withStyle(ChatFormatting.GRAY));
     }
 
     @Override
@@ -75,16 +89,33 @@ public class ItemNodeRouter extends Item {
         ItemStack stack = context.getItemInHand();
 
         if (level.isClientSide) {
-            return InteractionResult.PASS;
+            return player.isShiftKeyDown() ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
 
         BlockEntity tileHit = level.getBlockEntity(pos);
+
+        if (player.isShiftKeyDown() && level instanceof ServerLevel serverLevel) {
+            if (tileHit instanceof DungeonAlternatorBlockEntity) {
+                setAlternatorSource(stack, serverLevel, pos);
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.selected"), true);
+                return InteractionResult.SUCCESS;
+            }
+            if (!(tileHit instanceof IRoutingNode)) {
+                InteractionResult alternatorResult = handleAlternatorTarget(serverLevel, player, stack, pos);
+                if (alternatorResult != null) {
+                    return alternatorResult;
+                }
+            }
+        }
 
         if (player.isShiftKeyDown() && tileHit instanceof IRoutingNode selected && pos.equals(getBlockPos(stack))) {
             return unlinkNode(level, player, stack, selected, pos);
         }
 
         if (!(tileHit instanceof IRoutingNode node)) {
+            if (isAlternatorMode(stack)) {
+                return InteractionResult.PASS;
+            }
             BlockPos containedPos = getBlockPos(stack);
             if (containedPos != null && !containedPos.equals(BlockPos.ZERO)) {
                 setBlockPos(stack, BlockPos.ZERO);
@@ -224,6 +255,103 @@ public class ItemNodeRouter extends Item {
         return InteractionResult.SUCCESS;
     }
 
+    @Nullable
+    private InteractionResult handleAlternatorTarget(ServerLevel level, Player player, ItemStack stack, BlockPos pos) {
+        boolean alternatorMode = isAlternatorMode(stack);
+        BlockPos source = alternatorMode ? alternatorSource(stack, level) : null;
+        DungeonAlternatorBlockEntity sourceTile = source != null
+                && level.getBlockEntity(source) instanceof DungeonAlternatorBlockEntity alternator ? alternator : null;
+
+        if (alternatorMode && sourceTile == null) {
+            setBlockPos(stack, BlockPos.ZERO);
+            player.displayClientMessage(Component.translatable("chat.neovitae.routing.remove"), true);
+            return InteractionResult.SUCCESS;
+        }
+
+        if (sourceTile != null) {
+            if (!BlockProtectionHelper.canModifyBlock(level, pos, player)) {
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.protected"), true);
+                return InteractionResult.SUCCESS;
+            }
+            if (sourceTile.hasReceiver(pos)) {
+                sourceTile.removeReceiver(pos);
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.unlink"), true);
+                return InteractionResult.SUCCESS;
+            }
+            BlockPos otherSource = AlternatorLinks.getSource(level, pos);
+            if (otherSource != null) {
+                clearLink(level, pos, otherSource);
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.unlink"), true);
+                return InteractionResult.SUCCESS;
+            }
+            if (source.distSqr(pos) > (double) AlternatorLinks.MAX_RANGE * AlternatorLinks.MAX_RANGE) {
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.distance",
+                        AlternatorLinks.MAX_RANGE), true);
+                return InteractionResult.SUCCESS;
+            }
+            if (sourceTile.getReceivers().size() >= AlternatorLinks.MAX_RECEIVERS) {
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.limit",
+                        AlternatorLinks.MAX_RECEIVERS), true);
+                return InteractionResult.SUCCESS;
+            }
+            sourceTile.addReceiver(pos);
+            RoutingLinkHelper.fireLinkBolt(level, source, pos);
+            level.playSound(null, pos, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 0.4F, 1.6F);
+            player.displayClientMessage(Component.translatable("chat.neovitae.alternator.link",
+                    sourceTile.getReceivers().size(), AlternatorLinks.MAX_RECEIVERS), true);
+            return InteractionResult.SUCCESS;
+        }
+
+        BlockPos otherSource = AlternatorLinks.getSource(level, pos);
+        if (otherSource != null) {
+            if (!BlockProtectionHelper.canModifyBlock(level, pos, player)) {
+                player.displayClientMessage(Component.translatable("chat.neovitae.alternator.protected"), true);
+                return InteractionResult.SUCCESS;
+            }
+            clearLink(level, pos, otherSource);
+            player.displayClientMessage(Component.translatable("chat.neovitae.alternator.unlink"), true);
+            return InteractionResult.SUCCESS;
+        }
+        return null;
+    }
+
+    private void clearLink(ServerLevel level, BlockPos receiver, BlockPos source) {
+        if (level.getBlockEntity(source) instanceof DungeonAlternatorBlockEntity alternator) {
+            alternator.removeReceiver(receiver);
+        } else {
+            AlternatorLinks.unlink(level, receiver);
+        }
+    }
+
+    public boolean isAlternatorMode(ItemStack stack) {
+        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
+        return data != null && data.copyTag().getBoolean(NBT_ALTERNATOR_MODE);
+    }
+
+    @Nullable
+    private BlockPos alternatorSource(ItemStack stack, Level level) {
+        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
+        if (data == null) return null;
+        var tag = data.copyTag();
+        if (!tag.getBoolean(NBT_ALTERNATOR_MODE)) return null;
+        if (!level.dimension().location().toString().equals(tag.getString(NBT_ALTERNATOR_DIM))) return null;
+        BlockPos pos = getBlockPos(stack);
+        return pos.equals(BlockPos.ZERO) ? null : pos;
+    }
+
+    private void setAlternatorSource(ItemStack stack, Level level, BlockPos pos) {
+        String dim = level.dimension().location().toString();
+        stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> {
+            var tag = data.copyTag();
+            tag.putInt(Constants.NBT.X_COORD, pos.getX());
+            tag.putInt(Constants.NBT.Y_COORD, pos.getY());
+            tag.putInt(Constants.NBT.Z_COORD, pos.getZ());
+            tag.putBoolean(NBT_ALTERNATOR_MODE, true);
+            tag.putString(NBT_ALTERNATOR_DIM, dim);
+            return CustomData.of(tag);
+        });
+    }
+
     public BlockPos getBlockPos(ItemStack stack) {
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null) return BlockPos.ZERO;
@@ -241,6 +369,8 @@ public class ItemNodeRouter extends Item {
             tag.putInt(Constants.NBT.X_COORD, pos.getX());
             tag.putInt(Constants.NBT.Y_COORD, pos.getY());
             tag.putInt(Constants.NBT.Z_COORD, pos.getZ());
+            tag.remove(NBT_ALTERNATOR_MODE);
+            tag.remove(NBT_ALTERNATOR_DIM);
             return CustomData.of(tag);
         });
     }

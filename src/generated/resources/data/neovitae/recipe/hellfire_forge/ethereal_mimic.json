@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 32.0,
+  "inputs": [
+    {
+      "item": "minecraft:smooth_stone"
+    },
+    {
+      "item": "neovitae:tabula_animata"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "minDrain": 32.0,
+  "output": {
+    "count": 16,
+    "id": "neovitae:ethereal_mimic"
+  }
+}

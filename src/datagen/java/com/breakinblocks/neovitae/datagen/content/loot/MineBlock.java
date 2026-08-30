@@ -40,12 +40,6 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.SANDS_OF_VITAE);
         addDropSelf(DungeonBlocks.SPIKE_TRAP);
         addDropSelf(NVBlocks.BLANK_RITUAL_STONE);
-        addDropSelf(NVBlocks.AIR_RITUAL_STONE);
-        addDropSelf(NVBlocks.WATER_RITUAL_STONE);
-        addDropSelf(NVBlocks.FIRE_RITUAL_STONE);
-        addDropSelf(NVBlocks.EARTH_RITUAL_STONE);
-        addDropSelf(NVBlocks.TENEBRAE_RITUAL_STONE);
-        addDropSelf(NVBlocks.DEUS_RITUAL_STONE);
         addDropSelf(NVBlocks.MASTER_RITUAL_STONE);
         addDropSelf(NVBlocks.INVERTED_MASTER_RITUAL_STONE);
         addDropSelf(NVBlocks.IMPERFECT_RITUAL_STONE);
@@ -76,6 +70,15 @@ public class MineBlock extends BlockLootSubProvider {
         dropSelfList.add(toAdd.block().get());
     }
 
+    private final List<Block> inscribedRitualStones = List.of(
+            NVBlocks.AIR_RITUAL_STONE.block().get(),
+            NVBlocks.WATER_RITUAL_STONE.block().get(),
+            NVBlocks.FIRE_RITUAL_STONE.block().get(),
+            NVBlocks.EARTH_RITUAL_STONE.block().get(),
+            NVBlocks.TENEBRAE_RITUAL_STONE.block().get(),
+            NVBlocks.DEUS_RITUAL_STONE.block().get()
+    );
+
     private final List<Block> specialDropList = List.of(
             NVBlocks.BLOOD_TANK.block().get(),
             NVBlocks.ATHANOR_BLOCK.block().get(),
@@ -94,6 +97,7 @@ public class MineBlock extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         List<Block> list = new ArrayList<>();
         list.addAll(specialDropList);
+        list.addAll(inscribedRitualStones);
         list.addAll(dropSelfList);
         return list;
     }
@@ -101,6 +105,8 @@ public class MineBlock extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelfList.forEach(this::dropSelf);
+
+        inscribedRitualStones.forEach(block -> dropOther(block, NVBlocks.BLANK_RITUAL_STONE.item().get()));
 
         // Blocks that preserve their contents when broken
         copyComponents(NVBlocks.BLOOD_TANK);

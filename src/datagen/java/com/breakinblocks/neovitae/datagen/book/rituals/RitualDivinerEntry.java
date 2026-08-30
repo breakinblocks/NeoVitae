@@ -38,6 +38,7 @@ public class RitualDivinerEntry extends EntryProvider {
         this.page("clearing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The Diviner can clear soft obstructions like tall grass and snow, but not solid blocks. Ensure the area is unobstructed before you begin, or the [#](8B0000)Activation Crystal[#]() will find the circle incomplete."
+                + "\\\n\\\nBreaking an inscribed stone returns a [#](8B0000)blank Ritual Stone[#](), so a dismantled circle feeds straight into the next one. The Diviner inscribes whatever it places, so blanks are all you need to carry."
                 + "\\\n\\\nThe base Diviner can only inscribe simpler rituals. For the most advanced patterns, you must upgrade it with [#](8B0000)Tenebrae Inscription Tools[#]().");
 
         this.page("tenebrae_crafting", () -> BookCraftingRecipePageModel.create()

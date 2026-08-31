@@ -5,6 +5,7 @@
 
 package com.breakinblocks.neovitae.ritual.types;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
@@ -24,6 +25,9 @@ import java.util.function.Consumer;
  * This is a Tenebrae tier ritual.
  */
 public class RitualSentientArmourEvolve extends Ritual {
+
+    public static final int POINTS_PER_EVOLUTION = 100;
+    public static final int MAX_UPGRADE_POINTS = 500;
 
     public RitualSentientArmourEvolve() {
         super("armour_evolve", 1, 50000, "ritual." + NeoVitae.MODID + ".armour_evolve");
@@ -46,20 +50,21 @@ public class RitualSentientArmourEvolve extends Ritual {
                 continue;
             }
 
-            // Get current max points
             Integer currentMaxPoints = chestpiece.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
             if (currentMaxPoints == null) {
-                currentMaxPoints = 100; // Default starting max
+                currentMaxPoints = NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get();
             }
 
-            int newMaxPoints = currentMaxPoints + 100; // Add 100 max upgrade points
+            int newMaxPoints = currentMaxPoints + POINTS_PER_EVOLUTION;
 
-            // Cap at reasonable maximum
-            if (newMaxPoints > 500) {
-                continue; // Already at max evolution
+            if (newMaxPoints > MAX_UPGRADE_POINTS) {
+                player.displayClientMessage(Component.translatable("chat." + NeoVitae.MODID + ".armour_evolve.maxed"), true);
+                masterRitualStone.stopRitual(BreakType.DEACTIVATE);
+                return;
             }
 
             chestpiece.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get(), newMaxPoints);
+            player.displayClientMessage(Component.translatable("chat." + NeoVitae.MODID + ".armour_evolve.evolved", newMaxPoints), true);
 
             StreamPresets.soulSiphon(player, ctx.masterPos()).build()
                     .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);

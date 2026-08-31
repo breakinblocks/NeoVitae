@@ -76,7 +76,7 @@ Tier III unlocks the **Ritual Diviner [Tenebrae]** and a vast repertoire of adva
 
 ## Tier III, Sentient Evolution
 
-Your Sentient Armor may start to feel cramped by its modest point cap. With the Tenebrae Diviner, perform the **Ritual of Sentient Evolution** to raise your armor's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armor's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
+Your Sentient Armor may start to feel cramped by its modest point cap. With the Tenebrae Diviner, perform the **Ritual of Sentient Evolution** to raise your armor's capacity by **100** points per activation, from the starting **100** up to a maximum of **500**. The **Ritual of Sentient Penance** inscribes **Downgrades**, deliberate curses with negative point costs, from catalyst items thrown onto the stone, freeing even more points to spend. The **Sentient Extraction** ritual strips a thrown piece of armor's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
 
 See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 

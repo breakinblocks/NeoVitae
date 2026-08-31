@@ -1,0 +1,65 @@
+{
+  "effects": {
+    "neovitae:tick": [
+      {
+        "effect": {
+          "type": "neovitae:cooldown",
+          "id": "neovitae:poisoned_blood"
+        }
+      },
+      {
+        "effect": {
+          "type": "neovitae:reset_cooldown",
+          "amounts": {
+            "type": "minecraft:lookup",
+            "fallback": 600.0,
+            "values": [
+              600.0,
+              500.0,
+              400.0
+            ]
+          },
+          "id": "neovitae:poisoned_blood",
+          "reset_effect": {
+            "type": "neovitae:add_mob_effect",
+            "amplifier": {
+              "type": "minecraft:lookup",
+              "fallback": 0.0,
+              "values": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "duration": {
+              "type": "minecraft:lookup",
+              "fallback": 80.0,
+              "values": [
+                80.0,
+                120.0,
+                160.0
+              ]
+            },
+            "mob_effect": "minecraft:poison"
+          }
+        },
+        "requirements": {
+          "condition": "neovitae:sentient_cooldown_ready",
+          "id": "neovitae:poisoned_blood"
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1,
+      "2": 2,
+      "3": 3
+    },
+    "level_to_cost": {
+      "1": -40,
+      "2": -80,
+      "3": -120
+    }
+  }
+}

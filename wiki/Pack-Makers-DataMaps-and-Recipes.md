@@ -548,9 +548,17 @@ Flask recipes use a base class with subtypes (`FlaskEffectRecipe`, `FlaskLengthR
 
 ### Sentient Downgrade Recipes
 
-**Location:** `data/neovitae/recipe/living_downgrade/`
+**Location:** `data/neovitae/recipe/downgrade/`
 
-Used to convert positive armor upgrades into downgrade variants via the recipe pipeline. See the [Sentient Armor](Sentient-Armor) page for the player-facing system and the Sentient Armor Upgrades section below for the upgrade data structure.
+Type `neovitae:sentient_downgrade`. Each recipe maps a catalyst `input` ingredient to a `sentient_upgrade` id; the Ritual of Sentient Penance consumes one catalyst thrown onto the Master Ritual Stone and inscribes one level of that downgrade onto the standing player's worn Sentient chestplate. See the [Sentient Armor](Sentient-Armor) page for the player-facing system and the Sentient Armor Upgrades section below for the upgrade data structure.
+
+```json
+{
+  "type": "neovitae:sentient_downgrade",
+  "input": { "item": "minecraft:glass_bottle" },
+  "sentient_upgrade": "neovitae:quenched"
+}
+```
 
 ---
 
@@ -696,19 +704,21 @@ Upgrades use effect components:
 
 ### Upgrade Tags
 
-Control upgrade behavior with tags:
+Control upgrade behavior with tags in `data/neovitae/tags/neovitae/sentient_upgrades/`:
 
 | Tag | Purpose |
 |-----|---------|
-| `living/trainers` | Upgrades that can gain XP |
-| `living/is_downgrade` | Negative upgrades |
-| `living/is_scrappable` | Can be removed with scrapper |
-| `living/tooltip_hide` | Hidden from tooltips |
-| `living/living_blacklist` | Upgrades that cannot be applied to Sentient Armor |
+| `trainer` | Upgrades that gain XP through activity |
+| `sentient_start` | Upgrades present on freshly bound armor |
+| `is_downgrade` | Negative upgrades (red tooltip; applied via the Sentient Penance ritual) |
+| `is_scrappable` | Can be removed individually |
+| `tooltip_order` | Display order of upgrades in the armor tooltip |
+| `tooltip_hide` | Hidden from tooltips |
+| `sentient_blacklist` | Upgrades that cannot be applied to Sentient Armor |
 
 **Example, blacklist an upgrade from Sentient Armor:**
 
-Useful for preventing overpowered custom upgrades or upgrades that conflict with other mods. Create `data/neovitae/tags/neovitae/living_upgrade/living_blacklist.json`:
+Useful for preventing overpowered custom upgrades or upgrades that conflict with other mods. Create `data/neovitae/tags/neovitae/sentient_upgrades/sentient_blacklist.json`:
 
 ```json
 {

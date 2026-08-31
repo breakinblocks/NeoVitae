@@ -4,14 +4,14 @@
   "category": "alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/arcane_ash"
+    "entry_id": "alchemy_arrays/sentient_upgrades"
   },
-  "description": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.description",
+  "description": "book.neovitae.guide.alchemy_arrays.downgrades.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:lead"
+    "item": "minecraft:wither_rose"
   },
-  "name": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.name",
+  "name": "book.neovitae.guide.alchemy_arrays.downgrades.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.intro.title",
+      "text": "book.neovitae.guide.alchemy_arrays.downgrades.intro.text",
+      "title": "book.neovitae.guide.alchemy_arrays.downgrades.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -31,21 +31,21 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.crafting.text",
-      "title": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.crafting.title",
+      "text": "book.neovitae.guide.alchemy_arrays.downgrades.applying.text",
+      "title": "book.neovitae.guide.alchemy_arrays.downgrades.applying.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "alchemy_arrays/arcane_ash",
+      "entry": "alchemy_arrays/sentient_upgrades",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 63,
-  "x": -8,
-  "y": -4
+  "sort_number": 45,
+  "x": 0,
+  "y": 5
 }

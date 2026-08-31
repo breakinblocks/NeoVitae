@@ -1,0 +1,53 @@
+{
+  "effects": {
+    "neovitae:tick": [
+      {
+        "effect": {
+          "type": "neovitae:cooldown",
+          "id": "neovitae:hollow_hunger"
+        }
+      },
+      {
+        "effect": {
+          "type": "neovitae:reset_cooldown",
+          "amounts": 20.0,
+          "id": "neovitae:hollow_hunger",
+          "reset_effect": {
+            "type": "neovitae:exhaust",
+            "amounts": {
+              "type": "minecraft:lookup",
+              "fallback": 0.0,
+              "values": [
+                0.03,
+                0.06,
+                0.09,
+                0.12,
+                0.16
+              ]
+            }
+          }
+        },
+        "requirements": {
+          "condition": "neovitae:sentient_cooldown_ready",
+          "id": "neovitae:hollow_hunger"
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5
+    },
+    "level_to_cost": {
+      "1": -20,
+      "2": -40,
+      "3": -60,
+      "4": -80,
+      "5": -100
+    }
+  }
+}

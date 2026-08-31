@@ -6,12 +6,12 @@
     "type": "modonomicon:entry_read",
     "entry_id": "rituals/activation_crystals"
   },
-  "description": "book.neovitae.guide.rituals.ritual_armour_evolve.description",
+  "description": "book.neovitae.guide.rituals.ritual_penance.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:sentient_plate"
+    "item": "minecraft:wither_rose"
   },
-  "name": "book.neovitae.guide.rituals.ritual_armour_evolve.name",
+  "name": "book.neovitae.guide.rituals.ritual_penance.name",
   "pages": [
     {
       "type": "modonomicon:multiblock",
@@ -19,10 +19,10 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "ritual/armour_evolve",
-      "multiblock_name": "Ritual of Sentient Evolution",
+      "multiblock_id": "ritual/penance",
+      "multiblock_name": "Ritual of Sentient Penance",
       "show_visualize_button": true,
-      "text": "book.neovitae.guide.rituals.ritual_armour_evolve.multiblock.text"
+      "text": "book.neovitae.guide.rituals.ritual_penance.multiblock.text"
     },
     {
       "type": "neovitae:ritual_info",
@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 50,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Cost:[#]() 25,000 EV per use\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Tenebrae Ritual Stone\\\n  8x Fire Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 20,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Cost:[#]() 5,000 EV per use\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Fire Ritual Stone\\\n  8x Tenebrae Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
       "title": ""
     },
     {
@@ -40,8 +40,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_armour_evolve.info.text",
-      "title": "book.neovitae.guide.rituals.ritual_armour_evolve.info.title",
+      "text": "book.neovitae.guide.rituals.ritual_penance.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_penance.info.title",
       "use_markdown_in_title": false
     },
     {
@@ -51,8 +51,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_armour_evolve.capacity.text",
-      "title": "book.neovitae.guide.rituals.ritual_armour_evolve.capacity.title",
+      "text": "book.neovitae.guide.rituals.ritual_penance.usage.text",
+      "title": "",
       "use_markdown_in_title": false
     }
   ],
@@ -65,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 35,
-  "x": -7,
+  "sort_number": 36,
+  "x": 3,
   "y": 5
 }

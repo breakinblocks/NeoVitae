@@ -111,8 +111,9 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 
 | Ritual | Effect |
 |--------|--------|
-| Ritual of Sentient Evolution (*The Sound of Becoming*) | Expands a worn Sentient Armor's upgrade capacity beyond its former limits. See **[Sentient Armor](Sentient-Armor)**. |
-| Sentient Extraction (*The Price of Power*) | Throw a piece of Sentient Armor onto the small 5×2×5 area above the Master Ritual Stone. The ritual extracts every upgrade currently inscribed on it as separate **Upgrade Tomes** (one per upgrade, preserving accumulated experience), then strips the armor clean. The tomes can later be inscribed back onto a fresh chestplate. |
+| Ritual of Sentient Evolution (*The Sound of Becoming*) | Expands a worn Sentient Armor's upgrade capacity: each activation adds 100 Upgrade Points, from the 100-point baseline up to a maximum of 500. The ritual deactivates after each evolution and refuses armor already at the cap. See **[Sentient Armor](Sentient-Armor)**. |
+| Ritual of Sentient Penance (*The Willing Burden*) | Stand on the Master Ritual Stone wearing your Sentient chestplate and throw a **downgrade catalyst** onto the small 5×2×5 area above it. Each pulse consumes one catalyst and inscribes one level of the matching **Downgrade**, freeing Upgrade Points to spend elsewhere. See **[Sentient Armor](Sentient-Armor)** for the catalyst list. |
+| Sentient Extraction (*The Price of Power*) | Throw a piece of Sentient Armor onto the small 5×2×5 area above the Master Ritual Stone. The ritual extracts every upgrade and downgrade currently inscribed on it as separate **Upgrade Tomes** (one per upgrade, preserving accumulated experience), then strips the armor clean. The tomes can later be inscribed back onto a fresh chestplate. |
 | Tabula Rasa (*Purification of Form*) | Stand on the Master Ritual Stone wearing Sentient Armor. The ritual wipes **every upgrade** from every Sentient piece you have equipped and resets used points to zero, giving you back a clean slate at the cost of all accumulated training. **No tomes are produced**; if you want to preserve the upgrades for later, use **Sentient Extraction** instead. |
 
 ## Animal Husbandry: A Self-Sustaining Farm

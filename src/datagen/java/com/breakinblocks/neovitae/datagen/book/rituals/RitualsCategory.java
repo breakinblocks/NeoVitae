@@ -29,7 +29,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__t_u_v_w_x________",
                 "___________________",
                 "__y_z_1_2_3________",
-                "__4_5_6_7_9________"
+                "__4_5_6_7_9_P______"
         };
     }
 
@@ -215,6 +215,11 @@ public class RitualsCategory extends CategoryProvider {
         armourEvolve.withParent(this.parent(crystals));
         armourEvolve.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
         armourEvolve.hideWhileLocked(false);
+
+        var penance = this.add(new RitualPenanceEntry(this).generate('P'));
+        penance.withParent(this.parent(crystals));
+        penance.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
+        penance.hideWhileLocked(false);
 
         var upgradeRemove = this.add(new RitualUpgradeRemoveEntry(this).generate('5'));
         upgradeRemove.withParent(this.parent(crystals));

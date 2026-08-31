@@ -1153,6 +1153,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("currentOwner", "Bound to: %s");
 
         add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
+        add("chat.neovitae.armour_evolve.evolved", "The armor evolves; it can now hold %s Upgrade Points.");
+        add("chat.neovitae.armour_evolve.maxed", "The armor has evolved as far as it can.");
 
         SentientUpgrades.translations(this::add);
 
@@ -1242,7 +1244,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
 
         String tomeObtain = "\n\nObtain the tome from dungeon loot (The Mines and the Foreman's hoard), the Sentient Extraction ritual, or by combining two duplicate tomes at a crafting table.";
-        String downgradeApply = "\n\nImposed by the Sentient Downgrade ritual, which trades unwanted upgrade levels for this curse and frees Upgrade Points to spend elsewhere.";
+        String downgradeApply = "\n\nImposed by the Ritual of Sentient Penance: stand on the master stone in your Sentient set and throw the catalyst item onto the stone. Each application adds one level of this curse and frees Upgrade Points to spend elsewhere.\n\nRemove it with the Sentient Extraction ritual, which returns it as a tome.";
 
         add("jei.neovitae.upgrade_tome.physical_protect.info", "Reduces incoming non-projectile damage, such as melee and explosions, as it levels.\n\nTrained: take non-projectile damage while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.arrow_protect.info", "Reduces incoming projectile damage as it levels.\n\nTrained: take projectile damage while wearing the full Sentient set." + tomeObtain);
@@ -1273,6 +1275,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jei.neovitae.upgrade_tome.quenched.info", "Prevents you from drinking potions." + downgradeApply);
         add("jei.neovitae.upgrade_tome.slow_heal.info", "Reduces the healing you receive." + downgradeApply);
         add("jei.neovitae.upgrade_tome.storm_trooper.info", "Spoils your aim, scattering the projectiles you fire." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.poisoned_blood.info", "The armor periodically floods your veins with poison." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.hollow_hunger.info", "The armor constantly gnaws at your hunger." + downgradeApply);
 
         // Alchemy Array Effect Types (for JEI tooltips)
         addJei("effect.crafting.name", "Crafting Array");
@@ -1405,6 +1409,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");
         add("ritual.neovitae.crystallum_fractura.aspect_effect", "Biases the growth aura's Spiritus injection toward the chosen aspect's crystals. Raw leaves the aura unbiased.");
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
+        addRitual("penance", "Ritual of Sentient Penance", "Stand on the master stone in Sentient Armor and throw a downgrade catalyst onto the small zone above it; the ritual inscribes one level of the matching downgrade, freeing Upgrade Points to spend elsewhere.");
         addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
         addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
         addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
@@ -1416,7 +1421,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("ritual.neovitae.placer.placerRange.info", "The area the Mason fills.");
         add("ritual.neovitae.placer.spiritus.raw", "Raw Spiritus quickens the work and widens the domain: 20 raw for four blocks a pulse and 20,000 blocks of room, 50 raw for eight and 80,000.");
         addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
-        addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
+        addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; each activation adds 100 Upgrade Points of capacity, up to a maximum of 500.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Tenebrae-tier.");
         addRitual("enchanted_vitae", "Ritual of Enchanted Vitae", "Throw one item and any number of enchanted books onto the master stone; the ritual reads the books and binds every enchantment the item can take, at whatever level the book carries, charging Essentia Vitae for each level. Two enchantments that cannot share an item halt the rite; remove one and offer the item again to resume. The books survive.");

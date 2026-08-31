@@ -34,6 +34,18 @@ public class RitualSentientArmourEvolveEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Crucible of Becoming");
         this.pageText("Stand upon the [#](8B0000)Master Ritual Stone[#]() while clad in [#](8B0000)Sentient Armor[#](), and the circle will pour its power into the symbiotic plates. The armor evolves; its capacity for upgrades deepens, its potential expands. This is the crucible through which your armor transcends its former limits.");
+
+        this.page("capacity", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Limits of Flesh");
+        this.pageText("A fresh chestplate holds [#](B8860B)100 Upgrade Points[#](). Each evolution "
+                + "grants [#](B8860B)100[#]() more, to a final capacity of [#](B8860B)500[#]() after "
+                + "four evolutions. The ritual deactivates after each evolution; rebuild your "
+                + "reserves and activate it again for the next.\\\n\\\n"
+                + "When the armor can evolve no further, the circle refuses the offering and tells "
+                + "you so. Beyond that point, only [#](8B0000)Downgrades[#]() can stretch what a "
+                + "chestplate holds.");
     }
 
     @Override

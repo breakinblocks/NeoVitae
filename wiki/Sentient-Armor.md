@@ -6,7 +6,7 @@ The armor is alive, and it watches everything you do. Be deliberate in what you 
 
 ## Specialisation
 
-The armor grows in many directions at once, but its capacity is finite. Trying to master everything yields mastery of nothing. Consider forging multiple chestplates, each trained for a specific purpose, such as a miner's set, a warrior's set, or an explorer's set. The Vitaemancer has devised **[Rituals](Rituals)** to assist with focused training, and the **Ritual of Sentient Evolution** to imbue your armor with a greater capacity for growth. Stand upon the Master Ritual Stone while clad in Sentient Armor, and the circle pours its power into the symbiotic plates. The armor's potential expands beyond its former limits.
+The armor grows in many directions at once, but its capacity is finite. Trying to master everything yields mastery of nothing. Consider forging multiple chestplates, each trained for a specific purpose, such as a miner's set, a warrior's set, or an explorer's set. The Vitaemancer has devised **[Rituals](Rituals)** to assist with focused training, and the **Ritual of Sentient Evolution** to imbue your armor with a greater capacity for growth. Stand upon the Master Ritual Stone while clad in Sentient Armor, and the circle pours its power into the symbiotic plates. Each evolution adds **100 Upgrade Points** of capacity, up to a maximum of **500** after four evolutions; the ritual deactivates after each one, and tells you when the armor can evolve no further.
 
 ## Upgrade Tomes
 
@@ -31,7 +31,7 @@ Most upgrades are trained by performing the matching activity while wearing the 
 - **Proportional** upgrades bank experience equal to the *magnitude* of the event: the damage taken or dealt, the health restored, the experience collected, or the distance moved. Bigger events teach the armor faster.
 - **Per-event** upgrades bank a flat point each time: one per block mined, or one per tick spent on fire or poisoned.
 
-A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained through activity at all; they are inscribed onto an Upgrade Tome and then applied to the armor. Brilliance is crafted in the Tabula Vitae; the other three are found as tomes in the Foreman's hoard. Each upgrade levels up at its own experience thresholds. The **Trained by** column gives the exact trigger.
+A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded, Skilled) are not trained through activity at all; they are inscribed onto an Upgrade Tome and then applied to the armor. Brilliance is crafted in the Tabula Vitae; the others are found as tomes in dungeon loot. Each upgrade levels up at its own experience thresholds. The **Trained by** column gives the exact trigger.
 
 | Upgrade | Effect | Trained by |
 |---------|--------|------------|
@@ -50,6 +50,7 @@ A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained thro
 | Poison Resistance | The armor learns to purge venom from your blood. | One point per tick you are poisoned. |
 | Quick Feet | The armor quickens your step with every mile traveled. | Distance moved on the ground: experience equal to the blocks travelled. |
 | Repair | The armor knits its own wounds shut, slowly restoring worn equipment. | Durability restored to the chestplate: points equal to the durability mended. |
+| Skilled | Increases the Luck attribute by 2 per level (up to +10), improving loot rolls. | Applied from a tome found in the loot of The Mines; not trained. |
 | Soft Fall | The armor absorbs impact; the ground softens beneath you. | Taking *fall* damage: experience equal to the damage taken. |
 | Strong Legs | The armor coils like a spring; launch yourself skyward. | Rising through the air (jumping/launching): experience equal to the height gained. |
 | Tough | Hardens against melee, explosions, and all close-range violence. | Taking non-projectile damage: experience equal to the damage taken. |
@@ -57,22 +58,26 @@ A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained thro
 
 ## Downgrades
 
-Every upgrade has a shadow. Downgrades are imposed by the **Ritual of Sentient Downgrade** (see **[Rituals](Rituals)**) and exchange unwanted upgrade levels for a curse, freeing Upgrade Points to reinvest elsewhere.
+Every upgrade has a shadow. Downgrades are deliberate curses that hobble you in one respect and carry a **negative point cost**, freeing Upgrade Points to reinvest elsewhere; a chestplate burdened with the right curses can hold upgrades beyond its normal capacity.
 
-| Downgrade | Effect |
-|-----------|--------|
-| Battle Hungry | The armor craves combat; starve it of violence, and it starves you. |
-| Concrete Shoes | The armor drags you down; water becomes a grave. |
-| Crippled Arm | The armor locks your off-hand; one arm must suffice. |
-| Diseased | The armor festers, choking your body's ability to heal. |
-| Dulled Blade | The armor bleeds your strength; every strike lands softer. |
-| Leadened Pick | The armor drags at your arms; mining becomes a crawl. |
-| Limp Leg | The armor hobbles your stride; each step heavier than the last. |
-| Quenched | The armor seals your throat; no potion shall pass your lips. |
-| Storm Trooper | The armor ruins your aim; every shot goes astray. |
+Downgrades are imposed by the **Ritual of Sentient Penance** (see **[Rituals](Rituals)**): stand on the Master Ritual Stone wearing your Sentient chestplate and throw the matching catalyst item onto the stone. Each catalyst consumed inscribes one level of its curse. To lift a curse, run the chestplate through **Sentient Extraction**; the downgrade comes back as a tome along with your upgrades.
+
+| Downgrade | Effect | Catalyst |
+|-----------|--------|----------|
+| Battle Hungry | The armor craves combat; starve it of violence, and it starves you. | Rotten Flesh |
+| Concrete Shoes | The armor drags you down; water becomes a grave. | Water Bucket |
+| Crippled Arm | The armor locks your off-hand; one arm must suffice. | Shield |
+| Diseased | The armor festers, choking your body's ability to heal. | Ghast Tear |
+| Dulled Blade | The armor bleeds your strength; every strike lands softer. | Stone Sword |
+| Hollow Hunger | The armor feeds on you without pause; your hunger drains faster at all times. | Hollow Gut |
+| Leadened Pick | The armor drags at your arms; mining becomes a crawl. | Stone Pickaxe |
+| Limp Leg | The armor hobbles your stride; each step heavier than the last. | Soul Sand |
+| Poisoned Blood | The armor's tissue turns venomous, periodically poisoning you. | Venomgland Sac |
+| Quenched | The armor seals your throat; no potion shall pass your lips. | Glass Bottle |
+| Storm Trooper | The armor ruins your aim; every shot goes astray. | Arrow |
 
 ## Caretaking
 
 Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional **Binding Reagent** (brewed in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)**). The armor is also highly receptive to enchantment. To strip all upgrades and recover their points, use the **Tabula Rasa** ritual.
 
-See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)** (how the binding is performed), **[Sigils](Sigils)** (the Training Bracelet that directs growth), **[Rituals](Rituals)** (Sentient Evolution, Sentient Extraction, Tabula Rasa), **[Alchemy Arrays](Alchemy-Arrays)** (where binding and bracelet are inscribed).
+See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)** (how the binding is performed), **[Sigils](Sigils)** (the Training Bracelet that directs growth), **[Rituals](Rituals)** (Sentient Evolution, Sentient Penance, Sentient Extraction, Tabula Rasa), **[Alchemy Arrays](Alchemy-Arrays)** (where binding and bracelet are inscribed).

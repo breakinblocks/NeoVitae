@@ -359,10 +359,12 @@ public class LexVitaeItem extends Item implements ISentientTool {
                 if (state.isAir()) continue;
                 if (state.getDestroySpeed(level, offset) < 0) continue;
                 if (!stack.isCorrectToolForDrops(state)) continue;
-                if (BlockProtectionHelper.tryBreakBlock(level, offset, player)) {
+                if (player instanceof ServerPlayer sp) {
+                    sp.gameMode.destroyBlock(offset);
+                } else if (BlockProtectionHelper.tryBreakBlock(level, offset, player)) {
                     stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-                    if (stack.isEmpty()) return;
                 }
+                if (stack.isEmpty()) return;
             }
         }
     }

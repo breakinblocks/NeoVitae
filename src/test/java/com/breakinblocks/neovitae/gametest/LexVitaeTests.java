@@ -6,22 +6,29 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.ritual.RitualHelper;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+
+import java.util.UUID;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -229,6 +236,39 @@ public class LexVitaeTests {
                 helper.fail("A canceled attack should not open the combat window");
             }
             helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void lexVitaeBeamDropsVacuumToPlayer(GameTestHelper helper) {
+        BlockPos center = new BlockPos(2, 2, 1);
+        BlockPos neighbor = new BlockPos(1, 2, 1);
+        helper.setBlock(neighbor, Blocks.STONE.defaultBlockState());
+
+        FakePlayer player = RitualHelper.createRitualFakePlayer(helper.getLevel(), UUID.randomUUID(),
+                "NeoVitae Lex Test", helper.absolutePos(new BlockPos(2, 1, 3)));
+        player.setItemInHand(InteractionHand.MAIN_HAND, activeLexVitae(1));
+        LexVitaeItem.setBeaming(player, true);
+
+        helper.runAfterDelay(1, () -> {
+            try {
+                LexVitaeItem.beamAoe(helper.getLevel(), player, player.getMainHandItem(),
+                        helper.absolutePos(center), Direction.SOUTH);
+                helper.assertBlockNotPresent(Blocks.STONE, neighbor);
+                if (player.getInventory().countItem(Items.COBBLESTONE) == 0) {
+                    helper.fail("Beam-mined drops should vacuum into the player's inventory");
+                    return;
+                }
+                var strays = helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                        new AABB(helper.absolutePos(neighbor)).inflate(2));
+                if (!strays.isEmpty()) {
+                    helper.fail("No drops should be left on the ground, found " + strays.size());
+                    return;
+                }
+                helper.succeed();
+            } finally {
+                LexVitaeItem.setBeaming(player, false);
+            }
         });
     }
 }

@@ -203,6 +203,8 @@ public class NVPayloads {
             ItemStack held = context.player().getMainHandItem();
             if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
                 LexVitaeItem.cycleMode(held);
+                context.player().sendOverlayMessage(Component.translatable("message.neovitae.lex_vitae.mode",
+                        Component.translatable(LexVitaeItem.getModeTranslationKey(held))));
             }
         });
     }

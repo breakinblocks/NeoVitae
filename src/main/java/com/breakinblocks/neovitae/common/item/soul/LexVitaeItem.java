@@ -48,6 +48,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +94,14 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     public static void cycleMode(ItemStack stack) {
         stack.set(NVDataComponents.LEX_MODE, (getMode(stack) + 1) % 3);
+    }
+
+    public static String getModeTranslationKey(ItemStack stack) {
+        return switch (getMode(stack)) {
+            case MODE_MINING -> "tooltip.neovitae.lexVitae.mode.mining";
+            case MODE_DAMAGING -> "tooltip.neovitae.lexVitae.mode.damaging";
+            default -> "tooltip.neovitae.lexVitae.mode.both";
+        };
     }
 
     public static boolean canMine(ItemStack stack) {
@@ -193,6 +202,13 @@ public class LexVitaeItem extends Item implements ISentientTool {
         return isActive(stack) ? ACTIVE_MODIFIERS : ItemAttributeModifiers.EMPTY;
     }
 
+    public static void syncAttributeModifiers(ItemStack stack) {
+        ItemAttributeModifiers desired = isActive(stack) ? ACTIVE_MODIFIERS : ItemAttributeModifiers.EMPTY;
+        if (!desired.equals(stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY))) {
+            stack.set(DataComponents.ATTRIBUTE_MODIFIERS, desired);
+        }
+    }
+
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
         return isActive(stack) ? ItemUseAnimation.BOW : ItemUseAnimation.NONE;
@@ -213,8 +229,11 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
-        if (slot == EquipmentSlot.MAINHAND && isActive(stack) && entity instanceof Player player) {
-            recalculatePowers(stack, level, player);
+        if (slot == EquipmentSlot.MAINHAND && entity instanceof Player player) {
+            syncAttributeModifiers(stack);
+            if (isActive(stack)) {
+                recalculatePowers(stack, level, player);
+            }
         }
     }
 
@@ -244,6 +263,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         if (player.isShiftKeyDown()) {
             boolean now = !isActive(stack);
             stack.set(NVDataComponents.LEX_ACTIVE, now);
+            syncAttributeModifiers(stack);
             world.playSound(null, player.blockPosition(),
                     now ? SoundEvents.BEACON_ACTIVATE : SoundEvents.BEACON_DEACTIVATE,
                     SoundSource.PLAYERS, 0.5F, now ? 1.4F : 0.7F);
@@ -317,6 +337,33 @@ public class LexVitaeItem extends Item implements ISentientTool {
         if (player instanceof ServerPlayer sp) {
             sp.gameMode.destroyBlock(pos);
             stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            beamAoe(level, sp, stack, pos, bhr.getDirection());
+        }
+    }
+
+    public static void beamAoe(Level level, Player player, ItemStack stack, BlockPos center, Direction face) {
+        int radius = stack.getOrDefault(NVDataComponents.LEX_RADIUS, 0);
+        if (radius == 0) return;
+        int half = radius == 1 ? 1 : 2;
+        Direction.Axis depth = face.getAxis();
+
+        for (int u = -half; u <= half; u++) {
+            for (int v = -half; v <= half; v++) {
+                if (u == 0 && v == 0) continue;
+                BlockPos offset = switch (depth) {
+                    case X -> center.offset(0, u, v);
+                    case Y -> center.offset(u, 0, v);
+                    case Z -> center.offset(u, v, 0);
+                };
+                BlockState state = level.getBlockState(offset);
+                if (state.isAir()) continue;
+                if (state.getDestroySpeed(level, offset) < 0) continue;
+                if (!stack.isCorrectToolForDrops(state)) continue;
+                if (BlockProtectionHelper.tryBreakBlock(level, offset, player)) {
+                    stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                    if (stack.isEmpty()) return;
+                }
+            }
         }
     }
 
@@ -461,12 +508,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int r = stack.getOrDefault(NVDataComponents.LEX_RADIUS, 0);
         int side = r == 0 ? 1 : (r == 1 ? 3 : 5);
         tooltip.accept(Component.translatable("tooltip.neovitae.lexVitae.radius", side, side).withStyle(ChatFormatting.GRAY));
-        String modeKey = switch (getMode(stack)) {
-            case MODE_MINING -> "tooltip.neovitae.lexVitae.mode.mining";
-            case MODE_DAMAGING -> "tooltip.neovitae.lexVitae.mode.damaging";
-            default -> "tooltip.neovitae.lexVitae.mode.both";
-        };
-        tooltip.accept(Component.translatable("tooltip.neovitae.lexVitae.mode", Component.translatable(modeKey)).withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.lexVitae.mode", Component.translatable(getModeTranslationKey(stack))).withStyle(ChatFormatting.GRAY));
         SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
     }
 

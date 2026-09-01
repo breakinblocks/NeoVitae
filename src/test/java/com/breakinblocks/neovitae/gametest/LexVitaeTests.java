@@ -1,11 +1,14 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -164,6 +167,83 @@ public final class LexVitaeTests {
                 }
                 helper.succeed();
             });
+        });
+
+        r.add("lex_vitae/aoe_plane_follows_targeted_face", 60, helper -> {
+            BlockPos center = new BlockPos(2, 1, 1);
+            helper.setBlock(center, Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(2, 1, 0), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(2, 0, 1), Blocks.STONE.defaultBlockState());
+
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, activeLexVitae(1));
+            Vec3 standAt = helper.absoluteVec(new Vec3(2.5, 1, 3.5));
+            player.setPos(standAt.x, standAt.y, standAt.z);
+            player.setYRot(180.0F);
+            player.setXRot(17.0F);
+
+            helper.runAfterDelay(1, () -> {
+                postBreak(helper, player, helper.absolutePos(center));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 0));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 2));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(1, 1, 1));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(3, 1, 1));
+                helper.assertBlockPresent(Blocks.STONE, new BlockPos(2, 0, 1));
+                helper.succeed();
+            });
+        });
+
+        r.add("lex_vitae/beam_mines_plane_around_hit_face", 60, helper -> {
+            BlockPos center = new BlockPos(2, 2, 1);
+            for (int x = 1; x <= 3; x++) {
+                for (int y = 1; y <= 3; y++) {
+                    helper.setBlock(new BlockPos(x, y, 1), Blocks.STONE.defaultBlockState());
+                }
+            }
+            helper.setBlock(new BlockPos(2, 2, 0), Blocks.STONE.defaultBlockState());
+
+            Player player = armedPlayer(helper, 1);
+            LexVitaeItem.setBeaming(player, true);
+
+            helper.runAfterDelay(1, () -> {
+                try {
+                    LexVitaeItem.beamAoe(helper.getLevel(), player, player.getMainHandItem(),
+                            helper.absolutePos(center), Direction.SOUTH);
+                    helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(1, 2, 1));
+                    helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(3, 2, 1));
+                    helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 1));
+                    helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 3, 1));
+                    helper.assertBlockPresent(Blocks.STONE, center);
+                    helper.assertBlockPresent(Blocks.STONE, new BlockPos(2, 2, 0));
+                    helper.succeed();
+                } finally {
+                    LexVitaeItem.setBeaming(player, false);
+                }
+            });
+        });
+
+        r.add("lex_vitae/active_lex_carries_attack_modifiers", 60, helper -> {
+            ItemStack active = activeLexVitae(0);
+            LexVitaeItem.syncAttributeModifiers(active);
+            if (active.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY).modifiers().isEmpty()) {
+                helper.fail("An active Lex Vitae should carry attack modifiers in its attribute_modifiers component");
+                return;
+            }
+            if (active.getAttributeModifiers().modifiers().isEmpty()) {
+                helper.fail("An active Lex Vitae should resolve attack modifiers for gameplay");
+                return;
+            }
+
+            ItemStack dormant = new ItemStack(NVItems.LEX_VITAE.get());
+            LexVitaeItem.syncAttributeModifiers(dormant);
+            if (!dormant.getAttributeModifiers().modifiers().isEmpty()) {
+                helper.fail("A dormant Lex Vitae should have no attack modifiers");
+                return;
+            }
+            helper.succeed();
         });
     }
 }

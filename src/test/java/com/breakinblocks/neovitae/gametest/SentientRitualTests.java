@@ -7,7 +7,9 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -81,6 +83,13 @@ public class SentientRitualTests {
         return player;
     }
 
+    private static void throwCatalyst(GameTestHelper helper, Item item) {
+        Vec3 at = helper.absoluteVec(new Vec3(10.5, 2.2, 10.5));
+        ItemEntity entity = new ItemEntity(helper.getLevel(), at.x, at.y, at.z, new ItemStack(item));
+        entity.setDeltaMovement(Vec3.ZERO);
+        helper.getLevel().addFreshEntity(entity);
+    }
+
     private static Holder<SentientUpgrade> upgradeHolder(GameTestHelper helper, String path) {
         Registry<SentientUpgrade> registry = helper.getLevel().registryAccess().registryOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
         return registry.getHolderOrThrow(ResourceKey.create(NVRegistries.Keys.SENTIENT_UPGRADES, NeoVitae.rl(path)));
@@ -96,7 +105,7 @@ public class SentientRitualTests {
         mrs.setOwner(owner);
 
         Player player = standingWearer(helper, mrsPos);
-        helper.spawnItem(Items.GLASS_BOTTLE, 10.5f, 2.5f, 10.5f);
+        throwCatalyst(helper, Items.GLASS_BOTTLE);
 
         helper.runAfterDelay(100, () -> {
             ItemStack worn = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -126,7 +135,7 @@ public class SentientRitualTests {
         mrs.setOwner(owner);
 
         Player player = standingWearer(helper, mrsPos);
-        helper.spawnItem(Items.COBBLESTONE, 10.5f, 2.5f, 10.5f);
+        throwCatalyst(helper, Items.COBBLESTONE);
 
         helper.runAfterDelay(60, () -> {
             ItemStack worn = player.getItemBySlot(EquipmentSlot.CHEST);

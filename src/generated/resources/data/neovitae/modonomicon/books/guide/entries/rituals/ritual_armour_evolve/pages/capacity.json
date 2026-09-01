@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "capacity",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.ritual_armour_evolve.capacity.text",
+  "title": "book.neovitae.guide.rituals.ritual_armour_evolve.capacity.title"
+}

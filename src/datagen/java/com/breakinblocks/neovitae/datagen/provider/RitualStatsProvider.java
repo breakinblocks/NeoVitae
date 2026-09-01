@@ -64,6 +64,7 @@ public class RitualStatsProvider implements DataProvider {
         out.accept(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(2000, 1, 1, 0));
         out.accept(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 160, 100, 1));
         out.accept(NVRituals.DOWNGRADE, RitualStats.timed(20000, 10000, 20, 1).withPerOperation());
+        out.accept(NVRituals.PENANCE, RitualStats.timed(20000, 5000, 20, 1).withPerOperation());
         out.accept(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 1));
         out.accept(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
         out.accept(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));

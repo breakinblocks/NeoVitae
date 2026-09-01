@@ -24,6 +24,12 @@
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_downgrades",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_downgrades_hook",
+    "trigger_target": "neovitae:alchemy_arrays/downgrades",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
     "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_tabula_vitae",
     "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_tabula_vitae_hook",
     "trigger_target": "neovitae:tabula_vitae/tabula_vitae",

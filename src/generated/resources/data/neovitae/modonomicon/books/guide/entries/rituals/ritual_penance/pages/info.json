@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "info",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.rituals.ritual_penance.info.text",
+  "title": "book.neovitae.guide.rituals.ritual_penance.info.title"
+}

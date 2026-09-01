@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sentient_upgrades",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.name"
+        }
+      ]
+    }
+  },
+  "description": "book.neovitae.guide.alchemy_arrays.downgrades.description",
+  "icon": {
+    "id": "minecraft:wither_rose"
+  },
+  "id": "neovitae:alchemy_arrays/downgrades",
+  "name": "book.neovitae.guide.alchemy_arrays.downgrades.name",
+  "parents": [
+    {
+      "entry": "neovitae:alchemy_arrays/sentient_upgrades"
+    }
+  ],
+  "sort_number": 45,
+  "x": 0,
+  "y": 5
+}

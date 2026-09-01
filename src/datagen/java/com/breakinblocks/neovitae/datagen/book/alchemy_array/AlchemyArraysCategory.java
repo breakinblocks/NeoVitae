@@ -27,10 +27,10 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "_____________________",
                 "____x_y_z_A_B_C_D____",
                 "____E_F_G_H_I_J_K____",
-                "______L_M_N_O_P______",
-                "_____________________",
+                "____$_L_M_N_O_P______",
+                "__________%__________",
                 "____Q_R_S_T_U_V_X____",
-                "________Y___Z________"
+                "______&_Y___Z_+______"
         };
     }
 
@@ -247,50 +247,70 @@ public class AlchemyArraysCategory extends CategoryProvider {
         toughPalms.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
         toughPalms.hideWhileLocked(false);
 
+        var skilled = this.add(new SkilledUpgradeEntry(this).generate('$'));
+        skilled.withParent(this.parent(sentientUpgrades));
+        skilled.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        skilled.hideWhileLocked(false);
+
+        var downgrades = this.add(new DowngradesEntry(this).generate('%'));
+        downgrades.withParent(this.parent(sentientUpgrades));
+        downgrades.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        downgrades.hideWhileLocked(false);
+
         var battleHungry = this.add(new BattleHungryDowngradeEntry(this).generate('Q'));
-        battleHungry.withParent(this.parent(sentientUpgrades));
-        battleHungry.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        battleHungry.withParent(this.parent(downgrades));
+        battleHungry.withCondition(this.condition().entryViewedOnce(downgrades));
         battleHungry.hideWhileLocked(false);
 
         var crippledArm = this.add(new CrippledArmDowngradeEntry(this).generate('R'));
-        crippledArm.withParent(this.parent(sentientUpgrades));
-        crippledArm.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        crippledArm.withParent(this.parent(downgrades));
+        crippledArm.withCondition(this.condition().entryViewedOnce(downgrades));
         crippledArm.hideWhileLocked(false);
 
         var leadenedPick = this.add(new LeadenedPickDowngradeEntry(this).generate('S'));
-        leadenedPick.withParent(this.parent(sentientUpgrades));
-        leadenedPick.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        leadenedPick.withParent(this.parent(downgrades));
+        leadenedPick.withCondition(this.condition().entryViewedOnce(downgrades));
         leadenedPick.hideWhileLocked(false);
 
         var dulledBlade = this.add(new DulledBladeDowngradeEntry(this).generate('T'));
-        dulledBlade.withParent(this.parent(sentientUpgrades));
-        dulledBlade.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        dulledBlade.withParent(this.parent(downgrades));
+        dulledBlade.withCondition(this.condition().entryViewedOnce(downgrades));
         dulledBlade.hideWhileLocked(false);
 
         var quenched = this.add(new QuenchedDowngradeEntry(this).generate('U'));
-        quenched.withParent(this.parent(sentientUpgrades));
-        quenched.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        quenched.withParent(this.parent(downgrades));
+        quenched.withCondition(this.condition().entryViewedOnce(downgrades));
         quenched.hideWhileLocked(false);
 
         var diseased = this.add(new DiseasedDowngradeEntry(this).generate('V'));
-        diseased.withParent(this.parent(sentientUpgrades));
-        diseased.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        diseased.withParent(this.parent(downgrades));
+        diseased.withCondition(this.condition().entryViewedOnce(downgrades));
         diseased.hideWhileLocked(false);
 
         var limpLeg = this.add(new LimpLegDowngradeEntry(this).generate('X'));
-        limpLeg.withParent(this.parent(sentientUpgrades));
-        limpLeg.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        limpLeg.withParent(this.parent(downgrades));
+        limpLeg.withCondition(this.condition().entryViewedOnce(downgrades));
         limpLeg.hideWhileLocked(false);
 
         var stormTrooper = this.add(new StormTrooperDowngradeEntry(this).generate('Y'));
-        stormTrooper.withParent(this.parent(sentientUpgrades));
-        stormTrooper.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        stormTrooper.withParent(this.parent(downgrades));
+        stormTrooper.withCondition(this.condition().entryViewedOnce(downgrades));
         stormTrooper.hideWhileLocked(false);
 
         var concreteShoes = this.add(new ConcreteShoesDowngradeEntry(this).generate('Z'));
-        concreteShoes.withParent(this.parent(sentientUpgrades));
-        concreteShoes.withCondition(this.condition().entryViewedOnce(sentientUpgrades));
+        concreteShoes.withParent(this.parent(downgrades));
+        concreteShoes.withCondition(this.condition().entryViewedOnce(downgrades));
         concreteShoes.hideWhileLocked(false);
+
+        var poisonedBlood = this.add(new PoisonedBloodDowngradeEntry(this).generate('&'));
+        poisonedBlood.withParent(this.parent(downgrades));
+        poisonedBlood.withCondition(this.condition().entryViewedOnce(downgrades));
+        poisonedBlood.hideWhileLocked(false);
+
+        var hollowHunger = this.add(new HollowHungerDowngradeEntry(this).generate('+'));
+        hollowHunger.withParent(this.parent(downgrades));
+        hollowHunger.withCondition(this.condition().entryViewedOnce(downgrades));
+        hollowHunger.hideWhileLocked(false);
 
         var defenseArrays = this.add(new DefenseArraysEntry(this).generate('1'));
         defenseArrays.withParent(this.parent(arcaneAsh));

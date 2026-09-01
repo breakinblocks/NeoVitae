@@ -8,12 +8,12 @@
   "category": "neovitae:alchemy_arrays",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sentient_upgrades",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_downgrades",
     "tooltip": {
       "translate": "tooltip.modonomicon.condition.entry_unlocked",
       "with": [
         {
-          "translate": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.name"
+          "translate": "book.neovitae.guide.alchemy_arrays.downgrades.name"
         }
       ]
     }
@@ -26,10 +26,10 @@
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_dulled_blade.name",
   "parents": [
     {
-      "entry": "neovitae:alchemy_arrays/sentient_upgrades"
+      "entry": "neovitae:alchemy_arrays/downgrades"
     }
   ],
-  "sort_number": 47,
+  "sort_number": 49,
   "x": 0,
   "y": 6
 }

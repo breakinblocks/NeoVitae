@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:rituals",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_activation_crystals",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.rituals.activation_crystals.name"
+        }
+      ]
+    }
+  },
+  "description": "book.neovitae.guide.rituals.ritual_penance.description",
+  "icon": {
+    "id": "minecraft:wither_rose"
+  },
+  "id": "neovitae:rituals/ritual_penance",
+  "name": "book.neovitae.guide.rituals.ritual_penance.name",
+  "parents": [
+    {
+      "entry": "neovitae:rituals/activation_crystals"
+    }
+  ],
+  "sort_number": 36,
+  "x": 3,
+  "y": 5
+}

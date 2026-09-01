@@ -68,6 +68,9 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualDowngrade> DOWNGRADE =
             registerRitual("downgrade", RitualDowngrade::new);
 
+    public static final DeferredHolder<Ritual, RitualSentientPenance> PENANCE =
+            registerRitual("penance", RitualSentientPenance::new);
+
     public static final DeferredHolder<Ritual, RitualMeteor> METEOR =
             registerRitual("meteor", RitualMeteor::new);
 

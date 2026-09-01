@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "applying",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.alchemy_arrays.downgrades.applying.text",
+  "title": "book.neovitae.guide.alchemy_arrays.downgrades.applying.title"
+}

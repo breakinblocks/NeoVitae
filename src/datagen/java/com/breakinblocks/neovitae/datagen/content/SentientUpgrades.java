@@ -38,7 +38,9 @@ public class SentientUpgrades {
     public static final ResourceKey<SentientUpgrade> BATTLE_HUNGRY = key("battle_hungry");
     public static final ResourceKey<SentientUpgrade> CRIPPLED_ARM = key("crippled_arm");
     public static final ResourceKey<SentientUpgrade> DIG_SLOWDOWN = key("dig_slowdown");
+    public static final ResourceKey<SentientUpgrade> HOLLOW_HUNGER = key("hollow_hunger");
     public static final ResourceKey<SentientUpgrade> MELEE_DECREASE = key("melee_decrease");
+    public static final ResourceKey<SentientUpgrade> POISONED_BLOOD = key("poisoned_blood");
     public static final ResourceKey<SentientUpgrade> QUENCHED = key("quenched");
     public static final ResourceKey<SentientUpgrade> SLOW_HEAL = key("slow_heal");
     public static final ResourceKey<SentientUpgrade> SPEED_DECREASE = key("speed_decrease");
@@ -106,6 +108,18 @@ public class SentientUpgrades {
                         .build()
         );
         context.register(
+                HOLLOW_HUNGER,
+                new SentientUpgrade.Builder()
+                        .level(1, -20)
+                        .level(2, -40)
+                        .level(3, -60)
+                        .level(4, -80)
+                        .level(5, -100)
+                        .withEffect(SentientEffectComponents.TICK.get(), new CooldownEffect(HOLLOW_HUNGER.identifier()))
+                        .withEffect(SentientEffectComponents.TICK.get(), new ResetCooldownEffect(HOLLOW_HUNGER.identifier(), LevelBasedValue.constant(20), Optional.of(new CauseExhaustionEffect(LevelBasedValue.lookup(List.of(0.03F, 0.06F, 0.09F, 0.12F, 0.16F), LevelBasedValue.constant(0))))), cooldownCondition(HOLLOW_HUNGER))
+                        .build()
+        );
+        context.register(
                 MELEE_DECREASE,
                 new SentientUpgrade.Builder()
                         .level(1, -10)
@@ -119,6 +133,16 @@ public class SentientUpgrades {
                         .level(9, -160)
                         .level(10, -200)
                         .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(MELEE_DECREASE.identifier(), Attributes.ATTACK_DAMAGE, Operation.ADD_MULTIPLIED_BASE, LevelBasedValue.lookup(List.of(-0.1f, -0.2f, -0.25f, -0.3f, -0.35f, -0.4f,  -0.5f, -0.6f, -0.7f, -0.8f), LevelBasedValue.constant(-0.8f))))
+                        .build()
+        );
+        context.register(
+                POISONED_BLOOD,
+                new SentientUpgrade.Builder()
+                        .level(1, -40)
+                        .level(2, -80)
+                        .level(3, -120)
+                        .withEffect(SentientEffectComponents.TICK.get(), new CooldownEffect(POISONED_BLOOD.identifier()))
+                        .withEffect(SentientEffectComponents.TICK.get(), new ResetCooldownEffect(POISONED_BLOOD.identifier(), LevelBasedValue.lookup(List.of(600f, 500f, 400f), LevelBasedValue.constant(600)), Optional.of(new AddMobEffect(MobEffects.POISON, LevelBasedValue.lookup(List.of(0f, 0f, 1f), LevelBasedValue.constant(0)), LevelBasedValue.lookup(List.of(80f, 120f, 160f), LevelBasedValue.constant(80))))), cooldownCondition(POISONED_BLOOD))
                         .build()
         );
         context.register(
@@ -589,11 +613,13 @@ public class SentientUpgrades {
             BATTLE_HUNGRY,    // Battle Hungry
             SWIM_DECREASE,    // Concrete Shoes
             CRIPPLED_ARM,     // Crippled Arm
+            SLOW_HEAL,        // Diseased
             MELEE_DECREASE,   // Dulled Blade
+            HOLLOW_HUNGER,    // Hollow Hunger
             DIG_SLOWDOWN,     // Leadened Pick
             SPEED_DECREASE,   // Limp Leg
+            POISONED_BLOOD,   // Poisoned Blood
             QUENCHED,         // Quenched
-            SLOW_HEAL,        // Slow Heal
             STORM_TROOPER     // Storm Trooper
     );
     private static final List<ResourceKey<SentientUpgrade>> upgrades = List.of(
@@ -643,9 +669,11 @@ public class SentientUpgrades {
         addUpgrade(BATTLE_HUNGRY.identifier(), "Battle Hungry", translator);
         addUpgrade(CRIPPLED_ARM.identifier(), "Crippled Arm", translator);
         addUpgrade(DIG_SLOWDOWN.identifier(), "Leadened Pick", translator);
+        addUpgrade(HOLLOW_HUNGER.identifier(), "Hollow Hunger", translator);
         addUpgrade(MELEE_DECREASE.identifier(), "Dulled Blade", translator);
+        addUpgrade(POISONED_BLOOD.identifier(), "Poisoned Blood", translator);
         addUpgrade(QUENCHED.identifier(), "Quenched", translator);
-        addUpgrade(SLOW_HEAL.identifier(), "Slow Heal", translator);
+        addUpgrade(SLOW_HEAL.identifier(), "Diseased", translator);
         addUpgrade(SPEED_DECREASE.identifier(), "Limp Leg", translator);
         addUpgrade(STORM_TROOPER.identifier(), "Storm Trooper", translator);
         addUpgrade(SWIM_DECREASE.identifier(), "Concrete Shoes", translator);

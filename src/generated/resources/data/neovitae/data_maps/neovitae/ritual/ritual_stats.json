@@ -97,6 +97,12 @@
       "crystal_level": 1,
       "refresh_cost": 0
     },
+    "neovitae:penance": {
+      "activation_cost": 20000,
+      "crystal_level": 1,
+      "per_operation": true,
+      "refresh_cost": 5000
+    },
     "neovitae:phantom_bridge": {
       "activation_cost": 2000,
       "refresh_cost": 1,

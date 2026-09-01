@@ -3,11 +3,13 @@
     "neovitae:battle_hungry",
     "neovitae:swim_decrease",
     "neovitae:crippled_arm",
+    "neovitae:slow_heal",
     "neovitae:melee_decrease",
+    "neovitae:hollow_hunger",
     "neovitae:dig_slowdown",
     "neovitae:speed_decrease",
+    "neovitae:poisoned_blood",
     "neovitae:quenched",
-    "neovitae:slow_heal",
     "neovitae:storm_trooper"
   ]
 }

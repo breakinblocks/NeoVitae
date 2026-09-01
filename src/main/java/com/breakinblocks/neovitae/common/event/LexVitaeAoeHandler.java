@@ -6,8 +6,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -52,7 +55,10 @@ public final class LexVitaeAoeHandler {
         if (event.getState().getDestroySpeed(level, center) <= 0) return;
 
         int half = radius == 1 ? 1 : 2;
-        Direction.Axis depth = dominantAxis(player.getLookAngle());
+        Direction.Axis depth = targetedFaceAxis(player, level, center);
+        if (depth == null) {
+            depth = dominantAxis(player.getLookAngle());
+        }
 
         AOE_BREAKING.set(true);
         try {
@@ -77,6 +83,16 @@ public final class LexVitaeAoeHandler {
         } finally {
             AOE_BREAKING.set(false);
         }
+    }
+
+    private static Direction.Axis targetedFaceAxis(Player player, Level level, BlockPos center) {
+        Vec3 eye = player.getEyePosition();
+        Vec3 end = eye.add(player.getLookAngle().scale(player.blockInteractionRange() + 1.0));
+        BlockHitResult hit = level.clip(new ClipContext(eye, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
+        if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(center)) {
+            return hit.getDirection().getAxis();
+        }
+        return null;
     }
 
     private static Direction.Axis dominantAxis(Vec3 look) {

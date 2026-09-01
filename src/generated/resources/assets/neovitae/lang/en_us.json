@@ -2677,6 +2677,7 @@
   "message.neovitae.blood_light.brightness": "Blood Light: Brightness %s",
   "message.neovitae.blood_light.redstone_off": "Redstone Control: Disabled",
   "message.neovitae.blood_light.redstone_on": "Redstone Control: Enabled",
+  "message.neovitae.lex_vitae.mode": "Lex Vitae mode: %s",
   "message.neovitae.lex_vitae.radius": "Lex Vitae mining radius: %sx%s",
   "message.neovitae.materials.generated": "[Neo Vitae] New ore materials have been detected and added to the config.",
   "message.neovitae.materials.restart_required": "[Neo Vitae] A game restart is required for the new material items to appear.",

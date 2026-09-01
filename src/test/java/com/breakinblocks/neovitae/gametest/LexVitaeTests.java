@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
@@ -151,6 +152,64 @@ public class LexVitaeTests {
             helper.assertBlockPresent(Blocks.STONE, neighbor);
             helper.assertBlockPresent(Blocks.STONE, below);
             helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void lexVitaeAoePlaneFollowsTargetedFace(GameTestHelper helper) {
+        BlockPos center = new BlockPos(2, 1, 1);
+        helper.setBlock(center, Blocks.STONE.defaultBlockState());
+        helper.setBlock(new BlockPos(2, 1, 0), Blocks.STONE.defaultBlockState());
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE.defaultBlockState());
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE.defaultBlockState());
+        helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE.defaultBlockState());
+        helper.setBlock(new BlockPos(2, 0, 1), Blocks.STONE.defaultBlockState());
+
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, activeLexVitae(1));
+        Vec3 standAt = helper.absoluteVec(new Vec3(2.5, 1, 3.5));
+        player.setPos(standAt.x, standAt.y, standAt.z);
+        player.setYRot(180.0F);
+        player.setXRot(17.0F);
+
+        helper.runAfterDelay(1, () -> {
+            postBreak(helper, player, helper.absolutePos(center));
+            helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 0));
+            helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 2));
+            helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(1, 1, 1));
+            helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(3, 1, 1));
+            helper.assertBlockPresent(Blocks.STONE, new BlockPos(2, 0, 1));
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void lexVitaeBeamMinesPlaneAroundHitFace(GameTestHelper helper) {
+        BlockPos center = new BlockPos(2, 2, 1);
+        for (int x = 1; x <= 3; x++) {
+            for (int y = 1; y <= 3; y++) {
+                helper.setBlock(new BlockPos(x, y, 1), Blocks.STONE.defaultBlockState());
+            }
+        }
+        helper.setBlock(new BlockPos(2, 2, 0), Blocks.STONE.defaultBlockState());
+
+        Player player = armedPlayer(helper, 1);
+        LexVitaeItem.setBeaming(player, true);
+
+        helper.runAfterDelay(1, () -> {
+            try {
+                LexVitaeItem.beamAoe(helper.getLevel(), player, player.getMainHandItem(),
+                        helper.absolutePos(center), Direction.SOUTH);
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(1, 2, 1));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(3, 2, 1));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 1, 1));
+                helper.assertBlockNotPresent(Blocks.STONE, new BlockPos(2, 3, 1));
+                helper.assertBlockPresent(Blocks.STONE, center);
+                helper.assertBlockPresent(Blocks.STONE, new BlockPos(2, 2, 0));
+                helper.succeed();
+            } finally {
+                LexVitaeItem.setBeaming(player, false);
+            }
         });
     }
 

@@ -33,6 +33,8 @@ public final class LexVitaeBeamHandler {
     private static final double AOE_BRANCH_STEP = 1.6;
 
     private static boolean lastFiring = false;
+    private static boolean lastHoldingActive = false;
+    private static boolean beamArmed = true;
 
     public static int beamColor(SpiritusType type) {
         return switch (type) {
@@ -62,11 +64,7 @@ public final class LexVitaeBeamHandler {
 
     @SubscribeEvent
     public static void onMovementInput(MovementInputUpdateEvent event) {
-        if (!ClientModEventHandler.LEX_BEAM.isDown()) return;
-        Player player = event.getEntity();
-        ItemStack used = player.getMainHandItem();
-        if (!(used.getItem() instanceof LexVitaeItem)) return;
-        if (!LexVitaeItem.isActive(used)) return;
+        if (!lastFiring) return;
         var input = event.getInput();
         input.forwardImpulse *= 5.0F;
         input.leftImpulse *= 5.0F;
@@ -89,7 +87,15 @@ public final class LexVitaeBeamHandler {
             NVPayloads.sendToServer(LexModeCyclePayload.INSTANCE);
         }
 
-        boolean firing = holdingActiveLex && ClientModEventHandler.LEX_BEAM.isDown();
+        boolean beamKeyDown = ClientModEventHandler.LEX_BEAM.isDown();
+        if (!beamKeyDown) {
+            beamArmed = true;
+        } else if (holdingActiveLex && !lastHoldingActive) {
+            beamArmed = false;
+        }
+        lastHoldingActive = holdingActiveLex;
+
+        boolean firing = holdingActiveLex && beamKeyDown && beamArmed;
         if (firing != lastFiring) {
             NVPayloads.sendToServer(new LexBeamPayload(firing));
             lastFiring = firing;

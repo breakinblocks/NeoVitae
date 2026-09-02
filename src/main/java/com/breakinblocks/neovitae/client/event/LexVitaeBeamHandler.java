@@ -43,6 +43,8 @@ public final class LexVitaeBeamHandler {
     private LexVitaeBeamHandler() {}
 
     private static boolean lastFiring = false;
+    private static boolean lastHoldingActive = false;
+    private static boolean beamArmed = true;
 
     @SubscribeEvent
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
@@ -79,7 +81,15 @@ public final class LexVitaeBeamHandler {
             ClientPacketDistributor.sendToServer(LexModeCyclePayload.INSTANCE);
         }
 
-        boolean firing = holdingActiveLex && ClientModEventHandler.LEX_BEAM.isDown();
+        boolean beamKeyDown = ClientModEventHandler.LEX_BEAM.isDown();
+        if (!beamKeyDown) {
+            beamArmed = true;
+        } else if (holdingActiveLex && !lastHoldingActive) {
+            beamArmed = false;
+        }
+        lastHoldingActive = holdingActiveLex;
+
+        boolean firing = holdingActiveLex && beamKeyDown && beamArmed;
         if (firing != lastFiring) {
             ClientPacketDistributor.sendToServer(new LexBeamPayload(firing));
             lastFiring = firing;

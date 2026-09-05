@@ -23,7 +23,7 @@ To ascend to greater tiers, you must lay **Blank Runes** in concentric **circula
 | 0    | 0           | A lone Ara Vitae, unadorned. |
 | 1    | 8           | A ring of 8 runes one level below the basin (the 3x3 ring with the center left open). The four cardinal slots take specialized runes; the four diagonal slots stay inert (blank) until higher tiers. |
 | 2    | 24          | Adds a circular ring of 16 runes, one level lower and out at radius 3. Pillars rise at the four cardinal sides, capped with **Blood Stained Glass**. |
-| 3    | 52          | Adds a ring of 28 runes, another level down at radius 5. **Bloodstone** (or Bloodstone Brick) blocks sit at the four corners (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
+| 3    | 52          | Adds a ring of 28 runes, another level down at radius 5. **Bloodstone Brick** blocks sit at the four corners (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
 | 4    | 100         | Adds a ring of 48 runes, lower again at radius 8. **Hellforged Block** caps mark the four cardinal points. |
 | 5    | 172         | Adds the widest ring of 72 runes at radius 11. Tall pillars rise at the four cardinal sides, crowned with **Crystal Clusters** (or Crystal Cluster Bricks). |
 

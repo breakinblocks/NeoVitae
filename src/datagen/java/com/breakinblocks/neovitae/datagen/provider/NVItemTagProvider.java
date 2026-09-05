@@ -41,7 +41,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         addBlockItems(NVTags.Items.RUNES, BlockGroups.RUNE_T2);
         addBlockItems(NVTags.Items.BLOODSTONES, BlockGroups.BLOODSTONE);
         tag(NVTags.Items.T3_CAPSTONES).add(NVBlocks.BLOOD_STAINED_GLASS.item().get());
-        addBlockItems(NVTags.Items.T4_CAPSTONES, BlockGroups.BLOODSTONE);
+        tag(NVTags.Items.T4_CAPSTONES).add(NVBlocks.BLOODSTONE_BRICK.item().get());
         tag(NVTags.Items.T5_CAPSTONES).add(NVBlocks.HELLFORGED_BLOCK.item().get());
         addBlockItems(NVTags.Items.T6_CAPSTONES, BlockGroups.CRYSTAL_CLUSTER);
         tag(NVTags.Items.ANIMA_COMPARATOR).add(NVBlocks.BLOOD_STAINED_GLASS.item().get());

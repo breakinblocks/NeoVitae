@@ -36,7 +36,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.BLOOD_STAINED_GLASS.block().get());
 
         this.tag(NVTags.Blocks.T4_CAPSTONES)
-                .addAll(BlockGroups.BLOODSTONE);
+                .add(NVBlocks.BLOODSTONE_BRICK.block().get());
 
         this.tag(NVTags.Blocks.T5_CAPSTONES)
                 .addAll(BlockGroups.HELLFORGED_BLOCK);

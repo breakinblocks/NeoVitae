@@ -20,7 +20,7 @@ public class NVTags {
         public static final TagKey<Item> SPIRITUS_CAPABLE = tag(bm("spiritus_capable"));
         public static final TagKey<Item> SPIRITUS_GEM = tag(bm("spiritus_gems"));
         public static final TagKey<Item> SPIRITUS_CRYSTALS = tag(bm("crystals/demon"));
-        public static final TagKey<Item> SENTIENT_ARMOR_REPAIR = tag(bm("sentient_armor_repair"));
+        public static final TagKey<Item> SENTIENT_REPAIR = tag(bm("sentient_repair"));
 
         public static final TagKey<Item> VITAE_STONE = tag(bm("vitae_stone"));
 

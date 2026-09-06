@@ -38,17 +38,14 @@ public class NVMaterialsAndTiers {
             ResourceKey.create(EquipmentAssets.ROOT_ID,
                     Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sentient_elytra"));
 
-    // Vanilla ArmorItem.Type.getDurability(base) was `base * durabilityMultiplier` with
-    // Helmet=11, Chest=16, Leggings=15, Boots=13. Pre-port Sentient Armor used base=33
-    // so Chest had 528 HP. Encoding multipliers into the per-slot durability map here.
     public static final ArmorMaterial SENTIENT_ARMOUR_MATERIAL = new ArmorMaterial(
-            33 * 16,
+            33,
             defenseMap(2, 5, 6, 2),
             9,
             SoundEvents.ARMOR_EQUIP_IRON,
             0F,
             0F,
-            NVTags.Items.SENTIENT_ARMOR_REPAIR,
+            NVTags.Items.SENTIENT_REPAIR,
             SENTIENT_EQUIPMENT_ASSET);
 
     public static final ToolMaterial SENTIENT = new ToolMaterial(
@@ -57,7 +54,7 @@ public class NVMaterialsAndTiers {
             6.0F,
             2.0F,
             50,
-            NVTags.Items.SPIRITUS_CRYSTALS);
+            NVTags.Items.SENTIENT_REPAIR);
 
     private static Map<ArmorType, Integer> defenseMap(int helmet, int chest, int legs, int boots) {
         EnumMap<ArmorType, Integer> m = new EnumMap<>(ArmorType.class);

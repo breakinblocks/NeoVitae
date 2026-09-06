@@ -47,6 +47,7 @@ import net.neoforged.neoforge.common.ItemAbility;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -77,6 +78,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
                 .durability(DURABILITY)
                 .fireResistant()
                 .enchantable(20)
+                .repairable(NVTags.Items.SENTIENT_REPAIR)
                 .component(DataComponents.TOOL, buildTool())
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW)
                 .component(NVDataComponents.LEX_ACTIVE, false)

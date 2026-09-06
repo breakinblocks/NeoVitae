@@ -49,5 +49,6 @@ public class NVGameTestRegistration {
         AlternatorTests.register(r);
         TrainerLimitTests.register(r);
         SentientRitualTests.register(r);
+        SentientRepairTests.register(r);
     }
 }

@@ -24,7 +24,7 @@ public class SentientSwordEntry extends EntryProvider {
                 + "[#](8B0000)Throwing Dagger[#]() could ever aspire to be. It may feel sluggish when first drawn; the blade "
                 + "feeds on the Spiritus you carry, growing sharper with every fragment. A [#](8B0000)Spiritus Gem[#]() brimming "
                 + "with Spiritus is essential to unlocking its true potential.\\\n\\\n"
-                + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with Crystallized Spiritus in an Anvil.[#]()");
+                + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with a Binding Reagent in an Anvil.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

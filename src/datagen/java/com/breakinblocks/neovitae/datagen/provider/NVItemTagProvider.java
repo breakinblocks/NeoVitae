@@ -57,6 +57,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.SENTIENT_SET)
                 .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
 
+        tag(NVTags.Items.SENTIENT_REPAIR)
+                .add(NVItems.REAGENT_BINDING.get());
+
         tag(NVTags.Items.SENTIENT_UPGRADE_SET)
                 .addTag(NVTags.Items.SENTIENT_SET);
 

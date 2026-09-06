@@ -22,7 +22,7 @@ public class SentientToolsEntry extends EntryProvider {
         this.pageTitle("Sentient Tools");
         this.pageText("The success of the [#](8B0000)Sentient Sword[#]() has inspired further experimentation. If a blade "
                 + "can be imbued with [#](4A0080)demonic spiritus[#](), why not a pickaxe? An axe? A shovel?\\\n\\\n"
-                + "[#](2E8B57)All Sentient equipment can be repaired with Crystallized Spiritus in an Anvil, and all are "
+                + "[#](2E8B57)All Sentient equipment can be repaired with a Binding Reagent in an Anvil, and all are "
                 + "highly receptive to enchantment.[#]()");
 
         this.page("pickaxe", () -> BookTextPageModel.create()

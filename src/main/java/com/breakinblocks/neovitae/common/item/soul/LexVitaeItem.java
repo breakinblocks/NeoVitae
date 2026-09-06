@@ -47,6 +47,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -75,6 +76,11 @@ public class LexVitaeItem extends Item implements ISentientTool {
                 .component(NVDataComponents.LEX_ACTIVE, false)
                 .component(NVDataComponents.LEX_RADIUS, 0)
                 .component(NVDataComponents.LEX_MODE, MODE_BOTH));
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+        return repair.is(NVTags.Items.SENTIENT_REPAIR);
     }
 
     public static final int MODE_BOTH = 0;

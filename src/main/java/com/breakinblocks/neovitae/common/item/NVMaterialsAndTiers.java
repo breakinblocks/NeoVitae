@@ -20,7 +20,7 @@ public class NVMaterialsAndTiers {
 
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SENTIENT_ARMOUR_MATERIAL = ARMOUR_MATERIALS.register("sentient", () -> new ArmorMaterial(
             ArmorMaterials.IRON.value().defense(), ArmorMaterials.IRON.value().enchantmentValue(),
-            ArmorMaterials.IRON.value().equipSound(), () -> Ingredient.of(NVItems.RAW_SPIRITUS.get()),
+            ArmorMaterials.IRON.value().equipSound(), () -> Ingredient.of(NVTags.Items.SENTIENT_REPAIR),
             List.of(new ArmorMaterial.Layer(bm("sentient"))), 0, 0
     ));
 
@@ -52,7 +52,7 @@ public class NVMaterialsAndTiers {
 
         @Override
         public Ingredient getRepairIngredient() {
-            return Ingredient.of(NVTags.Items.SPIRITUS_CRYSTALS);
+            return Ingredient.of(NVTags.Items.SENTIENT_REPAIR);
         }
     };
 

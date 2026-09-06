@@ -23,7 +23,7 @@ Bows and crossbows serve their purpose well enough, but sifting through gravel f
 
 ### Sentient Sword
 
-The **Sentient Sword** is a far more elegant instrument of Spiritus collection. It may feel sluggish when first drawn; the blade feeds on the Spiritus you carry, growing sharper with every fragment. A **Spiritus Gem** brimming with essence is essential to unlocking its true potential. Right-click to recalibrate the blade's attunement after acquiring a large quantity of Spiritus, or when experimenting with a new Aspect. All Sentient equipment can be repaired with **Crystallized Spiritus** in an anvil.
+The **Sentient Sword** is a far more elegant instrument of Spiritus collection. It may feel sluggish when first drawn; the blade feeds on the Spiritus you carry, growing sharper with every fragment. A **Spiritus Gem** brimming with essence is essential to unlocking its true potential. Right-click to recalibrate the blade's attunement after acquiring a large quantity of Spiritus, or when experimenting with a new Aspect. All Sentient equipment can be repaired with a **Binding Reagent** in an anvil.
 
 ## Sentient Tools
 
@@ -77,4 +77,4 @@ Each charge can be enhanced by **Anointing** it with certain reagents and a meas
 
 The Hellfire Forge also produces **Spiritus Gems** (the storage cells for raw Spiritus), **Arcane Ash** (used to inscribe Alchemy Arrays), **Crystal Clusters** (Tier 5 altar capstones, made from Sculk + Tabula Aetherea + Weak Blood Shard + Nether Star), and a host of intermediate reagents. Consult JEI for the full list.
 
-See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (where Spiritus is gathered and aspected), **[Sentient Armor](Sentient-Armor)** (the full upgrade tree for Sentient Equipment), **[Alchemy Arrays](Alchemy-Arrays)** (the binding ritual surface), **[Athanor and Materials](Athanor-and-Materials)** (for refining Spiritus into Crystallized Spiritus, used for repairs).
+See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (where Spiritus is gathered and aspected), **[Sentient Armor](Sentient-Armor)** (the full upgrade tree for Sentient Equipment), **[Alchemy Arrays](Alchemy-Arrays)** (the binding ritual surface), **[Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)** (where the Binding Reagent used for repairs is forged).

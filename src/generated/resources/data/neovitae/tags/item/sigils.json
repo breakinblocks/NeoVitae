@@ -1,0 +1,22 @@
+{
+  "values": [
+    "neovitae:sigil_air",
+    "neovitae:sigil_blood_light",
+    "neovitae:sigil_bound_treasures",
+    "neovitae:sigil_damned",
+    "neovitae:sigil_divination",
+    "neovitae:sigil_fast_miner",
+    "neovitae:sigil_frost",
+    "neovitae:sigil_green_grove",
+    "neovitae:sigil_holding",
+    "neovitae:sigil_lava",
+    "neovitae:sigil_magnetism",
+    "neovitae:sigil_necromancy",
+    "neovitae:sigil_phantom_bridge",
+    "neovitae:sigil_seer",
+    "neovitae:sigil_suppression",
+    "neovitae:sigil_teleposition",
+    "neovitae:sigil_void",
+    "neovitae:sigil_water"
+  ]
+}

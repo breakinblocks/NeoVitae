@@ -12,8 +12,10 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
+import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
 
 public class NVItemTagProvider extends ItemTagsProvider {
@@ -178,5 +180,73 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.ANOINTABLE_WEAPONS)
                 .addTag(NVTags.Items.ANOINTABLE_MELEE)
                 .addTag(NVTags.Items.ANOINTABLE_BOWS);
+
+        tag(NVTags.Items.ORBS_TIER_1).add(NVItems.ORB_WEAK.get());
+        tag(NVTags.Items.ORBS_TIER_2).add(NVItems.ORB_APPRENTICE.get());
+        tag(NVTags.Items.ORBS_TIER_3).add(NVItems.ORB_MAGICIAN.get());
+        tag(NVTags.Items.ORBS_TIER_4).add(NVItems.ORB_MASTER.get());
+        tag(NVTags.Items.ORBS_TIER_5).add(NVItems.ORB_ARCHMAGE.get());
+        tag(NVTags.Items.ORBS_TIER_6).add(NVItems.ORB_TRANSCENDENT.get());
+        tag(NVTags.Items.ORBS)
+                .addTag(NVTags.Items.ORBS_TIER_1)
+                .addTag(NVTags.Items.ORBS_TIER_2)
+                .addTag(NVTags.Items.ORBS_TIER_3)
+                .addTag(NVTags.Items.ORBS_TIER_4)
+                .addTag(NVTags.Items.ORBS_TIER_5)
+                .addTag(NVTags.Items.ORBS_TIER_6);
+
+        tag(NVTags.Items.TOOLS_RITUAL)
+                .add(NVItems.RITUAL_DIVINER.get())
+                .add(NVItems.RITUAL_DIVINER_TENEBRAE.get())
+                .add(NVItems.RITUAL_READER.get())
+                .add(NVItems.RITUAL_DESIGNER.get());
+
+        tag(NVTags.Items.TOOLS_SCRIBE)
+                .add(NVItems.ARCANE_SCRIBE_TOOL.get())
+                .add(NVItems.INSCRIPTION_TOOL_AIR.get())
+                .add(NVItems.INSCRIPTION_TOOL_FIRE.get())
+                .add(NVItems.INSCRIPTION_TOOL_WATER.get())
+                .add(NVItems.INSCRIPTION_TOOL_EARTH.get())
+                .add(NVItems.INSCRIPTION_TOOL_TENEBRAE.get());
+
+        tag(NVTags.Items.TOOLS_ROUTING)
+                .add(NVItems.NODE_ROUTER.get());
+
+        tag(NVTags.Items.TOOLS)
+                .addTag(NVTags.Items.TOOLS_RITUAL)
+                .addTag(NVTags.Items.TOOLS_SCRIBE)
+                .addTag(NVTags.Items.TOOLS_ROUTING)
+                .add(NVItems.SPIRITUS_GAUGE.get());
+
+        tag(Tags.Items.TOOLS).addTag(NVTags.Items.TOOLS);
+        tag(Tags.Items.TOOLS_WRENCH).add(NVItems.NODE_ROUTER.get());
+
+        NVItems.BASIC_ITEMS.getEntries().stream()
+                .filter(holder -> holder.get() instanceof ISigil)
+                .sorted(Comparator.comparing(holder -> holder.getId().toString()))
+                .forEach(holder -> tag(NVTags.Items.SIGILS).add(holder.get()));
+
+        tag(NVTags.Items.ACTIVATION_CRYSTALS)
+                .add(NVItems.ACTIVATION_CRYSTAL_WEAK.get())
+                .add(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())
+                .add(NVItems.ACTIVATION_CRYSTAL_CREATIVE.get());
+
+        tag(NVTags.Items.TELEPOSER_FOCI)
+                .add(NVItems.TELEPOSER_FOCUS.get())
+                .add(NVItems.TELEPOSER_FOCUS_ENHANCED.get())
+                .add(NVItems.TELEPOSER_FOCUS_REINFORCED.get());
+
+        tag(NVTags.Items.DUNGEON_KEYS)
+                .add(NVItems.SIMPLE_KEY.get())
+                .add(NVItems.MINE_KEY.get())
+                .add(NVItems.MINE_ENTRANCE_KEY.get())
+                .add(NVItems.STANDARD_KEY.get())
+                .add(NVItems.BOSS_KEY.get());
+
+        tag(NVTags.Items.THROWING_DAGGERS)
+                .add(NVItems.THROWING_DAGGER.get())
+                .add(NVItems.THROWING_DAGGER_AMETHYST.get())
+                .add(NVItems.THROWING_DAGGER_SYRINGE.get())
+                .add(NVItems.THROWING_DAGGER_TIPPED.get());
     }
 }

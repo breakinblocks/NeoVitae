@@ -8,18 +8,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
@@ -36,16 +31,6 @@ import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
  */
 public class SentientSwordItem extends Item implements ISentientTool {
 
-    private static final double[] DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
-    private static final double[] DESTRUCTIVE_DAMAGE = {1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
-    private static final double[] VENGEFUL_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
-    private static final double[] STEADFAST_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
-
-    private static final double[] VENGEFUL_ATTACK_SPEED = {-2.1, -2.0, -1.8, -1.7, -1.6, -1.6, -1.5};
-    private static final double[] DESTRUCTIVE_ATTACK_SPEED = {-2.6, -2.7, -2.8, -2.9, -3, -3, -3};
-
-    private static final double[] MOVEMENT_SPEED = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
-
     public SentientSwordItem(Item.Properties props) {
         super(props.sword(NVMaterialsAndTiers.SENTIENT, 6, -2.4f)
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW)
@@ -54,12 +39,7 @@ public class SentientSwordItem extends Item implements ISentientTool {
 
     @Override
     public double[] getDamageForSpiritusType(SpiritusType type) {
-        return switch (type) {
-            case NIHILUM -> DESTRUCTIVE_DAMAGE;
-            case VINDICTA -> VENGEFUL_DAMAGE;
-            case INVICTUS -> STEADFAST_DAMAGE;
-            default -> DEFAULT_DAMAGE;
-        };
+        return getWeaponDamage(type);
     }
 
     @Override
@@ -110,66 +90,18 @@ public class SentientSwordItem extends Item implements ISentientTool {
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
 
-        double drain = level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0;
-        double extraDamage = getExtraDamage(type, level);
-        double attackSpeed = getAttackSpeed(type, level);
-        double movementSpeed = getMovementSpeed(type, level);
+        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level);
 
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
-        setDrainAmount(stack, drain);
-        setDamageBonus(stack, 5 + extraDamage);
+        setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
+        setDamageBonus(stack, damage);
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
         setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
 
-        updateAttributeModifiers(stack, 5 + extraDamage, attackSpeed, movementSpeed);
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, buildWeaponModifiers("sentient_sword", damage,
+                getWeaponAttackSpeed(type, level), getWeaponMovementSpeed(type, level)));
     }
 
-    private double getAttackSpeed(SpiritusType type, int spiritusBracket) {
-        if (spiritusBracket < 0) {
-            return -2.4;
-        }
-        return switch (type) {
-            case VINDICTA -> VENGEFUL_ATTACK_SPEED[spiritusBracket];
-            case NIHILUM -> DESTRUCTIVE_ATTACK_SPEED[spiritusBracket];
-            default -> -2.4;
-        };
-    }
-
-    private double getMovementSpeed(SpiritusType type, int spiritusBracket) {
-        if (spiritusBracket < 0 || type != SpiritusType.VINDICTA) {
-            return 0;
-        }
-        return MOVEMENT_SPEED[spiritusBracket];
-    }
-
-    private void updateAttributeModifiers(ItemStack stack, double damage, double attackSpeed, double movementSpeed) {
-        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-
-        builder.add(Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(
-                        NeoVitae.rl("sentient_sword_damage"),
-                        damage,
-                        AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
-
-        builder.add(Attributes.ATTACK_SPEED,
-                new AttributeModifier(
-                        NeoVitae.rl("sentient_sword_speed"),
-                        attackSpeed,
-                        AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
-
-        if (movementSpeed > 0) {
-            builder.add(Attributes.MOVEMENT_SPEED,
-                    new AttributeModifier(
-                            NeoVitae.rl("sentient_sword_movement"),
-                            movementSpeed,
-                            AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                    EquipmentSlotGroup.MAINHAND);
-        }
-
-        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
-    }
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,

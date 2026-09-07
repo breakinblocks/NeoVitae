@@ -635,6 +635,26 @@ All paths are relative to `data/neovitae/tags/` unless a different namespace is 
 | `anointable/weapons` | `#neovitae:anointable/melee`, `#neovitae:anointable/bows` | Items that can receive any-weapon anointments. |
 | `altar/runes`, `altar/bloodstones`, `altar/t3_capstones` to `t6_capstones`, `altar/anima_comparator` | Item forms of the matching block tags | Item-side mirrors of the altar block tags, for recipes and item matching. Keep them in step with the block tags when you retag altar materials. |
 
+### Item Category Tags
+
+Nothing in the mod reads these. They exist so filters in other mods (backpack tag filters, pipe filters, sorting systems) and datapack recipes can match a whole family of NeoVitae items at once.
+
+**Location:** `data/neovitae/tags/item/`
+
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `orbs` | All six tier tags below | Every Orb of Vitae. |
+| `orbs/tier_1` to `orbs/tier_6` | One orb each: Novicius, Discipulus, Magus, Veneficus, Dominus, Divinus | A single orb tier. |
+| `tools` | The three tool tags below plus the Spiritus Gauge | Every hand-held utility item that is not a weapon or mining tool. Also added to `c:tools`. |
+| `tools/ritual` | Ritual Diviner (both), Ritual Configurator, Ritual Designer | Items used to lay out, configure and inspect rituals. |
+| `tools/scribe` | Arcane Scribe Tool, Air, Fire, Water, Earth and Tenebrae Scribe Tools | Alchemy array and rune inscription tools. |
+| `tools/routing` | Node Router | Routing network tools. The Node Router is also in `c:tools/wrench`. |
+| `sigils` | Every sigil, including the Sigil of the Damned | All sigil items. |
+| `activation_crystals` | Weak, Awakened and Creative Activation Crystals | Ritual activation crystals. |
+| `teleposer_foci` | Teleposer Focus, Enhanced Teleposer Focus, Reinforced Teleposer Focus | Teleposer foci. |
+| `dungeon_keys` | Simple, Mine, Mine Entrance, Standard and Boss Keys | Dungeon keys. |
+| `throwing_daggers` | Throwing Dagger, Amethyst Throwing Dagger, Syringe Throwing Dagger, Tipped Throwing Dagger | Throwing daggers. |
+
 ### Athanor Tool Tags
 
 **Location:** `data/neovitae/tags/item/athanor_tool/`
@@ -768,6 +788,8 @@ NeoVitae adds its own items and blocks to the shared `c:` tags so other mods' re
 | `c:ores` (block and item) | Demonite Ore |
 | `c:dusts/sulfur`, `c:dusts/saltpeter`, `c:dusts/corrupted`, `c:tiny_dusts/corrupted` | The matching NeoVitae dusts |
 | `c:fragments/<name>`, `c:gravels/<name>`, `c:dusts/<name>` | Generated per material by the material system; see [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons) |
+| `c:tools` | `#neovitae:tools` |
+| `c:tools/wrench` | Node Router |
 | `c:experience` (fluid) | Liquified Experience |
 
 ---

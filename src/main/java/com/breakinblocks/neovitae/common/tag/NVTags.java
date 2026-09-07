@@ -54,6 +54,25 @@ public class NVTags {
         public static final TagKey<Item> ANOINTMENTS = tag(bm("anointments"));
         public static final TagKey<Item> ANOINTABLE = tag(bm("anointable"));
 
+        public static final TagKey<Item> ORBS = tag(bm("orbs"));
+        public static final TagKey<Item> ORBS_TIER_1 = withParent(ORBS, bm("tier_1"));
+        public static final TagKey<Item> ORBS_TIER_2 = withParent(ORBS, bm("tier_2"));
+        public static final TagKey<Item> ORBS_TIER_3 = withParent(ORBS, bm("tier_3"));
+        public static final TagKey<Item> ORBS_TIER_4 = withParent(ORBS, bm("tier_4"));
+        public static final TagKey<Item> ORBS_TIER_5 = withParent(ORBS, bm("tier_5"));
+        public static final TagKey<Item> ORBS_TIER_6 = withParent(ORBS, bm("tier_6"));
+
+        public static final TagKey<Item> TOOLS = tag(bm("tools"));
+        public static final TagKey<Item> TOOLS_RITUAL = withParent(TOOLS, bm("ritual"));
+        public static final TagKey<Item> TOOLS_SCRIBE = withParent(TOOLS, bm("scribe"));
+        public static final TagKey<Item> TOOLS_ROUTING = withParent(TOOLS, bm("routing"));
+
+        public static final TagKey<Item> SIGILS = tag(bm("sigils"));
+        public static final TagKey<Item> ACTIVATION_CRYSTALS = tag(bm("activation_crystals"));
+        public static final TagKey<Item> TELEPOSER_FOCI = tag(bm("teleposer_foci"));
+        public static final TagKey<Item> DUNGEON_KEYS = tag(bm("dungeon_keys"));
+        public static final TagKey<Item> THROWING_DAGGERS = tag(bm("throwing_daggers"));
+
         public static final TagKey<Item> SENTIENT_UPGRADE_SET = tag(bm("sentient_upgrade_set"));
         public static final TagKey<Item> SENTIENT_SET = withParent(SENTIENT_UPGRADE_SET, NVMaterialsAndTiers.SENTIENT_EQUIPMENT_ASSET.identifier());
 

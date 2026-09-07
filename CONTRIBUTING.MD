@@ -6,6 +6,7 @@ Thank you for your interest in contributing to Neo Vitae! This document outlines
 
 - [Getting Started](#getting-started)
 - [How to Contribute](#how-to-contribute)
+- [Contributing Translations](#contributing-translations)
 - [Code Style Guidelines](#code-style-guidelines)
 - [Commit Guidelines](#commit-guidelines)
 - [Pull Request Process](#pull-request-process)
@@ -79,6 +80,25 @@ Thank you for your interest in contributing to Neo Vitae! This document outlines
    ```
 5. Commit your changes with clear messages
 6. Push to your fork and open a Pull Request
+
+---
+
+## Contributing Translations
+
+Translations are accepted as pull requests. Language files are in
+`src/main/resources/assets/neovitae/lang/`, one file per Minecraft locale code
+(`de_de.json`, `zh_cn.json`). The English source is the generated
+`src/generated/resources/assets/neovitae/lang/en_us.json`.
+
+1. Copy `en_us.json` to `<locale>.json` (or open the existing file for your language)
+2. Translate the values, leave the keys alone, and remove keys you did not translate
+3. Keep `%%`, `%s`, `%d`, `\n` and `[#](hex)...[#]()` markup intact
+4. Check [translations/glossary.csv](translations/glossary.csv) for terms that must not be translated
+5. Open the pull request against `main`
+
+The full rules are in [translations/README.md](translations/README.md). The
+`dev` branch gets its language files regenerated from `main`, so one PR covers
+both Minecraft versions.
 
 ---
 
@@ -332,4 +352,4 @@ Special thanks to:
 
 ---
 
-*Neo Vitae is released under the MIT License (see LICENSE.md). It is a derivative work of Blood Magic by WayofTime, which is licensed under CC BY 4.0.*
+*Neo Vitae is an open source project released under the Creative Commons Attribution 4.0 International License. See the LICENSE file for details.*

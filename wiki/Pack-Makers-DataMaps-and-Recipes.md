@@ -564,48 +564,100 @@ Type `neovitae:sentient_downgrade`. Each recipe maps a catalyst `input` ingredie
 
 ## Tags
 
-Tags control various gameplay mechanics. Override or extend these in your datapack.
+Tags control which blocks, items, entities, fluids and damage types each NeoVitae system recognizes. Every tag the mod reads is listed below. Add to a tag by creating the matching JSON in your datapack with `"replace": false`; tags marked *empty by default* ship no JSON at all, so the file you create is the whole list.
+
+All paths are relative to `data/neovitae/tags/` unless a different namespace is given.
 
 ### Block Tags
 
 **Location:** `data/neovitae/tags/block/`
 
-| Tag | Purpose |
-|-----|---------|
-| `altar/runes` | Blocks that count as altar runes |
-| `altar/pillars` | Valid pillar blocks for altar tiers |
-| `altar/t3_capstones` - `t6_capstones` | Tier-specific capstone blocks |
-| `tranquility/plant` | Plant blocks for tranquility bonus |
-| `tranquility/water` | Water blocks for tranquility |
-| `tranquility/fire` | Fire/heat blocks for tranquility |
-| `tranquility/earthen` | Earth blocks for tranquility |
-| `incense_path/level_0` - `level_10` | Valid path blocks by distance from incense altar |
-| `mundane_block` | Blocks deleted by Voiding anointment |
-| `telepose_blacklist` | Blocks that cannot be teleposed (see [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons)) |
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `altar/runes` | All tier 1 and tier 2 rune blocks | Blocks that count as altar runes. Referenced as `#neovitae:altar/runes` by every shipped altar tier definition. |
+| `altar/pillars` | Empty (any solid block) | Blocks accepted in an altar tier's pillar positions. Empty means any solid block; populate it to restrict pillar materials. |
+| `altar/t3_capstones` | Blood Stained Glass | Capstone block for the tier 3 altar. |
+| `altar/t4_capstones` | Bloodstone Brick | Capstone block for the tier 4 altar. |
+| `altar/t5_capstones` | Hellforged Block | Capstone block for the tier 5 altar. |
+| `altar/t6_capstones` | Spiritus crystal clusters | Capstone block for the tier 6 altar. |
+| `altar/bloodstones` | Bloodstone blocks | Bloodstone family. Available for altar tier definitions that want to reference bloodstone by tag. |
+| `altar/pulse_on_crafting` | Redstone Lamp, Note Block | When one of these blocks sits directly under an Ara Vitae, the altar emits a redstone pulse each time it finishes a craft. |
+| `altar/anima_comparator` | Blood Stained Glass | When one of these blocks sits directly under an Ara Vitae, a comparator reads the Anima EV of the bound orb on the altar instead of the altar's own tank. |
+| `incense_path/level_0` to `level_10` | Level 0: Dirt Path, `#minecraft:stone_bricks`. Each higher level includes the level below it. | Valid incense path blocks by ring distance from the Incense Altar. A block tagged at level N is accepted at ring N and every ring closer to the altar. |
+| `tranquility/plant` | Empty | Plant-type tranquility for the Incense Altar. |
+| `tranquility/crop` | Empty | Crop-type tranquility. |
+| `tranquility/tree` | Empty | Tree-type tranquility. |
+| `tranquility/earthen` | Sands of Vitae | Earthen-type tranquility. |
+| `tranquility/water` | Empty | Water-type tranquility. |
+| `tranquility/fire` | Empty | Fire-type tranquility. |
+| `tranquility/lava` | Empty | Lava-type tranquility. |
+| `geode_harvestable` | Amethyst Cluster, `#c:clusters` | Mature crystal clusters the Crystallum Fractura ritual harvests alongside Spiritus Crystals. Add other mods' clusters here. |
+| `geode_acceleratable` | Budding Amethyst | Budding blocks whose growth the Crystallum Fractura ritual accelerates. |
+| `mushroom_stem` | Crimson Stem, Warped Stem and their stripped variants | Stem blocks the Fungal Charge treats as part of a giant mushroom. |
+| `mushroom_hyphae` | Crimson Hyphae, Warped Hyphae and their stripped variants | Hyphae blocks the Fungal Charge treats as part of a giant mushroom. |
+| `mundane_block` | Empty | Blocks whose drops the Voiding anointment deletes. The Voiding anointment does nothing until a pack fills this tag. |
+| `telepose_blacklist` | Bedrock, barriers, command blocks, structure blocks, jigsaw blocks and portal blocks | Blocks the Teleposer refuses to move. See [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons). |
+| `generative_ores` | Filled at runtime | Ore blocks of every generative material. Populated automatically from `config/neovitae/materials.json`; see [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons). |
+
+**Tranquility tags and the tranquility datamap.** The seven `tranquility/*` tags are read through the `neovitae:tranquility` block datamap at `data/neovitae/data_maps/block/tranquility.json`. The shipped datamap maps each tag to its type, so adding a block to `tranquility/plant` gives it a plant contribution of `1.0`. For a different strength, or to override a vanilla block, write a datamap entry directly:
+
+```json
+{
+  "values": {
+    "some_mod:glowing_moss": { "type": "plant", "value": 0.5 },
+    "#some_mod:hot_stones": { "type": "fire" }
+  }
+}
+```
+
+`type` is one of `plant`, `crop`, `tree`, `earthen`, `water`, `fire`, `lava`. `value` defaults to `1.0`. Water, lava and vanilla crop blocks are also detected at runtime without any datamap entry.
 
 ### Item Tags
 
 **Location:** `data/neovitae/tags/item/`
 
-| Tag | Purpose |
-|-----|---------|
-| `soul_gems` | Items that hold Spiritus |
-| `athanor_tool` | Tools usable in the Athanor |
-| `athanor_tool/explosives` | Explosive tools (ore doubling) |
-| `athanor_tool/cutting_fluids` | Cutting tools |
-| `athanor_tool/furnace` | Smelting tools |
-| `crystals/demon` | Demon crystal items |
-| `charges` | Explosive charges |
-| `blood_mending_blacklist` | Items that cannot receive or benefit from Blood Mending |
-| `spiritus_capable` | Items that can receive spiritus storage via Hellfire Forge infusion |
-| `anointable/melee` | Items that can receive melee-category anointments |
-| `anointable/mining` | Items that can receive mining-category anointments |
-| `anointable/bows` | Items that can receive bow-category anointments |
-| `anointable/weapons` | Items that can receive any-weapon anointments (parent of melee + bows) |
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `spiritus_gems` | Petty through Grand Spiritus Gems | Items the Hellfire Forge treats as a Spiritus Gem (gem slot detection and gem-output recipes). |
+| `spiritus_capable` | Empty | Items that can receive spiritus storage through Hellfire Forge infusion. |
+| `crystals/demon` | All five Spiritus Crystal items | Spiritus crystal items. Used as a recipe ingredient. |
+| `charges` | Every explosive charge (shaped, deforester, veinmine, fungal and their upgrades) | Explosive charge items. Anointments are not consumed when a charge is used, and the Smelting and Voiding loot modifiers skip charge drops. |
+| `blood_mending_blacklist` | Empty | Items the Blood Mending upgrade will not repair. |
+| `sentient_repair` | Binding Reagent | Repair material for Sentient tools, Sentient armor and the Lex Vitae in an anvil. |
+| `vitae_stone` | Deepslate | Stone-type ingredient used by a large number of early recipes (component frames, Tabula Rasa, and others). Retag this to change the base stone of the mod. |
+| `sentient_upgrade_set` | `#neovitae:sentient_upgrade_set/sentient` | Any armor piece that participates in the Sentient Armor upgrade system. Equipping or removing one recalculates the full-set bonuses and Curios slots. |
+| `sentient_upgrade_set/sentient` | Sentient Helmet, Chestplate, Leggings, Boots | The four pieces that make up the Sentient Armor set. Rituals that act on the set (Evolve, Penance, Upgrade Removal) require the chest piece to be in this tag. |
+| `anointments` | Every anointment item | Anointment items accepted by the smithing table apply recipe. *26.1 only.* |
+| `anointable` | Empty | Base items accepted by the smithing table apply recipe. Fill it with the tools that should accept anointments through the smithing table. *26.1 only.* |
+| `anointable/melee` | `#minecraft:swords`, `#minecraft:axes` | Items that can receive melee-category anointments. |
+| `anointable/mining` | `#minecraft:pickaxes`, `#minecraft:shovels`, `#minecraft:axes` | Items that can receive mining-category anointments. |
+| `anointable/bows` | Bow, Crossbow | Items that can receive bow-category anointments. |
+| `anointable/weapons` | `#neovitae:anointable/melee`, `#neovitae:anointable/bows` | Items that can receive any-weapon anointments. |
+| `altar/runes`, `altar/bloodstones`, `altar/t3_capstones` to `t6_capstones`, `altar/anima_comparator` | Item forms of the matching block tags | Item-side mirrors of the altar block tags, for recipes and item matching. Keep them in step with the block tags when you retag altar materials. |
+
+### Athanor Tool Tags
+
+**Location:** `data/neovitae/tags/item/athanor_tool/`
+
+Every Athanor recipe names its tool by tag. The parent tag `athanor_tool` contains every child, and `athanor_tool/furnace` contains the three furnace children.
+
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `athanor_tool` | All tags below | Anything the Athanor accepts in its tool slot. |
+| `athanor_tool/explosives` | Explosive Powder, Primitive Explosive Cell, Hellforged Explosive Cell | Ore crushing and doubling. |
+| `athanor_tool/cutting_fluids` | Basic, Intermediate, Advanced Cutting Fluid | Cutting recipes. |
+| `athanor_tool/resonator` | Resonator, Primitive Crystalline Resonator, Hellforged Resonator | Resonance recipes (dungeon stone conversion and others). |
+| `athanor_tool/reverter` | Sanguine Reverter | Reversion recipes that break runes and other crafted blocks back into parts. |
+| `athanor_tool/hydration` | Primitive Hydration Cell | Hydration recipes (clay from dust or terracotta, and others). |
+| `athanor_tool/lingering_flask` | Lingering Alchemy Flask | Athanor potion recipes such as tipped throwing daggers. |
+| `athanor_tool/furnace` | The three furnace tags | Any furnace-type tool. |
+| `athanor_tool/furnace/smelting` | Primitive Furnace Cell, Lava Crystal | Runs vanilla smelting recipes in the Athanor. |
+| `athanor_tool/furnace/blasting` | Empty | Runs vanilla blasting recipes in the Athanor. |
+| `athanor_tool/furnace/smoking` | Empty | Runs vanilla smoking recipes in the Athanor. |
 
 ### Anointable Item Tags
 
-Each anointment is restricted to a specific item tag. If a tool's id is not in the matching tag, the anointment right-click (or smithing-table apply) silently does nothing. Add modded weapons, tools, or custom bows to these tags to make them valid targets.
+Each anointment is restricted to a specific item tag. If a tool's id is not in the matching tag, right-clicking the anointment onto it (or applying it in a smithing table) does nothing. Add modded weapons, tools, or custom bows to these tags to make them valid targets.
 
 **Built-in assignments** (source: `AnointmentRegistrar.java`):
 
@@ -625,15 +677,6 @@ Each anointment is restricted to a specific item tag. If a tool's id is not in t
 | Vampiric Edge (Spiritus Drain) | `neovitae:anointable/weapons` |
 | Repairing Salve (Weapon Repair) | `neovitae:anointable/weapons` |
 
-**Default tag members** (vanilla + NeoVitae):
-
-| Tag | Contents |
-|-----|----------|
-| `anointable/melee` | `#minecraft:swords`, `#minecraft:axes` |
-| `anointable/mining` | `#minecraft:pickaxes`, `#minecraft:shovels`, `#minecraft:axes` |
-| `anointable/bows` | `minecraft:bow`, `minecraft:crossbow` |
-| `anointable/weapons` | `#neovitae:anointable/melee`, `#neovitae:anointable/bows` |
-
 **Example, adding a modded bow to Iron Tip:**
 
 ```json
@@ -646,18 +689,86 @@ Each anointment is restricted to a specific item tag. If a tool's id is not in t
 }
 ```
 
-For one-off anointment applicability (e.g. restricting Honing Oil to Netherite swords only), a Java addon can declare its own tag (`neovitae:anointable/iron_tip_only`) and wire the bow power anointment at it via `appliesTo(...)` in `AnointmentRegistrar`. The call accepts any `TagKey<Item>`.
+For one-off anointment applicability (for example restricting Honing Oil to Netherite swords only), a Java addon can declare its own tag such as `neovitae:anointable/iron_tip_only` and pass it to `appliesTo(...)` in `AnointmentRegistrar`. The call accepts any `TagKey<Item>`.
 
 ### Entity Tags
 
 **Location:** `data/neovitae/tags/entity_type/`
 
-| Tag | Purpose |
-|-----|---------|
-| `telepose_blacklist` | Entities that cannot be teleposed |
-| `well_of_suffering_blacklist` | Entities immune to Well of Suffering ritual |
-| `ritual_boss_blacklist` | Entities immune to ritual boss mechanics |
-| `no_sacrifice` | Entities that provide no EV when killed (e.g. summoned undead servants) |
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `telepose_blacklist` | Empty | Entities the Teleposer refuses to move. |
+| `well_of_suffering_blacklist` | Empty | Entities the Well of Suffering ritual will not damage for EV. |
+| `ritual_boss_blacklist` | Ender Dragon, Wither, Warden | Entities treated as bosses by rituals. The Grounding ritual skips them unless it is running with Spiritus Invictus. |
+| `no_sacrifice` | Empty | Entities whose sacrifice value is zero. The Well of Suffering, Torment Nexus and dungeon spike traps grant no EV for them. Use it for summoned servants or utility mobs. |
+| `no_sentient_training` | `dummmmmmy:target_dummy` (optional) | Entities that do not train Sentient Armor upgrades when hit. Add target dummies and other punching bags here. |
+| `loyal_friends_blacklist` | Empty | Tamed animals the Array of Loyal Friends will not summon, and will not store or revive on death. |
+| `deny_imprisonment` | Ender Dragon, Wither, Warden | Mobs the Array of Imprisonment ignores. A spawner next to the array will not be rebound to one of these when it dies nearby. |
+
+### Fluid Tags
+
+**Location:** `data/neovitae/tags/fluid/`
+
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `essentia_vitae` | Essentia Vitae source and flowing | Any Essentia Vitae fluid. |
+| `essentia_vitae_source` | Essentia Vitae source | Still Essentia Vitae only. |
+| `essentia_vitae_flowing` | Essentia Vitae flowing | Flowing Essentia Vitae only. |
+| `animated_spiritus` | Animated Spiritus source and flowing | Any Animated Spiritus fluid. |
+| `animated_spiritus_source` | Animated Spiritus source | Still Animated Spiritus only. |
+| `animated_spiritus_flowing` | Animated Spiritus flowing | Flowing Animated Spiritus only. |
+
+The Array of Liquified Experience reads the conventional `c:experience` fluid tag, which NeoVitae populates with its own Liquified Experience. To make the array use another mod's experience fluid, set `liquified_experience.preferred_fluid` in the server config rather than editing the tag.
+
+### Damage Type Tags
+
+**Location:** `data/neovitae/tags/damage_type/`
+
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `self_sacrifice` | `neovitae:self_sacrifice` | Damage that counts as self-sacrifice. The Self Sacrifice Sentient Armor upgrade only trains from damage in this tag. |
+| `tough_ignored` | `#minecraft:is_fire`, `#minecraft:is_explosion`, `#minecraft:is_fall`, `#minecraft:is_projectile` | Damage types that do not train the Tough (physical protection) Sentient Armor upgrade. |
+
+### Altar Tier Tags
+
+**Location:** `data/neovitae/tags/neovitae/altar_tier/`
+
+| Tag | Default contents | Purpose |
+|-----|------------------|---------|
+| `valid_tiers` | `weak`, `apprentice`, `mage`, `master`, `archmage`, `transcendent` | Altar tier definitions the multiblock validator and the guide book consider. A custom tier must be added here or it is never checked. See [Altar Tier Customization](#altar-tier-customization). |
+
+### Sentient Upgrade Tags
+
+**Location:** `data/neovitae/tags/neovitae/sentient_upgrades/`
+
+These are covered under [Upgrade Tags](#upgrade-tags) in the Sentient Armor Upgrades section below.
+
+### Curios Slot Tags
+
+**Location:** `data/curios/tags/item/`
+
+When Curios is installed, these tags decide which NeoVitae items fit each slot. Add your own items to them, or remove NeoVitae's with `"replace": true`.
+
+| Tag | Default contents |
+|-----|------------------|
+| `charm` | Fast Miner, Green Grove, Magnetism, Frost, Holding, Divination, Seer and Suppression sigils, Experience Tome, Spiritus Gauge |
+| `necklace` | Petty through Grand Spiritus Gems |
+| `bracelet` | Upgrade Tome, Training Bracelet |
+| `sentient_armour_socket` | Everything in the three tags above |
+
+### Conventional Tags NeoVitae Populates
+
+NeoVitae adds its own items and blocks to the shared `c:` tags so other mods' recipes pick them up. These are safe to extend but rarely need editing.
+
+| Tag | Contents |
+|-----|----------|
+| `c:ingots/hellforged`, `c:ingots` | Hellforged Ingot |
+| `c:raw_materials/hellforged`, `c:raw_materials` | Raw Demonite |
+| `c:storage_blocks/hellforged` (block and item) | Hellforged Block |
+| `c:ores` (block and item) | Demonite Ore |
+| `c:dusts/sulfur`, `c:dusts/saltpeter`, `c:dusts/corrupted`, `c:tiny_dusts/corrupted` | The matching NeoVitae dusts |
+| `c:fragments/<name>`, `c:gravels/<name>`, `c:dusts/<name>` | Generated per material by the material system; see [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons) |
+| `c:experience` (fluid) | Liquified Experience |
 
 ---
 

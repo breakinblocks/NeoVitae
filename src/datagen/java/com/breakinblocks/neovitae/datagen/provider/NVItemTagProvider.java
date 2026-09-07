@@ -159,7 +159,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(Tags.Items.RAW_MATERIALS).addTag(NVTags.Items.RAW_MATERIALS_HELLFORGED);
 
         // Ore tags
-        tag(Tags.Items.ORES).add(DungeonBlocks.DUNGEON_ORE.item().get());
+        tag(NVTags.Items.ORES_HELLFORGED).add(DungeonBlocks.DUNGEON_ORE.item().get());
+        tag(Tags.Items.ORES).addTag(NVTags.Items.ORES_HELLFORGED);
 
         // Armor trim material
         tag(ItemTags.TRIM_MATERIALS).add(NVItems.DEMONITE_TRIM_INGOT.get());

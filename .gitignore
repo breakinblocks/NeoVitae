@@ -67,7 +67,7 @@ metadata/ROADMAP.md
 metadata/showcase.md
 
 # Translation glossary is source, not generated data
-!crowdin/glossary.csv
+!translations/glossary.csv
 
 # Secrets - never commit
 .env
@@ -76,4 +76,3 @@ metadata/showcase.md
 *.token
 *.pem
 secrets.txt
-crowdin_token*

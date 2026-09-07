@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Port Crowdin translations from the main branch down to dev (1.21.1).
+"""Port translations from the main branch down to dev (1.21.1).
 
-Crowdin translates a single source file: main's generated en_us.json. This
-script regenerates dev's translation files from main's, remapping the keys
-whose names are forced to differ by the Minecraft version.
+Translation pull requests target main, whose generated en_us.json is the single
+source of strings. This script regenerates dev's translation files from main's,
+remapping the keys whose names are forced to differ by the Minecraft version.
 
 Keys that exist only on main are carried over anyway: Minecraft ignores
 translation keys nothing references, and pre-staging them means a feature
 backported to dev already has its translations.
 
 A key whose *English* differs between the two branches is skipped, because a
-translation made against main's wording would silently misdescribe dev's
-behaviour. Any such key keeps whatever dev already had.
+translation made against main's wording would misdescribe dev's behaviour.
+Any such key keeps whatever dev already had.
 
 Usage (from the repo root):
     python tools/port-lang.py                  # write dev's lang files

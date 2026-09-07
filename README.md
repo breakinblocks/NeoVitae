@@ -32,6 +32,8 @@ Want to help? See our [Contributing Guidelines](https://github.com/breakinblocks
 - Pull request process
 - Project structure overview
 
+Translations are welcome as pull requests too. See [translations/README.md](translations/README.md) for the file layout and formatting rules.
+
 ### Quick Start for Contributors
 
 1. Fork the repository

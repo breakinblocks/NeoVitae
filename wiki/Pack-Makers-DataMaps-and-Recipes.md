@@ -785,7 +785,7 @@ NeoVitae adds its own items and blocks to the shared `c:` tags so other mods' re
 | `c:ingots/hellforged`, `c:ingots` | Hellforged Ingot |
 | `c:raw_materials/hellforged`, `c:raw_materials` | Raw Demonite |
 | `c:storage_blocks/hellforged` (block and item) | Hellforged Block |
-| `c:ores` (block and item) | Demonite Ore |
+| `c:ores/hellforged`, `c:ores` (block and item) | Demonite Ore |
 | `c:dusts/sulfur`, `c:dusts/saltpeter`, `c:dusts/corrupted`, `c:tiny_dusts/corrupted` | The matching NeoVitae dusts |
 | `c:fragments/<name>`, `c:gravels/<name>`, `c:dusts/<name>` | Generated per material by the material system; see [Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons) |
 | `c:tools` | `#neovitae:tools` |

@@ -101,6 +101,7 @@ public class NVTags {
 
         public static final TagKey<Item> INGOTS_HELLFORGED = tag(c("ingots/hellforged"));
         public static final TagKey<Item> RAW_MATERIALS_HELLFORGED = tag(c("raw_materials/hellforged"));
+        public static final TagKey<Item> ORES_HELLFORGED = tag(c("ores/hellforged"));
 
         public static final TagKey<Item> ANOINTABLE_MELEE = tag(bm("anointable/melee"));
         public static final TagKey<Item> ANOINTABLE_MINING = tag(bm("anointable/mining"));
@@ -135,6 +136,7 @@ public class NVTags {
         public static final TagKey<Block> TELEPOSE_BLACKLIST = tag(bm("telepose_blacklist"));
 
         public static final TagKey<Block> STORAGE_BLOCKS_HELLFORGED = tag(c("storage_blocks/hellforged"));
+        public static final TagKey<Block> ORES_HELLFORGED = tag(c("ores/hellforged"));
 
         public static final TagKey<Block> INCENSE_PATH_LEVEL_0 = tag(bm("incense_path/level_0"));
         public static final TagKey<Block> INCENSE_PATH_LEVEL_1 = tag(bm("incense_path/level_1"));

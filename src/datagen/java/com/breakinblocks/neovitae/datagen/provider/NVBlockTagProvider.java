@@ -69,8 +69,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED)
                 .addAll(BlockGroups.HELLFORGED_BLOCK);
 
-        this.tag(Tags.Blocks.ORES)
+        this.tag(NVTags.Blocks.ORES_HELLFORGED)
                 .add(DungeonBlocks.DUNGEON_ORE.block().get());
+        this.tag(Tags.Blocks.ORES)
+                .addTag(NVTags.Blocks.ORES_HELLFORGED);
 
         this.tag(BlockTags.BEACON_BASE_BLOCKS)
                 .addAll(BlockGroups.HELLFORGED_BLOCK);

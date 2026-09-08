@@ -13,9 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -37,7 +35,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
-import net.minecraft.resources.ResourceLocation;
 import com.breakinblocks.neovitae.NeoVitae;
 
 import java.util.HashMap;
@@ -60,11 +57,6 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     private static final float ACTIVE_SPEED = 9.0F;
     private static final int DURABILITY = 2031;
-
-    private static final double[] DEFAULT_DAMAGE = {1, 2, 3, 4, 5, 6, 7};
-    private static final double[] DESTRUCTIVE_DAMAGE = {2, 3, 4, 5, 6, 7, 8};
-    private static final double[] VENGEFUL_DAMAGE = {0.5, 1, 1.5, 2, 2.5, 3, 3.5};
-    private static final double[] STEADFAST_DAMAGE = {0.5, 1, 1.5, 2, 2.5, 3, 3.5};
 
     public LexVitaeItem() {
         super(new Properties()
@@ -159,17 +151,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     public static final double BEAM_RANGE = 32.0;
 
-    private static final ResourceLocation ATTACK_DAMAGE_ID = NeoVitae.rl("lex_vitae_attack_damage");
-    private static final ResourceLocation ATTACK_SPEED_ID = NeoVitae.rl("lex_vitae_attack_speed");
-
-    private static final ItemAttributeModifiers ACTIVE_MODIFIERS = ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(ATTACK_DAMAGE_ID, 8.0, AttributeModifier.Operation.ADD_VALUE),
-                    EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED,
-                    new AttributeModifier(ATTACK_SPEED_ID, -2.4, AttributeModifier.Operation.ADD_VALUE),
-                    EquipmentSlotGroup.MAINHAND)
-            .build();
+    private static final ItemAttributeModifiers BASE_ACTIVE_MODIFIERS = buildWeaponModifiers("lex_vitae", BASE_WEAPON_DAMAGE, DEFAULT_ATTACK_SPEED, 0);
 
     private static final Map<UUID, Long> BEAM_COOLDOWN = new HashMap<>();
     private static final Set<UUID> BEAMING = ConcurrentHashMap.newKeySet();
@@ -207,7 +189,18 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
-        return isActive(stack) ? ACTIVE_MODIFIERS : ItemAttributeModifiers.EMPTY;
+        return isActive(stack) ? BASE_ACTIVE_MODIFIERS : ItemAttributeModifiers.EMPTY;
+    }
+
+    public static void syncAttributeModifiers(ItemStack stack) {
+        boolean hasModifiers = !stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY).modifiers().isEmpty();
+        if (isActive(stack)) {
+            if (!hasModifiers) {
+                stack.set(DataComponents.ATTRIBUTE_MODIFIERS, BASE_ACTIVE_MODIFIERS);
+            }
+        } else if (hasModifiers) {
+            stack.set(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+        }
     }
 
     @Override
@@ -230,7 +223,8 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
-        if (isSelected && !level.isClientSide && isActive(stack) && entity instanceof Player player) {
+        if (isSelected && !level.isClientSide && entity instanceof Player player) {
+            syncAttributeModifiers(stack);
             recalculatePowers(stack, level, player);
         }
     }
@@ -261,6 +255,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         if (player.isShiftKeyDown()) {
             boolean now = !isActive(stack);
             stack.set(NVDataComponents.LEX_ACTIVE, now);
+            syncAttributeModifiers(stack);
             world.playSound(null, player.blockPosition(),
                     now ? SoundEvents.BEACON_ACTIVATE : SoundEvents.BEACON_DEACTIVATE,
                     SoundSource.PLAYERS, 0.5F, now ? 1.4F : 0.7F);
@@ -470,12 +465,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public double[] getDamageForSpiritusType(SpiritusType type) {
-        return switch (type) {
-            case NIHILUM -> DESTRUCTIVE_DAMAGE;
-            case VINDICTA -> VENGEFUL_DAMAGE;
-            case INVICTUS -> STEADFAST_DAMAGE;
-            default -> DEFAULT_DAMAGE;
-        };
+        return getWeaponDamage(type);
     }
 
     @Override
@@ -485,15 +475,21 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public void recalculatePowers(ItemStack stack, Level world, Player player) {
+        if (!isActive(stack)) {
+            return;
+        }
         SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
         double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
+        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level);
         setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
-        setDamageBonus(stack, getExtraDamage(type, level));
+        setDamageBonus(stack, damage);
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
         setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
         setDigSpeedBonus(stack, level >= 0 ? DEFAULT_DIG_SPEED_ADDED[level] : 0);
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, buildWeaponModifiers("lex_vitae", damage,
+                getWeaponAttackSpeed(type, level), getWeaponMovementSpeed(type, level)));
     }
 
     @Override

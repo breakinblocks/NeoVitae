@@ -3,11 +3,16 @@ package com.breakinblocks.neovitae.common.item.soul;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -63,6 +68,62 @@ public final class SentientToolHelper {
 
     /** Dig speed bonus at each power level (for mining tools). */
     public static final double[] DEFAULT_DIG_SPEED_ADDED = {1, 1.5, 2, 3, 4, 5, 6};
+
+    public static final double BASE_WEAPON_DAMAGE = 5;
+    public static final double DEFAULT_ATTACK_SPEED = -2.4;
+
+    public static final double[] WEAPON_DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
+    public static final double[] WEAPON_DESTRUCTIVE_DAMAGE = {1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
+    public static final double[] WEAPON_VENGEFUL_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
+    public static final double[] WEAPON_STEADFAST_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
+
+    public static final double[] VENGEFUL_ATTACK_SPEED = {-2.1, -2.0, -1.8, -1.7, -1.6, -1.6, -1.5};
+    public static final double[] DESTRUCTIVE_ATTACK_SPEED = {-2.6, -2.7, -2.8, -2.9, -3, -3, -3};
+
+    public static final double[] MOVEMENT_SPEED = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
+
+    public static double[] getWeaponDamage(SpiritusType type) {
+        return switch (type) {
+            case NIHILUM -> WEAPON_DESTRUCTIVE_DAMAGE;
+            case VINDICTA -> WEAPON_VENGEFUL_DAMAGE;
+            case INVICTUS -> WEAPON_STEADFAST_DAMAGE;
+            default -> WEAPON_DEFAULT_DAMAGE;
+        };
+    }
+
+    public static double getWeaponAttackSpeed(SpiritusType type, int spiritusBracket) {
+        if (spiritusBracket < 0) {
+            return DEFAULT_ATTACK_SPEED;
+        }
+        return switch (type) {
+            case VINDICTA -> VENGEFUL_ATTACK_SPEED[spiritusBracket];
+            case NIHILUM -> DESTRUCTIVE_ATTACK_SPEED[spiritusBracket];
+            default -> DEFAULT_ATTACK_SPEED;
+        };
+    }
+
+    public static double getWeaponMovementSpeed(SpiritusType type, int spiritusBracket) {
+        if (spiritusBracket < 0 || type != SpiritusType.VINDICTA) {
+            return 0;
+        }
+        return MOVEMENT_SPEED[spiritusBracket];
+    }
+
+    public static ItemAttributeModifiers buildWeaponModifiers(String idPrefix, double damage, double attackSpeed, double movementSpeed) {
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+        builder.add(Attributes.ATTACK_DAMAGE,
+                new AttributeModifier(NeoVitae.rl(idPrefix + "_damage"), damage, AttributeModifier.Operation.ADD_VALUE),
+                EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ATTACK_SPEED,
+                new AttributeModifier(NeoVitae.rl(idPrefix + "_speed"), attackSpeed, AttributeModifier.Operation.ADD_VALUE),
+                EquipmentSlotGroup.MAINHAND);
+        if (movementSpeed > 0) {
+            builder.add(Attributes.MOVEMENT_SPEED,
+                    new AttributeModifier(NeoVitae.rl(idPrefix + "_movement"), movementSpeed, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                    EquipmentSlotGroup.MAINHAND);
+        }
+        return builder.build();
+    }
 
 
     /**

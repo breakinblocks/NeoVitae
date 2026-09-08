@@ -40,8 +40,8 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Offerings to the Sky");
-        this.pageText("The composition and scale of the meteor vary with the offering. Standard offerings include [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), and [#](8B0000)Stone[#]()."
-                + "\\\n\\\nExotic offerings from other disciplines are also recognized: [#](8B0000)Dragon Bones[#](), [#](8B0000)Certus Quartz[#](), [#](8B0000)Andesite Alloy[#](), [#](8B0000)Copper Wire Coil[#](), [#](8B0000)Prosperity Shard[#](), [#](8B0000)RF Coil[#](), and [#](8B0000)Advanced Alloy[#](), among others.");
+        this.pageText("The composition and scale of the meteor vary with the offering. The offerings recognized by default are [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), [#](8B0000)Nether Star[#](), and [#](8B0000)Deepslate[#]()."
+                + "\\\n\\\nA modpack may define further offerings of its own; consult JEI for the full list your world recognizes.");
     }
 
     @Override

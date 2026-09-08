@@ -25,7 +25,7 @@ public class BrillianceUpgradeEntry extends EntryProvider {
                 + "its lattice with each lesson. Grants up to +5 [#](4A0080)Armor[#]() and +10 "
                 + "[#](4A0080)Toughness[#]().\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Inscribe a [#](8B0000)Brilliance Tome[#]() in the Tabula Vitae, then apply it "
-                + "to Living Armor. Each tome grants 1 level, up to a maximum of 6.");
+                + "to Sentient Armor. Each tome grants 1 level, up to a maximum of 6.");
 
         this.page("recipe", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/brilliance_tome"));

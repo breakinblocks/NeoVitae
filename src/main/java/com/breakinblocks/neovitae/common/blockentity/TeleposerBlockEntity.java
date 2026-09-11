@@ -43,6 +43,7 @@ import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
+import java.util.Set;
 import net.minecraft.server.permissions.PermissionSet;
 
 public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvider, CommandSource {
@@ -130,7 +131,8 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
 
         Level linkedWorld = focusItem.getStoredWorld(focusStack, level);
         BlockPos linkedPos = focusItem.getStoredPos(focusStack);
-        if (linkedWorld == null || linkedPos.equals(worldPosition)) {
+        if (!(linkedWorld instanceof ServerLevel linkedServerWorld)
+                || (linkedWorld == level && linkedPos.equals(worldPosition))) {
             return;
         }
 
@@ -157,7 +159,10 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         List<BlockPos> offsetList = focusItem.getBlockListOffset(level);
 
         int uses = 0;
-        int maxUses = offsetList.size() + originalEntities.size() + focusEntities.size();
+        // A vehicle may carry passengers whose bounds lie outside the focus area.
+        long maxUses = offsetList.size()
+                + originalEntities.stream().flatMap(Entity::getSelfAndPassengers).distinct().count()
+                + focusEntities.stream().flatMap(Entity::getSelfAndPassengers).distinct().count();
 
         int maxDrain = Math.min((int) (transportCost * maxUses), MAX_TOTAL_COST);
         Anima network = getNetwork();
@@ -165,39 +170,8 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
             return;
         }
 
-        ResourceKey<Level> linkedKey = linkedWorld.dimension();
-
-        for (Entity entity : originalEntities) {
-            if (entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.TELEPOSE_BLACKLIST))) {
-                continue;
-            }
-
-            Vec3 newPosVec = entity.position().subtract(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()).add(linkedPos.getX(), linkedPos.getY(), linkedPos.getZ());
-
-            if (entity instanceof Player && !linkedWorld.equals(level)) {
-                teleportPlayerToLocation(serverWorld, (Player) entity, linkedKey, newPosVec.x, newPosVec.y, newPosVec.z);
-            } else {
-                entity.teleportTo(newPosVec.x, newPosVec.y, newPosVec.z);
-            }
-
-            uses++;
-        }
-
-        for (Entity entity : focusEntities) {
-            if (entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.TELEPOSE_BLACKLIST))) {
-                continue;
-            }
-
-            Vec3 newPosVec = entity.position().add(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()).subtract(linkedPos.getX(), linkedPos.getY(), linkedPos.getZ());
-
-            if (entity instanceof Player && !linkedWorld.equals(level)) {
-                teleportPlayerToLocation(serverWorld, (Player) entity, level.dimension(), newPosVec.x, newPosVec.y, newPosVec.z);
-            } else {
-                entity.teleportTo(newPosVec.x, newPosVec.y, newPosVec.z);
-            }
-
-            uses++;
-        }
+        uses += teleportEntities(originalEntities, linkedServerWorld, worldPosition, linkedPos);
+        uses += teleportEntities(focusEntities, serverWorld, linkedPos, worldPosition);
 
         for (BlockPos offset : offsetList) {
             BlockPos initialPos = worldPosition.offset(offset);
@@ -217,6 +191,29 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         }
 
         network.syphon(AnimaTicket.create(Math.min((int) (uses * transportCost), MAX_TOTAL_COST)));
+    }
+
+    private static int teleportEntities(List<Entity> entities, ServerLevel destination, BlockPos from, BlockPos to) {
+        // Transfer each riding group once, preserving mounts and respecting the blacklist
+        // for passengers as well as vehicles.
+        List<Entity> roots = entities.stream()
+                .filter(entity -> !entities.contains(entity.getVehicle()))
+                .toList();
+        int moved = 0;
+        for (Entity entity : roots) {
+            List<Entity> group = entity.getSelfAndPassengers().toList();
+            if (group.stream().anyMatch(member -> member.getType().getTags()
+                    .anyMatch(NVTags.Entities.TELEPOSE_BLACKLIST::equals))) {
+                continue;
+            }
+            Vec3 position = entity.position().subtract(from.getX(), from.getY(), from.getZ())
+                    .add(to.getX(), to.getY(), to.getZ());
+            if (entity.teleportTo(destination, position.x, position.y, position.z,
+                    Set.of(), entity.getYRot(), entity.getXRot(), false)) {
+                moved += group.size();
+            }
+        }
+        return moved;
     }
 
     public boolean canTeleport() {

@@ -179,7 +179,13 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ISigil.revokeFakeBinding(player.getItemInHand(hand), player);
         ItemStack stack = resolveStackForUse(player, hand);
-        if (stack == null) {
+        return use(level, player, hand, stack);
+    }
+
+    /** Uses the supplied stack so a containing sigil can persist its mutations. */
+    public InteractionResult use(Level level, Player player, InteractionHand hand, @Nullable ItemStack stack) {
+        ISigil.revokeFakeBinding(stack, player);
+        if (stack == null || PlayerHelper.isFakePlayer(player)) {
             return InteractionResult.FAIL;
         }
 

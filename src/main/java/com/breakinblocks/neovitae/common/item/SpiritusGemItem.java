@@ -24,7 +24,6 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.spiritus.ISpiritus;
 import com.breakinblocks.neovitae.spiritus.ISpiritusGem;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
@@ -104,13 +103,10 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag tooltipFlag) {
-        SpiritusType type = SpiritusHelper.getCurrentType(stack);
-        double amount = SpiritusHelper.getSpiritus(stack, type);
         Identifier loc = stack.typeHolder().getKey().identifier();
 
         tooltip.accept(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
-        tooltip.accept(Component.translatable("tooltip.neovitae.spiritus", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
-        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));
+        // The shared spiritus tooltip adds stored amount, capacity, and type.
     }
 
     @Override

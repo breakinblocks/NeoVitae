@@ -132,10 +132,11 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         if (this.speedModifier < speedModifier) {
             this.speedModifier = speedModifier;
         }
-        if (this.appliedConversionRate > conversionRate) {
+        if (this.appliedConversionRate <= 0 || this.appliedConversionRate > conversionRate) {
             this.appliedConversionRate = conversionRate;
         }
         injectedSpiritus += addedInjectedSpiritus;
+        setChanged();
     }
 
     public double growCrystalWithSpiritusAmount(double spiritusDrain, double progressPercentage) {

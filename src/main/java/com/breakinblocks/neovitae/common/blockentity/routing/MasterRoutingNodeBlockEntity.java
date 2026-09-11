@@ -227,6 +227,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     /** BFS over connectionMap; never loads block entities during traversal. */
     public boolean isConnectedViaGraph(BlockPos startPos) {
+        if (!isConnectionEnabled(worldPosition)) return false;
         if (startPos.equals(this.worldPosition)) return true;
         if (!connectionMap.containsKey(startPos)) return false;
 

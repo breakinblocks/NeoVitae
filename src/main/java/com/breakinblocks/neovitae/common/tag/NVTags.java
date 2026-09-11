@@ -25,6 +25,8 @@ public class NVTags {
         public static final TagKey<Item> VITAE_STONE = tag(bm("vitae_stone"));
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
+        public static final TagKey<Item> STORAGE_BLOCKS_RAW = fromBlock(Blocks.STORAGE_BLOCKS_RAW);
+        public static final TagKey<Item> STORAGE_BLOCKS_RAW_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_RAW_HELLFORGED);
 
         public static final TagKey<Item> RUNES = fromBlock(Blocks.RUNES);
         public static final TagKey<Item> BLOODSTONES = fromBlock(Blocks.BLOODSTONES);
@@ -136,6 +138,8 @@ public class NVTags {
         public static final TagKey<Block> TELEPOSE_BLACKLIST = tag(bm("telepose_blacklist"));
 
         public static final TagKey<Block> STORAGE_BLOCKS_HELLFORGED = tag(c("storage_blocks/hellforged"));
+        public static final TagKey<Block> STORAGE_BLOCKS_RAW = tag(c("storage_blocks/raw"));
+        public static final TagKey<Block> STORAGE_BLOCKS_RAW_HELLFORGED = tag(c("storage_blocks/raw_hellforged"));
         public static final TagKey<Block> ORES_HELLFORGED = tag(c("ores/hellforged"));
 
         public static final TagKey<Block> INCENSE_PATH_LEVEL_0 = tag(bm("incense_path/level_0"));

@@ -102,10 +102,12 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
                 if (insertAll(tank, resource, points * perPoint, tx) < points * perPoint) {
                     continue;
                 }
+                ExperienceTomeItem.addXpToTome(stack, -points);
+                if (!writeBack(container, slot, stack, tx)) {
+                    continue;
+                }
                 tx.commit();
             }
-            ExperienceTomeItem.addXpToTome(stack, -points);
-            writeBack(container, slot, stack);
             moved += points;
         }
         return moved;
@@ -124,24 +126,39 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
                 continue;
             }
             int limit = (int) Math.min((long) headroom * perPoint, Integer.MAX_VALUE);
-            int drained = 0;
+            int available;
+            try (Transaction probe = Transaction.openRoot()) {
+                available = extractAll(tank, experience, limit, probe);
+            }
+            int points = available / perPoint;
+            if (points <= 0) {
+                break;
+            }
             try (Transaction tx = Transaction.openRoot()) {
-                for (int tankIndex = 0; tankIndex < tank.size() && drained < limit; tankIndex++) {
-                    FluidResource held = tank.getResource(tankIndex);
-                    if (held.isEmpty() || held.getFluid() != experience) continue;
-                    drained += tank.extract(tankIndex, held, limit - drained, tx);
+                // Leave any fraction of an XP point in the tank.
+                if (extractAll(tank, experience, points * perPoint, tx) != points * perPoint) {
+                    continue;
                 }
-                if (drained / perPoint <= 0) {
-                    break;
+                ExperienceTomeItem.addXpToTome(stack, points);
+                if (!writeBack(container, slot, stack, tx)) {
+                    continue;
                 }
                 tx.commit();
             }
-            int points = drained / perPoint;
-            ExperienceTomeItem.addXpToTome(stack, points);
-            writeBack(container, slot, stack);
             moved += points;
         }
         return moved;
+    }
+
+    private static int extractAll(ResourceHandler<FluidResource> tank, Fluid experience, int amount, Transaction tx) {
+        int extracted = 0;
+        for (int i = 0; i < tank.size() && extracted < amount; i++) {
+            FluidResource held = tank.getResource(i);
+            if (!held.isEmpty() && held.getFluid() == experience) {
+                extracted += tank.extract(i, held, amount - extracted, tx);
+            }
+        }
+        return extracted;
     }
 
     private static int insertAll(ResourceHandler<FluidResource> tank, FluidResource resource, int amount, Transaction tx) {
@@ -153,15 +170,11 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
     }
 
     /** Tome contents live in data components, so the edited stack has to be put back in the slot. */
-    private static void writeBack(ResourceHandler<ItemResource> container, int slot, ItemStack stack) {
-        try (Transaction tx = Transaction.openRoot()) {
-            ItemResource current = container.getResource(slot);
-            int count = container.getAmountAsInt(slot);
-            if (container.extract(slot, current, count, tx) == count
-                    && container.insert(slot, ItemResource.of(stack), count, tx) == count) {
-                tx.commit();
-            }
-        }
+    private static boolean writeBack(ResourceHandler<ItemResource> container, int slot, ItemStack stack, Transaction tx) {
+        ItemResource current = container.getResource(slot);
+        int count = container.getAmountAsInt(slot);
+        return container.extract(slot, current, count, tx) == count
+                && container.insert(slot, ItemResource.of(stack), count, tx) == count;
     }
 
     private static ResourceHandler<FluidResource> findTank(Level level, BlockPos arrayPos, BlockPos containerPos) {

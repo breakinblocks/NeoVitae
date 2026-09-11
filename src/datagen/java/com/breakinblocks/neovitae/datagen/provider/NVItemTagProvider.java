@@ -35,6 +35,12 @@ public class NVItemTagProvider extends ItemTagsProvider {
         // NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED contains BlockGroups.HELLFORGED_BLOCK (currently a single entry).
         tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
                 .add(NVBlocks.HELLFORGED_BLOCK.item().get());
+        tag(NVTags.Items.STORAGE_BLOCKS_RAW_HELLFORGED)
+                .add(NVBlocks.RAW_DEMONITE_BLOCK.item().get());
+        tag(NVTags.Items.STORAGE_BLOCKS_RAW)
+                .addTag(NVTags.Items.STORAGE_BLOCKS_RAW_HELLFORGED);
+        tag(Tags.Items.STORAGE_BLOCKS)
+                .addTag(NVTags.Items.STORAGE_BLOCKS_RAW);
 
         tag(Tags.Items.STRINGS).add(Items.STRING);
 

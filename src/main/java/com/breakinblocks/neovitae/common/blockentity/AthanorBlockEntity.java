@@ -540,8 +540,8 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                     toolStack.set(DataComponents.DAMAGE, toolStack.getMaxDamage());
                 } else {
                     toolStack.set(DataComponents.DAMAGE, newDamage);
-                    athanorInv.setStackInSlot(TOOL_SLOT, toolStack);
                 }
+                athanorInv.setStackInSlot(TOOL_SLOT, toolStack);
             } else {
                 toolStack.shrink(1);
                 athanorInv.setStackInSlot(TOOL_SLOT, toolStack);

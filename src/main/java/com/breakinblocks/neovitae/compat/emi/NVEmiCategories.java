@@ -18,7 +18,7 @@ public final class NVEmiCategories {
     public static final EmiRecipeCategory ALCHEMY_ARRAY_CRAFTING = category("alchemy_array", NVItems.ARCANE_SCRIBE_TOOL.get());
     public static final EmiRecipeCategory ALCHEMY_ARRAY_EFFECT = category("alchemy_array_effect", NVItems.ARCANE_SCRIBE_TOOL.get());
     public static final EmiRecipeCategory TABULA_VITAE = category("tabula_vitae", NVBlocks.TABULA_VITAE.block().get());
-    public static final EmiRecipeCategory METEOR = category("meteor", NVItems.RAW_SPIRITUS.get());
+    public static final EmiRecipeCategory METEOR = category("meteor", NVBlocks.MASTER_RITUAL_STONE.block().get());
     public static final EmiRecipeCategory ATHANOR = category("athanor", NVBlocks.ATHANOR_BLOCK.block().get());
     public static final EmiRecipeCategory FLASK = category("flask", NVItems.ALCHEMY_FLASK.get());
     public static final EmiRecipeCategory FLASK_COMBINATION = category("flask_combination", NVItems.ALCHEMY_FLASK.get());

@@ -21,7 +21,6 @@ public class DisenchantEmiRecipe extends BasicEmiRecipe {
     private static final int GREEN = 0x2E8B57;
     private static final int RAW_COLOR = 0xFFAA3333;
     private static final int ARROW_COLOR = 0xFF606060;
-    private static final int DROPLET = 81;
 
     private final EmiIngredient books;
 
@@ -33,7 +32,7 @@ public class DisenchantEmiRecipe extends BasicEmiRecipe {
         }
         this.books = EmiIngredient.of(stacks);
         this.inputs = List.of(books, EmiStack.of(Items.BOOK),
-                EmiStack.of(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 100 * DROPLET));
+                EmiStack.of(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 100));
         this.catalysts = List.of(EmiStack.of(NVItems.SANGUINE_REVERTER.get()));
         this.outputs = List.copyOf(stacks);
     }

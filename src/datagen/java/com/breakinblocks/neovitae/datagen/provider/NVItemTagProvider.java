@@ -41,6 +41,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.VITAE_STONE)
                 .add(Items.DEEPSLATE);
 
+        tag(NVTags.Items.METEOR);
+
         tag(NVTags.Items.SPIRITUS_GEM)
                 .add(NVItems.SPIRITUS_GEM_PETTY.get())
                 .add(NVItems.SPIRITUS_GEM_LESSER.get())

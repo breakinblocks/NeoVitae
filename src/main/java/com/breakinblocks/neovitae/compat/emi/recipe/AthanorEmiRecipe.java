@@ -23,7 +23,6 @@ public class AthanorEmiRecipe extends BasicEmiRecipe {
 
     private static final int WIDTH = 160;
     private static final int HEIGHT = 100;
-    private static final int DROPLET = 81;
     private static final int ROW0 = 2;
     private static final int ROW1 = 20;
     private static final int ROW2 = 40;
@@ -50,7 +49,7 @@ public class AthanorEmiRecipe extends BasicEmiRecipe {
         recipe.getInputFluid().ifPresent(sized -> {
             List<EmiStack> fluids = new ArrayList<>();
             for (var fluidStack : sized.getFluids()) {
-                fluids.add(EmiStack.of(fluidStack.getFluid(), (long) sized.amount() * DROPLET));
+                fluids.add(EmiStack.of(fluidStack.getFluid(), sized.amount()));
             }
             if (!fluids.isEmpty()) ins.add(EmiIngredient.of(fluids));
         });
@@ -63,7 +62,7 @@ public class AthanorEmiRecipe extends BasicEmiRecipe {
         }
         this.itemOutputCount = outs.size();
         recipe.getOutputFluid().ifPresent(fluid ->
-                outs.add(EmiStack.of(fluid.getFluid(), (long) fluid.getAmount() * DROPLET)));
+                outs.add(EmiStack.of(fluid.getFluid(), fluid.getAmount())));
         this.outputs = outs;
 
         this.catalysts = List.of(EmiIngredient.of(recipe.getTool()));

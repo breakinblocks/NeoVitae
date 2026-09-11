@@ -540,6 +540,8 @@ second, so `2.5` yields two copies plus a 50% chance of a third.
 
 Defines what blocks spawn when the Meteor ritual is activated.
 
+The `input` ingredient of every loaded meteor recipe is also collected into the `neovitae:meteor` item tag at runtime, so quests, filters and other recipes can match "any meteor catalyst" without listing them by hand.
+
 ### Flask Recipes
 
 **Location:** `data/neovitae/recipe/flask/`
@@ -625,6 +627,7 @@ All paths are relative to `data/neovitae/tags/` unless a different namespace is 
 | `blood_mending_blacklist` | Empty | Items the Blood Mending upgrade will not repair. |
 | `sentient_repair` | Binding Reagent | Repair material for Sentient tools, Sentient armor and the Lex Vitae in an anvil. |
 | `vitae_stone` | Deepslate | Stone-type ingredient used by a large number of early recipes (component frames, Tabula Rasa, and others). Retag this to change the base stone of the mod. |
+| `meteor` | Every meteor recipe catalyst | Filled at runtime from the loaded meteor recipes: whenever data loads or `/reload` runs, each recipe's `input` ingredient is expanded and its items are added to this tag before it is sent to clients, so datapack and KubeJS meteor recipes are picked up without editing the tag. Entries written into the tag JSON are kept alongside the recipe-derived ones. |
 | `sentient_upgrade_set` | `#neovitae:sentient_upgrade_set/sentient` | Any armor piece that participates in the Sentient Armor upgrade system. Equipping or removing one recalculates the full-set bonuses and Curios slots. |
 | `sentient_upgrade_set/sentient` | Sentient Helmet, Chestplate, Leggings, Boots | The four pieces that make up the Sentient Armor set. Rituals that act on the set (Evolve, Penance, Upgrade Removal) require the chest piece to be in this tag. |
 | `anointments` | Every anointment item | Anointment items accepted by the smithing table apply recipe. *26.1 only.* |

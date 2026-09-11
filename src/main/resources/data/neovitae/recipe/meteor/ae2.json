@@ -25,11 +25,11 @@
       "shell": "ae2:sky_stone_block",
       "weighted": [
         {
-          "entry": "#c:ores/certus_quartz",
+          "entry": "#c:storage_blocks/certus_quartz",
           "weight": 100
         },
         {
-          "entry": "#c:storage_blocks/quartz",
+          "entry": "minecraft:quartz_block",
           "weight": 50
         }
       ]

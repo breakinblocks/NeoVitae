@@ -76,7 +76,7 @@ public class Anima implements IAnima {
         if (curr >= maximum)
             return 0;
 
-        int newEss = Math.min(maximum, curr + ticket.getAmount());
+        int newEss = (int) Math.min(maximum, (long) curr + ticket.getAmount());
         setCurrentEV(newEss);
 
         return newEss - curr;

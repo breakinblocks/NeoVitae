@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.alchemyarray;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -22,6 +23,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import java.util.Objects;
 
 public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
 
@@ -76,9 +79,12 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
     }
 
     private static int drainTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint) {
+        // IItemHandler's returned stacks are read-only and may be copies. Use the
+        // setter to persist data components and notify the inventory that it changed.
+        if (!(container instanceof IItemHandlerModifiable writable)) return 0;
         int moved = 0;
         for (int slot = 0; slot < container.getSlots(); slot++) {
-            ItemStack stack = container.getStackInSlot(slot);
+            ItemStack stack = container.getStackInSlot(slot).copy();
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
             }
@@ -92,17 +98,22 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             if (points <= 0) {
                 break;
             }
-            tank.fill(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
             ExperienceTomeItem.addXpToTome(stack, -points);
+            if (!container.isItemValid(slot, stack)) continue;
+            int filled = tank.fill(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
+            points = filled / perPoint;
+            stack.set(NVDataComponents.STORED_XP, stored - points);
+            writable.setStackInSlot(slot, stack);
             moved += points;
         }
         return moved;
     }
 
     private static int fillTomes(IItemHandler container, IFluidHandler tank, Fluid experience, int perPoint) {
+        if (!(container instanceof IItemHandlerModifiable writable)) return 0;
         int moved = 0;
         for (int slot = 0; slot < container.getSlots(); slot++) {
-            ItemStack stack = container.getStackInSlot(slot);
+            ItemStack stack = container.getStackInSlot(slot).copy();
             if (!(stack.getItem() instanceof ExperienceTomeItem)) {
                 continue;
             }
@@ -118,8 +129,13 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
             if (points <= 0) {
                 continue;
             }
-            tank.drain(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
+            ItemStack updated = stack.copy();
+            ExperienceTomeItem.addXpToTome(updated, points);
+            if (!container.isItemValid(slot, updated)) continue;
+            FluidStack drained = tank.drain(new FluidStack(experience, points * perPoint), IFluidHandler.FluidAction.EXECUTE);
+            points = drained.getAmount() / perPoint;
             ExperienceTomeItem.addXpToTome(stack, points);
+            writable.setStackInSlot(slot, stack);
             moved += points;
         }
         return moved;
@@ -152,7 +168,7 @@ public class AlchemyArrayEffectLiquifiedExperience extends AlchemyArrayEffect {
      */
     private static Fluid experienceFluid() {
         String configured = NeoVitae.SERVER_CONFIG.LIQUIFIED_EXPERIENCE_FLUID.get();
-        if (!java.util.Objects.equals(configured, resolvedFrom)) {
+        if (!Objects.equals(configured, resolvedFrom)) {
             resolvedFrom = configured;
             resolved = null;
             if (configured != null && !configured.isBlank()) {

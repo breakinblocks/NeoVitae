@@ -24,6 +24,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.IBindable;
@@ -72,9 +73,9 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         InteractionHand hand = context.getHand();
-        ItemStack stack = player.getItemInHand(hand);
+        ItemStack stack = context.getItemInHand();
 
-        if (PlayerHelper.isFakePlayer(player)) {
+        if (player == null || PlayerHelper.isFakePlayer(player)) {
             return InteractionResult.FAIL;
         }
 
@@ -93,7 +94,10 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
             }
         }
 
-        InteractionResult result = itemUsing.getItem().useOn(context);
+        UseOnContext containedContext = new UseOnContext(context.getLevel(), player, hand, itemUsing,
+                new BlockHitResult(context.getClickLocation(), context.getClickedFace(),
+                        context.getClickedPos(), context.isInside()));
+        InteractionResult result = itemUsing.getItem().useOn(containedContext);
         saveInventory(stack, inv);
 
         // Don't let PASS propagate to attack action
@@ -133,7 +137,9 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
             }
         }
 
-        InteractionResultHolder<ItemStack> result = itemUsing.getItem().use(world, player, hand);
+        InteractionResultHolder<ItemStack> result = itemUsing.getItem() instanceof SigilItem sigil
+                ? sigil.use(world, player, hand, itemUsing)
+                : itemUsing.getItem().use(world, player, hand);
         saveInventory(stack, inv);
 
         return result;
@@ -169,7 +175,8 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
     }
 
     private void tickInternalInventory(ItemStack holdingStack, Level world, Entity entity, int itemSlot, boolean isSelected) {
-        for (ItemStack stack : getInternalInventory(holdingStack)) {
+        NonNullList<ItemStack> inventory = getInternalInventory(holdingStack);
+        for (ItemStack stack : inventory) {
             if (stack.isEmpty()) continue;
             if (!(stack.getItem() instanceof IBindable)) continue;
             if (!(stack.getItem() instanceof ISigil)) continue;
@@ -178,6 +185,10 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
             if (binding == null) continue;
 
             stack.getItem().inventoryTick(stack, world, entity, itemSlot, isSelected);
+        }
+        ItemContainerContents contents = ItemContainerContents.fromItems(inventory);
+        if (!contents.equals(holdingStack.get(DataComponents.CONTAINER))) {
+            holdingStack.set(DataComponents.CONTAINER, contents);
         }
     }
 

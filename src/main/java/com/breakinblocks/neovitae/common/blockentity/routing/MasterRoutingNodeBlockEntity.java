@@ -162,6 +162,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     /** Best-effort: rebuild {@link #connectionMap} from whatever nodes are currently loaded. */
     private void rebuildConnectionMapFromLoadedNodes(Level level) {
         for (BlockPos nodePos : new ArrayList<>(generalNodeList)) {
+            if (!level.hasChunk(nodePos.getX() >> 4, nodePos.getZ() >> 4)) continue;
             BlockEntity tile = level.getBlockEntity(nodePos);
             if (!(tile instanceof IRoutingNode node)) continue;
             for (BlockPos neighbor : node.getConnected()) {
@@ -224,6 +225,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     /** BFS over connectionMap; never loads block entities during traversal. */
     public boolean isConnectedViaGraph(BlockPos startPos) {
+        if (!isConnectionEnabled(worldPosition)) return false;
         if (startPos.equals(this.worldPosition)) return true;
         if (!connectionMap.containsKey(startPos)) return false;
 
@@ -265,6 +267,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
         Map<Integer, List<FilterEntry<F>>> outputMap = new TreeMap<>();
         for (BlockPos outputPos : outputNodes) {
+            if (!level.hasChunk(outputPos.getX() >> 4, outputPos.getZ() >> 4)) continue;
             BlockEntity tile = level.getBlockEntity(outputPos);
             if (tile != null && isConnectedViaGraph(outputPos)) {
                 for (Direction facing : Direction.values()) {
@@ -282,6 +285,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
         Map<Integer, List<FilterEntry<F>>> inputMap = new TreeMap<>();
         for (BlockPos inputPos : inputNodes) {
+            if (!level.hasChunk(inputPos.getX() >> 4, inputPos.getZ() >> 4)) continue;
             BlockEntity tile = level.getBlockEntity(inputPos);
             if (tile != null && isConnectedViaGraph(inputPos)) {
                 for (Direction facing : Direction.values()) {
@@ -518,6 +522,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         if (pos1.equals(worldPosition) || pos2.equals(worldPosition)) {
             pendingClientSync = true;
         }
+        setChanged();
     }
 
     @Override

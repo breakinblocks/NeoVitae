@@ -25,6 +25,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(NVTags.Blocks.STORAGE_BLOCKS_RAW_HELLFORGED).add(NVBlocks.RAW_DEMONITE_BLOCK.block().get());
+        this.tag(NVTags.Blocks.STORAGE_BLOCKS_RAW).addTag(NVTags.Blocks.STORAGE_BLOCKS_RAW_HELLFORGED);
+        this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(NVTags.Blocks.STORAGE_BLOCKS_RAW);
+
         this.tag(NVTags.Blocks.RUNES)
                 .addAll(BlockGroups.RUNE_T1)
                 .addAll(BlockGroups.RUNE_T2);

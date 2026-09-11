@@ -26,6 +26,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
+        copy(NVTags.Blocks.STORAGE_BLOCKS_RAW_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_RAW_HELLFORGED);
+        copy(NVTags.Blocks.STORAGE_BLOCKS_RAW, NVTags.Items.STORAGE_BLOCKS_RAW);
+        copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
         copy(NVTags.Blocks.RUNES, NVTags.Items.RUNES);
         copy(NVTags.Blocks.BLOODSTONES, NVTags.Items.BLOODSTONES);

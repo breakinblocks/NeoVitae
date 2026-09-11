@@ -47,6 +47,20 @@ public class AnimaTests {
 
     // ==================== Anima ====================
 
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 20)
+    public void largeDepositDoesNotOverflow(GameTestHelper helper) {
+        Anima anima = AnimaHelper.getAnima(UUID.randomUUID());
+        anima.set(AnimaTicket.create(10), 100000);
+        int added = anima.add(AnimaTicket.create(Integer.MAX_VALUE), 100000);
+        helper.assertTrue(added == 99990 && anima.getCurrentEV() == 100000,
+                "A large deposit must stop at capacity rather than make EV negative");
+        anima.set(AnimaTicket.create(Integer.MAX_VALUE - 10), Integer.MAX_VALUE);
+        added = anima.add(AnimaTicket.create(20), Integer.MAX_VALUE);
+        helper.assertTrue(added == 10 && anima.getCurrentEV() == Integer.MAX_VALUE,
+                "High-capacity networks must preserve EV at the integer boundary");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
     public void animaCreatesForUUID(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {

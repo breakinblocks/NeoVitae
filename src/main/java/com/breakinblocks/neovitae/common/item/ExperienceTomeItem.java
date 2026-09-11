@@ -70,7 +70,7 @@ public class ExperienceTomeItem extends Item {
     public static void addXpToTome(ItemStack stack, int xpAmount) {
         if (stack.getItem() instanceof ExperienceTomeItem) {
             int current = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
-            stack.set(NVDataComponents.STORED_XP, current + xpAmount);
+            stack.set(NVDataComponents.STORED_XP, (int) Math.clamp((long) current + xpAmount, 0, Integer.MAX_VALUE));
         }
     }
 
@@ -82,7 +82,7 @@ public class ExperienceTomeItem extends Item {
     public static int depositLevels(Player player, ItemStack tome, int levels) {
         int total = getPlayerTotalXp(player);
         int keep = levels < 0 ? 0 : getXpForLevel(Math.max(0, player.experienceLevel - levels));
-        int moved = Math.max(0, total - keep);
+        int moved = Math.min(Math.max(0, total - keep), Integer.MAX_VALUE - getStoredXp(tome));
         if (moved <= 0) {
             return 0;
         }
@@ -98,8 +98,9 @@ public class ExperienceTomeItem extends Item {
             return 0;
         }
         int total = getPlayerTotalXp(player);
-        int wanted = levels < 0 ? stored : Math.max(0, getXpForLevel(player.experienceLevel + levels) - total);
-        int moved = Math.min(stored, wanted);
+        int targetLevel = (int) Math.min((long) player.experienceLevel + levels, Integer.MAX_VALUE);
+        int wanted = levels < 0 ? stored : Math.max(0, getXpForLevel(targetLevel) - total);
+        int moved = Math.min(Math.min(stored, wanted), Integer.MAX_VALUE - total);
         if (moved <= 0) {
             return 0;
         }
@@ -109,15 +110,19 @@ public class ExperienceTomeItem extends Item {
     }
 
     public static int getLevelForXp(int xp) {
-        int level = 0;
-        while (getXpForLevel(level + 1) <= xp) {
-            level++;
+        int low = 0;
+        // Level 65536 requires more XP than an int can hold. Compare in long
+        // arithmetic so a full tome cannot saturate the threshold and loop forever.
+        int high = 65536;
+        while (low + 1 < high) {
+            int middle = low + (high - low) / 2;
+            if (getXpForLevelLong(middle) <= xp) {
+                low = middle;
+            } else {
+                high = middle;
+            }
         }
-        return level;
-    }
-
-    public static int getPlayerTotalXp(Player player) {
-        return getXpForLevel(player.experienceLevel) + (int) (player.experienceProgress * player.getXpNeededForNextLevel());
+        return low;
     }
 
     private static void setPlayerTotalXp(Player player, int total) {
@@ -127,13 +132,22 @@ public class ExperienceTomeItem extends Item {
         player.giveExperiencePoints(Math.max(0, total));
     }
 
+    public static int getPlayerTotalXp(Player player) {
+        return (int) Math.min(Integer.MAX_VALUE, (long) getXpForLevel(player.experienceLevel)
+                + (int) (player.experienceProgress * player.getXpNeededForNextLevel()));
+    }
+
     public static int getXpForLevel(int level) {
+        return (int) Math.min(Integer.MAX_VALUE, getXpForLevelLong(Math.clamp(level, 0, 65536)));
+    }
+
+    private static long getXpForLevelLong(int level) {
         if (level <= 16) {
-            return level * level + 6 * level;
+            return (long) level * level + 6L * level;
         } else if (level <= 31) {
-            return (int) (2.5 * level * level - 40.5 * level + 360);
+            return (5L * level * level - 81L * level + 720) / 2;
         } else {
-            return (int) (4.5 * level * level - 162.5 * level + 2220);
+            return (9L * level * level - 325L * level + 4440) / 2;
         }
     }
 

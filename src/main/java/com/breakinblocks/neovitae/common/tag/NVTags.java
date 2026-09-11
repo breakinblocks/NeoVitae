@@ -23,6 +23,7 @@ public class NVTags {
         public static final TagKey<Item> SENTIENT_REPAIR = tag(bm("sentient_repair"));
 
         public static final TagKey<Item> VITAE_STONE = tag(bm("vitae_stone"));
+        public static final TagKey<Item> METEOR = tag(bm("meteor"));
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
         public static final TagKey<Item> STORAGE_BLOCKS_RAW = fromBlock(Blocks.STORAGE_BLOCKS_RAW);

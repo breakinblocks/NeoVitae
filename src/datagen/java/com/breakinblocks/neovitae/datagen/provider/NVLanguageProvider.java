@@ -155,6 +155,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
         add("book.neovitae.altar_tier_info.header.tier", "Tier");
         add("book.neovitae.altar_tier_info.header.runes", "Runes");
+        add("book.neovitae.meteor_catalog.empty", "No meteors are known to this world.");
+        add("book.neovitae.meteor_catalog.size", "%s blocks across");
+        add("book.neovitae.meteor_catalog.cost", "Cost: %s EV");
+        add("book.neovitae.meteor_catalog.contents", "Contents");
+        add("book.neovitae.meteor_catalog.share", "About %s%% of the meteor");
+        add("book.neovitae.meteor_catalog.random_pool", "One of %s blocks, picked at random");
+        add("book.neovitae.meteor_catalog.counter", "%s / %s");
         add("gui.neovitae.routing.match_components", "Match Components:");
         add("gui.neovitae.hellfire_forge.needs_spiritus", "Not enough Spiritus: %s / %s");
         add("gui.neovitae.hellfire_forge.needs_spiritus.hint", "Put a charged Spiritus Gem in the gem slot to fuel the craft");

@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.datagen.book.page.BookMeteorCatalogPageModel;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -40,8 +41,12 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Offerings to the Sky");
-        this.pageText("The composition and scale of the meteor vary with the offering. The offerings recognized by default are [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), [#](8B0000)Nether Star[#](), and [#](8B0000)Deepslate[#]()."
-                + "\\\n\\\nA modpack may define further offerings of its own; consult JEI for the full list your world recognizes.");
+        this.pageText("The composition and scale of the meteor vary with the offering."
+                + "\\\n\\\nThe next page lists every offering your world recognizes, including any your modpack adds, with the cost, size and contents of the meteor each one calls down. Hover over a block to see its share of the meteor.");
+
+        this.page("catalog", () -> BookMeteorCatalogPageModel.create()
+                .withTitle(this.context().pageTitle()));
+        this.pageTitle("Known Meteors");
     }
 
     @Override

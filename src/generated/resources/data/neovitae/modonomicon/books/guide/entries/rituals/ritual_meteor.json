@@ -54,6 +54,14 @@
       "text": "book.neovitae.guide.rituals.ritual_meteor.offerings.text",
       "title": "book.neovitae.guide.rituals.ritual_meteor.offerings.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:meteor_catalog",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "title": "book.neovitae.guide.rituals.ritual_meteor.catalog.title"
     }
   ],
   "parents": [

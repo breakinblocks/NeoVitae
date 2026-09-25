@@ -54,5 +54,9 @@ public class NVModonomiconClientCompat {
                 NVPageTypes.SPIRITUS_GEM_STATS,
                 p -> new BookSpiritusGemStatsPageRenderer((BookSpiritusGemStatsPage) p)
         );
+        PageRendererRegistry.registerPageRenderer(
+                NVPageTypes.METEOR_CATALOG,
+                p -> new BookMeteorCatalogPageRenderer((BookMeteorCatalogPage) p)
+        );
     }
 }

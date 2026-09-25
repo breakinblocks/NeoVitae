@@ -66,5 +66,10 @@ public class NVModonomiconCompat {
                 BookSpiritusGemStatsPage::fromJson,
                 BookSpiritusGemStatsPage::fromNetwork
         );
+        LoaderRegistry.registerPageLoader(
+                NVPageTypes.METEOR_CATALOG,
+                BookMeteorCatalogPage::fromJson,
+                BookMeteorCatalogPage::fromNetwork
+        );
     }
 }

@@ -160,6 +160,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
         add("book.neovitae.altar_tier_info.header.tier", "Tier");
         add("book.neovitae.altar_tier_info.header.runes", "Runes");
+        add("book.neovitae.meteor_catalog.empty", "No meteors are known to this world.");
+        add("book.neovitae.meteor_catalog.size", "%s blocks across");
+        add("book.neovitae.meteor_catalog.cost", "Cost: %s EV");
+        add("book.neovitae.meteor_catalog.contents", "Contents");
+        add("book.neovitae.meteor_catalog.share", "About %s%% of the meteor");
+        add("book.neovitae.meteor_catalog.random_pool", "One of %s blocks, picked at random");
+        add("book.neovitae.meteor_catalog.counter", "%s / %s");
         add("gui.neovitae.tabula_vitae.side_allowed", "Allowed");
         add("gui.neovitae.tabula_vitae.side_blocked", "Blocked");
         add("gui.neovitae.tabula_vitae.side_hint", "Click to toggle hopper/pipe access");

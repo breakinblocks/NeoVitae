@@ -18,7 +18,8 @@ public class NVModonomiconCompat {
                 BookSentientUpgradeTablePage.TYPE,
                 BookBloodOrbStatsPage.TYPE,
                 BookSpiritusGemStatsPage.TYPE,
-                BookAltarTierInfoPage.TYPE
+                BookAltarTierInfoPage.TYPE,
+                BookMeteorCatalogPage.TYPE
         };
     }
 }

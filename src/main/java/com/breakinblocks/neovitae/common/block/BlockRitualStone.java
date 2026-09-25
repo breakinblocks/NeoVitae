@@ -31,7 +31,7 @@ public class BlockRitualStone extends Block implements IRitualStone {
 
     public BlockRitualStone(BlockBehaviour.Properties props, EnumRuneType type) {
         super(props
-                .strength(2.0F, 5.0F)
+                .strength(2.0F, 1200.0F)
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops());
         this.type = type;

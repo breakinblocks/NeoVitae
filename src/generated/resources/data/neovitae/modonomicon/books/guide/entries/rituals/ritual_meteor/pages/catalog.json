@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:meteor_catalog",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "catalog",
+  "sort_number": 4,
+  "title": "book.neovitae.guide.rituals.ritual_meteor.catalog.title"
+}

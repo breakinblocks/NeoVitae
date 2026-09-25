@@ -16,4 +16,5 @@ public class NVPageTypes {
     public static final Identifier BLOOD_ORB_STATS = NeoVitae.rl("blood_orb_stats");
     public static final Identifier SPIRITUS_GEM_STATS = NeoVitae.rl("spiritus_gem_stats");
     public static final Identifier ALTAR_TIER_INFO = NeoVitae.rl("altar_tier_info");
+    public static final Identifier METEOR_CATALOG = NeoVitae.rl("meteor_catalog");
 }

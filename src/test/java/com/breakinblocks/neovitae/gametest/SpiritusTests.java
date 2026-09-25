@@ -4,7 +4,10 @@ import com.mojang.serialization.JsonOps;
 import com.google.gson.JsonElement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -17,7 +20,9 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 public final class SpiritusTests {
@@ -54,7 +59,7 @@ public final class SpiritusTests {
                         || remaining < 100.0;
                 helper.assertTrue(grew, "Crystal should have grown with chunk spiritus present (progress="
                             + crystal.progressToNextCrystal + ", count=" + crystal.getCrystalCount()
-                            + ", spiritus=" + remaining + ")");
+                            + ", spiritus=" + remaining + ")");
             });
         });
 
@@ -106,7 +111,7 @@ public final class SpiritusTests {
 
             helper.succeedWhen(() -> {
                 double remaining = getChunkSpiritus(helper, crystalPos);
-                helper.assertTrue(!(remaining >= 50.0), "Crystal should drain chunk spiritus, but it's still " + remaining);
+                helper.assertTrue(!(remaining >= 50.0), "Crystal should drain chunk spiritus, but it's still " + remaining);
             });
         });
 
@@ -144,7 +149,7 @@ public final class SpiritusTests {
                 helper.succeedWhen(() -> {
                     double gemAfter = crucible.getInventory().getStackInSlot(0)
                             .getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-                    helper.assertTrue(!(gemAfter >= 50.0), "Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
+                    helper.assertTrue(!(gemAfter >= 50.0), "Crucible should drain the gem into the chunk, gem still holds " + gemAfter);
                 });
             });
         });
@@ -339,6 +344,32 @@ public final class SpiritusTests {
                 }
                 helper.succeed();
             });
+        });
+
+        r.addIsolated("spiritus/catalyst_transmutes_instead_of_harvesting", 10, helper -> {
+            BlockPos crystalPos = new BlockPos(3, 1, 2);
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState()
+                    .setValue(BlockSpiritusCrystal.AGE, 6));
+
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(NVItems.SPIRITUS_RUINA_CATALYST.get()));
+            ItemStack gem = new ItemStack(NVItems.SPIRITUS_GEM_GRAND.get());
+            SpiritusHelper.setSpiritus(gem, SpiritusType.RAW, 1000);
+            player.getInventory().add(gem);
+            player.getInventory().add(new ItemStack(NVItems.ANIMUS_MOTE.get()));
+            helper.assertTrue(PlayerSpiritusHandler.getTotalSpiritus(SpiritusType.RAW, player) > BlockSpiritusCrystal.HARVEST_SPIRITUS_REQUIRED,
+                    "Player must carry enough spiritus to harvest for this test to mean anything");
+
+            helper.useBlock(crystalPos, player);
+
+            BlockState state = helper.getBlockState(crystalPos);
+            helper.assertTrue(state.is(NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get()),
+                    "Catalyst should transmute the mature raw crystal, got " + state);
+            helper.assertTrue(player.getMainHandItem().isEmpty(), "Catalyst should be consumed");
+            helper.assertTrue(player.getInventory().countItem(NVItems.ANIMUS_MOTE.get()) == 0, "Animus mote should be consumed");
+            helper.assertItemEntityNotPresent(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get(), crystalPos, 2);
+            helper.succeed();
         });
     }
 }

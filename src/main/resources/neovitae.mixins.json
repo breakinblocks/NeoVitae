@@ -13,7 +13,8 @@
     "TrialSpawnerMixin"
   ],
   "client": [
-    "client.LocalPlayerMixin"
+    "client.LocalPlayerMixin",
+    "client.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

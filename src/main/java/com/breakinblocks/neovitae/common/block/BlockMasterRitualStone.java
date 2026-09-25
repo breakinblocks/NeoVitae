@@ -59,7 +59,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     public BlockMasterRitualStone(BlockBehaviour.Properties props, boolean isInverted) {
         super(props
                 .sound(SoundType.STONE)
-                .strength(2.0F, 5.0F)
+                .strength(2.0F, 1200.0F)
                 .requiresCorrectToolForDrops());
         this.isInverted = isInverted;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

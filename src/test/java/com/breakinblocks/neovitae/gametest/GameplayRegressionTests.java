@@ -289,4 +289,23 @@ public final class GameplayRegressionTests {
         }
         h.succeed();
     }
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 20)
+    public void ritual_stones_resist_explosions(GameTestHelper h) {
+        BlockPos center = new BlockPos(12, 2, 12);
+        h.setBlock(center.east(), NVBlocks.BLANK_RITUAL_STONE.block().get());
+        h.setBlock(center.west(), NVBlocks.WATER_RITUAL_STONE.block().get());
+        h.setBlock(center.south(), NVBlocks.MASTER_RITUAL_STONE.block().get());
+        h.setBlock(center.north(), NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get());
+        h.setBlock(center.above(), Blocks.COBBLESTONE);
+        BlockPos blast = h.absolutePos(center);
+        h.getLevel().explode(null, blast.getX() + 0.5, blast.getY() + 0.5, blast.getZ() + 0.5,
+                4.0F, Level.ExplosionInteraction.TNT);
+        h.assertBlockNotPresent(Blocks.COBBLESTONE, center.above());
+        h.assertBlockPresent(NVBlocks.BLANK_RITUAL_STONE.block().get(), center.east());
+        h.assertBlockPresent(NVBlocks.WATER_RITUAL_STONE.block().get(), center.west());
+        h.assertBlockPresent(NVBlocks.MASTER_RITUAL_STONE.block().get(), center.south());
+        h.assertBlockPresent(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get(), center.north());
+        h.succeed();
+    }
 }

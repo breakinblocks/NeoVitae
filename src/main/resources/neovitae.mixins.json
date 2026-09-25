@@ -12,7 +12,9 @@
     "SignalGetterMixin",
     "TrialSpawnerMixin"
   ],
-  "client": [],
+  "client": [
+    "client.MinecraftMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

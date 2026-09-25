@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
@@ -38,11 +39,15 @@ public final class BloodLanternSpawnHandler {
         MobCategory category = event.getEntity().getType().getCategory();
         if (category == MobCategory.MONSTER) return;
 
-        ServerLevelAccessor levelAcc = event.getLevel();
-        if (levelAcc.getLevel().dimension().equals(DungeonDimensionHelper.DUNGEON_DIMENSION)) return;
+        // World-generation accessors and off-thread mod spawns must not touch the live chunk cache.
+        if (!(event.getLevel() instanceof ServerLevel level) || !level.getServer().isSameThread()) return;
+        if (level.dimension().equals(DungeonDimensionHelper.DUNGEON_DIMENSION)) return;
+        if (!NeoVitae.SERVER_CONFIG.LANTERN_SPAWN_SUPPRESSION.get()) {
+            INDICES.remove(level);
+            return;
+        }
 
         BlockPos center = BlockPos.containing(event.getX(), event.getY(), event.getZ());
-        ServerLevel level = levelAcc.getLevel();
         LanternIndex index = INDICES.computeIfAbsent(level, ignored -> new LanternIndex());
         index.ensureLoadedChunks(level, center);
         if (index.hasBlockingLantern(level, center)) {
@@ -53,14 +58,17 @@ public final class BloodLanternSpawnHandler {
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {
-        if (event.getLevel() instanceof ServerLevel level && event.getChunk() instanceof LevelChunk chunk) {
-            indexChunk(level, chunk);
+        // Map updates can load many chunks in one tick. Never scan palettes in this callback:
+        // the chunk may also still be undergoing promotion to FULL.
+        if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread()) {
+            LanternIndex index = INDICES.get(level);
+            if (index != null) index.removeChunk(event.getChunk().getPos());
         }
     }
 
     @SubscribeEvent
     public static void onChunkUnload(ChunkEvent.Unload event) {
-        if (event.getLevel() instanceof ServerLevel level) {
+        if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread()) {
             LanternIndex index = INDICES.get(level);
             if (index != null) index.removeChunk(event.getChunk().getPos());
         }
@@ -73,14 +81,15 @@ public final class BloodLanternSpawnHandler {
 
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
-        if (event.getLevel() instanceof ServerLevel level && isLantern(event.getPlacedBlock())) {
+        if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread()
+                && NeoVitae.SERVER_CONFIG.LANTERN_SPAWN_SUPPRESSION.get() && isLantern(event.getPlacedBlock())) {
             INDICES.computeIfAbsent(level, ignored -> new LanternIndex()).add(event.getPos());
         }
     }
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (event.getLevel() instanceof ServerLevel level && isLantern(event.getState())) {
+        if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread() && isLantern(event.getState())) {
             LanternIndex index = INDICES.get(level);
             if (index != null) index.remove(event.getPos());
         }
@@ -94,14 +103,17 @@ public final class BloodLanternSpawnHandler {
         LanternIndex index = INDICES.computeIfAbsent(level, ignored -> new LanternIndex());
         index.removeChunk(chunk.getPos());
         Set<Long> positions = new LongOpenHashSet();
+        Block bloodLantern = NVBlocks.BLOOD_LANTERN.block().get();
+        Block demonLantern = NVBlocks.DEMON_LANTERN.block().get();
+        Predicate<BlockState> lanternState = state -> state.is(bloodLantern) || state.is(demonLantern);
         LevelChunkSection[] sections = chunk.getSections();
         for (int sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
             LevelChunkSection section = sections[sectionIndex];
-            if (!section.maybeHas(BloodLanternSpawnHandler::isLantern)) continue;
+            if (section.hasOnlyAir() || !section.maybeHas(lanternState)) continue;
             int minY = SectionPos.sectionToBlockCoord(level.getMinSection() + sectionIndex);
             for (int y = 0; y < 16; y++) for (int z = 0; z < 16; z++) for (int x = 0; x < 16; x++) {
                 BlockState state = section.getBlockState(x, y, z);
-                if (isLantern(state)) positions.add(BlockPos.asLong((chunk.getPos().x << 4) + x, minY + y,
+                if (lanternState.test(state)) positions.add(BlockPos.asLong((chunk.getPos().x << 4) + x, minY + y,
                         (chunk.getPos().z << 4) + z));
             }
         }
@@ -128,16 +140,30 @@ public final class BloodLanternSpawnHandler {
             for (int x = chunkX - 1; x <= chunkX + 1; x++) for (int z = chunkZ - 1; z <= chunkZ + 1; z++) {
                 Set<Long> positions = positionsByChunk.get(ChunkPos.asLong(x, z));
                 if (positions == null) continue;
+                LevelChunk chunk = level.getChunkSource().getChunkNow(x, z);
+                if (chunk == null) continue;
                 for (long packed : positions) {
                     BlockPos lantern = BlockPos.of(packed);
                     if (Math.abs(lantern.getX() - center.getX()) + Math.abs(lantern.getY() - center.getY())
                             + Math.abs(lantern.getZ() - center.getZ()) > RADIUS) continue;
-                    BlockState state = level.getBlockState(lantern);
+                    BlockState state = chunk.getBlockState(lantern);
                     if (state.is(NVBlocks.BLOOD_LANTERN.block().get())) return true;
-                    if (state.is(NVBlocks.DEMON_LANTERN.block().get()) && !level.hasNeighborSignal(lantern)) return true;
+                    // Vanilla weak-power checks can read two blocks away. Skip suppression
+                    // at an unloaded boundary instead of pulling more chunks into a spawn check.
+                    if (state.is(NVBlocks.DEMON_LANTERN.block().get()) && hasLoadedSignalArea(level, lantern)
+                            && !level.hasNeighborSignal(lantern)) return true;
                 }
             }
             return false;
+        }
+
+        private boolean hasLoadedSignalArea(ServerLevel level, BlockPos pos) {
+            for (int x = (pos.getX() - 2) >> 4; x <= (pos.getX() + 2) >> 4; x++) {
+                for (int z = (pos.getZ() - 2) >> 4; z <= (pos.getZ() + 2) >> 4; z++) {
+                    if (level.getChunkSource().getChunkNow(x, z) == null) return false;
+                }
+            }
+            return true;
         }
 
         void putChunk(ChunkPos pos, Set<Long> positions) {
@@ -145,7 +171,7 @@ public final class BloodLanternSpawnHandler {
             if (positions.isEmpty()) positionsByChunk.remove(key); else positionsByChunk.put(key, positions);
         }
         void removeChunk(ChunkPos pos) { long key = pos.toLong(); indexedChunks.remove(key); positionsByChunk.remove(key); }
-        void add(BlockPos pos) { long key = ChunkPos.asLong(pos.getX() >> 4, pos.getZ() >> 4); indexedChunks.add(key); positionsByChunk.computeIfAbsent(key, ignored -> new LongOpenHashSet()).add(pos.asLong()); }
+        void add(BlockPos pos) { long key = ChunkPos.asLong(pos.getX() >> 4, pos.getZ() >> 4); positionsByChunk.computeIfAbsent(key, ignored -> new LongOpenHashSet()).add(pos.asLong()); }
         void remove(BlockPos pos) { Set<Long> positions = positionsByChunk.get(ChunkPos.asLong(pos.getX() >> 4, pos.getZ() >> 4)); if (positions != null) positions.remove(pos.asLong()); }
     }
 }

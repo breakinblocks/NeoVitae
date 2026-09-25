@@ -30,6 +30,7 @@ public class ServerConfig {
     // Blood Mending config
     public final ModConfigSpec.IntValue BLOOD_MENDING_REPAIR_COST;
 
+    public final ModConfigSpec.BooleanValue LANTERN_SPAWN_SUPPRESSION;
     public final ModConfigSpec.IntValue DEMON_LANTERN_UPKEEP;
 
     // Blood Siphon / Blood Shield config
@@ -128,6 +129,13 @@ public class ServerConfig {
                 .comment("EV cost per point of durability restored")
                 .defineInRange("repair_cost_per_durability", 100, 1, 100000);
 
+        builder.pop();
+
+        builder.push("lanterns");
+        LANTERN_SPAWN_SUPPRESSION = builder
+                .comment("Allow Blood and Demon Lanterns to suppress non-monster spawns.",
+                        "Disable to bypass lantern indexing and spawn suppression. Demon Lantern hostile spawning is unaffected.")
+                .define("spawn_suppression", true);
         builder.pop();
 
         builder.comment("Demon Lantern Configuration");

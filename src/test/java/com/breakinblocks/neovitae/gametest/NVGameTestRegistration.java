@@ -18,6 +18,7 @@ public class NVGameTestRegistration {
         BloodOrbTests.register(r);
         CapabilityTests.register(r);
         DataValidationTests.register(r);
+        DungeonKeyLootTests.register(r);
         EssentiaVitaeFluidTests.register(r);
         FurnaceArrayTests.register(r);
         HarvestTests.register(r);

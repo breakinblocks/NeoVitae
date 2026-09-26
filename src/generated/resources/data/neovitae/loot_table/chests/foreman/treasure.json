@@ -5,7 +5,13 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.04,
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:location_check"
+          }
+        },
+        {
+          "chance": 0.5,
           "condition": "minecraft:random_chance"
         }
       ],

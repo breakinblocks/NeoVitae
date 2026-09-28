@@ -33,17 +33,17 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Freely Given");
-        this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality, a more honorable, if painful, path. It drains health from nearby blood mages and converts it into [#](8B0000)Essentia Vitae[#](), depositing the [#](4A0080)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](). Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade.");
+        this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality, a more honorable, if painful, path. Every second it takes half a heart from each blood mage near the Master Ritual Stone and deposits the [#](8B0000)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](), stopping once you fall to 30%% of your health. Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade. An [#](8B0000)Incense Altar[#]() only helps when the ritual is fed [#](8B0000)Spiritus Ruina[#]().");
 
         this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
-        this.pageText("- [#](8B0000)Raw Spiritus[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
-                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
-                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): When paired with [#](8B0000)Invictus[#](), increases the drain rate."
-                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Raises the maximum vitality drained per tick."
-                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Prevents the ritual from draining you to death.");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Halves the time between drains, so the ritual takes blood twice as often."
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): While you carry an [#](8B0000)Incense Bonus[#](), drains you to the safety floor in one stroke and multiplies the [#](8B0000)Essentia Vitae[#]() by that bonus. The incense is used up and you are left with [#](8B0000)Soul Fray[#]()."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Lowers the safety floor from 30%% to 10%% of your health. Has no effect alongside [#](8B0000)Invictus[#]()."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained from each drain, scaling with the Nihilum present."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Raises the safety floor from 30%% to 70%% of your health.");
     }
 
     @Override

@@ -47,6 +47,7 @@ public class RitualFeatheredKnife extends Ritual {
     private static final double MIN_SPIRITUS = 0.5;
     private static final double CORROSIVE_WILL_PER_USE = 5.0;
     private static final double DESTRUCTIVE_WILL_PER_USE = 0.5;
+    private static final int EV_MULTIPLIER = 4;
 
     /** Cached altar offset (relative to master pos). Persisted in NBT. */
     private BlockPos altarOffsetPos = null;
@@ -145,7 +146,7 @@ public class RitualFeatheredKnife extends Ritual {
 
             if (player.getHealth() < health) {
                 int healthLost = (int) Math.ceil(health - player.getHealth());
-                int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost);
+                int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost) * EV_MULTIPLIER;
 
                 if (SentientHelper.hasFullSet(player)) {
                     lp = (int) (lp * 1.1);

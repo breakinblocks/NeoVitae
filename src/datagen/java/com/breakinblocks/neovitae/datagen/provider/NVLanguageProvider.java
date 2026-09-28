@@ -853,6 +853,10 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("ritual.neovitae.activation.insufficient", "Not enough Essentia Vitae to activate this ritual.");
         add("ritual.neovitae.activation.blocked", "Something is preventing this ritual from activating.");
         add("ritual.neovitae.dungeon.no_space", "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.");
+        add("ritual.neovitae.dungeon.obstructed", "Portal blocked by %s block(s). Clear the blocks marked with flames; first at %s, %s, %s.");
+        add("ritual.neovitae.dungeon.missing_structure", "Portal structure is missing. Contact the server administrator.");
+        add("ritual.neovitae.dungeon.build_height", "Portal would exceed the world build height. Move the ritual vertically.");
+        add("ritual.neovitae.dungeon.world_border", "Portal would cross the world border. Move the ritual inward.");
 
         add("hud.neovitae.altar.tier", "Tier: %s");
         add("hud.neovitae.altar.ev", "Altar EV: %s / %s");

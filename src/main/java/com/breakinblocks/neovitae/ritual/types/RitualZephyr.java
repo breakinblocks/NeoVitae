@@ -54,19 +54,18 @@ public class RitualZephyr extends Ritual {
         if (ctx == null) return;
 
         UUID owner = ctx.master().getOwner();
-        if (owner == null) return;
-
-        Player ownerPlayer = ctx.level().getPlayerByUUID(owner);
-        if (ownerPlayer == null) return;
+        Player ownerPlayer = owner != null ? ctx.level().getPlayerByUUID(owner) : null;
 
         AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, ZEPHYR_RANGE);
         AABB aabb = range.getAABB(ctx.masterPos());
-        Vec3 target = ownerPlayer.position();
         Vec3 masterCenter = Vec3.atCenterOf(ctx.masterPos());
+        Vec3 target = ownerPlayer != null && aabb.contains(ownerPlayer.position()) ? ownerPlayer.position() : masterCenter;
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
         BlockEntity chestTile = chestPos != null ? ctx.level().getBlockEntity(chestPos) : null;
         boolean hasChest = chestTile != null && Utils.getNumberOfFreeSlots(chestTile, Direction.DOWN) >= 1;
+
+        if (!hasChest && ownerPlayer == null) return;
 
         List<ItemEntity> items = ctx.level().getEntitiesOfClass(ItemEntity.class, aabb);
         int entitiesMoved = 0;
@@ -74,11 +73,10 @@ public class RitualZephyr extends Ritual {
         for (ItemEntity item : items) {
             if (item.isRemoved()) continue;
 
-            Vec3 itemPos = item.position();
-            double distanceToMaster = itemPos.distanceTo(masterCenter);
-
-            if (distanceToMaster <= 2.0 && hasChest) {
-                ItemStack remainder = Utils.insertStackIntoTile(item.getItem().copy(), chestTile, Direction.DOWN);
+            if (hasChest) {
+                ItemStack original = item.getItem();
+                ItemStack remainder = Utils.insertStackIntoTile(original.copy(), chestTile, Direction.DOWN);
+                if (remainder.getCount() == original.getCount()) break;
                 if (remainder.isEmpty()) {
                     item.discard();
                 } else {
@@ -89,21 +87,19 @@ public class RitualZephyr extends Ritual {
                 RitualHelper.chanceStream(ctx.level(), 10, () ->
                         StreamPresets.arcaneBolt(item, insertAnchor).build()
                                 .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
+                if (!remainder.isEmpty()) break;
                 continue;
             }
 
-            // Pull toward master stone when chest exists so items converge on it
-            Vec3 pullTarget = hasChest ? masterCenter : target;
-            double distance = itemPos.distanceTo(pullTarget);
-
-            if (distance > 2.0) {
-                Vec3 direction = pullTarget.subtract(itemPos).normalize().scale(0.4);
+            Vec3 itemPos = item.position();
+            if (itemPos.distanceTo(target) > 2.0) {
+                Vec3 direction = target.subtract(itemPos).normalize().scale(0.4);
                 item.setDeltaMovement(item.getDeltaMovement().add(direction));
                 entitiesMoved++;
             }
         }
 
-        ResourceHandler<ItemResource> inventory = hasChest ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        ResourceHandler<ItemResource> inventory = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
         int tomeSlot = findExperienceTomeSlot(inventory);
         int collectedXp = 0;
 
@@ -118,10 +114,10 @@ public class RitualZephyr extends Ritual {
                 continue;
             }
 
-            Vec3 orbPos = orb.position();
-            double distance = orbPos.distanceTo(target);
+            if (ownerPlayer == null) break;
 
-            if (distance > 2.0) {
+            Vec3 orbPos = orb.position();
+            if (orbPos.distanceTo(target) > 2.0) {
                 Vec3 direction = target.subtract(orbPos).normalize().scale(0.5);
                 orb.setDeltaMovement(orb.getDeltaMovement().add(direction));
                 entitiesMoved++;

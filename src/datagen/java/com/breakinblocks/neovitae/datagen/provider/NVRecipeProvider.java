@@ -557,6 +557,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output);
 
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.RITUAL_LEDGER.get())
+                .pattern(" g ")
+                .pattern("sbs")
+                .pattern(" t ")
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', NVBlocks.BLANK_RITUAL_STONE.block().get())
+                .define('b', Items.BOOK)
+                .define('t', NVItems.TABULA_ROBUR.get())
+                .unlockedBy("has_master_ritual_stone", has(NVBlocks.MASTER_RITUAL_STONE.block().get()))
+                .save(output);
+
         // Ritual Diviner (base) - diamonds, inscription tools, stick
         ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER.get())
                 .pattern("dfd")
@@ -778,6 +789,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(5)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, rKey(NeoVitae.rl("tabula_rasa")));
+
+        AltarRecipeBuilder.build(Items.COBBLED_DEEPSLATE)
+                .from(Tags.Items.COBBLESTONES_NORMAL)
+                .minTier(0)
+                .bloodNeeded(50)
+                .consumption(5)
+                .drain(0)
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
+                .save(output, rKey(NeoVitae.rl("cobbled_deepslate")));
 
         AltarRecipeBuilder.build(NVItems.TABULA_ROBUR.get())
                 .from(NVItems.TABULA_RASA.get())
@@ -2200,6 +2220,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/collectionarray.png")
                 .save(output, "collection");
 
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.MINER)
+                .base(Items.IRON_PICKAXE)
+                .added(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)))
+                .texture("textures/models/alchemyarrays/minerarray.png")
+                .save(output, "miner");
+
         // Light Array - glowstone dust + gold ingot
         AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.LIGHT)
                 .base(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)))
@@ -3457,6 +3483,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .ticks(100)
                 .minimumTier(2)
                 .save(output, "weak_filling");
+
+        TabulaVitaeRecipeBuilder.build(NVItems.STANDARD_FILLING_AGENT.get())
+                .input(NVItems.WEAK_FILLING_AGENT.get())
+                .input(NVItems.STRENGTHENED_CATALYST.get())
+                .input(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)))
+                .input(Items.CHORUS_FRUIT)
+                .syphon(4000)
+                .ticks(200)
+                .minimumTier(3)
+                .save(output, "standard_filling");
         // Tabula Vitae recipe (crafting recipe for the table itself)
         ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, NVBlocks.TABULA_VITAE.block().get())
                 .pattern("sss")

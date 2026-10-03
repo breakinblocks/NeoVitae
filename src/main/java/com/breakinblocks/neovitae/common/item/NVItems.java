@@ -196,6 +196,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.registerItem("ritual_diviner", props -> new ItemRitualDiviner(props, 0));
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_TENEBRAE = BASIC_ITEMS.registerItem("ritual_diviner_tenebrae", props -> new ItemRitualDiviner(props, 1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.registerItem("ritual_reader", ItemRitualReader::new);
+    public static final DeferredHolder<Item, ItemRitualLedger> RITUAL_LEDGER = BASIC_ITEMS.registerItem("ritual_ledger", ItemRitualLedger::new);
     public static final DeferredHolder<Item, ItemRitualDesigner> RITUAL_DESIGNER = BASIC_ITEMS.registerItem("ritual_designer", ItemRitualDesigner::new);
 
     public static final DeferredHolder<Item, SentientSwordItem> SENTIENT_SWORD = BASIC_ITEMS.registerItem("sentient_sword", SentientSwordItem::new);
@@ -440,6 +441,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_VORTEX = ARRAY_ITEMS.registerItem("array_vortex", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.VORTEX));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_IMPRISONMENT = ARRAY_ITEMS.registerItem("array_imprisonment", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.IMPRISONMENT));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LIQUIFIED_EXPERIENCE = ARRAY_ITEMS.registerItem("array_liquified_experience", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.LIQUIFIED_EXPERIENCE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_MINER = ARRAY_ITEMS.registerItem("array_miner", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.MINER));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

@@ -46,8 +46,8 @@ public class RitualCrystallumFractura extends Ritual {
     public static final String AURA_RANGE = "aura";
     public static final String CHEST_RANGE = "chest";
 
-    private static final int FORTUNE_FLOOR_RAW = 30;
-    private static final int FORTUNE_PEAK_RAW = 100;
+    private static final int FORTUNE_FLOOR = 30;
+    private static final int FORTUNE_PEAK = 100;
     private static final int FORTUNE_CONSUMPTION_AVG_TICKS = 240;
 
     private static final double GROWTH_MULTIPLIER = 2.0;
@@ -105,7 +105,10 @@ public class RitualCrystallumFractura extends Ritual {
             if (!isFullyGrownHarvestable(state)) continue;
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), harvestPos, owner)) continue;
 
-            int fortuneLevel = computeFortuneLevel(serverLevel, harvestPos);
+            SpiritusType fortuneType = state.getBlock() instanceof BlockSpiritusCrystal crystal
+                    ? crystal.getSpiritusType()
+                    : bias != null ? bias : SpiritusType.RAW;
+            int fortuneLevel = computeFortuneLevel(serverLevel, harvestPos, fortuneType);
             ItemStack tool = RitualHelper.createMiningTool(serverLevel, fortuneLevel >= 3, false);
             applyCustomFortune(tool, serverLevel, fortuneLevel);
 
@@ -127,7 +130,7 @@ public class RitualCrystallumFractura extends Ritual {
             totalCost += getRefreshCost();
 
             if (fortuneLevel > 0) {
-                consumeRawForFortune(serverLevel, harvestPos);
+                consumeForFortune(serverLevel, harvestPos, fortuneType);
             }
 
             final BlockPos streamFrom = harvestPos.immutable();
@@ -196,12 +199,12 @@ public class RitualCrystallumFractura extends Ritual {
         }
     }
 
-    private int computeFortuneLevel(ServerLevel level, BlockPos pos) {
+    private int computeFortuneLevel(ServerLevel level, BlockPos pos, SpiritusType type) {
         SpiritusChunk chunk = WorldSpiritusHandler.getSpiritusChunk(level, pos);
-        double raw = chunk.getSpiritus(SpiritusType.RAW);
-        if (raw < FORTUNE_FLOOR_RAW) return 0;
-        if (raw >= FORTUNE_PEAK_RAW) return 3;
-        double frac = (raw - FORTUNE_FLOOR_RAW) / (double) (FORTUNE_PEAK_RAW - FORTUNE_FLOOR_RAW);
+        double amount = chunk.getSpiritus(type);
+        if (amount < FORTUNE_FLOOR) return 0;
+        if (amount >= FORTUNE_PEAK) return 3;
+        double frac = (amount - FORTUNE_FLOOR) / (double) (FORTUNE_PEAK - FORTUNE_FLOOR);
         return (int) Math.ceil(frac * 3);
     }
 
@@ -213,9 +216,9 @@ public class RitualCrystallumFractura extends Ritual {
         tool.enchant(ench, fortuneLevel);
     }
 
-    private void consumeRawForFortune(ServerLevel level, BlockPos pos) {
+    private void consumeForFortune(ServerLevel level, BlockPos pos, SpiritusType type) {
         if (level.getRandom().nextInt(FORTUNE_CONSUMPTION_AVG_TICKS) < getRefreshTime()) {
-            WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 1.0);
+            WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, 1.0);
         }
     }
 

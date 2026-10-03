@@ -1,0 +1,7 @@
+{
+  "type": "neovitae:array",
+  "addedinput": "#c:dusts/redstone",
+  "baseinput": "minecraft:iron_pickaxe",
+  "effect_type": "miner",
+  "texture": "neovitae:textures/models/alchemyarrays/minerarray.png"
+}

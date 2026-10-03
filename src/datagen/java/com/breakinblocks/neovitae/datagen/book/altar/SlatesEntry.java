@@ -5,7 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import net.minecraft.resources.Identifier;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class SlatesEntry extends EntryProvider {
@@ -31,6 +33,12 @@ public class SlatesEntry extends EntryProvider {
                 + "[#](8B0000)1,000 EV[#]() and etches the first sigils into the stone."
                 + "\\\n\\\n[#](B8860B)Tabula Robur[#](): Feed a Tabula Rasa to a [#](B8860B)Tier 1[#]() altar. "
                 + "Cost: [#](8B0000)2,000 EV[#](). The sigils deepen, the stone hardens with purpose.");
+
+        this.page("cobbled_deepslate", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/cobbled_deepslate"))
+                .withText(this.context().pageText()));
+        this.pageText("Short of deepslate? Lay [#](8B0000)cobblestone[#]() upon a [#](B8860B)Tier 0[#]() altar and, for "
+                + "[#](8B0000)50 EV[#](), it sinks into [#](8B0000)cobbled deepslate[#](). Smelt that into deepslate.");
 
         this.page("imbued_demonic", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

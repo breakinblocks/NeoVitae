@@ -110,8 +110,8 @@ public class NVBlocks {
     public static final BlockWithItemHolder<Block, BlockItem> HELLFORGED_BLOCK = BASIC_REG.register("hellforged_block", metal_block_properties_src(), new Item.Properties());
     public static final BlockWithItemHolder<Block, BlockItem> RAW_DEMONITE_BLOCK = BASIC_REG.register("raw_demonite_block", metal_block_properties_src(), new Item.Properties());
 
-    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", props -> new EnchantingPowerBlock(props, 2.5F), rune_properties_src(), rune_item_properties_src());
-    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", props -> new EnchantingPowerBlock(props, 2.5F), rune_properties_src(), rune_item_properties_src());
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", props -> new EnchantingPowerBlock(props, 15F), rune_properties_src(), rune_item_properties_src());
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", props -> new EnchantingPowerBlock(props, 15F), rune_properties_src(), rune_item_properties_src());
 
     public static final DeferredBlock<AlchemyArrayBlock> ALCHEMY_ARRAY = BLOCKS.registerBlock("alchemy_array", AlchemyArrayBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final DeferredBlock<BloodLightBlock> BLOOD_LIGHT = BLOCKS.registerBlock("blood_light", BloodLightBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);

@@ -48,6 +48,12 @@ Rituals that draw from or deposit into a container expose their chest, tank, or 
 
 Some rituals can be expanded far beyond their default range, but EV cost scales to match. Tread carefully with your reserves.
 
+## Ritual Ledger
+
+A circle left running in a forgotten corner keeps drawing on your Anima. The **Ritual Ledger** lists every ritual you have active: press Use and it prints each ritual's name, the position and dimension of its Master Ritual Stone, and the EV it draws each cycle. Click a position to copy it. Rituals paused by redstone or sitting in unloaded chunks are marked, since neither draws EV while it stays that way. Craft it from a book, two blank Ritual Stones, a gold ingot and a Tabula Robur.
+
+Server operators can see any player's active rituals with `/neovitae ritual active <player>`.
+
 ## Ritual Catalog
 
 ### Combat and Soul Harvest
@@ -56,8 +62,8 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 |--------|--------|
 | Well of Suffering (*The Crimson Tithe*) | Harvests Essentia Vitae from the suffering of nearby creatures. |
 | Ritual of the Willing Sacrifice (*Blood Freely Given*) | Converts the practitioner's own vitality into EV. |
-| The Torment Nexus (*Why It Exists*) | Server-friendly endgame EV. Reads the configurations of nearby vanilla **and** Trial Spawners, simulates the kills they would produce, and feeds the resulting EV directly to your altar; no entities are spawned, no chunks load up with corpses. |
-| The Ritual of Lost Souls | Watches a 21×21×21 area around the Master Ritual Stone for the moment of any non-player creature's death and drops a charged **Raw Spiritus** item at the death position. The richer the kill (Wither, Ender Dragon, Warden), the more Spiritus per drop. EV cost scales with the number of deaths processed each tick. |
+| The Torment Nexus (*Why It Exists*) | Server-friendly endgame EV. Reads the configurations of nearby vanilla **and** Trial Spawners, simulates the kills they would produce, and feeds the resulting EV directly to your altar; no entities are spawned, no chunks load up with corpses. With **Ars Nouveau** installed, a Containment Jar holding a creature also counts, as an ordinary spawner of that creature (four every 25 seconds on average); the jarred creature is never harmed. |
+| The Ritual of Lost Souls | Watches a 21×21×21 area around the Master Ritual Stone for the moment of any non-player creature's death and drops **Spiritus Essence** at the death position, which a Spiritus Gem in your inventory absorbs on pickup. The richer the kill (Wither, Ender Dragon, Warden), the more Spiritus per drop. EV cost scales with the number of deaths processed each tick. |
 | Ritual of Containment (*The Invisible Cage*) | Imprisons creatures within an invisible barrier. |
 | Ritual of Expulsion (*The Warding Gale*) | Drives all creatures from your sanctum. |
 
@@ -98,7 +104,7 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 | Ritual of Speed (*Quickened Blood*) | Hurls every non-sneaking entity in the area in the master stone's facing direction. **Sneak** within the area instead and the ritual applies Speed II for 30 minutes; useful for transit or as a launcher cannon, depending on stance. Spectators are ignored. **Tip:** mount on an **Inverted Master Ritual Stone** and trigger with a pressure plate or button so the launcher only fires while the signal is active. |
 | Ritual of Regeneration (*The Mending Circle*) | Mends the wounds of all within its reach. |
 | Ritual of the Phantom Bridge (*Spectral Pathways*) | Weaves spectral platforms beneath your feet. |
-| The Gathering (*The Hoarder's Breeze*) | A persistent wind that gathers all loose items. |
+| The Gathering (*The Hoarder's Breeze*) | A persistent wind that gathers all loose items. With a chest on the Master Ritual Stone, items anywhere in range go straight into it, even from behind blocks; without one, they are carried to the owner. |
 
 ### Suppression and Denial
 

@@ -35,6 +35,7 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
     private static final int BIND_RADIUS = 8;
     private static final int REVALIDATE_INTERVAL = 40;
     private static final int SIPHON_INTERVAL = 8;
+    private static final int RATE_MULTIPLIER = 5;
 
     public final Inv inv = new Inv();
 
@@ -88,7 +89,7 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
         if (ticks % REVALIDATE_INTERVAL == 0) refreshAltar();
 
         AraVitaeTile altar = getAltar();
-        if (altar != null && !isPowered()) pump(altar);
+        if (altar != null) pump(altar);
 
         int signal = getComparatorSignal();
         if (signal != lastSignal) {
@@ -101,20 +102,26 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
     }
 
     private void pump(AraVitaeTile altar) {
-        if (altar.isActive() || altar.anyLinkWantsCraft()) return;
-        if (altar.getMainTank() <= 0) return;
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);
-        if (!(orbStack.getItem() instanceof BloodOrbItem)) return;
         Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-        if (binding.isEmpty()) return;
         BloodOrb orb = orbStack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
-        if (orb == null) return;
+        if (!(orbStack.getItem() instanceof BloodOrbItem) || binding.isEmpty() || orb == null || isPowered()) {
+            altar.reportOrbLink(worldPosition, false);
+            return;
+        }
 
         int maxCap = (int) (orb.animaCapacity() * (1 + altar.getOrbCapacityBonus()));
-        int available = Math.min(altar.getMainTank(), (int) (orb.fillRate() * (1 + altar.getSpeedBonus())));
-        if (available <= 0) return;
-
         Anima network = AnimaHelper.getAnima(binding.uuid());
+        boolean pumping = network.getCurrentEV() < maxCap;
+        altar.reportOrbLink(worldPosition, pumping);
+        if (!pumping) return;
+
+        if (altar.isActive() || altar.anyLinkWantsCraft()) return;
+        if (altar.getMainTank() <= 0) return;
+
+        int share = (int) (orb.fillRate() * RATE_MULTIPLIER * (1 + altar.getSpeedBonus()) / altar.pumpingOrbLinks());
+        int available = Math.min(altar.getMainTank(), Math.max(1, share));
+
         int drained = network.add(AnimaTicket.create(available), maxCap);
         if (drained > 0) {
             altar.drainMainTank(drained);

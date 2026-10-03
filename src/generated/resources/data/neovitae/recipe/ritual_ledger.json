@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "b": "minecraft:book",
+    "g": "#c:ingots/gold",
+    "s": "neovitae:ritual_stone",
+    "t": "neovitae:tabula_robur"
+  },
+  "pattern": [
+    " g ",
+    "sbs",
+    " t "
+  ],
+  "result": {
+    "id": "neovitae:ritual_ledger"
+  }
+}

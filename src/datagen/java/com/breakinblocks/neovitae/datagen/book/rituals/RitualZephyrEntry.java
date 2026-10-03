@@ -33,7 +33,7 @@ public class RitualZephyrEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Hoarder's Breeze");
-        this.pageText("A gentle but persistent wind sweeps through the ritual's domain, gathering every loose item it finds and carrying them into a nearby chest. No dropped treasure escapes its notice, an invaluable companion to mob farms, tree felling rituals, or any operation that scatters its bounty across the ground.");
+        this.pageText("A gentle but persistent wind sweeps through the ritual's domain, gathering every loose item it finds. With a [#](8B0000)chest[#]() atop the Master Ritual Stone, items anywhere in range are drawn straight into it the moment they appear, even from behind walls; without one, the wind carries them to you. No dropped treasure escapes its notice, an invaluable companion to mob farms, tree felling rituals, or any operation that scatters its bounty across the ground.");
     }
 
     @Override

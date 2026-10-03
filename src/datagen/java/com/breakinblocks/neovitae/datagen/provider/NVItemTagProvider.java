@@ -226,6 +226,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.RITUAL_DIVINER.get())
                 .add(NVItems.RITUAL_DIVINER_TENEBRAE.get())
                 .add(NVItems.RITUAL_READER.get())
+                .add(NVItems.RITUAL_LEDGER.get())
                 .add(NVItems.RITUAL_DESIGNER.get());
 
         tag(NVTags.Items.TOOLS_SCRIBE)

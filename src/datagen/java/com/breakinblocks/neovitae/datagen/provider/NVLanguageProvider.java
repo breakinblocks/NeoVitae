@@ -736,6 +736,14 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         // Ritual Configurator
         add(NVItems.RITUAL_READER.get(), "Ritual Configurator");
+        add(NVItems.RITUAL_LEDGER.get(), "Ritual Ledger");
+        add("tooltip.neovitae.ritual_ledger", "Use to list your active rituals and where their Master Ritual Stones are.");
+        add("chat.neovitae.ritual_ledger.header", "Your active rituals (%s):");
+        add("chat.neovitae.ritual_ledger.none", "You have no active rituals.");
+        add("chat.neovitae.ritual_ledger.cost", "(%s EV every %ss)");
+        add("chat.neovitae.ritual_ledger.paused", "[paused by redstone]");
+        add("chat.neovitae.ritual_ledger.unloaded", "[not loaded]");
+        add("chat.neovitae.ritual_ledger.copy", "Click to copy coordinates");
         add(NVItems.RITUAL_DESIGNER.get(), "Ritual Designer");
         addTooltip("reader.desc", "Used to configure ritual areas.");
         addTooltip("reader.currentState", "Mode: %s");
@@ -1353,6 +1361,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
         add(NVItems.ARRAY_LIQUIFIED_EXPERIENCE.get(), "Array of Liquified Experience");
         add(NVItems.ARRAY_IMPRISONMENT.get(), "Array of Imprisonment");
+        add(NVItems.ARRAY_MINER.get(), "Miner Array");
+        addTooltip("array_effect.miner", "Mines the block beneath it into a chest beside or above it. Mines at iron level; use a pickaxe on it to mine with that pickaxe instead.");
+        addJei("effect.miner.name", "Miner Array");
+        addJei("effect.miner.desc", "Mines the block beneath the array and stores the drops in an adjacent or overhead container");
+        add("chat.neovitae.miner_array.inserted", "The array now mines with %s.");
+        add("chat.neovitae.miner_array.removed", "Took back %s.");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1399,7 +1413,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
         addRitual("expulsion", "Ritual of Expulsion", "Drives every creature outward from the ritual center.");
-        addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
+        addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP. With a chest on the master stone, items anywhere in range go straight into it; otherwise they are carried to the owner.");
         addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank at the configured tank position (directly above the master stone by default).");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");
@@ -1407,7 +1421,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
         addRitual("penance", "Ritual of Sentient Penance", "Stand on the master stone in Sentient Armor and throw a downgrade catalyst onto the small zone above it; the ritual inscribes one level of the matching downgrade, freeing Upgrade Points to spend elsewhere.");
         addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
-        addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
+        addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops Spiritus Essence at each death position, which a Spiritus Gem in your inventory absorbs on pickup.");
         addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
 
         // Tenebrae Tier Rituals

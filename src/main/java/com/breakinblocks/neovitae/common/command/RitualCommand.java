@@ -10,7 +10,10 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.GameProfileArgument;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
@@ -19,8 +22,11 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.world.ActiveRituals;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
+
+import java.util.Collection;
 
 /**
  * Admin command for managing rituals.
@@ -76,6 +82,13 @@ public class RitualCommand {
                 .then(
                         Commands.literal("list")
                                 .executes(RitualCommand::listRituals)
+                )
+                .then(
+                        Commands.literal("active")
+                                .then(
+                                        Commands.argument("player", GameProfileArgument.gameProfile())
+                                                .executes(RitualCommand::listActive)
+                                )
                 );
     }
 
@@ -185,5 +198,17 @@ public class RitualCommand {
         }
 
         return Command.SINGLE_SUCCESS;
+    }
+
+    private static int listActive(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        CommandSourceStack source = context.getSource();
+        Collection<NameAndId> profiles = GameProfileArgument.getGameProfiles(context, "player");
+        for (NameAndId profile : profiles) {
+            source.sendSuccess(() -> Component.literal(profile.name()).withStyle(ChatFormatting.YELLOW), false);
+            for (Component line : ActiveRituals.report(source.getServer(), profile.id())) {
+                source.sendSuccess(() -> line, false);
+            }
+        }
+        return profiles.size();
     }
 }

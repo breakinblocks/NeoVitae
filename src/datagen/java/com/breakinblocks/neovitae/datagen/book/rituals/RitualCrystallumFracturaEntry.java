@@ -52,11 +52,11 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Fracture's Edge");
-        this.pageText("Harvested clusters drop with [#](8B0000)scaling Fortune[#]() based on the chunk's local Raw Spiritus density:"
-                + "\n\n- below [#](B8860B)30 Raw[#](): no Fortune"
-                + "\n- [#](B8860B)30-100 Raw[#](): linearly scales from Fortune I to Fortune III"
-                + "\n- at or above [#](B8860B)100 Raw[#](): Fortune III"
-                + "\n\nWhen Fortune is active, the ritual probabilistically consumes [#](8B0000)Raw Spiritus[#]() at an average rate of one per twelve seconds; keep the chunk fed.");
+        this.pageText("Harvested clusters drop with [#](8B0000)scaling Fortune[#]() based on the chunk's density of the crystal's own aspect: a Ruina crystal reads the chunk's Ruina, a Raw crystal its Raw. Geode clusters read the aspect the stone is biased toward, or Raw if it has none."
+                + "\n\n- below [#](B8860B)30[#](): no Fortune"
+                + "\n- [#](B8860B)30-100[#](): linearly scales from Fortune I to Fortune III"
+                + "\n- at or above [#](B8860B)100[#](): Fortune III"
+                + "\n\nWhen Fortune is active, the ritual probabilistically consumes that aspect at an average rate of one per twelve seconds; keep the chunk fed.");
 
         this.page("aspect_bias", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

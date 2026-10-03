@@ -1165,6 +1165,21 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         return requester.equals(winner);
     }
 
+    private final Map<BlockPos, Integer> orbLinkRegistry = new HashMap<>();
+
+    public void reportOrbLink(BlockPos pos, boolean pumping) {
+        if (pumping) {
+            orbLinkRegistry.put(pos.immutable(), ticks);
+        } else {
+            orbLinkRegistry.remove(pos);
+        }
+    }
+
+    public int pumpingOrbLinks() {
+        orbLinkRegistry.entrySet().removeIf(e -> ticks - e.getValue() > LINK_STALE_TICKS || e.getValue() > ticks);
+        return Math.max(1, orbLinkRegistry.size());
+    }
+
     public boolean anyLinkWantsCraft() {
         linkRegistry.entrySet().removeIf(e -> ticks - e.getValue().lastSeenTick() > LINK_STALE_TICKS);
         for (LinkEntry v : linkRegistry.values()) {

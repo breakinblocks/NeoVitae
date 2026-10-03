@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -44,7 +45,11 @@ public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
         if (tile.tickCounter >= tile.delay) {
             tile.tickCounter = 0;
         }
-        tile.applyEmission(serverLevel, tile.delay <= PULSE_LENGTH || tile.tickCounter < PULSE_LENGTH);
+        boolean emit = tile.delay <= PULSE_LENGTH || tile.tickCounter < PULSE_LENGTH;
+        tile.applyEmission(serverLevel, emit);
+        if (!emit && tile.stopOnRedstone) {
+            tile.refreshRunning();
+        }
     }
 
     private void applyEmission(ServerLevel level, boolean emit) {
@@ -54,11 +59,14 @@ public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
             return;
         }
         lastEmit = emit;
-        if (!stateMatches) {
-            level.setBlock(worldPosition, state.setValue(BlockAlternator.ACTIVE, emit), Block.UPDATE_ALL);
-        }
         for (BlockPos receiver : receivers) {
             AlternatorLinks.setPowered(level, receiver, emit);
+        }
+        if (!stateMatches) {
+            level.setBlock(worldPosition, state.setValue(BlockAlternator.ACTIVE, emit), Block.UPDATE_ALL);
+            if (lastEmit != emit) {
+                return;
+            }
         }
         for (BlockPos receiver : receivers) {
             notifyReceiver(level, receiver);
@@ -89,9 +97,13 @@ public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
     }
 
     private boolean hasHardPower(ServerLevel level) {
+        boolean emitting = getBlockState().getValue(BlockAlternator.ACTIVE);
         for (Direction dir : Direction.values()) {
             BlockPos neighbor = worldPosition.relative(dir);
             if (receivers.contains(neighbor)) {
+                continue;
+            }
+            if (emitting && level.getBlockState(neighbor).getBlock() instanceof RedStoneWireBlock) {
                 continue;
             }
             if (level.getDirectSignal(neighbor, dir) > 0) {

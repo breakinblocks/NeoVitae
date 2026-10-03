@@ -19,7 +19,7 @@ public class RitualsCategory extends CategoryProvider {
         // rows 3-5 Tier <=2 (weak crystal), row 7 Tier 3 (tenebrae runes), rows 9-10 Tier 4 (awakened crystal).
         return new String[]{
                 "_________R_________",
-                "____S__D__C__T_____",
+                "____S__D__C__T__L__",
                 "___________________",
                 "__a_b_c_d_e_f_g____",
                 "__h_i_j_k_l_m_n____",
@@ -56,6 +56,11 @@ public class RitualsCategory extends CategoryProvider {
         tinkerer.withParent(this.parent(basics));
         tinkerer.withCondition(this.condition().entryViewedOnce(basics));
         tinkerer.hideWhileLocked(false);
+
+        var ledger = this.add(new RitualLedgerEntry(this).generate('L'));
+        ledger.withParent(this.parent(basics));
+        ledger.withCondition(this.condition().entryViewedOnce(basics));
+        ledger.hideWhileLocked(false);
 
         // ---- Tier <=2: basic runes, Weak Activation Crystal ----
         var water = this.add(new RitualWaterEntry(this).generate('a'));

@@ -52,6 +52,9 @@ public abstract class AlchemyArrayEffect {
         return false;
     }
 
+    public void onRemoved(AlchemyArrayBlockEntity tile) {
+    }
+
     public int getRedstoneSignal(AlchemyArrayBlockEntity tile) {
         return 0;
     }

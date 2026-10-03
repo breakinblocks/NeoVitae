@@ -12,7 +12,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -51,8 +50,7 @@ public class RitualForsakenSoul extends Ritual {
         for (LivingEntity entity : entities) {
             double spiritusAmount = getSpiritusForEntity(entity);
             if (spiritusAmount > 0) {
-                ItemStack spiritusStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
-                spiritusStack.set(NVDataComponents.SPIRITUS_AMOUNT, spiritusAmount);
+                ItemStack spiritusStack = NVItems.MONSTER_SOUL_RAW.get().createSpiritus(spiritusAmount);
                 ItemEntity spiritusEntity = new ItemEntity(ctx.level(),
                         entity.getX(), entity.getY() + 0.5, entity.getZ(), spiritusStack);
                 ctx.level().addFreshEntity(spiritusEntity);

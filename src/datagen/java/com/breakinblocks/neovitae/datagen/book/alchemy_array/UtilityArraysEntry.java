@@ -70,6 +70,26 @@ public class UtilityArraysEntry extends EntryProvider {
                 + "can spot a stalled fountain at a glance; the moment a tank opens up it snaps back to full cadence.\\\n\\\n"
                 + "A [#](8B0000)redstone signal[#]() on any face parks the array completely, preserving its cache "
                 + "and backoff state, making it easy to gate with a lever or comparator.");
+
+        this.page("miner", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Miner Array");
+        this.pageText("Scribe the [#](8B0000)Miner Array[#]() with an [#](8B0000)Iron Pickaxe[#]() and awaken it with "
+                + "[#](8B0000)Redstone[#](). It digs out the block [#](8B0000)directly beneath it[#](), at the pace a "
+                + "pickaxe would, and places what falls into a [#](8B0000)container[#]() beside it or above it.\\\n\\\n"
+                + "Left to itself it mines as an iron pickaxe would. Use [#](8B0000)any pickaxe[#]() on the array to set it "
+                + "in the working's grip; from then on the array mines with that pickaxe, its tier, speed and "
+                + "enchantments alike, wearing it as you would. It stops short of breaking the tool. Use the array "
+                + "empty-handed to take the pickaxe back.");
+
+        this.page("miner2", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("Should every container be full, or none be near, the array holds its hand rather than drop "
+                + "anything on the floor. It tries again soon after, then less and less often, settling at once every "
+                + "[#](8B0000)5 seconds[#](), and returns to full pace the moment there is room.\\\n\\\n"
+                + "[#](2E8B57)Set one over a cobblestone generator and it becomes an endless quarry. Lay that cobblestone "
+                + "upon an Ara Vitae and it sinks into cobbled deepslate, ready for the furnace.[#]()");
     }
 
     @Override

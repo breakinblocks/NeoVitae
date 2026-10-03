@@ -84,6 +84,10 @@ public class VitaeLinkEntry extends EntryProvider {
                 + "[#](8B0000)Anima[#](), at the altar's [#](8B0000)full tier[#]() and runes, until the network is full.\\\n\\\n"
                 + "[#](2E8B57)It sits lowest in the chain: it draws only while the altar is idle and no Vitae Link is "
                 + "crafting, sipping the leftover essence so it never starves a working.[#]()\\\n\\\n"
+                + "To make the most of those idle moments, the Link draws at [#](8B0000)five times[#]() the rate an orb "
+                + "resting on the altar would, raised further by [#](8B0000)Speed Runes[#](). Several Orb Vitae Links on "
+                + "one altar [#](8B0000)share[#]() that rate between them, so a second Link charges no faster than the "
+                + "first.\\\n\\\n"
                 + "Feed it a [#](8B0000)redstone signal[#]() to pause it: while powered, the Link stops charging until "
                 + "the signal drops, letting you gate it off your altar's own comparator.");
 

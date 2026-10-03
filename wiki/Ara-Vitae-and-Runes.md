@@ -27,7 +27,7 @@ To ascend to greater tiers, you must lay **Blank Runes** in concentric **circula
 | 4    | 100         | Adds a ring of 48 runes, lower again at radius 8. **Hellforged Block** caps mark the four cardinal points. |
 | 5    | 172         | Adds the widest ring of 72 runes at radius 11. Tall pillars rise at the four cardinal sides, crowned with **Crystal Clusters** (or Crystal Cluster Bricks). |
 
-Crystal Clusters are forged in the **[Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment)** from Sculk, a Tabula Aetherea, a Weak Blood Shard, and a Nether Star.
+Crystal Clusters are forged in the **[Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment)** from Sculk, a Tabula Aetherea, a Weak Blood Shard, and a Nether Star. A Crystal Cluster or Crystal Cluster Brick placed by an Enchanting Table counts as **15 bookshelves**, so one is enough to reach the table's maximum.
 
 ## Tabula
 
@@ -40,6 +40,8 @@ The Ara Vitae also forges **Tabula**, the inscribed stone tablets that serve as 
 | Tabula Animata   | Tier 2     | 5,000 EV   | The stone pulses with a faint, living warmth. |
 | Tabula Spiritus  | Tier 3     | 15,000 EV  | Dark veins thread the tablet like frozen lightning. |
 | Tabula Aetherea  | Tier 4     | 30,000 EV  | Almost translucent, hovering at the edge of the beyond. |
+
+Short of Deepslate? Lay **Cobblestone** on a Tier 0 altar and, for 50 EV, it becomes **Cobbled Deepslate**; smelt that into Deepslate. A [Vitae Link](Automating-the-Ara-Vitae) crafts its whole input stack at once, so it converts 64 cobblestone in a single craft.
 
 Two specialized variants exist for the alchemical bench: the **Tabula Vial** (a glass vessel reinforced with powdered Tabula, used to hold anointments) and the **Tabula Ampoule** (a small reservoir for crystallised EV, produced by certain throwing daggers and crushable for raw EV). Both are forged in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)** brewing rig.
 

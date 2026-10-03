@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "cobbled_deepslate",
+  "recipe_id_1": "neovitae:ara_vitae/cobbled_deepslate",
+  "sort_number": 2,
+  "text": "book.neovitae.guide.altar.slates.cobbled_deepslate.text"
+}

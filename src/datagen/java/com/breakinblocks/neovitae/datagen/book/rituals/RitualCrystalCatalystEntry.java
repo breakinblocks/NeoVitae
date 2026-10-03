@@ -35,8 +35,9 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
         this.pageTitle("Souls Unmoored");
         this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted, "
                 + "not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal "
-                + "things. The circle condenses it into [#](8B0000)Raw Spiritus[#](), which falls to the ground "
-                + "[#](8B0000)where the creature died[#]() for you to gather.\n\n"
+                + "things. The circle condenses it into [#](8B0000)Spiritus Essence[#](), which falls to the ground "
+                + "[#](8B0000)where the creature died[#](). Pick it up with a [#](8B0000)Spiritus Gem[#]() in your "
+                + "inventory and the gem absorbs it, just as it does the essence a sentient weapon draws out.\n\n"
                 + "The watched volume is [#](B8860B)21x21x21[#](), centered on the Master Ritual Stone. Players are "
                 + "never harvested. Sturdier souls yield more: a common beast parts with a little, while the great "
                 + "horrors of the world surrender a great deal.");
@@ -49,7 +50,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Condenses the souls of the slain into Raw Spiritus.";
+        return "Condenses the souls of the slain into Spiritus Essence.";
     }
 
     @Override
@@ -59,7 +60,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.RAW_SPIRITUS.get());
+        return BookIconModel.create(NVItems.MONSTER_SOUL_RAW.get());
     }
 
     @Override

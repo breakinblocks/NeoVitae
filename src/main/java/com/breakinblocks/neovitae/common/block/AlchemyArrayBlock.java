@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -34,6 +35,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectLight;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectMiner;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import net.minecraft.util.RandomSource;
@@ -131,6 +133,19 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
             array.setChanged();
             world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.6f, 1.4f);
             player.sendOverlayMessage(Component.translatable("chat.neovitae.light_array.persistent"));
+            return InteractionResult.SUCCESS;
+        }
+
+        if (playerItem.is(ItemTags.PICKAXES) && array.arrayEffect instanceof AlchemyArrayEffectMiner miner) {
+            if (world.isClientSide()) return InteractionResult.SUCCESS;
+            ItemStack previous = miner.swapTool(playerItem.copyWithCount(1));
+            if (!player.isCreative()) playerItem.shrink(1);
+            if (!previous.isEmpty() && !player.getInventory().add(previous)) {
+                player.drop(previous, false);
+            }
+            array.setChanged();
+            world.playSound(null, pos, SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 0.3f, 1.6f);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.miner_array.inserted", miner.toolName()));
             return InteractionResult.SUCCESS;
         }
 

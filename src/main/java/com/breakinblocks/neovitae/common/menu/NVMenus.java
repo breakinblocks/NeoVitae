@@ -36,6 +36,8 @@ public class NVMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<RitualDivinerMenu>> RITUAL_DIVINER = MENUS.register("ritual_diviner", () -> IMenuTypeExtension.create(RitualDivinerMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<RitualLedgerMenu>> RITUAL_LEDGER = MENUS.register("ritual_ledger", () -> IMenuTypeExtension.create(RitualLedgerMenu::new));
+
     public static final DeferredHolder<MenuType<?>, MenuType<RitualConfiguratorMenu>> RITUAL_CONFIGURATOR = MENUS.register("ritual_configurator", () -> IMenuTypeExtension.create(RitualConfiguratorMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<AlternatorMenu>> ALTERNATOR = MENUS.register("alternator", () -> IMenuTypeExtension.create(AlternatorMenu::new));

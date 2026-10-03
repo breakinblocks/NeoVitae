@@ -24,7 +24,7 @@ public class RitualLedgerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Ledger");
         this.pageText("A circle left burning in some forgotten corner still drinks from your [#](4A0080)Anima[#](). The [#](8B0000)Ritual Ledger[#]() keeps account of every ritual you have set in motion.\\\n\\\n"
-                + "Use it to list each of your active rituals: its name, the position and dimension of its [#](8B0000)Master Ritual Stone[#](), and the EV it draws each cycle. Click a position to copy it.\\\n\\\n"
+                + "Use it to open a list of every ritual you have running, with the position of its [#](8B0000)Master Ritual Stone[#](). Hover over a ritual for its dimension and the EV it draws each cycle, and click it to copy its position.\\\n\\\n"
                 + "[#](2E8B57)Rituals paused by redstone, or sitting in unloaded chunks, are marked as such; neither draws EV while it stays that way.[#]()");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()

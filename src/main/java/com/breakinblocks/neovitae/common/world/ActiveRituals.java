@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.world;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -21,6 +22,40 @@ import java.util.UUID;
 
 public final class ActiveRituals {
 
+    public enum Status {
+        ACTIVE, PAUSED, UNLOADED
+    }
+
+    public record LedgerEntry(Identifier ritual, Identifier dimension, BlockPos pos, int refreshCost, int refreshTime, Status status) {
+
+        public void write(FriendlyByteBuf buf) {
+            buf.writeIdentifier(ritual);
+            buf.writeIdentifier(dimension);
+            buf.writeBlockPos(pos);
+            buf.writeVarInt(refreshCost);
+            buf.writeVarInt(refreshTime);
+            buf.writeEnum(status);
+        }
+
+        public static LedgerEntry read(FriendlyByteBuf buf) {
+            return new LedgerEntry(buf.readIdentifier(), buf.readIdentifier(), buf.readBlockPos(),
+                    buf.readVarInt(), buf.readVarInt(), buf.readEnum(Status.class));
+        }
+
+        public String coordinates() {
+            return pos.getX() + " " + pos.getY() + " " + pos.getZ();
+        }
+
+        public Component name() {
+            Ritual ritual = RitualRegistry.getRitual(this.ritual);
+            return ritual != null ? Component.translatable(ritual.getTranslationKey()) : Component.literal(this.ritual.toString());
+        }
+
+        public Component costLine() {
+            return Component.translatable("chat.neovitae.ritual_ledger.cost", refreshCost, String.format("%.1f", refreshTime / 20.0));
+        }
+    }
+
     private ActiveRituals() {
     }
 
@@ -37,30 +72,36 @@ public final class ActiveRituals {
         storage(level.getServer()).remove(GlobalPos.of(level.dimension(), pos));
     }
 
-    public static List<Component> report(MinecraftServer server, UUID owner) {
+    public static List<LedgerEntry> collect(MinecraftServer server, UUID owner) {
         ActiveRitualData data = storage(server);
-        List<Map.Entry<GlobalPos, ActiveRitualData.Entry>> owned = new ArrayList<>();
+        List<LedgerEntry> entries = new ArrayList<>();
         List<GlobalPos> stale = new ArrayList<>();
 
         for (Map.Entry<GlobalPos, ActiveRitualData.Entry> e : data.entries().entrySet()) {
             if (!owner.equals(e.getValue().owner())) continue;
             if (isStale(server, e.getKey(), e.getValue())) {
                 stale.add(e.getKey());
-            } else {
-                owned.add(e);
+                continue;
             }
+            Ritual ritual = RitualRegistry.getRitual(e.getValue().ritual());
+            entries.add(new LedgerEntry(e.getValue().ritual(), e.getKey().dimension().identifier(), e.getKey().pos(),
+                    ritual != null ? ritual.getRefreshCost() : 0, ritual != null ? ritual.getRefreshTime() : 0,
+                    statusOf(server, e.getKey())));
         }
         stale.forEach(data::remove);
+        return entries;
+    }
 
+    public static List<Component> report(MinecraftServer server, UUID owner) {
+        List<LedgerEntry> entries = collect(server, owner);
         List<Component> lines = new ArrayList<>();
-        if (owned.isEmpty()) {
+        if (entries.isEmpty()) {
             lines.add(Component.translatable("chat.neovitae.ritual_ledger.none").withStyle(ChatFormatting.GRAY));
             return lines;
         }
-
-        lines.add(Component.translatable("chat.neovitae.ritual_ledger.header", owned.size()).withStyle(ChatFormatting.DARK_RED));
-        for (Map.Entry<GlobalPos, ActiveRitualData.Entry> e : owned) {
-            lines.add(describe(server, e.getKey(), e.getValue()));
+        lines.add(Component.translatable("chat.neovitae.ritual_ledger.header", entries.size()).withStyle(ChatFormatting.DARK_RED));
+        for (LedgerEntry entry : entries) {
+            lines.add(describe(entry));
         }
         return lines;
     }
@@ -75,14 +116,17 @@ public final class ActiveRituals {
                 || !entry.ritual().equals(mrs.getCurrentRitualId());
     }
 
-    private static Component describe(MinecraftServer server, GlobalPos pos, ActiveRitualData.Entry entry) {
-        Ritual ritual = RitualRegistry.getRitual(entry.ritual());
-        Component name = ritual != null
-                ? Component.translatable(ritual.getTranslationKey())
-                : Component.literal(entry.ritual().toString());
+    private static Status statusOf(MinecraftServer server, GlobalPos pos) {
+        ServerLevel level = server.getLevel(pos.dimension());
+        if (level == null || !level.isLoaded(pos.pos())) return Status.UNLOADED;
+        if (level.getBlockEntity(pos.pos()) instanceof MasterRitualStoneBlockEntity mrs && mrs.isSuspended()) {
+            return Status.PAUSED;
+        }
+        return Status.ACTIVE;
+    }
 
-        BlockPos p = pos.pos();
-        String coords = p.getX() + " " + p.getY() + " " + p.getZ();
+    private static Component describe(LedgerEntry entry) {
+        String coords = entry.coordinates();
         MutableComponent location = Component.literal("[" + coords + "]")
                 .withStyle(style -> style.withColor(ChatFormatting.GREEN)
                         .withClickEvent(new ClickEvent.CopyToClipboard(coords))
@@ -90,23 +134,17 @@ public final class ActiveRituals {
                                 Component.translatable("chat.neovitae.ritual_ledger.copy"))));
 
         MutableComponent line = Component.literal("- ").withStyle(ChatFormatting.GRAY)
-                .append(Component.empty().append(name).withStyle(ChatFormatting.GOLD))
+                .append(Component.empty().append(entry.name()).withStyle(ChatFormatting.GOLD))
                 .append(Component.literal(" "))
                 .append(location)
-                .append(Component.literal(" " + pos.dimension().identifier()).withStyle(ChatFormatting.GRAY));
+                .append(Component.literal(" " + entry.dimension()).withStyle(ChatFormatting.GRAY))
+                .append(Component.literal(" "))
+                .append(entry.costLine().copy().withStyle(ChatFormatting.DARK_GRAY));
 
-        if (ritual != null) {
-            String seconds = String.format("%.1f", ritual.getRefreshTime() / 20.0);
-            line.append(Component.literal(" "))
-                    .append(Component.translatable("chat.neovitae.ritual_ledger.cost", ritual.getRefreshCost(), seconds)
-                            .withStyle(ChatFormatting.DARK_GRAY));
-        }
-
-        ServerLevel level = server.getLevel(pos.dimension());
-        if (level == null || !level.isLoaded(p)) {
+        if (entry.status() == Status.UNLOADED) {
             line.append(Component.literal(" "))
                     .append(Component.translatable("chat.neovitae.ritual_ledger.unloaded").withStyle(ChatFormatting.DARK_GRAY));
-        } else if (level.getBlockEntity(p) instanceof MasterRitualStoneBlockEntity mrs && mrs.isSuspended()) {
+        } else if (entry.status() == Status.PAUSED) {
             line.append(Component.literal(" "))
                     .append(Component.translatable("chat.neovitae.ritual_ledger.paused").withStyle(ChatFormatting.YELLOW));
         }

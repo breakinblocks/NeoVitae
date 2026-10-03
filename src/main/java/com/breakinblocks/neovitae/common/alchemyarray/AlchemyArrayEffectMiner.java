@@ -225,9 +225,6 @@ public class AlchemyArrayEffectMiner extends AlchemyArrayEffect {
         progress = tag.getDoubleOr("progress", 0);
         cooldown = tag.getIntOr("cooldown", 0);
         failDelay = tag.getIntOr("failDelay", 0);
-        tool = tag.read("tool", ItemStack.CODEC).orElse(ItemStack.EMPTY);
-        pending.clear();
-        tag.read("pending", ItemStack.CODEC.listOf()).ifPresent(pending::addAll);
     }
 
     @Override
@@ -235,11 +232,23 @@ public class AlchemyArrayEffectMiner extends AlchemyArrayEffect {
         tag.putDouble("progress", progress);
         tag.putInt("cooldown", cooldown);
         tag.putInt("failDelay", failDelay);
-        if (!tool.isEmpty()) {
-            tag.store("tool", ItemStack.CODEC, tool);
-        }
-        if (!pending.isEmpty()) {
-            tag.store("pending", ItemStack.CODEC.listOf(), pending);
+    }
+
+    @Override
+    public List<ItemStack> saveItems() {
+        if (tool.isEmpty() && pending.isEmpty()) return List.of();
+        List<ItemStack> items = new ArrayList<>();
+        items.add(tool);
+        items.addAll(pending);
+        return items;
+    }
+
+    @Override
+    public void loadItems(List<ItemStack> items) {
+        pending.clear();
+        tool = items.isEmpty() ? ItemStack.EMPTY : items.getFirst();
+        for (int i = 1; i < items.size(); i++) {
+            if (!items.get(i).isEmpty()) pending.add(items.get(i));
         }
     }
 

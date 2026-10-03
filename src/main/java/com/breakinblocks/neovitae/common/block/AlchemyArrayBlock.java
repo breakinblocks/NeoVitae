@@ -119,7 +119,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
 
         ItemStack playerItem = player.getItemInHand(hand);
         if (playerItem.isEmpty()) {
-            return InteractionResult.PASS;
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
 
         if (playerItem.is(Items.GLOWSTONE) && array.arrayEffect instanceof AlchemyArrayEffectLight lightEffect) {

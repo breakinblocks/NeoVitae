@@ -737,8 +737,10 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Ritual Configurator
         add(NVItems.RITUAL_READER.get(), "Ritual Configurator");
         add(NVItems.RITUAL_LEDGER.get(), "Ritual Ledger");
-        add("tooltip.neovitae.ritual_ledger", "Use to list your active rituals and where their Master Ritual Stones are.");
-        add("chat.neovitae.ritual_ledger.header", "Your active rituals (%s):");
+        add("tooltip.neovitae.ritual_ledger", "Use to open a list of your active rituals and where their Master Ritual Stones are.");
+        add("container.neovitae.ritual_ledger", "Ritual Ledger");
+        add("gui.neovitae.ritual_ledger.copied", "Copied %s");
+        add("chat.neovitae.ritual_ledger.header", "Your active rituals (%s)");
         add("chat.neovitae.ritual_ledger.none", "You have no active rituals.");
         add("chat.neovitae.ritual_ledger.cost", "(%s EV every %ss)");
         add("chat.neovitae.ritual_ledger.paused", "[paused by redstone]");

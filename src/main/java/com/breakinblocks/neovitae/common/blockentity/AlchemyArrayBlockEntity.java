@@ -37,6 +37,8 @@ import java.util.Optional;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Objects;
 
+import java.util.List;
+
 public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public boolean isActive = false;
     public int activeCounter = 0;
@@ -49,6 +51,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     private Binding ownerBinding = Binding.EMPTY;
     private DyeColor arrayColor = null;
     private CompoundTag pendingEffectNbt = null;
+    private List<ItemStack> pendingEffectItems = null;
     private Identifier cachedTexture = null;
 
     public final Inv inv = new Inv();
@@ -114,9 +117,20 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         this.cachedTexture = tag.read("cachedTexture", Identifier.CODEC).orElse(null);
 
         pendingEffectNbt = tag.read("effectState", CompoundTag.CODEC).orElse(null);
-        if (pendingEffectNbt != null && arrayEffect != null) {
+        pendingEffectItems = tag.read("effectItems", ItemStack.OPTIONAL_CODEC.listOf()).orElse(null);
+        if (arrayEffect != null) {
+            applyPendingEffectState();
+        }
+    }
+
+    private void applyPendingEffectState() {
+        if (pendingEffectNbt != null) {
             arrayEffect.readFromNBT(pendingEffectNbt);
             pendingEffectNbt = null;
+        }
+        if (pendingEffectItems != null) {
+            arrayEffect.loadItems(pendingEffectItems);
+            pendingEffectItems = null;
         }
     }
 
@@ -146,6 +160,10 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
             arrayEffect.writeToNBT(effectTag);
             if (!effectTag.isEmpty()) {
                 tag.store("effectState", CompoundTag.CODEC, effectTag);
+            }
+            List<ItemStack> effectItems = arrayEffect.saveItems();
+            if (!effectItems.isEmpty()) {
+                tag.store("effectItems", ItemStack.OPTIONAL_CODEC.listOf(), effectItems);
             }
         }
     }
@@ -183,10 +201,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 return false;
             } else {
                 arrayEffect = effect;
-                if (pendingEffectNbt != null) {
-                    arrayEffect.readFromNBT(pendingEffectNbt);
-                    pendingEffectNbt = null;
-                }
+                applyPendingEffectState();
                 if (level != null && !level.isClientSide()) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
                     for (int i = 0; i < 6; i++) {

@@ -50,7 +50,7 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 
 ## Ritual Ledger
 
-A circle left running in a forgotten corner keeps drawing on your Anima. The **Ritual Ledger** lists every ritual you have active: press Use and it prints each ritual's name, the position and dimension of its Master Ritual Stone, and the EV it draws each cycle. Click a position to copy it. Rituals paused by redstone or sitting in unloaded chunks are marked, since neither draws EV while it stays that way. Craft it from a book, two blank Ritual Stones, a gold ingot and a Tabula Robur.
+A circle left running in a forgotten corner keeps drawing on your Anima. The **Ritual Ledger** lists every ritual you have active: press Use to open a scrollable list showing each ritual's name and the position of its Master Ritual Stone. Hover over a ritual to see its dimension and the EV it draws each cycle, and click it to copy its position. Rituals paused by redstone or sitting in unloaded chunks are marked, since neither draws EV while it stays that way. Craft it from a book, two blank Ritual Stones, a gold ingot and a Tabula Robur.
 
 Server operators can see any player's active rituals with `/neovitae ritual active <player>`.
 

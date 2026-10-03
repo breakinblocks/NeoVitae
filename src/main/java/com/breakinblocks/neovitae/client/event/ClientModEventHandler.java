@@ -69,6 +69,7 @@ import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
 import com.breakinblocks.neovitae.client.screen.RitualConfiguratorScreen;
 import com.breakinblocks.neovitae.client.screen.RitualDivinerScreen;
+import com.breakinblocks.neovitae.client.screen.RitualLedgerScreen;
 import com.breakinblocks.neovitae.client.screen.SpiritCacheScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.client.color.RoutingNodeColor;
@@ -137,6 +138,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
         event.register(NVMenus.RITUAL_DIVINER.get(), RitualDivinerScreen::new);
+        event.register(NVMenus.RITUAL_LEDGER.get(), RitualLedgerScreen::new);
         event.register(NVMenus.RITUAL_CONFIGURATOR.get(), RitualConfiguratorScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
         event.register(NVMenus.ALTERNATOR.get(), AlternatorScreen::new);

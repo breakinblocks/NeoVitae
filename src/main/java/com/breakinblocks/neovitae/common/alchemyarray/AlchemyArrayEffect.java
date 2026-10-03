@@ -9,9 +9,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+
+import java.util.List;
 
 public abstract class AlchemyArrayEffect {
     private int evCost;
@@ -53,6 +56,13 @@ public abstract class AlchemyArrayEffect {
     }
 
     public void onRemoved(AlchemyArrayBlockEntity tile) {
+    }
+
+    public List<ItemStack> saveItems() {
+        return List.of();
+    }
+
+    public void loadItems(List<ItemStack> items) {
     }
 
     public int getRedstoneSignal(AlchemyArrayBlockEntity tile) {

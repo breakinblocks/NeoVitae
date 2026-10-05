@@ -8,11 +8,15 @@ import net.minecraft.client.renderer.rendertype.LayeringTransform;
 import net.minecraft.client.renderer.rendertype.OutputTarget;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
 import com.breakinblocks.neovitae.NeoVitae;
+
+import java.util.function.Function;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public final class NVRenderTypes {
@@ -28,6 +32,19 @@ public final class NVRenderTypes {
                     .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
                     .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup());
+
+    private static final Function<Identifier, RenderType> EMISSIVE_OVERLAY = Util.memoize(texture -> RenderType.create(
+            "neovitae_emissive_overlay",
+            RenderSetup.builder(RenderPipelines.ENTITY_TRANSLUCENT_EMISSIVE)
+                    .withTexture("Sampler0", texture)
+                    .useOverlay()
+                    .sortOnUpload()
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .createRenderSetup()));
+
+    public static RenderType emissiveOverlay(Identifier texture) {
+        return EMISSIVE_OVERLAY.apply(texture);
+    }
 
     @SubscribeEvent
     static void registerPipelines(RegisterRenderPipelinesEvent event) {

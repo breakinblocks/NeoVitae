@@ -5,9 +5,9 @@ import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.client.render.NVRenderTypes;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 
 public class AraVitaeRodGlowLayer extends GeoRenderLayer<AraVitaeTile, Void, AraVitaeRenderer.State> {
@@ -22,7 +22,7 @@ public class AraVitaeRodGlowLayer extends GeoRenderLayer<AraVitaeTile, Void, Ara
     public void submitRenderTask(RenderPassInfo<AraVitaeRenderer.State> info, SubmitNodeCollector collector) {
         if (!info.willRender()) return;
         if (!info.renderState().active) return;
-        RenderType glowType = RenderTypes.entityTranslucentEmissive(GLOW_TEXTURE);
+        RenderType glowType = NVRenderTypes.emissiveOverlay(GLOW_TEXTURE);
         getRenderer().submitRenderTasks(info, collector.order(1), glowType);
     }
 }

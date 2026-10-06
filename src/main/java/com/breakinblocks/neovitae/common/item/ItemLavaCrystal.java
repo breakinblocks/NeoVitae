@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.TooltipFlag;
@@ -42,8 +43,24 @@ public class ItemLavaCrystal extends Item implements IBindable {
     public ItemLavaCrystal(Item.Properties props) {
         super(props
                 .stacksTo(1)
-                .component(NVDataComponents.BINDING.get(), Binding.EMPTY)
-                .craftRemainder(new ItemStackTemplate(NVItems.LAVA_CRYSTAL, 1, DataComponentPatch.EMPTY)));
+                .component(NVDataComponents.BINDING.get(), Binding.EMPTY));
+    }
+
+    @Override
+    public ItemStackTemplate getCraftingRemainder(ItemInstance instance) {
+        if (!(instance instanceof ItemStack stack)) {
+            return new ItemStackTemplate(this, 1, DataComponentPatch.EMPTY);
+        }
+
+        Binding binding = stack.get(NVDataComponents.BINDING.get());
+        if (binding != null && !binding.isEmpty()) {
+            Anima network = AnimaHelper.getAnima(binding.uuid());
+            if (network != null) {
+                network.syphon(AnimaTicket.create(FUEL_COST));
+            }
+        }
+
+        return new ItemStackTemplate(this, 1, stack.getComponentsPatch());
     }
 
     @Override
@@ -54,7 +71,6 @@ public class ItemLavaCrystal extends Item implements IBindable {
         Anima network = AnimaHelper.getAnima(binding.uuid());
         if (network == null || network.getCurrentEV() < FUEL_COST) return 0;
 
-        network.syphon(AnimaTicket.create(FUEL_COST));
         return FUEL_BURN_TICKS;
     }
 

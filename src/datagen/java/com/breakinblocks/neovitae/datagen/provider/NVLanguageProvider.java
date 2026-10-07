@@ -1333,7 +1333,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("effect.loyal_friends.name", "Array of Loyal Friends");
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
         addJei("effect.vortex.name", "Vortex Array");
-        addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
+        addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away. Sneak to resist the pull.");
         addJei("effect.liquified_experience.name", "Array of Liquified Experience");
         addJei("effect.liquified_experience.desc", "Drains Tomes of Peritia in the container below into an adjacent tank of Liquified Experience. A redstone signal reverses it.");
         addJei("effect.imprisonment.name", "Array of Imprisonment");
@@ -1391,7 +1391,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("array_effect.endless_fountain", "Fills adjacent fluid tanks with up to 6 buckets of water every 5 ticks.");
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
         addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
-        addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
+        addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away. Sneak to resist the pull.");
         addTooltip("array_effect.liquified_experience", "Inscribe atop a chest. Experience stored in Tomes of Peritia inside drains into an adjacent tank as Liquified Experience. Power the array with redstone to pull it back out of the tank.");
         addTooltip("array_effect.imprisonment", "Place atop a mob spawner. The next mob killed within 11x11x11 becomes the spawner's new mob, and the array is consumed.");
 

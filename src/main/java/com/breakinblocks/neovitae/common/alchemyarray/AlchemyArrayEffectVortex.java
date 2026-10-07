@@ -64,7 +64,7 @@ public class AlchemyArrayEffectVortex extends AlchemyArrayEffect {
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, area);
         for (LivingEntity entity : entities) {
             if (entity instanceof Player p) {
-                if (p.isCreative() || p.isSpectator()) continue;
+                if (p.isCreative() || p.isSpectator() || p.isShiftKeyDown()) continue;
                 if (p.getMainHandItem().getItem() instanceof BloodOrbItem) continue;
                 if (p.getOffhandItem().getItem() instanceof BloodOrbItem) continue;
             }

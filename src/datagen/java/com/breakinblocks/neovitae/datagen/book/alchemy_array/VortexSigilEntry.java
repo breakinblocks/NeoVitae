@@ -45,6 +45,7 @@ public class VortexSigilEntry extends EntryProvider {
         this.pageTitle("What the Vortex Cannot Hold");
         this.pageText("Several beings are beyond the sigil's grasp:\\\n\\\n"
                 + "- [#](2E8B57)Players in Creative or Spectator mode[#]() pass through unaffected, as expected.\\\n"
+                + "- [#](2E8B57)Sneaking players[#]() are not pulled. Sneak to walk out of the vortex's reach.\\\n"
                 + "- [#](2E8B57)Any practitioner holding an Orb of Vitae[#]() - of any tier, in either main hand "
                 + "or off-hand - is recognized by the array and ignored. The orb's aura disrupts the drawing "
                 + "current. Useful for working near your own vortex without being yanked into it.\\\n"

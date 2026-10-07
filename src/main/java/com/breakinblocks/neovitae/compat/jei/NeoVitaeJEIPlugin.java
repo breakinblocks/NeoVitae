@@ -343,6 +343,13 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(List.of(new ItemStack(NVItems.SANGUINE_REVERTER.get())), VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.disenchant.info"));
 
+        List<ItemStack> flaskStacks = List.of(
+                new ItemStack(NVItems.ALCHEMY_FLASK.get()),
+                new ItemStack(NVItems.ALCHEMY_FLASK_THROWABLE.get()),
+                new ItemStack(NVItems.ALCHEMY_FLASK_LINGERING.get()));
+        registration.addIngredientInfo(flaskStacks, VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.neovitae.flask.rinse.info"));
+
         ClientLevel world = Minecraft.getInstance().level;
         if (world != null) {
             HolderLookup.RegistryLookup<SentientUpgrade> upgradeRegistry = world.registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);

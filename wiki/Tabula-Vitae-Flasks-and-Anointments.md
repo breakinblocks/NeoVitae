@@ -32,7 +32,7 @@ Potion-brewing is a pedestrian art. Any hedge-witch with a cauldron can boil net
 
 ### The Alchemy Flask
 
-Forged upon the **[Ara Vitae](Ara-Vitae-and-Runes)**, the Alchemy Flask holds **eight doses** of whatever elixir you fill it with. Once drained to its dregs, rinse it with water to prepare a fresh vessel. Flasks may also be transmuted into projectile forms:
+Forged upon the **[Ara Vitae](Ara-Vitae-and-Runes)**, the Alchemy Flask holds **eight doses** of whatever elixir you fill it with. Once drained to its dregs, rinse it with water to prepare a fresh vessel: right-click a water source, a water cauldron, or a sink or tank that holds water, or craft the flask with a **Water Bucket**. A flask that still has doses left is only rinsed while you sneak. Flasks may also be transmuted into projectile forms:
 
 - **Splash Alchemy Flask** for thrown application.
 - **Lingering Alchemy Flask** for area-effect clouds.

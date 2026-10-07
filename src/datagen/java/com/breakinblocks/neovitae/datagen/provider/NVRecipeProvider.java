@@ -247,6 +247,24 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_corrupted_dust", has(NVItems.CORRUPTED_DUST.get()))
                 .save(output, rKey(NeoVitae.rl("corrupted_tiny_dust_from_corrupted")));
 
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BREWING, NVItems.ALCHEMY_FLASK.get())
+                .requires(NVItems.ALCHEMY_FLASK.get())
+                .requires(Items.WATER_BUCKET)
+                .unlockedBy("has_alchemy_flask", has(NVItems.ALCHEMY_FLASK.get()))
+                .save(output, rKey(NeoVitae.rl("rinse_alchemy_flask")));
+
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BREWING, NVItems.ALCHEMY_FLASK_THROWABLE.get())
+                .requires(NVItems.ALCHEMY_FLASK_THROWABLE.get())
+                .requires(Items.WATER_BUCKET)
+                .unlockedBy("has_alchemy_flask_throwable", has(NVItems.ALCHEMY_FLASK_THROWABLE.get()))
+                .save(output, rKey(NeoVitae.rl("rinse_alchemy_flask_throwable")));
+
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BREWING, NVItems.ALCHEMY_FLASK_LINGERING.get())
+                .requires(NVItems.ALCHEMY_FLASK_LINGERING.get())
+                .requires(Items.WATER_BUCKET)
+                .unlockedBy("has_alchemy_flask_lingering", has(NVItems.ALCHEMY_FLASK_LINGERING.get()))
+                .save(output, rKey(NeoVitae.rl("rinse_alchemy_flask_lingering")));
+
         // Raw Demonite smelting -> Hellforged Ingot
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0.7f, 200)
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))

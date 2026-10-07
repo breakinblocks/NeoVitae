@@ -36,6 +36,11 @@ public class ItemAlchemyFlaskThrowable extends ItemAlchemyFlask {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        InteractionResult rinsed = rinseInWater(level, player, hand);
+        if (rinsed.consumesAction()) {
+            return rinsed;
+        }
+
         ItemStack stack = player.getItemInHand(hand);
 
         if (getRemainingUses(stack) <= 0) {

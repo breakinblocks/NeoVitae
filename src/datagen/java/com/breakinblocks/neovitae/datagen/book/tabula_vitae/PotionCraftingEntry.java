@@ -51,8 +51,10 @@ public class PotionCraftingEntry extends EntryProvider {
 
         this.page("refill", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have drained a flask to its dregs, simply rinse it with water to prepare a fresh "
-                + "vessel for your next concoction. [#](2E8B57)Consult JEI for the refilling recipe.[#]()");
+        this.pageText("Once you have drained a flask to its dregs, rinse it with water to prepare a fresh vessel: "
+                + "right-click a water source, a water cauldron, or a sink or tank that holds water. Crafting the "
+                + "flask with a [#](8B0000)Water Bucket[#]() serves just as well.\\\n\\\n"
+                + "[#](2E8B57)A flask with doses remaining is only rinsed while you sneak.[#]()");
 
         this.page("splash_linger", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

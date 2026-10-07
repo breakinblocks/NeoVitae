@@ -20,6 +20,7 @@ public class NVGameTestRegistration {
         DataValidationTests.register(r);
         DungeonKeyLootTests.register(r);
         EssentiaVitaeFluidTests.register(r);
+        FlaskRinseTests.register(r);
         FurnaceArrayTests.register(r);
         HarvestTests.register(r);
         HellfireForgeTests.register(r);

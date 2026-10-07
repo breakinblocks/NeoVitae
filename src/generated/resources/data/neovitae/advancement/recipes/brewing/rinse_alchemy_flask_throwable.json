@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_alchemy_flask_throwable": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:alchemy_flask_throwable"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:rinse_alchemy_flask_throwable"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_alchemy_flask_throwable"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:rinse_alchemy_flask_throwable"
+    ]
+  }
+}

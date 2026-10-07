@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "neovitae:alchemy_flask_throwable",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "neovitae:alchemy_flask_throwable"
+  }
+}

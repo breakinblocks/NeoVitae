@@ -4,6 +4,13 @@
 
 This is a map of the journey; from your first tentative cuts to forces that reshape reality itself. Read it once for orientation, then begin.
 
+## Planning Tools
+
+Two web planners help you design builds before you place a block. Both use the mod's own numbers, and both let you save a plan as JSON or share it with a link.
+
+- **[Altar Planner](https://breakinblocks.github.io/NeoVitae/)**. Build an Ara Vitae of any tier in 3D, place each rune where you want it, and see its capacity, speed, sacrifice production and craft times.
+- **[Tranquility Garden Planner](https://breakinblocks.github.io/NeoVitae/garden.html)**. Lay out the path rings and tranquility blocks around an Incense Altar and see the self sacrifice bonus it gives.
+
 ## Tier 0, The First Altar
 
 Your first act as a Vitaemancer is to construct an **Ara Vitae**.

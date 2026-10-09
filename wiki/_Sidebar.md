@@ -3,6 +3,8 @@
 **Start Here**
 - [Getting Started](Getting-Started)
 - [Quick Reference](Quick-Reference)
+- [Altar Planner](https://breakinblocks.github.io/NeoVitae/)
+- [Tranquility Garden Planner](https://breakinblocks.github.io/NeoVitae/garden.html)
 
 **Core Systems**
 - [Ara Vitae and Runes](Ara-Vitae-and-Runes)

@@ -65,6 +65,11 @@ public class RitualCrystallumFractura extends Ritual {
         setMaximumVolumeAndDistanceOfRange(AURA_RANGE, 4000, 16, 16);
         setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
     }
+
+    @Override
+    public boolean usesAspectSelection() {
+        return true;
+    }
 
     @Override
     public void performRitual(IMasterRitualStone masterRitualStone) {

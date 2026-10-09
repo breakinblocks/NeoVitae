@@ -36,7 +36,11 @@ public class RitualWellOfSuffering extends Ritual {
     private BlockPos altarOffsetPos = null;
 
     public RitualWellOfSuffering() {
-        super("well_of_suffering", 0, 50000, "ritual." + NeoVitae.MODID + ".well_of_suffering");
+        this("well_of_suffering", 0, 50000);
+    }
+
+    protected RitualWellOfSuffering(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(DAMAGE_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -5, -5), 11, 11, 11));
         addBlockRange(ALTAR_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -10, -5), 11, 20, 11));
 
@@ -71,6 +75,7 @@ public class RitualWellOfSuffering extends Ritual {
                 if (entity.isBaby()) {
                     ev = (int) (ev * 0.5);
                 }
+                ev *= getEvMultiplier();
 
                 totalEV += ev;
 
@@ -84,6 +89,10 @@ public class RitualWellOfSuffering extends Ritual {
             ctx.syphon(getRefreshCost());
             altar.addSacrificeEV(totalEV, true);
         }
+    }
+
+    protected int getEvMultiplier() {
+        return 1;
     }
 
     private AraVitaeTile findAltar(RitualContext ctx) {

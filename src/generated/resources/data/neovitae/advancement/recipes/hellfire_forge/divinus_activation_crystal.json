@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_consumable": {
+    "has_prismatic_spiritus_gem": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:hellforged_explosive_cell"
+            "items": "neovitae:prismatic_spiritus_gem"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "neovitae:deus_explosive_cell"
+        "recipe": "neovitae:divinus_activation_crystal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_consumable"
+      "has_prismatic_spiritus_gem"
     ]
   ],
   "rewards": {
     "recipes": [
-      "neovitae:deus_explosive_cell"
+      "neovitae:divinus_activation_crystal"
     ]
   }
 }

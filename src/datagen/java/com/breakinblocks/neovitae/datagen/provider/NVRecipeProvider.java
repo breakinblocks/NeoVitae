@@ -68,6 +68,9 @@ import net.minecraft.world.item.ItemStackTemplate;
 
 public class NVRecipeProvider extends RecipeProvider {
 
+    private static final int DEUS_MIN_SPIRITUS = 5000;
+    private static final int DEUS_SPIRITUS_DRAIN = 4000;
+
     private final HolderGetter<Item> items;
     private final HolderGetter<Fluid> fluids;
     private final HolderGetter<SentientUpgrade> sentientUpgrades;
@@ -611,6 +614,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output);
 
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER_DEUS.get())
+                .pattern(" G ")
+                .pattern("tdt")
+                .pattern(" A ")
+                .define('G', NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .define('t', NVItems.INSCRIPTION_TOOL_DEUS.get())
+                .define('d', NVItems.RITUAL_DIVINER_TENEBRAE.get())
+                .define('A', NVItems.TABULA_AETHEREA.get())
+                .unlockedBy("has_prismatic_spiritus_gem", has(NVItems.PRISMATIC_SPIRITUS_GEM.get()))
+                .save(output);
+
         // Incense Path Blocks
         // Wood Brick Path - 4x planks + tier 2+ orb
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.WOOD_BRICK_PATH.block().get(), 4)
@@ -804,6 +818,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_weak_crystal", has(NVItems.ACTIVATION_CRYSTAL_WEAK.get()))
                 .save(output, rKey(NeoVitae.rl("awakened_activation_crystal")));
 
+        HellfireForgeRecipeBuilder.build(NVItems.ACTIVATION_CRYSTAL_DIVINUS.get())
+                .requires(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())
+                .requires(NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .minSpiritus(DEUS_MIN_SPIRITUS)
+                .drain(DEUS_SPIRITUS_DRAIN)
+                .unlockedBy("has_prismatic_spiritus_gem", has(NVItems.PRISMATIC_SPIRITUS_GEM.get()))
+                .save(output, rKey(NeoVitae.rl("divinus_activation_crystal")));
+
         // Slates
         AltarRecipeBuilder.build(NVItems.TABULA_RASA.get())
                 .from(NVTags.Items.VITAE_STONE)
@@ -933,6 +955,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(10)
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output, rKey(NeoVitae.rl("tenebrae_tool")));
+
+        AltarRecipeBuilder.build(NVItems.INSCRIPTION_TOOL_DEUS.get())
+                .from(NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .minTier(5)
+                .bloodNeeded(50000)
+                .consumption(100)
+                .drain(100)
+                .unlockedBy("has_prismatic_spiritus_gem", has(NVItems.PRISMATIC_SPIRITUS_GEM.get()))
+                .save(output, rKey(NeoVitae.rl("deus_tool")));
 
         // Alchemy Flask - glass bottle on tier 1 altar
         AltarRecipeBuilder.build(NVItems.ALCHEMY_FLASK.get())
@@ -1978,13 +2009,13 @@ public class NVRecipeProvider extends RecipeProvider {
     // Helper methods
 
     private void deusTool(RecipeOutput output, ItemLike result, ItemLike consumable, String name) {
-        AltarRecipeBuilder.build(result)
-                .from(consumable)
-                .minTier(5)
-                .bloodNeeded(200000)
-                .consumption(100)
-                .drain(200)
-                .unlockedBy("has_consumable", has(consumable))
+        HellfireForgeRecipeBuilder.build(result)
+                .requires(consumable)
+                .requires(NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .requires(NVItems.TABULA_AETHEREA.get())
+                .minSpiritus(DEUS_MIN_SPIRITUS)
+                .drain(DEUS_SPIRITUS_DRAIN)
+                .unlockedBy("has_prismatic_spiritus_gem", has(NVItems.PRISMATIC_SPIRITUS_GEM.get()))
                 .save(output, rKey(NeoVitae.rl(name)));
     }
 
@@ -2010,6 +2041,21 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(200)
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output, rKey(NeoVitae.rl("blood_mending")));
+
+        AthanorRecipeBuilder.build(NVTags.Items.ATHANOR_ORB)
+                .input(Items.NETHER_STAR)
+                .input(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_DIAMOND)))
+                .input(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_DIAMOND)))
+                .input(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_DIAMOND)))
+                .input(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_DIAMOND)))
+                .spiritusCost(SpiritusType.RAW, 30.0)
+                .spiritusCost(SpiritusType.RUINA, 30.0)
+                .spiritusCost(SpiritusType.NIHILUM, 30.0)
+                .spiritusCost(SpiritusType.VINDICTA, 30.0)
+                .spiritusCost(SpiritusType.INVICTUS, 30.0)
+                .guaranteedOutput(NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
+                .save(output, rKey(NeoVitae.rl("prismatic_spiritus_gem")));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(NVItems.TABULA_ROBUR.get())

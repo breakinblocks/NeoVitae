@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
@@ -44,7 +45,17 @@ public class RitualDivinerEntry extends EntryProvider {
         this.page("tenebrae_crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_tenebrae"))
                 .withText(this.context().pageText()));
-        this.pageText("Unlike the [#](8B0000)Elemental Inscription Tools[#](), the Ritual Diviner and its [#](B8860B)Tenebrae[#]() variant are inexhaustible; they will never wear out.");
+        this.pageText("Unlike the [#](8B0000)Elemental Inscription Tools[#](), the Ritual Diviner and its [#](B8860B)Tenebrae[#]() and [#](B8860B)Deus[#]() variants are inexhaustible; they will never wear out.");
+
+        this.page("deus_crafting", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_deus"))
+                .withText(this.context().pageText()));
+        this.pageText("The [#](B8860B)Deus[#]() Diviner inscribes [#](8B0000)Deus Ritual Stones[#](), the foundation of the mightiest rituals. It is bound together with a [#](8B0000)Prismatic Spiritus Gem[#]() and a [#](8B0000)Tabula Aetherea[#]().");
+
+        this.page("deus_tool", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/deus_tool"))
+                .withText(this.context().pageText()));
+        this.pageText("Each [#](8B0000)Deus Inscription Tool[#]() is infused from a [#](8B0000)Prismatic Spiritus Gem[#]() upon a [#](B8860B)Tier 5[#]() Ara Vitae.");
 
         this.page("inscription_tools", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

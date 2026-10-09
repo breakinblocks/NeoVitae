@@ -35,6 +35,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
     private final String ritualKey;
     private final List<RangeInfo> ranges;
     private final int initialAspect;
+    private final boolean usesAspect;
     private final boolean ritualActive;
     private final boolean usesKeepCount;
     private final boolean usesFillMode;
@@ -50,6 +51,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
                 b.readVarInt(), b.readVarInt(), b.readVarInt(),
                 b.readVarInt(), b.readVarInt(), b.readVarInt()));
         this.initialAspect = buf.readVarInt();
+        this.usesAspect = buf.readBoolean();
         this.ritualActive = buf.readBoolean();
         this.usesKeepCount = buf.readBoolean();
         this.initialKeepCount = buf.readVarInt();
@@ -59,7 +61,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
 
     public RitualConfiguratorMenu(int containerId, Inventory playerInv, InteractionHand hand,
                                   BlockPos masterPos, String ritualKey, List<RangeInfo> ranges,
-                                  int initialAspect, boolean ritualActive, boolean usesKeepCount, int initialKeepCount,
+                                  int initialAspect, boolean usesAspect, boolean ritualActive, boolean usesKeepCount, int initialKeepCount,
                                   boolean usesFillMode, EnumFillMode initialFillMode) {
         super(NVMenus.RITUAL_CONFIGURATOR.get(), containerId);
         this.hand = hand;
@@ -67,6 +69,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
         this.ritualKey = ritualKey;
         this.ranges = new ArrayList<>(ranges);
         this.initialAspect = initialAspect;
+        this.usesAspect = usesAspect;
         this.ritualActive = ritualActive;
         this.usesKeepCount = usesKeepCount;
         this.initialKeepCount = initialKeepCount;
@@ -75,7 +78,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
     }
 
     public static void write(FriendlyByteBuf buf, InteractionHand hand, BlockPos masterPos,
-                             String ritualKey, List<RangeInfo> ranges, int initialAspect, boolean ritualActive,
+                             String ritualKey, List<RangeInfo> ranges, int initialAspect, boolean usesAspect, boolean ritualActive,
                              boolean usesKeepCount, int initialKeepCount,
                              boolean usesFillMode, EnumFillMode initialFillMode) {
         buf.writeEnum(hand);
@@ -91,6 +94,7 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
             b.writeVarInt(r.maxVertical());
         });
         buf.writeVarInt(initialAspect);
+        buf.writeBoolean(usesAspect);
         buf.writeBoolean(ritualActive);
         buf.writeBoolean(usesKeepCount);
         buf.writeVarInt(initialKeepCount);
@@ -116,6 +120,10 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
 
     public int getInitialAspect() {
         return initialAspect;
+    }
+
+    public boolean usesAspect() {
+        return usesAspect;
     }
 
     public boolean usesKeepCount() {

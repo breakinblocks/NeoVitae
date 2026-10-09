@@ -6,6 +6,7 @@
     "#neovitae:athanor_tool/cutting_fluids",
     "#neovitae:athanor_tool/hydration",
     "#neovitae:athanor_tool/furnace",
-    "#neovitae:athanor_tool/lingering_flask"
+    "#neovitae:athanor_tool/lingering_flask",
+    "#neovitae:athanor_tool/orb"
   ]
 }

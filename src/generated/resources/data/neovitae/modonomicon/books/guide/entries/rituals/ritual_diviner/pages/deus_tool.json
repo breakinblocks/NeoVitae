@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_tool",
+  "recipe_id_1": "neovitae:ara_vitae/deus_tool",
+  "sort_number": 6,
+  "text": "book.neovitae.guide.rituals.ritual_diviner.deus_tool.text"
+}

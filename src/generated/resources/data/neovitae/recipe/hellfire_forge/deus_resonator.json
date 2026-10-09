@@ -1,0 +1,13 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 4000.0,
+  "inputs": [
+    "neovitae:hellforged_resonator",
+    "neovitae:prismatic_spiritus_gem",
+    "neovitae:tabula_aetherea"
+  ],
+  "minDrain": 5000.0,
+  "output": {
+    "id": "neovitae:deus_resonator"
+  }
+}

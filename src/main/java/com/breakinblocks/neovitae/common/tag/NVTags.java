@@ -51,6 +51,7 @@ public class NVTags {
         public static final TagKey<Item> ARC_SMOKING = withParent(ATHANOR_FURNACE, bm("smoking"));
 
         public static final TagKey<Item> LINGERING_FLASK = withParent(ATHANOR_TOOL, bm("lingering_flask"));
+        public static final TagKey<Item> ATHANOR_ORB = withParent(ATHANOR_TOOL, bm("orb"));
 
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 

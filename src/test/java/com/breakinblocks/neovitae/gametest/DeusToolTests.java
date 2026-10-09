@@ -11,12 +11,15 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TabulaVitaeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.UUID;
@@ -141,6 +144,66 @@ public final class DeusToolTests {
             });
         });
 
+        r.add("deus/prismatic_gem_crafts_and_keeps_orb", 600, helper -> {
+            AthanorBlockEntity arc = placeAthanor(helper);
+
+            helper.runAfterDelay(1, () -> {
+                fillAllAspects(helper);
+                loadPrismaticGem(arc);
+                arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
+
+                helper.succeedWhen(() -> {
+                    ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
+                    helper.assertTrue(output.is(NVItems.PRISMATIC_SPIRITUS_GEM.get()), "Expected a Prismatic Spiritus Gem, got " + output);
+                    helper.assertTrue(arc.athanorInv.getStackInSlot(AthanorBlockEntity.TOOL_SLOT).is(NVItems.ORB_TRANSCENDENT.get()),
+                            "The orb should stay in the tool slot");
+                });
+            });
+        });
+
+        r.add("deus/prismatic_gem_needs_orb", 120, helper -> {
+            AthanorBlockEntity arc = placeAthanor(helper);
+
+            helper.runAfterDelay(1, () -> {
+                fillAllAspects(helper);
+                loadPrismaticGem(arc);
+
+                helper.runAfterDelay(80, () -> {
+                    helper.assertTrue(arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT).isEmpty(),
+                            "The gem should not craft without an orb in the tool slot");
+                    helper.assertTrue(arc.getProgressForGui() == 0, "No progress without an orb");
+                    helper.succeed();
+                });
+            });
+        });
+
+        r.add("deus/forge_crafts_deus_tool_with_grand_gem", 300, helper -> {
+            HellfireForgeBlockEntity forge = placeForge(helper);
+
+            helper.runAfterDelay(1, () -> {
+                loadDeusToolForge(forge, NVItems.SPIRITUS_GEM_GRAND.get(), 6000.0);
+
+                helper.succeedWhen(() -> {
+                    ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
+                    helper.assertTrue(output.is(NVItems.DEUS_CUTTING_FLUID.get()), "Expected a Deus Cutting Fluid, got " + output);
+                });
+            });
+        });
+
+        r.add("deus/forge_rejects_greater_gem", 200, helper -> {
+            HellfireForgeBlockEntity forge = placeForge(helper);
+
+            helper.runAfterDelay(1, () -> {
+                loadDeusToolForge(forge, NVItems.SPIRITUS_GEM_GREATER.get(), 4096.0);
+
+                helper.runAfterDelay(150, () -> {
+                    helper.assertTrue(forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT).isEmpty(),
+                            "A full Greater gem should not power a Deus craft");
+                    helper.succeed();
+                });
+            });
+        });
+
         r.add("deus/tabula_unbound_cutting_fluid_pauses", 60, helper -> {
             TabulaVitaeBlockEntity table = placeTable(helper);
             Binding orbOwner = fundedOwner("7d1e0c11-0000-4000-8000-000000000006", 20000);
@@ -159,6 +222,35 @@ public final class DeusToolTests {
                 });
             });
         });
+    }
+
+    private static HellfireForgeBlockEntity placeForge(GameTestHelper helper) {
+        helper.setBlock(FLOOR, Blocks.STONE.defaultBlockState());
+        helper.setBlock(MACHINE, NVBlocks.HELLFIRE_FORGE.block().get().defaultBlockState());
+        return helper.getBlockEntity(MACHINE, HellfireForgeBlockEntity.class);
+    }
+
+    private static void loadDeusToolForge(HellfireForgeBlockEntity forge, Item gemItem, double spiritus) {
+        ItemStack gem = new ItemStack(gemItem);
+        gem.set(NVDataComponents.SPIRITUS_AMOUNT, spiritus);
+        forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, gem);
+        forge.inv.setStackInSlot(HellfireForgeBlockEntity.SOUTH, new ItemStack(NVItems.ADVANCED_CUTTING_FLUID.get()));
+        forge.inv.setStackInSlot(HellfireForgeBlockEntity.WEST, new ItemStack(NVItems.PRISMATIC_SPIRITUS_GEM.get()));
+        forge.inv.setStackInSlot(HellfireForgeBlockEntity.NORTH, new ItemStack(NVItems.TABULA_AETHEREA.get()));
+    }
+
+    private static void fillAllAspects(GameTestHelper helper) {
+        BlockPos abs = helper.absolutePos(MACHINE);
+        for (SpiritusType type : SpiritusType.values()) {
+            WorldSpiritusHandler.fillSpiritusToAmount(helper.getLevel(), abs, type, 100.0);
+        }
+    }
+
+    private static void loadPrismaticGem(AthanorBlockEntity arc) {
+        arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.NETHER_STAR));
+        for (int i = 1; i <= 4; i++) {
+            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START + i, new ItemStack(Items.DIAMOND));
+        }
     }
 
     private static AthanorBlockEntity placeAthanor(GameTestHelper helper) {

@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:athanor",
+  "guaranteed_outputs": [
+    {
+      "id": "neovitae:prismatic_spiritus_gem"
+    }
+  ],
+  "inputs": [
+    "minecraft:nether_star",
+    "#c:gems/diamond",
+    "#c:gems/diamond",
+    "#c:gems/diamond",
+    "#c:gems/diamond"
+  ],
+  "spiritus_costs": {
+    "invictus": 30.0,
+    "nihilum": 30.0,
+    "raw": 30.0,
+    "ruina": 30.0,
+    "vindicta": 30.0
+  },
+  "tool": "#neovitae:athanor_tool/orb"
+}

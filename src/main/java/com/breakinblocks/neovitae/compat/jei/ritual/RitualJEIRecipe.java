@@ -58,6 +58,7 @@ public record RitualJEIRecipe(
         return switch (crystalLevel) {
             case 0 -> Component.translatable("jei.neovitae.recipe.ritual.crystal.weak");
             case 1 -> Component.translatable("jei.neovitae.recipe.ritual.crystal.awakened");
+            case 2 -> Component.translatable("jei.neovitae.recipe.ritual.crystal.divinus");
             default -> Component.translatable("jei.neovitae.recipe.ritual.crystal.creative");
         };
     }

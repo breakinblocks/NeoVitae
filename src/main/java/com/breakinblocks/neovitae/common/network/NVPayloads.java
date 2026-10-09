@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.network;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -227,6 +228,8 @@ public class NVPayloads {
                     BloodShieldEntity.raise(player);
                     return;
                 }
+                player.sendOverlayMessage(Component.translatable("message.neovitae.sanguine_ward.not_enough_ev",
+                        BloodOrbItem.getShieldMinEV()).withStyle(ChatFormatting.RED));
             }
             BloodOrbItem.setShieldActive(player, false);
         });

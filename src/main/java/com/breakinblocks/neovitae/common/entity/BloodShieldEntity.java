@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -123,6 +125,8 @@ public class BloodShieldEntity extends Entity implements GeoEntity {
             IAnima network = NeoVitaeAPI.getInstance().getAnima(owner.getUUID());
             if (network == null || network.getCurrentEV() < BloodOrbItem.getShieldDrain()) {
                 BloodOrbItem.setShieldActive(owner, false);
+                owner.sendOverlayMessage(Component.translatable("message.neovitae.sanguine_ward.collapsed")
+                        .withStyle(ChatFormatting.RED));
                 discard();
                 return;
             }

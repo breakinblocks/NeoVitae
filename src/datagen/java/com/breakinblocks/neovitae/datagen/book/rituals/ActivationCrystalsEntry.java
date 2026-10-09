@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookHellfireForgeRecipePageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.resources.Identifier;
 
@@ -34,6 +35,11 @@ public class ActivationCrystalsEntry extends EntryProvider {
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/awakened_activation_crystal"))
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Awakened Activation Crystal[#]() resonates with deeper currents of power, required to activate [#](B8860B)advanced rituals[#]() beyond the Weak Crystal's reach. It is forged within the [#](8B0000)Ara Vitae[#]() from its lesser counterpart.");
+
+        this.page("divinus_recipe", () -> BookHellfireForgeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/divinus_activation_crystal"))
+                .withText(this.context().pageText()));
+        this.pageText("The [#](8B0000)Divinus Activation Crystal[#]() alone can wake the [#](B8860B)Deus rituals[#](), circles laid with Deus Ritual Stones. It is forged from an Awakened Crystal and a [#](8B0000)Prismatic Spiritus Gem[#](), powered by a Grand Spiritus Gem holding at least 5,000 Spiritus.");
     }
 
     @Override

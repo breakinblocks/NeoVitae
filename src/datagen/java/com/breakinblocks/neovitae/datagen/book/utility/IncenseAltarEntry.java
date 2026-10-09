@@ -68,9 +68,12 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Walking Paths of Peace");
-        this.pageText("To deepen the area's [#](4A0080)Tranquility[#](), you must lay sacred paths radiating outward "
-                + "from the altar in all four cardinal directions. Each path is three blocks wide and constructed from "
-                + "consecrated [#](8B0000)Path blocks[#](), extending from the 3x3 foundation.");
+        this.pageText("To deepen the area's [#](4A0080)Tranquility[#](), lay four paths of consecrated "
+                + "[#](8B0000)Path blocks[#]() outward from the 3x3 foundation, one toward each cardinal direction, "
+                + "each three blocks wide.\\\n\\\n"
+                + "Every step outward along the paths is a [#](4A0080)ring[#](): the square two blocks from the altar "
+                + "is the first ring, three blocks out the second, and so on. Only the path blocks are required, "
+                + "three on each side, twelve per ring. The rest of each square is yours to fill.");
 
         this.page("path_wood", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "path/path_wood_brick"))
@@ -92,19 +95,21 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Laws of the Path Rings");
-        this.pageText("Each successive ring of path blocks obeys ancient geometric constraints:\n\n"
-                + "- All path blocks in a single ring must share the same elevation.\n"
-                + "- The next ring may differ by no more than five blocks in height from the previous.\n"
-                + "- Blocks at ring level or up to two blocks above it contribute their "
+        this.pageText("Each ring obeys ancient geometric constraints:\n\n"
+                + "- The twelve path blocks of a ring must share the same elevation.\n"
+                + "- A ring may sit up to five blocks higher or lower than the ring inside it.\n"
+                + "- A ring counts only when every ring inside it is complete.\n"
+                + "- Every block on a counted ring's square, from path level to two blocks above it, adds its "
                 + "[#](4A0080)Tranquility[#]() to the total.");
 
         this.page("path_distance", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Path Reach");
-        this.pageText("Each path material carries its influence only so far: [#](8B0000)Wooden[#]() paths extend "
-                + "three rings, [#](8B0000)Stone[#]() paths five, [#](8B0000)Worn Stone[#]() paths seven, "
-                + "and [#](8B0000)Obsidian[#]() paths eleven rings from the center.\\\n\\\n"
+        this.pageText("Each path material reaches only so far: [#](8B0000)Wooden[#]() paths serve the first "
+                + "three rings, [#](8B0000)Stone[#]() paths the first five, [#](8B0000)Worn Stone[#]() paths the first seven, "
+                + "and [#](8B0000)Obsidian[#]() paths all eleven. Stronger paths work in any nearer ring, so the "
+                + "materials may be mixed.\\\n\\\n"
                 + "Not every block contributes Tranquility. You require growing things, earth, "
                 + "and even... lava?");
 
@@ -132,12 +137,14 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ceiling of Serenity");
-        this.pageText("The Tranquility bonus is bounded by the path tier you employ:\n\n"
-                + "- [#](B8860B)No Path:[#]() 20%%\n"
-                + "- [#](B8860B)Wooden Path:[#]() 60%%\n"
-                + "- [#](B8860B)Stone Path:[#]() 120%%\n"
-                + "- [#](B8860B)Worn Stone Path:[#]() 200%%\n"
-                + "- [#](B8860B)Obsidian Path:[#]() 450%%");
+        this.pageText("The bonus is bounded by how many complete rings surround the altar:\n\n"
+                + "- [#](B8860B)No rings:[#]() 20%%\n"
+                + "- [#](B8860B)1 to 3 rings:[#]() 60%%\n"
+                + "- [#](B8860B)4 to 5 rings:[#]() 120%%\n"
+                + "- [#](B8860B)6 to 7 rings:[#]() 200%%\n"
+                + "- [#](B8860B)8 to 9 rings:[#]() 300%%\n"
+                + "- [#](B8860B)10 or more:[#]() 450%%\\\n\\\n"
+                + "[#](2E8B57)Within that bound, Tranquility decides how much of it you receive.[#]()");
 
         this.page("example_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

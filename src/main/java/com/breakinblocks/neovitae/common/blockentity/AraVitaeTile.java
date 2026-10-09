@@ -465,7 +465,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
             }
             tickTierEffects();
         } else if (!hasOperated && getProgress() > 0) {
-            setProgress(getProgress() - (int) (getCurrentRecipe().getDrainSpeed() * (1 + modifiers.getEfficiencyMod())));
+            setProgress(getProgress() - (int) (getCurrentRecipe().getDrainSpeed() * modifiers.getEfficiencyMod()));
             if (getProgress() < 0) setProgress(0);
             if (getTicks() % AltarConstants.PARTICLE_FREQUENCY_SMOKE == 0) {
                 ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x330000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0.1, 1.0, 0.1, 0);
@@ -1021,7 +1021,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         if (currentRecipe == null) {
             return 0;
         }
-        return (int) (currentRecipe.getDrainSpeed() * (1 + modifiers.getEfficiencyMod()));
+        return (int) (currentRecipe.getDrainSpeed() * modifiers.getEfficiencyMod());
     }
 
     @Override

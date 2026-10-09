@@ -44,6 +44,7 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     private static final int FILL_ROWS = 2;
 
     private final List<RangeInfo> ranges;
+    private final boolean usesAspect;
     private final boolean usesKeepCount;
     private final boolean usesFillMode;
     private int selectedAspect;
@@ -53,11 +54,12 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     public RitualConfiguratorScreen(RitualConfiguratorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, PANEL_WIDTH,
                 TITLE_HEIGHT + menu.getRanges().size() * ROW_HEIGHT
-                        + ASPECT_LABEL_H + ASPECT_ROW_H + (menu.usesKeepCount() ? GAP + KEEP_ROW_H : 0)
+                        + (menu.usesAspect() ? ASPECT_LABEL_H + ASPECT_ROW_H : 0) + (menu.usesKeepCount() ? GAP + KEEP_ROW_H : 0)
                         + (menu.usesFillMode() ? GAP + FILL_LABEL_H + FILL_ROWS * FILL_ROW_H : 0)
                         + GAP + BUTTON_H + PAD_BOTTOM);
         this.ranges = menu.getRanges();
         this.selectedAspect = menu.getInitialAspect();
+        this.usesAspect = menu.usesAspect();
         this.usesKeepCount = menu.usesKeepCount();
         this.keepCount = menu.getInitialKeepCount();
         this.usesFillMode = menu.usesFillMode();
@@ -76,8 +78,12 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         return aspectLabelY() + ASPECT_LABEL_H;
     }
 
+    private int afterAspectY() {
+        return usesAspect ? aspectRowY() + ASPECT_ROW_H : aspectLabelY();
+    }
+
     private int keepRowY() {
-        return aspectRowY() + ASPECT_ROW_H + GAP;
+        return afterAspectY() + GAP;
     }
 
     private int keepStepperX() {
@@ -85,8 +91,7 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     }
 
     private int afterKeepY() {
-        int afterAspect = aspectRowY() + ASPECT_ROW_H;
-        return usesKeepCount ? keepRowY() + KEEP_ROW_H : afterAspect;
+        return usesKeepCount ? keepRowY() + KEEP_ROW_H : afterAspectY();
     }
 
     private int fillLabelY() {
@@ -154,25 +159,27 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
             g.text(font, dims, dimX, rowY + (ROW_HEIGHT - 8) / 2, 0xFF9A8088, false);
         }
 
-        g.text(font, Component.translatable("gui.neovitae.configurator.aspect"),
-                leftPos + LIST_X + 2, aspectLabelY() + 3, 0xFFA05050, false);
+        if (usesAspect) {
+            g.text(font, Component.translatable("gui.neovitae.configurator.aspect"),
+                    leftPos + LIST_X + 2, aspectLabelY() + 3, 0xFFA05050, false);
 
-        int innerW = imageWidth - LIST_X * 2;
-        int btnW = innerW / SpiritusType.values().length;
-        for (int i = 0; i < SpiritusType.values().length; i++) {
-            int bx = leftPos + LIST_X + i * btnW;
-            int by = aspectRowY();
-            boolean hovered = mouseX >= bx && mouseX < bx + btnW - 1 && mouseY >= by && mouseY < by + ASPECT_ROW_H - 1;
-            boolean isSelected = i == selectedAspect;
-            int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
-            g.fill(bx, by, bx + btnW - 1, by + ASPECT_ROW_H - 1, fill);
-            if (isSelected) {
-                g.fill(bx, by, bx + btnW - 1, by + 2, ASPECT_COLORS[i]);
+            int innerW = imageWidth - LIST_X * 2;
+            int btnW = innerW / SpiritusType.values().length;
+            for (int i = 0; i < SpiritusType.values().length; i++) {
+                int bx = leftPos + LIST_X + i * btnW;
+                int by = aspectRowY();
+                boolean hovered = mouseX >= bx && mouseX < bx + btnW - 1 && mouseY >= by && mouseY < by + ASPECT_ROW_H - 1;
+                boolean isSelected = i == selectedAspect;
+                int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
+                g.fill(bx, by, bx + btnW - 1, by + ASPECT_ROW_H - 1, fill);
+                if (isSelected) {
+                    g.fill(bx, by, bx + btnW - 1, by + 2, ASPECT_COLORS[i]);
+                }
+                Component label = Component.translatable("gui.neovitae.configurator.aspect." + SpiritusType.values()[i].getSerializedName());
+                int lw = font.width(label);
+                int color = isSelected ? ASPECT_COLORS[i] : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
+                g.text(font, label, bx + (btnW - lw) / 2, by + (ASPECT_ROW_H - 8) / 2, color, false);
             }
-            Component label = Component.translatable("gui.neovitae.configurator.aspect." + SpiritusType.values()[i].getSerializedName());
-            int lw = font.width(label);
-            int color = isSelected ? ASPECT_COLORS[i] : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
-            g.text(font, label, bx + (btnW - lw) / 2, by + (ASPECT_ROW_H - 8) / 2, color, false);
         }
 
         if (usesFillMode) {
@@ -260,7 +267,7 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
 
             int innerW = imageWidth - LIST_X * 2;
             int btnW = innerW / SpiritusType.values().length;
-            for (int i = 0; i < SpiritusType.values().length; i++) {
+            for (int i = 0; usesAspect && i < SpiritusType.values().length; i++) {
                 int bx = leftPos + LIST_X + i * btnW;
                 int by = aspectRowY();
                 if (mouseX >= bx && mouseX < bx + btnW - 1 && mouseY >= by && mouseY < by + ASPECT_ROW_H - 1) {
@@ -322,7 +329,7 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         }
         int innerW = imageWidth - LIST_X * 2;
         int btnW = innerW / SpiritusType.values().length;
-        for (int i = 0; i < SpiritusType.values().length; i++) {
+        for (int i = 0; usesAspect && i < SpiritusType.values().length; i++) {
             int bx = leftPos + LIST_X + i * btnW;
             int by = aspectRowY();
             if (mouseX >= bx && mouseX < bx + btnW - 1 && mouseY >= by && mouseY < by + ASPECT_ROW_H - 1) {

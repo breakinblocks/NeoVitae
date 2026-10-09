@@ -44,7 +44,7 @@ public class RitualStatsHelper {
         String crystalName = switch (crystalLevel) {
             case 0 -> "Weak Activation Crystal";
             case 1 -> "Awakened Activation Crystal";
-            case 2 -> "Creative Activation Crystal";
+            case 2 -> "Divinus Activation Crystal";
             default -> "Activation Crystal (Tier " + crystalLevel + ")";
         };
         sb.append("[#](8B0000)Crystal:[#]() ").append(crystalName).append("\\\n");

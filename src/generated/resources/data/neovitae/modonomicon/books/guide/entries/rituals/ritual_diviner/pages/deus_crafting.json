@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_crafting",
+  "recipe_id_1": "neovitae:ritual_diviner_deus",
+  "sort_number": 5,
+  "text": "book.neovitae.guide.rituals.ritual_diviner.deus_crafting.text"
+}

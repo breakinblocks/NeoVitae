@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 50000,
+  "craftSpeed": 100,
+  "drainSpeed": 100,
+  "input": "neovitae:prismatic_spiritus_gem",
+  "minTier": 5,
+  "output": {
+    "id": "neovitae:deus_scribe_tool"
+  }
+}

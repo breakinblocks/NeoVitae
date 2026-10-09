@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:hellfire_forge_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "divinus_recipe",
+  "recipe_id_1": "neovitae:hellfire_forge/divinus_activation_crystal",
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.activation_crystals.divinus_recipe.text"
+}

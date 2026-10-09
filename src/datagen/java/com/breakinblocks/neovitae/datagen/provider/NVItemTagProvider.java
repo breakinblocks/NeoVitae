@@ -171,10 +171,14 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .addTag(NVTags.Items.CUTTING_FLUIDS)
                 .addTag(NVTags.Items.HYDRATION)
                 .addTag(NVTags.Items.ATHANOR_FURNACE)
-                .addTag(NVTags.Items.LINGERING_FLASK);
+                .addTag(NVTags.Items.LINGERING_FLASK)
+                .addTag(NVTags.Items.ATHANOR_ORB);
 
         tag(NVTags.Items.LINGERING_FLASK)
                 .add(NVItems.ALCHEMY_FLASK_LINGERING.get());
+
+        tag(NVTags.Items.ATHANOR_ORB)
+                .addTag(NVTags.Items.ORBS_TIER_6);
 
         tag(NVTags.Items.DUSTS_SULFUR).add(NVItems.SULFUR.get());
         tag(NVTags.Items.DUSTS_SALTPETER).add(NVItems.SALTPETER.get());
@@ -230,6 +234,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.TOOLS_RITUAL)
                 .add(NVItems.RITUAL_DIVINER.get())
                 .add(NVItems.RITUAL_DIVINER_TENEBRAE.get())
+                .add(NVItems.RITUAL_DIVINER_DEUS.get())
                 .add(NVItems.RITUAL_READER.get())
                 .add(NVItems.RITUAL_LEDGER.get())
                 .add(NVItems.RITUAL_DESIGNER.get());
@@ -240,7 +245,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.INSCRIPTION_TOOL_FIRE.get())
                 .add(NVItems.INSCRIPTION_TOOL_WATER.get())
                 .add(NVItems.INSCRIPTION_TOOL_EARTH.get())
-                .add(NVItems.INSCRIPTION_TOOL_TENEBRAE.get());
+                .add(NVItems.INSCRIPTION_TOOL_TENEBRAE.get())
+                .add(NVItems.INSCRIPTION_TOOL_DEUS.get());
 
         tag(NVTags.Items.TOOLS_ROUTING)
                 .add(NVItems.NODE_ROUTER.get());
@@ -262,6 +268,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.ACTIVATION_CRYSTALS)
                 .add(NVItems.ACTIVATION_CRYSTAL_WEAK.get())
                 .add(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())
+                .add(NVItems.ACTIVATION_CRYSTAL_DIVINUS.get())
                 .add(NVItems.ACTIVATION_CRYSTAL_CREATIVE.get());
 
         tag(NVTags.Items.TELEPOSER_FOCI)

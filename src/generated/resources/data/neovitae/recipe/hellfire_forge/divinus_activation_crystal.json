@@ -1,0 +1,12 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 4000.0,
+  "inputs": [
+    "neovitae:activation_crystal_awakened",
+    "neovitae:prismatic_spiritus_gem"
+  ],
+  "minDrain": 5000.0,
+  "output": {
+    "id": "neovitae:activation_crystal_divinus"
+  }
+}

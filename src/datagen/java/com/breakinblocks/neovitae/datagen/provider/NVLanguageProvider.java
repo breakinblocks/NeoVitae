@@ -445,6 +445,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("entity.neovitae.throwing_dagger", "Throwing Dagger");
         add("entity.neovitae.throwing_dagger_syringe", "Syringe Throwing Dagger");
         add("entity.neovitae.blood_shield", "Sanguine Ward");
+        add("message.neovitae.sanguine_ward.not_enough_ev", "Not enough Essentia Vitae to raise the Sanguine Ward. It needs at least %s EV in your network.");
+        add("message.neovitae.sanguine_ward.collapsed", "The Sanguine Ward collapses: out of Essentia Vitae.");
         add("entity.neovitae.blood_light", "Blood Light");
 
         add("entity.neovitae.necromancy_summon", "Undead Servant");
@@ -696,9 +698,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Activation Crystals
         add(NVItems.ACTIVATION_CRYSTAL_WEAK.get(), "Weak Activation Crystal");
         add(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get(), "Awakened Activation Crystal");
+        add(NVItems.ACTIVATION_CRYSTAL_DIVINUS.get(), "Divinus Activation Crystal");
         add(NVItems.ACTIVATION_CRYSTAL_CREATIVE.get(), "Creative Activation Crystal");
         addTooltip("activationcrystal.weak", "Activates low-level rituals.");
         addTooltip("activationcrystal.awakened", "Activates more powerful rituals.");
+        addTooltip("activationcrystal.divinus", "Activates the mightiest rituals, those built with Deus stones.");
         addTooltip("activationcrystal.creative", "Creative Only - Activates any ritual.");
 
         // Inscription Tools
@@ -707,11 +711,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.INSCRIPTION_TOOL_WATER.get(), "Inscription Tool: Water");
         add(NVItems.INSCRIPTION_TOOL_EARTH.get(), "Inscription Tool: Earth");
         add(NVItems.INSCRIPTION_TOOL_TENEBRAE.get(), "Inscription Tool: Tenebrae");
+        add(NVItems.INSCRIPTION_TOOL_DEUS.get(), "Inscription Tool: Deus");
         addTooltip("inscriber.desc", "The writing is on the wall...");
 
         // Ritual Diviners
         add(NVItems.RITUAL_DIVINER.get(), "Ritual Diviner");
         add(NVItems.RITUAL_DIVINER_TENEBRAE.get(), "Ritual Diviner [Tenebrae]");
+        add(NVItems.RITUAL_DIVINER_DEUS.get(), "Ritual Diviner [Deus]");
         addTooltip("diviner.desc", "Used to build rituals.");
         addTooltip("diviner.currentRitual", "Current Ritual: %s");
         addTooltip("diviner.currentDirection", "Current Direction: %s");
@@ -945,6 +951,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.DEUS_RESONATOR.get(), "Deus Resonator");
         add(NVItems.DEUS_HYDRATION_CELL.get(), "Deus Hydration Cell");
         add(NVItems.DEUS_REVERTER.get(), "Deus Reverter");
+        add(NVItems.PRISMATIC_SPIRITUS_GEM.get(), "Prismatic Spiritus Gem");
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
 
@@ -1229,6 +1236,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("recipe.ritual.total_runes", "Total Runes: %s");
         addJei("recipe.ritual.crystal.weak", "Tier: Weak");
         addJei("recipe.ritual.crystal.awakened", "Tier: Awakened");
+        addJei("recipe.ritual.crystal.divinus", "Tier: Divinus");
         addJei("recipe.ritual.crystal.creative", "Tier: Creative");
 
         // Jade integration

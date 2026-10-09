@@ -167,6 +167,7 @@ public class ItemRitualReader extends Item {
         BlockPos masterPos = mrs.getBlockPos();
         String ritualKey = ritual.getTranslationKey();
         int aspect = mrs.getActiveSpiritusAspect().ordinal();
+        boolean usesAspect = ritual.usesAspectSelection();
         boolean active = mrs.isActive();
         boolean usesKeepCount = ritual.usesKeepCount();
         int keepCount = mrs.getKeepCount();
@@ -174,9 +175,9 @@ public class ItemRitualReader extends Item {
         EnumFillMode fillMode = mrs.getFillMode();
 
         serverPlayer.openMenu(new SimpleMenuProvider(
-                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount, usesFillMode, fillMode),
+                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode),
                 Component.translatable("container.neovitae.ritual_configurator")
-        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount, usesFillMode, fillMode));
+        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode));
 
         return InteractionResult.SUCCESS;
     }

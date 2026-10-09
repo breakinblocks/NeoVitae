@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:athanor_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "prismatic_gem_recipe",
+  "recipe_id_1": "neovitae:athanor/orb/prismatic_spiritus_gem",
+  "sort_number": 10
+}

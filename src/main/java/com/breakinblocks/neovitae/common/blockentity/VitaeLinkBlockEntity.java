@@ -254,7 +254,7 @@ public class VitaeLinkBlockEntity extends BaseBlockEntity {
                 hasOperated = true;
             }
         } else if (!hasOperated && progress > 0) {
-            progress -= (int) (recipe.getDrainSpeed() * (1 + altar.getEfficiency()));
+            progress -= (int) (recipe.getDrainSpeed() * altar.getEfficiency());
             if (progress <= 0) {
                 progress = 0;
                 emitStarveFailure();

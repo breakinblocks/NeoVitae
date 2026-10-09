@@ -75,6 +75,10 @@ if [ "$DRY_RUN" = "1" ]; then
 fi
 
 git add -A
+if git diff --cached --quiet; then
+    echo "✓ Wiki already up to date (only line endings differed)"
+    exit 0
+fi
 git -c user.name="$(git -C "$OLDPWD" config user.name)" \
     -c user.email="$(git -C "$OLDPWD" config user.email)" \
     commit --quiet -m "Sync wiki from main repo"

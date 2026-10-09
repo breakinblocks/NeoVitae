@@ -12,6 +12,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
+import com.breakinblocks.neovitae.common.item.athanor.ItemDeusAthanorTool;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
@@ -182,6 +183,11 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_CRYSTALLINE_RESONATOR = BASIC_ITEMS.registerItem("primitive_crystalline_resonator", props -> new ItemAthanorToolBase(props, 256, 1.5, SpiritusType.VINDICTA));
     public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_EXPLOSIVE_CELL = BASIC_ITEMS.registerItem("hellforged_explosive_cell", props -> new ItemAthanorToolBase(props, 1024, 2, SpiritusType.NIHILUM));
     public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_RESONATOR = BASIC_ITEMS.registerItem("hellforged_resonator", props -> new ItemAthanorToolBase(props, 1024, 2, 2, SpiritusType.VINDICTA));
+    public static final DeferredHolder<Item, ItemDeusAthanorTool> DEUS_CUTTING_FLUID = BASIC_ITEMS.registerItem("deus_cutting_fluid", props -> new ItemDeusAthanorTool(props, 2, 2, SpiritusType.RUINA));
+    public static final DeferredHolder<Item, ItemDeusAthanorTool> DEUS_EXPLOSIVE_CELL = BASIC_ITEMS.registerItem("deus_explosive_cell", props -> new ItemDeusAthanorTool(props, 2, 1, SpiritusType.NIHILUM));
+    public static final DeferredHolder<Item, ItemDeusAthanorTool> DEUS_RESONATOR = BASIC_ITEMS.registerItem("deus_resonator", props -> new ItemDeusAthanorTool(props, 2, 2, SpiritusType.VINDICTA));
+    public static final DeferredHolder<Item, ItemDeusAthanorTool> DEUS_HYDRATION_CELL = BASIC_ITEMS.registerItem("deus_hydration_cell", props -> new ItemDeusAthanorTool(props, 1.5, 1, SpiritusType.RAW));
+    public static final DeferredHolder<Item, ItemDeusAthanorTool> DEUS_REVERTER = BASIC_ITEMS.registerItem("deus_reverter", props -> new ItemDeusAthanorTool(props, 2, 1, SpiritusType.INVICTUS));
 
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_WEAK = BASIC_ITEMS.registerItem("activation_crystal_weak", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.WEAK));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_AWAKENED = BASIC_ITEMS.registerItem("activation_crystal_awakened", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.AWAKENED));

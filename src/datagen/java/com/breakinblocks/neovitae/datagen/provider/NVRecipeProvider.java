@@ -778,6 +778,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_archmage_orb", has(NVItems.ORB_ARCHMAGE.get()))
                 .save(output, rKey(NeoVitae.rl("transcendent_blood_orb")));
 
+        deusTool(output, NVItems.DEUS_CUTTING_FLUID.get(), NVItems.ADVANCED_CUTTING_FLUID.get(), "deus_cutting_fluid");
+        deusTool(output, NVItems.DEUS_EXPLOSIVE_CELL.get(), NVItems.HELLFORGED_EXPLOSIVE_CELL.get(), "deus_explosive_cell");
+        deusTool(output, NVItems.DEUS_RESONATOR.get(), NVItems.HELLFORGED_RESONATOR.get(), "deus_resonator");
+        deusTool(output, NVItems.DEUS_HYDRATION_CELL.get(), NVItems.PRIMITIVE_HYDRATION_CELL.get(), "deus_hydration_cell");
+        deusTool(output, NVItems.DEUS_REVERTER.get(), NVItems.SANGUINE_REVERTER.get(), "deus_reverter");
+
         // Activation Crystals
         AltarRecipeBuilder.build(NVItems.ACTIVATION_CRYSTAL_WEAK.get())
                 .from(NVItems.LAVA_CRYSTAL.get())
@@ -1970,6 +1976,17 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     // Helper methods
+
+    private void deusTool(RecipeOutput output, ItemLike result, ItemLike consumable, String name) {
+        AltarRecipeBuilder.build(result)
+                .from(consumable)
+                .minTier(5)
+                .bloodNeeded(200000)
+                .consumption(100)
+                .drain(200)
+                .unlockedBy("has_consumable", has(consumable))
+                .save(output, rKey(NeoVitae.rl(name)));
+    }
 
     private void addTier2RuneRecipe(RecipeOutput output, ItemLike result, ItemLike tier1Rune) {
         ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, result)

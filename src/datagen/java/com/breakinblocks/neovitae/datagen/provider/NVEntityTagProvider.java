@@ -30,6 +30,11 @@ public class NVEntityTagProvider extends EntityTypeTagsProvider {
         getOrCreateRawBuilder(NVTags.Entities.NO_SENTIENT_TRAINING)
                 .addOptionalElement(Identifier.fromNamespaceAndPath("dummmmmmy", "target_dummy"));
 
+        tag(NVTags.Entities.WARD_RETRIEVABLE)
+                .add(EntityType.TRIDENT);
+        getOrCreateRawBuilder(NVTags.Entities.WARD_RETRIEVABLE)
+                .addOptionalElement(Identifier.fromNamespaceAndPath("nautec", "neptunes_trident"));
+
         tag(NVTags.Entities.DENY_IMPRISONMENT)
                 .add(EntityType.ENDER_DRAGON)
                 .add(EntityType.WITHER)

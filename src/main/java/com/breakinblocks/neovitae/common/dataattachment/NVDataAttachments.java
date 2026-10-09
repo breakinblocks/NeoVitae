@@ -47,6 +47,10 @@ public class NVDataAttachments {
                     .build()
     );
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Long>> BURDEN_GROUNDED_UNTIL = ATTACHMENT_TYPES.register(
+            "burden_grounded_until", () -> AttachmentType.builder(() -> 0L).build()
+    );
+
     public static void register(IEventBus modBus) {
         ATTACHMENT_TYPES.register(modBus);
     }

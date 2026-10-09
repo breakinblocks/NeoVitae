@@ -9,12 +9,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.event.BurdenGroundingHandler;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -43,6 +45,8 @@ public class RitualGrounding extends Ritual {
 
     private static final double MIN_SPIRITUS = 0.5;
     private static final double SPIRITUS_PER_ENTITY = 0.2;
+    private static final double SPIRITUS_PER_BOSS = 1.0;
+    private static final int GROUNDED_GRACE_TICKS = 5;
 
     public RitualGrounding() {
         super("grounding", 0, 2000, "ritual." + NeoVitae.MODID + ".grounding");
@@ -79,19 +83,23 @@ public class RitualGrounding extends Ritual {
             // DESTRUCTIVE: Heavy Heart on ALL living entities
             List<LivingEntity> entities = RitualHelper.getAliveLivingEntities(ctx, this, GROUNDING_RANGE);
             boolean hasInvictus = will.hasInvictus();
+            long groundedUntil = ctx.level().getGameTime() + getRefreshTime() + GROUNDED_GRACE_TICKS;
 
             for (LivingEntity entity : entities) {
                 if (entity instanceof Player player && player.isCreative()) continue;
 
                 boolean isBoss = entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.RITUAL_BOSS_BLACKLIST));
-                if (isBoss && !hasInvictus) continue;
+                if (isBoss && (!hasInvictus || (will.getInvictus() - steadfastUsed) < SPIRITUS_PER_BOSS)) continue;
 
                 if ((will.getNihilum() - destructiveUsed) < SPIRITUS_PER_ENTITY) break;
 
                 entity.addEffect(new MobEffectInstance(NVMobEffects.HEAVY_HEART, 100, 1, true, true));
+                if (entity instanceof Mob mob) {
+                    BurdenGroundingHandler.mark(mob, groundedUntil);
+                }
                 destructiveUsed += SPIRITUS_PER_ENTITY;
                 if (isBoss) {
-                    steadfastUsed += SPIRITUS_PER_ENTITY;
+                    steadfastUsed += SPIRITUS_PER_BOSS;
                 }
                 totalCost += refreshCost;
                 RitualHelper.chanceStream(ctx.level(), 15, () ->

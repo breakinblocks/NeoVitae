@@ -4,6 +4,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -56,7 +57,8 @@ public class BloodShieldHandler {
     }
 
     private static boolean isRetrievable(Projectile projectile) {
-        return projectile instanceof ThrownTrident || projectile instanceof AbstractEntityThrowingDagger;
+        return projectile instanceof ThrownTrident || projectile instanceof AbstractEntityThrowingDagger
+                || projectile.typeHolder().is(NVTags.Entities.WARD_RETRIEVABLE);
     }
 
     private static void dropAtWard(Player player, Projectile projectile) {

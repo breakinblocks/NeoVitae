@@ -32,6 +32,7 @@ public class ServerConfig {
 
     public final ModConfigSpec.BooleanValue LANTERN_SPAWN_SUPPRESSION;
     public final ModConfigSpec.IntValue DEMON_LANTERN_UPKEEP;
+    public final ModConfigSpec.IntValue ATHANOR_DEUS_TOOL_EV_PER_USE;
 
     // Blood Siphon / Blood Shield config
     public final ModConfigSpec.IntValue BLOOD_SIPHON_PLAYER_MULTIPLIER;
@@ -144,6 +145,15 @@ public class ServerConfig {
         DEMON_LANTERN_UPKEEP = builder
                 .comment("EV drained from the bound player's network each second while the Demon Lantern is running")
                 .defineInRange("upkeep_per_second", 20, 0, 1000000);
+
+        builder.pop();
+
+        builder.comment("Athanor Configuration");
+        builder.push("athanor");
+
+        ATHANOR_DEUS_TOOL_EV_PER_USE = builder
+                .comment("EV drawn from the bound player's network each time a Deus tool completes an Athanor or Tabula Vitae operation")
+                .defineInRange("deus_tool_ev_per_use", 50, 0, 1000000);
 
         builder.pop();
 

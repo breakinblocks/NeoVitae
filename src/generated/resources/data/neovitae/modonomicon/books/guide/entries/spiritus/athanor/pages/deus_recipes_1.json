@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_recipes_1",
+  "recipe_id_1": "neovitae:ara_vitae/deus_cutting_fluid",
+  "recipe_id_2": "neovitae:ara_vitae/deus_explosive_cell",
+  "sort_number": 10
+}

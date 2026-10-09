@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_consumable": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:hellforged_resonator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:deus_resonator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_consumable"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:deus_resonator"
+    ]
+  }
+}

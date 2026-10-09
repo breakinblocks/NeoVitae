@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.resources.Identifier;
 
@@ -105,6 +106,30 @@ public class AthanorEntry extends EntryProvider {
                 + "Outputs emerge from the bottom.[#]()\\\n\\\n"
                 + "Keep this geometry in mind when placing your Hoppers or Routing Nodes. "
                 + "An automated Athanor is the heart of any serious ore-processing chain.");
+
+        this.page("deus_tools", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Deus Tools");
+        this.pageText("Every tool the Athanor consumes has an undying counterpart. Lay the finest tool of its kind "
+                + "upon a [#](B8860B)Tier 5[#]() Ara Vitae and it is remade as a [#](8B0000)Deus[#]() tool, "
+                + "matching the strength of the tool it was made from but never wearing out.\\\n\\\n"
+                + "Bind it to yourself before use. Each time the Athanor finishes a task with it, "
+                + "[#](8B0000)50 EV[#]() is drawn from your network, whether or not you are near. When the network "
+                + "runs dry, the crucible waits until it is refilled. A [#](8B0000)Deus Cutting Fluid[#]() serves "
+                + "the Tabula Vitae in the same way.\\\n\\\n"
+                + "[#](2E8B57)A bound Lava Crystal does the same for smelting, drawing 50 EV for each item.[#]()");
+
+        this.page("deus_recipes_1", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/deus_cutting_fluid"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/deus_explosive_cell")));
+
+        this.page("deus_recipes_2", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/deus_resonator"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/deus_hydration_cell")));
+
+        this.page("deus_recipes_3", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/deus_reverter")));
     }
 
     @Override

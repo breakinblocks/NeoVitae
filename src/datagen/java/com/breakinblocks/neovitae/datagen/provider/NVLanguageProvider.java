@@ -185,6 +185,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.athanor.idle.output_full", "The output slots are full");
         add("gui.neovitae.athanor.idle.spent_tool", "The tool is worn out and needs collecting");
         add("gui.neovitae.athanor.idle.not_enough_spiritus", "Not enough Spiritus in this chunk");
+        add("gui.neovitae.athanor.idle.tool_unbound", "The tool is not bound to anyone");
+        add("gui.neovitae.athanor.idle.not_enough_ev", "Not enough Essentia Vitae in the tool owner's network");
+        add("gui.neovitae.tabula_vitae.idle.cutting_fluid_unbound", "That cutting fluid is not bound to anyone");
         add("gui.neovitae.side.down", "Bottom");
         add("gui.neovitae.side.up", "Top");
         add("gui.neovitae.side.north", "North");
@@ -937,6 +940,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.PRIMITIVE_EXPLOSIVE_CELL.get(), "Reinforced Explosive Cell");
         add(NVItems.HELLFORGED_EXPLOSIVE_CELL.get(), "Hellforged Explosive Cell");
         add(NVItems.SANGUINE_REVERTER.get(), "Sanguine Reverter");
+        add(NVItems.DEUS_CUTTING_FLUID.get(), "Deus Cutting Fluid");
+        add(NVItems.DEUS_EXPLOSIVE_CELL.get(), "Deus Explosive Cell");
+        add(NVItems.DEUS_RESONATOR.get(), "Deus Resonator");
+        add(NVItems.DEUS_HYDRATION_CELL.get(), "Deus Hydration Cell");
+        add(NVItems.DEUS_REVERTER.get(), "Deus Reverter");
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
 
@@ -961,6 +969,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("arctool.usage", "Used in the Athanor");
         addTooltip("arctool.usage.cutting_fluid", "Used in the Athanor and Tabula Vitae");
         addTooltip("arctool.uses", "Uses Remaining: %s");
+        addTooltip("arctool.deus_cost", "Never wears out. Draws %s EV per use from its owner");
         addTooltip("arctool.craftspeed", "Crafting Speed: %sx");
         addTooltip("arctool.additionaldrops", "Additional Output Chance: %sx");
 

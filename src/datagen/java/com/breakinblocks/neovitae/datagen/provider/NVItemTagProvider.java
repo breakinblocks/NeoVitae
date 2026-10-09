@@ -128,25 +128,30 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get());
 
         tag(NVTags.Items.REVERTER)
-                .add(NVItems.SANGUINE_REVERTER.get());
+                .add(NVItems.SANGUINE_REVERTER.get())
+                .add(NVItems.DEUS_REVERTER.get());
 
         tag(NVTags.Items.EXPLOSIVES)
                 .add(NVItems.EXPLOSIVE_POWDER.get())
                 .add(NVItems.PRIMITIVE_EXPLOSIVE_CELL.get())
-                .add(NVItems.HELLFORGED_EXPLOSIVE_CELL.get());
+                .add(NVItems.HELLFORGED_EXPLOSIVE_CELL.get())
+                .add(NVItems.DEUS_EXPLOSIVE_CELL.get());
 
         tag(NVTags.Items.RESONATOR)
                 .add(NVItems.RESONATOR.get())
                 .add(NVItems.PRIMITIVE_CRYSTALLINE_RESONATOR.get())
-                .add(NVItems.HELLFORGED_RESONATOR.get());
+                .add(NVItems.HELLFORGED_RESONATOR.get())
+                .add(NVItems.DEUS_RESONATOR.get());
 
         tag(NVTags.Items.CUTTING_FLUIDS)
                 .add(NVItems.BASIC_CUTTING_FLUID.get())
                 .add(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
-                .add(NVItems.ADVANCED_CUTTING_FLUID.get());
+                .add(NVItems.ADVANCED_CUTTING_FLUID.get())
+                .add(NVItems.DEUS_CUTTING_FLUID.get());
 
         tag(NVTags.Items.HYDRATION)
-                .add(NVItems.PRIMITIVE_HYDRATION_CELL.get());
+                .add(NVItems.PRIMITIVE_HYDRATION_CELL.get())
+                .add(NVItems.DEUS_HYDRATION_CELL.get());
 
         tag(NVTags.Items.ARC_BLASTING);
         tag(NVTags.Items.ARC_SMELTING)

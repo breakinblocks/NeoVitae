@@ -28,6 +28,7 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.item.athanor.IAthanorTool;
 import com.breakinblocks.neovitae.common.menu.TabulaVitaeMenu;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
@@ -56,7 +57,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider, SideConfigurable {
     public enum IdleReason {
-        NONE, NO_RECIPE, NO_ORB, ORB_UNBOUND, TIER_TOO_LOW, NOT_ENOUGH_EV, OUTPUT_BLOCKED, NO_NETWORK;
+        NONE, NO_RECIPE, NO_ORB, ORB_UNBOUND, TIER_TOO_LOW, NOT_ENOUGH_EV, OUTPUT_BLOCKED, NO_NETWORK, CUTTING_FLUID_UNBOUND;
 
         private static final IdleReason[] VALUES = values();
 
@@ -313,6 +314,14 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         if (!currentOutput.isEmpty() && (!ItemStack.isSameItemSameComponents(currentOutput, output) || currentOutput.getCount() + output.getCount() > currentOutput.getMaxStackSize())) {
             idleReason = IdleReason.OUTPUT_BLOCKED;
             burnTime = 0;
+            return;
+        }
+
+        IAthanorTool.Readiness cuttingFluidReadiness = IAthanorTool.readinessOf(getInputCuttingFluid());
+        if (cuttingFluidReadiness != IAthanorTool.Readiness.READY) {
+            idleReason = cuttingFluidReadiness == IAthanorTool.Readiness.UNBOUND
+                    ? IdleReason.CUTTING_FLUID_UNBOUND
+                    : IdleReason.NOT_ENOUGH_EV;
             return;
         }
 
@@ -626,17 +635,23 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     private double getInputCuttingFluidSpeed() {
+        return getInputCuttingFluid().getOrDefault(NVDataComponents.ARC_SPEED.get(), 1.0);
+    }
+
+    private ItemStack getInputCuttingFluid() {
         for (int i = 0; i < ORB_SLOT; i++) {
             ItemStack stack = inv.getStackInSlot(i);
             if (!stack.isEmpty() && stack.is(NVTags.Items.CUTTING_FLUIDS)) {
-                return stack.getOrDefault(NVDataComponents.ARC_SPEED.get(), 1.0);
+                return stack;
             }
         }
-        return 1.0;
+        return ItemStack.EMPTY;
     }
 
     private void damageCuttingFluid(int slot, ItemStack stack) {
-        if (stack.has(DataComponents.MAX_DAMAGE)) {
+        if (IAthanorTool.tryConsumeUse(stack)) {
+            inv.setStackInSlot(slot, stack);
+        } else if (stack.has(DataComponents.MAX_DAMAGE)) {
             int newDamage = stack.getOrDefault(DataComponents.DAMAGE, 0) + 1;
             if (newDamage >= stack.getMaxDamage()) {
                 inv.setStackInSlot(slot, ItemStack.EMPTY);

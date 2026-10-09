@@ -206,6 +206,7 @@ public class NVTags {
         public static final TagKey<EntityType<?>> LOYAL_FRIENDS_BLACKLIST = tag(bm("loyal_friends_blacklist"));
         public static final TagKey<EntityType<?>> NO_SENTIENT_TRAINING = tag(bm("no_sentient_training"));
         public static final TagKey<EntityType<?>> DENY_IMPRISONMENT = tag(bm("deny_imprisonment"));
+        public static final TagKey<EntityType<?>> WARD_RETRIEVABLE = tag(bm("ward_retrievable"));
 
         private static TagKey<EntityType<?>> tag(Identifier id) {
             return TagKey.create(Registries.ENTITY_TYPE, id);

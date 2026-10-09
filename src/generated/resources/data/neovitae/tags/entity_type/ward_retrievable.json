@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:trident",
+    {
+      "id": "nautec:neptunes_trident",
+      "required": false
+    }
+  ]
+}

@@ -104,7 +104,7 @@ Server operators can see any player's active rituals with `/neovitae ritual acti
 | Ritual of Speed (*Quickened Blood*) | Hurls every non-sneaking entity in the area in the master stone's facing direction. **Sneak** within the area instead and the ritual applies Speed II for 30 minutes; useful for transit or as a launcher cannon, depending on stance. Spectators are ignored. **Tip:** mount on an **Inverted Master Ritual Stone** and trigger with a pressure plate or button so the launcher only fires while the signal is active. |
 | Ritual of Regeneration (*The Mending Circle*) | Mends the wounds of all within its reach. |
 | Ritual of the Phantom Bridge (*Spectral Pathways*) | Weaves spectral platforms beneath your feet. |
-| The Gathering (*The Hoarder's Breeze*) | A persistent wind that gathers all loose items. With a chest on the Master Ritual Stone, items anywhere in range go straight into it, even from behind blocks; without one, they are carried to the owner. |
+| The Gathering (*The Hoarder's Breeze*) | A persistent wind that gathers all loose items. With a chest on the Master Ritual Stone, items anywhere in range go straight into it, even from behind blocks, and once it is full they are dropped on top of it; without one, they are carried to the owner. |
 
 ### Suppression and Denial
 

@@ -1417,7 +1417,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
         addRitual("expulsion", "Ritual of Expulsion", "Drives every creature outward from the ritual center.");
-        addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP. With a chest on the master stone, items anywhere in range go straight into it; otherwise they are carried to the owner.");
+        addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP. With a chest on the master stone, items anywhere in range go straight into it, and once it is full they are dropped on top of it; with no chest, they are carried to the owner.");
         addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank at the configured tank position (directly above the master stone by default).");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");

@@ -39,6 +39,7 @@ public class RitualZephyr extends Ritual {
 
     public static final String ZEPHYR_RANGE = "zephyrRange";
     public static final String CHEST_RANGE = "chestRange";
+    private static final double OVERFLOW_TOLERANCE = 1.5;
 
     public RitualZephyr() {
         super("zephyr", 0, 1000, "ritual." + NeoVitae.MODID + ".zephyr");
@@ -63,10 +64,12 @@ public class RitualZephyr extends Ritual {
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
         BlockEntity chestTile = chestPos != null ? ctx.level().getBlockEntity(chestPos) : null;
-        boolean hasChest = chestTile != null && Utils.getNumberOfFreeSlots(chestTile, Direction.DOWN) >= 1;
+        ResourceHandler<ItemResource> inventory = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        boolean hasChest = inventory != null;
 
         if (!hasChest && ownerPlayer == null) return;
 
+        Vec3 overflowPos = hasChest ? Vec3.atBottomCenterOf(chestPos.above()) : null;
         List<ItemEntity> items = ctx.level().getEntitiesOfClass(ItemEntity.class, aabb);
         int entitiesMoved = 0;
 
@@ -75,19 +78,27 @@ public class RitualZephyr extends Ritual {
 
             if (hasChest) {
                 ItemStack original = item.getItem();
-                ItemStack remainder = Utils.insertStackIntoTile(original.copy(), chestTile, Direction.DOWN);
-                if (remainder.getCount() == original.getCount()) break;
+                ItemStack remainder = Utils.insertStackIntoTile(original.copy(), inventory);
+                boolean inserted = remainder.getCount() < original.getCount();
+                boolean overflow = !remainder.isEmpty() && item.position().distanceTo(overflowPos) > OVERFLOW_TOLERANCE;
+                if (inserted || overflow) {
+                    final BlockPos anchor = chestPos;
+                    RitualHelper.chanceStream(ctx.level(), 10, () ->
+                            StreamPresets.arcaneBolt(item, anchor).build()
+                                    .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
+                    entitiesMoved++;
+                }
                 if (remainder.isEmpty()) {
                     item.discard();
-                } else {
+                    continue;
+                }
+                if (inserted) {
                     item.setItem(remainder);
                 }
-                entitiesMoved++;
-                final BlockPos insertAnchor = chestPos;
-                RitualHelper.chanceStream(ctx.level(), 10, () ->
-                        StreamPresets.arcaneBolt(item, insertAnchor).build()
-                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
-                if (!remainder.isEmpty()) break;
+                if (overflow) {
+                    item.teleportTo(overflowPos.x, overflowPos.y, overflowPos.z);
+                    item.setDeltaMovement(Vec3.ZERO);
+                }
                 continue;
             }
 
@@ -99,7 +110,6 @@ public class RitualZephyr extends Ritual {
             }
         }
 
-        ResourceHandler<ItemResource> inventory = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
         int tomeSlot = findExperienceTomeSlot(inventory);
         int collectedXp = 0;
 

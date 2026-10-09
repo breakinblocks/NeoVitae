@@ -24,6 +24,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.Utils;
@@ -36,9 +37,14 @@ public class RitualMagnetism extends Ritual {
 
     public static final String PLACEMENT_RANGE = "placementRange";
     public static final String CHEST_RANGE = "chestRange";
-    private static final int MAX_CHECKS_PER_REFRESH = 100;
-    private static final int MAX_ORES_PER_REFRESH = 3;
+    private static final int MAX_CHECKS_PER_REFRESH = 1000;
+    private static final int MAX_POSITIONS_PER_REFRESH = 16384;
+    private static final int MAX_ORES_PER_REFRESH = 30;
+    private static final int MAX_FILLER_PER_REFRESH = 30;
+    private static final int FILLER_COST = 10;
     private static final double STEADFAST_DRAIN = 0.01;
+    private static final double CORROSIVE_DRAIN = 0.1;
+    private static final float CORROSIVE_DRAIN_CHANCE = 0.1F;
 
     private BlockPos lastPos;
 
@@ -60,14 +66,15 @@ public class RitualMagnetism extends Ritual {
         UUID owner = ctx.master().getOwner();
 
         SpiritusState will = RitualHelper.querySpiritus(world, masterPos, STEADFAST_DRAIN);
-
-        boolean backfill = will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
-
+        boolean voidFiller = will.getRuina() >= CORROSIVE_DRAIN;
+        boolean backfill = !voidFiller && will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         ResourceHandler<ItemResource> container = world.getCapability(Capabilities.Item.BLOCK, chestPos, null);
-        int radius = getRadius(world.getBlockState(masterPos.below()).getBlock());
+        BlockPos foundationPos = masterPos.below();
+        int radius = getRadius(world.getBlockState(foundationPos).getBlock());
         int minRelY = world.getMinY() - masterPos.getY();
+        int oreCost = getRefreshCost();
 
         int i = -radius, j = -1, k = -radius;
         if (lastPos != null) {
@@ -77,28 +84,48 @@ public class RitualMagnetism extends Ritual {
         }
 
         int checks = 0;
+        int visited = 0;
         int oresMoved = 0;
+        int fillerVoided = 0;
+        int evLeft = ctx.currentEV();
+        boolean finished = true;
 
+        scan:
         while (j >= minRelY) {
             while (i <= radius) {
                 while (k <= radius) {
-                    if (checks >= MAX_CHECKS_PER_REFRESH || oresMoved >= MAX_ORES_PER_REFRESH) {
-                        lastPos = new BlockPos(i, j, k);
-                        return;
+                    if (checks >= MAX_CHECKS_PER_REFRESH
+                            || visited >= MAX_POSITIONS_PER_REFRESH
+                            || oresMoved >= MAX_ORES_PER_REFRESH
+                            || fillerVoided >= MAX_FILLER_PER_REFRESH
+                            || evLeft < Math.max(oreCost, FILLER_COST)) {
+                        finished = false;
+                        break scan;
                     }
-                    checks++;
+                    visited++;
 
                     BlockPos srcPos = masterPos.offset(i, j, k);
                     BlockState state = world.getBlockState(srcPos);
-                    if (state.is(Tags.Blocks.ORES)
-                            && BlockProtectionHelper.canBreakBlock(world, srcPos, owner)
-                            && moveOre(ctx, world, srcPos, state, container, masterPos, backfill, will)) {
-                        oresMoved++;
-                        if (oresMoved >= MAX_ORES_PER_REFRESH) {
-                            k++;
-                            lastPos = new BlockPos(i, j, k);
-                            return;
+                    if (state.isAir()) {
+                        k++;
+                        continue;
+                    }
+                    checks++;
+
+                    if (state.is(Tags.Blocks.ORES)) {
+                        if (BlockProtectionHelper.canBreakBlock(world, srcPos, owner)
+                                && moveOre(ctx, world, srcPos, state, container, masterPos, backfill, will)) {
+                            oresMoved++;
+                            evLeft -= oreCost;
                         }
+                    } else if (voidFiller
+                            && state.is(NVTags.Blocks.QUARRY_FILLER)
+                            && !srcPos.equals(foundationPos)
+                            && BlockProtectionHelper.canBreakBlock(world, srcPos, owner)) {
+                        world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                        ctx.syphon(FILLER_COST);
+                        fillerVoided++;
+                        evLeft -= FILLER_COST;
                     }
                     k++;
                 }
@@ -109,7 +136,11 @@ public class RitualMagnetism extends Ritual {
             j--;
         }
 
-        lastPos = new BlockPos(-radius, -1, -radius);
+        lastPos = finished ? new BlockPos(-radius, -1, -radius) : new BlockPos(i, j, k);
+
+        if (fillerVoided > 0 && world.getRandom().nextFloat() < CORROSIVE_DRAIN_CHANCE) {
+            RitualHelper.drainSpiritus(will, world, masterPos, 0, CORROSIVE_DRAIN, 0, 0, 0);
+        }
     }
 
     private boolean moveOre(RitualContext ctx, Level world, BlockPos srcPos, BlockState state,
@@ -210,7 +241,8 @@ public class RitualMagnetism extends Ritual {
     public Component[] provideInformationOfRitualToPlayer(Player player) {
         return new Component[]{
                 Component.translatable(getTranslationKey() + ".info"),
-                Component.translatable(getTranslationKey() + ".spiritus.invictus")
+                Component.translatable(getTranslationKey() + ".spiritus.invictus"),
+                Component.translatable(getTranslationKey() + ".spiritus.ruina")
         };
     }
 

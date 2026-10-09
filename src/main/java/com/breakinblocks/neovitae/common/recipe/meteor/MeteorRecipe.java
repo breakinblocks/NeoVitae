@@ -16,6 +16,7 @@ import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.recipe.NVRecipeCodecs;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
@@ -133,5 +134,43 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
 
     public List<MeteorLayer> getLayerList() {
         return layerList;
+    }
+
+    public int getMaxRadius() {
+        int max = 0;
+        for (MeteorLayer layer : layerList) {
+            max = Math.max(max, layer.getLayerRadius());
+        }
+        return max;
+    }
+
+    public boolean isLandingAreaClear(Level level, BlockPos centerPos, double maxOccupiedFraction) {
+        int radius = getMaxRadius();
+        float limit = (radius + 0.5F) * (radius + 0.5F);
+        int volume = 0;
+        for (int i = -radius; i <= radius; i++) {
+            for (int j = -radius; j <= radius; j++) {
+                for (int k = -radius; k <= radius; k++) {
+                    if (i * i + j * j + k * k <= limit) volume++;
+                }
+            }
+        }
+
+        int allowed = (int) (volume * maxOccupiedFraction);
+        int occupied = 0;
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        for (int i = -radius; i <= radius; i++) {
+            for (int j = -radius; j <= radius; j++) {
+                for (int k = -radius; k <= radius; k++) {
+                    if (i * i + j * j + k * k > limit) continue;
+                    pos.setWithOffset(centerPos, i, j, k);
+                    BlockState state = level.getBlockState(pos);
+                    if (!state.isAir() && !state.canBeReplaced() && ++occupied > allowed) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

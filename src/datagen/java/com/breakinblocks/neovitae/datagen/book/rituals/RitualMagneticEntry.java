@@ -36,8 +36,8 @@ public class RitualMagneticEntry extends EntryProvider {
         this.pageText("The earth surrenders her hidden veins, one block at a time. The circle scans the volume "
                 + "[#](8B0000)beneath the Master Ritual Stone[#]() and reaps each ore it finds, sending it "
                 + "[#](8B0000)above[#]() the master stone for collection.\\\n\\\n"
-                + "Each teleport drains [#](8B0000)50 EV[#](); the ritual checks up to one hundred blocks per "
-                + "refresh, moves up to [#](8B0000)three ores[#]() per refresh, and remembers where it paused so a "
+                + "Each teleport drains [#](8B0000)50 EV[#](); the ritual checks up to a thousand solid blocks per "
+                + "refresh, passing quickly over open air, moves up to [#](8B0000)thirty ores[#]() per refresh, and remembers where it paused so a "
                 + "full sweep resumes incrementally across many refreshes. The ritual will [#](8B0000)load unloaded "
                 + "chunks[#]() as the scan reaches them, so a quarry tucked into one corner of a base still reaps "
                 + "ore from distant columns. Ores in claim-protected territory are left alone.");
@@ -68,6 +68,19 @@ public class RitualMagneticEntry extends EntryProvider {
                 + "netherrack over netherrack, and the seam is invisible.\n\n"
                 + "Only honest rock is used to seal the gap; nothing you have built and nothing of worth will ever "
                 + "be drawn in to fill a hole. Withhold the Invictus and the quarry digs as it always did.");
+
+        this.page("scouring", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Scouring the Rock");
+        this.pageText("Let [#](4A0080)Spiritus Ruina[#]() gather in the chunk and the circle stops sparing the "
+                + "rock around the ore. [#](8B0000)Stone, cobblestone, netherrack[#]() and the other common filler "
+                + "rock in range is destroyed outright, up to [#](8B0000)thirty blocks[#]() per refresh at "
+                + "[#](8B0000)10 EV[#]() each, until only the ore and open air remain.\n\n"
+                + "This is the way to strip a fallen meteor down to its riches, and it leaves room for the next one "
+                + "to fall. Beneath the earth it carves a pit all the way to bedrock, so feed it Ruina only where "
+                + "you mean to dig. Ruina takes priority over Invictus, and anything built from other blocks is "
+                + "left untouched.");
 
         this.page("foundation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

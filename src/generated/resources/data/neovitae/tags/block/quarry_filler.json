@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:end_stone",
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_nether",
+      "required": false
+    },
+    {
+      "id": "#c:cobblestones",
+      "required": false
+    }
+  ]
+}

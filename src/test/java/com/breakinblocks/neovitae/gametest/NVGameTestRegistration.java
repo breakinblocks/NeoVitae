@@ -29,6 +29,8 @@ public class NVGameTestRegistration {
         MinorSystemTests.register(r);
         MultiblockTests.register(r);
         QuarryBackfillTests.register(r);
+        QuarryThroughputTests.register(r);
+        MeteorLandingTests.register(r);
         RecipeSyntaxTests.register(r);
         RitualReaderTests.register(r);
         RoutingNodeTests.register(r);

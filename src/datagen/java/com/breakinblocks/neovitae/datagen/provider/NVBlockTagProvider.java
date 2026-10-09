@@ -250,6 +250,12 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addOptionalTag(TagKey.create(Registries.BLOCK,
                         Identifier.fromNamespaceAndPath("c", "budding_blocks")));
 
+        this.tag(NVTags.Blocks.QUARRY_FILLER)
+                .add(Blocks.END_STONE)
+                .addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+                .addOptionalTag(BlockTags.BASE_STONE_NETHER)
+                .addOptionalTag(Tags.Blocks.COBBLESTONES);
+
         // Mushroom blocks for fungal charges
         this.tag(NVTags.Blocks.MUSHROOM_STEM)
                 .add(Blocks.CRIMSON_STEM, Blocks.WARPED_STEM,

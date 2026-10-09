@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_crystallum_fractura",
+  "multiblock_id": "neovitae:ritual/deus_crystallum_fractura",
+  "multiblock_name": "Deus Crystallum Fractura",
+  "show_visualize_button": true,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_crystallum_fractura.text"
+}

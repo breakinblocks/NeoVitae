@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:ritual_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_torment_nexus_stats",
+  "sort_number": 4,
+  "text": "[#](8B0000)Activation Cost:[#]() 100,000 EV\\\n[#](8B0000)Crystal:[#]() Divinus Activation Crystal\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  24x Tenebrae Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Water Ritual Stone\\\n  4x Fire Ritual Stone\\\n  4x Air Ritual Stone\\\n  16x Deus Ritual Stone\\\n  [#](8B0000)Total:[#]() 56 runes"
+}

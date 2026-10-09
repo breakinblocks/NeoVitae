@@ -31,6 +31,7 @@ public class EntityMeteor extends ThrowableProjectile {
 
     private ItemStack containedStack = ItemStack.EMPTY;
     private int targetY = NO_TARGET_Y;
+    private boolean oresOnly;
 
     public EntityMeteor(EntityType<EntityMeteor> type, Level level) {
         super(type, level);
@@ -57,6 +58,10 @@ public class EntityMeteor extends ThrowableProjectile {
         this.targetY = targetY;
     }
 
+    public void setOresOnly(boolean oresOnly) {
+        this.oresOnly = oresOnly;
+    }
+
     @Override
     protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
@@ -66,6 +71,9 @@ public class EntityMeteor extends ThrowableProjectile {
         if (targetY != NO_TARGET_Y) {
             compound.putInt("targetY", targetY);
         }
+        if (oresOnly) {
+            compound.putBoolean("oresOnly", true);
+        }
     }
 
     @Override
@@ -73,6 +81,7 @@ public class EntityMeteor extends ThrowableProjectile {
         super.readAdditionalSaveData(compound);
         containedStack = compound.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
         targetY = compound.getIntOr("targetY", NO_TARGET_Y);
+        oresOnly = compound.getBooleanOr("oresOnly", false);
     }
 
     @Override
@@ -102,7 +111,7 @@ public class EntityMeteor extends ThrowableProjectile {
     private void detonateAt(int x, int y, int z) {
         MeteorRecipe recipe = MeteorRecipeHelper.findRecipe(level(), containedStack);
         if (recipe != null) {
-            recipe.spawnMeteorInWorld(level(), new BlockPos(x, y, z));
+            recipe.spawnMeteorInWorld(level(), new BlockPos(x, y, z), oresOnly);
         }
         this.discard();
     }

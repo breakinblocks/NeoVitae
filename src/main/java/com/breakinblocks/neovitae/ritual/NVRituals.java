@@ -119,6 +119,30 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualEnchantedVitae> ENCHANTED_VITAE =
             registerRitual(RitualEnchantedVitae.NAME, RitualEnchantedVitae::new);
 
+    public static final DeferredHolder<Ritual, RitualDeusWellOfSuffering> DEUS_WELL_OF_SUFFERING =
+            registerRitual(RitualDeusWellOfSuffering.NAME, RitualDeusWellOfSuffering::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusTormentNexus> DEUS_TORMENT_NEXUS =
+            registerRitual(RitualDeusTormentNexus.NAME, RitualDeusTormentNexus::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusMagnetism> DEUS_MAGNETISM =
+            registerRitual(RitualDeusMagnetism.NAME, RitualDeusMagnetism::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusCrystallumFractura> DEUS_CRYSTALLUM_FRACTURA =
+            registerRitual(RitualDeusCrystallumFractura.NAME, RitualDeusCrystallumFractura::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusGreenGrove> DEUS_GREEN_GROVE =
+            registerRitual(RitualDeusGreenGrove.NAME, RitualDeusGreenGrove::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusPlacer> DEUS_PLACER =
+            registerRitual(RitualDeusPlacer.NAME, RitualDeusPlacer::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusFelling> DEUS_FELLING =
+            registerRitual(RitualDeusFelling.NAME, RitualDeusFelling::new);
+
+    public static final DeferredHolder<Ritual, RitualDeusMeteor> DEUS_METEOR =
+            registerRitual(RitualDeusMeteor.NAME, RitualDeusMeteor::new);
+
     public static final DeferredHolder<ImperfectRitual, ImperfectRitualRain> IMPERFECT_RAIN =
             registerImperfectRitual("rain", ImperfectRitualRain::new);
 

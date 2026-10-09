@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_placer",
+  "multiblock_id": "neovitae:ritual/deus_placer",
+  "multiblock_name": "Deus Mason",
+  "show_visualize_button": true,
+  "sort_number": 11,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_placer.text"
+}

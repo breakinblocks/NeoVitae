@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_torment_nexus",
+  "multiblock_id": "neovitae:ritual/deus_torment_nexus",
+  "multiblock_name": "Deus Torment Nexus",
+  "show_visualize_button": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_torment_nexus.text"
+}

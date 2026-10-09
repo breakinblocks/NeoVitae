@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_well_of_suffering",
+  "multiblock_id": "neovitae:ritual/deus_well_of_suffering",
+  "multiblock_name": "Deus Well of Suffering",
+  "show_visualize_button": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_well_of_suffering.text"
+}

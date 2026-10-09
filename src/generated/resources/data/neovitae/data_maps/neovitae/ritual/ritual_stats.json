@@ -33,6 +33,50 @@
       "refresh_cost": 160,
       "refresh_time": 100
     },
+    "neovitae:deus_crystallum_fractura": {
+      "activation_cost": 400000,
+      "crystal_level": 2,
+      "refresh_cost": 160,
+      "refresh_time": 100
+    },
+    "neovitae:deus_felling": {
+      "activation_cost": 8000,
+      "crystal_level": 2,
+      "refresh_cost": 10
+    },
+    "neovitae:deus_green_grove": {
+      "activation_cost": 4000,
+      "ambient_sound": "neovitae:overgrowth",
+      "crystal_level": 2,
+      "refresh_cost": 20
+    },
+    "neovitae:deus_magnetism": {
+      "activation_cost": 20000,
+      "crystal_level": 2,
+      "refresh_cost": 50,
+      "refresh_time": 40
+    },
+    "neovitae:deus_meteor": {
+      "activation_cost": 1000000,
+      "crystal_level": 2,
+      "refresh_cost": 0
+    },
+    "neovitae:deus_placer": {
+      "activation_cost": 20000,
+      "crystal_level": 2,
+      "refresh_cost": 10,
+      "refresh_time": 5
+    },
+    "neovitae:deus_torment_nexus": {
+      "activation_cost": 100000,
+      "crystal_level": 2,
+      "refresh_cost": 0
+    },
+    "neovitae:deus_well_of_suffering": {
+      "activation_cost": 200000,
+      "crystal_level": 2,
+      "refresh_cost": 4
+    },
     "neovitae:downgrade": {
       "activation_cost": 20000,
       "crystal_level": 1,

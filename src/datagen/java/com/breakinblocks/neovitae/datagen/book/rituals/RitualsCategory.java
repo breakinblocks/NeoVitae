@@ -28,7 +28,9 @@ public class RitualsCategory extends CategoryProvider {
                 "__t_u_v_w_x________",
                 "___________________",
                 "__y_z_1_2_3________",
-                "__4_5_6_7_9_P______"
+                "__4_5_6_7_9_P______",
+                "___________________",
+                "__Q________________"
         };
     }
 
@@ -244,6 +246,11 @@ public class RitualsCategory extends CategoryProvider {
         enchantedVitae.withParent(this.parent(crystals));
         enchantedVitae.withCondition(this.condition().entryViewedOnce(crystals));
         enchantedVitae.hideWhileLocked(false);
+
+        var deusRituals = this.add(new DeusRitualsEntry(this).generate('Q'));
+        deusRituals.withParent(this.parent(crystals));
+        deusRituals.withCondition(this.condition().entryViewedOnce(crystals));
+        deusRituals.hideWhileLocked(false);
     }
 
     @Override

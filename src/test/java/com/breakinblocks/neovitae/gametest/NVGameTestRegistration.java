@@ -58,5 +58,6 @@ public class NVGameTestRegistration {
         BloodLanternTests.register(r);
         BurdenGroundingTests.register(r);
         DeusToolTests.register(r);
+        DeusRitualTests.register(r);
     }
 }

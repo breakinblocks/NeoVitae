@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.ItemRitualReader;
 import com.breakinblocks.neovitae.ritual.EnumFillMode;
+import com.breakinblocks.neovitae.ritual.EnumMiningMode;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu.RangeInfo;
 
@@ -47,15 +48,18 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     private final boolean usesAspect;
     private final boolean usesKeepCount;
     private final boolean usesFillMode;
+    private final boolean usesMiningMode;
     private int selectedAspect;
     private int keepCount;
     private EnumFillMode fillMode;
+    private EnumMiningMode miningMode;
 
     public RitualConfiguratorScreen(RitualConfiguratorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, PANEL_WIDTH,
                 TITLE_HEIGHT + menu.getRanges().size() * ROW_HEIGHT
                         + (menu.usesAspect() ? ASPECT_LABEL_H + ASPECT_ROW_H : 0) + (menu.usesKeepCount() ? GAP + KEEP_ROW_H : 0)
                         + (menu.usesFillMode() ? GAP + FILL_LABEL_H + FILL_ROWS * FILL_ROW_H : 0)
+                        + (menu.usesMiningMode() ? GAP + FILL_LABEL_H + FILL_ROW_H : 0)
                         + GAP + BUTTON_H + PAD_BOTTOM);
         this.ranges = menu.getRanges();
         this.selectedAspect = menu.getInitialAspect();
@@ -64,6 +68,8 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         this.keepCount = menu.getInitialKeepCount();
         this.usesFillMode = menu.usesFillMode();
         this.fillMode = menu.getInitialFillMode();
+        this.usesMiningMode = menu.usesMiningMode();
+        this.miningMode = menu.getInitialMiningMode();
     }
 
     private int listTop() {
@@ -120,8 +126,30 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         return mouseX >= bx && mouseX < bx + fillButtonWidth() - 1 && mouseY >= by && mouseY < by + FILL_ROW_H - 1;
     }
 
+    private int afterFillY() {
+        return usesFillMode ? fillRowY() + FILL_ROWS * FILL_ROW_H : afterKeepY();
+    }
+
+    private int miningLabelY() {
+        return afterFillY() + GAP;
+    }
+
+    private int miningRowY() {
+        return miningLabelY() + FILL_LABEL_H;
+    }
+
+    private int miningButtonWidth() {
+        return (imageWidth - LIST_X * 2) / EnumMiningMode.values().length;
+    }
+
+    private boolean overMiningButton(int index, double mouseX, double mouseY) {
+        int bx = leftPos + LIST_X + index * miningButtonWidth();
+        int by = miningRowY();
+        return mouseX >= bx && mouseX < bx + miningButtonWidth() - 1 && mouseY >= by && mouseY < by + FILL_ROW_H - 1;
+    }
+
     private int editButtonY() {
-        return (usesFillMode ? fillRowY() + FILL_ROWS * FILL_ROW_H : afterKeepY()) + GAP;
+        return (usesMiningMode ? miningRowY() + FILL_ROW_H : afterFillY()) + GAP;
     }
 
     private String selectedRangeKey() {
@@ -201,6 +229,28 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                 int lw = font.width(label);
                 int color = isSelected ? 0xFFB8860B : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
                 g.text(font, label, bx + (fbw - lw) / 2, by + (FILL_ROW_H - 8) / 2, color, false);
+            }
+        }
+
+        if (usesMiningMode) {
+            g.text(font, Component.translatable("gui.neovitae.configurator.mining_mode"),
+                    leftPos + LIST_X + 2, miningLabelY() + 3, 0xFFA05050, false);
+            EnumMiningMode[] modes = EnumMiningMode.values();
+            int mbw = miningButtonWidth();
+            for (int i = 0; i < modes.length; i++) {
+                int bx = leftPos + LIST_X + i * mbw;
+                int by = miningRowY();
+                boolean hovered = overMiningButton(i, mouseX, mouseY);
+                boolean isSelected = modes[i] == miningMode;
+                int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
+                g.fill(bx, by, bx + mbw - 1, by + FILL_ROW_H - 1, fill);
+                if (isSelected) {
+                    g.fill(bx, by, bx + mbw - 1, by + 2, 0xFFB8860B);
+                }
+                Component label = Component.translatable(modes[i].translationKey());
+                int lw = font.width(label);
+                int color = isSelected ? 0xFFB8860B : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
+                g.text(font, label, bx + (mbw - lw) / 2, by + (FILL_ROW_H - 8) / 2, color, false);
             }
         }
 
@@ -302,6 +352,18 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                         fillMode = modes[i];
                         minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
                                 RitualConfiguratorMenu.FILL_MODE_BUTTON_BASE + i);
+                        return true;
+                    }
+                }
+            }
+
+            if (usesMiningMode) {
+                EnumMiningMode[] modes = EnumMiningMode.values();
+                for (int i = 0; i < modes.length; i++) {
+                    if (overMiningButton(i, mouseX, mouseY)) {
+                        miningMode = modes[i];
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
+                                RitualConfiguratorMenu.MINING_MODE_BUTTON_BASE + i);
                         return true;
                     }
                 }

@@ -45,7 +45,11 @@ public class RitualMeteor extends Ritual {
     private UUID pendingMeteor;
 
     public RitualMeteor() {
-        super("meteor", 1, 250000, "ritual." + NeoVitae.MODID + ".meteor");
+        this("meteor", 1, 250000);
+    }
+
+    protected RitualMeteor(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(CHECK_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
         setMaximumVolumeAndDistanceOfRange(CHECK_RANGE, 27, 10, 10);
         addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
@@ -108,6 +112,10 @@ public class RitualMeteor extends Ritual {
         }
     }
 
+    protected boolean spawnsOresOnly() {
+        return false;
+    }
+
     private boolean callMeteor(RitualContext ctx, MeteorRecipe recipe, ItemStack catalyst) {
         if (pendingMeteor != null) {
             Entity falling = ctx.serverLevel().getEntity(pendingMeteor);
@@ -144,6 +152,7 @@ public class RitualMeteor extends Ritual {
         meteor.setDeltaMovement(0, -0.1, 0);
         meteor.setContainedStack(catalyst.copyWithCount(1));
         meteor.setTargetY(targetY);
+        meteor.setOresOnly(spawnsOresOnly());
         ctx.level().addFreshEntity(meteor);
         pendingMeteor = meteor.getUUID();
         return true;

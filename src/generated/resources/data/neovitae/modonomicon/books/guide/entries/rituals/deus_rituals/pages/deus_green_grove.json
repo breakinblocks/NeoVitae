@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_green_grove",
+  "multiblock_id": "neovitae:ritual/deus_green_grove",
+  "multiblock_name": "Deus Overgrowth",
+  "show_visualize_button": true,
+  "sort_number": 9,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_green_grove.text"
+}

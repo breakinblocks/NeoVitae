@@ -65,7 +65,11 @@ public class RitualGreenGrove extends Ritual {
     private int refreshTime = 20;
 
     public RitualGreenGrove() {
-        super("green_grove", 0, 1000, "ritual." + NeoVitae.MODID + ".green_grove");
+        this("green_grove", 0, 1000);
+    }
+
+    protected RitualGreenGrove(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(GROWTH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-4, 1, -4), 9, 9, 9));
         addBlockRange(LEECH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, 0, -5), 11, 3, 11));
         addBlockRange(HYDRATE_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-3, 0, -3), 7, 1, 7));
@@ -92,7 +96,7 @@ public class RitualGreenGrove extends Ritual {
 
         RitualStats stats = RitualRegistry.getStats(this);
         int baseRefresh = stats != null ? stats.refreshTime() : 20;
-        refreshTime = scaleByRawSpiritus(will, baseRefresh, Math.max(1, baseRefresh / 2), 10);
+        refreshTime = Math.max(1, scaleByRawSpiritus(will, baseRefresh, Math.max(1, baseRefresh / 2), 10) / getRefreshDivisor());
 
         double steadfastSpiritusUsed = 0;
         double corrosiveSpiritusUsed = 0;
@@ -211,6 +215,10 @@ public class RitualGreenGrove extends Ritual {
         }
 
         return false;
+    }
+
+    protected int getRefreshDivisor() {
+        return 1;
     }
 
     @Override

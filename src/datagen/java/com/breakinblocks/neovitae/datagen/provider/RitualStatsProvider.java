@@ -82,6 +82,17 @@ public class RitualStatsProvider implements DataProvider {
         out.accept(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
         out.accept(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
         out.accept(NVRituals.ENCHANTED_VITAE, RitualStats.timed(10000, 0, 4, 1));
+
+        // ==================== Deus Tier Rituals ====================
+        out.accept(NVRituals.DEUS_WELL_OF_SUFFERING, RitualStats.timed(200000, 4, 20, 2));
+        out.accept(NVRituals.DEUS_TORMENT_NEXUS, RitualStats.timed(100000, 0, 20, 2));
+        out.accept(NVRituals.DEUS_MAGNETISM, RitualStats.timed(20000, 50, 40, 2));
+        out.accept(NVRituals.DEUS_CRYSTALLUM_FRACTURA, RitualStats.timed(400000, 160, 100, 2));
+        out.accept(NVRituals.DEUS_GREEN_GROVE, RitualStats.timed(4000, 20, 20, 2)
+                .withAmbientSound(NeoVitae.rl("overgrowth")));
+        out.accept(NVRituals.DEUS_PLACER, RitualStats.timed(20000, 10, 5, 2));
+        out.accept(NVRituals.DEUS_FELLING, RitualStats.timed(8000, 10, 20, 2));
+        out.accept(NVRituals.DEUS_METEOR, RitualStats.timed(1000000, 0, 20, 2));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

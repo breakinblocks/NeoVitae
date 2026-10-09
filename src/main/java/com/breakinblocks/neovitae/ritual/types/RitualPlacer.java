@@ -54,9 +54,13 @@ public class RitualPlacer extends Ritual {
     private int auraCooldown;
 
     public RitualPlacer() {
-        super("placer", 0, 5000, "ritual." + NeoVitae.MODID + ".placer");
+        this("placer", 0, 5000);
+    }
+
+    protected RitualPlacer(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(PLACER_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, 1, -5), 11, 10, 11));
-        setMaximumVolumeAndDistanceOfRange(PLACER_RANGE, TIER_VOLUME[0], TIER_RADIUS[0], TIER_RADIUS[0]);
+        setMaximumVolumeAndDistanceOfRange(PLACER_RANGE, getTierVolume(0), getTierRadius(0), getTierRadius(0));
     }
 
     @Override
@@ -95,7 +99,7 @@ public class RitualPlacer extends Ritual {
             tier = tierWithHysteresis(cachedRaw, tier);
         }
 
-        int budget = Math.min(blocksPerRefresh(cachedRaw), ctx.maxOperations(getRefreshCost()));
+        int budget = Math.min(blocksPerRefresh(cachedRaw) * getBlockMultiplier(), ctx.maxOperations(getRefreshCost()));
         if (budget <= 0) return;
 
         AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, PLACER_RANGE);
@@ -180,6 +184,18 @@ public class RitualPlacer extends Ritual {
                         .sendToNearby(ctx.serverLevel(), masterPos, 64));
     }
 
+    protected int getTierVolume(int tier) {
+        return TIER_VOLUME[tier];
+    }
+
+    protected int getTierRadius(int tier) {
+        return TIER_RADIUS[tier];
+    }
+
+    protected int getBlockMultiplier() {
+        return 1;
+    }
+
     private static int tierWithHysteresis(double raw, int current) {
         if (current >= 2) return raw >= TIER2_HOLD ? 2 : tierFor(raw);
         if (current == 1) return raw >= TIER2_ENTER ? 2 : (raw >= TIER1_HOLD ? 1 : 0);
@@ -196,7 +212,7 @@ public class RitualPlacer extends Ritual {
         if (!PLACER_RANGE.equals(key) || getRangeLimit(key) != null) {
             return super.getMaxVolumeForRange(key, master);
         }
-        return TIER_VOLUME[auraTier(master)];
+        return getTierVolume(auraTier(master));
     }
 
     @Override
@@ -204,7 +220,7 @@ public class RitualPlacer extends Ritual {
         if (!PLACER_RANGE.equals(key) || getRangeLimit(key) != null) {
             return super.getMaxHorizontalRadiusForRange(key, master);
         }
-        return TIER_RADIUS[auraTier(master)];
+        return getTierRadius(auraTier(master));
     }
 
     @Override
@@ -212,7 +228,7 @@ public class RitualPlacer extends Ritual {
         if (!PLACER_RANGE.equals(key) || getRangeLimit(key) != null) {
             return super.getMaxVerticalRadiusForRange(key, master);
         }
-        return TIER_RADIUS[auraTier(master)];
+        return getTierRadius(auraTier(master));
     }
 
     private int findBlockItemSlot(ResourceHandler<ItemResource> inventory, int skip) {

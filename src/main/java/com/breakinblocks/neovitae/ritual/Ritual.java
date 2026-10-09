@@ -73,6 +73,10 @@ public abstract class Ritual {
         return false;
     }
 
+    public boolean usesMiningMode() {
+        return false;
+    }
+
     protected RitualStats getStats() {
         return RitualRegistry.getStats(this);
     }

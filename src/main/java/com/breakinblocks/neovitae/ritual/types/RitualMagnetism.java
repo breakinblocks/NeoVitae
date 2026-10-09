@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,6 +31,7 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -49,7 +51,11 @@ public class RitualMagnetism extends Ritual {
     private BlockPos lastPos;
 
     public RitualMagnetism() {
-        super("magnetism", 0, 5000, "ritual." + NeoVitae.MODID + ".magnetism");
+        this("magnetism", 0, 5000);
+    }
+
+    protected RitualMagnetism(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(PLACEMENT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-1, 1, -1), 3, 3, 3));
         setMaximumVolumeAndDistanceOfRange(PLACEMENT_RANGE, 50, 4, 4);
         addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
@@ -94,9 +100,9 @@ public class RitualMagnetism extends Ritual {
         while (j >= minRelY) {
             while (i <= radius) {
                 while (k <= radius) {
-                    if (checks >= MAX_CHECKS_PER_REFRESH
-                            || visited >= MAX_POSITIONS_PER_REFRESH
-                            || oresMoved >= MAX_ORES_PER_REFRESH
+                    if (checks >= MAX_CHECKS_PER_REFRESH * getScanMultiplier()
+                            || visited >= MAX_POSITIONS_PER_REFRESH * getScanMultiplier()
+                            || oresMoved >= getMaxOresPerRefresh()
                             || fillerVoided >= MAX_FILLER_PER_REFRESH
                             || evLeft < Math.max(oreCost, FILLER_COST)) {
                         finished = false;
@@ -143,9 +149,24 @@ public class RitualMagnetism extends Ritual {
         }
     }
 
+    protected int getMaxOresPerRefresh() {
+        return MAX_ORES_PER_REFRESH;
+    }
+
+    protected int getScanMultiplier() {
+        return 1;
+    }
+
+    protected boolean usesFortune(IMasterRitualStone master) {
+        return false;
+    }
+
     private boolean moveOre(RitualContext ctx, Level world, BlockPos srcPos, BlockState state,
                             ResourceHandler<ItemResource> container, BlockPos masterPos,
                             boolean backfill, SpiritusState will) {
+        if (container != null && usesFortune(ctx.master()) && world instanceof ServerLevel serverLevel) {
+            return mineWithFortune(ctx, serverLevel, srcPos, state, container, masterPos, backfill, will);
+        }
         if (container != null) {
             ItemStack oreStack = new ItemStack(state.getBlock().asItem());
             if (!oreStack.isEmpty() && oreStack.getItem() != Items.AIR) {
@@ -163,6 +184,24 @@ public class RitualMagnetism extends Ritual {
         if (!world.isEmptyBlock(destination)) return false;
         if (!world.setBlock(destination, state, Block.UPDATE_ALL)) return false;
         clearOre(world, srcPos, backfill, will, masterPos);
+        ctx.syphon(getRefreshCost());
+        return true;
+    }
+
+    private boolean mineWithFortune(RitualContext ctx, ServerLevel level, BlockPos srcPos, BlockState state,
+                                    ResourceHandler<ItemResource> container, BlockPos masterPos,
+                                    boolean backfill, SpiritusState will) {
+        ItemStack tool = RitualHelper.createMiningTool(level, true, false);
+        List<ItemStack> drops = Block.getDrops(state, level, srcPos, level.getBlockEntity(srcPos), null, tool);
+        for (ItemStack drop : drops) {
+            if (!Utils.insertItemStacked(container, drop.copy(), true).isEmpty()) {
+                return false;
+            }
+        }
+        for (ItemStack drop : drops) {
+            Utils.insertItemStacked(container, drop, false);
+        }
+        clearOre(level, srcPos, backfill, will, masterPos);
         ctx.syphon(getRefreshCost());
         return true;
     }

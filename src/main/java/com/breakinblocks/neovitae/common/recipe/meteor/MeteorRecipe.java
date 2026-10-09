@@ -59,6 +59,10 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     }
 
     public void spawnMeteorInWorld(Level level, BlockPos centerPos) {
+        spawnMeteorInWorld(level, centerPos, false);
+    }
+
+    public void spawnMeteorInWorld(Level level, BlockPos centerPos, boolean oresOnly) {
         if (explosionRadius > 0) {
             level.explode(null, centerPos.getX(), centerPos.getY(), centerPos.getZ(),
                     explosionRadius, Level.ExplosionInteraction.NONE);
@@ -75,7 +79,7 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
         int prevRadius = -1;
         for (Integer radius : keyList) {
             MeteorLayer layer = layerMap.get(radius);
-            layer.buildLayer(level, centerPos, prevRadius);
+            layer.buildLayer(level, centerPos, prevRadius, oresOnly);
             prevRadius = layer.getLayerRadius();
         }
     }

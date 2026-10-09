@@ -41,7 +41,11 @@ public class RitualFelling extends Ritual {
     private static final int MAX_BLOCKS_PER_OPERATION = 128;
 
     public RitualFelling() {
-        super("felling", 0, 2000, "ritual." + NeoVitae.MODID + ".felling");
+        this("felling", 0, 2000);
+    }
+
+    protected RitualFelling(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         // Tall 2x2 spruce trees can exceed thirty blocks from the planting level.
         addBlockRange(FELL_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-10, 0, -10), 21, 40, 21));
         addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
@@ -59,7 +63,7 @@ public class RitualFelling extends Ritual {
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, FELL_RANGE, ctx.masterPos());
         UUID owner = ctx.master().getOwner();
         int blocksBroken = 0;
-        int maxBlocks = Math.min(ctx.maxOperations(getRefreshCost()), MAX_BLOCKS_PER_OPERATION);
+        int maxBlocks = Math.min(ctx.maxOperations(getRefreshCost()), getMaxBlocksPerOperation());
 
         ItemStack toolStack = new ItemStack(Items.NETHERITE_AXE);
 
@@ -118,6 +122,10 @@ public class RitualFelling extends Ritual {
                 stack -> Block.popResource(ctx.level(), masterPos, stack));
 
         ctx.syphon(getRefreshCost() * blocksBroken);
+    }
+
+    protected int getMaxBlocksPerOperation() {
+        return MAX_BLOCKS_PER_OPERATION;
     }
 
     /**

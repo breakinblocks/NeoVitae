@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_felling",
+  "multiblock_id": "neovitae:ritual/deus_felling",
+  "multiblock_name": "Deus Fallen Trees",
+  "show_visualize_button": true,
+  "sort_number": 13,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_felling.text"
+}

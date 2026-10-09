@@ -79,6 +79,10 @@ public interface IMasterRitualStone {
         return EnumFillMode.SOLID;
     }
 
+    default EnumMiningMode getMiningMode() {
+        return EnumMiningMode.SILK_TOUCH;
+    }
+
     void provideInformationOfRitualToPlayer(Player player);
 
     void provideInformationOfRangeToPlayer(Player player, String key);

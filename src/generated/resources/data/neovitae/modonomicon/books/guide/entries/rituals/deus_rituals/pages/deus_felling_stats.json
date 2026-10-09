@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:ritual_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_felling_stats",
+  "sort_number": 14,
+  "text": "[#](8B0000)Activation Cost:[#]() 8,000 EV\\\n[#](8B0000)Crystal:[#]() Divinus Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 10 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Earth Ritual Stone\\\n  4x Fire Ritual Stone\\\n  4x Air Ritual Stone\\\n  16x Deus Ritual Stone\\\n  [#](8B0000)Total:[#]() 36 runes"
+}

@@ -144,7 +144,12 @@ public class MeteorLayer {
     }
 
     public void buildLayer(Level level, BlockPos centerPos, int emptyRadius) {
+        buildLayer(level, centerPos, emptyRadius, false);
+    }
+
+    public void buildLayer(Level level, BlockPos centerPos, int emptyRadius, boolean oresOnly) {
         recalculateMaxWeight(level.getRandom(), level);
+        boolean weightedOnly = oresOnly && !weightList.isEmpty();
 
         int radius = layerRadius;
         for (int i = -radius; i <= radius; i++) {
@@ -162,7 +167,9 @@ public class MeteorLayer {
                         if (!currentState.canBeReplaced(ctx)) {
                             continue;
                         }
-                        if (shellBlock != null && checkIfSphereShell(radius, i, j, k)) {
+                        if (weightedOnly) {
+                            level.setBlockAndUpdate(pos, getRandomWeightedState(level.getRandom(), level));
+                        } else if (shellBlock != null && checkIfSphereShell(radius, i, j, k)) {
                             Block block = shellBlock.getRandomBlock(level.getRandom(), level);
                             if (block != null) {
                                 level.setBlockAndUpdate(pos, block.defaultBlockState());
@@ -191,6 +198,27 @@ public class MeteorLayer {
         }
 
         totalMaxWeight = Math.max(minWeight, totalMaxWeight);
+    }
+
+    private BlockState getRandomWeightedState(RandomSource rand, Level level) {
+        int total = 0;
+        for (var entry : weightList) {
+            total += entry.getValue();
+        }
+        if (total > 0) {
+            int randNum = rand.nextInt(total);
+            for (var entry : weightList) {
+                randNum -= entry.getValue();
+                if (randNum < 0) {
+                    Block block = entry.getKey().getRandomBlock(rand, level);
+                    if (block != null) {
+                        return block.defaultBlockState();
+                    }
+                    break;
+                }
+            }
+        }
+        return getRandomState(rand, level);
     }
 
     public BlockState getRandomState(RandomSource rand, Level level) {

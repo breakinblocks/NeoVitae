@@ -585,7 +585,7 @@ All paths are relative to `data/neovitae/tags/` unless a different namespace is 
 | `altar/bloodstones` | Bloodstone blocks | Bloodstone family. Available for altar tier definitions that want to reference bloodstone by tag. |
 | `altar/pulse_on_crafting` | Redstone Lamp, Note Block | When one of these blocks sits directly under an Ara Vitae, the altar emits a redstone pulse each time it finishes a craft. |
 | `altar/anima_comparator` | Blood Stained Glass | When one of these blocks sits directly under an Ara Vitae, a comparator reads the Anima EV of the bound orb on the altar instead of the altar's own tank. |
-| `incense_path/level_0` to `level_10` | Level 0: Dirt Path, `#minecraft:stone_bricks`. Each higher level includes the level below it. | Valid incense path blocks by ring distance from the Incense Altar. A block tagged at level N is accepted at ring N and every ring closer to the altar. |
+| `incense_path/level_0` to `level_10` | Level 0: Dirt Path, `#minecraft:stone_bricks`. Level 2: wood paths. Level 4: stone paths. Level 6: worn stone paths. Level 10: obsidian paths. Each level includes every level above it. | Valid incense path blocks by ring distance from the Incense Altar. A block tagged at level N is accepted at ring N and every ring closer to the altar. |
 | `tranquility/plant` | Empty | Plant-type tranquility for the Incense Altar. |
 | `tranquility/crop` | Empty | Crop-type tranquility. |
 | `tranquility/tree` | Empty | Tree-type tranquility. |

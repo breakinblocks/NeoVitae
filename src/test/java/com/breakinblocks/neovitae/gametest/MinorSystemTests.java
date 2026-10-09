@@ -14,6 +14,7 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
@@ -21,6 +22,7 @@ import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.material.MaterialTranslations;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+import com.breakinblocks.neovitae.incense.TranquilityRegistry;
 
 public final class MinorSystemTests {
 
@@ -143,6 +145,25 @@ public final class MinorSystemTests {
                 }
                 helper.succeed();
             });
+        });
+
+        r.add("minor/incense_paths_reach_their_own_level", 20, helper -> {
+            int[][] expected = {
+                {0, TranquilityRegistry.getPathLevel(Blocks.DIRT_PATH.defaultBlockState())},
+                {0, TranquilityRegistry.getPathLevel(Blocks.STONE_BRICKS.defaultBlockState())},
+                {2, TranquilityRegistry.getPathLevel(DungeonBlocks.WOOD_BRICK_PATH.block().get().defaultBlockState())},
+                {4, TranquilityRegistry.getPathLevel(DungeonBlocks.STONE_TILE_PATH.block().get().defaultBlockState())},
+                {6, TranquilityRegistry.getPathLevel(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get().defaultBlockState())},
+                {10, TranquilityRegistry.getPathLevel(DungeonBlocks.OBSIDIAN_TILE_PATH.block().get().defaultBlockState())},
+                {-1, TranquilityRegistry.getPathLevel(Blocks.STONE.defaultBlockState())},
+            };
+            for (int i = 0; i < expected.length; i++) {
+                if (expected[i][0] != expected[i][1]) {
+                    helper.fail("Path check " + i + " expected level " + expected[i][0] + ", got " + expected[i][1]);
+                    return;
+                }
+            }
+            helper.succeed();
         });
 
         r.add("minor/sigils_do_not_suppress_swing_animation", 60, helper -> {

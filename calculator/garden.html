@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tranquility Garden Planner</title>
+<meta name="description" content="Plan a Neo Vitae Incense Altar garden: path rings, tranquility blocks, and the self sacrifice bonus it gives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <img class="crest" id="crest" src="data:," alt="">
+    <div>
+      <h1>Tranquility Garden</h1>
+      <p class="sub"><span id="mod-version">Neo Vitae</span>. Lay out the path rings and tranquility blocks around an Incense Altar and see the self sacrifice bonus it gives.</p>
+    </div>
+    <nav class="links">
+      <a href="index.html">Altar planner</a>
+      <a href="garden.html" aria-current="page">Tranquility garden</a>
+      <a href="https://github.com/breakinblocks/NeoVitae">Source</a>
+      <a href="https://github.com/breakinblocks/NeoVitae/wiki">Wiki</a>
+    </nav>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="builder" aria-label="Garden builder">
+    <div class="panel garden-wrap">
+      <div class="garden-bar">
+        <div class="seg" id="view-buttons" role="group" aria-label="Layer"></div>
+        <span class="tool-label" id="layer-hint"></span>
+      </div>
+      <div class="garden-canvas" id="garden-host">
+        <canvas id="garden" aria-label="Garden grid, top-down view"></canvas>
+        <div class="tooltip" id="tooltip" hidden></div>
+      </div>
+      <div class="viewport-bar">
+        <div class="ring-tools" id="ring-tools"></div>
+      </div>
+      <p class="hint">Top-down view centered on the Incense Altar. Click or drag to place the selected block on the chosen layer; right-click clears it. Ground is the path level, Middle and Top are the two blocks above it. Gold outlines mark the path blocks each ring needs.</p>
+    </div>
+
+    <aside class="panel palette" aria-labelledby="palette-title">
+      <div class="panel-head">
+        <h2 id="palette-title">Garden</h2>
+        <button type="button" class="ghost" id="clear-all">Clear all</button>
+      </div>
+      <div class="plan-actions">
+        <span>Plan</span>
+        <button type="button" class="ghost small" id="share">Copy link</button>
+        <button type="button" class="ghost small" id="export">Export JSON</button>
+        <button type="button" class="ghost small" id="import">Import JSON</button>
+      </div>
+
+      <div class="path-tool">
+        <label class="field narrow"><span>Path rings</span><select id="path-rings"></select></label>
+        <button type="button" class="ghost" id="lay-paths">Lay paths</button>
+        <button type="button" class="ghost" id="clear-layer">Clear this layer</button>
+      </div>
+
+      <div class="brush-head"><span>Paths</span></div>
+      <div class="gbrushes" id="path-brushes"></div>
+      <div class="brush-head"><span>Tranquility</span></div>
+      <div class="gbrushes" id="tranq-brushes"></div>
+    </aside>
+  </section>
+
+  <section class="stat-grid" id="garden-stats" aria-label="Garden stats"></section>
+
+  <section class="panel tabs-panel">
+    <div class="tab">
+      <div class="alerts" id="garden-alerts"></div>
+      <div class="garden-tables">
+        <div>
+          <h3>Tranquility by type</h3>
+          <div class="table-wrap"><table class="data" id="type-table"></table></div>
+          <p class="note">Each type is added up, then the square roots are summed. Spreading blocks across all seven types gives far more than stacking one.</p>
+        </div>
+        <div>
+          <h3>Bonus steps</h3>
+          <div class="table-wrap"><table class="data" id="tier-table"></table></div>
+          <p class="note">Between steps the bonus rises smoothly with tranquility, up to the cap set by your path rings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Assumes a flat garden with every ring at the same height. In game each ring may sit up to 5 blocks above or below the previous one.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="garden.js"></script>
+</body>
+</html>

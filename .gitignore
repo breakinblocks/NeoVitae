@@ -67,3 +67,6 @@ secrets.txt
 !gradlew.bat
 
 /tools/
+
+calculator/data.js
+calculator/icons/

@@ -1,0 +1,43 @@
+{
+  "runes": [
+    {
+      "id": "animusnv:arcane_rune",
+      "name": "Arcane Rune",
+      "mod": "Animus",
+      "requires": "Ars Nouveau",
+      "versions": [
+        "1.21.1"
+      ],
+      "icon": "rune_arcane.png",
+      "stats": {
+        "consumption_mod": 0.2
+      },
+      "states": [
+        {
+          "key": "arcane_on",
+          "label": "With Source",
+          "consumptionAdd": 0.15,
+          "dislocationPerRune": 0.35
+        },
+        {
+          "key": "arcane_off",
+          "label": "No Source",
+          "consumptionAdd": -0.35
+        }
+      ],
+      "minVersion": "5.2.19"
+    }
+  ],
+  "orbs": [
+    {
+      "id": "animusnv:blood_orb_transcendent",
+      "name": "Transcendent Orb of Vitae",
+      "mod": "Animus",
+      "icon": "blood_orb_animus_transcendent.png",
+      "tier": 5,
+      "fillRate": 75,
+      "animaCapacity": 30000000,
+      "fluidCapacity": 16000
+    }
+  ]
+}

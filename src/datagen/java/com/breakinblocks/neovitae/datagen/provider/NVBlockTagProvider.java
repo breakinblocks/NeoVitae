@@ -200,33 +200,28 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(NVBlocks.INCENSE_ALTAR.block().get());
 
-        // Incense Path Blocks - higher level tags inherit from lower levels via tag hierarchy
-        // Level 0 (innermost ring) - basic path blocks
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_0)
                 .add(Blocks.DIRT_PATH)
-                .addOptionalTag(BlockTags.STONE_BRICKS);
-
-        // Each level adds the previous level's tag - blocks in level 0 work for all levels
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_1)
-                .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_0);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_2)
+                .addOptionalTag(BlockTags.STONE_BRICKS)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_1);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_3)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_1)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_2);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_4)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_2)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_3);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_5)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_3)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_4);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_6)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_4)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_5);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_7)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_5)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_6);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_8)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_6)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_7);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_9)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_7)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_8);
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_10)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_8)
                 .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_9);
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_9)
+                .addTag(NVTags.Blocks.INCENSE_PATH_LEVEL_10);
 
         // Tranquility blocks - empty by default, uses runtime detection for vanilla blocks
         // Users can add custom blocks via datapacks
@@ -412,7 +407,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_6)
                 .add(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
                 .add(DungeonBlocks.WORN_STONE_TILE_PATH.block().get());
-        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_8)
+        this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_10)
                 .add(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
                 .add(DungeonBlocks.OBSIDIAN_TILE_PATH.block().get());
     }

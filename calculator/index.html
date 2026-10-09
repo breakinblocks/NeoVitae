@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ara Vitae Planner</title>
+<meta name="description" content="Build a Neo Vitae Ara Vitae in 3D, place every rune, and see how it performs: capacity, speed, production and craft times.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <img class="crest" id="crest" src="data:," alt="">
+    <div>
+      <h1>Ara Vitae Planner</h1>
+      <p class="sub"><span id="mod-version">Neo Vitae</span>. Build your altar, place each rune, and see how it performs. Numbers come from the mod's own code and data.</p>
+    </div>
+    <nav class="links">
+      <a href="index.html" aria-current="page">Altar planner</a>
+      <a href="garden.html">Tranquility garden</a>
+      <a href="https://github.com/breakinblocks/NeoVitae">Source</a>
+      <a href="https://github.com/breakinblocks/NeoVitae/wiki">Wiki</a>
+    </nav>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="builder" aria-label="Altar builder">
+    <div class="viewport-wrap panel">
+      <div class="viewport" id="viewport">
+        <div class="viewport-fallback" id="viewport-fallback" hidden></div>
+        <div class="tooltip" id="tooltip" hidden></div>
+      </div>
+      <div class="viewport-bar">
+        <div class="ring-tools" id="ring-tools"></div>
+        <button type="button" class="ghost small" id="reset-view">Reset view</button>
+      </div>
+      <p class="hint">Click a rune to place the selected rune there. Right-click clears it back to a Blank Rune. Hold Shift and drag to paint several. Drag to orbit, scroll to zoom.</p>
+    </div>
+
+    <aside class="panel palette" aria-labelledby="palette-title">
+      <div class="panel-head">
+        <h2 id="palette-title">Altar</h2>
+        <button type="button" class="ghost" id="clear-runes">Clear runes</button>
+      </div>
+      <div class="plan-actions">
+        <span>Plan</span>
+        <button type="button" class="ghost small" id="share">Copy link</button>
+        <button type="button" class="ghost small" id="export">Export JSON</button>
+        <button type="button" class="ghost small" id="import">Import JSON</button>
+      </div>
+
+      <fieldset class="tiers">
+        <legend>Tier</legend>
+        <div class="tier-buttons" id="tier-buttons"></div>
+      </fieldset>
+
+      <div class="slots">
+        <div class="slots-label">
+          <span>Rune slots</span>
+          <span class="mono" id="slots-text"></span>
+        </div>
+        <div class="meter"><div class="meter-fill" id="slots-fill"></div></div>
+        <p class="note" id="slots-note"></p>
+      </div>
+
+      <div class="brush-head">
+        <span>Runes</span>
+        <button type="button" class="ghost small" id="fill-empty">Fill empty slots</button>
+      </div>
+      <div class="brushes" id="brushes"></div>
+    </aside>
+  </section>
+
+  <section class="stat-grid" id="stat-grid" aria-label="Altar stats"></section>
+
+  <section class="panel tabs-panel" aria-label="Performance">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="production" aria-selected="true">Production</button>
+      <button type="button" role="tab" data-tab="craft" aria-selected="false">Crafting</button>
+      <button type="button" role="tab" data-tab="orbs" aria-selected="false">Orbs</button>
+    </div>
+
+    <div class="tab" id="tab-production" role="tabpanel">
+      <p class="note">Steady-state EV per second each source puts into this altar, after its sacrifice bonuses. Network cost is what the ritual draws from your Soul Network to keep running. Activation costs are not included.</p>
+      <div class="sources" id="sources"></div>
+      <div class="totals" id="totals"></div>
+    </div>
+
+    <div class="tab" id="tab-craft" role="tabpanel" hidden>
+      <div class="form-row">
+        <label class="field grow">
+          <span>Ara Vitae recipe</span>
+          <select id="recipe"></select>
+        </label>
+      </div>
+      <div class="craft-card" id="craft-card"></div>
+    </div>
+
+    <div class="tab" id="tab-orbs" role="tabpanel" hidden>
+      <p class="note">A bound orb on the altar moves Essentia Vitae from the main tank into its owner's network every tick, up to the network cap. Speed raises the fill rate; Runes of the Orb raise the cap.</p>
+      <div class="table-wrap"><table class="data" id="orb-table"></table></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Times assume 20 ticks per second. Covers Neo Vitae and Animus runes; other addons that change rune stats are not included.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

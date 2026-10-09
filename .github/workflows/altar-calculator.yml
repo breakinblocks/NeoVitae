@@ -1,0 +1,49 @@
+name: Altar Calculator
+
+on:
+  push:
+    branches: [26.1.2]
+    paths:
+      - calculator/**
+      - tools/build-altar-calculator.py
+      - src/generated/resources/**
+      - src/main/resources/assets/neovitae/textures/**
+      - src/main/java/com/breakinblocks/neovitae/common/blockentity/AltarConstants.java
+      - src/main/java/com/breakinblocks/neovitae/common/blockentity/IncenseAltarBlockEntity.java
+      - src/main/java/com/breakinblocks/neovitae/incense/**
+      - src/main/java/com/breakinblocks/neovitae/ritual/types/RitualFeatheredKnife.java
+      - src/main/java/com/breakinblocks/neovitae/ServerConfig.java
+      - gradle.properties
+      - .github/workflows/altar-calculator.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build calculator data
+        run: python3 tools/build-altar-calculator.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: calculator
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

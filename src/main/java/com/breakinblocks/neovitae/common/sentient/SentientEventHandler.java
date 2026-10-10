@@ -295,7 +295,8 @@ public class SentientEventHandler {
         }
 
         ItemStack chestStack = SentientHelper.getChest(player);
-        if (chestStack.isEmpty()) {
+        if (!chestStack.is(NVTags.Items.SENTIENT_UPGRADE_SET) || SentientHelper.isNeverValid(chestStack)) {
+            CuriosCompat.recalculateCuriosSlots(player);
             return;
         }
 

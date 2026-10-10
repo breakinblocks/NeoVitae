@@ -35,6 +35,7 @@ The success of the Sentient Sword has inspired further experimentation. If a bla
 | Sentient Axe | Slightly above iron unpowered. With a full gem, rivals Netherite and gains a significant damage boost; formidable as a weapon for those who do not mind its heft. |
 | Sentient Shovel | A noticeable improvement over iron even unpowered. With a full gem, earth and gravel part before it like water. |
 | Sentient Scythe | A beast of a different nature. Slower and less devastating per blow than the sword, but its sweeping arc delivers full damage to every creature in reach; ideal for hordes. Still functions as a hoe. |
+| Sentient Spear | Forged from an Iron Spear. Jabs and charges like a Netherite Spear, 0.5 damage weaker before Spiritus is counted. Its damage, Aspect effects and Spiritus harvest grow with the Spiritus you carry, just as the sword's do. *Minecraft 26.1 only.* |
 
 ## Sentient Armor
 

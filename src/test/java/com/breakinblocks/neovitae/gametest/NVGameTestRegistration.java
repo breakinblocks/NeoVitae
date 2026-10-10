@@ -60,5 +60,6 @@ public class NVGameTestRegistration {
         DeusToolTests.register(r);
         DeusRitualTests.register(r);
         SentientScytheEnchantTests.register(r);
+        SentientSpearTests.register(r);
     }
 }

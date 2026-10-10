@@ -1,0 +1,123 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:select",
+          "property": "minecraft:component",
+          "component": "neovitae:sigil_activated",
+          "cases": [
+            {
+              "when": true,
+              "model": {
+                "type": "minecraft:select",
+                "property": "minecraft:component",
+                "component": "neovitae:spiritus_type",
+                "cases": [
+                  {
+                    "when": "ruina",
+                    "model": {
+                      "type": "minecraft:model",
+                      "model": "neovitae:item/variant/sentient_spear_ruina"
+                    }
+                  },
+                  {
+                    "when": "nihilum",
+                    "model": {
+                      "type": "minecraft:model",
+                      "model": "neovitae:item/variant/sentient_spear_nihilum"
+                    }
+                  },
+                  {
+                    "when": "invictus",
+                    "model": {
+                      "type": "minecraft:model",
+                      "model": "neovitae:item/variant/sentient_spear_invictus"
+                    }
+                  },
+                  {
+                    "when": "vindicta",
+                    "model": {
+                      "type": "minecraft:model",
+                      "model": "neovitae:item/variant/sentient_spear_vindicta"
+                    }
+                  }
+                ],
+                "fallback": {
+                  "type": "minecraft:model",
+                  "model": "neovitae:item/variant/sentient_spear_activated"
+                }
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "neovitae:item/variant/sentient_spear_deactivated"
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:select",
+      "property": "minecraft:component",
+      "component": "neovitae:sigil_activated",
+      "cases": [
+        {
+          "when": true,
+          "model": {
+            "type": "minecraft:select",
+            "property": "minecraft:component",
+            "component": "neovitae:spiritus_type",
+            "cases": [
+              {
+                "when": "ruina",
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "neovitae:item/variant/sentient_spear_ruina_in_hand"
+                }
+              },
+              {
+                "when": "nihilum",
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "neovitae:item/variant/sentient_spear_nihilum_in_hand"
+                }
+              },
+              {
+                "when": "invictus",
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "neovitae:item/variant/sentient_spear_invictus_in_hand"
+                }
+              },
+              {
+                "when": "vindicta",
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "neovitae:item/variant/sentient_spear_vindicta_in_hand"
+                }
+              }
+            ],
+            "fallback": {
+              "type": "minecraft:model",
+              "model": "neovitae:item/variant/sentient_spear_activated_in_hand"
+            }
+          }
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "neovitae:item/variant/sentient_spear_deactivated_in_hand"
+      }
+    }
+  },
+  "swap_animation_scale": 1.95
+}

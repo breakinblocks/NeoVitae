@@ -1,0 +1,12 @@
+{
+  "type": "neovitae:hellfire_forge_transform",
+  "catalysts": [
+    "neovitae:spiritus_gem_petty"
+  ],
+  "drain": 0.0,
+  "minDrain": 0.0,
+  "output": {
+    "id": "neovitae:sentient_spear"
+  },
+  "transformInput": "minecraft:iron_spear"
+}

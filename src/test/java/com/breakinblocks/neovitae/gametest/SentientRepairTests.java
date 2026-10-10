@@ -23,7 +23,7 @@ public final class SentientRepairTests {
                 NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get(),
                 NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
                 NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
-                NVItems.SENTIENT_SCYTHE.get(), NVItems.LEX_VITAE.get());
+                NVItems.SENTIENT_SCYTHE.get(), NVItems.SENTIENT_SPEAR.get(), NVItems.LEX_VITAE.get());
     }
 
     private static List<Item> rejectedMaterials() {

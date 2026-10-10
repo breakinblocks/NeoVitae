@@ -3,9 +3,9 @@
   "condition": {
     "type": "modonomicon:none"
   },
-  "id": "axe_intro",
+  "id": "spear_intro",
   "show_title_separator": true,
-  "sort_number": 6,
-  "text": "book.neovitae.guide.spiritus.sentient_tools.axe_intro.text",
+  "sort_number": 4,
+  "text": "book.neovitae.guide.spiritus.sentient_tools.spear_intro.text",
   "title": ""
 }

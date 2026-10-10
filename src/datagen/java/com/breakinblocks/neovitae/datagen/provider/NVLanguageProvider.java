@@ -333,11 +333,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.SENTIENT_PICKAXE.get(), "Sentient Pickaxe");
         add(NVItems.SENTIENT_SHOVEL.get(), "Sentient Shovel");
         add(NVItems.SENTIENT_SCYTHE.get(), "Sentient Scythe");
+        add(NVItems.SENTIENT_SPEAR.get(), "Sentient Spear");
         addTooltip("sentientSword.desc", "Empowered by spiritus in your inventory");
         addTooltip("sentientAxe.desc", "Empowered by spiritus in your inventory");
         addTooltip("sentientPickaxe.desc", "Empowered by spiritus in your inventory");
         addTooltip("sentientShovel.desc", "Empowered by spiritus in your inventory");
         addTooltip("sentientScythe.desc", "Area damage empowered by spiritus");
+        addTooltip("sentientSpear.desc", "Empowered by spiritus in your inventory");
 
         add(NVItems.LEX_VITAE.get(), "Lex Vitae");
         addTooltip("lexVitae.desc", "Sentient multitool: chops, mines, digs, tills. Sneak-right-click to toggle. Sneak+scroll to set mining radius. The Cycle Mode key switches the beam between mining, damage, and both. Mined blocks are sent straight to your inventory.");
@@ -392,6 +394,10 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("sentientScythe.rider.raw", "Sweeping damage scales with stored Raw spiritus");
         addTooltip("sentientScythe.rider.nihilum", "Devastating sweeping damage");
         addTooltip("sentientScythe.rider.vindicta", "Fast, lightweight sweeps");
+
+        addTooltip("sentientSpear.rider.raw", "Jab and charge damage scale with stored Raw spiritus");
+        addTooltip("sentientSpear.rider.nihilum", "Heavy damage scaling; slower jabs");
+        addTooltip("sentientSpear.rider.vindicta", "Quicker jabs and bonus movement speed");
 
         addTooltip("lexVitae.rider.raw", "All actions empowered by stored Raw spiritus");
         addTooltip("lexVitae.rider.nihilum", "Devastating damage and mining bonuses");

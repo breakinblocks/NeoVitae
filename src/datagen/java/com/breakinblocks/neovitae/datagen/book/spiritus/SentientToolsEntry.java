@@ -48,6 +48,19 @@ public class SentientToolsEntry extends EntryProvider {
                 + "[#](8B0000)Spiritus Gem[#](), it becomes a devastating instrument of reaping.\\\n\\\n"
                 + "[#](2E8B57)It still functions as a hoe, for the practical-minded.[#]()");
 
+        this.page("spear_intro", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The [#](8B0000)Sentient Spear[#]() is the hunter's answer to the sword. Every jab and every charge "
+                + "falls just short of a [#](8B0000)Netherite Spear[#](), before the Spiritus you carry is counted.");
+
+        this.page("spear", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Sentient Spear");
+        this.pageText("Jab with it, or hold it ready and charge, mounted or on foot. Its damage, its Aspect effects and "
+                + "the Spiritus it reaps from the slain grow with your reserves, just as the sword's do.\\\n\\\n"
+                + "[#](2E8B57)Forge it from an Iron Spear and a Petty Spiritus Gem in the Hellfire Forge.[#]()");
+
         this.page("axe_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Much like the pickaxe, the [#](8B0000)Sentient Axe[#]() scales dramatically with the Spiritus you carry. "

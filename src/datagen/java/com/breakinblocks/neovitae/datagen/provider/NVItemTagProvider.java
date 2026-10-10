@@ -100,6 +100,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.FOOT_ARMOR).add(NVItems.SENTIENT_BOOTS.get());
 
         tag(ItemTags.SWORDS).add(NVItems.SENTIENT_SWORD.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.SPEARS).add(NVItems.SENTIENT_SPEAR.get());
         tag(ItemTags.AXES).add(NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
         tag(ItemTags.PICKAXES).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.LEX_VITAE.get());
         tag(ItemTags.SHOVELS).add(NVItems.SENTIENT_SHOVEL.get(), NVItems.LEX_VITAE.get());

@@ -7,7 +7,7 @@ Every creature that walks, crawls, or slithers through the dark carries within i
 Two methods exist:
 
 - Strike a hostile creature with a **[Throwing Dagger](Hellfire-Forge-and-Sentient-Equipment)**; the wound binds spectral motes to its form, and slaying it while marked yields its Spiritus.
-- Fell it outright with a **Sentient Sword**.
+- Fell it outright with a **Sentient Sword** or, on Minecraft 26.1, a **Sentient Spear**.
 
 As a fledgling Vitaemancer, you will not yet possess a Sentient Sword, so the Throwing Dagger shall serve as your first instrument of collection. Loose Spiritus rattling around your pack is unwieldy; transfer it into a **Spiritus Gem** for safekeeping.
 

@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.minecraft.util.TriState;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -23,6 +26,7 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.soul.ISentientTool;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
+import com.breakinblocks.neovitae.common.item.soul.SentientSpearItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientToolHelper;
 
 import javax.annotation.Nullable;
@@ -54,6 +58,10 @@ public class SpiritusEventHandler {
         }
 
         ItemStack weapon = player.getMainHandItem();
+        if (!(weapon.getItem() instanceof ISentientTool) && player.isUsingItem()
+                && player.getUseItem().getItem() instanceof ISentientTool) {
+            weapon = player.getUseItem();
+        }
         if (weapon.isEmpty()) {
             return;
         }
@@ -85,6 +93,18 @@ public class SpiritusEventHandler {
                 }
             }
             dropSouls(killed, overflow);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onSentientSpearCharge(LivingIncomingDamageEvent event) {
+        DamageSource source = event.getSource();
+        if (!source.is(DamageTypes.SPEAR) || !(source.getEntity() instanceof Player player) || !player.isUsingItem()) {
+            return;
+        }
+        ItemStack spear = player.getUseItem();
+        if (spear.getItem() instanceof SentientSpearItem) {
+            event.setAmount((float) Math.max(0, event.getAmount() + SentientSpearItem.getChargeDamageOffset(spear)));
         }
     }
 

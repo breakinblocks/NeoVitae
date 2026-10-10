@@ -1158,6 +1158,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, rKey(NeoVitae.rl("sentient_scythe")));
 
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_SPEAR.get())
+                .transformInput(Items.IRON_SPEAR)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minSpiritus(0).drain(0)
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
+                .save(output, rKey(NeoVitae.rl("sentient_spear")));
+
         HellfireForgeRecipeBuilder.build(NVItems.LEX_VITAE.get())
                 .requires(NVItems.SENTIENT_SWORD.get())
                 .requires(Items.NETHERITE_INGOT)

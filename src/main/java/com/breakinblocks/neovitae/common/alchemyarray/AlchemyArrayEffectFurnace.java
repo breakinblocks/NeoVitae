@@ -62,6 +62,10 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
                 int timer = cookTimers.getOrDefault(id, 0) + 1;
                 cookTimers.put(id, timer);
 
+                if (timer < COOK_TIME) {
+                    markProcessing(itemEntity);
+                }
+
                 if (timer >= COOK_TIME) {
                     Binding binding = tile.getOwnerBinding();
                     boolean hasLP = true;

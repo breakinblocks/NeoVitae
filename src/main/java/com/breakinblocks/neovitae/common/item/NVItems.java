@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.item;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
@@ -95,7 +96,7 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> TABULA_ANIMATA = plainItem("tabula_animata");
     public static final DeferredHolder<Item, Item> TABULA_SPIRITUS = plainItem("tabula_spiritus");
     public static final DeferredHolder<Item, Item> TABULA_AETHEREA = plainItem("tabula_aetherea");
-    public static final DeferredHolder<Item, Item> PRISMATIC_SPIRITUS_GEM = BASIC_ITEMS.registerItem("prismatic_spiritus_gem", props -> new Item(props.rarity(Rarity.EPIC)));
+    public static final DeferredHolder<Item, Item> PRISMATIC_SPIRITUS_GEM = BASIC_ITEMS.registerItem("prismatic_spiritus_gem", props -> new Item(props.rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
     public static final DeferredHolder<Item, SigilItem> SIGIL_DIVINATION = BASIC_ITEMS.registerItem("sigil_divination", props -> new SigilItem(props, SigilTypeRegistry.key("divination")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_SEER = BASIC_ITEMS.registerItem("sigil_seer", props -> new SigilItem(props, SigilTypeRegistry.key("seer")));
@@ -192,7 +193,7 @@ public class NVItems {
 
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_WEAK = BASIC_ITEMS.registerItem("activation_crystal_weak", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.WEAK));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_AWAKENED = BASIC_ITEMS.registerItem("activation_crystal_awakened", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.AWAKENED));
-    public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_DIVINUS = BASIC_ITEMS.registerItem("activation_crystal_divinus", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.DIVINUS));
+    public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_DIVINUS = BASIC_ITEMS.registerItem("activation_crystal_divinus", props -> new ItemActivationCrystal(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true), ItemActivationCrystal.CrystalType.DIVINUS));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_CREATIVE = BASIC_ITEMS.registerItem("activation_crystal_creative", props -> new ItemActivationCrystal(props, ItemActivationCrystal.CrystalType.CREATIVE));
 
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_AIR = BASIC_ITEMS.registerItem("air_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.AIR));
@@ -200,11 +201,11 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_WATER = BASIC_ITEMS.registerItem("water_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.WATER));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_EARTH = BASIC_ITEMS.registerItem("earth_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.EARTH));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_TENEBRAE = BASIC_ITEMS.registerItem("tenebrae_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.TENEBRAE));
-    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_DEUS = BASIC_ITEMS.registerItem("deus_scribe_tool", props -> new ItemInscriptionTool(props, EnumRuneType.DEUS));
+    public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_DEUS = BASIC_ITEMS.registerItem("deus_scribe_tool", props -> new ItemInscriptionTool(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true), EnumRuneType.DEUS));
 
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.registerItem("ritual_diviner", props -> new ItemRitualDiviner(props, 0));
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_TENEBRAE = BASIC_ITEMS.registerItem("ritual_diviner_tenebrae", props -> new ItemRitualDiviner(props, 1));
-    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DEUS = BASIC_ITEMS.registerItem("ritual_diviner_deus", props -> new ItemRitualDiviner(props, 2));
+    public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DEUS = BASIC_ITEMS.registerItem("ritual_diviner_deus", props -> new ItemRitualDiviner(props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true), 2));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.registerItem("ritual_reader", ItemRitualReader::new);
     public static final DeferredHolder<Item, ItemRitualLedger> RITUAL_LEDGER = BASIC_ITEMS.registerItem("ritual_ledger", ItemRitualLedger::new);
     public static final DeferredHolder<Item, ItemRitualDesigner> RITUAL_DESIGNER = BASIC_ITEMS.registerItem("ritual_designer", ItemRitualDesigner::new);

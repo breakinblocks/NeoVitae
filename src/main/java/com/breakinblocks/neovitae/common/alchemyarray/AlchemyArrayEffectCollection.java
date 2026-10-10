@@ -29,6 +29,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
 
     private static final double RADIUS = 2.0;
     private static final double PULL_SPEED = 0.15;
+    private static final int NEW_ITEM_GRACE_TICKS = 2;
 
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
@@ -46,7 +47,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         ResourceHandler<ItemResource> inventory = level.getCapability(Capabilities.Item.BLOCK, belowPos, Direction.UP);
 
         for (ItemEntity itemEntity : items) {
-            if (itemEntity.isRemoved()) continue;
+            if (itemEntity.isRemoved() || itemEntity.tickCount < NEW_ITEM_GRACE_TICKS || isBeingProcessed(itemEntity)) continue;
 
             Vec3 dir = center.subtract(itemEntity.position());
             double dist = dir.length();

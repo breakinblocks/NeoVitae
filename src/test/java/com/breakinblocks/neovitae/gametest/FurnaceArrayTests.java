@@ -7,8 +7,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectCollection;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectFurnace;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
@@ -29,6 +31,8 @@ public final class FurnaceArrayTests {
     private static final int STACK = 64;
 
     private static final BlockPos ARRAY_POS = new BlockPos(3, 1, 2);
+    private static final BlockPos COLLECTOR_POS = new BlockPos(4, 1, 2);
+    private static final BlockPos CHEST_POS = COLLECTOR_POS.below();
 
     private record Rig(AlchemyArrayBlockEntity array, Anima anima) {}
 
@@ -80,7 +84,37 @@ public final class FurnaceArrayTests {
         return total;
     }
 
+    private static ChestBlockEntity buildCollector(GameTestHelper helper) {
+        helper.setBlock(CHEST_POS, Blocks.CHEST.defaultBlockState());
+        helper.setBlock(COLLECTOR_POS, NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState());
+        AlchemyArrayBlockEntity collector = helper.getBlockEntity(COLLECTOR_POS, AlchemyArrayBlockEntity.class);
+        collector.arrayEffect = new AlchemyArrayEffectCollection();
+        collector.isActive = true;
+        return helper.getBlockEntity(CHEST_POS, ChestBlockEntity.class);
+    }
+
     public static void register(NVTestRegistrar r) {
+        r.add("furnace_array/collector_waits_for_smelting", 400, helper -> {
+            Rig rig = build(helper);
+            if (rig == null) return;
+            ChestBlockEntity chest = buildCollector(helper);
+
+            drop(helper, new ItemStack(Items.RAW_IRON, STACK));
+            drop(helper, new ItemStack(Items.STICK, 1));
+
+            helper.runAtTickTime(100, () -> {
+                helper.assertTrue(chest.countItem(Items.STICK) == 1, "The collector should take items that are not being smelted");
+                helper.assertTrue(chest.countItem(Items.RAW_IRON) == 0, "The collector took raw iron before it was smelted");
+            });
+
+            helper.succeedWhen(() -> {
+                helper.assertTrue(helper.getTick() > 100, "Waiting for the mid-smelt check");
+                helper.assertTrue(chest.countItem(Items.IRON_INGOT) == STACK,
+                        "Expected " + STACK + " smelted ingots in the chest, got " + chest.countItem(Items.IRON_INGOT));
+                helper.assertTrue(chest.countItem(Items.RAW_IRON) == 0, "No raw iron should reach the chest");
+            });
+        });
+
         r.add("furnace_array/full_stack_costs_one_charge", 400, helper -> {
             Rig rig = build(helper);
             if (rig == null) return;

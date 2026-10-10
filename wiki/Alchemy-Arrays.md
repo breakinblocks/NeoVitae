@@ -69,7 +69,7 @@ Crafting Arrays are among the simplest expressions of the art. The array inscrib
 
 | Array | Effect |
 |-------|--------|
-| Collection Array | Draws dropped items within 2 blocks toward its center. Place atop a chest and collected items deposit directly inside. |
+| Collection Array | Draws dropped items within 2 blocks toward its center. Place atop a chest and collected items deposit directly inside. Items a nearby Furnace Array is smelting are left until they are done, so the two arrays together make a hands-off smelter. |
 | Light Array | Hangs 25 invisible full-strength lights in the open air one block above itself, filling a radius-3 diamond. A redstone signal takes them down; cutting the signal puts them back. Breaking the array removes them, unless you have fed it a block of Glowstone to make them permanent (see below). |
 | Furnace Array | Transmutes raw materials dropped nearby into their smelted forms (10 EV per stack from the owner's network). Items within its radius will not despawn while awaiting processing; processes all valid stacks simultaneously, with cook times matching a standard furnace. |
 | Endless Fountain Array | Scribed with a Block of Lapis and awakened by a Sea Pickle. Pipes water into every fluid container touching its six faces; every 5 ticks it deposits up to 6 buckets, spread evenly across neighbors. Only whole-bucket fills commit. The cache of adjacent tanks reacts instantly to neighbor changes, backs off progressively when every tank is full (with a slate-gray particle puff to signal the stall), and parks completely on a redstone signal. |

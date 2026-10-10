@@ -59,5 +59,6 @@ public class NVGameTestRegistration {
         BurdenGroundingTests.register(r);
         DeusToolTests.register(r);
         DeusRitualTests.register(r);
+        SentientScytheEnchantTests.register(r);
     }
 }

@@ -8,16 +8,29 @@ package com.breakinblocks.neovitae.common.alchemyarray;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 
 import java.util.List;
 
 public abstract class AlchemyArrayEffect {
+    private static final int PROCESSING_GRACE_TICKS = 5;
+
     private int evCost;
+
+    public static void markProcessing(ItemEntity item) {
+        item.setData(NVDataAttachments.ARRAY_PROCESSING_UNTIL, item.level().getGameTime() + PROCESSING_GRACE_TICKS);
+    }
+
+    public static boolean isBeingProcessed(ItemEntity item) {
+        return item.hasData(NVDataAttachments.ARRAY_PROCESSING_UNTIL)
+                && item.getData(NVDataAttachments.ARRAY_PROCESSING_UNTIL) >= item.level().getGameTime();
+    }
 
     public int getEvCost() {
         return evCost;

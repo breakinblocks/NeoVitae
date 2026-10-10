@@ -22,7 +22,8 @@ public class UtilityArraysEntry extends EntryProvider {
         this.pageTitle("Utility Arrays");
         this.pageText("Not all arrays are weapons. These workings serve the practical needs of a vitaemancer's workshop.\\\n\\\n"
                 + "The [#](8B0000)Collection Array[#]() draws dropped items within 2 blocks toward its center. "
-                + "Place it atop a chest and collected items will be deposited directly inside.\\\n\\\n"
+                + "Place it atop a chest and collected items will be deposited directly inside. "
+                + "It leaves items alone while a nearby Furnace Array is smelting them, then collects the results.\\\n\\\n"
                 + "The [#](8B0000)Light Array[#]() radiates illumination from invisible sources above the array, "
                 + "keeping an area well-lit without cluttering it with torches.");
 

@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -110,8 +112,14 @@ public class SentientScytheItem extends Item implements ISentientTool {
                 entity -> entity != player && entity != target && entity.isAlive() && entity instanceof Enemy);
 
         float sweepDamage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        ItemStack weapon = player.getMainHandItem();
         for (LivingEntity entity : nearbyEntities) {
-            entity.hurtServer((ServerLevel) entity.level(), player.damageSources().playerAttack(player), sweepDamage);
+            ServerLevel serverLevel = (ServerLevel) entity.level();
+            DamageSource source = player.damageSources().playerAttack(player);
+            float damage = EnchantmentHelper.modifyDamage(serverLevel, weapon, entity, source, sweepDamage);
+            if (entity.hurtServer(serverLevel, source, damage)) {
+                EnchantmentHelper.doPostAttackEffects(serverLevel, entity, source);
+            }
             applyEffectToEntity(type, spiritusBracket, entity, player);
         }
     }

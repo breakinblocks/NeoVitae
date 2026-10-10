@@ -47,6 +47,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.screen.RoutingNodeScreen;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
@@ -72,6 +74,8 @@ import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.compat.jei.crystal.CrystalGrowthCategory;
 import com.breakinblocks.neovitae.compat.jei.crystal.CrystalGrowthJEIRecipe;
+import com.breakinblocks.neovitae.compat.jei.dungeon.DungeonStoneSpreadCategory;
+import com.breakinblocks.neovitae.compat.jei.dungeon.DungeonStoneSpreadJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
@@ -193,6 +197,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new BloodTankUpgradeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DisenchantCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrystalGrowthCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DungeonStoneSpreadCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -255,6 +260,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addCraftingStation(ImperfectRitualRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
         registration.addCraftingStation(RitualRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()));
         registration.addCraftingStation(BloodTankUpgradeCategory.RECIPE_TYPE, new ItemStack(Items.CRAFTING_TABLE));
+        registration.addCraftingStation(DungeonStoneSpreadCategory.RECIPE_TYPE, new ItemStack(Items.CRAFTING_TABLE));
         registration.addCraftingStation(DisenchantCategory.RECIPE_TYPE, new ItemStack(NVItems.SANGUINE_REVERTER.get()));
     }
 
@@ -349,6 +355,19 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 new ItemStack(NVItems.ALCHEMY_FLASK_LINGERING.get()));
         registration.addIngredientInfo(flaskStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.flask.rinse.info"));
+
+        List<ItemStack> dungeonStoneStacks = DungeonBlocks.DUNGEON_STONE.values().stream()
+                .map(holder -> new ItemStack(holder.item().get()))
+                .toList();
+        registration.addIngredientInfo(dungeonStoneStacks, VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.neovitae.dungeon_stone.spread.info"));
+
+        List<DungeonStoneSpreadJEIRecipe> spreadRecipes = new ArrayList<>();
+        for (DungeonVariant variant : DungeonVariant.values()) {
+            spreadRecipes.add(new DungeonStoneSpreadJEIRecipe(variant,
+                    new ItemStack(DungeonBlocks.DUNGEON_STONE.get(variant).item().get())));
+        }
+        registration.addRecipes(DungeonStoneSpreadCategory.RECIPE_TYPE, spreadRecipes);
 
         ClientLevel world = Minecraft.getInstance().level;
         if (world != null) {

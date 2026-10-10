@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "s": "neovitae:dungeon_stone_c"
+  },
+  "pattern": [
+    "s  ",
+    "ss ",
+    "sss"
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:dungeon_stone_stairs_c"
+  }
+}

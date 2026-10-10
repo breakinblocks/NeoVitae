@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "neovitae:dungeon_stone",
+    "minecraft:stone",
+    "minecraft:stone",
+    "minecraft:stone"
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:dungeon_stone"
+  }
+}

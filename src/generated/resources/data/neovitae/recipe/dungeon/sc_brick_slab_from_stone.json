@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "neovitae:dungeon_stone",
-  "result": {
-    "count": 2,
-    "id": "neovitae:dungeon_brick_slab"
-  }
-}

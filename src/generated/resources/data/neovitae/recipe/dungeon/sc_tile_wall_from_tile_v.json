@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "neovitae:dungeon_tile_v",
-  "result": {
-    "id": "neovitae:dungeon_tile_wall_v"
-  }
-}

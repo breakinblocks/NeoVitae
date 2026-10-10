@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_input": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "neovitae:dungeon_stone_st",
+              "neovitae:dungeon_brick1_st",
+              "neovitae:dungeon_brick2_st",
+              "neovitae:dungeon_brick3_st",
+              "neovitae:dungeon_polished_st",
+              "neovitae:dungeon_tile_st",
+              "neovitae:dungeon_smallbrick_st",
+              "neovitae:dungeon_tilespecial_st",
+              "neovitae:dungeon_pillar_center_st",
+              "neovitae:dungeon_pillar_special_st",
+              "neovitae:dungeon_pillar_cap_st"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:dungeon/dungeon_polished_slab_st_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_input"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:dungeon/dungeon_polished_slab_st_stonecutting"
+    ]
+  }
+}

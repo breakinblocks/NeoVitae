@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "s": "neovitae:dungeon_brick1_v"
+  },
+  "pattern": [
+    "sss",
+    "sss"
+  ],
+  "result": {
+    "count": 6,
+    "id": "neovitae:dungeon_brick_wall_v"
+  }
+}

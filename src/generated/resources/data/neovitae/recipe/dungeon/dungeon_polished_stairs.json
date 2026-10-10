@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "s": "neovitae:dungeon_polished"
+  },
+  "pattern": [
+    "s  ",
+    "ss ",
+    "sss"
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:dungeon_polished_stairs"
+  }
+}

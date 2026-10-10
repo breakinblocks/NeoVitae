@@ -1257,7 +1257,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("jei.neovitae.disenchant.info", "With a Sanguine Reverter in the Athanor's tool slot, you can disenchant items.\n\nPlace a stack of Books and one enchanted item (gear, a tool, or an enchanted book) in the inputs. Each operation lifts one enchantment onto a book and removes it from the item, costing 5 raw spiritus and 100 mB of Essentia Vitae.\n\nWhen the item has no enchantments left, it moves to the output. It runs only while you have books to fill and room in the output to hold them.");
         add("jei.neovitae.disenchant.any_item", "Any Enchanted Item");
         add("jei.neovitae.flask.rinse.info", "Rinse a flask with water to empty it for a new brew.\n\nRight-click water with a drained flask: a water source, a water cauldron, or a sink or tank that holds water. A cauldron loses one level, and a sink or tank gives up 250 mB.\n\nSneak while you right-click to pour out a flask that still has doses left.\n\nCrafting a flask with a Water Bucket also rinses it.");
+        add("jei.neovitae.dungeon_stone.spread.info", "Dungeon Stone spreads into ordinary stone.\n\nCraft one Dungeon Stone with three Stone in any arrangement to get four Dungeon Stone of the same aspect. A single block is enough to turn as much stone as you like.\n\nYour first Dungeon Stone of each aspect comes from the Athanor with that aspect's Spiritus Crystal, or from the Hellfire Forge fueled by Spiritus of that aspect.");
         add("jei.neovitae.recipe.crystal_growth", "Spiritus Crystal Growth");
+        add("jei.neovitae.recipe.dungeon_stone_spread", "Dungeon Stone Spreading");
         add("jei.neovitae.crystal_growth.aspect", "Aspect: %s");
         add("jei.neovitae.crystal_growth.seed", "Seed: %s Spiritus, %ss");
         add("jei.neovitae.crystal_growth.grow", "Rate scales with saturation");

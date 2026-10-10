@@ -48,7 +48,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 **Sentient Sword / Tools**. Drink Spiritus from kills, grow stronger.
 
-**Sentient Armor**. Equipped with Upgrades and Downgrades. 100-point cap baseline; **Ritual of Sentient Evolution** raises it by 100 per activation, to a maximum of 500. **Ritual of Sentient Penance** inscribes Downgrades from thrown catalyst items, freeing points to spend.
+**Sentient Armor**. Equipped with Upgrades and Downgrades. 100-point cap baseline; **Ritual of Sentient Evolution** raises it by 100 per activation, to a maximum of 500; the **Deus Sentient Evolution** then takes it to 600 and binds Blood Mending into every piece. **Ritual of Sentient Penance** inscribes Downgrades from thrown catalyst items, freeing points to spend.
 
 **Throwing Dagger**. Early ranged weapon and a Spiritus harvester.
 

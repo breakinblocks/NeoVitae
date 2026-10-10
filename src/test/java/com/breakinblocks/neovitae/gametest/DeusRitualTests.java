@@ -27,7 +27,8 @@ public final class DeusRitualTests {
             "deus_green_grove", "green_grove",
             "deus_placer", "placer",
             "deus_felling", "felling",
-            "deus_meteor", "meteor");
+            "deus_meteor", "meteor",
+            "deus_armour_evolve", "armour_evolve");
 
     private DeusRitualTests() {}
 

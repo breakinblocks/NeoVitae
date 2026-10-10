@@ -44,8 +44,8 @@ public class RitualSentientArmourEvolveEntry extends EntryProvider {
                 + "four evolutions. The ritual deactivates after each evolution; rebuild your "
                 + "reserves and activate it again for the next.\\\n\\\n"
                 + "When the armor can evolve no further, the circle refuses the offering and tells "
-                + "you so. Beyond that point, only [#](8B0000)Downgrades[#]() can stretch what a "
-                + "chestplate holds.");
+                + "you so. Beyond that point, the [#](8B0000)Deus Sentient Evolution[#]() raises it to "
+                + "[#](B8860B)600[#](), and [#](8B0000)Downgrades[#]() can stretch what a chestplate holds.");
     }
 
     @Override

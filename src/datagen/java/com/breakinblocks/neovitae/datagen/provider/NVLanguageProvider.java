@@ -1193,7 +1193,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
         add("chat.neovitae.armour_evolve.evolved", "The armor evolves; it can now hold %s Upgrade Points.");
-        add("chat.neovitae.armour_evolve.maxed", "The armor has evolved as far as it can.");
+        add("chat.neovitae.armour_evolve.maxed", "The armor has evolved as far as this circle can take it.");
+        add("chat.neovitae.deus_armour_evolve.evolved", "The armor ascends; it can now hold %s Upgrade Points, and every piece is bound with Blood Mending.");
+        add("chat.neovitae.deus_armour_evolve.mended", "Every piece of your Sentient Armor is bound with Blood Mending.");
+        add("chat.neovitae.deus_armour_evolve.maxed", "The armor has ascended as far as it can.");
+        add("chat.neovitae.deus_armour_evolve.unready", "The armor must first evolve to %s Upgrade Points through the Ritual of Sentient Evolution.");
 
         SentientUpgrades.translations(this::add);
 
@@ -1467,6 +1471,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("ritual.neovitae.deus_placer.placerRange.info", "The area the Mason fills.");
         add("ritual.neovitae.deus_placer.spiritus.raw", "Raw Spiritus quickens the work and widens the domain: 20 raw for 32 blocks a pulse and 80,000 blocks of room, 50 raw for 64 and 320,000.");
         addRitual("deus_felling", "Deus Fallen Trees", "A Deus Fallen Trees: fells up to 512 blocks each operation across a 41-wide area and replants from its drops or the chest.");
+        addRitual("deus_armour_evolve", "Deus Sentient Evolution", "A Deus Sentient Evolution: stand on the master stone in Sentient Armor that holds 500 Upgrade Points to raise its capacity to 600 and bind Blood Mending into every worn piece.");
         addRitual("deus_meteor", "Deus Meteo", "A Deus Meteo: calls the same meteors as the Ritual of Meteo, but every outer layer is pure ore with no filler stone.");
         add("gui.neovitae.configurator.mining_mode", "Mining:");
         add("gui.neovitae.configurator.mining.silk_touch", "Silk Touch");

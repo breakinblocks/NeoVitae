@@ -33,6 +33,12 @@
       "refresh_cost": 160,
       "refresh_time": 100
     },
+    "neovitae:deus_armour_evolve": {
+      "activation_cost": 500000,
+      "crystal_level": 2,
+      "per_operation": true,
+      "refresh_cost": 250000
+    },
     "neovitae:deus_crystallum_fractura": {
       "activation_cost": 400000,
       "crystal_level": 2,

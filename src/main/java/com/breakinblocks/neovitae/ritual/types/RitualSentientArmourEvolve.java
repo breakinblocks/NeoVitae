@@ -31,7 +31,11 @@ public class RitualSentientArmourEvolve extends Ritual {
     public static final int MAX_UPGRADE_POINTS = 500;
 
     public RitualSentientArmourEvolve() {
-        super("armour_evolve", 1, 50000, "ritual." + NeoVitae.MODID + ".armour_evolve");
+        this("armour_evolve", 1, 50000);
+    }
+
+    protected RitualSentientArmourEvolve(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
     }
 
     @Override

@@ -143,6 +143,9 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualDeusMeteor> DEUS_METEOR =
             registerRitual(RitualDeusMeteor.NAME, RitualDeusMeteor::new);
 
+    public static final DeferredHolder<Ritual, RitualDeusArmourEvolve> DEUS_ARMOUR_EVOLVE =
+            registerRitual(RitualDeusArmourEvolve.NAME, RitualDeusArmourEvolve::new);
+
     public static final DeferredHolder<ImperfectRitual, ImperfectRitualRain> IMPERFECT_RAIN =
             registerImperfectRitual("rain", ImperfectRitualRain::new);
 

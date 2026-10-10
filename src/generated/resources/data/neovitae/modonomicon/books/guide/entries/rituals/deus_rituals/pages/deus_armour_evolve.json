@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_armour_evolve",
+  "multiblock_id": "neovitae:ritual/deus_armour_evolve",
+  "multiblock_name": "Deus Sentient Evolution",
+  "show_visualize_button": true,
+  "sort_number": 17,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_armour_evolve.text"
+}

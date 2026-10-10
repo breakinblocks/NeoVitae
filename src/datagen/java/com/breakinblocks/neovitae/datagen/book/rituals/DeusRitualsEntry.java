@@ -100,6 +100,15 @@ public class DeusRitualsEntry extends EntryProvider {
 
         this.page("deus_meteor_stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("deus_meteor")));
+
+        this.page("deus_armour_evolve", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_armour_evolve"))
+                .withMultiblockName("Deus Sentient Evolution")
+                .withText(this.context().pageText()));
+        this.pageText("Stand upon it in Sentient Armor already evolved to [#](B8860B)500 Upgrade Points[#]() and the armor ascends to [#](B8860B)600[#](). Every piece you wear is bound with [#](8B0000)Blood Mending[#]() in the same working.");
+
+        this.page("deus_armour_evolve_stats", () -> BookRitualInfoPageModel.create()
+                .withText(RitualStatsHelper.generateStats("deus_armour_evolve")));
     }
 
     @Override

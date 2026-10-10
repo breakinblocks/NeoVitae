@@ -93,6 +93,7 @@ public class RitualStatsProvider implements DataProvider {
         out.accept(NVRituals.DEUS_PLACER, RitualStats.timed(20000, 10, 5, 2));
         out.accept(NVRituals.DEUS_FELLING, RitualStats.timed(8000, 10, 20, 2));
         out.accept(NVRituals.DEUS_METEOR, RitualStats.timed(1000000, 0, 20, 2));
+        out.accept(NVRituals.DEUS_ARMOUR_EVOLVE, RitualStats.timed(500000, 250000, 20, 2).withPerOperation());
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

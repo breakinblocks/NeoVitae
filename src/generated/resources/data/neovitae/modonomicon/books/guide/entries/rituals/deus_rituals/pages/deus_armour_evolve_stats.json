@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:ritual_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_armour_evolve_stats",
+  "sort_number": 18,
+  "text": "[#](8B0000)Activation Cost:[#]() 500,000 EV\\\n[#](8B0000)Crystal:[#]() Divinus Activation Crystal\\\n[#](8B0000)Cost:[#]() 250,000 EV per use\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Tenebrae Ritual Stone\\\n  8x Fire Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  16x Deus Ritual Stone\\\n  [#](8B0000)Total:[#]() 44 runes"
+}

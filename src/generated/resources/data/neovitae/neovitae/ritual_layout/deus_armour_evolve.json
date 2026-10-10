@@ -1,0 +1,356 @@
+{
+  "components": [
+    {
+      "pos": [
+        1,
+        0,
+        1
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        1,
+        0,
+        -1
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        -1,
+        0,
+        -1
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        -1,
+        0,
+        1
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        0
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        0
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        -2
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        2
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        2
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        -2
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        -2
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        2
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        3,
+        0,
+        0
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        -3,
+        0,
+        0
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        -3
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        3
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        3,
+        0,
+        3
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        3,
+        0,
+        -3
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        -3,
+        0,
+        -3
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        -3,
+        0,
+        3
+      ],
+      "rune": "fire"
+    },
+    {
+      "pos": [
+        4,
+        0,
+        0
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        -4,
+        0,
+        0
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        -4
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        4
+      ],
+      "rune": "tenebrae"
+    },
+    {
+      "pos": [
+        4,
+        0,
+        4
+      ],
+      "rune": "air"
+    },
+    {
+      "pos": [
+        4,
+        0,
+        -4
+      ],
+      "rune": "air"
+    },
+    {
+      "pos": [
+        -4,
+        0,
+        -4
+      ],
+      "rune": "air"
+    },
+    {
+      "pos": [
+        -4,
+        0,
+        4
+      ],
+      "rune": "air"
+    },
+    {
+      "pos": [
+        6,
+        0,
+        0
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -6,
+        0,
+        0
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        -6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        6,
+        0,
+        6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        6,
+        0,
+        -6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -6,
+        0,
+        -6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -6,
+        0,
+        6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        6,
+        0,
+        3
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        3,
+        0,
+        6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        6,
+        0,
+        -3
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -3,
+        0,
+        6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -6,
+        0,
+        3
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        3,
+        0,
+        -6
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -6,
+        0,
+        -3
+      ],
+      "rune": "deus"
+    },
+    {
+      "pos": [
+        -3,
+        0,
+        -6
+      ],
+      "rune": "deus"
+    }
+  ]
+}

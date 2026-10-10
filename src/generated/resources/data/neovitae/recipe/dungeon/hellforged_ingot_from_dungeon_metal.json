@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      {
+        "item": "neovitae:dungeon_metal"
+      },
+      {
+        "item": "neovitae:dungeon_metal_c"
+      },
+      {
+        "item": "neovitae:dungeon_metal_d"
+      },
+      {
+        "item": "neovitae:dungeon_metal_st"
+      },
+      {
+        "item": "neovitae:dungeon_metal_v"
+      }
+    ]
+  ],
+  "result": {
+    "count": 9,
+    "id": "neovitae:ingot_hellforged"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "neovitae:dungeon_stone_st"
+    },
+    {
+      "item": "neovitae:dungeon_brick1_st"
+    },
+    {
+      "item": "neovitae:dungeon_brick2_st"
+    },
+    {
+      "item": "neovitae:dungeon_brick3_st"
+    },
+    {
+      "item": "neovitae:dungeon_polished_st"
+    },
+    {
+      "item": "neovitae:dungeon_tile_st"
+    },
+    {
+      "item": "neovitae:dungeon_smallbrick_st"
+    },
+    {
+      "item": "neovitae:dungeon_tilespecial_st"
+    },
+    {
+      "item": "neovitae:dungeon_pillar_center_st"
+    },
+    {
+      "item": "neovitae:dungeon_pillar_cap_st"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:dungeon_pillar_special_st"
+  }
+}

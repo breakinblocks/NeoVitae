@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dungeon_metal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "neovitae:dungeon_metal",
+              "neovitae:dungeon_metal_c",
+              "neovitae:dungeon_metal_d",
+              "neovitae:dungeon_metal_st",
+              "neovitae:dungeon_metal_v"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:dungeon/hellforged_ingot_from_dungeon_metal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dungeon_metal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:dungeon/hellforged_ingot_from_dungeon_metal"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "neovitae:hellforged_block"
+    },
+    {
+      "item": "neovitae:dungeon_metal"
+    },
+    {
+      "item": "neovitae:dungeon_metal_d"
+    },
+    {
+      "item": "neovitae:dungeon_metal_st"
+    },
+    {
+      "item": "neovitae:dungeon_metal_v"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:dungeon_metal_c"
+  }
+}

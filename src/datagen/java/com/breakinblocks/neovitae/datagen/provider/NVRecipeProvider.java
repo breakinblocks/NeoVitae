@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -52,6 +53,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class NVRecipeProvider extends RecipeProvider {
@@ -4038,6 +4041,8 @@ public class NVRecipeProvider extends RecipeProvider {
             ItemLike polishedWall = DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant);
             ItemLike tileWall = DungeonBlocks.DUNGEON_TILE_WALL.get(variant);
 
+            ItemLike eye = DungeonBlocks.DUNGEON_EYE.get(variant);
+
             // === ATHANOR: smooth stone + matching Spiritus Crystal → 16 dungeon stone (bulk) ===
             AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                     .input(Items.SMOOTH_STONE)
@@ -4088,42 +4093,65 @@ public class NVRecipeProvider extends RecipeProvider {
                     .unlockedBy("has_dungeon_tile", has(tile))
                     .save(output, NeoVitae.rl("dungeon/dungeon_tile_slab" + suffix));
 
-            // === STONECUTTER: stone → block variants ===
-            dungeonStonecutting(output, stone, brick1, "sc_brick1_from_stone" + suffix);
-            dungeonStonecutting(output, stone, brick2, "sc_brick2_from_stone" + suffix);
-            dungeonStonecutting(output, stone, brick3, "sc_brick3_from_stone" + suffix);
-            dungeonStonecutting(output, stone, polished, "sc_polished_from_stone" + suffix);
-            dungeonStonecutting(output, stone, tile, "sc_tile_from_stone" + suffix);
-            dungeonStonecutting(output, stone, smallbrick, "sc_smallbrick_from_stone" + suffix);
-            dungeonStonecutting(output, stone, tilespecial, "sc_tilespecial_from_stone" + suffix);
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, stone, 4)
+                    .requires(stone)
+                    .requires(Items.STONE, 3)
+                    .unlockedBy("has_dungeon_stone", has(stone))
+                    .save(output, NeoVitae.rl("dungeon/dungeon_stone_spread" + suffix));
 
-            // stone → shape derivatives
-            dungeonStonecutting(output, stone, stoneSlab, 2, "sc_stone_slab_from_stone" + suffix);
-            dungeonStonecutting(output, stone, stoneStairs, "sc_stone_stairs_from_stone" + suffix);
-            dungeonStonecutting(output, stone, stoneWall, "sc_stone_wall_from_stone" + suffix);
-            dungeonStonecutting(output, stone, brickSlab, 2, "sc_brick_slab_from_stone" + suffix);
-            dungeonStonecutting(output, stone, brickStairs, "sc_brick_stairs_from_stone" + suffix);
-            dungeonStonecutting(output, stone, brickWall, "sc_brick_wall_from_stone" + suffix);
-            dungeonStonecutting(output, stone, polishedSlab, 2, "sc_polished_slab_from_stone" + suffix);
-            dungeonStonecutting(output, stone, polishedStairs, "sc_polished_stairs_from_stone" + suffix);
-            dungeonStonecutting(output, stone, polishedWall, "sc_polished_wall_from_stone" + suffix);
-            dungeonStonecutting(output, stone, tileSlab, 2, "sc_tile_slab_from_stone" + suffix);
-            dungeonStonecutting(output, stone, tileWall, "sc_tile_wall_from_stone" + suffix);
+            dungeonStairs(output, stoneStairs, stone, "dungeon_stone_stairs" + suffix);
+            dungeonStairs(output, brickStairs, brick1, "dungeon_brick_stairs" + suffix);
+            dungeonStairs(output, polishedStairs, polished, "dungeon_polished_stairs" + suffix);
 
-            // brick1 → shape derivatives
-            dungeonStonecutting(output, brick1, brickSlab, 2, "sc_brick_slab_from_brick" + suffix);
-            dungeonStonecutting(output, brick1, brickStairs, "sc_brick_stairs_from_brick" + suffix);
-            dungeonStonecutting(output, brick1, brickWall, "sc_brick_wall_from_brick" + suffix);
+            dungeonWall(output, stoneWall, stone, "dungeon_stone_wall" + suffix);
+            dungeonWall(output, brickWall, brick1, "dungeon_brick_wall" + suffix);
+            dungeonWall(output, polishedWall, polished, "dungeon_polished_wall" + suffix);
+            dungeonWall(output, tileWall, tile, "dungeon_tile_wall" + suffix);
 
-            // polished → shape derivatives
-            dungeonStonecutting(output, polished, polishedSlab, 2, "sc_polished_slab_from_polished" + suffix);
-            dungeonStonecutting(output, polished, polishedStairs, "sc_polished_stairs_from_polished" + suffix);
-            dungeonStonecutting(output, polished, polishedWall, "sc_polished_wall_from_polished" + suffix);
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, eye)
+                    .pattern(" g ")
+                    .pattern("gsg")
+                    .pattern(" g ")
+                    .define('g', Tags.Items.DUSTS_GLOWSTONE)
+                    .define('s', stone)
+                    .unlockedBy("has_dungeon_stone", has(stone))
+                    .save(output, NeoVitae.rl("dungeon/dungeon_eye" + suffix));
 
-            // tile → shape derivatives
-            dungeonStonecutting(output, tile, tileSlab, 2, "sc_tile_slab_from_tile" + suffix);
-            dungeonStonecutting(output, tile, tileWall, "sc_tile_wall_from_tile" + suffix);
+            List<ItemLike> fullBlocks = List.of(stone, brick1, brick2, brick3, polished, tile, smallbrick, tilespecial,
+                    DungeonBlocks.DUNGEON_PILLAR_CENTER.get(variant),
+                    DungeonBlocks.DUNGEON_PILLAR_SPECIAL.get(variant),
+                    DungeonBlocks.DUNGEON_PILLAR_CAP.get(variant));
+            for (ItemLike target : fullBlocks) {
+                dungeonStonecutting(output, fullBlocks.stream().filter(block -> block != target).toList(), target, 1);
+            }
+
+            dungeonStonecutting(output, fullBlocks, stoneSlab, 2);
+            dungeonStonecutting(output, fullBlocks, brickSlab, 2);
+            dungeonStonecutting(output, fullBlocks, polishedSlab, 2);
+            dungeonStonecutting(output, fullBlocks, tileSlab, 2);
+            dungeonStonecutting(output, fullBlocks, stoneStairs, 1);
+            dungeonStonecutting(output, fullBlocks, brickStairs, 1);
+            dungeonStonecutting(output, fullBlocks, polishedStairs, 1);
+            dungeonStonecutting(output, fullBlocks, stoneWall, 1);
+            dungeonStonecutting(output, fullBlocks, brickWall, 1);
+            dungeonStonecutting(output, fullBlocks, polishedWall, 1);
+            dungeonStonecutting(output, fullBlocks, tileWall, 1);
+            dungeonStonecutting(output, fullBlocks, DungeonBlocks.DUNGEON_BRICK_GATE.get(variant), 1);
+            dungeonStonecutting(output, fullBlocks, DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant), 1);
         }
+
+        List<ItemLike> metals = List.copyOf(DungeonBlocks.DUNGEON_METAL.values());
+        for (ItemLike metal : metals) {
+            List<ItemLike> metalSources = new ArrayList<>();
+            metalSources.add(NVBlocks.HELLFORGED_BLOCK);
+            metals.stream().filter(other -> other != metal).forEach(metalSources::add);
+            dungeonStonecutting(output, metalSources, metal, 1);
+        }
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 9)
+                .requires(Ingredient.of(metals.toArray(ItemLike[]::new)))
+                .unlockedBy("has_dungeon_metal", inventoryTrigger(ItemPredicate.Builder.item().of(metals.toArray(ItemLike[]::new))))
+                .save(output, NeoVitae.rl("dungeon/hellforged_ingot_from_dungeon_metal"));
 
         // === SPIKE TRAP: dispenser in middle, spikes above, dungeon stone everywhere else ===
         ItemLike rawDungeonStone = DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW);
@@ -4138,13 +4166,28 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("dungeon/spike_trap"));
     }
 
-    private void dungeonStonecutting(RecipeOutput output, ItemLike input, ItemLike result, String id) {
-        dungeonStonecutting(output, input, result, 1, id);
+    private void dungeonStonecutting(RecipeOutput output, List<? extends ItemLike> inputs, ItemLike result, int count) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(inputs.toArray(ItemLike[]::new)), RecipeCategory.BUILDING_BLOCKS, result, count)
+                .unlockedBy("has_input", inventoryTrigger(ItemPredicate.Builder.item().of(inputs.toArray(ItemLike[]::new))))
+                .save(output, NeoVitae.rl("dungeon/" + getItemName(result) + "_stonecutting"));
     }
 
-    private void dungeonStonecutting(RecipeOutput output, ItemLike input, ItemLike result, int count, String id) {
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), RecipeCategory.BUILDING_BLOCKS, result, count)
-                .unlockedBy("has_input", has(input))
+    private void dungeonStairs(RecipeOutput output, ItemLike stairs, ItemLike base, String id) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairs, 4)
+                .pattern("s  ")
+                .pattern("ss ")
+                .pattern("sss")
+                .define('s', base)
+                .unlockedBy("has_base", has(base))
+                .save(output, NeoVitae.rl("dungeon/" + id));
+    }
+
+    private void dungeonWall(RecipeOutput output, ItemLike wall, ItemLike base, String id) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wall, 6)
+                .pattern("sss")
+                .pattern("sss")
+                .define('s', base)
+                .unlockedBy("has_base", has(base))
                 .save(output, NeoVitae.rl("dungeon/" + id));
     }
 

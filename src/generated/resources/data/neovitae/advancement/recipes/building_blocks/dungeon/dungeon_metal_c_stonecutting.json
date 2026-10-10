@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_input": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "neovitae:hellforged_block",
+              "neovitae:dungeon_metal",
+              "neovitae:dungeon_metal_d",
+              "neovitae:dungeon_metal_st",
+              "neovitae:dungeon_metal_v"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:dungeon/dungeon_metal_c_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_input"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:dungeon/dungeon_metal_c_stonecutting"
+    ]
+  }
+}

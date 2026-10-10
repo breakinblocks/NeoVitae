@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "s": {
+      "item": "neovitae:dungeon_brick1_st"
+    }
+  },
+  "pattern": [
+    "s  ",
+    "ss ",
+    "sss"
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:dungeon_brick_stairs_st"
+  }
+}

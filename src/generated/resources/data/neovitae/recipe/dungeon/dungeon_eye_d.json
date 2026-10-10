@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "g": {
+      "tag": "c:dusts/glowstone"
+    },
+    "s": {
+      "item": "neovitae:dungeon_stone_d"
+    }
+  },
+  "pattern": [
+    " g ",
+    "gsg",
+    " g "
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:dungeon_eye_d"
+  }
+}

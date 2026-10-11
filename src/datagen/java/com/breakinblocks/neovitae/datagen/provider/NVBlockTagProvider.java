@@ -191,7 +191,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(NVBlocks.RAW_DEMONITE_BLOCK.block().get());
 
-        this.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
                 .addAll(BlockGroups.RUNE_T2);
 
         // Incense Altar mineable

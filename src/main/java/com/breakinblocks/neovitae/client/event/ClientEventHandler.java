@@ -144,6 +144,9 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void onHoverText(ItemTooltipEvent event) {
         List<Component> tooltip = event.getToolTip();
+        if (tooltip.isEmpty()) {
+            return;
+        }
 
         ItemStack stack = event.getItemStack();
         Item.TooltipContext context = event.getContext();

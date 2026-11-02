@@ -177,6 +177,7 @@ public class NVTags {
 
         public static final TagKey<Block> QUARRY_FILLER = tag(bm("quarry_filler"));
 
+        public static final TagKey<Block> QUARRY_BLACKLIST = tag(bm("quarry_blacklist"));
         public static final TagKey<Block> QUARRY_BLOCKS = tag(bm("quarry_blocks"));
 
         private static TagKey<Block> tag(Identifier id) {

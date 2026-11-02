@@ -1286,6 +1286,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.deus_armour_evolve.unready", "The armor must first evolve to %s Upgrade Points through the Ritual of Sentient Evolution.");
 
         SentientUpgrades.translations(this::add);
+        add("curios.identifier.sentient_armour_socket", "Sentient Armor Socket");
 
         // JEI Integration
         addJei("recipe.altar", "Ara Vitae");

@@ -717,6 +717,8 @@ public class SentientUpgrades {
 
     private static void addUpgrade(Identifier key, String translated, BiConsumer<String, String> translator) {
         translator.accept("sentient_upgrade.%s.%s".formatted(key.getNamespace(), key.getPath()), translated);
+        translator.accept("sentient_upgrade.%s.exp.%s".formatted(key.getNamespace(), key.getPath()), translated);
+        translator.accept("item.%s.upgrade_tome.exp/%s".formatted(key.getNamespace(), key.getPath()), "Upgrade Tome (%s)".formatted(translated));
         translator.accept("item.%s.upgrade_tome.%s".formatted(key.getNamespace(), key.getPath()), "Upgrade Tome (%s)".formatted(translated));
     }
 

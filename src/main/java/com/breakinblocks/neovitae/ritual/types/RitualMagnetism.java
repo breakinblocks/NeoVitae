@@ -116,7 +116,7 @@ public class RitualMagnetism extends Ritual {
 
                     BlockPos srcPos = masterPos.offset(i, j, k);
                     BlockState state = world.getBlockState(srcPos);
-                    if (state.isAir()) {
+                    if (state.isAir() || state.is(NVTags.Blocks.QUARRY_BLACKLIST)) {
                         k++;
                         continue;
                     }
@@ -197,6 +197,7 @@ public class RitualMagnetism extends Ritual {
                                     boolean backfill, SpiritusState will) {
         ItemStack tool = RitualHelper.createMiningTool(level, true, false);
         List<ItemStack> drops = Block.getDrops(state, level, srcPos, level.getBlockEntity(srcPos), null, tool);
+        if (drops.isEmpty()) return false;
         for (ItemStack drop : drops) {
             if (!Utils.insertItemStacked(container, drop.copy(), true).isEmpty()) {
                 return false;

@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.gametest;
 
+import com.breakinblocks.neovitae.common.item.NVItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -154,6 +155,7 @@ public final class RoutingNodeTests {
     }
 
     public static void register(NVTestRegistrar r) {
+        r.add("routing/fluid_stack_upgrades_increase_transfer", 40, RoutingNodeTests::fluidStackUpgradesIncreaseActualTransfer);
         r.add("routing/basic_item_transfer", 80, helper -> {
             RoutingTestContext ctx = setupLinearNetwork(helper);
             ChestBlockEntity srcChest = helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class);
@@ -772,5 +774,51 @@ public final class RoutingNodeTests {
                 helper.succeed();
             });
         });
+    }
+    private static void fluidStackUpgradesIncreaseActualTransfer(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos srcTankPos = new BlockPos(1, 1, 1);
+        BlockPos inputPos = new BlockPos(2, 1, 1);
+        BlockPos masterPos = new BlockPos(3, 1, 1);
+        BlockPos outputPos = new BlockPos(4, 1, 1);
+        BlockPos dstTankPos = new BlockPos(5, 1, 1);
+
+        placeBloodTank(helper, srcTankPos, 1);
+        InputRoutingNodeBlockEntity input = placeAndGet(helper, inputPos, NVBlocks.INPUT_ROUTING_NODE.block().get(), InputRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+        OutputRoutingNodeBlockEntity output = placeAndGet(helper, outputPos, NVBlocks.OUTPUT_ROUTING_NODE.block().get(), OutputRoutingNodeBlockEntity.class);
+        placeBloodTank(helper, dstTankPos, 1);
+
+        BlockPos absMaster = helper.absolutePos(masterPos);
+        connectToMaster(helper, input, master, helper.absolutePos(inputPos), absMaster);
+        connectToMaster(helper, output, master, helper.absolutePos(outputPos), absMaster);
+
+        FilterSpec passAll = blacklist();
+        setNodeFilter(input, Direction.WEST, passAll);
+        setNodeFilter(output, Direction.EAST, passAll);
+
+        ResourceHandler<FluidResource> srcHandler = helper.getLevel().getCapability(
+                Capabilities.Fluid.BLOCK, helper.absolutePos(srcTankPos), null);
+        if (srcHandler == null) {
+            helper.fail("Source tank has no fluid handler");
+            return;
+        }
+        try (Transaction tx = Transaction.openRoot()) {
+            srcHandler.insert(0, FluidResource.of(NVFluids.ESSENTIA_VITAE_SOURCE.get()), 4000, tx);
+            tx.commit();
+        }
+        master.setItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE, new ItemStack(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), 19));
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        int baseline = getFluidAmount(helper, dstTankPos);
+        master.setItem(MasterRoutingNodeBlockEntity.SLOT_STACK_UPGRADE, new ItemStack(NVItems.MASTER_NODE_UPGRADE.get()));
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        int upgraded = getFluidAmount(helper, dstTankPos) - baseline;
+        helper.assertTrue(baseline == 1000 && upgraded == 2000, "Fluid transfer should rise from 1000 to 2000 mB per operation, got " + baseline + " and " + upgraded);
+        helper.succeed();
     }
 }

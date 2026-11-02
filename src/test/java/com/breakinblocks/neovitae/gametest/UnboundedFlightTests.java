@@ -1,5 +1,11 @@
 package com.breakinblocks.neovitae.gametest;
 
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -78,6 +84,7 @@ public final class UnboundedFlightTests {
     }
 
     public static void register(NVTestRegistrar r) {
+        r.add("unbounded_flight/curios_sockets_survive_reload", 40, UnboundedFlightTests::curiosSocketsSurviveReloadAndReequip);
         r.add("unbounded_flight/athanor_recipe_makes_deus_shard", 20, helper -> {
             ItemStack[] inputs = new ItemStack[AthanorRecipe.MAX_INPUTS];
             for (int i = 0; i < inputs.length; i++) {
@@ -187,5 +194,34 @@ public final class UnboundedFlightTests {
                 });
             });
         });
+    }
+    private static void curiosSocketsSurviveReloadAndReequip(GameTestHelper helper) {
+        Player player = fullSetWearer(helper, 1000, new Vec3(2, 1, 2));
+        CuriosApi.getCuriosInventory(player).orElseThrow().loadDatapacks();
+        Holder<SentientUpgrade> upgrade = helper.getLevel().registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).getOrThrow(CuriosCompat.CURIOS_SOCKET_UPGRADE);
+        SentientHelper.applyExpToCap(player, upgrade, 100000, true);
+        helper.assertTrue(CuriosCompat.recalculateCuriosSlots(player) > 0, "Socket upgrade should grant slots: fullSet=" + SentientHelper.hasFullSet(player) + ", xp=" + upgradeExp(player, upgrade) + ", slots=" + CuriosApi.getCuriosInventory(player).map(inv -> inv.getCurios().keySet().toString()).orElse("no inventory"));
+        ICurioStacksHandler sockets = CuriosApi.getCuriosInventory(player).orElseThrow()
+                .getCurios().get(CuriosCompat.SENTIENT_ARMOUR_SOCKET_SLOT);
+        sockets.update();
+        int count = sockets.getSlots();
+        helper.assertTrue(count > 0, "Socket slots should exist");
+        helper.assertTrue(!sockets.getPermanentModifiers().isEmpty(), "Socket capacity must persist with the Curios inventory");
+        TagValueOutput saved = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        sockets.serialize(saved);
+        sockets.clearModifiers();
+        sockets.deserialize(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), saved.buildResult()));
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == count, "Saved sockets must load before the first equipment tick");
+        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        CuriosCompat.recalculateCuriosSlots(player);
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == 0, "Removing the set should remove bonus sockets");
+        player.setItemSlot(EquipmentSlot.HEAD, helmet);
+        CuriosCompat.recalculateCuriosSlots(player);
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == count, "Reequipping after lost modifiers must restore sockets");
+        helper.succeed();
     }
 }

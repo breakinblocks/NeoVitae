@@ -1,14 +1,12 @@
 {
-  "type": "modonomicon:image",
-  "border": true,
+  "type": "modonomicon:text",
   "condition": {
     "type": "modonomicon:none"
   },
   "id": "network_image",
-  "images": [
-    "neovitae:images/entries/routing/network_demo.png"
-  ],
   "sort_number": 21,
   "text": "book.neovitae.guide.spiritus.routing_nodes.network_image.text",
-  "title": ""
+  "title": "",
+  "show_title_separator": true,
+  "use_markdown_in_title": false
 }

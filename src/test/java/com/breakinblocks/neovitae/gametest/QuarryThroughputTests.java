@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.gametest;
 
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -31,6 +32,7 @@ public final class QuarryThroughputTests {
     private QuarryThroughputTests() {}
 
     public static void register(NVTestRegistrar r) {
+        r.add("quarry_throughput/leaves_protected_ores", 40, QuarryThroughputTests::quarryLeavesAutomationProtectedOres);
         r.add("quarry/moves_thirty_ores_per_refresh", 40, QuarryThroughputTests::quarryMovesThirtyOresPerRefresh);
         r.add("quarry/ruina_voids_filler_but_keeps_other_blocks", 40, QuarryThroughputTests::ruinaVoidsFillerButKeepsOtherBlocks);
     }
@@ -157,6 +159,19 @@ public final class QuarryThroughputTests {
             helper.fail("Ore should still be collected while Ruina is active");
             return;
         }
+        helper.succeed();
+    }
+    private static void quarryLeavesAutomationProtectedOres(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        BlockPos protectedOre = new BlockPos(2, 3, 2);
+        BlockPos ordinaryOre = new BlockPos(1, 3, 2);
+        helper.setBlock(protectedOre, Blocks.LAPIS_ORE);
+        helper.setBlock(ordinaryOre, Blocks.IRON_ORE);
+        helper.assertTrue(helper.getBlockState(protectedOre).is(NVTags.Blocks.QUARRY_BLACKLIST), "Protected-ore fixture must be tagged");
+        new RitualMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
+        helper.assertBlockPresent(Blocks.AIR, ordinaryOre);
+        helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ordinary ores should still be collected");
         helper.succeed();
     }
 }

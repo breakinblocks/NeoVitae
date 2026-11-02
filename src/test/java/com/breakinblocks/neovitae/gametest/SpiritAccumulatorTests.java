@@ -39,6 +39,7 @@ public final class SpiritAccumulatorTests {
     }
 
     public static void register(NVTestRegistrar r) {
+        r.addIsolated("spirit_accumulator/vent_pauses_collection", 80, SpiritAccumulatorTests::ventedSpiritusIsNotImmediatelyReabsorbed);
         r.addIsolated("spirit_accumulator/starts_unattuned_and_unlocked", 40, helper -> {
             SpiritAccumulatorBlockEntity be = place(helper, new BlockPos(3, 1, 2));
 
@@ -291,6 +292,22 @@ public final class SpiritAccumulatorTests {
                     helper.fail("An unlocked accumulator should cycle onwards, type=" + be.getAttunedType());
                     return;
                 }
+                helper.succeed();
+            });
+        });
+    }
+    private static void ventedSpiritusIsNotImmediatelyReabsorbed(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 1, 2);
+        SpiritAccumulatorBlockEntity be = place(helper, pos);
+        be.attuneTo(SpiritusType.VINDICTA);
+        be.insertSpiritus(SpiritusType.VINDICTA, 1000);
+        be.vent(50);
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(be.getStored() == 950, "Venting must pause collection long enough to empty the accumulator");
+            be.vent(950);
+            helper.runAfterDelay(20, () -> {
+                helper.assertTrue(be.getStored() == 0, "An emptied accumulator must stay empty while unlocking");
+                helper.assertTrue(be.unlock(), "The emptied accumulator should unlock");
                 helper.succeed();
             });
         });

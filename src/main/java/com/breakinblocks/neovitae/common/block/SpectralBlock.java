@@ -8,12 +8,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,6 +38,12 @@ public class SpectralBlock extends BaseEntityBlock implements LiquidBlockContain
                 .noLootTable()
                 .air()
                 .replaceable());
+    }
+
+    public static boolean canSuppress(BlockState state) {
+        if (state.getFluidState().isEmpty()) return false;
+        if (state.getBlock() instanceof LiquidBlock) return true;
+        return !state.hasBlockEntity() && !state.hasProperty(BlockStateProperties.WATERLOGGED);
     }
 
     @Override

@@ -13,13 +13,12 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.SpectralBlock;
 import com.breakinblocks.neovitae.common.blockentity.SpectralBlockEntity;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -68,7 +67,7 @@ public class RitualSuppression extends Ritual {
             if (fluidsSuppressed >= maxFluids) continue;
 
             BlockState state = level.getBlockState(pos);
-            if (!canSuppress(state)) continue;
+            if (!SpectralBlock.canSuppress(state)) continue;
 
             if (BlockProtectionHelper.tryReplaceBlock(level, pos, NVBlocks.SPECTRAL_BLOCK.get().defaultBlockState(), owner)
                     && level.getBlockEntity(pos) instanceof SpectralBlockEntity spectral) {
@@ -84,12 +83,6 @@ public class RitualSuppression extends Ritual {
         }
 
         ctx.syphon(getRefreshCost() * fluidsSuppressed);
-    }
-
-    private static boolean canSuppress(BlockState state) {
-        if (state.getFluidState().isEmpty()) return false;
-        if (state.getBlock() instanceof LiquidBlock) return true;
-        return !state.hasBlockEntity() && !state.hasProperty(BlockStateProperties.WATERLOGGED);
     }
 
     private static void hold(Level level, SpectralBlockEntity spectral) {

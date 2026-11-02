@@ -1,5 +1,8 @@
 {
   "values": [
+    "neovitae:exp/gills",
+    "neovitae:exp/aquatic_agility",
+    "neovitae:exp/lava_strider",
     "neovitae:exp/arrow_protect",
     "neovitae:exp/physical_protect",
     "neovitae:exp/fall_protect",

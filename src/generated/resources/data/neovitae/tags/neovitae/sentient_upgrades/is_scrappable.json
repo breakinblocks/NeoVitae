@@ -1,5 +1,8 @@
 {
   "values": [
+    "neovitae:aquatic_agility",
+    "neovitae:gills",
+    "neovitae:lava_strider",
     "neovitae:knockback_resist",
     "neovitae:sprint_attack",
     "neovitae:digging",

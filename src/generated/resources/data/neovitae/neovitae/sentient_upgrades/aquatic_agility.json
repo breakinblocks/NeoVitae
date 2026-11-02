@@ -1,0 +1,32 @@
+{
+  "effects": {
+    "neovitae:attributes": [
+      {
+        "amounts": {
+          "type": "minecraft:linear",
+          "base": 0.2,
+          "per_level_above_first": 0.2
+        },
+        "attribute": "neoforge:swim_speed",
+        "id": "neovitae:aquatic_agility",
+        "operation": "add_multiplied_base"
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1000": 2,
+      "200": 1,
+      "2000": 3,
+      "4000": 4,
+      "7000": 5
+    },
+    "level_to_cost": {
+      "1": 3,
+      "2": 7,
+      "3": 13,
+      "4": 26,
+      "5": 42
+    }
+  }
+}

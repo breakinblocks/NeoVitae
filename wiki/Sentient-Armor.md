@@ -86,6 +86,18 @@ Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with
 
 **XP** is the total experience the armor needs to reach that level. **Points** is how many Upgrade Points the upgrade occupies at that level, not an extra charge on top of the level before it. Two health is one heart.
 
+### Water and Lava Upgrades
+
+All three upgrades require the full Sentient Armor set, both for training and for their effects. Training Bracelet limits apply as usual.
+
+| Upgrade | Training | Total XP | Points | Effect |
+|---------|----------|----------|--------|--------|
+| Gills | One XP per tick underwater | 600 | 15 | Continuous underwater breathing |
+| Aquatic Agility I–V | One XP per tick swimming in water | 200 / 1,000 / 2,000 / 4,000 / 7,000 | 3 / 7 / 13 / 26 / 42 | +20 / 40 / 60 / 80 / 100% swim speed |
+| Lava Strider | One XP per tick in lava with Fire Resistance | 600 | 20 | Walk on source lava surfaces while Fire Resistance is active |
+
+Crouch to sink through lava deliberately. Lava Strider does not lift you out of lava or grant fire immunity. Gift of Ignis or a potion can provide Fire Resistance; when it expires, your footing disappears. Flowing lava is not a platform.
+
 ### Body Builder
 
 | Level | XP | Points | Effect |

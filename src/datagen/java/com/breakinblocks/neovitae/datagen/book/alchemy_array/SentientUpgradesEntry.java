@@ -48,6 +48,16 @@ public class SentientUpgradesEntry extends EntryProvider {
                 + "flame or coursing with poison.\\\n\\\n"
                 + "Each skill rises at its own thresholds. A [#](8B0000)few[#]() are never taught through "
                 + "deeds at all, but inscribed directly from a Tome.");
+
+        this.page("aquatic", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle()).withText(this.context().pageText()));
+        this.pageTitle("Gills and Aquatic Agility");
+        this.pageText("Wear the full Sentient Armor set to train and use these upgrades. Gills learns after 600 ticks underwater and costs 15 points, letting you breathe continuously underwater. Aquatic Agility trains while swimming: 200 / 1,000 / 2,000 / 4,000 / 7,000 ticks unlock its five levels, costing 3 / 7 / 13 / 26 / 42 points. Each level adds 20% swim speed, up to +100%.");
+
+        this.page("lava_strider", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle()).withText(this.context().pageText()));
+        this.pageTitle("Lava Strider");
+        this.pageText("Spend 600 ticks in lava with Fire Resistance while wearing the full set to learn Lava Strider (20 points). With Fire Resistance active, the full set lets you walk on source lava surfaces. Crouch to sink deliberately. It does not lift you out of lava or grant fire immunity. Gift of Ignis or a potion can supply Fire Resistance; when that effect ends, so does your footing.");
     }
 
     @Override

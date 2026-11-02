@@ -139,6 +139,12 @@ public class DeusRitualsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Offered Books");
         this.pageText("By default, one book from each contributing stack is consumed after a successful working. Pack authors can set consume_books to false for neovitae:deus_enchanted_vitae in the ritual_stats data map to preserve books. Unsupported enchantments and enchantments already at the game-supported ceiling spend nothing.");
+
+        this.page("deus_quarry_terrain", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Quarry Terrain Modes");
+        this.pageText("The Ritual Configurator offers three terrain modes. Backfill, the default, replaces mined ores with natural stone. Leave holes mines ores and preserves other rock. Clear rock also removes common filler rock, at 10 EV per block. These modes need no Spiritus and work with either Silk Touch or Fortune.");
     }
 
     @Override

@@ -75,8 +75,8 @@ public class RitualMagnetism extends Ritual {
         UUID owner = ctx.master().getOwner();
 
         SpiritusState will = RitualHelper.querySpiritus(world, masterPos, STEADFAST_DRAIN);
-        boolean voidFiller = will.getRuina() >= CORROSIVE_DRAIN;
-        boolean backfill = !voidFiller && will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
+        boolean voidFiller = voidsFiller(ctx.master(), will);
+        boolean backfill = !voidFiller && backfillsOres(ctx.master(), will);
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         IItemHandler container = world.getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
@@ -147,9 +147,21 @@ public class RitualMagnetism extends Ritual {
 
         lastPos = finished ? new BlockPos(-radius, -1, -radius) : new BlockPos(i, j, k);
 
-        if (fillerVoided > 0 && world.random.nextFloat() < CORROSIVE_DRAIN_CHANCE) {
+        if (consumesQuarrySpiritus() && fillerVoided > 0 && world.random.nextFloat() < CORROSIVE_DRAIN_CHANCE) {
             RitualHelper.drainSpiritus(will, world, masterPos, 0, CORROSIVE_DRAIN, 0, 0, 0);
         }
+    }
+
+    protected boolean voidsFiller(IMasterRitualStone master, SpiritusState will) {
+        return will.getRuina() >= CORROSIVE_DRAIN;
+    }
+
+    protected boolean backfillsOres(IMasterRitualStone master, SpiritusState will) {
+        return will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
+    }
+
+    protected boolean consumesQuarrySpiritus() {
+        return true;
     }
 
     protected int getMaxOresPerRefresh() {
@@ -215,9 +227,11 @@ public class RitualMagnetism extends Ritual {
      * fed Spiritus Invictus, so a long-running quarry does not hollow out the ground beneath it.
      */
     private void clearOre(Level world, BlockPos srcPos, boolean backfill, SpiritusState will, BlockPos masterPos) {
-        if (backfill && will.getInvictus() >= STEADFAST_DRAIN) {
+        if (backfill && (!consumesQuarrySpiritus() || will.getInvictus() >= STEADFAST_DRAIN)) {
             world.setBlock(srcPos, fillerFor(world, srcPos), Block.UPDATE_ALL);
-            RitualHelper.drainSpiritus(will, world, masterPos, 0, 0, 0, 0, STEADFAST_DRAIN);
+            if (consumesQuarrySpiritus()) {
+                RitualHelper.drainSpiritus(will, world, masterPos, 0, 0, 0, 0, STEADFAST_DRAIN);
+            }
             return;
         }
         world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);

@@ -1,6 +1,10 @@
 package com.breakinblocks.neovitae.gametest;
 
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -20,6 +24,9 @@ import com.breakinblocks.neovitae.api.spiritus.SpiritusHandler;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.EnumFillMode;
+import com.breakinblocks.neovitae.ritual.EnumQuarryMode;
+import com.breakinblocks.neovitae.ritual.EnumMiningMode;
+import com.breakinblocks.neovitae.ritual.types.RitualDeusMagnetism;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.types.RitualMagnetism;
@@ -39,6 +46,10 @@ public class QuarryThroughputTests {
     private static final BlockPos CHEST = MASTER.above();
 
     static class StubMaster implements IMasterRitualStone {
+        EnumQuarryMode quarryMode = EnumQuarryMode.BACKFILL;
+        EnumMiningMode miningMode = EnumMiningMode.SILK_TOUCH;
+        @Override public EnumQuarryMode getQuarryMode() { return quarryMode; }
+        @Override public EnumMiningMode getMiningMode() { return miningMode; }
         private final Level level;
         private final BlockPos pos;
         private final UUID owner;
@@ -170,6 +181,103 @@ public class QuarryThroughputTests {
         helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
         helper.assertBlockPresent(Blocks.AIR, ordinaryOre);
         helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ordinary ores should still be collected");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusQuarryBackfill(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        master.quarryMode = EnumQuarryMode.BACKFILL;
+        BlockPos ore = new BlockPos(2, 3, 2);
+        BlockPos rock = new BlockPos(1, 3, 2);
+        BlockPos protectedOre = new BlockPos(3, 3, 2);
+        BlockPos bricks = new BlockPos(2, 3, 3);
+        helper.setBlock(ore, Blocks.IRON_ORE);
+        helper.setBlock(rock, Blocks.STONE);
+        helper.setBlock(protectedOre, Blocks.LAPIS_ORE);
+        helper.setBlock(bricks, Blocks.STONE_BRICKS);
+        new RitualDeusMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.STONE, ore);
+        helper.assertBlockPresent(Blocks.STONE, rock);
+        helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
+        helper.assertBlockPresent(Blocks.STONE_BRICKS, bricks);
+        helper.assertBlockPresent(Blocks.STONE, FOUNDATION);
+        helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ore must still be collected");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusQuarryLeaveHoles(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        master.quarryMode = EnumQuarryMode.LEAVE_HOLES;
+        BlockPos ore = new BlockPos(2, 3, 2);
+        BlockPos rock = new BlockPos(1, 3, 2);
+        BlockPos protectedOre = new BlockPos(3, 3, 2);
+        BlockPos bricks = new BlockPos(2, 3, 3);
+        helper.setBlock(ore, Blocks.IRON_ORE);
+        helper.setBlock(rock, Blocks.STONE);
+        helper.setBlock(protectedOre, Blocks.LAPIS_ORE);
+        helper.setBlock(bricks, Blocks.STONE_BRICKS);
+        new RitualDeusMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.AIR, ore);
+        helper.assertBlockPresent(Blocks.STONE, rock);
+        helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
+        helper.assertBlockPresent(Blocks.STONE_BRICKS, bricks);
+        helper.assertBlockPresent(Blocks.STONE, FOUNDATION);
+        helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ore must still be collected");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusQuarryClearRock(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        master.quarryMode = EnumQuarryMode.CLEAR_ROCK;
+        BlockPos ore = new BlockPos(2, 3, 2);
+        BlockPos rock = new BlockPos(1, 3, 2);
+        BlockPos protectedOre = new BlockPos(3, 3, 2);
+        BlockPos bricks = new BlockPos(2, 3, 3);
+        helper.setBlock(ore, Blocks.IRON_ORE);
+        helper.setBlock(rock, Blocks.STONE);
+        helper.setBlock(protectedOre, Blocks.LAPIS_ORE);
+        helper.setBlock(bricks, Blocks.STONE_BRICKS);
+        new RitualDeusMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.AIR, ore);
+        helper.assertBlockPresent(Blocks.AIR, rock);
+        helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
+        helper.assertBlockPresent(Blocks.STONE_BRICKS, bricks);
+        helper.assertBlockPresent(Blocks.STONE, FOUNDATION);
+        helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ore must still be collected");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusQuarryFortuneBackfills(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        master.miningMode = EnumMiningMode.FORTUNE;
+        BlockPos ore = new BlockPos(2, 3, 2);
+        helper.setBlock(ore, Blocks.DIAMOND_ORE);
+        new RitualDeusMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.STONE, ore);
+        helper.assertTrue(chestCount(helper, Items.DIAMOND) >= 1, "Fortune should still yield diamonds while backfilling");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void quarryTerrainModePersists(GameTestHelper helper) {
+        var state = NVBlocks.MASTER_RITUAL_STONE.block().get().defaultBlockState();
+        var original = new MasterRitualStoneBlockEntity(BlockPos.ZERO, state);
+        helper.assertTrue(original.getQuarryMode() == EnumQuarryMode.BACKFILL, "New stones must default to backfill");
+        for (EnumQuarryMode mode : EnumQuarryMode.values()) {
+            original.setQuarryMode(mode);
+            original.setMiningMode(EnumMiningMode.FORTUNE);
+            CompoundTag saved = original.saveWithFullMetadata(helper.getLevel().registryAccess());
+            var restored = (MasterRitualStoneBlockEntity) BlockEntity.loadStatic(BlockPos.ZERO, state, saved, helper.getLevel().registryAccess());
+            helper.assertTrue(restored.getQuarryMode() == mode, "Terrain mode must survive reload");
+            helper.assertTrue(restored.getMiningMode() == EnumMiningMode.FORTUNE, "Mining and terrain selections must be independent");
+            saved.remove("quarryMode");
+            var legacy = (MasterRitualStoneBlockEntity) BlockEntity.loadStatic(BlockPos.ZERO, state, saved, helper.getLevel().registryAccess());
+            helper.assertTrue(legacy.getQuarryMode() == EnumQuarryMode.BACKFILL, "Existing stones must default to backfill");
+        }
         helper.succeed();
     }
 }

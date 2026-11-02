@@ -83,6 +83,10 @@ public interface IMasterRitualStone {
         return EnumFillMode.SOLID;
     }
 
+    default EnumQuarryMode getQuarryMode() {
+        return EnumQuarryMode.BACKFILL;
+    }
+
     default EnumMiningMode getMiningMode() {
         return EnumMiningMode.SILK_TOUCH;
     }

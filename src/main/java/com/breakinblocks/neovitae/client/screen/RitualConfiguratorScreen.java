@@ -42,8 +42,8 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     private static final int KEEP_ROW_H = 18;
     private static final int FILL_LABEL_H = 14;
     private static final int FILL_ROW_H = 20;
-    private static final int FILL_COLS = 3;
-    private static final int FILL_ROWS = 2;
+    private static final int FILL_COLS = 2;
+    private static final int FILL_ROWS = (EnumFillMode.values().length + FILL_COLS - 1) / FILL_COLS;
 
     private final List<RangeInfo> ranges;
     private final boolean usesAspect;

@@ -10,7 +10,11 @@ public enum EnumFillMode implements StringRepresentable {
     FLOOR,
     WALLS,
     ROOF,
-    FRAME;
+    FRAME,
+    CYLINDER,
+    HOLLOW_CYLINDER,
+    SPHERE,
+    HOLLOW_SPHERE;
 
     private final String name = name().toLowerCase(Locale.ROOT);
 

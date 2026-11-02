@@ -60,6 +60,10 @@ public final class AreaCursor {
         }
 
         return switch (mode) {
+            case CYLINDER -> roundedContains(x, y, z, false);
+            case HOLLOW_CYLINDER -> roundedBoundary(x, y, z, false);
+            case SPHERE -> roundedContains(x, y, z, true);
+            case HOLLOW_SPHERE -> roundedBoundary(x, y, z, true);
             case SOLID -> true;
             case FLOOR -> y == minY;
             case ROOF -> y == minY + sizeY - 1;
@@ -103,6 +107,25 @@ public final class AreaCursor {
             return index + (lastX - x);
         }
         return index;
+    }
+
+    // Test block centers against an ellipsoid fitted to the configured block bounds.
+    // Half-block centers preserve symmetry for both odd and even dimensions.
+    private boolean roundedContains(int x, int y, int z, boolean sphere) {
+        if (x < minX || x >= minX + sizeX || y < minY || y >= minY + sizeY
+                || z < minZ || z >= minZ + sizeZ) return false;
+        double dx = (2.0 * (x - minX) + 1 - sizeX) / sizeX;
+        double dz = (2.0 * (z - minZ) + 1 - sizeZ) / sizeZ;
+        double dy = sphere ? (2.0 * (y - minY) + 1 - sizeY) / sizeY : 0;
+        return dx * dx + dy * dy + dz * dz <= 1.0 + 1.0e-12;
+    }
+
+    private boolean roundedBoundary(int x, int y, int z, boolean sphere) {
+        if (!roundedContains(x, y, z, sphere)) return false;
+        // Cylinders only have side walls; spheres also close their top and bottom.
+        return !roundedContains(x - 1, y, z, sphere) || !roundedContains(x + 1, y, z, sphere)
+                || !roundedContains(x, y, z - 1, sphere) || !roundedContains(x, y, z + 1, sphere)
+                || (sphere && (!roundedContains(x, y - 1, z, true) || !roundedContains(x, y + 1, z, true)));
     }
 
     private BlockPos relative(int x, int y, int z) {

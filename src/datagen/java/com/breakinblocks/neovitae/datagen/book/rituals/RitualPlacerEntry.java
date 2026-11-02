@@ -47,6 +47,11 @@ public class RitualPlacerEntry extends EntryProvider {
                 + "\n- [#](B8860B)Frame[#](): the twelve edges alone"
                 + "\n\nA domain one block thick has no inside, so Shell fills it solid and Frame traces its outline.");
 
+        this.page("rounded_shapes", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle()).withText(this.context().pageText()));
+        this.pageTitle("Circles and Spheres");
+        this.pageText("Both Mason rituals offer Cylinder, Hollow Cylinder, Sphere, and Hollow Sphere in the Ritual Configurator. Cylinders stand upright; hollow cylinders have open ends. Hollow spheres include their top and bottom. Shapes fit the configured area: equal dimensions give circles or spheres, unequal dimensions give ellipses or ellipsoids. A cylinder one block high makes a disk or ring. Range limits still use the full configured box.");
+
         this.page("aura", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

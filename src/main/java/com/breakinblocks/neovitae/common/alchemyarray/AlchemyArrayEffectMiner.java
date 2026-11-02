@@ -48,6 +48,8 @@ public class AlchemyArrayEffectMiner extends AlchemyArrayEffect {
     public boolean update(AlchemyArrayBlockEntity tile, int activeCounter) {
         if (!(tile.getLevel() instanceof ServerLevel level)) return false;
 
+        if (level.hasNeighborSignal(tile.getBlockPos())) return false;
+
         if (cooldown > 0) {
             cooldown--;
             return false;

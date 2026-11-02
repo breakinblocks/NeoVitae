@@ -37,6 +37,8 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         if (level == null || level.isClientSide()) return false;
 
         BlockPos pos = tile.getBlockPos();
+        if (level.hasNeighborSignal(tile.getBlockPos())) return false;
+
         Vec3 center = Vec3.atCenterOf(pos);
         AABB area = new AABB(pos).inflate(RADIUS);
 

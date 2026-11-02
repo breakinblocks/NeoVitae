@@ -22,7 +22,7 @@ public class UtilityArraysEntry extends EntryProvider {
         this.pageTitle("Utility Arrays");
         this.pageText("Not all arrays are weapons. These workings serve the practical needs of a vitaemancer's workshop.\\\n\\\n"
                 + "The [#](8B0000)Collection Array[#]() draws dropped items within 2 blocks toward its center. "
-                + "Place it atop a chest and collected items will be deposited directly inside. "
+                + "Place it atop a chest and collected items will be deposited directly inside. A redstone signal pauses pulling and collection; remove it to resume. "
                 + "It leaves items alone while a nearby Furnace Array is smelting them, then collects the results.\\\n\\\n"
                 + "The [#](8B0000)Light Array[#]() radiates illumination from invisible sources above the array, "
                 + "keeping an area well-lit without cluttering it with torches.");
@@ -86,7 +86,7 @@ public class UtilityArraysEntry extends EntryProvider {
 
         this.page("miner2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Should every container be full, or none be near, the array holds its hand rather than drop "
+        this.pageText("A redstone signal pauses mining and output transfers, preserving progress, the tool, and pending drops. Remove the signal to resume. Should every container be full, or none be near, the array holds its hand rather than drop "
                 + "anything on the floor. It tries again soon after, then less and less often, settling at once every "
                 + "[#](8B0000)5 seconds[#](), and returns to full pace the moment there is room.\\\n\\\n"
                 + "[#](2E8B57)Set one over a cobblestone generator and it becomes an endless quarry. Lay that cobblestone "

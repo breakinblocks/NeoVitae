@@ -12,6 +12,7 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.ItemRitualReader;
 import com.breakinblocks.neovitae.ritual.EnumFillMode;
 import com.breakinblocks.neovitae.ritual.EnumMiningMode;
+import com.breakinblocks.neovitae.ritual.EnumQuarryMode;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu;
 import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu.RangeInfo;
 
@@ -49,10 +50,12 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
     private final boolean usesKeepCount;
     private final boolean usesFillMode;
     private final boolean usesMiningMode;
+    private final boolean usesQuarryMode;
     private int selectedAspect;
     private int keepCount;
     private EnumFillMode fillMode;
     private EnumMiningMode miningMode;
+    private EnumQuarryMode quarryMode;
 
     public RitualConfiguratorScreen(RitualConfiguratorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, PANEL_WIDTH,
@@ -70,6 +73,8 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         this.fillMode = menu.getInitialFillMode();
         this.usesMiningMode = menu.usesMiningMode();
         this.miningMode = menu.getInitialMiningMode();
+        this.usesQuarryMode = menu.usesQuarryMode();
+        this.quarryMode = menu.getInitialQuarryMode();
     }
 
     private int listTop() {
@@ -148,8 +153,26 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         return mouseX >= bx && mouseX < bx + miningButtonWidth() - 1 && mouseY >= by && mouseY < by + FILL_ROW_H - 1;
     }
 
-    private int editButtonY() {
+    private int quarryLabelY() {
         return (usesMiningMode ? miningRowY() + FILL_ROW_H : afterFillY()) + GAP;
+    }
+
+    private int quarryRowY() {
+        return quarryLabelY() + FILL_LABEL_H;
+    }
+
+    private int quarryButtonWidth() {
+        return (imageWidth - LIST_X * 2) / EnumQuarryMode.values().length;
+    }
+
+    private boolean overQuarryButton(int index, double mouseX, double mouseY) {
+        int bx = leftPos + LIST_X + index * quarryButtonWidth();
+        int by = quarryRowY();
+        return mouseX >= bx && mouseX < bx + quarryButtonWidth() - 1 && mouseY >= by && mouseY < by + FILL_ROW_H - 1;
+    }
+
+    private int editButtonY() {
+        return (usesQuarryMode ? quarryRowY() + FILL_ROW_H : (usesMiningMode ? miningRowY() + FILL_ROW_H : afterFillY())) + GAP;
     }
 
     private String selectedRangeKey() {
@@ -242,6 +265,28 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                 int by = miningRowY();
                 boolean hovered = overMiningButton(i, mouseX, mouseY);
                 boolean isSelected = modes[i] == miningMode;
+                int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
+                g.fill(bx, by, bx + mbw - 1, by + FILL_ROW_H - 1, fill);
+                if (isSelected) {
+                    g.fill(bx, by, bx + mbw - 1, by + 2, 0xFFB8860B);
+                }
+                Component label = Component.translatable(modes[i].translationKey());
+                int lw = font.width(label);
+                int color = isSelected ? 0xFFB8860B : (hovered ? 0xFFFFFFFF : 0xFFB0A0A4);
+                g.text(font, label, bx + (mbw - lw) / 2, by + (FILL_ROW_H - 8) / 2, color, false);
+            }
+        }
+
+        if (usesQuarryMode) {
+            g.text(font, Component.translatable("gui.neovitae.configurator.quarry_mode"),
+                    leftPos + LIST_X + 2, quarryLabelY() + 3, 0xFFA05050, false);
+            EnumQuarryMode[] modes = EnumQuarryMode.values();
+            int mbw = quarryButtonWidth();
+            for (int i = 0; i < modes.length; i++) {
+                int bx = leftPos + LIST_X + i * mbw;
+                int by = quarryRowY();
+                boolean hovered = overQuarryButton(i, mouseX, mouseY);
+                boolean isSelected = modes[i] == quarryMode;
                 int fill = isSelected ? 0xAA3A2030 : (hovered ? 0x33FFFFFF : 0x22000000);
                 g.fill(bx, by, bx + mbw - 1, by + FILL_ROW_H - 1, fill);
                 if (isSelected) {
@@ -364,6 +409,18 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                         miningMode = modes[i];
                         minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
                                 RitualConfiguratorMenu.MINING_MODE_BUTTON_BASE + i);
+                        return true;
+                    }
+                }
+            }
+
+            if (usesQuarryMode) {
+                EnumQuarryMode[] modes = EnumQuarryMode.values();
+                for (int i = 0; i < modes.length; i++) {
+                    if (overQuarryButton(i, mouseX, mouseY)) {
+                        quarryMode = modes[i];
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
+                                RitualConfiguratorMenu.QUARRY_MODE_BUTTON_BASE + i);
                         return true;
                     }
                 }

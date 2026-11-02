@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_quarry_terrain",
+  "show_title_separator": true,
+  "sort_number": 25,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.text",
+  "title": "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.title"
+}

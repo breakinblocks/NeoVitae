@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import com.breakinblocks.neovitae.ritual.EnumMiningMode;
+import com.breakinblocks.neovitae.ritual.EnumQuarryMode;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
@@ -28,6 +30,26 @@ public class RitualDeusMagnetism extends RitualMagnetism {
     @Override
     protected boolean usesFortune(IMasterRitualStone master) {
         return master.getMiningMode() == EnumMiningMode.FORTUNE;
+    }
+
+    @Override
+    public boolean usesQuarryMode() {
+        return true;
+    }
+
+    @Override
+    protected boolean voidsFiller(IMasterRitualStone master, SpiritusState will) {
+        return master.getQuarryMode() == EnumQuarryMode.CLEAR_ROCK;
+    }
+
+    @Override
+    protected boolean backfillsOres(IMasterRitualStone master, SpiritusState will) {
+        return master.getQuarryMode() == EnumQuarryMode.BACKFILL;
+    }
+
+    @Override
+    protected boolean consumesQuarrySpiritus() {
+        return false;
     }
 
     @Override

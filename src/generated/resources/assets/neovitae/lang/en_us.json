@@ -3675,5 +3675,11 @@
   "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_cost.title": "The Price of Power",
   "ritual.neovitae.deus_enchanted_vitae": "Deus Ritual of Enchanted Vitae",
   "ritual.neovitae.deus_enchanted_vitae.desc": "Allows conflicting enchantments that the item supports. Books supply higher levels or select enchantments to raise by one level per activation, up to the game-supported limit. Extra levels above an enchantment's normal maximum double the EV cost each time. Book consumption is configurable and enabled by default.",
-  "ritual.neovitae.deus_enchanted_vitae.info": "Allows conflicting enchantments that the item supports. Books supply higher levels or select enchantments to raise by one level per activation, up to the game-supported limit. Extra levels above an enchantment's normal maximum double the EV cost each time. Book consumption is configurable and enabled by default."
+  "ritual.neovitae.deus_enchanted_vitae.info": "Allows conflicting enchantments that the item supports. Books supply higher levels or select enchantments to raise by one level per activation, up to the game-supported limit. Extra levels above an enchantment's normal maximum double the EV cost each time. Book consumption is configurable and enabled by default.",
+  "gui.neovitae.configurator.quarry_mode": "Terrain:",
+  "gui.neovitae.configurator.quarry.backfill": "Backfill",
+  "gui.neovitae.configurator.quarry.leave_holes": "Leave holes",
+  "gui.neovitae.configurator.quarry.clear_rock": "Clear rock",
+  "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.text": "The Ritual Configurator offers three terrain modes. Backfill, the default, replaces mined ores with natural stone. Leave holes mines ores and preserves other rock. Clear rock also removes common filler rock, at 10 EV per block. These modes need no Spiritus and work with either Silk Touch or Fortune.",
+  "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.title": "Quarry Terrain Modes"
 }

@@ -238,11 +238,13 @@ public class ItemRitualReader extends Item {
         EnumFillMode fillMode = mrs.getFillMode();
         boolean usesMiningMode = ritual.usesMiningMode();
         EnumMiningMode miningMode = mrs.getMiningMode();
+        boolean usesQuarryMode = ritual.usesQuarryMode();
+        EnumQuarryMode quarryMode = mrs.getQuarryMode();
 
         serverPlayer.openMenu(new SimpleMenuProvider(
-                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode, usesMiningMode, miningMode),
+                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode, usesMiningMode, miningMode, usesQuarryMode, quarryMode),
                 Component.translatable("container.neovitae.ritual_configurator")
-        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode, usesMiningMode, miningMode));
+        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, usesAspect, active, usesKeepCount, keepCount, usesFillMode, fillMode, usesMiningMode, miningMode, usesQuarryMode, quarryMode));
 
         return InteractionResult.SUCCESS;
     }

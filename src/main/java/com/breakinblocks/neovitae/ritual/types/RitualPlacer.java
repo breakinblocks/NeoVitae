@@ -11,6 +11,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
@@ -139,7 +140,8 @@ public class RitualPlacer extends Ritual {
             if (!level.isLoaded(pos)) continue;
             lookups++;
 
-            if (!level.isEmptyBlock(pos)) continue;
+            BlockState existing = level.getBlockState(pos);
+            if (!existing.isAir() && !(existing.getBlock() instanceof LiquidBlock)) continue;
             if (!BlockProtectionHelper.canPlaceBlock(level, pos, level.getBlockState(pos), owner)) continue;
 
             ItemStack toPlace = inventory.getStackInSlot(slotIndex);

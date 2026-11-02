@@ -219,6 +219,11 @@ public class SentientEventHandler {
     }
 
     @SubscribeEvent
+    public static void restoreCuriosSlots(PlayerTickEvent.Pre event) {
+        CuriosCompat.recalculateCuriosSlots(event.getEntity());
+    }
+
+    @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity().level().isClientSide) {
             return;

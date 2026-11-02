@@ -27,6 +27,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     private boolean locked;
     private double stored;
     private int syncTimer;
+    private int ventCooldown;
 
     public SpiritAccumulatorBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.SPIRIT_ACCUMULATOR_TYPE.get(), pos, state);
@@ -39,6 +40,11 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     }
 
     private void serverTick() {
+        if (ventCooldown > 0) {
+            ventCooldown--;
+            setChanged();
+            return;
+        }
         if (!locked || attunedType == null || stored >= CAPACITY || level == null) return;
 
         double chunkAmount = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, attunedType);
@@ -180,10 +186,11 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
     }
 
     public double vent(double amount) {
-        if (attunedType == null || stored <= 0 || level == null) return 0;
+        if (amount <= 0 || attunedType == null || stored <= 0 || level == null) return 0;
         double toVent = Math.min(amount, stored);
         WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, attunedType, toVent);
         stored -= toVent;
+        ventCooldown = 200;
         if (stored <= 0.0001) {
             stored = 0;
         }
@@ -214,6 +221,7 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         tag.putString("attunedType", attunedType == null ? "" : attunedType.getSerializedName());
         tag.putBoolean("locked", locked);
         tag.putDouble("stored", stored);
+        tag.putInt("ventCooldown", ventCooldown);
     }
 
     @Override
@@ -231,5 +239,6 @@ public class SpiritAccumulatorBlockEntity extends RoutingNodeBlockEntity impleme
         }
         locked = tag.contains("locked") ? tag.getBoolean("locked") : attunedType != null;
         stored = tag.getDouble("stored");
+        ventCooldown = Math.clamp(tag.getInt("ventCooldown"), 0, 200);
     }
 }

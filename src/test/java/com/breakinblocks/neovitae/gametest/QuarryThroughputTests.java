@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.gametest;
 
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -155,6 +156,20 @@ public class QuarryThroughputTests {
             helper.fail("Ore should still be collected while Ruina is active");
             return;
         }
+        helper.succeed();
+    }
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void quarryLeavesAutomationProtectedOres(GameTestHelper helper) {
+        StubMaster master = quarry(helper);
+        BlockPos protectedOre = new BlockPos(2, 3, 2);
+        BlockPos ordinaryOre = new BlockPos(1, 3, 2);
+        helper.setBlock(protectedOre, Blocks.LAPIS_ORE);
+        helper.setBlock(ordinaryOre, Blocks.IRON_ORE);
+        helper.assertTrue(helper.getBlockState(protectedOre).is(NVTags.Blocks.QUARRY_BLACKLIST), "Protected-ore fixture must be tagged");
+        new RitualMagnetism().performRitual(master);
+        helper.assertBlockPresent(Blocks.LAPIS_ORE, protectedOre);
+        helper.assertBlockPresent(Blocks.AIR, ordinaryOre);
+        helper.assertTrue(chestCount(helper, Items.IRON_ORE) == 1, "Ordinary ores should still be collected");
         helper.succeed();
     }
 }

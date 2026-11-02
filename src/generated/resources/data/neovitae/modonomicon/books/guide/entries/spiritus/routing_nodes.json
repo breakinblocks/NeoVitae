@@ -113,34 +113,6 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:image",
-      "anchor": "",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "neovitae:images/entries/routing/node_demo.png"
-      ],
-      "text": "book.neovitae.guide.spiritus.routing_nodes.node_image.text",
-      "title": "",
-      "use_legacy_rendering": false
-    },
-    {
-      "type": "modonomicon:image",
-      "anchor": "",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "neovitae:images/entries/routing/node_gui_right.png"
-      ],
-      "text": "book.neovitae.guide.spiritus.routing_nodes.gui_right.text",
-      "title": "",
-      "use_legacy_rendering": false
-    },
-    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
@@ -150,20 +122,6 @@
       "text": "book.neovitae.guide.spiritus.routing_nodes.gui_directions.text",
       "title": "",
       "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:image",
-      "anchor": "",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "neovitae:images/entries/routing/node_gui_left.png"
-      ],
-      "text": "",
-      "title": "",
-      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",
@@ -254,18 +212,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:image",
+      "type": "modonomicon:text",
       "anchor": "",
-      "border": true,
       "condition": {
         "type": "modonomicon:none"
       },
-      "images": [
-        "neovitae:images/entries/routing/network_demo.png"
-      ],
       "text": "book.neovitae.guide.spiritus.routing_nodes.network_image.text",
       "title": "",
-      "use_legacy_rendering": false
+      "show_title_separator": true,
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",

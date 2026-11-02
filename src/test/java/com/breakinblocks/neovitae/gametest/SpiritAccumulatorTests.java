@@ -304,4 +304,21 @@ public class SpiritAccumulatorTests {
             helper.succeed();
         });
     }
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 80)
+    public void ventedSpiritusIsNotImmediatelyReabsorbed(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 1, 2);
+        SpiritAccumulatorBlockEntity be = place(helper, pos);
+        be.attuneTo(SpiritusType.VINDICTA);
+        be.insertSpiritus(SpiritusType.VINDICTA, 1000);
+        be.vent(50);
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(be.getStored() == 950, "Venting must pause collection long enough to empty the accumulator");
+            be.vent(950);
+            helper.runAfterDelay(20, () -> {
+                helper.assertTrue(be.getStored() == 0, "An emptied accumulator must stay empty while unlocking");
+                helper.assertTrue(be.unlock(), "The emptied accumulator should unlock");
+                helper.succeed();
+            });
+        });
+    }
 }

@@ -1,5 +1,9 @@
 package com.breakinblocks.neovitae.gametest;
 
+import net.minecraft.nbt.CompoundTag;
+import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -198,5 +202,33 @@ public class UnboundedFlightTests {
                 });
             });
         });
+    }
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void curiosSocketsSurviveReloadAndReequip(GameTestHelper helper) {
+        Player player = fullSetWearer(helper, 1000, new Vec3(2, 1, 2));
+        Holder<SentientUpgrade> upgrade = helper.getLevel().registryAccess().registryOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).getHolderOrThrow(CuriosCompat.CURIOS_SOCKET_UPGRADE);
+        SentientHelper.applyExpToCap(player, upgrade, 100000, true);
+        helper.assertTrue(CuriosCompat.recalculateCuriosSlots(player) > 0, "Socket upgrade should grant slots");
+        ICurioStacksHandler sockets = CuriosApi.getCuriosInventory(player).orElseThrow()
+                .getCurios().get(CuriosCompat.SENTIENT_ARMOUR_SOCKET_SLOT);
+        sockets.update();
+        int count = sockets.getSlots();
+        helper.assertTrue(count > 0, "Socket slots should exist");
+        helper.assertTrue(!sockets.getPermanentModifiers().isEmpty(), "Socket capacity must persist with the Curios inventory");
+        CompoundTag saved = sockets.serializeNBT();
+        sockets.clearModifiers();
+        sockets.deserializeNBT(saved);
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == count, "Saved sockets must load before the first equipment tick");
+        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        CuriosCompat.recalculateCuriosSlots(player);
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == 0, "Removing the set should remove bonus sockets");
+        player.setItemSlot(EquipmentSlot.HEAD, helmet);
+        CuriosCompat.recalculateCuriosSlots(player);
+        sockets.update();
+        helper.assertTrue(sockets.getSlots() == count, "Reequipping after lost modifiers must restore sockets");
+        helper.succeed();
     }
 }

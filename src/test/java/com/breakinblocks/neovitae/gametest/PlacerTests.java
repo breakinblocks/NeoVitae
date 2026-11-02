@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -407,6 +408,28 @@ public class PlacerTests {
             helper.fail("getContainedPositions should still populate the cache when called directly");
             return;
         }
+        helper.succeed();
+    }
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 40)
+    public void replacesFluidsWithoutRemovingWaterloggedBlocks(GameTestHelper helper) {
+        BlockPos master = new BlockPos(2, 1, 2);
+        AreaDescriptor.Rectangle range = new AreaDescriptor.Rectangle(new BlockPos(-2, 1, 0), 5, 1, 1);
+        StubMaster stub = masonAt(helper, master, range, EnumFillMode.SOLID);
+        chestOf(helper, master.below(), new ItemStack(Blocks.STONE, 2));
+        BlockPos water = master.offset(-2, 1, 0);
+        BlockPos lava = master.offset(0, 1, 0);
+        BlockPos chest = master.offset(2, 1, 0);
+        helper.setBlock(master.offset(-1, 1, 0), Blocks.STONE);
+        helper.setBlock(master.offset(1, 1, 0), Blocks.STONE);
+        helper.setBlock(chest, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.WATERLOGGED, true));
+        helper.setBlock(water, Blocks.WATER);
+        helper.getLevel().setBlock(helper.absolutePos(lava), Blocks.LAVA.defaultBlockState(), Block.UPDATE_CLIENTS);
+        RitualPlacer ritual = new RitualPlacer();
+        for (int i = 0; i < 10; i++) ritual.performRitual(stub);
+        helper.assertBlockPresent(Blocks.STONE, water);
+        helper.assertBlockPresent(Blocks.STONE, lava);
+        helper.assertBlockPresent(Blocks.CHEST, chest);
+        helper.assertTrue(helper.getBlockState(chest).getValue(ChestBlock.WATERLOGGED), "Waterlogged blocks must be preserved");
         helper.succeed();
     }
 }

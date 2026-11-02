@@ -264,6 +264,11 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addOptionalTag(BlockTags.BASE_STONE_NETHER)
                 .addOptionalTag(Tags.Blocks.COBBLESTONES);
 
+        this.tag(NVTags.Blocks.QUARRY_BLACKLIST)
+                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "ores/allthemodium"))
+                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "ores/vibranium"))
+                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "ores/unobtainium"));
+
         this.tag(NVTags.Blocks.QUARRY_BLOCKS)
                 .add(Blocks.GLOWSTONE, Blocks.BONE_BLOCK, Blocks.QUARTZ_BLOCK, Blocks.GILDED_BLACKSTONE)
                 .addTag(Tags.Blocks.ORES)

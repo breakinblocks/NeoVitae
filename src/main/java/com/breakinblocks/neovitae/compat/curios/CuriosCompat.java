@@ -130,7 +130,7 @@ public class CuriosCompat {
      * @return The current upgrade level (0 if no upgrade or no sentient armor)
      */
     public static int recalculateCuriosSlots(Player player) {
-        if (!curiosLoaded) {
+        if (!curiosLoaded || player.level().isClientSide()) {
             return 0;
         }
 
@@ -147,22 +147,19 @@ public class CuriosCompat {
 
         ResourceLocation modifierId = NeoVitae.rl("curios_socket_upgrade");
 
-        if (SentientHelper.hasFullSet(player)) {
-            int curiosLevel = getCuriosSocketLevel(player);
-
-            sentientArmourSockets.removeModifier(modifierId);
-
-            if (curiosLevel > 0) {
-                int bonusSlots = Math.min(curiosLevel, 5);
-                sentientArmourSockets.addTransientModifier(
-                        new AttributeModifier(modifierId, bonusSlots, AttributeModifier.Operation.ADD_VALUE)
-                );
+        int curiosLevel = SentientHelper.hasFullSet(player) ? getCuriosSocketLevel(player) : 0;
+        int bonusSlots = Math.min(curiosLevel, 5);
+        AttributeModifier current = sentientArmourSockets.getModifiers().get(modifierId);
+        if (bonusSlots > 0) {
+            AttributeModifier desired = new AttributeModifier(modifierId, bonusSlots, AttributeModifier.Operation.ADD_VALUE);
+            if (!desired.equals(current) || !sentientArmourSockets.getPermanentModifiers().contains(current)) {
+                sentientArmourSockets.removeModifier(modifierId);
+                sentientArmourSockets.addPermanentModifier(desired);
             }
-            return curiosLevel;
-        } else {
+        } else if (current != null) {
             sentientArmourSockets.removeModifier(modifierId);
-            return 0;
         }
+        return curiosLevel;
     }
 
     /**

@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookImagePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -97,18 +96,6 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "By default every side is [#](8B0000)disabled[#](); nothing flows. You must open the node's "
                 + "interface and explicitly enable each face you wish to carry traffic.");
 
-        this.page("node_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_demo.png"))
-                .withBorder(true)
-                .withText(this.context().pageText()));
-        this.pageText("An Output Node manifested in the world.");
-
-        this.page("gui_right", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_right.png"))
-                .withBorder(true)
-                .withText(this.context().pageText()));
-        this.pageText("Open the node's interface to configure its connections.");
-
         this.page("gui_directions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("On the right: directional buttons: [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, "
@@ -116,10 +103,6 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "attached inventories.\\\n\\\n"
                 + "The interface opens to the side facing an inventory, or Down if none is present. "
                 + "Button orientation follows your facing direction; the top button is always 'forward.'");
-
-        this.page("gui_left", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_left.png"))
-                .withBorder(true));
 
         this.page("gui_filter", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -217,9 +200,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "If an auto-bind fails, reach for the [#](8B0000)Node Router[#]() to wire the remaining "
                 + "nodes by hand.");
 
-        this.page("network_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/network_demo.png"))
-                .withBorder(true)
+        this.page("network_image", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Nodes need not connect directly to the Master; only to some node on the network.");
 

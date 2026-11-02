@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:ores/allthemodium",
+      "required": false
+    },
+    {
+      "id": "#c:ores/vibranium",
+      "required": false
+    },
+    {
+      "id": "#c:ores/unobtainium",
+      "required": false
+    }
+  ]
+}

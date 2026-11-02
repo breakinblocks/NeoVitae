@@ -961,6 +961,15 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.configurator.fill.roof", "Roof");
         add("gui.neovitae.configurator.fill.roof.desc", "Fills only the top layer.");
         add("gui.neovitae.configurator.fill.frame", "Frame");
+        add("gui.neovitae.configurator.fill.cylinder", "Cylinder");
+        add("gui.neovitae.configurator.fill.cylinder.desc", "Fills a vertical cylinder fitted to the area. Unequal width and depth make an ellipse; one layer makes a disk.");
+        add("gui.neovitae.configurator.fill.hollow_cylinder", "Hollow Cylinder");
+        add("gui.neovitae.configurator.fill.hollow_cylinder.desc", "Builds the cylinder side walls with open ends. One layer makes a ring.");
+        add("gui.neovitae.configurator.fill.sphere", "Sphere");
+        add("gui.neovitae.configurator.fill.sphere.desc", "Fills a sphere fitted to the area. Unequal dimensions make an ellipsoid.");
+        add("gui.neovitae.configurator.fill.hollow_sphere", "Hollow Sphere");
+        add("gui.neovitae.configurator.fill.hollow_sphere.desc", "Builds the outer block layer of a sphere or ellipsoid, including its top and bottom.");
+
         add("gui.neovitae.configurator.fill.frame.desc", "Fills only the twelve edges, leaving a bare frame. On a flat area this traces its outline.");
         add("chat.neovitae.reader.noRitual", "No ritual active on this Master Ritual Stone.");
         add("chat.neovitae.reader.noMRS", "No active Master Ritual Stone found nearby.");

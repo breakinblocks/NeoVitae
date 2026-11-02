@@ -24,6 +24,7 @@ import com.breakinblocks.neovitae.ritual.EnumFillMode;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.types.RitualPlacer;
+import com.breakinblocks.neovitae.ritual.types.RitualDeusPlacer;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;
@@ -430,6 +431,82 @@ public class PlacerTests {
         helper.assertBlockPresent(Blocks.STONE, lava);
         helper.assertBlockPresent(Blocks.CHEST, chest);
         helper.assertTrue(helper.getBlockState(chest).getValue(ChestBlock.WATERLOGGED), "Waterlogged blocks must be preserved");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public static void roundedGeometry(GameTestHelper helper) {
+        AreaCursor c = cursor(5, 5, 5);
+        expectCount(helper, c, EnumFillMode.CYLINDER, 105);
+        expectCount(helper, c, EnumFillMode.HOLLOW_CYLINDER, 60);
+        expectCount(helper, c, EnumFillMode.SPHERE, 81);
+        expectCount(helper, cursor(5, 1, 5), EnumFillMode.CYLINDER, 21);
+        expectCount(helper, cursor(5, 1, 5), EnumFillMode.HOLLOW_CYLINDER, 12);
+        int[] sphereSlices = {9, 21, 21, 21, 9};
+        for (int y = 0; y < 5; y++) {
+            int count = 0;
+            for (long i = y * 25; i < (y + 1) * 25; i++) {
+                if (c.accepts(i, EnumFillMode.SPHERE)) count++;
+            }
+            helper.assertTrue(count == sphereSlices[y], "Sphere should taper symmetrically at its poles");
+        }
+        helper.assertTrue(!c.accepts(62, EnumFillMode.HOLLOW_SPHERE), "Hollow sphere must exclude its center");
+        helper.assertTrue(c.accepts(12, EnumFillMode.HOLLOW_SPHERE), "Hollow sphere must close its bottom");
+        helper.assertTrue(c.accepts(112, EnumFillMode.HOLLOW_SPHERE), "Hollow sphere must close its top");
+        helper.assertTrue(!c.accepts(12, EnumFillMode.HOLLOW_CYLINDER)
+                && !c.accepts(112, EnumFillMode.HOLLOW_CYLINDER), "Hollow cylinder ends must remain open");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public static void roundedShapesRemainSymmetricAndTraversable(GameTestHelper helper) {
+        for (int[] size : new int[][]{{1, 1, 1}, {4, 4, 4}, {7, 3, 5}, {1, 4, 5}}) {
+            AreaCursor c = cursor(size[0], size[1], size[2]);
+            for (EnumFillMode mode : List.of(EnumFillMode.CYLINDER, EnumFillMode.HOLLOW_CYLINDER,
+                    EnumFillMode.SPHERE, EnumFillMode.HOLLOW_SPHERE)) {
+                Set<BlockPos> expected = new HashSet<>();
+                for (long i = 0; i < c.volume(); i++) {
+                    boolean included = c.accepts(i, mode);
+                    helper.assertTrue(included == c.accepts(c.volume() - 1 - i, mode), "Odd, even and stretched shapes must be centrally symmetric");
+                    if (included) expected.add(c.at(i));
+                }
+                Set<BlockPos> visited = new HashSet<>();
+                for (long i = 0; i < c.volume();) {
+                    if (c.accepts(i, mode)) visited.add(c.at(i++));
+                    else i = c.skipTo(i + 1, mode);
+                }
+                helper.assertTrue(!expected.isEmpty() && visited.equals(expected), "Cursor skipping must retain every rounded-shape block");
+                helper.assertTrue(EnumFillMode.byName(mode.getSerializedName(), EnumFillMode.SOLID) == mode, "New modes must round-trip their saved names");
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public static void bothMasonsPlaceRoundedShapes(GameTestHelper helper) {
+        BlockPos master = new BlockPos(2, 1, 2);
+        AreaDescriptor.Rectangle range = new AreaDescriptor.Rectangle(new BlockPos(-2, 1, -2), 5, 3, 5);
+        for (boolean deus : List.of(false, true)) {
+            for (EnumFillMode mode : List.of(EnumFillMode.CYLINDER, EnumFillMode.HOLLOW_CYLINDER,
+                    EnumFillMode.SPHERE, EnumFillMode.HOLLOW_SPHERE)) {
+                for (BlockPos pos : range.getContainedPositions(helper.absolutePos(master))) {
+                    helper.getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                }
+                StubMaster stub = masonAt(helper, master, range, mode);
+                chestOf(helper, master.below(), new ItemStack(Blocks.STONE, 64));
+                RitualPlacer ritual = deus ? new RitualDeusPlacer() : new RitualPlacer();
+                for (int i = 0; i < 160; i++) ritual.performRitual(stub);
+                AreaCursor c = AreaCursor.of(range, helper.absolutePos(master));
+                int placed = 0;
+                for (long i = 0; i < c.volume(); i++) {
+                    boolean stone = helper.getLevel().getBlockState(c.at(i)).is(Blocks.STONE);
+                    helper.assertTrue(stone == c.accepts(i, mode), "Mason placement must match " + mode + " (Deus=" + deus + ") at " + c.at(i));
+                    if (stone) placed++;
+                }
+                ChestBlockEntity chest = (ChestBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(master.below()));
+                helper.assertTrue(chest.countItem(Blocks.STONE.asItem()) == 64 - placed, "Only placed blocks may consume items");
+            }
+        }
         helper.succeed();
     }
 }

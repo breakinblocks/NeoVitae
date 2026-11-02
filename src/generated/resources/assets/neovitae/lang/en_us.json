@@ -3640,5 +3640,15 @@
   "sentient_upgrade.neovitae.exp.gills": "Gills",
   "sentient_upgrade.neovitae.exp.lava_strider": "Lava Strider",
   "sentient_upgrade.neovitae.gills": "Gills",
-  "sentient_upgrade.neovitae.lava_strider": "Lava Strider"
+  "sentient_upgrade.neovitae.lava_strider": "Lava Strider",
+  "book.neovitae.guide.rituals.ritual_placer.rounded_shapes.text": "Both Mason rituals offer Cylinder, Hollow Cylinder, Sphere, and Hollow Sphere in the Ritual Configurator. Cylinders stand upright; hollow cylinders have open ends. Hollow spheres include their top and bottom. Shapes fit the configured area: equal dimensions give circles or spheres, unequal dimensions give ellipses or ellipsoids. A cylinder one block high makes a disk or ring. Range limits still use the full configured box.",
+  "book.neovitae.guide.rituals.ritual_placer.rounded_shapes.title": "Circles and Spheres",
+  "gui.neovitae.configurator.fill.cylinder": "Cylinder",
+  "gui.neovitae.configurator.fill.cylinder.desc": "Fills a vertical cylinder fitted to the area. Unequal width and depth make an ellipse; one layer makes a disk.",
+  "gui.neovitae.configurator.fill.hollow_cylinder": "Hollow Cylinder",
+  "gui.neovitae.configurator.fill.hollow_cylinder.desc": "Builds the cylinder side walls with open ends. One layer makes a ring.",
+  "gui.neovitae.configurator.fill.hollow_sphere": "Hollow Sphere",
+  "gui.neovitae.configurator.fill.hollow_sphere.desc": "Builds the outer block layer of a sphere or ellipsoid, including its top and bottom.",
+  "gui.neovitae.configurator.fill.sphere": "Sphere",
+  "gui.neovitae.configurator.fill.sphere.desc": "Fills a sphere fitted to the area. Unequal dimensions make an ellipsoid."
 }

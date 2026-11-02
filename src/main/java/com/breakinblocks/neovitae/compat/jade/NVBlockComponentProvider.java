@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.blockentity.AltarConstants;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
@@ -82,6 +83,9 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         }
 
         if (data.contains("altar_tier")) {
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_buffer", FORMAT.format(data.getInt("altar_input")), FORMAT.format(data.getInt("altar_input_capacity"))).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_rate", FORMAT.format(data.getInt("altar_io_rate")), data.getInt("altar_io_ticks")).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_help").withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable("hud.neovitae.altar.tier",
                     data.getInt("altar_tier")).withStyle(ChatFormatting.GOLD));
             if (data.getBoolean("altar_active")) {
@@ -267,6 +271,10 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
             data.putInt("altar_tier", altar.getTier());
             data.putInt("altar_ev", altar.getMainTank());
             data.putInt("altar_capacity", altar.getMainCapacity());
+            data.putInt("altar_input", altar.getInputTank());
+            data.putInt("altar_input_capacity", altar.getIOCapacity());
+            data.putInt("altar_io_rate", (int) (AltarConstants.BASE_IO_RATE * altar.getDislocationBonus()));
+            data.putInt("altar_io_ticks", altar.getChargingFrequency());
             data.putInt("altar_reserve", altar.getReserveTank());
             data.putInt("altar_reserve_capacity", altar.getReserveCapacity());
             data.putBoolean("altar_active", altar.isActive());

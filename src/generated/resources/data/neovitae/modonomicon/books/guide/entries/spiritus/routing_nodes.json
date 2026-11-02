@@ -276,6 +276,28 @@
       "text": "book.neovitae.guide.spiritus.routing_nodes.fluid_energy2.text",
       "title": "",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.title",
+      "anchor": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.fluid_runes.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.fluid_runes.title",
+      "anchor": "",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

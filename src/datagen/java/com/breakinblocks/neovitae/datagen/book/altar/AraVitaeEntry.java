@@ -179,6 +179,18 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 5 Ara Vitae");
         this.pageText("172 total runes. The Ara Vitae becomes a cathedral of blood and stone.");
+
+        this.page("fluid_bottleneck", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Why Fluid Input Slows Down");
+        this.pageText("Pipes and Routing Nodes fill a separate altar input buffer, not the visible basin. Without runes, that buffer holds 1,000 mB and moves only 20 mB into the basin every 20 ticks (one second). A base router already fills the buffer in one operation; more upgrades cannot force fluid into a full buffer.");
+
+        this.page("fluid_runes", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Improving Altar Flow");
+        this.pageText("Displacement Runes increase the amount moved each altar pulse. Acceleration Runes shorten the interval between pulses. Capacity Runes enlarge the basin and its input buffer. Router Stack and Speed Upgrades improve delivery only when the altar has room. The altar also fills an output buffer, so its visible basin may rise later.");
     }
 
     @Override

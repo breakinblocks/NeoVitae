@@ -54,3 +54,16 @@ The Link can only draw what the basin holds, so it never moves more EV in a tick
 ## CC: Tweaked
 
 With CC: Tweaked installed, a computer or turtle can read the altar's EV, capacity, tier and crafting progress directly instead of through a comparator, and the same goes for the Vitae Link and Orb Vitae Link. See [CC: Tweaked](CC-Tweaked) for the methods.
+
+## Why router upgrades may not fill the altar faster
+
+Routing upgrades raise the network's transfer ceiling, but the receiving block must have room. The Ara Vitae accepts piped fluid into a separate **input buffer**, not directly into its visible basin.
+
+With no runes, the input buffer holds **1,000 mB** and transfers **20 mB every 20 ticks** into the basin: **20 mB per second** at normal game speed. A base router already delivers up to 1,000 mB per operation. Once the buffer is full, even an upgraded router can only replace the 20 mB that the altar has moved out of it. The altar also fills a separate output buffer, which can delay the visible basin rising.
+
+- **Displacement Runes** (registered as Dislocation runes) increase the amount transferred per altar pulse.
+- **Acceleration Runes** shorten the interval between altar pulses.
+- **Capacity Runes** enlarge the basin and its input/output buffers. A larger buffer helps accept bursts, but does not increase sustained internal transfer speed by itself.
+- **Routing Stack Upgrades** increase delivery per network operation; **Routing Speed Upgrades** make those operations more frequent. Neither bypasses the altar's limits.
+
+Upgrade altar flow first if its input buffer stays full. Upgrade the router when it cannot keep that buffer supplied. These limits also apply to other pipes and fluid-transfer systems.

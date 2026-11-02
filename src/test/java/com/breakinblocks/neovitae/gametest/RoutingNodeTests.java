@@ -1,5 +1,9 @@
 package com.breakinblocks.neovitae.gametest;
 
+import com.breakinblocks.neovitae.api.altar.rune.RuneInstance;
+
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+
 import com.breakinblocks.neovitae.common.item.NVItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,6 +38,8 @@ import com.breakinblocks.neovitae.common.fluid.NVFluids;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -1245,6 +1251,69 @@ public class RoutingNodeTests {
         master.tick(helper.getLevel(), absMaster, master.getBlockState());
         int upgraded = getFluidAmount(helper, dstTankPos) - baseline;
         helper.assertTrue(baseline == 1000 && upgraded == 2000, "Fluid transfer should rise from 1000 to 2000 mB per operation, got " + baseline + " and " + upgraded);
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void fluidRoutingIntoAltarRespectsAltarLimits(GameTestHelper helper) {
+        for (int x = 0; x < 7; x++) {
+            for (int z = 0; z < 3; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        BlockPos srcTankPos = new BlockPos(1, 1, 1);
+        BlockPos inputPos = new BlockPos(2, 1, 1);
+        BlockPos masterPos = new BlockPos(3, 1, 1);
+        BlockPos outputPos = new BlockPos(4, 1, 1);
+        BlockPos dstTankPos = new BlockPos(5, 1, 1);
+
+        placeBloodTank(helper, srcTankPos, 1);
+        InputRoutingNodeBlockEntity input = placeAndGet(helper, inputPos, NVBlocks.INPUT_ROUTING_NODE.block().get(), InputRoutingNodeBlockEntity.class);
+        MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
+        OutputRoutingNodeBlockEntity output = placeAndGet(helper, outputPos, NVBlocks.OUTPUT_ROUTING_NODE.block().get(), OutputRoutingNodeBlockEntity.class);
+        AraVitaeTile altar = placeAndGet(helper, dstTankPos, NVBlocks.ARA_VITAE.block().get(), AraVitaeTile.class);
+
+        BlockPos absMaster = helper.absolutePos(masterPos);
+        connectToMaster(helper, input, master, helper.absolutePos(inputPos), absMaster);
+        connectToMaster(helper, output, master, helper.absolutePos(outputPos), absMaster);
+
+        FilterSpec passAll = createBlacklistFilter();
+        setNodeFilter(input, Direction.WEST, passAll);
+        setNodeFilter(output, Direction.EAST, passAll);
+
+        // Fill source tank with 4000 mB of Essentia Vitae
+        IFluidHandler srcHandler = helper.getLevel().getCapability(
+                Capabilities.FluidHandler.BLOCK, helper.absolutePos(srcTankPos), null);
+        if (srcHandler == null) {
+            helper.fail("Source tank has no fluid handler");
+            return;
+        }
+        srcHandler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000), IFluidHandler.FluidAction.EXECUTE);
+        master.setItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE, new ItemStack(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), 19));
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        helper.assertTrue(altar.getInputTank() == 1000, "Base router fills the entire default input buffer");
+        master.setItem(MasterRoutingNodeBlockEntity.SLOT_STACK_UPGRADE, new ItemStack(NVItems.MASTER_NODE_UPGRADE.get()));
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        helper.assertTrue(altar.getInputTank() == 1000, "A full input buffer rejects more fluid even with upgrades");
+        for (int i = 0; i < 20; i++) AraVitaeTile.tick(helper.getLevel(), altar.getBlockPos(), altar.getBlockState(), altar);
+        helper.assertTrue(altar.getInputTank() == 980, "Default altar moves only 20 mB per 20 ticks internally");
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        helper.assertTrue(altar.getInputTank() == 1000, "Upgraded router can only refill the 20 mB of available room");
+
+        // Expand the destination buffer, then prove that routing upgrades are effective on the altar itself.
+        List<RuneInstance> runes = new ArrayList<>();
+        for (int i = 0; i < 15; i++) runes.add(new RuneInstance(BlockPos.ZERO, NVBlocks.RUNE_CAPACITY.block().get(), null));
+        altar.calculateStats(Map.of(), runes);
+        master.tick(helper.getLevel(), absMaster, master.getBlockState());
+        helper.assertTrue(altar.getInputTank() == 3000, "With room available, the upgraded router delivers 2000 mB to the altar");
+
+        for (int i = 0; i < 10; i++) runes.add(new RuneInstance(BlockPos.ZERO, NVBlocks.RUNE_DISLOCATION.block().get(), null));
+        for (int i = 0; i < 19; i++) runes.add(new RuneInstance(BlockPos.ZERO, NVBlocks.RUNE_ACCELERATION.block().get(), null));
+        altar.calculateStats(Map.of(), runes);
+        int before = altar.getInputTank();
+        for (int i = 0; i < 20; i++) AraVitaeTile.tick(helper.getLevel(), altar.getBlockPos(), altar.getBlockState(), altar);
+        helper.assertTrue(before - altar.getInputTank() > 2000, "Displacement and Acceleration runes increase actual altar throughput");
         helper.succeed();
     }
 }

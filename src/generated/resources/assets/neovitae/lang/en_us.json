@@ -3609,5 +3609,20 @@
   "gui.neovitae.configurator.quarry.leave_holes": "Leave holes",
   "gui.neovitae.configurator.quarry.clear_rock": "Clear rock",
   "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.text": "The Ritual Configurator offers three terrain modes. Backfill, the default, replaces mined ores with natural stone. Leave holes mines ores and preserves other rock. Clear rock also removes common filler rock, at 10 EV per block. These modes need no Spiritus and work with either Silk Touch or Fortune.",
-  "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.title": "Quarry Terrain Modes"
+  "book.neovitae.guide.rituals.deus_rituals.deus_quarry_terrain.title": "Quarry Terrain Modes",
+  "gui.neovitae.master_routing.caps.destination": "Actual transfer is limited by the receiving block.",
+  "gui.neovitae.master_routing.caps.altar": "Ara Vitae: fluid enters a separate input buffer.",
+  "gui.neovitae.master_routing.caps.altar_rate": "Default altar: 1,000 mB buffer; 20 mB per second.",
+  "gui.neovitae.master_routing.caps.altar_runes": "Displacement + Acceleration runes improve altar flow.",
+  "jade.neovitae.altar.input_buffer": "Input buffer: %s / %s mB",
+  "jade.neovitae.altar.input_rate": "Buffer to basin: up to %s mB every %s ticks",
+  "jade.neovitae.altar.input_help": "Improve flow with Displacement + Acceleration runes.",
+  "book.neovitae.guide.altar.ara_vitae.fluid_bottleneck.title": "Why Fluid Input Slows Down",
+  "book.neovitae.guide.altar.ara_vitae.fluid_bottleneck.text": "Pipes and Routing Nodes fill a separate altar input buffer, not the visible basin. Without runes, that buffer holds 1,000 mB and moves only 20 mB into the basin every 20 ticks (one second). A base router already fills the buffer in one operation; more upgrades cannot force fluid into a full buffer.",
+  "book.neovitae.guide.altar.ara_vitae.fluid_runes.title": "Improving Altar Flow",
+  "book.neovitae.guide.altar.ara_vitae.fluid_runes.text": "Displacement Runes increase the amount moved each altar pulse. Acceleration Runes shorten the interval between pulses. Capacity Runes enlarge the basin and its input buffer. Router Stack and Speed Upgrades improve delivery only when the altar has room. The altar also fills an output buffer, so its visible basin may rise later.",
+  "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.title": "Why Fluid Input Slows Down",
+  "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.text": "Pipes and Routing Nodes fill a separate altar input buffer, not the visible basin. Without runes, that buffer holds 1,000 mB and moves only 20 mB into the basin every 20 ticks (one second). A base router already fills the buffer in one operation; more upgrades cannot force fluid into a full buffer.",
+  "book.neovitae.guide.spiritus.routing_nodes.fluid_runes.title": "Improving Altar Flow",
+  "book.neovitae.guide.spiritus.routing_nodes.fluid_runes.text": "Displacement Runes increase the amount moved each altar pulse. Acceleration Runes shorten the interval between pulses. Capacity Runes enlarge the basin and its input buffer. Router Stack and Speed Upgrades improve delivery only when the altar has room. The altar also fills an output buffer, so its visible basin may rise later."
 }

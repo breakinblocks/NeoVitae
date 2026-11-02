@@ -47,6 +47,9 @@ public class SentientUpgrades {
     public static final ResourceKey<SentientUpgrade> SWIM_DECREASE = key("swim_decrease");
 
     // Upgrades
+    public static final ResourceKey<SentientUpgrade> GILLS = key("gills");
+    public static final ResourceKey<SentientUpgrade> AQUATIC_AGILITY = key("aquatic_agility");
+    public static final ResourceKey<SentientUpgrade> LAVA_STRIDER = key("lava_strider");
     public static final ResourceKey<SentientUpgrade> ARROW_PROTECT = key("arrow_protect");
     public static final ResourceKey<SentientUpgrade> CURIOS_SOCKET = key("curios_socket");
     public static final ResourceKey<SentientUpgrade> NETHERITE_PROTECT = key("netherite_protect");
@@ -500,7 +503,26 @@ public class SentientUpgrades {
                         .build()
         );
 
+        context.register(GILLS, new SentientUpgrade.Builder()
+                .level(600, 15)
+                .withEffect(SentientEffectComponents.GILLS.get()).build());
+        context.register(LAVA_STRIDER, new SentientUpgrade.Builder()
+                .level(600, 20)
+                .withEffect(SentientEffectComponents.LAVA_STRIDER.get()).build());
+        context.register(AQUATIC_AGILITY, new SentientUpgrade.Builder()
+                .level(200, 3).level(1000, 7).level(2000, 13).level(4000, 26).level(7000, 42)
+                .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(AQUATIC_AGILITY.location(),
+                        NeoForgeMod.SWIM_SPEED, Operation.ADD_MULTIPLIED_BASE,
+                        LevelBasedValue.perLevel(0.2f))).build());
+
         HolderGetter<SentientUpgrade> lookup = context.lookup(NVRegistries.Keys.SENTIENT_UPGRADES);
+        context.register(exp(GILLS), new SentientUpgrade.Builder().level(1, 0)
+                .withEffect(SentientEffectComponents.TICK.get(), new FluidTrainingExp(lookup.getOrThrow(GILLS), FluidTrainingExp.Activity.UNDERWATER)).build());
+        context.register(exp(AQUATIC_AGILITY), new SentientUpgrade.Builder().level(1, 0)
+                .withEffect(SentientEffectComponents.TICK.get(), new FluidTrainingExp(lookup.getOrThrow(AQUATIC_AGILITY), FluidTrainingExp.Activity.SWIMMING)).build());
+        context.register(exp(LAVA_STRIDER), new SentientUpgrade.Builder().level(1, 0)
+                .withEffect(SentientEffectComponents.TICK.get(), new FluidTrainingExp(lookup.getOrThrow(LAVA_STRIDER), FluidTrainingExp.Activity.LAVA)).build());
+
 
         context.register(
                 exp(ARROW_PROTECT),
@@ -631,6 +653,7 @@ public class SentientUpgrades {
             STORM_TROOPER     // Storm Trooper
     );
     private static final List<ResourceKey<SentientUpgrade>> upgrades = List.of(
+            AQUATIC_AGILITY, GILLS, LAVA_STRIDER,
             KNOCKBACK_RESIST,  // Body Builder
             SPRINT_ATTACK,     // Charging Strike
             DIGGING,           // Dwarven Might
@@ -678,6 +701,10 @@ public class SentientUpgrades {
     }
 
     public static void translations(BiConsumer<String, String> translator) {
+        addUpgrade(GILLS.location(), "Gills", translator);
+        addUpgrade(AQUATIC_AGILITY.location(), "Aquatic Agility", translator);
+        addUpgrade(LAVA_STRIDER.location(), "Lava Strider", translator);
+
         addUpgrade(BATTLE_HUNGRY.location(), "Battle Hungry", translator);
         addUpgrade(CRIPPLED_ARM.location(), "Crippled Arm", translator);
         addUpgrade(DIG_SLOWDOWN.location(), "Leadened Pick", translator);

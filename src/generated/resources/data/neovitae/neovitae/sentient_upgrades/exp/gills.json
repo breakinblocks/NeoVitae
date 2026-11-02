@@ -1,0 +1,21 @@
+{
+  "effects": {
+    "neovitae:tick": [
+      {
+        "effect": {
+          "type": "neovitae:fluid_training_exp",
+          "activity": "UNDERWATER",
+          "upgrade": "neovitae:gills"
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1
+    },
+    "level_to_cost": {
+      "1": 0
+    }
+  }
+}

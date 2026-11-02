@@ -29,6 +29,7 @@ public interface SentientEntityEffect {
     Supplier<MapCodec<RandomArmourDamageEffect>> RANDOM_ARMOUR_DAMAGE = ENTITY_EFFECT_TYPE.register("random_armour_damage", () -> RandomArmourDamageEffect.CODEC);
     Supplier<MapCodec<CauseExhaustionEffect>> EXHAUST = ENTITY_EFFECT_TYPE.register("exhaust", () -> CauseExhaustionEffect.CODEC);
 
+    Supplier<MapCodec<FluidTrainingExp>> FLUID_TRAINING_EXP = ENTITY_EFFECT_TYPE.register("fluid_training_exp", () -> FluidTrainingExp.CODEC);
     Supplier<MapCodec<EntityBasedExp>> ENTITY_BASED_EXP = ENTITY_EFFECT_TYPE.register("sentient_exp", () -> EntityBasedExp.CODEC);
     Supplier<MapCodec<DistanceExpGain>> DISTANCE_EXP = ENTITY_EFFECT_TYPE.register("distance_sentient_exp", () -> DistanceExpGain.CODEC);
     Supplier<MapCodec<EatingExpEffect>> EATING_EXP = ENTITY_EFFECT_TYPE.register("eating_sentient_exp", () -> EatingExpEffect.CODEC);

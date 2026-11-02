@@ -43,6 +43,16 @@ import java.util.List;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class SentientEventHandler {
+    @SubscribeEvent
+    public static void onBreathe(LivingBreatheEvent event) {
+        if (event.getEntity() instanceof Player player && player.isUnderWater()
+                && SentientHelper.hasFullSet(player)
+                && SentientHelper.has(player, SentientEffectComponents.GILLS.get())) {
+            event.setCanBreathe(true);
+            event.setRefillAirAmount(Math.max(4, event.getRefillAirAmount()));
+        }
+    }
+
     public static final int UNBOUNDED_FLIGHT_EV_PER_TICK = 5;
 
 

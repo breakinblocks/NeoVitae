@@ -1,0 +1,13 @@
+{
+  "effects": {
+    "neovitae:gills": {}
+  },
+  "levels": {
+    "exp_to_level": {
+      "600": 1
+    },
+    "level_to_cost": {
+      "1": 15
+    }
+  }
+}

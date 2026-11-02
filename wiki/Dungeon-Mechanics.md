@@ -90,7 +90,7 @@ Dropped by most [Daemonium](Daemonium-Bestiary). Staves off hunger but carries a
 
 ### Vitae Morsel
 
-Tainted Flesh refined in the [Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment) with a Weak Blood Shard and a Gore-Clotted Fang (dropped by Daemonium Cruoris). Deeply satisfying, **accelerates natural healing** for a short window, and **can be eaten at any time regardless of hunger bar**. A reliable combat ration once you have a Cruoris kill or three under your belt.
+Tainted Flesh refined in the [Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment) with a Weak Blood Shard and a Gore-Clotted Fang (dropped by Daemonium Cruoris). Each morsel restores **8 hunger points (4 drumsticks)** and **12.8 saturation**, and grants **Regeneration I and Resistance I for 30 seconds**. It **can be eaten even when full**. The recipe produces four morsels.
 
 ### Bottled Spite
 

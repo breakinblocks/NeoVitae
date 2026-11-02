@@ -273,8 +273,9 @@ public class NVItems {
                     .effect(() -> MobEffects.WITHER, 100, 0, 0.3f)
                     .build());
     public static final DeferredHolder<Item, NVFoodItem> VITAE_MORSEL = BASIC_ITEMS.register("vitae_morsel",
-            () -> NVFoodItem.builder(6, 0.8f).alwaysEdible()
-                    .effect(() -> MobEffects.REGENERATION, 200, 0)
+            () -> NVFoodItem.builder(8, 0.8f).alwaysEdible()
+                    .effect(() -> MobEffects.REGENERATION, 600, 0)
+                    .effect(() -> MobEffects.DAMAGE_RESISTANCE, 600, 0)
                     .build());
     public static final DeferredHolder<Item, NVFoodItem> BOTTLED_SPITE = BASIC_ITEMS.register("bottled_spite",
             () -> NVFoodItem.builder(0, 0f).alwaysEdible().stacksTo(16).drinkable()

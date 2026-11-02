@@ -1,4 +1,12 @@
 {
+  "book.neovitae.guide.spiritus.sanguine_crafter.packing.title": "Packing and Unpacking",
+  "book.neovitae.guide.spiritus.sanguine_crafter.packing.text": "Packing and Unpacking need no template. Packing combines 4 or 9 identical items; Unpacking separates one packed item. Both modes require existing crafting recipes in both directions that restore the exact original items and quantity. One-way recipes are skipped. Mixed materials are processed separately at normal crafting cost and speed.",
+  "gui.neovitae.sanguine_crafter.mode.packing": "Packing",
+  "gui.neovitae.sanguine_crafter.mode.packing.short": "Pack",
+  "gui.neovitae.sanguine_crafter.mode.packing.desc": "Packs identical inputs using reversible 2x2 or 3x3 crafting recipes; no template needed",
+  "gui.neovitae.sanguine_crafter.mode.unpacking": "Unpacking",
+  "gui.neovitae.sanguine_crafter.mode.unpacking.short": "Unpack",
+  "gui.neovitae.sanguine_crafter.mode.unpacking.desc": "Unpacks inputs using registered crafting recipes with an exact reverse packing recipe; no template needed",
   "advancements.neovitae.apprentice_blood_orb.description": "Upgrade to a Tier 1 Orb of Vitae",
   "advancements.neovitae.apprentice_blood_orb.title": "Discipulus Orb of Vitae",
   "advancements.neovitae.arcane_scribe.description": "Craft an Arcane Scribe Tool to inscribe and activate Alchemy Arrays",

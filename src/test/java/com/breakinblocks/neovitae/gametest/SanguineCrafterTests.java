@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -238,4 +240,77 @@ public class SanguineCrafterTests {
         });
     }
 
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 180)
+    public void packingMixedInputs(GameTestHelper helper) {
+        Rig rig = build(helper);
+        rig.crafter().setMode(Mode.PACKING);
+        rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.DIAMOND, 4));
+        rig.crafter().inv.setStackInSlot(1, new ItemStack(Items.COAL, 9));
+        rig.crafter().inv.setStackInSlot(2, new ItemStack(Items.DIAMOND, 5));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(outputCount(rig.crafter(), Items.DIAMOND_BLOCK) == 1, "Expected diamond block from split stacks");
+            helper.assertTrue(outputCount(rig.crafter(), Items.COAL_BLOCK) == 1, "Expected coal block from mixed buffer");
+            helper.assertTrue(rig.network().getCurrentEV() == 9960, "Two crafts must cost 40 EV");
+        });
+    }
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 180)
+    public void unpackingRegisteredRecipes(GameTestHelper helper) {
+        Rig rig = build(helper);
+        rig.crafter().setMode(Mode.UNPACKING);
+        rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.DIAMOND_BLOCK));
+        rig.crafter().inv.setStackInSlot(1, new ItemStack(Items.COAL_BLOCK));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(outputCount(rig.crafter(), Items.DIAMOND) == 9, "Expected 9 diamonds");
+            helper.assertTrue(outputCount(rig.crafter(), Items.COAL) == 9, "Expected 9 coal");
+            helper.assertTrue(rig.network().getCurrentEV() == 9960, "Unpacking must pay normal crafting costs");
+        });
+    }
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 180)
+    public void packingTwoByTwoRoundTrip(GameTestHelper helper) {
+        Rig rig = build(helper);
+        rig.crafter().setMode(Mode.PACKING);
+        rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.ECHO_SHARD, 4));
+        helper.runAfterDelay(60, () -> {
+            helper.assertTrue(outputCount(rig.crafter(), Items.CALCITE) == 1, "Registered test recipe must pack 4 shards");
+            rig.crafter().inv.setStackInSlot(SanguineCrafterBlockEntity.OUTPUT_START, ItemStack.EMPTY);
+            rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.CALCITE));
+            rig.crafter().setMode(Mode.UNPACKING);
+            helper.succeedWhen(() -> helper.assertTrue(outputCount(rig.crafter(), Items.ECHO_SHARD) == 4, "Registered reverse must restore 4 shards"));
+        });
+    }
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 180)
+    public void packingRejectsOneWayAndLossyRecipes(GameTestHelper helper) {
+        Rig rig = build(helper);
+        rig.crafter().setMode(Mode.PACKING);
+        rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.QUARTZ, 4));
+        rig.crafter().inv.setStackInSlot(1, new ItemStack(Items.FLINT, 9));
+        ItemStack named = new ItemStack(Items.DIAMOND, 9);
+        named.set(DataComponents.CUSTOM_NAME, Component.literal("Keep this name"));
+        rig.crafter().inv.setStackInSlot(2, named);
+        helper.runAfterDelay(80, () -> {
+            helper.assertTrue(rig.crafter().inv.getStackInSlot(0).getCount() == 4, "Quartz has no reverse recipe");
+            helper.assertTrue(rig.crafter().inv.getStackInSlot(1).getCount() == 9, "Reverse returning 8 of 9 must be rejected");
+            helper.assertTrue(rig.crafter().inv.getStackInSlot(2).getCount() == 9, "Packing must not erase components");
+            helper.assertTrue(rig.network().getCurrentEV() == 10000, "Rejected recipes must not spend EV");
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_24x5x24", timeoutTicks = 180)
+    public void unpackingRejectsOneWayAndLossyRecipes(GameTestHelper helper) {
+        Rig rig = build(helper);
+        rig.crafter().setMode(Mode.UNPACKING);
+        rig.crafter().inv.setStackInSlot(0, new ItemStack(Items.OAK_LOG));
+        rig.crafter().inv.setStackInSlot(1, new ItemStack(Items.ANDESITE));
+        helper.runAfterDelay(80, () -> {
+            helper.assertTrue(rig.crafter().inv.getStackInSlot(0).is(Items.OAK_LOG), "Planks cannot be packed back into a log");
+            helper.assertTrue(rig.crafter().inv.getStackInSlot(1).is(Items.ANDESITE), "Lossy reverse must not unpack");
+            helper.assertTrue(rig.network().getCurrentEV() == 10000, "Rejected recipes must not spend EV");
+            helper.succeed();
+        });
+    }
 }

@@ -135,6 +135,17 @@
       "text": "book.neovitae.guide.spiritus.sanguine_crafter.chunk_loading.text",
       "title": "book.neovitae.guide.spiritus.sanguine_crafter.chunk_loading.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sanguine_crafter.packing.text",
+      "title": "book.neovitae.guide.spiritus.sanguine_crafter.packing.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

@@ -67,7 +67,7 @@ import java.util.UUID;
 public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuProvider, SideConfigurable, OutputFaceConfigurable, IRitualAccelerated {
 
     public enum Mode {
-        AUTO, CRAFTING, TABULA, FORGE;
+        AUTO, CRAFTING, TABULA, FORGE, PACKING, UNPACKING;
 
         private static final Mode[] VALUES = values();
 
@@ -458,6 +458,8 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
             case CRAFTING -> planCrafting(level);
             case TABULA -> planTabula(level, templateConsumes());
             case FORGE -> planForge(level, templateConsumes());
+            case PACKING -> planPacking(level, false);
+            case UNPACKING -> planPacking(level, true);
         };
     }
 
@@ -574,6 +576,58 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
         }
         int ticks = scaledTicks(NeoVitae.SERVER_CONFIG.SANGUINE_CRAFTER_CRAFTING_TICKS.get());
         return finish(new Plan(result, byproducts, stripCuttingFluid(consumes), 0, null, 0, false, null, ticks, null));
+    }
+
+    // Both directions must be real, lossless crafting recipes. Never derive an output from tags or names.
+    @Nullable
+    private Plan planPacking(ServerLevel level, boolean unpack) {
+        List<ItemStack> checked = new ArrayList<>();
+        for (int slot = INPUT_START; slot < INPUT_START + INPUT_COUNT; slot++) {
+            ItemStack item = inv.getStackInSlot(slot);
+            if (item.isEmpty() || checked.stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, item))) continue;
+            checked.add(item);
+            for (int size = unpack ? 1 : 3; size >= (unpack ? 1 : 2); size--) {
+                int count = size * size;
+                List<Consume> consumes = new ArrayList<>();
+                for (int s = INPUT_START; s < INPUT_START + INPUT_COUNT && consumes.size() < count; s++) {
+                    ItemStack available = inv.getStackInSlot(s);
+                    if (!ItemStack.isSameItemSameComponents(available, item)) continue;
+                    for (int n = 0; n < available.getCount() && consumes.size() < count; n++) {
+                        consumes.add(new Consume(s, false));
+                    }
+                }
+                if (consumes.size() != count) continue;
+                ItemStack result = packingResult(level, item, size);
+                if (result.isEmpty()) continue;
+                int reverseSize;
+                if (unpack) {
+                    reverseSize = result.getCount() == 9 ? 3 : result.getCount() == 4 ? 2 : 0;
+                    if (reverseSize == 0) continue;
+                } else {
+                    if (result.getCount() != 1) continue;
+                    reverseSize = 1;
+                }
+                ItemStack reverse = packingResult(level, result, reverseSize);
+                if (reverse.getCount() != count || !ItemStack.isSameItemSameComponents(reverse, item)) continue;
+                int ticks = scaledTicks(NeoVitae.SERVER_CONFIG.SANGUINE_CRAFTER_CRAFTING_TICKS.get());
+                return finish(new Plan(result, List.of(), consumes, 0, null, 0, false, null, ticks, null));
+            }
+        }
+        status = Status.NO_RECIPE;
+        return null;
+    }
+
+    private static ItemStack packingResult(ServerLevel level, ItemStack item, int size) {
+        List<ItemStack> grid = new ArrayList<>(size * size);
+        for (int i = 0; i < size * size; i++) grid.add(item.copyWithCount(1));
+        CraftingInput input = CraftingInput.of(size, size, grid);
+        RecipeHolder<CraftingRecipe> holder = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level).orElse(null);
+        if (holder == null) return ItemStack.EMPTY;
+        // Container returns would make the pair non-lossless even if the main outputs match.
+        for (ItemStack remainder : holder.value().getRemainingItems(input)) {
+            if (!remainder.isEmpty()) return ItemStack.EMPTY;
+        }
+        return holder.value().assemble(input, level.registryAccess());
     }
 
     private static List<Consume> stripCuttingFluid(List<Consume> consumes) {

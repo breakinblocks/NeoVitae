@@ -1,4 +1,10 @@
 {
+  "gui.neovitae.sanguine_crafter.mode.packing": "压缩",
+  "gui.neovitae.sanguine_crafter.mode.packing.short": "压缩",
+  "gui.neovitae.sanguine_crafter.mode.packing.desc": "使用可逆合成配方压缩物品，无需样板",
+  "gui.neovitae.sanguine_crafter.mode.unpacking": "解压",
+  "gui.neovitae.sanguine_crafter.mode.unpacking.short": "解压",
+  "gui.neovitae.sanguine_crafter.mode.unpacking.desc": "使用可逆合成配方解压物品，无需样板",
   "advancements.neovitae.apprentice_blood_orb.description": "升级至1级生命宝珠",
   "advancements.neovitae.apprentice_blood_orb.title": "学徒生命宝珠",
   "advancements.neovitae.arcane_scribe.description": "制造一件奥秘铭刻工具，可以用它铭刻和触发炼金阵列",

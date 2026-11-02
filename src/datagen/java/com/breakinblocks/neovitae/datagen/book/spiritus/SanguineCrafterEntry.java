@@ -107,6 +107,12 @@ public class SanguineCrafterEntry extends EntryProvider {
         this.pageText("While whole and running, the crafter keeps the chunks it stands in loaded so your work goes on "
                 + "when you wander off. By default this lasts only while its builder is online, and each player may "
                 + "keep ten crafters working this way. Server owners may change or disable this.");
+
+        this.page("packing", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Packing and Unpacking");
+        this.pageText("Packing and Unpacking need no template. Packing combines 4 or 9 identical items; Unpacking separates one packed item. Both modes require existing crafting recipes in both directions that restore the exact original items and quantity. One-way recipes are skipped. Mixed materials are processed separately at normal crafting cost and speed.");
     }
 
     @Override

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_enchanted_vitae_books",
+  "show_title_separator": true,
+  "sort_number": 24,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_books.text",
+  "title": "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_books.title"
+}

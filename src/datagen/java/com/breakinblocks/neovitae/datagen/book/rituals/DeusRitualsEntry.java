@@ -118,6 +118,27 @@ public class DeusRitualsEntry extends EntryProvider {
 
         this.page("deus_armour_evolve_stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("deus_armour_evolve")));
+
+        this.page("deus_enchanted_vitae", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_enchanted_vitae"))
+                .withMultiblockName("Deus Enchanted Vitae")
+                .withText(this.context().pageText()));
+        this.pageText("Allows conflicting enchantments on items that support them. Offer one item and enchanted books: higher book levels are copied; otherwise each selected enchantment gains one level. The ritual stops after one working.");
+
+        this.page("deus_enchanted_vitae_stats", () -> BookRitualInfoPageModel.create()
+                .withText(RitualStatsHelper.generateStats("deus_enchanted_vitae")));
+
+        this.page("deus_enchanted_vitae_cost", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Price of Power");
+        this.pageText("Each resulting level costs 2,000 EV, multiplied by rarity. Every level above the enchantment's normal maximum doubles that cost, up to the supported EV maximum. Levels stop only where the game's enchantment storage stops; no separate vanilla-based cap is imposed.");
+
+        this.page("deus_enchanted_vitae_books", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Offered Books");
+        this.pageText("By default, one book from each contributing stack is consumed after a successful working. Pack authors can set consume_books to false for neovitae:deus_enchanted_vitae in the ritual_stats data map to preserve books. Unsupported enchantments and enchantments already at the game-supported ceiling spend nothing.");
     }
 
     @Override

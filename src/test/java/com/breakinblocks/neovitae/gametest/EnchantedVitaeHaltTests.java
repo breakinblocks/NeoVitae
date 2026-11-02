@@ -25,6 +25,8 @@ import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.types.RitualEnchantedVitae;
+import com.breakinblocks.neovitae.ritual.types.RitualDeusEnchantedVitae;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.ArrayList;
@@ -204,6 +206,51 @@ public final class EnchantedVitaeHaltTests {
     }
 
     public static void register(NVTestRegistrar r) {
+        r.addIsolated("enchanted_vitae_halt/deusconsumesbookswhenconfigured", 40, helper -> {
+        fundOwner();
+        helper.setBlock(MASTER, Blocks.STONE);
+        StubMaster master = new StubMaster(helper.getLevel(), helper.absolutePos(MASTER));
+        RitualDeusEnchantedVitae ritual = new RitualDeusEnchantedVitae() {
+            @Override
+            protected RitualStats getStats() {
+                return RitualStats.timed(100000, 0, 4, 2).withConsumeBooks();
+            }
+        };
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        RitualEnchantedVitae.applyEnchantments(sword, Map.of(ench(helper, Enchantments.SHARPNESS), 5));
+        ItemEntity target = drop(helper, sword);
+        ItemEntity offered = drop(helper, book(helper, Enchantments.SHARPNESS, 1));
+        int before = AnimaHelper.getAnima(OWNER).getCurrentEV();
+        run(ritual, master, 25);
+        helper.assertTrue(target.getItem().getEnchantmentLevel(ench(helper, Enchantments.SHARPNESS)) == 6, "Exactly one upgrade per working");
+        helper.assertTrue(offered.isAlive() == false, "Book consumption must follow configuration");
+        helper.assertTrue(before - AnimaHelper.getAnima(OWNER).getCurrentEV() == RitualDeusEnchantedVitae.costFor(Map.of(ench(helper, Enchantments.SHARPNESS), 6)), "Upgrade must charge its full cost");
+        helper.assertTrue(master.stopped, "Ritual must stop after one upgrade");
+        helper.succeed();
+        });
+        r.addIsolated("enchanted_vitae_halt/deuspreservesbookswhenconfigured", 40, helper -> {
+        fundOwner();
+        helper.setBlock(MASTER, Blocks.STONE);
+        StubMaster master = new StubMaster(helper.getLevel(), helper.absolutePos(MASTER));
+        RitualDeusEnchantedVitae ritual = new RitualDeusEnchantedVitae() {
+            @Override
+            protected RitualStats getStats() {
+                return RitualStats.timed(100000, 0, 4, 2);
+            }
+        };
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        RitualEnchantedVitae.applyEnchantments(sword, Map.of(ench(helper, Enchantments.SHARPNESS), 5));
+        ItemEntity target = drop(helper, sword);
+        ItemEntity offered = drop(helper, book(helper, Enchantments.SHARPNESS, 1));
+        int before = AnimaHelper.getAnima(OWNER).getCurrentEV();
+        run(ritual, master, 25);
+        helper.assertTrue(target.getItem().getEnchantmentLevel(ench(helper, Enchantments.SHARPNESS)) == 6, "Exactly one upgrade per working");
+        helper.assertTrue(offered.isAlive() == true, "Book consumption must follow configuration");
+        helper.assertTrue(before - AnimaHelper.getAnima(OWNER).getCurrentEV() == RitualDeusEnchantedVitae.costFor(Map.of(ench(helper, Enchantments.SHARPNESS), 6)), "Upgrade must charge its full cost");
+        helper.assertTrue(master.stopped, "Ritual must stop after one upgrade");
+        helper.succeed();
+        });
+
         r.add("enchanted_vitae/halted_rite_only_resumes_when_the_item_is_offered_again", 100, helper -> {
             fundOwner();
             helper.setBlock(MASTER, Blocks.STONE);

@@ -135,6 +135,9 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualDeusGreenGrove> DEUS_GREEN_GROVE =
             registerRitual(RitualDeusGreenGrove.NAME, RitualDeusGreenGrove::new);
 
+    public static final DeferredHolder<Ritual, RitualDeusEnchantedVitae> DEUS_ENCHANTED_VITAE =
+            registerRitual(RitualDeusEnchantedVitae.NAME, RitualDeusEnchantedVitae::new);
+
     public static final DeferredHolder<Ritual, RitualDeusPlacer> DEUS_PLACER =
             registerRitual(RitualDeusPlacer.NAME, RitualDeusPlacer::new);
 

@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deus_enchanted_vitae",
+  "multiblock_id": "neovitae:ritual/deus_enchanted_vitae",
+  "multiblock_name": "Deus Enchanted Vitae",
+  "show_visualize_button": true,
+  "sort_number": 21,
+  "text": "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae.text"
+}

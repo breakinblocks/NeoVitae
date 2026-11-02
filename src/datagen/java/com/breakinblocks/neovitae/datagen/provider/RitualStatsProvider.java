@@ -90,6 +90,7 @@ public class RitualStatsProvider implements DataProvider {
         out.accept(NVRituals.DEUS_CRYSTALLUM_FRACTURA, RitualStats.timed(400000, 160, 100, 2));
         out.accept(NVRituals.DEUS_GREEN_GROVE, RitualStats.timed(4000, 20, 20, 2)
                 .withAmbientSound(NeoVitae.rl("overgrowth")));
+        out.accept(NVRituals.DEUS_ENCHANTED_VITAE, RitualStats.timed(100000, 0, 4, 2).withConsumeBooks());
         out.accept(NVRituals.DEUS_PLACER, RitualStats.timed(20000, 10, 5, 2));
         out.accept(NVRituals.DEUS_FELLING, RitualStats.timed(8000, 10, 20, 2));
         out.accept(NVRituals.DEUS_CELERITY, RitualStats.timed(250000, 25, 20, 2));

@@ -36,10 +36,7 @@ public class DemonFoodEntry extends EntryProvider {
                 .withItem(NVItems.VITAE_MORSEL.get())
                 .withTitle("Vitae Morsel")
                 .withText(this.context().pageText()));
-        this.pageText("Tainted Flesh refined through the [#](8B0000)Hellfire Forge[#]() with a "
-                + "[#](8B0000)Weak Blood Shard[#]() and [#](8B0000)Gore-Clotted Fang[#](). Deeply satisfying "
-                + "and [#](2E8B57)accelerates natural healing[#]() "
-                + "for a short time. Can be eaten at any time. A reliable combat ration.");
+        this.pageText("Tainted Flesh refined through the [#](8B0000)Hellfire Forge[#]() with a [#](8B0000)Weak Blood Shard[#]() and [#](8B0000)Gore-Clotted Fang[#](). Restores 8 hunger points and 12.8 saturation, and grants [#](2E8B57)Regeneration I and Resistance I for 30 seconds[#](). Can be eaten even when full.");
 
         this.page("bottled_spite", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.BOTTLED_SPITE.get())

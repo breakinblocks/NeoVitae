@@ -272,8 +272,9 @@ public class NVItems {
                     .effect(() -> MobEffects.WITHER, 100, 0, 0.3f)
                     .build(props));
     public static final DeferredHolder<Item, NVFoodItem> VITAE_MORSEL = BASIC_ITEMS.registerItem("vitae_morsel",
-            props -> NVFoodItem.builder(6, 0.8f).alwaysEdible()
-                    .effect(() -> MobEffects.REGENERATION, 200, 0)
+            props -> NVFoodItem.builder(8, 0.8f).alwaysEdible()
+                    .effect(() -> MobEffects.REGENERATION, 600, 0)
+                    .effect(() -> MobEffects.RESISTANCE, 600, 0)
                     .build(props));
     public static final DeferredHolder<Item, NVFoodItem> BOTTLED_SPITE = BASIC_ITEMS.registerItem("bottled_spite",
             props -> NVFoodItem.builder(0, 0f).alwaysEdible().stacksTo(16).drinkable()

@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.gametest;
 
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameType;
+import com.breakinblocks.neovitae.api.sigil.effects.SuppressionSigilEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
@@ -39,6 +42,7 @@ public final class SuppressionRitualTests {
     private static final UUID OWNER = UUID.fromString("c41e7a92-5b3d-4f08-9e26-7d1a8f3b6c05");
 
     public static void register(NVTestRegistrar r) {
+        r.add("suppression/sigil_leaves_waterlogged_blocks_alone", 40, SuppressionRitualTests::sigilLeavesWaterloggedBlocksAlone);
         r.addIsolated("suppression/dome_holds_water_back", 200, SuppressionRitualTests::domeHoldsWaterBack);
         r.addIsolated("suppression/stopping_restores_water", 200, SuppressionRitualTests::stoppingRestoresWater);
         r.add("suppression/spectral_block_keeps_water_out", 40, SuppressionRitualTests::spectralBlockKeepsWaterOut);
@@ -100,6 +104,29 @@ public final class SuppressionRitualTests {
                     "Water should not flow into a Spectral block");
             helper.succeed();
         });
+    }
+
+    private static void sigilLeavesWaterloggedBlocksAlone(GameTestHelper helper) {
+        BlockPos waterPos = new BlockPos(1, 2, 2);
+        BlockPos chestPos = new BlockPos(3, 2, 2);
+        helper.setBlock(waterPos, Blocks.WATER);
+        helper.setBlock(chestPos, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.WATERLOGGED, true));
+        ChestBlockEntity chest = helper.getBlockEntity(chestPos, ChestBlockEntity.class);
+        chest.setItem(0, new ItemStack(Items.DIAMOND));
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        BlockPos center = helper.absolutePos(new BlockPos(2, 2, 2));
+        player.setPos(center.getX() + 0.5, center.getY(), center.getZ() + 0.5);
+
+        new SuppressionSigilEffect(2, 2).activeTick(helper.getLevel(), player, ItemStack.EMPTY, 0, true);
+
+        helper.assertBlockPresent(NVBlocks.SPECTRAL_BLOCK.get(), waterPos);
+        helper.assertBlockPresent(Blocks.CHEST, chestPos);
+        helper.assertTrue(helper.getBlockState(chestPos).getValue(ChestBlock.WATERLOGGED),
+                "The sigil should leave a waterlogged chest waterlogged");
+        ChestBlockEntity kept = helper.getBlockEntity(chestPos, ChestBlockEntity.class);
+        helper.assertTrue(kept == chest && kept.getItem(0).is(Items.DIAMOND),
+                "The sigil should not replace a waterlogged chest or touch its contents");
+        helper.succeed();
     }
 
     private static void assertDome(GameTestHelper helper, MasterRitualStoneBlockEntity mrs, List<BlockPos> water) {

@@ -91,6 +91,10 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
             lines.add(Component.translatable("gui.neovitae.master_routing.caps.desc"));
             lines.add(Component.translatable("gui.neovitae.master_routing.caps.pulse", menu.getTickRate()));
             lines.add(Component.translatable("gui.neovitae.master_routing.caps.faces"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.destination"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.altar"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.altar_rate"));
+            lines.add(Component.translatable("gui.neovitae.master_routing.caps.altar_runes"));
             guiGraphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
         }
     }

@@ -52,6 +52,9 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
         }
 
         if (data.contains("altar_tier")) {
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_buffer", FORMAT.format(data.getIntOr("altar_input", 0)), FORMAT.format(data.getIntOr("altar_input_capacity", 0))).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_rate", FORMAT.format(data.getIntOr("altar_io_rate", 0)), data.getIntOr("altar_io_ticks", 0)).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("jade.neovitae.altar.input_help").withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable("hud.neovitae.altar.tier", data.getIntOr("altar_tier", 0)).withStyle(ChatFormatting.GOLD));
             if (data.getBooleanOr("altar_active", false)) {
                 tooltip.add(Component.translatable("jade.neovitae.crafting").withStyle(ChatFormatting.GREEN));

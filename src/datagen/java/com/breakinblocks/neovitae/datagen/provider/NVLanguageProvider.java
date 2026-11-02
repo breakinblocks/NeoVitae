@@ -1779,6 +1779,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.master_routing.caps.title", "Transfer Caps");
         add("gui.neovitae.master_routing.caps.desc", "Most this network moves in one pulse");
         add("gui.neovitae.master_routing.caps.pulse", "Pulse every %s ticks");
+        add("gui.neovitae.master_routing.caps.destination", "Actual transfer is limited by the receiving block.");
+        add("gui.neovitae.master_routing.caps.altar", "Ara Vitae: fluid enters a separate input buffer.");
+        add("gui.neovitae.master_routing.caps.altar_rate", "Default altar: 1,000 mB buffer; 20 mB per second.");
+        add("gui.neovitae.master_routing.caps.altar_runes", "Displacement + Acceleration runes improve altar flow.");
+        add("jade.neovitae.altar.input_buffer", "Input buffer: %s / %s mB");
+        add("jade.neovitae.altar.input_rate", "Buffer to basin: up to %s mB every %s ticks");
+        add("jade.neovitae.altar.input_help", "Improve flow with Displacement + Acceleration runes.");
         add("gui.neovitae.master_routing.caps.faces", "Individual node faces may set a lower rate");
 
         // GUI - Routing

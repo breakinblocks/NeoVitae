@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "show_title_separator": true,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.fluid_bottleneck.title",
+  "id": "fluid_bottleneck",
+  "sort_number": 27
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "show_title_separator": true,
+  "text": "book.neovitae.guide.altar.ara_vitae.fluid_runes.text",
+  "title": "book.neovitae.guide.altar.ara_vitae.fluid_runes.title",
+  "id": "fluid_runes",
+  "sort_number": 25
+}

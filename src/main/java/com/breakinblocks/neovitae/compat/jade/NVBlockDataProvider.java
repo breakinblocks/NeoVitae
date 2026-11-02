@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUndertow
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUpdraft;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.blockentity.AltarConstants;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
@@ -71,6 +72,10 @@ public enum NVBlockDataProvider implements IServerDataProvider<BlockAccessor> {
             data.putInt("altar_tier", altar.getTier());
             data.putInt("altar_ev", altar.getMainTank());
             data.putInt("altar_capacity", altar.getMainCapacity());
+            data.putInt("altar_input", altar.getInputTank());
+            data.putInt("altar_input_capacity", altar.getIOCapacity());
+            data.putInt("altar_io_rate", (int) (AltarConstants.BASE_IO_RATE * altar.getDislocationBonus()));
+            data.putInt("altar_io_ticks", altar.getChargingFrequency());
             data.putInt("altar_reserve", altar.getReserveTank());
             data.putInt("altar_reserve_capacity", altar.getReserveCapacity());
             data.putBoolean("altar_active", altar.isActive());

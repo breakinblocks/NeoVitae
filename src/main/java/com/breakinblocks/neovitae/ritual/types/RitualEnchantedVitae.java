@@ -57,7 +57,11 @@ public class RitualEnchantedVitae extends Ritual {
     private final Map<ItemEntity, Long> glowingUntil = new HashMap<>();
 
     public RitualEnchantedVitae() {
-        super(NAME, 1, 10000, "ritual." + NeoVitae.MODID + "." + NAME);
+        this(NAME, 1, 10000);
+    }
+
+    protected RitualEnchantedVitae(String name, int crystalLevel, int activationCost) {
+        super(name, crystalLevel, activationCost, "ritual." + NeoVitae.MODID + "." + name);
         addBlockRange(ENCHANT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-2, 1, -2), 5, 2, 5));
         setMaximumVolumeAndDistanceOfRange(ENCHANT_RANGE, 50, 5, 5);
     }
@@ -105,7 +109,7 @@ public class RitualEnchantedVitae extends Ritual {
             bookStacks.add(book.getItem());
         }
 
-        EnchantPlan plan = planEnchantments(target, bookStacks);
+        EnchantPlan plan = createEnchantPlan(target, bookStacks);
 
         Conflict conflict = plan.conflict();
         if (conflict != null) {
@@ -134,7 +138,7 @@ public class RitualEnchantedVitae extends Ritual {
             chargeTicks = 0;
         }
 
-        int cost = costFor(plan.enchantments());
+        int cost = enchantmentCost(plan.enchantments());
         if (ctx.currentEV() < cost) {
             chargeTicks = 0;
             masterRitualStone.notifyOwner(Component.translatable(langKey("insufficient"), cost));
@@ -172,6 +176,14 @@ public class RitualEnchantedVitae extends Ritual {
         ctx.level().playSound(null, ctx.masterPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0f, 0.7f);
 
         masterRitualStone.stopRitual(BreakType.DEACTIVATE);
+    }
+
+    protected EnchantPlan createEnchantPlan(ItemStack target, List<ItemStack> books) {
+        return planEnchantments(target, books);
+    }
+
+    protected int enchantmentCost(Map<Holder<Enchantment>, Integer> plan) {
+        return costFor(plan);
     }
 
     public static EnchantPlan planEnchantments(ItemStack target, List<ItemStack> books) {
@@ -220,7 +232,7 @@ public class RitualEnchantedVitae extends Ritual {
         return null;
     }
 
-    private boolean shouldConsumeBooks() {
+    protected boolean shouldConsumeBooks() {
         RitualStats stats = getStats();
         return stats != null && stats.consumeBooks();
     }

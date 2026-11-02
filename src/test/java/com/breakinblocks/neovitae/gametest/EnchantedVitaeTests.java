@@ -18,6 +18,10 @@ import com.breakinblocks.neovitae.ritual.types.RitualEnchantedVitae;
 import com.breakinblocks.neovitae.ritual.types.RitualEnchantedVitae.EnchantPlan;
 
 import java.util.List;
+import java.util.ArrayList;
+import com.breakinblocks.neovitae.ritual.types.RitualDeusEnchantedVitae;
+import com.breakinblocks.neovitae.ritual.RitualComponent;
+import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import java.util.Map;
 
 @GameTestHolder("neovitae")
@@ -250,6 +254,62 @@ public class EnchantedVitaeTests {
             helper.fail("An empty plan should cost nothing");
             return;
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusAllowsConflictsAndUpgradesExistingLevels(GameTestHelper helper) {
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        RitualEnchantedVitae.applyEnchantments(sword, Map.of(ench(helper, Enchantments.SHARPNESS), 5));
+        EnchantPlan plan = RitualDeusEnchantedVitae.planEnchantments(sword,
+                List.of(book(helper, Enchantments.SHARPNESS, 1), book(helper, Enchantments.SMITE, 5), book(helper, Enchantments.EFFICIENCY, 5)));
+        helper.assertTrue(plan.conflict() == null, "Deus should allow conflicts");
+        helper.assertTrue(plan.enchantments().get(ench(helper, Enchantments.SHARPNESS)) == 6, "Existing Sharpness V should become VI");
+        helper.assertTrue(plan.enchantments().get(ench(helper, Enchantments.SMITE)) == 5, "Higher book levels should transfer");
+        helper.assertTrue(!plan.enchantments().containsKey(ench(helper, Enchantments.EFFICIENCY)), "Item support still applies");
+        RitualEnchantedVitae.applyEnchantments(sword, plan.enchantments());
+        helper.assertTrue(sword.getEnchantmentLevel(ench(helper, Enchantments.SMITE)) == 5, "Conflicting enchantments must be stored");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusUsesTheGameStorageCeiling(GameTestHelper helper) {
+        Holder<Enchantment> sharpness = ench(helper, Enchantments.SHARPNESS);
+        ItemEnchantments.Mutable supported = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+        supported.set(sharpness, Integer.MAX_VALUE);
+        int ceiling = supported.getLevel(sharpness);
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        RitualEnchantedVitae.applyEnchantments(sword, Map.of(sharpness, ceiling - 1));
+        List<ItemStack> books = List.of(book(helper, Enchantments.SHARPNESS, 1));
+        EnchantPlan last = RitualDeusEnchantedVitae.planEnchantments(sword, books);
+        helper.assertTrue(last.enchantments().get(sharpness) == ceiling, "Last supported level must remain reachable");
+        RitualEnchantedVitae.applyEnchantments(sword, last.enchantments());
+        helper.assertTrue(RitualDeusEnchantedVitae.planEnchantments(sword, books).enchantments().isEmpty(), "No paid no-op at the ceiling");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusCostsScaleWithoutOverflow(GameTestHelper helper) {
+        Holder<Enchantment> sharpness = ench(helper, Enchantments.SHARPNESS);
+        int normal = sharpness.value().getMaxLevel();
+        int base = RitualEnchantedVitae.costFor(Map.of(sharpness, normal + 1));
+        helper.assertTrue(RitualDeusEnchantedVitae.costFor(Map.of(sharpness, normal + 1)) == base * 2, "First excess level doubles normal cost");
+        int two = RitualEnchantedVitae.costFor(Map.of(sharpness, normal + 2));
+        helper.assertTrue(RitualDeusEnchantedVitae.costFor(Map.of(sharpness, normal + 2)) == two * 4, "Second excess level quadruples normal cost");
+        helper.assertTrue(RitualDeusEnchantedVitae.costFor(Map.of(sharpness, 255, ench(helper, Enchantments.SMITE), 255)) == Integer.MAX_VALUE, "Large costs must saturate rather than overflow");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void deusHasCrownAndConfigurableConsumption(GameTestHelper helper) {
+        RitualDeusEnchantedVitae deus = new RitualDeusEnchantedVitae();
+        List<RitualComponent> base = new ArrayList<>();
+        List<RitualComponent> upgraded = new ArrayList<>();
+        new RitualEnchantedVitae().gatherComponents(base::add);
+        deus.gatherComponents(upgraded::add);
+        helper.assertTrue(upgraded.containsAll(base) && upgraded.size() == base.size() + 16, "Deus must add its crown");
+        helper.assertTrue(deus.getCrystalLevel() == 2, "Deus needs the Divinus crystal");
+        helper.assertTrue(RitualRegistry.getStats(deus).consumeBooks(), "Generated default must consume books");
         helper.succeed();
     }
 }

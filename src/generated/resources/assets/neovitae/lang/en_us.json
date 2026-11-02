@@ -3595,5 +3595,13 @@
   "trainer.neovitae.allow_others": "Allow Others",
   "trainer.neovitae.deny_others": "Deny Others",
   "trainer.neovitae.save": "Save",
-  "trim_material.neovitae.demonite": "Hellforged"
+  "trim_material.neovitae.demonite": "Hellforged",
+  "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae.text": "Allows conflicting enchantments on items that support them. Offer one item and enchanted books: higher book levels are copied; otherwise each selected enchantment gains one level. The ritual stops after one working.",
+  "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_books.text": "By default, one book from each contributing stack is consumed after a successful working. Pack authors can set consume_books to false for neovitae:deus_enchanted_vitae in the ritual_stats data map to preserve books. Unsupported enchantments and enchantments already at the game-supported ceiling spend nothing.",
+  "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_books.title": "Offered Books",
+  "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_cost.text": "Each resulting level costs 2,000 EV, multiplied by rarity. Every level above the enchantment's normal maximum doubles that cost, up to the supported EV maximum. Levels stop only where the game's enchantment storage stops; no separate vanilla-based cap is imposed.",
+  "book.neovitae.guide.rituals.deus_rituals.deus_enchanted_vitae_cost.title": "The Price of Power",
+  "ritual.neovitae.deus_enchanted_vitae": "Deus Ritual of Enchanted Vitae",
+  "ritual.neovitae.deus_enchanted_vitae.desc": "Allows conflicting enchantments that the item supports. Books supply higher levels or select enchantments to raise by one level per activation, up to the game-supported limit. Extra levels above an enchantment's normal maximum double the EV cost each time. Book consumption is configurable and enabled by default.",
+  "ritual.neovitae.deus_enchanted_vitae.info": "Allows conflicting enchantments that the item supports. Books supply higher levels or select enchantments to raise by one level per activation, up to the game-supported limit. Extra levels above an enchantment's normal maximum double the EV cost each time. Book consumption is configurable and enabled by default."
 }

@@ -49,6 +49,13 @@
       "refresh_cost": 160,
       "refresh_time": 100
     },
+    "neovitae:deus_enchanted_vitae": {
+      "activation_cost": 100000,
+      "consume_books": true,
+      "crystal_level": 2,
+      "refresh_cost": 0,
+      "refresh_time": 4
+    },
     "neovitae:deus_felling": {
       "activation_cost": 8000,
       "crystal_level": 2,

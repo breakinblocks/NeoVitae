@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": "minecraft:echo_shard"
+  },
+  "result": {
+    "id": "minecraft:calcite",
+    "count": 1
+  }
+}

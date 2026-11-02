@@ -214,6 +214,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.sanguine_crafter.mode.tabula.short", "Tabula");
         add("gui.neovitae.sanguine_crafter.mode.tabula.desc", "Crafts the template's Tabula Vitae recipe");
         add("gui.neovitae.sanguine_crafter.mode.forge", "Hellfire Forge");
+        add("gui.neovitae.sanguine_crafter.mode.packing", "Packing");
+        add("gui.neovitae.sanguine_crafter.mode.packing.short", "Pack");
+        add("gui.neovitae.sanguine_crafter.mode.packing.desc", "Packs identical inputs using reversible 2x2 or 3x3 crafting recipes; no template needed");
+        add("gui.neovitae.sanguine_crafter.mode.unpacking", "Unpacking");
+        add("gui.neovitae.sanguine_crafter.mode.unpacking.short", "Unpack");
+        add("gui.neovitae.sanguine_crafter.mode.unpacking.desc", "Unpacks inputs using registered crafting recipes with an exact reverse packing recipe; no template needed");
         add("gui.neovitae.sanguine_crafter.mode.forge.short", "Forge");
         add("gui.neovitae.sanguine_crafter.mode.forge.desc", "Crafts the template's Hellfire Forge recipe");
         add("gui.neovitae.sanguine_crafter.click_to_change", "Click to change");

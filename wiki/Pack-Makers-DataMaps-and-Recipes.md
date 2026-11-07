@@ -896,28 +896,28 @@ NeoVitae registers several custom player attributes that can be modified via equ
 | Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to EV gained from Lamina Maleficus self-sacrifice |
 | Bonus Spiritus | `neovitae:bonus_spiritus` | 0.0 | 1000.0 | % bonus to Spiritus drops from sentient weapons and soul snares |
 | Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil EV costs (capped near zero, minimum 1 EV) |
-| Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into EV. Base EV = min(attribute, damage), then multiplied |
-| Blood Shield | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage by 10% per point (capped at 99%), drains EV for prevented damage |
+| Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Each point converts 1% of damage dealt into EV, up to `siphon_cap` (default 95%) |
+| Blood Shield | `neovitae:blood_shield` | 0.0 | 100.0 | Each point prevents 1% of incoming damage, up to `shield_cap` (default 95%), and drains EV for what it prevents |
 
 ### Blood Siphon Details
 
 When a player with Blood Siphon deals damage:
 
-- **EV gained** = min(blood_siphon_value, damage_dealt) × multiplier
-- **vs Players (PvP):** EV is drained directly from the target player's anima and added to the attacker's. True EV transfer, the victim loses what the attacker gains. Multiplier = configurable (default: 100).
-- **vs Mobs (PvE):** EV is generated from nothing and added to the attacker's network. Multiplier = configurable (default: 10).
-- Example (PvE): Blood Siphon 5, deal 10 damage to a mob = 5 × 10 = 50 EV gained.
-- Example (PvP): Blood Siphon 5, deal 10 damage to a player = 5 × 100 = 500 EV stolen from their network.
+- **EV gained** = damage_dealt × (min(blood_siphon_value, siphon_cap) / 100) × multiplier
+- **vs Players (PvP):** the same EV is drained from the target's network, and the target is struck with **Anima Severance** for 10 seconds: their network gains no EV and every EV cost it pays is doubled. Nothing cures it, milk and Totems of Undying included. Multiplier = configurable (default: 250).
+- **vs Mobs (PvE):** EV is generated from nothing and added to the attacker's network. Multiplier = configurable (default: 50).
+- Example (PvE): Blood Siphon 25 (Sigil of the Damned), deal 10 damage to a mob = 10 × 0.25 × 50 = 125 EV gained.
+- Example (PvP): Blood Siphon 25, deal 10 damage to a player = 10 × 0.25 × 250 = 625 EV stolen from their network.
 
 ### Blood Shield Details
 
 When a player with Blood Shield takes damage:
 
-- **Damage reduction** = 10% per attribute point (Blood Shield 5 = 50% reduction).
-- **Hard cap:** 99% maximum reduction (at Blood Shield 10).
+- **Damage reduction** = 1% per attribute point (Blood Shield 50 = 50% reduction).
+- **Hard cap:** `shield_cap`, default 95%, applied to Blood Shield from every source.
 - **EV cost** = damage_prevented × configurable multiplier (default: 100).
 - If insufficient EV: partial shield uses available EV, remaining damage passes through.
-- Example: Blood Shield 3, take 20 damage = 6 damage prevented, costs 600 EV, take 14 damage.
+- Example: Blood Shield 30, take 20 damage = 6 damage prevented, costs 600 EV, take 14 damage.
 
 ### Server Configuration
 
@@ -927,9 +927,16 @@ Blood attribute multipliers under `[blood_attributes]`:
 
 | Config Key | Default | Description |
 |-----------|---------|-------------|
-| `siphon_player_multiplier` | 100 | EV multiplier for Blood Siphon vs players |
-| `siphon_mob_multiplier` | 10 | EV multiplier for Blood Siphon vs mobs |
+| `siphon_player_multiplier` | 250 | EV per point of damage converted by Blood Siphon vs players, also drained from them |
+| `siphon_mob_multiplier` | 50 | EV per point of damage converted by Blood Siphon vs mobs |
+| `siphon_cap` | 95 | Highest percentage of damage Blood Siphon can convert |
+| `shield_cap` | 95 | Highest percentage of damage Blood Shield can prevent, from any source |
 | `shield_lp_cost_multiplier` | 100 | EV cost per damage point prevented by Blood Shield |
+| `deus_sanguinis_cooldown` | 200 | Ticks between Deus Sanguinis training credits |
+| `deus_sanguinis_min_ev` | 500 | EV the network must spend between credits to earn one |
+| `deus_sanguinis_exp_per_credit` | 1.0 | Experience each training credit gives |
+
+The client config (`config/neovitae-client.toml`, `[effects]`) has `blood_siphon_streams`: `ORB_ONLY` (default) draws only the stream from kills siphoned into an offhand Orb of Vitae, `ALL` also draws Blood Siphon attribute streams, and `NEVER` draws neither.
 
 Hellforged equipment under `[hellforged]`:
 

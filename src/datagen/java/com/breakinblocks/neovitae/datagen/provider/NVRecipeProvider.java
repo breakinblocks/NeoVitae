@@ -2517,6 +2517,22 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(5)
                 .save(output, "unbounded_flight_tome");
 
+        Holder<SentientUpgrade> deusSanguinis = registriesFuture.join()
+                .lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES)
+                .getOrThrow(SentientUpgrades.DEUS_SANGUINIS);
+        ItemStack deusSanguinisTome = new ItemStack(NVItems.UPGRADE_TOME.get());
+        deusSanguinisTome.set(NVDataComponents.UPGRADE_TOME_DATA.get(), new UpgradeTome(deusSanguinis, 1.0f));
+        TabulaVitaeRecipeBuilder.build(deusSanguinisTome)
+                .input(NVItems.PRISMATIC_SPIRITUS_GEM.get())
+                .input(NVBlocks.HELLFORGED_BLOCK.item().get())
+                .input(NVItems.TABULA_AETHEREA.get())
+                .input(Items.NETHER_STAR)
+                .input(Items.NETHERITE_BLOCK)
+                .input(Items.TOTEM_OF_UNDYING)
+                .syphon(1000000)
+                .minimumTier(6)
+                .save(output, "deus_sanguinis_tome");
+
         // Reagent Water - sugar, water bucket x2
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_WATER.get())
                 .input(Items.SUGAR)

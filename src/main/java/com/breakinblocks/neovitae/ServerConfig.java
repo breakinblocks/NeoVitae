@@ -62,6 +62,12 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue SANGUINE_CRAFTER_CHUNK_LOADING_MAX_PER_PLAYER;
     public final ModConfigSpec.IntValue RITUAL_ANCHOR_RANGE;
 
+    public final ModConfigSpec.DoubleValue BLOOD_SIPHON_CAP;
+    public final ModConfigSpec.DoubleValue BLOOD_SHIELD_CAP;
+    public final ModConfigSpec.IntValue DEUS_SANGUINIS_COOLDOWN;
+    public final ModConfigSpec.IntValue DEUS_SANGUINIS_MIN_EV;
+    public final ModConfigSpec.DoubleValue DEUS_SANGUINIS_EXP_PER_CREDIT;
+
     public final ModConfigSpec.IntValue HELLFORGED_UPGRADE_POINTS;
     public final ModConfigSpec.DoubleValue HELLFORGED_TRAINING_MULTIPLIER;
     public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_HELMET;
@@ -193,11 +199,26 @@ public class ServerConfig {
         builder.push("blood_attributes");
 
         BLOOD_SIPHON_PLAYER_MULTIPLIER = builder
-                .comment("EV multiplier when Blood Siphon drains from a player target")
-                .defineInRange("siphon_player_multiplier", 100, 1, 10000);
+                .comment("EV per point of damage converted by Blood Siphon against a player target, also drained from that player")
+                .defineInRange("siphon_player_multiplier", 250, 1, 10000);
         BLOOD_SIPHON_MOB_MULTIPLIER = builder
-                .comment("EV multiplier when Blood Siphon drains from a non-player target")
-                .defineInRange("siphon_mob_multiplier", 10, 1, 10000);
+                .comment("EV per point of damage converted by Blood Siphon against a non-player target")
+                .defineInRange("siphon_mob_multiplier", 50, 1, 10000);
+        BLOOD_SIPHON_CAP = builder
+                .comment("Highest percentage of damage dealt that Blood Siphon can convert into EV. Each point of Blood Siphon is 1%.")
+                .defineInRange("siphon_cap", 95.0, 0.0, 100.0);
+        BLOOD_SHIELD_CAP = builder
+                .comment("Highest percentage of incoming damage that Blood Shield can prevent, from any source. Each point of Blood Shield is 1%.")
+                .defineInRange("shield_cap", 95.0, 0.0, 100.0);
+        DEUS_SANGUINIS_COOLDOWN = builder
+                .comment("Ticks between training credits for the Deus Sanguinis upgrade.")
+                .defineInRange("deus_sanguinis_cooldown", 200, 1, 72000);
+        DEUS_SANGUINIS_MIN_EV = builder
+                .comment("EV the network must spend between credits for Deus Sanguinis to earn one.")
+                .defineInRange("deus_sanguinis_min_ev", 500, 0, 100000000);
+        DEUS_SANGUINIS_EXP_PER_CREDIT = builder
+                .comment("Experience Deus Sanguinis gains per training credit.")
+                .defineInRange("deus_sanguinis_exp_per_credit", 1.0, 0.0, 10000.0);
         BLOOD_SHIELD_LP_COST_MULTIPLIER = builder
                 .comment("EV cost per point of damage prevented by Blood Shield")
                 .defineInRange("shield_lp_cost_multiplier", 100, 1, 10000);

@@ -33,7 +33,7 @@ public class NVAttributes {
             () -> new RangedAttribute("attribute.neovitae.blood_siphon", 0.0D, 0.0D, 1024.0D).setSyncable(true));
 
     public static final DeferredHolder<Attribute, Attribute> BLOOD_SHIELD = ATTRIBUTES.register("blood_shield",
-            () -> new RangedAttribute("attribute.neovitae.blood_shield", 0.0D, 0.0D, 10.0D).setSyncable(true));
+            () -> new RangedAttribute("attribute.neovitae.blood_shield", 0.0D, 0.0D, 100.0D).setSyncable(true));
 
     private static void addToPlayer(EntityAttributeModificationEvent event) {
         event.add(EntityType.PLAYER, SELF_SACRIFICE_MULTIPLIER, 1);

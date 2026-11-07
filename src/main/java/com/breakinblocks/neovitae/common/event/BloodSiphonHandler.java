@@ -4,6 +4,9 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.effect.AnimaSeveranceEffect;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.network.SiphonStreamPayload;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -16,6 +19,7 @@ import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -42,11 +46,6 @@ public class BloodSiphonHandler {
     private static final int STREAM_RANGE = 32;
     private static final Map<Player, Long> LAST_STREAM = new WeakHashMap<>();
 
-    /**
-     * Blood Siphon — on dealing damage, gain LP based on the attribute value.
-     * Against players: drains from target's network, multiplied by config value (default 100).
-     * Against non-players: generates LP, multiplied by config value (default 10).
-     */
     @SubscribeEvent
     public static void onDamageDealt(LivingDamageEvent.Post event) {
         if (!(event.getSource().getEntity() instanceof Player attacker)) return;
@@ -58,7 +57,8 @@ public class BloodSiphonHandler {
         float damageDealt = event.getNewDamage();
         if (damageDealt <= 0) return;
 
-        double lpBase = Math.min(siphonValue, damageDealt);
+        double siphonPercent = Math.min(siphonValue, NeoVitae.SERVER_CONFIG.BLOOD_SIPHON_CAP.get());
+        double lpBase = damageDealt * siphonPercent / 100.0;
         boolean targetIsPlayer = event.getEntity() instanceof Player;
         int multiplier = targetIsPlayer
                 ? NeoVitae.SERVER_CONFIG.BLOOD_SIPHON_PLAYER_MULTIPLIER.get()
@@ -73,8 +73,9 @@ public class BloodSiphonHandler {
             Player targetPlayer = (Player) event.getEntity();
             IAnima targetNetwork = NeoVitaeAPI.getInstance().getAnima(targetPlayer.getUUID());
             if (targetNetwork != null) {
-                targetNetwork.syphon(AnimaTicket.create(lpAmount));
+                AnimaSeveranceEffect.withoutUpkeepPenalty(() -> targetNetwork.syphon(AnimaTicket.create(lpAmount)));
             }
+            targetPlayer.addEffect(new MobEffectInstance(NVMobEffects.ANIMA_SEVERANCE, AnimaSeveranceEffect.DURATION_TICKS), attacker);
         }
 
         attackerNetwork.add(AnimaTicket.create(lpAmount), Integer.MAX_VALUE);
@@ -85,7 +86,8 @@ public class BloodSiphonHandler {
                     .wobble(0.03f).wobbleFrequency(0.8f)
                     .spiralInto(true).spiralRadius(0.35f).spiralSpeed(0.35f)
                     .approachHeight(1.0f).alphaStart(0.08f).alphaEnd(0.95f)
-                    .build().sendToNearby(serverLevel, attacker.blockPosition(), STREAM_RANGE);
+                    .build().sendToNearby(serverLevel, attacker.blockPosition(), STREAM_RANGE,
+                            effect -> new SiphonStreamPayload(false, effect));
         }
     }
 
@@ -96,10 +98,6 @@ public class BloodSiphonHandler {
         return true;
     }
 
-    /**
-     * Blood Shield — reduces incoming damage by 10% per point (capped at 99%).
-     * Drains LP from the defender's soul network for the damage prevented.
-     */
     @SubscribeEvent
     public static void onDamageTaken(LivingDamageEvent.Pre event) {
         if (!(event.getEntity() instanceof Player defender)) return;
@@ -108,8 +106,7 @@ public class BloodSiphonHandler {
         double shieldValue = defender.getAttributeValue(NVAttributes.BLOOD_SHIELD);
         if (shieldValue <= 0) return;
 
-        // 10% reduction per point, hard cap at 99%
-        double reductionPercent = Math.min(shieldValue * 10.0, 99.0);
+        double reductionPercent = Math.min(shieldValue, NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_CAP.get());
         float currentDamage = event.getNewDamage();
         float reducedDamage = currentDamage * (float) (1.0 - reductionPercent / 100.0);
         float damagePrevented = currentDamage - reducedDamage;
@@ -183,7 +180,8 @@ public class BloodSiphonHandler {
                     .wobble(0.02f).wobbleFrequency(0.8f)
                     .spiralInto(true).spiralRadius(0.25f).spiralSpeed(0.3f)
                     .approachHeight(0.8f).alphaStart(0.1f).alphaEnd(0.9f)
-                    .build().sendToNearby(serverLevel, player.blockPosition(), 64);
+                    .build().sendToNearby(serverLevel, player.blockPosition(), 64,
+                            effect -> new SiphonStreamPayload(true, effect));
 
             serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000),
                     victim.getX(), victim.getY() + victim.getBbHeight() * 0.5, victim.getZ(),

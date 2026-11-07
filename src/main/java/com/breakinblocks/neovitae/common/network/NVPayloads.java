@@ -16,6 +16,8 @@ import com.breakinblocks.neovitae.client.ClientAnimaCache;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.ClipboardClientHelper;
 import com.breakinblocks.neovitae.client.event.RitualObstructionHandler;
+import com.breakinblocks.neovitae.ClientConfig;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
@@ -144,6 +146,12 @@ public class NVPayloads {
                 StreamPayload.TYPE,
                 StreamPayload.STREAM_CODEC,
                 NVPayloads::handleStreamFX
+        );
+
+        registrar.playToClient(
+                SiphonStreamPayload.TYPE,
+                SiphonStreamPayload.STREAM_CODEC,
+                NVPayloads::handleSiphonStreamFX
         );
 
         registrar.playToClient(
@@ -388,6 +396,15 @@ public class NVPayloads {
         context.enqueueWork(() -> {
             StreamManager.getInstance()
                     .addStream(payload.effect());
+        });
+    }
+
+    private static void handleSiphonStreamFX(SiphonStreamPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            ClientConfig.SiphonStreams mode = NeoVitae.CLIENT_CONFIG.BLOOD_SIPHON_STREAMS.get();
+            if (mode == ClientConfig.SiphonStreams.NEVER) return;
+            if (mode == ClientConfig.SiphonStreams.ORB_ONLY && !payload.fromOrb()) return;
+            StreamManager.getInstance().addStream(payload.effect());
         });
     }
 

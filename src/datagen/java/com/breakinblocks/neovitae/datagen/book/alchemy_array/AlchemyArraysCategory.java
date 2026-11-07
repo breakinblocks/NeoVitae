@@ -28,7 +28,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "_____________________",
                 "____x_y_z_A_B_C_D____",
                 "____E_F_G_H_I_J_K____",
-                "____$_L_M_N_O_P_^____",
+                "____$_L_M_N_O_P_^_*__",
                 "__________%__________",
                 "____Q_R_S_T_U_V_X____",
                 "______&_Y___Z_+______"
@@ -252,6 +252,11 @@ public class AlchemyArraysCategory extends CategoryProvider {
         unboundedFlight.withParent(this.parent(sentientUpgrades));
         unboundedFlight.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/sentient_upgrades"));
         unboundedFlight.hideWhileLocked(false);
+
+        var deusSanguinis = this.add(new DeusSanguinisUpgradeEntry(this).generate('*'));
+        deusSanguinis.withParent(this.parent(sentientUpgrades));
+        deusSanguinis.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/sentient_upgrades"));
+        deusSanguinis.hideWhileLocked(false);
 
         var skilled = this.add(new SkilledUpgradeEntry(this).generate('$'));
         skilled.withParent(this.parent(sentientUpgrades));

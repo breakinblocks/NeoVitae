@@ -1,0 +1,52 @@
+{
+  "effects": {
+    "neovitae:attributes": [
+      {
+        "amounts": {
+          "type": "minecraft:linear",
+          "base": 10.0,
+          "per_level_above_first": 10.0
+        },
+        "attribute": "neovitae:blood_siphon",
+        "id": "neovitae:deus_sanguinis",
+        "operation": "add_value"
+      },
+      {
+        "amounts": {
+          "type": "minecraft:linear",
+          "base": 10.0,
+          "per_level_above_first": 10.0
+        },
+        "attribute": "neovitae:blood_shield",
+        "id": "neovitae:deus_sanguinis",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1,
+      "1260": 6,
+      "1680": 7,
+      "180": 2,
+      "2160": 8,
+      "2700": 9,
+      "3300": 10,
+      "360": 3,
+      "600": 4,
+      "900": 5
+    },
+    "level_to_cost": {
+      "1": 10,
+      "10": 200,
+      "2": 25,
+      "3": 45,
+      "4": 65,
+      "5": 85,
+      "6": 105,
+      "7": 130,
+      "8": 155,
+      "9": 175
+    }
+  }
+}

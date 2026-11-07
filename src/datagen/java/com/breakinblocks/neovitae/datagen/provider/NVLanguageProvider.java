@@ -706,7 +706,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("tooltip.neovitae.sigil.damned.desc", "The blood of the fallen empowers the bearer.");
         add("tooltip.neovitae.sigil.damned.spiritus", "+50 Bonus Spiritus Collection");
         add("tooltip.neovitae.sigil.damned.sacrifice", "+25 Bonus Sacrifice");
-        add("tooltip.neovitae.sigil.damned.siphon", "+10 Blood Siphon (heal on kill)");
+        add("tooltip.neovitae.sigil.damned.siphon", "+25 Blood Siphon (heal on kill)");
 
         // Trim material
         add("trim_material.neovitae.demonite", "Hellforged");
@@ -1415,6 +1415,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("currentOwner", "Bound to: %s");
 
         add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
+        add("chat.neovitae.sentient_upgrade.unforged", "Your Sentient Armor rejects this tome. It must first be Hellforged to hold %s Upgrade Points.");
         add("chat.neovitae.sentient_upgrade.unevolved", "Your Sentient Armor rejects this tome. It must first complete both the Ritual of Sentient Evolution and the Deus Sentient Evolution.");
         add("chat.neovitae.unbounded_flight.no_ev", "Your soul network is too weak to keep you aloft.");
         add("chat.neovitae.armour_evolve.evolved", "The armor evolves; it can now hold %s Upgrade Points.");
@@ -1536,6 +1537,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jei.neovitae.upgrade_tome.jump.info", "Increases jump height and reduces fall damage.\n\nTrained: rise through the air by jumping while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.knockback_resist.info", "Increases knockback resistance, and at higher levels maximum health.\n\nTrained: eat food while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.repair.info", "Slowly mends the chestplate's durability over time.\n\nTrained: as the chestplate's durability is restored while you wear the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.deus_sanguinis.info", "Each level grants 10 Blood Siphon and 10 Blood Shield, up to 100 of each at level 10. Both are capped at 95%% by default.\n\nOnly a Hellforged chestplate holding 700 Upgrade Points can take it.\n\nTrains while your network spends EV, earning at most one credit every 10 seconds.\n\nInscribe this tome in the Tabula Vitae from a Prismatic Spiritus Gem, a Hellforged Block, a Tabula Aetherea, a Nether Star, a Netherite Block and a Totem of Undying; Transcendent orb, 1,000,000 EV.");
         add("jei.neovitae.upgrade_tome.netherite_protect.info", "Adds armor and armor toughness.\n\nNot trained through activity; apply the tome directly to a worn Sentient set.\n\nInscribe this tome in the Tabula Vitae from a diamond, a written book, a netherite ingot, and a shulker shell (Master orb, 10,000 Essentia Vitae).");
         add("jei.neovitae.upgrade_tome.elytra.info", "Grants elytra-style gliding from the chestplate.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.curios_socket.info", "Adds Curios accessory sockets to your Sentient set (requires the Curios mod).\n\nNot trained through activity; apply the tome directly to a worn Sentient set.\n\nInscribe this tome in the Tabula Vitae from a written book, a shulker shell, an ender pearl, and a gold ingot (Tier 3, 5,000 Essentia Vitae).");
@@ -1788,6 +1790,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("effect.neovitae.soft_fall", "Soft Fall");
         add("effect.neovitae.obsidian_cloak", "Obsidian Cloak");
         add("effect.neovitae.hard_cloak", "Hard Cloak");
+        add("effect.neovitae.anima_severance", "Anima Severance");
 
         // Imperfect Rituals
         add("ritual.neovitae.imperfect.night", "Turn Day to Night");

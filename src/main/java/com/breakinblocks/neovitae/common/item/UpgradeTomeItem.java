@@ -14,8 +14,10 @@ import org.apache.commons.lang3.function.TriFunction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.item.soul.HellforgedHelper;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class UpgradeTomeItem extends Item {
 
         if (!SentientHelper.meetsEvolutionRequirement(SentientHelper.getChest(player), tome.upgrade())) {
             if (!level.isClientSide) {
-                player.displayClientMessage(Component.translatable("chat." + NeoVitae.MODID + ".sentient_upgrade.unevolved"), true);
+                String reason = tome.upgrade().is(NVTags.Sentient.REQUIRES_HELLFORGED) ? ".sentient_upgrade.unforged" : ".sentient_upgrade.unevolved";
+                player.displayClientMessage(Component.translatable("chat." + NeoVitae.MODID + reason, HellforgedHelper.maxUpgradePoints()), true);
             }
             return InteractionResultHolder.fail(tomeStack);
         }

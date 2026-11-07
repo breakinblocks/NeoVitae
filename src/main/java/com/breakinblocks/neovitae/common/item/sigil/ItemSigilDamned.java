@@ -62,7 +62,7 @@ public class ItemSigilDamned extends ItemSigilBase {
         boolean carried = isCarried(player);
         applyBonus(player, NVAttributes.BONUS_SPIRITUS, SPIRITUS_BONUS_ID, 50, carried);
         applyBonus(player, NVAttributes.BONUS_SACRIFICE, SACRIFICE_BONUS_ID, 25, carried);
-        applyBonus(player, NVAttributes.BLOOD_SIPHON, SIPHON_BONUS_ID, 10, carried);
+        applyBonus(player, NVAttributes.BLOOD_SIPHON, SIPHON_BONUS_ID, 25, carried);
     }
 
     private static void applyBonus(Player player, Holder<Attribute> attribute, ResourceLocation id, double amount, boolean carried) {

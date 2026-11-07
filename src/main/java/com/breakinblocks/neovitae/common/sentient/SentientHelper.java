@@ -279,10 +279,13 @@ public class SentientHelper {
     }
 
     public static boolean meetsEvolutionRequirement(ItemStack chest, Holder<SentientUpgrade> upgrade) {
+        int maxPoints = chest.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
+        if (upgrade.is(NVTags.Sentient.REQUIRES_HELLFORGED) && maxPoints < HellforgedHelper.maxUpgradePoints()) {
+            return false;
+        }
         if (!upgrade.is(NVTags.Sentient.REQUIRES_FULL_EVOLUTION)) {
             return true;
         }
-        int maxPoints = chest.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
         return maxPoints >= RitualDeusArmourEvolve.DEUS_MAX_UPGRADE_POINTS;
     }
 

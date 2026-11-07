@@ -31,8 +31,8 @@ public class DemonCraftingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("A passive sigil that empowers its bearer while anywhere in their inventory, including inside a Sigil of Holding or a Curios slot. Grants "
                 + "[#](4A0080)+50 Bonus Spiritus Collection[#](), [#](8B0000)+25 Bonus Sacrifice[#](), "
-                + "and [#](8B0000)+10 Blood Siphon[#]() (healing a portion of the target's health on kill, "
-                + "capped at 2 hearts).\\\n\\\n"
+                + "and [#](8B0000)+25 Blood Siphon[#](), turning a quarter of the damage you deal into Essentia "
+                + "Vitae. Kills also heal you, up to 2 hearts.\\\n\\\n"
                 + "Forged from a [#](8B0000)Cinder Heart Fragment[#](), [#](8B0000)Permafrost Core[#](), "
                 + "[#](4A0080)Greater Spiritus Gem[#](), and [#](8B0000)Tabula Spiritus[#]().");
 

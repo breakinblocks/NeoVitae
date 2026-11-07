@@ -1,0 +1,82 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_arrays",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "alchemy_arrays/sentient_upgrades"
+  },
+  "description": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:totem_of_undying"
+  },
+  "name": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.name",
+  "pages": [
+    {
+      "type": "neovitae:sentient_upgrade_table",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.intro.text",
+      "title": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.intro.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.effect.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.severance.text",
+      "title": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.severance.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.upgrade_deus_sanguinis.training.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:tabula_vitae_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:alchemytable/deus_sanguinis_tome",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "alchemy_arrays/sentient_upgrades",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 45,
+  "x": 8,
+  "y": 4
+}

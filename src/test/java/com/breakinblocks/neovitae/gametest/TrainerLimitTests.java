@@ -14,9 +14,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
-import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.menu.GhostItemHandler;
-import com.breakinblocks.neovitae.common.menu.TrainerMenu;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
@@ -99,30 +96,17 @@ public class TrainerLimitTests {
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
-    public void trainerGuiDenyToggleSaves(GameTestHelper helper) {
+    public void braceletCapIsSavedOnTheChestplate(GameTestHelper helper) {
         Holder<SentientUpgrade> upgrade = anyUpgrade(helper);
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         ItemStack chest = new ItemStack(NVItems.SENTIENT_PLATE.get());
         player.setItemSlot(EquipmentSlot.CHEST, chest);
 
-        GhostItemHandler handler = new GhostItemHandler(16);
-        ItemStack tomeStack = new ItemStack(NVItems.UPGRADE_TOME);
-        tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(upgrade, 0.0f));
-        handler.setStackInSlot(0, tomeStack);
+        TrainerItem.setCap(player, upgrade, 0);
 
-        TrainerMenu menu = new TrainerMenu(1, player.getInventory(),
-                handler, new TrainerItem.TrainerData(handler, chest), 0);
-        menu.setData(3, 0);
-        menu.clickMenuButton(player, 3);
-        menu.clickMenuButton(player, 4);
-
-        UpgradeLimits saved = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
-        if (saved.allowOthers()) {
-            helper.fail("Deny toggle plus save left allowOthers=true on the chestplate");
-        }
-        float limit = saved.getLimit(upgrade);
-        if (limit != 0) {
-            helper.fail("Tome capped at level 0 saved a limit of " + limit + " instead of 0");
+        UpgradeLimits saved = player.getItemBySlot(EquipmentSlot.CHEST).getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        if (saved.getLimit(upgrade) != 0) {
+            helper.fail("Setting the cap to Off saved a limit of " + saved.getLimit(upgrade) + " instead of 0");
         }
         helper.succeed();
     }

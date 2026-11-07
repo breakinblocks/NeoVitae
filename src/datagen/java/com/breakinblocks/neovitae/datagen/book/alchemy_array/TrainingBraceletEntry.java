@@ -33,10 +33,11 @@ public class TrainingBraceletEntry extends EntryProvider {
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("With a copy of the relevant [#](8B0000)Tome[#]() in hand, you can set a level cap for "
-                + "any upgrade. Once the armor reaches that limit, it ceases training that skill.\\\n\\\n"
-                + "[#](2E8B57)To allow all upgrades except one: set the bracelet to 'allow others' mode and "
-                + "cap the unwanted skill at level 0.[#]()");
+        this.pageText("The bracelet lists every upgrade your worn armor can learn by training, beside the level it "
+                + "has reached. Use [#](8B0000)-[#]() and [#](8B0000)+[#]() to set how far each may go; once the armor "
+                + "reaches that cap, it stops training the skill. [#](B8860B)Off[#]() blocks it entirely and "
+                + "[#](B8860B)Max[#]() leaves it free.\\\n\\\n"
+                + "[#](2E8B57)Shift-click to jump straight to Off or Max. Every change is kept at once.[#]()");
     }
 
     @Override

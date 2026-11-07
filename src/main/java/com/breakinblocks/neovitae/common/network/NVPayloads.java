@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.network;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.ChatFormatting;
@@ -43,6 +45,10 @@ import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.menu.SanguineCrafterMenu;
 import com.breakinblocks.neovitae.common.menu.ExperienceTomeMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
+import com.breakinblocks.neovitae.common.menu.TrainerMenu;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.sideconfig.OutputFaceConfigurable;
 import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
 import com.breakinblocks.neovitae.common.sideconfig.SlotSideConfig;
@@ -164,6 +170,12 @@ public class NVPayloads {
                 RitualObstructionsPayload.TYPE,
                 RitualObstructionsPayload.STREAM_CODEC,
                 (payload, context) -> context.enqueueWork(() -> RitualObstructionHandler.show(payload))
+        );
+
+        registrar.playToServer(
+                SetTrainingCapPayload.TYPE,
+                SetTrainingCapPayload.STREAM_CODEC,
+                NVPayloads::handleSetTrainingCap
         );
 
         registrar.playToServer(
@@ -369,6 +381,17 @@ public class NVPayloads {
                 outputConfigurable.setOutputFace(payload.face() < 0 ? null : Direction.from3DDataValue(payload.face()));
             }
             be.setChanged();
+        });
+    }
+
+    private static void handleSetTrainingCap(SetTrainingCapPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (!(player.containerMenu instanceof TrainerMenu)) return;
+            Registry<SentientUpgrade> registry = player.level().registryAccess().registryOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
+            registry.getHolder(ResourceKey.create(NVRegistries.Keys.SENTIENT_UPGRADES, payload.upgrade()))
+                    .filter(holder -> holder.is(NVTags.Sentient.TRAINABLE))
+                    .ifPresent(holder -> TrainerItem.setCap(player, holder, payload.level()));
         });
     }
 

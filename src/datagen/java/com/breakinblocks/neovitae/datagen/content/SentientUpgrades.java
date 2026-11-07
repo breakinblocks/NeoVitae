@@ -670,6 +670,9 @@ public class SentientUpgrades {
             QUENCHED,         // Quenched
             STORM_TROOPER     // Storm Trooper
     );
+    private static final List<ResourceKey<SentientUpgrade>> TOME_ONLY = List.of(
+            ELYTRA, NETHERITE_PROTECT, GILDED, LUCK, CURIOS_SOCKET, UNBOUNDED_FLIGHT);
+
     private static final List<ResourceKey<SentientUpgrade>> upgrades = List.of(
             AQUATIC_AGILITY, GILLS, LAVA_STRIDER,
             KNOCKBACK_RESIST,  // Body Builder
@@ -720,6 +723,9 @@ public class SentientUpgrades {
 
         adder.apply(NVTags.Sentient.REQUIRES_HELLFORGED)
                 .add(DEUS_SANGUINIS);
+
+        adder.apply(NVTags.Sentient.TRAINABLE)
+                .addAll(upgrades.stream().filter(key -> !TOME_ONLY.contains(key)).toList());
     }
 
     public static void translations(BiConsumer<String, String> translator) {

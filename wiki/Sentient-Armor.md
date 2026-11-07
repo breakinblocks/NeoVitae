@@ -22,7 +22,7 @@ Tomes are the key to deliberate specialisation; focus your training on the abili
 
 ## Training Bracelet
 
-To impose order on the armor's undirected growth, the Vitaemancer wears the **[Training Bracelet](Sigils#training-bracelet)**, a focus inscribed in an Alchemy Array. With a copy of the relevant Tome in hand, you can set a level cap for any upgrade; once the armor reaches that limit it ceases training the skill. Only one bracelet is active at a time (priority: off-hand, Curios, main inventory, then add-ons). To allow all upgrades except one, set the bracelet to 'allow others' mode and cap the unwanted skill at level 0.
+To impose order on the armor's undirected growth, the Vitaemancer wears the **[Training Bracelet](Sigils#training-bracelet)**, a focus inscribed in an Alchemy Array. Using it lists every upgrade your armor can learn by training, beside the level each has reached. Set a cap with - and +; once the armor reaches it, it stops training that skill. **Off** blocks a skill and **Max** leaves it free, and shift-click jumps straight to either. Changes are kept immediately. Only one bracelet is active at a time (priority: off-hand, Curios, main inventory, then add-ons). Pack makers can change which upgrades appear with the `neovitae:trainable` sentient upgrade tag.
 
 The bracelet only governs what the armor learns on its own. Upgrade Tomes and rituals are deliberate acts, so a tome you read always applies, even past a cap or for a skill the bracelet blocks.
 

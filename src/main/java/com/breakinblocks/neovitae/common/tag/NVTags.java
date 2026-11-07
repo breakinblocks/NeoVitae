@@ -228,6 +228,7 @@ public class NVTags {
         public static final TagKey<SentientUpgrade> IS_DOWNGRADE = tag(bm("is_downgrade"));
         public static final TagKey<SentientUpgrade> SENTIENT_START = tag(bm("sentient_start"));
         public static final TagKey<SentientUpgrade> TRAINERS = tag(bm("trainer"));
+        public static final TagKey<SentientUpgrade> TRAINABLE = tag(bm("trainable"));
         public static final TagKey<SentientUpgrade> IS_SCRAPPABLE = tag(bm("is_scrappable"));
         /** Upgrades in this tag are unsuitable for Sentient Armor and should not be applied */
         public static final TagKey<SentientUpgrade> SENTIENT_BLACKLIST = tag(bm("sentient_blacklist"));

@@ -1,77 +1,51 @@
 package com.breakinblocks.neovitae.common.menu;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
-public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TrainerMenu extends AbstractContainerMenu {
+
+    private final Player player;
 
     public TrainerMenu(int containerId, Inventory playerInv, RegistryFriendlyByteBuf buf) {
-        super(NVMenus.TRAINER.get(), containerId, playerInv, 3 + 16, 4, 4, 89, 15, 105, buf.readInt());
+        this(containerId, playerInv);
     }
 
-    public TrainerMenu(int containerId, Inventory playerInv, GhostItemHandler handler, ContainerData trainerData, int heldSlot) {
-        super(NVMenus.TRAINER.get(), containerId, playerInv, trainerData, handler, 4, 4, 89, 15, 105, heldSlot);
+    public TrainerMenu(int containerId, Inventory playerInv) {
+        super(NVMenus.TRAINER.get(), containerId);
+        this.player = playerInv.player;
     }
 
-    @Override
-    public void updateGhostSelection(int previousSlot, int currentSlot) {
-        if (previousSlot < 0) {
-            return;
-        }
-        ItemStack old = this.handler.getStackInSlot(previousSlot);
-        if (old.isEmpty()) {
-            return;
-        }
-        UpgradeTome tome = old.get(NVDataComponents.UPGRADE_TOME_DATA);
-        if (tome == null) {
-            return;
-        }
-        old.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), SentientHelper.getExpForLevel(tome.upgrade(), getData(3 + previousSlot))));
-        this.slots.get(previousSlot).set(old);
+    public static List<Holder<SentientUpgrade>> trainable(RegistryAccess access) {
+        List<Holder<SentientUpgrade>> list = new ArrayList<>();
+        access.registryOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).getTag(NVTags.Sentient.TRAINABLE)
+                .ifPresent(set -> set.forEach(list::add));
+        return list;
     }
 
     @Override
-    public boolean clickMenuButton(Player player, int id) {
-        int slot = 3 + getLastGhostSlotClicked();
-        return switch (id) {
-            case 1 -> {
-                setData(slot, getData(slot) -1);
-                yield true;
-            }
-            case 2 -> {
-                setData(slot, getData(slot) +1);
-                yield true;
-            }
-            case 3 -> {
-                setData(1, isAllowOthers() ? DENY : ALLOW);
-                yield true;
-            }
-            case 4 -> {
-                setData(2, 1);
-                yield true;
-            }
-
-            default -> false;
-        };
-    }
-
-    public static final int ALLOW = 0;
-    public static final int DENY = 1;
-    public boolean isAllowOthers() {
-        boolean res = getData(1) == ALLOW;
-        // Debug: NeoVitae.LOGGER.info("isAllowOthers -> {}", res);
-        return res;
+    public ItemStack quickMoveStack(Player player, int index) {
+        return ItemStack.EMPTY;
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        return !SentientHelper.isNeverValid(SentientHelper.getChest(player));
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

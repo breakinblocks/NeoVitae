@@ -81,6 +81,6 @@ Tears a momentary rift between you and a linked **Teleposer**, pulling you acros
 ## Related Foci
 
 ### Training Bracelet
-Not a sigil proper, but inscribed in an Alchemy Array all the same. With a copy of the relevant **Upgrade Tome** in hand, the bracelet lets you cap any **[Sentient Armor](Sentient-Armor)** upgrade's level. The armor will cease training that skill once the limit is met. Only one bracelet is active at a time, with priority off-hand > Curios > main inventory > add-ons. Tip: to allow all upgrades except one, set the bracelet to 'allow others' mode and cap the unwanted skill at level 0.
+Not a sigil proper, but inscribed in an Alchemy Array all the same. Using the bracelet lists every **[Sentient Armor](Sentient-Armor)** upgrade your worn armor can learn by training, with its current level and a cap you set with - and +. The armor stops training a skill once it reaches the cap; **Off** blocks it and **Max** leaves it free. Shift-click jumps straight to Off or Max, and every change is kept immediately. Only one bracelet is active at a time, with priority off-hand > Curios > main inventory > add-ons.
 
 See also: **[Alchemy Arrays](Alchemy-Arrays)** (how sigils are inscribed), **[Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)** (where Reagents are brewed), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the network sigils draw from).

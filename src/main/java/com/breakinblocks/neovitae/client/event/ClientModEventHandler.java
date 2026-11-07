@@ -10,7 +10,10 @@ import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -31,6 +34,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import com.breakinblocks.neovitae.client.color.RoutingNodeColor;
+import com.breakinblocks.neovitae.client.helper.HellforgedTooltipHelper;
 import com.breakinblocks.neovitae.client.helper.LexVitaeFormResolver;
 import com.breakinblocks.neovitae.client.render.item.SpiritAccumulatorItemRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -71,6 +75,7 @@ import com.breakinblocks.neovitae.common.item.MaterialItemColor;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
+import com.breakinblocks.neovitae.common.item.soul.HellforgedHelper;
 import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
 import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
 import com.breakinblocks.neovitae.client.screen.MasterRoutingNodeScreen;
@@ -224,6 +229,12 @@ public class ClientModEventHandler {
                 return renderer;
             }
         }, NVBlocks.SPIRIT_ACCUMULATOR.asItem());
+        event.registerItem(new IClientItemExtensions() {
+            @Override
+            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity, ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+                return HellforgedHelper.isHellforged(stack) ? 0xFF000000 | HellforgedTooltipHelper.HELLFORGED_COLOR : 0xFFFFFFFF;
+            }
+        }, NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
     }
 
     @SubscribeEvent
@@ -272,6 +283,12 @@ public class ClientModEventHandler {
             }
             return 0xFFFFFFFF;
         }, NVItems.ARCANE_SCRIBE_TOOL.get());
+
+        event.register((stack, layer) -> HellforgedHelper.isHellforged(stack)
+                        ? 0xFF000000 | HellforgedTooltipHelper.HELLFORGED_COLOR : 0xFFFFFFFF,
+                NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get(),
+                NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(), NVItems.SENTIENT_PICKAXE.get(),
+                NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_SCYTHE.get(), NVItems.LEX_VITAE.get());
 
         event.register((stack, layer) -> {
             if (layer == 1) return 0x80FF0000;

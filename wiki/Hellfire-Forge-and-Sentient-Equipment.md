@@ -43,6 +43,22 @@ The success of the Sentient Sword has inspired further experimentation. If a bla
 | Sentient Scythe | A beast of a different nature. Slower and less devastating per blow than the sword, but its sweeping arc delivers full damage to every creature in reach; ideal for hordes. Still functions as a hoe. |
 | Sentient Spear | Forged from an Iron Spear. Jabs and charges like a Netherite Spear, 0.5 damage weaker before Spiritus is counted. Its damage, Aspect effects and Spiritus harvest grow with the Spiritus you carry, just as the sword's do. *Minecraft 26.1 only.* |
 
+### Overcharge
+
+Hellforged tools (see below) keep growing stronger past **4,000 Spiritus**, where other Sentient tools stop. Every doubling of the Spiritus you carry adds the same amount, so 8,000 adds as much as 4,000 did and 16,000 as much again, up to **32,000**. At that point the bonuses Spiritus grants (damage, attack and movement speed, mining speed, Spiritus drops and the scythe's sweep) are half again their usual peak. The drain per swing rises in step. Hold Shift over a tool to see its current Overcharge.
+
+### Hellforged Tools
+
+The **[Ritual of Hellforging](Rituals#sentient-armor-workings)** upgrades any Sentient tool, and the Lex Vitae, with a **Prismatic Spiritus Gem** and a **Hellforged Ingot**. A Hellforged tool takes on a forged copper tint and:
+
+- mines, drops and lasts like Netherite even with no Spiritus carried (the Lex Vitae already does);
+- deals **30% more damage**;
+- drains **a quarter less Spiritus** per swing;
+- does not burn in fire or lava;
+- keeps growing past 4,000 Spiritus through [Overcharge](#overcharge).
+
+A Hellforged **Lex Vitae** also grows half again as fast and can switch between Fortune and Silk Touch: hold sneak and press the **Lex Vitae: Cycle Mode** key.
+
 ## Sentient Armor
 
 To create **Sentient Equipment**, you require Iron Armor, the **Arcane Scribe Tool**, a **Binding Reagent** (forged in the Tabula Vitae), and at least a **Common Spiritus Gem** charged with sufficient Spiritus. What emerges is no longer mere metal; it is alive, and it learns from you.

@@ -109,6 +109,16 @@ public final class SentientToolHelper {
         return MOVEMENT_SPEED[spiritusBracket];
     }
 
+    public static double scaleAttackSpeed(double attackSpeed, double overcharge) {
+        return DEFAULT_ATTACK_SPEED + (attackSpeed - DEFAULT_ATTACK_SPEED) * overcharge;
+    }
+
+    public static double drainFor(ItemStack stack, int spiritusBracket, double soulsRemaining) {
+        if (spiritusBracket < 0) return 0;
+        return SOUL_DRAIN_PER_SWING[spiritusBracket] * HellforgedHelper.drainFactor(stack, soulsRemaining)
+                * HellforgedHelper.drainMultiplier(stack);
+    }
+
     public static ItemAttributeModifiers buildWeaponModifiers(String idPrefix, double damage, double attackSpeed, double movementSpeed) {
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
         builder.add(Attributes.ATTACK_DAMAGE,

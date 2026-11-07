@@ -103,12 +103,14 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
 
+        double overcharge = HellforgedHelper.overchargeFactor(stack, soulsRemaining);
+
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
-        setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
-        setDamageBonus(stack, getExtraDamage(type, level));
-        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
-        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
-        setDigSpeedBonus(stack, level >= 0 ? DEFAULT_DIG_SPEED_ADDED[level] : 0);
+        setDrainAmount(stack, drainFor(stack, level, soulsRemaining));
+        setDamageBonus(stack, getExtraDamage(type, level) * overcharge);
+        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] * overcharge : 1);
+        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] * overcharge : 0);
+        setDigSpeedBonus(stack, level >= 0 ? DEFAULT_DIG_SPEED_ADDED[level] * overcharge : 0);
     }
 
     @Override

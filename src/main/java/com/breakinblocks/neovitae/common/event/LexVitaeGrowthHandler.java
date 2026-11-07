@@ -16,9 +16,16 @@ public final class LexVitaeGrowthHandler {
 
     @SubscribeEvent
     public static void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        if (!event.isTargetting(Enchantments.FORTUNE)) return;
         if (!(event.getStack() instanceof ItemStack stack)) return;
         if (!(stack.getItem() instanceof LexVitaeItem) || !LexVitaeItem.isActive(stack)) return;
+        if (LexVitaeItem.isSilkTouch(stack)) {
+            if (event.isTargetting(Enchantments.SILK_TOUCH)) {
+                event.getHolder(Enchantments.SILK_TOUCH).ifPresent(silk ->
+                        event.getEnchantments().set(silk, Math.max(1, event.getEnchantments().getLevel(silk))));
+            }
+            return;
+        }
+        if (!event.isTargetting(Enchantments.FORTUNE)) return;
         int bonus = LexVitaeGrowth.fortuneBonus(LexVitaeGrowth.getLevel(stack));
         if (bonus <= 0) return;
         event.getHolder(Enchantments.FORTUNE).ifPresent(fortune ->

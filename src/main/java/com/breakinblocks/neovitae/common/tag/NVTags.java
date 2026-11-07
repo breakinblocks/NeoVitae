@@ -76,6 +76,9 @@ public class NVTags {
 
         public static final TagKey<Item> SENTIENT_UPGRADE_SET = tag(bm("sentient_upgrade_set"));
         public static final TagKey<Item> SENTIENT_SET = withParent(SENTIENT_UPGRADE_SET, NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL.getId());
+        public static final TagKey<Item> HELLFORGEABLE = tag(bm("hellforgeable"));
+        public static final TagKey<Item> HELLFORGING_GEM = tag(bm("hellforging/gem"));
+        public static final TagKey<Item> HELLFORGING_METAL = tag(bm("hellforging/metal"));
 
         public static final TagKey<Item> FRAGMENTS_IRON = tag(c("fragments/iron"));
         public static final TagKey<Item> FRAGMENTS_GOLD = tag(c("fragments/gold"));

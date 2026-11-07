@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public final class LexVitaeGrowth {
@@ -87,6 +88,9 @@ public final class LexVitaeGrowth {
 
     public static void addExperience(ItemStack stack, Player player, double amount) {
         if (amount <= 0 || player.level().isClientSide()) return;
+        if (HellforgedHelper.isHellforged(stack)) {
+            amount *= NeoVitae.SERVER_CONFIG.HELLFORGED_LEX_GROWTH_MULTIPLIER.get();
+        }
         double before = getExperience(stack);
         int oldLevel = levelFor(before);
         stack.set(NVDataComponents.LEX_EXPERIENCE, before + amount);

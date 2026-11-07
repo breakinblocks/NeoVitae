@@ -108,6 +108,8 @@ public class NVDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> ALCHEMY_ARRAY_COLOR = DATA_COMPONENTS.registerComponentType("alchemy_array_color", builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> BLOOD_MENDING = DATA_COMPONENTS.registerComponentType("blood_mending", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> HELLFORGED = DATA_COMPONENTS.registerComponentType("hellforged", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> LEX_SILK_TOUCH = DATA_COMPONENTS.registerComponentType("lex_silk_touch", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SPIRITUS_MAX = DATA_COMPONENTS.registerComponentType("spiritus_max", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
 

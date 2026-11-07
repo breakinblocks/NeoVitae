@@ -78,6 +78,13 @@ Downgrades are imposed by the **Ritual of Sentient Penance** (see **[Rituals](Ri
 | Quenched | The armor seals your throat; no potion shall pass your lips. | Glass Bottle |
 | Storm Trooper | The armor ruins your aim; every shot goes astray. | Arrow |
 
+## Hellforging
+
+At the end of the road lies the **[Ritual of Hellforging](Rituals#sentient-armor-workings)**. Throw a piece of Sentient Armor onto its circle together with a **Prismatic Spiritus Gem** and a **Hellforged Ingot** and the piece is Hellforged, taking on a forged copper tint. A chestplate must first reach **600 Upgrade Points** through the Deus Sentient Evolution; the other pieces can be forged at any time.
+
+- Every Hellforged piece gains armor, toughness and knockback resistance to match Netherite, and does not burn in fire or lava.
+- A Hellforged chestplate holds **700 Upgrade Points** and learns **1.5x as fast** from training. Tomes and rituals apply at their usual rate.
+
 ## Caretaking
 
 Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional **Binding Reagent** (brewed in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)**). The armor is also highly receptive to enchantment. To strip all upgrades and recover their points, use the **Tabula Rasa** ritual.

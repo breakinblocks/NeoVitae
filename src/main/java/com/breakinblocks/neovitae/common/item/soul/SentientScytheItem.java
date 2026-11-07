@@ -99,7 +99,7 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
                     applyEffectToEntity(type, spiritusBracket, target, player);
 
                     // Area attack - hit nearby enemies (scythe-specific)
-                    performAreaAttack(player, target, type, spiritusBracket);
+                    performAreaAttack(player, target, type, spiritusBracket, HellforgedHelper.overchargeFactor(stack, will));
                 }
             }
             return true;
@@ -111,8 +111,8 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
      * Performs the scythe's unique area attack, damaging nearby enemies for the
      * weapon's full attack damage (which already includes the spiritus bonus).
      */
-    private void performAreaAttack(Player player, LivingEntity target, SpiritusType type, int spiritusBracket) {
-        double range = AREA_RANGE[spiritusBracket];
+    private void performAreaAttack(Player player, LivingEntity target, SpiritusType type, int spiritusBracket, double overcharge) {
+        double range = AREA_RANGE[spiritusBracket] * overcharge;
         AABB area = new AABB(
                 target.getX() - range, target.getY() - range, target.getZ() - range,
                 target.getX() + range, target.getY() + range, target.getZ() + range);
@@ -149,13 +149,14 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
 
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
-        double extraDamage = getExtraDamage(type, level);
+        double overcharge = HellforgedHelper.overchargeFactor(stack, soulsRemaining);
+        double extraDamage = getExtraDamage(type, level) * overcharge;
 
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
-        setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
+        setDrainAmount(stack, drainFor(stack, level, soulsRemaining));
         setDamageBonus(stack, BASE_DAMAGE + extraDamage);
-        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
-        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
+        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] * overcharge : 1);
+        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] * overcharge : 0);
 
         updateAttributeModifiers(stack, BASE_DAMAGE + extraDamage);
     }
@@ -186,7 +187,7 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
         SpiritusType type = getCurrentType(stack);
         SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
         if (flag.hasShiftDown()) {
-            ClientSpiritusTooltipHelper.appendAreaRadius(type, AREA_RANGE, tooltip);
+            ClientSpiritusTooltipHelper.appendAreaRadius(stack, type, AREA_RANGE, tooltip);
         }
         super.appendHoverText(stack, context, tooltip, flag);
     }

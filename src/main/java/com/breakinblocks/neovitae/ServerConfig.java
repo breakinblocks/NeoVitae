@@ -62,6 +62,27 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue SANGUINE_CRAFTER_CHUNK_LOADING_MAX_PER_PLAYER;
     public final ModConfigSpec.IntValue RITUAL_ANCHOR_RANGE;
 
+    public final ModConfigSpec.IntValue HELLFORGED_UPGRADE_POINTS;
+    public final ModConfigSpec.DoubleValue HELLFORGED_TRAINING_MULTIPLIER;
+    public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_HELMET;
+    public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_CHESTPLATE;
+    public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_LEGGINGS;
+    public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_BOOTS;
+    public final ModConfigSpec.DoubleValue HELLFORGED_ARMOR_TOUGHNESS;
+    public final ModConfigSpec.DoubleValue HELLFORGED_KNOCKBACK_RESISTANCE;
+    public final ModConfigSpec.DoubleValue HELLFORGED_DAMAGE_MULTIPLIER;
+    public final ModConfigSpec.DoubleValue HELLFORGED_FLOOR_DAMAGE;
+    public final ModConfigSpec.DoubleValue HELLFORGED_DRAIN_MULTIPLIER;
+    public final ModConfigSpec.BooleanValue HELLFORGED_NETHERITE_FLOOR;
+    public final ModConfigSpec.BooleanValue HELLFORGED_FIRE_RESISTANT;
+    public final ModConfigSpec.DoubleValue HELLFORGED_LEX_GROWTH_MULTIPLIER;
+    public final ModConfigSpec.BooleanValue HELLFORGED_LEX_SILK_TOGGLE;
+
+    public final ModConfigSpec.DoubleValue SENTIENT_SPIRITUS_SOFT_CAP;
+    public final ModConfigSpec.DoubleValue SENTIENT_SPIRITUS_MAX;
+    public final ModConfigSpec.DoubleValue SENTIENT_OVERCHARGE_BONUS;
+    public final ModConfigSpec.BooleanValue SENTIENT_OVERCHARGE_DRAIN;
+
     protected ServerConfig(ModConfigSpec.Builder builder) {
         SELF_SACRIFICE_CONVERSION = builder.define("self_sacrifice_conversion", 100);
         DEFAULT_UPGRADE_POINTS = builder.define("default_upgrade_points", 100);
@@ -289,6 +310,78 @@ public class ServerConfig {
         RITUAL_ANCHOR_RANGE = builder
                 .comment("Furthest a Ritual Anchor may be from the Master Ritual Stone it is linked to, in blocks.")
                 .defineInRange("range", 64, 1, 128);
+
+        builder.pop();
+
+        builder.comment("Hellforged Equipment Configuration",
+                "Applies to Sentient Armor, Sentient tools and the Lex Vitae upgraded by the Ritual of Hellforging.");
+        builder.push("hellforged");
+
+        HELLFORGED_UPGRADE_POINTS = builder
+                .comment("Upgrade Points of capacity a Hellforged chestplate gains on top of the Deus Sentient Evolution cap.")
+                .defineInRange("upgrade_points", 100, 0, 10000);
+        HELLFORGED_TRAINING_MULTIPLIER = builder
+                .comment("Multiplier on experience a Hellforged chestplate gains from training. Tomes and rituals are not affected.")
+                .defineInRange("training_multiplier", 1.5, 0.0, 100.0);
+        HELLFORGED_ARMOR_HELMET = builder
+                .comment("Armor added to a Hellforged Sentient helmet.")
+                .defineInRange("armor_helmet", 1.0, 0.0, 100.0);
+        HELLFORGED_ARMOR_CHESTPLATE = builder
+                .comment("Armor added to a Hellforged Sentient chestplate.")
+                .defineInRange("armor_chestplate", 2.0, 0.0, 100.0);
+        HELLFORGED_ARMOR_LEGGINGS = builder
+                .comment("Armor added to Hellforged Sentient leggings.")
+                .defineInRange("armor_leggings", 1.0, 0.0, 100.0);
+        HELLFORGED_ARMOR_BOOTS = builder
+                .comment("Armor added to Hellforged Sentient boots.")
+                .defineInRange("armor_boots", 1.0, 0.0, 100.0);
+        HELLFORGED_ARMOR_TOUGHNESS = builder
+                .comment("Armor toughness added to each Hellforged Sentient armor piece.")
+                .defineInRange("armor_toughness", 3.0, 0.0, 100.0);
+        HELLFORGED_KNOCKBACK_RESISTANCE = builder
+                .comment("Knockback resistance added to each Hellforged Sentient armor piece.")
+                .defineInRange("knockback_resistance", 0.1, 0.0, 1.0);
+        HELLFORGED_DAMAGE_MULTIPLIER = builder
+                .comment("Multiplier on attack damage while holding a Hellforged Sentient tool or Lex Vitae.")
+                .defineInRange("damage_multiplier", 1.3, 0.0, 100.0);
+        HELLFORGED_FLOOR_DAMAGE = builder
+                .comment("Flat attack damage added to Hellforged Sentient tools, before the damage multiplier. Requires netherite_floor.")
+                .defineInRange("floor_damage", 2.0, 0.0, 100.0);
+        HELLFORGED_DRAIN_MULTIPLIER = builder
+                .comment("Multiplier on the Spiritus a Hellforged Sentient tool or Lex Vitae drains per swing.")
+                .defineInRange("drain_multiplier", 0.75, 0.0, 100.0);
+        HELLFORGED_NETHERITE_FLOOR = builder
+                .comment("Hellforged Sentient tools mine, drop and last like Netherite even without Spiritus. Applied when the ritual runs.")
+                .define("netherite_floor", true);
+        HELLFORGED_FIRE_RESISTANT = builder
+                .comment("Hellforged items do not burn in fire or lava. Applied when the ritual runs.")
+                .define("fire_resistant", true);
+        HELLFORGED_LEX_GROWTH_MULTIPLIER = builder
+                .comment("Multiplier on growth experience a Hellforged Lex Vitae gains.")
+                .defineInRange("lex_growth_multiplier", 1.5, 0.0, 100.0);
+        HELLFORGED_LEX_SILK_TOGGLE = builder
+                .comment("A Hellforged Lex Vitae can switch between Fortune and Silk Touch with sneak and the Cycle Mode key.")
+                .define("lex_silk_toggle", true);
+
+        builder.pop();
+
+        builder.comment("Hellforged Sentient Tool Overcharge",
+                "Above the soft cap, Hellforged Sentient tool and Lex Vitae bonuses keep growing with diminishing returns until the maximum.",
+                "Each doubling of carried Spiritus adds the same amount.");
+        builder.push("sentient_tools");
+
+        SENTIENT_SPIRITUS_SOFT_CAP = builder
+                .comment("Carried Spiritus where overcharge scaling begins.")
+                .defineInRange("spiritus_soft_cap", 4000.0, 1.0, 1.0E9);
+        SENTIENT_SPIRITUS_MAX = builder
+                .comment("Carried Spiritus where overcharge scaling stops.")
+                .defineInRange("spiritus_max", 32000.0, 1.0, 1.0E9);
+        SENTIENT_OVERCHARGE_BONUS = builder
+                .comment("Extra fraction of each bonus gained at the maximum. 0.5 means +50% of the top bracket's value.")
+                .defineInRange("overcharge_bonus", 0.5, 0.0, 100.0);
+        SENTIENT_OVERCHARGE_DRAIN = builder
+                .comment("Spiritus drain per swing rises with overcharge too.")
+                .define("overcharge_drain", true);
 
         builder.pop();
     }

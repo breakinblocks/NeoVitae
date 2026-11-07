@@ -26,6 +26,7 @@ import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.event.SentientArmourEvent;
+import com.breakinblocks.neovitae.common.item.soul.HellforgedHelper;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.types.RitualDeusArmourEvolve;
@@ -294,6 +295,9 @@ public class SentientHelper {
         float eventAmount = event.getCurrentAmount();
         if (eventAmount <= 0) {
             return null;
+        }
+        if (!fromTome && HellforgedHelper.isHellforged(chest)) {
+            eventAmount *= NeoVitae.SERVER_CONFIG.HELLFORGED_TRAINING_MULTIPLIER.get().floatValue();
         }
 
         Object2FloatOpenHashMap<Holder<SentientUpgrade>> upgrades = chest.getOrDefault(NVDataComponents.UPGRADES, SentientStats.EMPTY).upgrades().clone();

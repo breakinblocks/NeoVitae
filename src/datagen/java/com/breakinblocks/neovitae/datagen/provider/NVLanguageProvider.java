@@ -509,6 +509,15 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("lexVitae.active", "Active");
         addTooltip("lexVitae.radius", "Radius: %sx%s");
         addTooltip("lexVitae.mode", "Mode: %s");
+        addTooltip("lexVitae.harvest", "Harvest: %s");
+        addTooltip("lexVitae.harvest.fortune", "Fortune");
+        addTooltip("lexVitae.harvest.silk_touch", "Silk Touch");
+        addTooltip("hellforged", "Hellforged");
+        addTooltip("hellforged.training", "Trains %sx faster");
+        addTooltip("hellforged.netherite_floor", "Mines and lasts like Netherite without Spiritus");
+        addTooltip("hellforged.drain", "Drains %s%% less Spiritus");
+        addTooltip("hellforged.fire_resistant", "Does not burn in fire or lava");
+        addTooltip("hellforged.silk_toggle", "Sneak + %s: switch between Fortune and Silk Touch");
         addTooltip("lexVitae.mode.both", "Mining & Damage");
         addTooltip("lexVitae.mode.mining", "Mining");
         addTooltip("lexVitae.mode.damaging", "Damage");
@@ -519,6 +528,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("lexVitae.growth.wear", "  Shrugs off %s%% of wear");
         add("message.neovitae.lex_vitae.radius", "Lex Vitae mining radius: %sx%s");
         add("message.neovitae.lex_vitae.mode", "Lex Vitae mode: %s");
+        add("message.neovitae.lex_vitae.harvest", "Lex Vitae harvest: %s");
         add("message.neovitae.lex_vitae.level_up", "The Lex Vitae grows stronger: Growth Level %s");
 
         // Spiritus type tooltip header + per-type display names (color-coded at runtime)
@@ -533,6 +543,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("spiritus.level", "Level %s (%s will)");
         addTooltip("spiritus.damage_bonus", "+%s bonus damage");
         addTooltip("spiritus.mining_speed", "+%s mining speed");
+        addTooltip("spiritus.overcharge", "Overcharge: +%s%% to Spiritus bonuses");
         addTooltip("spiritus.aoe_radius", "%s block AoE radius");
         addTooltip("spiritus.hold_shift", "Hold Shift for details");
 
@@ -1411,6 +1422,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.deus_armour_evolve.evolved", "The armor ascends; it can now hold %s Upgrade Points, and every piece is bound with Blood Mending.");
         add("chat.neovitae.deus_armour_evolve.mended", "Every piece of your Sentient Armor is bound with Blood Mending.");
         add("chat.neovitae.deus_armour_evolve.maxed", "The armor has ascended as far as it can.");
+        add("chat.neovitae.hellforging.unready", "A chestplate must first ascend to %s Upgrade Points through the Deus Sentient Evolution.");
+        add("chat.neovitae.hellforging.forged", "%s is Hellforged.");
         add("chat.neovitae.deus_armour_evolve.unready", "The armor must first evolve to %s Upgrade Points through the Ritual of Sentient Evolution.");
 
         SentientUpgrades.translations(this::add);
@@ -1724,6 +1737,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.configurator.mining.silk_touch", "Silk Touch");
         add("gui.neovitae.configurator.mining.fortune", "Fortune III");
         addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
+        addRitual("hellforging", "Ritual of Hellforging", "Throw a piece of Sentient Armor, a Sentient tool or the Lex Vitae onto the circle with a Prismatic Spiritus Gem and a Hellforged Ingot to Hellforge it. A chestplate must first hold 600 Upgrade Points.");
+        add("ritual.neovitae.hellforging.hellforgingRange.info", "The area where the item, gem and ingot are thrown.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; each activation adds 100 Upgrade Points of capacity, up to a maximum of 500.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("celerity", "Ritual of Celerity", "Doubles the working speed of every Athanor, Hellfire Forge, Tabula Vitae and Sanguine Crafter in range. Each machine still costs what it always does per craft; the ritual draws its EV for every machine that is working.");

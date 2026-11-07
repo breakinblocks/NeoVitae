@@ -94,6 +94,22 @@ public class LexVitaeItem extends Item implements ISentientTool {
         return stack.getOrDefault(NVDataComponents.LEX_MODE, MODE_BOTH);
     }
 
+    public static boolean canToggleSilkTouch(ItemStack stack) {
+        return HellforgedHelper.isHellforged(stack) && NeoVitae.SERVER_CONFIG.HELLFORGED_LEX_SILK_TOGGLE.get();
+    }
+
+    public static boolean isSilkTouch(ItemStack stack) {
+        return canToggleSilkTouch(stack) && stack.getOrDefault(NVDataComponents.LEX_SILK_TOUCH, false);
+    }
+
+    public static void toggleSilkTouch(ItemStack stack) {
+        stack.set(NVDataComponents.LEX_SILK_TOUCH, !stack.getOrDefault(NVDataComponents.LEX_SILK_TOUCH, false));
+    }
+
+    public static String getHarvestTranslationKey(ItemStack stack) {
+        return isSilkTouch(stack) ? "tooltip.neovitae.lexVitae.harvest.silk_touch" : "tooltip.neovitae.lexVitae.harvest.fortune";
+    }
+
     public static void cycleMode(ItemStack stack) {
         stack.set(NVDataComponents.LEX_MODE, (getMode(stack) + 1) % 3);
     }
@@ -625,14 +641,16 @@ public class LexVitaeItem extends Item implements ISentientTool {
         double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
-        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level);
-        setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
+        double overcharge = HellforgedHelper.overchargeFactor(stack, soulsRemaining);
+        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level) * overcharge;
+        setDrainAmount(stack, drainFor(stack, level, soulsRemaining));
         setDamageBonus(stack, damage);
-        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
-        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
-        setDigSpeedBonus(stack, level >= 0 ? DEFAULT_DIG_SPEED_ADDED[level] : 0);
+        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] * overcharge : 1);
+        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] * overcharge : 0);
+        setDigSpeedBonus(stack, level >= 0 ? DEFAULT_DIG_SPEED_ADDED[level] * overcharge : 0);
         ItemAttributeModifiers modifiers = buildWeaponModifiers("lex_vitae", damage,
-                getWeaponAttackSpeed(type, level), getWeaponMovementSpeed(type, level));
+                scaleAttackSpeed(getWeaponAttackSpeed(type, level), overcharge),
+                getWeaponMovementSpeed(type, level) * overcharge);
         double efficiency = LexVitaeGrowth.efficiencyBonus(LexVitaeGrowth.getLevel(stack));
         if (efficiency > 0) {
             modifiers = modifiers.withModifierAdded(Attributes.MINING_EFFICIENCY,
@@ -652,6 +670,9 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int side = r == 0 ? 1 : (r == 1 ? 3 : 5);
         tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.radius", side, side).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.mode", Component.translatable(getModeTranslationKey(stack))).withStyle(ChatFormatting.GRAY));
+        if (canToggleSilkTouch(stack)) {
+            tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.harvest", Component.translatable(getHarvestTranslationKey(stack))).withStyle(ChatFormatting.GRAY));
+        }
         int growth = LexVitaeGrowth.getLevel(stack);
         tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.growth.level", growth).withStyle(ChatFormatting.GOLD));
         if (flag.hasShiftDown()) {

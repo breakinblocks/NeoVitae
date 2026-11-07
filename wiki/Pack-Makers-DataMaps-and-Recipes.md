@@ -931,6 +931,34 @@ Blood attribute multipliers under `[blood_attributes]`:
 | `siphon_mob_multiplier` | 10 | EV multiplier for Blood Siphon vs mobs |
 | `shield_lp_cost_multiplier` | 100 | EV cost per damage point prevented by Blood Shield |
 
+Hellforged equipment under `[hellforged]`:
+
+| Config Key | Default | Description |
+|-----------|---------|-------------|
+| `upgrade_points` | 100 | Upgrade Points a Hellforged chestplate adds on top of the Deus Sentient Evolution's 600 |
+| `training_multiplier` | 1.5 | Training experience multiplier for a Hellforged chestplate; tomes and rituals are not affected |
+| `armor_helmet` / `armor_chestplate` / `armor_leggings` / `armor_boots` | 1 / 2 / 1 / 1 | Armor added to each Hellforged Sentient piece |
+| `armor_toughness` | 3.0 | Armor toughness added to each Hellforged piece |
+| `knockback_resistance` | 0.1 | Knockback resistance added to each Hellforged piece |
+| `damage_multiplier` | 1.3 | Attack damage multiplier while holding a Hellforged Sentient tool or Lex Vitae |
+| `floor_damage` | 2.0 | Flat damage added to Hellforged Sentient tools before the multiplier (needs `netherite_floor`) |
+| `drain_multiplier` | 0.75 | Spiritus drain per swing for Hellforged tools |
+| `netherite_floor` | true | Hellforged Sentient tools mine, drop and last like Netherite without Spiritus; applied when the ritual runs |
+| `fire_resistant` | true | Hellforged items do not burn; applied when the ritual runs |
+| `lex_growth_multiplier` | 1.5 | Growth experience multiplier for a Hellforged Lex Vitae |
+| `lex_silk_toggle` | true | A Hellforged Lex Vitae can switch between Fortune and Silk Touch |
+
+Hellforged tool Overcharge under `[sentient_tools]`:
+
+| Config Key | Default | Description |
+|-----------|---------|-------------|
+| `spiritus_soft_cap` | 4000 | Carried Spiritus where Overcharge begins |
+| `spiritus_max` | 32000 | Carried Spiritus where Overcharge stops |
+| `overcharge_bonus` | 0.5 | Extra fraction of each Spiritus bonus gained at the maximum |
+| `overcharge_drain` | true | Drain per swing rises with Overcharge |
+
+The Ritual of Hellforging's EV costs are in the `ritual_stats` data map under `neovitae:hellforging`. What it accepts is set by item tags: `neovitae:hellforgeable` (items that can be Hellforged), `neovitae:hellforging/gem` (Prismatic Spiritus Gem) and `neovitae:hellforging/metal` (`c:ingots/hellforged`).
+
 ### Applying Attributes via Data Packs
 
 Use standard NeoForge attribute modifier syntax on items or equipment:

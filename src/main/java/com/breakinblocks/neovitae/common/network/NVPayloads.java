@@ -239,6 +239,12 @@ public class NVPayloads {
             if (context.player() == null) return;
             ItemStack held = context.player().getMainHandItem();
             if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
+                if (context.player().isShiftKeyDown() && LexVitaeItem.canToggleSilkTouch(held)) {
+                    LexVitaeItem.toggleSilkTouch(held);
+                    context.player().displayClientMessage(Component.translatable("message.neovitae.lex_vitae.harvest",
+                            Component.translatable(LexVitaeItem.getHarvestTranslationKey(held))), true);
+                    return;
+                }
                 LexVitaeItem.cycleMode(held);
                 context.player().displayClientMessage(Component.translatable("message.neovitae.lex_vitae.mode",
                         Component.translatable(LexVitaeItem.getModeTranslationKey(held))), true);

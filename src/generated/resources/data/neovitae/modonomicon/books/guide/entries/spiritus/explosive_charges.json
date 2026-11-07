@@ -64,30 +64,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.explosive_charges.deforester.text",
       "title": "book.neovitae.guide.spiritus.explosive_charges.deforester.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.deforester2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.deforester2.title",
       "use_markdown_in_title": false
     },
     {
@@ -108,30 +86,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.controlled2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.controlled2.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.explosive_charges.fungal.text",
       "title": "book.neovitae.guide.spiritus.explosive_charges.fungal.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.fungal2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.fungal2.title",
       "use_markdown_in_title": false
     }
   ],

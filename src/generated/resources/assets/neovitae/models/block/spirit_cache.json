@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:block/sub/shaped_charge",
+  "parent": "neovitae:block/sub/spirit_cache",
   "render_type": "minecraft:cutout",
   "textures": {
     "1": "neovitae:block/altar_corner",

@@ -136,20 +136,19 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShapedExplosiveBlockEntity>> SHAPED_EXPLOSIVE_TYPE =
             registerTile("shaped_explosive", ShapedExplosiveBlockEntity::new,
                     NVBlocks.SHAPED_CHARGE.block(),
-                    NVBlocks.AUG_SHAPED_CHARGE.block(),
-                    NVBlocks.SHAPED_CHARGE_DEEP.block());
+                    NVBlocks.AUG_SHAPED_CHARGE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DeforesterChargeBlockEntity>> DEFORESTER_CHARGE_TYPE =
             registerTile("deforester_charge", DeforesterChargeBlockEntity::new,
-                    NVBlocks.DEFORESTER_CHARGE.block(), NVBlocks.DEFORESTER_CHARGE_2.block());
+                    NVBlocks.DEFORESTER_CHARGE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VeinMineChargeBlockEntity>> VEINMINE_CHARGE_TYPE =
             registerTile("veinmine_charge", VeinMineChargeBlockEntity::new,
-                    NVBlocks.VEINMINE_CHARGE.block(), NVBlocks.VEINMINE_CHARGE_2.block());
+                    NVBlocks.VEINMINE_CHARGE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FungalChargeBlockEntity>> FUNGAL_CHARGE_TYPE =
             registerTile("fungal_charge", FungalChargeBlockEntity::new,
-                    NVBlocks.FUNGAL_CHARGE.block(), NVBlocks.FUNGAL_CHARGE_2.block());
+                    NVBlocks.FUNGAL_CHARGE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MimicBlockEntity>> MIMIC_TYPE =
             registerTile("mimic", MimicBlockEntity::new,

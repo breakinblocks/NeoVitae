@@ -168,16 +168,12 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<BlockShapedExplosive, BlockItem> SHAPED_CHARGE = BLOCK_REG.register("shaped_charge", () -> new BlockShapedExplosive(3, charge_properties));
     public static final BlockWithItemHolder<BlockShapedExplosive, BlockItem> AUG_SHAPED_CHARGE = BLOCK_REG.register("aug_shaped_charge", () -> new BlockShapedExplosive(5, charge_properties));
-    public static final BlockWithItemHolder<BlockShapedExplosiveDeep, BlockItem> SHAPED_CHARGE_DEEP = BLOCK_REG.register("shaped_charge_deep", () -> new BlockShapedExplosiveDeep(3, charge_properties));
 
-    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE = BLOCK_REG.register("deforester_charge", () -> new BlockDeforesterCharge(128, charge_properties));
-    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE_2 = BLOCK_REG.register("deforester_charge_2", () -> new BlockDeforesterCharge(256, charge_properties));
+    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE = BLOCK_REG.register("deforester_charge", () -> new BlockDeforesterCharge(256, charge_properties));
 
-    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE = BLOCK_REG.register("veinmine_charge", () -> new BlockVeinMineCharge(128, charge_properties));
-    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE_2 = BLOCK_REG.register("veinmine_charge_2", () -> new BlockVeinMineCharge(256, charge_properties));
+    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE = BLOCK_REG.register("veinmine_charge", () -> new BlockVeinMineCharge(256, charge_properties));
 
-    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE = BLOCK_REG.register("fungal_charge", () -> new BlockFungalCharge(128, charge_properties));
-    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE_2 = BLOCK_REG.register("fungal_charge_2", () -> new BlockFungalCharge(256, charge_properties));
+    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE = BLOCK_REG.register("fungal_charge", () -> new BlockFungalCharge(256, charge_properties));
 
     private static final BlockBehaviour.Properties mimic_properties = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.0F, 5.0F).sound(SoundType.STONE).noOcclusion();
     public static final BlockWithItemHolder<BlockMimic, BlockItem> MIMIC = BLOCK_REG.register("mimic", () -> new BlockMimic(mimic_properties));

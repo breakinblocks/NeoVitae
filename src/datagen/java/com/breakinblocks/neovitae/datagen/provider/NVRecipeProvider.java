@@ -1530,46 +1530,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
                 .save(output, NeoVitae.rl("aug_shaped_charge"));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get(), 4)
-                .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
-                .requires(Items.CHARCOAL)
-                .requires(ItemTags.LOGS)
-                .requires(ItemTags.PLANKS)
-                .minSpiritus(80)
-                .drain(2.5)
-                .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
-                .save(output, NeoVitae.rl("deforester_charge_2"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get(), 4)
-                .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
-                .requires(Items.CHARCOAL)
-                .requires(Tags.Items.SANDSTONE_BLOCKS)
-                .requires(Tags.Items.SANDS)
-                .minSpiritus(80)
-                .drain(2.5)
-                .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
-                .save(output, NeoVitae.rl("veinmine_charge_2"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get(), 4)
-                .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
-                .requires(Items.CHARCOAL)
-                .requires(ItemTags.CRIMSON_STEMS)
-                .requires(Tags.Items.MUSHROOMS)
-                .minSpiritus(80)
-                .drain(2.5)
-                .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
-                .save(output, NeoVitae.rl("fungal_charge_2"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get(), 4)
-                .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
-                .requires(Items.CHARCOAL)
-                .requires(Tags.Items.SANDS)
-                .requires(NVTags.Items.VITAE_STONE)
-                .minSpiritus(80)
-                .drain(2.5)
-                .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
-                .save(output, NeoVitae.rl("shaped_charge_deep"));
-
         // Charge upgrade recipes - Tier 1 charges with basic anointments
         // Shaped Charge variants
         HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
@@ -1625,6 +1585,14 @@ public class NVRecipeProvider extends RecipeProvider {
 
         HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
+                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
+                .minSpiritus(300).drain(4.0)
+                .withAnointment("neovitae:fortune", 2, 1)
+                .unlockedBy("has_deforester_charge", has(NVBlocks.DEFORESTER_CHARGE.item().get()))
+                .save(output, NeoVitae.rl("deforester_charge_fortune_2"));
+
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
+                .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
                 .requires(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -1666,6 +1634,14 @@ public class NVRecipeProvider extends RecipeProvider {
 
         HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE.item().get())
+                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
+                .minSpiritus(300).drain(4.0)
+                .withAnointment("neovitae:fortune", 2, 1)
+                .unlockedBy("has_veinmine_charge", has(NVBlocks.VEINMINE_CHARGE.item().get()))
+                .save(output, NeoVitae.rl("veinmine_charge_fortune_2"));
+
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
+                .requires(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
                 .requires(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -1704,6 +1680,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .withAnointment("neovitae:fortune", 1, 1)
                 .unlockedBy("has_fungal_charge", has(NVBlocks.FUNGAL_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_fortune_1"));
+
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
+                .requires(NVBlocks.FUNGAL_CHARGE.item().get())
+                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
+                .minSpiritus(300).drain(4.0)
+                .withAnointment("neovitae:fortune", 2, 1)
+                .unlockedBy("has_fungal_charge", has(NVBlocks.FUNGAL_CHARGE.item().get()))
+                .save(output, NeoVitae.rl("fungal_charge_fortune_2"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE.item().get())
@@ -1776,170 +1760,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .withAnointment("neovitae:voiding", 1, 1)
                 .unlockedBy("has_aug_shaped_charge", has(NVBlocks.AUG_SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("aug_shaped_charge_voiding"));
-
-        // Shaped Charge Deep variants (uses _l anointments)
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 1, 1)
-                .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
-                .save(output, NeoVitae.rl("shaped_charge_deep_fortune_1_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 2, 1)
-                .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
-                .save(output, NeoVitae.rl("shaped_charge_deep_fortune_2_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:silk_touch", 1, 1)
-                .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
-                .save(output, NeoVitae.rl("shaped_charge_deep_silk_touch_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVItems.SMELTING_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:smelting", 1, 1)
-                .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
-                .save(output, NeoVitae.rl("shaped_charge_deep_smelting_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
-                .requires(NVItems.VOIDING_ANOINTMENT.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:voiding", 1, 1)
-                .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
-                .save(output, NeoVitae.rl("shaped_charge_deep_voiding"));
-
-        // Deforester Charge 2 variants
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 1, 1)
-                .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("deforester_charge_2_fortune_1_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 2, 1)
-                .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("deforester_charge_2_fortune_2_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:silk_touch", 1, 1)
-                .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("deforester_charge_2_silk_touch_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVItems.SMELTING_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:smelting", 1, 1)
-                .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("deforester_charge_2_smelting_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
-                .requires(NVItems.VOIDING_ANOINTMENT.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:voiding", 1, 1)
-                .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("deforester_charge_2_voiding"));
-
-        // Veinmine Charge 2 variants
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 1, 1)
-                .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("veinmine_charge_2_fortune_1_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 2, 1)
-                .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("veinmine_charge_2_fortune_2_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:silk_touch", 1, 1)
-                .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("veinmine_charge_2_silk_touch_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVItems.SMELTING_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:smelting", 1, 1)
-                .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("veinmine_charge_2_smelting_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .requires(NVItems.VOIDING_ANOINTMENT.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:voiding", 1, 1)
-                .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("veinmine_charge_2_voiding"));
-
-        // Fungal Charge 2 variants
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 1, 1)
-                .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("fungal_charge_2_fortune_1_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:fortune", 2, 1)
-                .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("fungal_charge_2_fortune_2_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:silk_touch", 1, 1)
-                .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("fungal_charge_2_silk_touch_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVItems.SMELTING_ANOINTMENT_L.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:smelting", 1, 1)
-                .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("fungal_charge_2_smelting_l"));
-
-        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
-                .requires(NVItems.VOIDING_ANOINTMENT.get())
-                .minSpiritus(300).drain(4.0)
-                .withAnointment("neovitae:voiding", 1, 1)
-                .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
-                .save(output, NeoVitae.rl("fungal_charge_2_voiding"));
 
         // === Demon drop crafted items ===
 
@@ -3386,7 +3206,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "weapon_repair_anointment_3");
-
 
         // === CATALYST RECIPES ===
         // Simple Catalyst - sugar, redstone, glowstone, gunpowder, nether wart

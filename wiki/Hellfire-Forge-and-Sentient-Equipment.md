@@ -79,7 +79,7 @@ Mining by hand and felling trees one swing at a time is beneath a practitioner o
 
 Each charge can be enhanced by **Anointing** it with certain reagents and a measure of Spiritus:
 
-- **Fortunate** (or Fortunate II for augmented charges): broken blocks yield Fortune loot.
+- **Fortunate** (or Fortunate II for every charge except the basic Shaped Charge): broken blocks yield Fortune loot.
 - **Heated Tool**: broken blocks are smelted on the spot.
 - **Soft Touch**: broken blocks are affected by Silk Touch.
 - **Voiding**: worthless debris is annihilated rather than dropped.
@@ -87,14 +87,10 @@ Each charge can be enhanced by **Anointing** it with certain reagents and a meas
 | Charge | Effect |
 |--------|--------|
 | Shaped Charge | Obliterates a 7x7x7 cube on the face it strikes; drops blocks as though pickaxe-mined. Cuts through Obsidian. |
-| Augmented Shaped Charge | 11x11x11 cube; also accepts **Fortunate II**. |
-| Deep Shaped Charge | Bores a 7x7x9 corridor straight through whatever it strikes. |
-| Deforester Charge | Strike a log or leaf and up to **two stacks** of wood come down with leaves stripped. |
-| Deforester Charge II | Fells up to **8 stacks** of logs, shearing all connecting leaves. |
-| Controlled Charge | Destroys only blocks identical to the block it strikes, seeking outward (up to 3 stacks). |
-| Controlled Charge II | As above, devouring up to 8 stacks. |
-| Fungal Charge | Consumes up to 3 stacks of fungal material (giant mushrooms, Nether fungi). |
-| Fungal Charge II | Annihilates up to 8 stacks of mushroom material in a single detonation. |
+| Augmented Shaped Charge | 11x11x11 cube. |
+| Deforester Charge | Strike a log or leaf and up to **four stacks** of wood come down with leaves stripped. |
+| Controlled Charge | Destroys only blocks identical to the block it strikes, seeking outward (up to four stacks). |
+| Fungal Charge | Consumes up to four stacks of fungal material (giant mushrooms, Nether fungi). |
 
 ## Other Forge Products
 

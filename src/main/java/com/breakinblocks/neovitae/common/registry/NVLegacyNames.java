@@ -17,12 +17,20 @@ public final class NVLegacyNames {
             "dusk_scribe_tool", "tenebrae_scribe_tool",
             "ritual_diviner_dusk", "ritual_diviner_tenebrae");
 
+    private static final Map<String, String> CHARGES = Map.of(
+            "shaped_charge_deep", "aug_shaped_charge",
+            "deforester_charge_2", "deforester_charge",
+            "veinmine_charge_2", "veinmine_charge",
+            "fungal_charge_2", "fungal_charge");
+
     private NVLegacyNames() {
     }
 
     public static void register() {
         alias(NVBlocks.BLOCKS, RITUAL_STONES);
         alias(NVBlocks.BLOCK_ITEMS, RITUAL_STONES);
+        alias(NVBlocks.BLOCKS, CHARGES);
+        alias(NVBlocks.BLOCK_ITEMS, CHARGES);
         alias(NVItems.BASIC_ITEMS, TOOLS);
     }
 

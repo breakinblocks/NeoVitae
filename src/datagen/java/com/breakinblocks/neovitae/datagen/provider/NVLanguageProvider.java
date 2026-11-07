@@ -723,10 +723,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.VEINMINE_CHARGE, "Veinmine Charge");
         add(NVBlocks.FUNGAL_CHARGE, "Fungal Charge");
         add(NVBlocks.AUG_SHAPED_CHARGE, "Augmented Shaped Charge");
-        add(NVBlocks.DEFORESTER_CHARGE_2, "Reinforced Deforester Charge");
-        add(NVBlocks.VEINMINE_CHARGE_2, "Reinforced Veinmine Charge");
-        add(NVBlocks.FUNGAL_CHARGE_2, "Reinforced Fungal Charge");
-        add(NVBlocks.SHAPED_CHARGE_DEEP, "Deep Shaped Charge");
 
         // Mimic Block
         add(NVBlocks.MIMIC, "Mimic");

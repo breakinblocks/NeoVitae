@@ -176,83 +176,19 @@ public class NVBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerExplosiveCharges() {
-        // Basic shaped charge - uses sub/shaped_charge parent
-        shapedChargeModel(NVBlocks.SHAPED_CHARGE.block().get(), "shaped_charge",
-                "neovitae:block/dungeon/dungeon_tile", "neovitae:block/dungeon/dungeon_stone",
-                "neovitae:block/blankrune", "neovitae:block/largebloodstonebrick",
-                "neovitae:block/defaultcrystal");
-
-        // Augmented shaped charge - uses sub/augment_shaped_charge parent
-        augmentedChargeModel(NVBlocks.AUG_SHAPED_CHARGE.block().get(), "aug_shaped_charge",
-                "neovitae:block/dungeon/dungeon_tile", "neovitae:block/defaultcrystal",
-                "neovitae:block/dungeon/dungeon_stone", "neovitae:block/blankrune",
-                "neovitae:block/largebloodstonebrick", "neovitae:block/copper_trim");
-
-        // Deep shaped charge - uses sub/augment_shaped_charge parent with iron core
-        augmentedChargeModel(NVBlocks.SHAPED_CHARGE_DEEP.block().get(), "shaped_charge_deep",
-                "neovitae:block/dungeon/dungeon_tile", "minecraft:block/iron_block",
-                "neovitae:block/dungeon/dungeon_stone", "neovitae:block/blankrune",
-                "neovitae:block/largebloodstonebrick", "neovitae:block/copper_trim");
-
-        // Deforester charges - wood themed
-        shapedChargeModel(NVBlocks.DEFORESTER_CHARGE.block().get(), "deforester_charge",
-                "minecraft:block/oak_log_top", "minecraft:block/oak_log_top",
-                "neovitae:block/blankrune", "minecraft:block/oak_planks",
-                "neovitae:block/defaultcrystal");
-        augmentedChargeModel(NVBlocks.DEFORESTER_CHARGE_2.block().get(), "deforester_charge_2",
-                "minecraft:block/oak_log_top", "neovitae:block/defaultcrystal",
-                "minecraft:block/oak_log_top", "neovitae:block/blankrune",
-                "minecraft:block/oak_planks", "neovitae:block/copper_trim");
-
-        // Veinmine charges - sand/stone themed
-        shapedChargeModel(NVBlocks.VEINMINE_CHARGE.block().get(), "veinmine_charge",
-                "minecraft:block/sandstone_bottom", "minecraft:block/sandstone_bottom",
-                "neovitae:block/blankrune", "minecraft:block/sand",
-                "neovitae:block/defaultcrystal");
-        augmentedChargeModel(NVBlocks.VEINMINE_CHARGE_2.block().get(), "veinmine_charge_2",
-                "minecraft:block/sandstone_bottom", "neovitae:block/defaultcrystal",
-                "minecraft:block/sandstone_bottom", "neovitae:block/blankrune",
-                "minecraft:block/sand", "neovitae:block/copper_trim");
-
-        // Fungal charges - nether themed
-        shapedChargeModel(NVBlocks.FUNGAL_CHARGE.block().get(), "fungal_charge",
-                "minecraft:block/crimson_planks", "minecraft:block/nether_wart_block",
-                "neovitae:block/blankrune", "minecraft:block/crimson_stem",
-                "neovitae:block/defaultcrystal");
-        augmentedChargeModel(NVBlocks.FUNGAL_CHARGE_2.block().get(), "fungal_charge_2",
-                "minecraft:block/crimson_planks", "neovitae:block/defaultcrystal",
-                "minecraft:block/nether_wart_block", "neovitae:block/blankrune",
-                "minecraft:block/crimson_stem", "neovitae:block/copper_trim");
+        chargeModel(NVBlocks.SHAPED_CHARGE.block().get(), "shaped_charge", false, "shaped");
+        chargeModel(NVBlocks.AUG_SHAPED_CHARGE.block().get(), "aug_shaped_charge", true, "augmented");
+        chargeModel(NVBlocks.DEFORESTER_CHARGE.block().get(), "deforester_charge", false, "deforester");
+        chargeModel(NVBlocks.VEINMINE_CHARGE.block().get(), "veinmine_charge", false, "veinmine");
+        chargeModel(NVBlocks.FUNGAL_CHARGE.block().get(), "fungal_charge", false, "fungal");
     }
 
-    private void shapedChargeModel(Block block, String name,
-            String tex1, String tex3, String tex4, String tex5, String tex6) {
-        // Create model with parent sub/shaped_charge
-        ModelFile model = models().withExistingParent(name, bm("block/sub/shaped_charge"))
-                .texture("1", ResourceLocation.parse(tex1))
-                .texture("3", ResourceLocation.parse(tex3))
-                .texture("4", ResourceLocation.parse(tex4))
-                .texture("5", ResourceLocation.parse(tex5))
-                .texture("6", ResourceLocation.parse(tex6))
-                .texture("particle", ResourceLocation.parse(tex6))
-                .renderType("cutout");
-
-        directionalBlockState(block, model);
-        simpleBlockItem(block, model);
-    }
-
-    private void augmentedChargeModel(Block block, String name,
-            String tex1, String tex2, String tex3, String tex4, String tex5, String tex7) {
-        // Create model with parent sub/augment_shaped_charge
-        ModelFile model = models().withExistingParent(name, bm("block/sub/augment_shaped_charge"))
-                .texture("1", ResourceLocation.parse(tex1))
-                .texture("2", ResourceLocation.parse(tex2))
-                .texture("3", ResourceLocation.parse(tex3))
-                .texture("4", ResourceLocation.parse(tex4))
-                .texture("5", ResourceLocation.parse(tex5))
-                .texture("7", ResourceLocation.parse(tex7))
-                .texture("particle", ResourceLocation.parse(tex2))
-                .renderType("cutout");
+    private void chargeModel(Block block, String name, boolean augmented, String core) {
+        ModelFile model = models().withExistingParent(name, bm(augmented ? "block/sub/charge_augmented" : "block/sub/charge"))
+                .texture("casing", bm("block/charge/charge_casing"))
+                .texture("trim", bm("block/charge/charge_trim"))
+                .texture("core", bm("block/charge/charge_core_" + core))
+                .texture("particle", bm("block/charge/charge_core_" + core));
 
         directionalBlockState(block, model);
         simpleBlockItem(block, model);
@@ -293,7 +229,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerSpiritCache() {
-        ModelFile model = models().withExistingParent("spirit_cache", bm("block/sub/shaped_charge"))
+        ModelFile model = models().withExistingParent("spirit_cache", bm("block/sub/spirit_cache"))
                 .texture("1", bm("block/altar_corner"))
                 .texture("3", bm("block/altar_side"))
                 .texture("4", bm("block/altar_edge"))

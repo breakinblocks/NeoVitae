@@ -43,7 +43,7 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
     protected void init() {
         super.init();
         TabulaVitaeBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeSlot,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeSlot,
                 TabulaVitaeScreen::slotName, TabulaVitaeBlockEntity.OUTPUT_SLOT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 133, topPos + 50);
     }
@@ -127,6 +127,14 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
         int px = leftPos + 106;
         int py = topPos + 14;
         return mouseX >= px && mouseX < px + 18 && mouseY >= py && mouseY < py + 90;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (sidePanel.keyPressed(keyCode, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

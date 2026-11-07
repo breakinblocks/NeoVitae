@@ -43,6 +43,7 @@ import com.breakinblocks.neovitae.common.menu.ExperienceTomeMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.common.sideconfig.OutputFaceConfigurable;
 import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
+import com.breakinblocks.neovitae.common.sideconfig.SlotSideConfig;
 import net.minecraft.core.Direction;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -173,6 +174,12 @@ public class NVPayloads {
                 SetOutputFacePayload.TYPE,
                 SetOutputFacePayload.STREAM_CODEC,
                 NVPayloads::handleSetOutputFace
+        );
+
+        registrar.playToServer(
+                PasteSideConfigPayload.TYPE,
+                PasteSideConfigPayload.STREAM_CODEC,
+                NVPayloads::handlePasteSideConfig
         );
 
         registrar.playToServer(
@@ -321,6 +328,32 @@ public class NVPayloads {
             if (!(be instanceof OutputFaceConfigurable configurable)) return;
             if (payload.face() >= Direction.values().length) return;
             configurable.setOutputFace(payload.face() < 0 ? null : Direction.from3DDataValue(payload.face()));
+            be.setChanged();
+        });
+    }
+
+    private static void handlePasteSideConfig(PasteSideConfigPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            if (!(player.containerMenu instanceof AbstractBlockEntityMenu<?> menu)) return;
+            BlockEntity be = menu.getTile();
+            if (be == null || !be.getBlockPos().equals(payload.pos())) return;
+            if (!(be instanceof SideConfigurable configurable)) return;
+            SlotSideConfig config = configurable.getSideConfig();
+            Direction[] directions = Direction.values();
+            if (payload.mask().length != config.slotCount() * directions.length) return;
+            if (payload.face() >= directions.length) return;
+            for (int slot = 0; slot < config.slotCount(); slot++) {
+                for (Direction dir : directions) {
+                    config.setAllowed(slot, dir, payload.mask()[slot * directions.length + dir.get3DDataValue()] != 0);
+                }
+            }
+            if (be instanceof OutputFaceConfigurable outputConfigurable) {
+                outputConfigurable.setOutputFace(payload.face() < 0 ? null : Direction.from3DDataValue(payload.face()));
+            }
             be.setChanged();
         });
     }

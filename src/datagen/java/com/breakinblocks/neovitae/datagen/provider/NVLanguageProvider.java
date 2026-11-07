@@ -290,6 +290,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.side.south", "South");
         add("gui.neovitae.side.west", "West");
         add("gui.neovitae.side.east", "East");
+        add("gui.neovitae.side_config.title", "Side Configuration");
+        add("gui.neovitae.side_config.copied", "Copied %s side settings");
+        add("gui.neovitae.side_config.pasted", "Pasted side settings into %s");
+        add("gui.neovitae.side_config.empty", "Nothing copied yet. Press Ctrl+C in a machine first");
+        add("gui.neovitae.side_config.wrong_machine", "The copied settings are from a different kind of machine");
+        add("gui.neovitae.side_config.hint", "Ctrl+C / Ctrl+V to copy or paste all side settings");
         add("gui.neovitae.side_push_hint", "Right-click to push results out of this side");
         add("gui.neovitae.side_pushing", "Results are pushed out of this side (right-click to stop)");
         add("gui.neovitae.sanguine_crafter.mode", "Mode: %s");

@@ -68,7 +68,7 @@ Every casing and the crafter itself expose the crafter's inventory, so pipes and
 | Orb slot | None |
 | Gem slot | None |
 
-With the output buffer selected, **right-click** a side button to push results out of that side of the structure into whatever inventory is there. The pushing side gets a gold border. Right-click it again to stop.
+With the output buffer selected, **right-click** a side button to push results out of that side of the structure into whatever inventory is there. The pushing side gets a gold border. Right-click it again to stop. Press **Ctrl+C** in a machine's menu to copy all of its side settings, including the push side, then **Ctrl+V** in another machine of the same kind to paste them.
 
 The **redstone** button switches between ignoring redstone, running only with a signal and running only without one; the signal is read at the crafter block. The **limit** pauses crafting while the output buffer holds that many of the result. Scroll over it to change it (Shift for 10, Ctrl for 64) and right-click it to remove the limit.
 

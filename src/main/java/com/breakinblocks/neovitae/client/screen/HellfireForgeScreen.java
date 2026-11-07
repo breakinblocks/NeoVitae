@@ -46,7 +46,7 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
     protected void init() {
         super.init();
         HellfireForgeBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeSlot,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeSlot,
                 HellfireForgeScreen::slotName, HellfireForgeBlockEntity.OUTPUT_SLOT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 133, topPos + 50);
     }
@@ -140,6 +140,14 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
         int px = leftPos + PROGRESS_X;
         int py = topPos + PROGRESS_Y;
         return mouseX >= px && mouseX < px + 18 && mouseY >= py && mouseY < py + 90;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (sidePanel.keyPressed(keyCode, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

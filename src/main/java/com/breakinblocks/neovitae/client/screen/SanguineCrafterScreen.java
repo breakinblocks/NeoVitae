@@ -64,7 +64,7 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
     protected void init() {
         super.init();
         SanguineCrafterBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeGroup,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeGroup,
                 SanguineCrafterScreen::groupName, SanguineCrafterBlockEntity.GROUP_OUTPUT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 157, topPos + 56);
 
@@ -159,6 +159,14 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
         Mode mode = tile.getMode() == Mode.AUTO ? Mode.CRAFTING : tile.getMode();
         tile.setTemplate(mode, stacks);
         PacketDistributor.sendToServer(new SanguineCrafterTemplatePayload(tile.getBlockPos(), mode.ordinal(), stacks));
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (sidePanel.keyPressed(keyCode, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

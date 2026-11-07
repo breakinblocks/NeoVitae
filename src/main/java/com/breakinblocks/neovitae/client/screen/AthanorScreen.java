@@ -65,7 +65,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         this.outputX = leftPos + 152;
         this.outputY = topPos + 18;
         AthanorBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeGroup,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeGroup,
                 AthanorScreen::groupName, AthanorBlockEntity.GROUP_OUTPUT, tile);
         sidePanel.create(this::addRenderableWidget, sidePanelX() + 4, sidePanelY() + 4);
     }
@@ -255,6 +255,14 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         int ax = leftPos + 63;
         int ay = topPos + 51;
         return mouseX >= ax && mouseX < ax + 38 && mouseY >= ay && mouseY < ay + 23;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (sidePanel.keyPressed(keyCode, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

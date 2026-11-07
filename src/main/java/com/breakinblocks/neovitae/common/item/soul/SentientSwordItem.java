@@ -90,16 +90,18 @@ public class SentientSwordItem extends Item implements ISentientTool {
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
 
-        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level);
+        double overcharge = HellforgedHelper.overchargeFactor(stack, soulsRemaining);
+        double damage = BASE_WEAPON_DAMAGE + getExtraDamage(type, level) * overcharge;
 
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
-        setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
+        setDrainAmount(stack, drainFor(stack, level, soulsRemaining));
         setDamageBonus(stack, damage);
-        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
-        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
+        setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] * overcharge : 1);
+        setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] * overcharge : 0);
 
         stack.set(DataComponents.ATTRIBUTE_MODIFIERS, buildWeaponModifiers("sentient_sword", damage,
-                getWeaponAttackSpeed(type, level), getWeaponMovementSpeed(type, level)));
+                scaleAttackSpeed(getWeaponAttackSpeed(type, level), overcharge),
+                getWeaponMovementSpeed(type, level) * overcharge));
     }
 
     @Override

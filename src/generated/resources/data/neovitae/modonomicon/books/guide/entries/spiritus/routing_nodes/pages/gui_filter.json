@@ -5,7 +5,7 @@
   },
   "id": "gui_filter",
   "show_title_separator": true,
-  "sort_number": 13,
+  "sort_number": 10,
   "text": "book.neovitae.guide.spiritus.routing_nodes.gui_filter.text",
   "title": ""
 }

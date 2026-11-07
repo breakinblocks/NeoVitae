@@ -76,13 +76,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.CHARGES)
                 .add(NVBlocks.SHAPED_CHARGE.item().get())
                 .add(NVBlocks.AUG_SHAPED_CHARGE.item().get())
-                .add(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .add(NVBlocks.DEFORESTER_CHARGE.item().get())
-                .add(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .add(NVBlocks.VEINMINE_CHARGE.item().get())
-                .add(NVBlocks.VEINMINE_CHARGE_2.item().get())
-                .add(NVBlocks.FUNGAL_CHARGE.item().get())
-                .add(NVBlocks.FUNGAL_CHARGE_2.item().get());
+                .add(NVBlocks.FUNGAL_CHARGE.item().get());
 
         NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
@@ -91,6 +87,17 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
         tag(NVTags.Items.SENTIENT_UPGRADE_SET)
                 .addTag(NVTags.Items.SENTIENT_SET);
+
+        tag(NVTags.Items.HELLFORGEABLE)
+                .addTag(NVTags.Items.SENTIENT_SET)
+                .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(), NVItems.SENTIENT_PICKAXE.get(),
+                        NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_SCYTHE.get(), NVItems.LEX_VITAE.get());
+
+        tag(NVTags.Items.HELLFORGING_GEM)
+                .add(NVItems.PRISMATIC_SPIRITUS_GEM.get());
+
+        tag(NVTags.Items.HELLFORGING_METAL)
+                .addTag(NVTags.Items.INGOTS_HELLFORGED);
 
         tag(ItemTags.LECTERN_BOOKS).add(NVItems.GUIDE_BOOK.get());
         tag(ItemTags.BOOKSHELF_BOOKS).add(NVItems.GUIDE_BOOK.get());

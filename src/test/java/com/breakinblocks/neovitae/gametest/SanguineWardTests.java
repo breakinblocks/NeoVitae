@@ -67,7 +67,7 @@ public final class SanguineWardTests {
 
     private static void checkMitigatedDamage(GameTestHelper helper, int ev, float expectedDamage, int expectedEV) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        player.getAttribute(NVAttributes.BLOOD_SHIELD).setBaseValue(0.5);
+        player.getAttribute(NVAttributes.BLOOD_SHIELD).setBaseValue(5.0);
         Anima anima = AnimaHelper.getAnima(player.getUUID());
         anima.set(AnimaTicket.create(ev), 1000);
         DamageContainer damage = new DamageContainer(player.damageSources().generic(), 10.0f);

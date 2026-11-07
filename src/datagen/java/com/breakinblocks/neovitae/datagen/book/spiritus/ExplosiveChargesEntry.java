@@ -51,29 +51,13 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 + "be anointed with [#](B8860B)Fortune II[#]() as well.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
-        this.page("tunnelling", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Deep Shaped Charge");
-        this.pageText("Bores a [#](B8860B)7x7x9[#]() corridor straight through whatever it strikes. An invaluable "
-                + "companion for deep excavation.\\\n\\\n"
-                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
-
         this.page("deforester", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Deforester Charge");
-        this.pageText("Purpose-built for timber. Strike a log or leaf block, and up to [#](B8860B)two stacks[#]() of wood "
+        this.pageText("Purpose-built for timber. Strike a log or leaf block, and up to [#](B8860B)four stacks[#]() of wood "
                 + "come crashing down, with leaves stripped away in the process. Even the mightiest jungle "
                 + "giants fall in moments.\\\n\\\n"
-                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
-
-        this.page("deforester2", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Deforester Charge II");
-        this.pageText("The greater variant. Fells up to [#](B8860B)8 stacks[#]() of logs, shearing away all connecting "
-                + "leaves. Ideal for carving clearings in Dark Oak forests or dense jungles.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("controlled", () -> BookTextPageModel.create()
@@ -81,15 +65,7 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Controlled Charge");
         this.pageText("Destroys only blocks [#](B8860B)identical to the block it strikes[#](), seeking outward from "
-                + "the point of impact. Consumes up to 3 stacks of matching blocks.\\\n\\\n"
-                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
-
-        this.page("controlled2", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Controlled Charge II");
-        this.pageText("Functions identically to the standard Controlled Charge, but devours up to "
-                + "[#](B8860B)8 stacks[#]() of matching blocks.\\\n\\\n"
+                + "the point of impact. Consumes up to [#](B8860B)four stacks[#]() of matching blocks.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("fungal", () -> BookTextPageModel.create()
@@ -97,18 +73,8 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Fungal Charge");
         this.pageText("Designed for the great mushrooms of the Overworld and the Nether. Capable of consuming "
-                + "up to [#](B8860B)three stacks[#]() of fungal material, though you would be hard-pressed to find a "
+                + "up to [#](B8860B)four stacks[#]() of fungal material, though you would be hard-pressed to find a "
                 + "specimen that large.\\\n\\\n"
-                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
-
-        this.page("fungal2", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Fungal Charge II");
-        this.pageText("The greater fungal variant. Annihilates up to [#](B8860B)8 stacks[#]() of mushroom material "
-                + "in a single detonation.\\\n\\\n"
-                + "Why you would ever need such overkill is a question best left to the practitioner's "
-                + "conscience.\\\n\\\n"
                 + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
     }
 

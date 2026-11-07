@@ -1,12 +1,9 @@
 {
-  "parent": "neovitae:block/sub/shaped_charge",
-  "render_type": "minecraft:cutout",
+  "parent": "neovitae:block/sub/charge",
   "textures": {
-    "1": "minecraft:block/crimson_planks",
-    "3": "minecraft:block/nether_wart_block",
-    "4": "neovitae:block/blankrune",
-    "5": "minecraft:block/crimson_stem",
-    "6": "neovitae:block/defaultcrystal",
-    "particle": "neovitae:block/defaultcrystal"
+    "casing": "neovitae:block/charge/charge_casing",
+    "core": "neovitae:block/charge/charge_core_fungal",
+    "particle": "neovitae:block/charge/charge_core_fungal",
+    "trim": "neovitae:block/charge/charge_trim"
   }
 }

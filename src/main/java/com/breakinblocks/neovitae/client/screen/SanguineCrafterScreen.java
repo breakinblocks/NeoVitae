@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -57,7 +58,7 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
     protected void init() {
         super.init();
         SanguineCrafterBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeGroup,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeGroup,
                 SanguineCrafterScreen::groupName, SanguineCrafterBlockEntity.GROUP_OUTPUT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 157, topPos + 56);
 
@@ -152,6 +153,14 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
         Mode mode = tile.getMode() == Mode.AUTO ? Mode.CRAFTING : tile.getMode();
         tile.setTemplate(mode, stacks);
         ClientPacketDistributor.sendToServer(new SanguineCrafterTemplatePayload(tile.getBlockPos(), mode.ordinal(), stacks));
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (sidePanel.keyPressed(event, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

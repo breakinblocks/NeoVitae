@@ -201,6 +201,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.side.south", "South");
         add("gui.neovitae.side.west", "West");
         add("gui.neovitae.side.east", "East");
+        add("gui.neovitae.side_config.title", "Side Configuration");
+        add("gui.neovitae.side_config.copied", "Copied %s side settings");
+        add("gui.neovitae.side_config.pasted", "Pasted side settings into %s");
+        add("gui.neovitae.side_config.empty", "Nothing copied yet. Press Ctrl+C in a machine first");
+        add("gui.neovitae.side_config.wrong_machine", "The copied settings are from a different kind of machine");
+        add("gui.neovitae.side_config.hint", "Ctrl+C / Ctrl+V to copy or paste all side settings");
         add("gui.neovitae.side_push_hint", "Right-click to push results out of this side");
         add("gui.neovitae.side_pushing", "Results are pushed out of this side (right-click to stop)");
         add("gui.neovitae.sanguine_crafter.mode", "Mode: %s");
@@ -416,6 +422,15 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("lexVitae.active", "Active");
         addTooltip("lexVitae.radius", "Radius: %sx%s");
         addTooltip("lexVitae.mode", "Mode: %s");
+        addTooltip("lexVitae.harvest", "Harvest: %s");
+        addTooltip("lexVitae.harvest.fortune", "Fortune");
+        addTooltip("lexVitae.harvest.silk_touch", "Silk Touch");
+        addTooltip("hellforged", "Hellforged");
+        addTooltip("hellforged.training", "Trains %sx faster");
+        addTooltip("hellforged.netherite_floor", "Mines and lasts like Netherite without Spiritus");
+        addTooltip("hellforged.drain", "Drains %s%% less Spiritus");
+        addTooltip("hellforged.fire_resistant", "Does not burn in fire or lava");
+        addTooltip("hellforged.silk_toggle", "Sneak + %s: switch between Fortune and Silk Touch");
         addTooltip("lexVitae.mode.both", "Mining & Damage");
         addTooltip("lexVitae.mode.mining", "Mining");
         addTooltip("lexVitae.mode.damaging", "Damage");
@@ -426,6 +441,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("lexVitae.growth.wear", "  Shrugs off %s%% of wear");
         add("message.neovitae.lex_vitae.radius", "Lex Vitae mining radius: %sx%s");
         add("message.neovitae.lex_vitae.mode", "Lex Vitae mode: %s");
+        add("message.neovitae.lex_vitae.harvest", "Lex Vitae harvest: %s");
         add("message.neovitae.lex_vitae.level_up", "The Lex Vitae grows stronger: Growth Level %s");
 
         // Spiritus type tooltip header + per-type display names (color-coded at runtime)
@@ -440,6 +456,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("spiritus.level", "Level %s (%s will)");
         addTooltip("spiritus.damage_bonus", "+%s bonus damage");
         addTooltip("spiritus.mining_speed", "+%s mining speed");
+        addTooltip("spiritus.overcharge", "Overcharge: +%s%% to Spiritus bonuses");
         addTooltip("spiritus.aoe_radius", "%s block AoE radius");
         addTooltip("spiritus.hold_shift", "Hold Shift for details");
 
@@ -606,7 +623,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("tooltip.neovitae.sigil.damned.desc", "The blood of the fallen empowers the bearer.");
         add("tooltip.neovitae.sigil.damned.spiritus", "+50 Bonus Spiritus Collection");
         add("tooltip.neovitae.sigil.damned.sacrifice", "+25 Bonus Sacrifice");
-        add("tooltip.neovitae.sigil.damned.siphon", "+10 Blood Siphon (heal on kill)");
+        add("tooltip.neovitae.sigil.damned.siphon", "+25 Blood Siphon (heal on kill)");
 
         // Trim material
         add("trim_material.neovitae.demonite", "Hellforged");
@@ -623,10 +640,6 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVBlocks.VEINMINE_CHARGE, "Veinmine Charge");
         add(NVBlocks.FUNGAL_CHARGE, "Fungal Charge");
         add(NVBlocks.AUG_SHAPED_CHARGE, "Augmented Shaped Charge");
-        add(NVBlocks.DEFORESTER_CHARGE_2, "Reinforced Deforester Charge");
-        add(NVBlocks.VEINMINE_CHARGE_2, "Reinforced Veinmine Charge");
-        add(NVBlocks.FUNGAL_CHARGE_2, "Reinforced Fungal Charge");
-        add(NVBlocks.SHAPED_CHARGE_DEEP, "Deep Shaped Charge");
 
         // Mimic Block
         add(NVBlocks.MIMIC, "Mimic");
@@ -1177,13 +1190,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
 
         add(NVItems.TRAINING_BRACELET.get(), "Sentient Training Bracelet");
-        add("trainer.neovitae.allow_others", "Allow Others");
-        add("trainer.neovitae.deny_others", "Deny Others");
-        add("trainer.neovitae.save", "Save");
+        add("gui.neovitae.trainer.hint", "Shift-click to jump to Off or Max");
+        add("gui.neovitae.trainer.off", "Off");
+        add("gui.neovitae.trainer.max", "Max");
         addTooltip("trainer.plan", "Training plan for your Sentient Armor:");
         addTooltip("trainer.blocked", "%s blocked");
-        addTooltip("trainer.allow_others", "Other upgrades train freely.");
-        addTooltip("trainer.deny_others", "Other upgrades are blocked.");
         addTooltip("trainer.unconfigured", "Wear Sentient Armor and use to set training limits.");
 
         add("item.neovitae.sentient_plate.dead", "Formerly Sentient Plate");
@@ -1291,6 +1302,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("currentOwner", "Bound to: %s");
 
         add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
+        add("chat.neovitae.sentient_upgrade.unforged", "Your Sentient Armor rejects this tome. It must first be Hellforged to hold %s Upgrade Points.");
         add("chat.neovitae.sentient_upgrade.unevolved", "Your Sentient Armor rejects this tome. It must first complete both the Ritual of Sentient Evolution and the Deus Sentient Evolution.");
         add("chat.neovitae.unbounded_flight.no_ev", "Your soul network is too weak to keep you aloft.");
         add("chat.neovitae.armour_evolve.evolved", "The armor evolves; it can now hold %s Upgrade Points.");
@@ -1298,6 +1310,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.deus_armour_evolve.evolved", "The armor ascends; it can now hold %s Upgrade Points, and every piece is bound with Blood Mending.");
         add("chat.neovitae.deus_armour_evolve.mended", "Every piece of your Sentient Armor is bound with Blood Mending.");
         add("chat.neovitae.deus_armour_evolve.maxed", "The armor has ascended as far as it can.");
+        add("chat.neovitae.hellforging.unready", "A chestplate must first ascend to %s Upgrade Points through the Deus Sentient Evolution.");
+        add("chat.neovitae.hellforging.forged", "%s is Hellforged.");
         add("chat.neovitae.deus_armour_evolve.unready", "The armor must first evolve to %s Upgrade Points through the Ritual of Sentient Evolution.");
 
         SentientUpgrades.translations(this::add);
@@ -1393,6 +1407,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("jei.neovitae.upgrade_tome.jump.info", "Increases jump height and reduces fall damage.\n\nTrained: rise through the air by jumping while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.knockback_resist.info", "Increases knockback resistance, and at higher levels maximum health.\n\nTrained: eat food while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.repair.info", "Slowly mends the chestplate's durability over time.\n\nTrained: as the chestplate's durability is restored while you wear the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.deus_sanguinis.info", "Each level grants 10 Blood Siphon and 10 Blood Shield, up to 100 of each at level 10. Both are capped at 95%% by default.\n\nOnly a Hellforged chestplate holding 700 Upgrade Points can take it.\n\nTrains while your network spends EV, earning at most one credit every 10 seconds.\n\nInscribe this tome in the Tabula Vitae from a Prismatic Spiritus Gem, a Hellforged Block, a Tabula Aetherea, a Nether Star, a Netherite Block and a Totem of Undying; Transcendent orb, 1,000,000 EV.");
         add("jei.neovitae.upgrade_tome.netherite_protect.info", "Adds armor and armor toughness.\n\nNot trained through activity; apply the tome directly to a worn Sentient set.\n\nInscribe this tome in the Tabula Vitae from a diamond, a written book, a netherite ingot, and a shulker shell (Master orb, 10,000 Essentia Vitae).");
         add("jei.neovitae.upgrade_tome.elytra.info", "Grants elytra-style gliding from the chestplate.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.curios_socket.info", "Adds Curios accessory sockets to your Sentient set (requires the Curios mod).\n\nNot trained through activity; apply the tome directly to a worn Sentient set.\n\nInscribe this tome in the Tabula Vitae from a written book, a shulker shell, an ender pearl, and a gold ingot (Tier 3, 5,000 Essentia Vitae).");
@@ -1594,6 +1609,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.configurator.mining.silk_touch", "Silk Touch");
         add("gui.neovitae.configurator.mining.fortune", "Fortune III");
         addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
+        addRitual("hellforging", "Ritual of Hellforging", "Throw a piece of Sentient Armor, a Sentient tool or the Lex Vitae onto the circle with a Prismatic Spiritus Gem and a Hellforged Ingot to Hellforge it. A chestplate must first hold 600 Upgrade Points.");
+        add("ritual.neovitae.hellforging.hellforgingRange.info", "The area where the item, gem and ingot are thrown.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; each activation adds 100 Upgrade Points of capacity, up to a maximum of 500.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("celerity", "Ritual of Celerity", "Doubles the working speed of every Athanor, Hellfire Forge, Tabula Vitae and Sanguine Crafter in range. Each machine still costs what it always does per craft; the ritual draws its EV for every machine that is working.");
@@ -1643,6 +1660,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("effect.neovitae.soft_fall", "Soft Fall");
         add("effect.neovitae.obsidian_cloak", "Obsidian Cloak");
         add("effect.neovitae.hard_cloak", "Hard Cloak");
+        add("effect.neovitae.anima_severance", "Anima Severance");
 
         // Imperfect Rituals
         add("ritual.neovitae.imperfect.night", "Turn Day to Night");

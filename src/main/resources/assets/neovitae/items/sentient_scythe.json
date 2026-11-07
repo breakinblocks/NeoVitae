@@ -15,41 +15,71 @@
               "when": "ruina",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_scythe_ruina"
+                "model": "neovitae:item/variant/sentient_scythe_ruina",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "nihilum",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_scythe_nihilum"
+                "model": "neovitae:item/variant/sentient_scythe_nihilum",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "invictus",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_scythe_invictus"
+                "model": "neovitae:item/variant/sentient_scythe_invictus",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "vindicta",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_scythe_vindicta"
+                "model": "neovitae:item/variant/sentient_scythe_vindicta",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             }
           ],
           "fallback": {
             "type": "minecraft:model",
-            "model": "neovitae:item/variant/sentient_scythe_activated"
+            "model": "neovitae:item/variant/sentient_scythe_activated",
+            "tints": [
+              {
+                "type": "neovitae:hellforged"
+              }
+            ]
           }
         }
       }
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "neovitae:item/variant/sentient_scythe_deactivated"
+      "model": "neovitae:item/variant/sentient_scythe_deactivated",
+      "tints": [
+        {
+          "type": "neovitae:hellforged"
+        }
+      ]
     }
   }
 }

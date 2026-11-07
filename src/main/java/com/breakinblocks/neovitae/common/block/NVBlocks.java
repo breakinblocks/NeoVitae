@@ -196,16 +196,12 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<BlockShapedExplosive, BlockItem> SHAPED_CHARGE = BLOCK_REG.register("shaped_charge", props -> new BlockShapedExplosive(3, props), charge_properties_src());
     public static final BlockWithItemHolder<BlockShapedExplosive, BlockItem> AUG_SHAPED_CHARGE = BLOCK_REG.register("aug_shaped_charge", props -> new BlockShapedExplosive(5, props), charge_properties_src());
-    public static final BlockWithItemHolder<BlockShapedExplosiveDeep, BlockItem> SHAPED_CHARGE_DEEP = BLOCK_REG.register("shaped_charge_deep", props -> new BlockShapedExplosiveDeep(3, props), charge_properties_src());
 
-    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE = BLOCK_REG.register("deforester_charge", props -> new BlockDeforesterCharge(128, props), charge_properties_src());
-    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE_2 = BLOCK_REG.register("deforester_charge_2", props -> new BlockDeforesterCharge(256, props), charge_properties_src());
+    public static final BlockWithItemHolder<BlockDeforesterCharge, BlockItem> DEFORESTER_CHARGE = BLOCK_REG.register("deforester_charge", props -> new BlockDeforesterCharge(256, props), charge_properties_src());
 
-    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE = BLOCK_REG.register("veinmine_charge", props -> new BlockVeinMineCharge(128, props), charge_properties_src());
-    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE_2 = BLOCK_REG.register("veinmine_charge_2", props -> new BlockVeinMineCharge(256, props), charge_properties_src());
+    public static final BlockWithItemHolder<BlockVeinMineCharge, BlockItem> VEINMINE_CHARGE = BLOCK_REG.register("veinmine_charge", props -> new BlockVeinMineCharge(256, props), charge_properties_src());
 
-    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE = BLOCK_REG.register("fungal_charge", props -> new BlockFungalCharge(128, props), charge_properties_src());
-    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE_2 = BLOCK_REG.register("fungal_charge_2", props -> new BlockFungalCharge(256, props), charge_properties_src());
+    public static final BlockWithItemHolder<BlockFungalCharge, BlockItem> FUNGAL_CHARGE = BLOCK_REG.register("fungal_charge", props -> new BlockFungalCharge(256, props), charge_properties_src());
 
     private static BlockBehaviour.Properties mimic_properties_src() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.0F, 5.0F).sound(SoundType.STONE).noOcclusion();

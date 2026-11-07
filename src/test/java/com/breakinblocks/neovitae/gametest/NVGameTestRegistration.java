@@ -66,6 +66,10 @@ public class NVGameTestRegistration {
         BurdenGroundingTests.register(r);
         DeusToolTests.register(r);
         DeusRitualTests.register(r);
+        HellforgingTests.register(r);
+        DeusSanguinisTests.register(r);
+        ChargeAliasTests.register(r);
+        TrainingBraceletTests.register(r);
         EnderSeverArrayTests.register(r);
         SentientScytheEnchantTests.register(r);
         SentientSpearTests.register(r);

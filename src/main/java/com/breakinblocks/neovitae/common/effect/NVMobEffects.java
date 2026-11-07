@@ -80,6 +80,9 @@ public class NVMobEffects {
                 return effect;
             });
 
+    public static final DeferredHolder<MobEffect, MobEffect> ANIMA_SEVERANCE =
+            MOB_EFFECTS.register("anima_severance", () -> new AnimaSeveranceEffect(MobEffectCategory.HARMFUL, 0x5A0010));
+
     public static void register(IEventBus modBus) {
         MOB_EFFECTS.register(modBus);
     }

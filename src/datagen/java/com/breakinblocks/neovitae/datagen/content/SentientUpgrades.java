@@ -71,6 +71,7 @@ public class SentientUpgrades {
     public static final ResourceKey<SentientUpgrade> SPEED = key("speed");
     public static final ResourceKey<SentientUpgrade> SPRINT_ATTACK = key("sprint_attack");
     public static final ResourceKey<SentientUpgrade> UNBOUNDED_FLIGHT = key("unbounded_flight");
+    public static final ResourceKey<SentientUpgrade> DEUS_SANGUINIS = key("deus_sanguinis");
 
     public static final ResourceKey<SentientUpgrade> LUCK = key("luck");
 
@@ -491,6 +492,23 @@ public class SentientUpgrades {
                         .withEffect(SentientEffectComponents.UNBOUNDED_FLIGHT.get())
                         .build()
         );
+        context.register(
+                DEUS_SANGUINIS,
+                new SentientUpgrade.Builder()
+                        .level(1, 10)
+                        .level(180, 25)
+                        .level(360, 45)
+                        .level(600, 65)
+                        .level(900, 85)
+                        .level(1260, 105)
+                        .level(1680, 130)
+                        .level(2160, 155)
+                        .level(2700, 175)
+                        .level(3300, 200)
+                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(DEUS_SANGUINIS.identifier(), NVAttributes.BLOOD_SIPHON, Operation.ADD_VALUE, LevelBasedValue.perLevel(10f)))
+                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(DEUS_SANGUINIS.identifier(), NVAttributes.BLOOD_SHIELD, Operation.ADD_VALUE, LevelBasedValue.perLevel(10f)))
+                        .build()
+        );
 
         context.register(
                 LUCK, // Added to chests/mines/decent_loot.json loot table
@@ -653,10 +671,14 @@ public class SentientUpgrades {
             QUENCHED,         // Quenched
             STORM_TROOPER     // Storm Trooper
     );
+    private static final List<ResourceKey<SentientUpgrade>> TOME_ONLY = List.of(
+            ELYTRA, NETHERITE_PROTECT, GILDED, LUCK, CURIOS_SOCKET, UNBOUNDED_FLIGHT);
+
     private static final List<ResourceKey<SentientUpgrade>> upgrades = List.of(
             AQUATIC_AGILITY, GILLS, LAVA_STRIDER,
             KNOCKBACK_RESIST,  // Body Builder
             SPRINT_ATTACK,     // Charging Strike
+            DEUS_SANGUINIS,    // Deus Sanguinis
             DIGGING,           // Dwarven Might
             ELYTRA,            // Elytra
             EXPERIENCED,       // Experienced
@@ -699,6 +721,12 @@ public class SentientUpgrades {
 
         adder.apply(NVTags.Sentient.REQUIRES_FULL_EVOLUTION)
                 .add(UNBOUNDED_FLIGHT);
+
+        adder.apply(NVTags.Sentient.REQUIRES_HELLFORGED)
+                .add(DEUS_SANGUINIS);
+
+        adder.apply(NVTags.Sentient.TRAINABLE)
+                .addAll(upgrades.stream().filter(key -> !TOME_ONLY.contains(key)).toList());
     }
 
     public static void translations(BiConsumer<String, String> translator) {
@@ -740,6 +768,8 @@ public class SentientUpgrades {
         addUpgrade(CURIOS_SOCKET.identifier(), "Curios Sockets", translator);
         translator.accept("sentient_upgrade.%s.%s".formatted(UNBOUNDED_FLIGHT.identifier().getNamespace(), UNBOUNDED_FLIGHT.identifier().getPath()), "Unbounded Flight");
         translator.accept("item.%s.upgrade_tome.%s".formatted(UNBOUNDED_FLIGHT.identifier().getNamespace(), UNBOUNDED_FLIGHT.identifier().getPath()), "Tome of Unbounded Flight");
+        translator.accept("sentient_upgrade.%s.%s".formatted(DEUS_SANGUINIS.identifier().getNamespace(), DEUS_SANGUINIS.identifier().getPath()), "Deus Sanguinis");
+        translator.accept("item.%s.upgrade_tome.%s".formatted(DEUS_SANGUINIS.identifier().getNamespace(), DEUS_SANGUINIS.identifier().getPath()), "Tome of Deus Sanguinis");
     }
 
     private static void addUpgrade(Identifier key, String translated, BiConsumer<String, String> translator) {

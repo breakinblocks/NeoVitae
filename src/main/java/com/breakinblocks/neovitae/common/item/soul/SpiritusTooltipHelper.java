@@ -40,7 +40,7 @@ public final class SpiritusTooltipHelper {
             return;
         }
 
-        int level = ClientSpiritusTooltipHelper.appendLevelLine(type, tooltip);
+        int level = ClientSpiritusTooltipHelper.appendLevelLine(stack, type, tooltip);
 
         double damageBonus = SentientToolHelper.getDamageBonus(stack);
         if (damageBonus > 0) {
@@ -49,7 +49,7 @@ public final class SpiritusTooltipHelper {
         }
 
         if (isMiningTool(tooltipKey) && level >= 0) {
-            double digSpeed = SentientToolHelper.DEFAULT_DIG_SPEED_ADDED[level];
+            double digSpeed = SentientToolHelper.getDigSpeedBonus(stack);
             tooltip.accept(Component.translatable("tooltip.neovitae.spiritus.mining_speed",
                     String.format(Locale.ROOT, "%.1f", digSpeed)).withStyle(ChatFormatting.GRAY));
         }

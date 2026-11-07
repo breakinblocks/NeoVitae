@@ -135,8 +135,7 @@ public class GettingStartedEntry extends EntryProvider {
                 + "If you would rather [#](2E8B57)keep[#]() what you have built, the "
                 + "[#](4A0080)Sentient Extraction[#]() ritual extracts the upgrades from a thrown armor piece "
                 + "as [#](8B0000)Upgrade Tomes[#](), preserving every drop of accumulated experience. The tomes "
-                + "can then be copied into a [#](8B0000)Training Bracelet[#]() or re-inscribed onto a fresh "
-                + "chestplate.");
+                + "can then be re-inscribed onto a fresh chestplate.");
 
         this.page("tier4_armour3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

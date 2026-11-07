@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    "neovitae:prismatic_spiritus_gem",
+    "neovitae:hellforged_block",
+    "neovitae:tabula_aetherea",
+    "minecraft:nether_star",
+    "minecraft:netherite_block",
+    "minecraft:totem_of_undying"
+  ],
+  "output": {
+    "components": {
+      "neovitae:upgrade_tome_data": {
+        "exp": 1.0,
+        "upgrade": "neovitae:deus_sanguinis"
+      }
+    },
+    "id": "neovitae:upgrade_tome"
+  },
+  "syphon": 1000000,
+  "ticks": 200,
+  "upgradeLevel": 6
+}

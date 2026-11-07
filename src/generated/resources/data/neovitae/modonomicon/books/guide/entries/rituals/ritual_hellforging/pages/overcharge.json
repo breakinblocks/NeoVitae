@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "overcharge",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.rituals.ritual_hellforging.overcharge.text",
+  "title": "book.neovitae.guide.rituals.ritual_hellforging.overcharge.title"
+}

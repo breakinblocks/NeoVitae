@@ -1,6 +1,11 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "neovitae:item/sentient_plate"
+    "model": "neovitae:item/sentient_plate",
+    "tints": [
+      {
+        "type": "neovitae:hellforged"
+      }
+    ]
   }
 }

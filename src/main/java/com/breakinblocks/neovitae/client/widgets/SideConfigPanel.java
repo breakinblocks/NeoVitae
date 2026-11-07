@@ -2,14 +2,21 @@ package com.breakinblocks.neovitae.client.widgets;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import com.breakinblocks.neovitae.common.network.PasteSideConfigPayload;
 import com.breakinblocks.neovitae.common.network.SetOutputFacePayload;
 import com.breakinblocks.neovitae.common.network.SetSideConfigPayload;
 import com.breakinblocks.neovitae.common.sideconfig.OutputFaceConfigurable;
@@ -26,7 +33,15 @@ import java.util.function.IntSupplier;
 
 public class SideConfigPanel {
 
+    private static final SystemToast.SystemToastId CLIPBOARD_TOAST = new SystemToast.SystemToastId(2000L);
+
+    private record Clipboard(BlockEntityType<?> type, byte[] mask, int face) {}
+
+    @Nullable
+    private static Clipboard clipboard;
+
     private final Map<Direction, SideToggleButton> buttons = new EnumMap<>(Direction.class);
+    private final BlockEntity tile;
     private final BlockPos pos;
     private final SlotSideConfig config;
     private final IntSupplier activeSlot;
@@ -35,9 +50,10 @@ public class SideConfigPanel {
     @Nullable
     private final OutputFaceConfigurable pushTarget;
 
-    public SideConfigPanel(BlockPos pos, SlotSideConfig config, IntSupplier activeSlot, IntFunction<Component> slotName,
+    public SideConfigPanel(BlockEntity tile, SlotSideConfig config, IntSupplier activeSlot, IntFunction<Component> slotName,
                            int pushSlot, @Nullable OutputFaceConfigurable pushTarget) {
-        this.pos = pos;
+        this.tile = tile;
+        this.pos = tile.getBlockPos();
         this.config = config;
         this.activeSlot = activeSlot;
         this.slotName = slotName;
@@ -103,6 +119,68 @@ public class SideConfigPanel {
         return false;
     }
 
+    public boolean keyPressed(KeyEvent event, @Nullable GuiEventListener focused) {
+        if (focused instanceof EditBox) return false;
+        if (event.isCopy()) {
+            copy();
+            return true;
+        }
+        if (event.isPaste()) {
+            paste();
+            return true;
+        }
+        return false;
+    }
+
+    private void copy() {
+        Direction[] directions = Direction.values();
+        byte[] mask = new byte[config.slotCount() * directions.length];
+        for (int slot = 0; slot < config.slotCount(); slot++) {
+            for (Direction dir : directions) {
+                mask[slot * directions.length + dir.get3DDataValue()] = (byte) (config.isAllowed(slot, dir) ? 1 : 0);
+            }
+        }
+        Direction face = pushTarget == null ? null : pushTarget.getOutputFace();
+        clipboard = new Clipboard(tile.getType(), mask, face == null ? -1 : face.get3DDataValue());
+        notify(Component.translatable("gui.neovitae.side_config.copied", machineName()));
+    }
+
+    private void paste() {
+        Clipboard copied = clipboard;
+        if (copied == null) {
+            notify(Component.translatable("gui.neovitae.side_config.empty"));
+            return;
+        }
+        if (copied.type() != tile.getType() || copied.mask().length != config.slotCount() * Direction.values().length) {
+            notify(Component.translatable("gui.neovitae.side_config.wrong_machine"));
+            return;
+        }
+        Direction[] directions = Direction.values();
+        for (int slot = 0; slot < config.slotCount(); slot++) {
+            for (Direction dir : directions) {
+                config.setAllowed(slot, dir, copied.mask()[slot * directions.length + dir.get3DDataValue()] != 0);
+            }
+        }
+        if (pushTarget != null) {
+            pushTarget.setOutputFace(copied.face() < 0 ? null : Direction.from3DDataValue(copied.face()));
+        }
+        ClientPacketDistributor.sendToServer(new PasteSideConfigPayload(pos, copied.mask(), copied.face()));
+        notify(Component.translatable("gui.neovitae.side_config.pasted", machineName()));
+        refreshTooltips();
+    }
+
+    private Component machineName() {
+        return tile.getBlockState().getBlock().getName();
+    }
+
+    private static void notify(Component message) {
+        Minecraft minecraft = Minecraft.getInstance();
+        SystemToast.addOrUpdate(minecraft.getToastManager(), CLIPBOARD_TOAST, Component.translatable("gui.neovitae.side_config.title"), message);
+        if (minecraft.player != null) {
+            minecraft.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.4f, 1.0f);
+        }
+    }
+
     public void tick() {
         boolean active = activeSlot.getAsInt() >= 0;
         for (SideToggleButton button : buttons.values()) {
@@ -126,6 +204,7 @@ public class SideConfigPanel {
                     ? Component.translatable("gui.neovitae.tabula_vitae.side_allowed").withStyle(ChatFormatting.GREEN)
                     : Component.translatable("gui.neovitae.tabula_vitae.side_blocked").withStyle(ChatFormatting.RED));
             lines.add(Component.translatable("gui.neovitae.tabula_vitae.side_hint").withStyle(ChatFormatting.GRAY));
+            lines.add(Component.translatable("gui.neovitae.side_config.hint").withStyle(ChatFormatting.DARK_GRAY));
             if (pushTarget != null && slot == pushSlot) {
                 lines.add(isPushing(dir)
                         ? Component.translatable("gui.neovitae.side_pushing").withStyle(ChatFormatting.GOLD)

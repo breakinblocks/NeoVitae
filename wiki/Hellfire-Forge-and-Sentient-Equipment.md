@@ -8,7 +8,7 @@ Crafting in the Forge spends the Spiritus stored in the **Spiritus Gem** placed 
 
 ## Side Configuration
 
-Each slot on the Hellfire Forge, the gem slot included, can be exposed to any side of the block for hopper or pipe access. Click an empty slot in the menu and then click the direction buttons that appear; green sides deliver to (or pull from) that slot, red sides are blocked. Out of the box each of the four ingredient slots faces its own horizontal side: top left is south, top right is west, bottom left is north and bottom right is east. The gem slot takes items from the top, and the output slot gives them from the bottom. With the output slot selected, right-click a side button to push finished items out of that side into the neighboring inventory; the pushing side gets a gold border.
+Each slot on the Hellfire Forge, the gem slot included, can be exposed to any side of the block for hopper or pipe access. Click an empty slot in the menu and then click the direction buttons that appear; green sides deliver to (or pull from) that slot, red sides are blocked. Out of the box each of the four ingredient slots faces its own horizontal side: top left is south, top right is west, bottom left is north and bottom right is east. The gem slot takes items from the top, and the output slot gives them from the bottom. With the output slot selected, right-click a side button to push finished items out of that side into the neighboring inventory; the pushing side gets a gold border. Press **Ctrl+C** in a machine's menu to copy all of its side settings, including the push side, then **Ctrl+V** in another machine of the same kind to paste them.
 
 Forge recipes can also be crafted without the block: the **[Sanguine Crafter](Sanguine-Crafter)** runs them many at a time, fueled from its own gem slot. A **[Ritual of Celerity](Rituals#automation-and-resources)** makes nearby Forges work faster.
 
@@ -43,6 +43,22 @@ The success of the Sentient Sword has inspired further experimentation. If a bla
 | Sentient Scythe | A beast of a different nature. Slower and less devastating per blow than the sword, but its sweeping arc delivers full damage to every creature in reach; ideal for hordes. Still functions as a hoe. |
 | Sentient Spear | Forged from an Iron Spear. Jabs and charges like a Netherite Spear, 0.5 damage weaker before Spiritus is counted. Its damage, Aspect effects and Spiritus harvest grow with the Spiritus you carry, just as the sword's do. *Minecraft 26.1 only.* |
 
+### Overcharge
+
+Hellforged tools (see below) keep growing stronger past **4,000 Spiritus**, where other Sentient tools stop. Every doubling of the Spiritus you carry adds the same amount, so 8,000 adds as much as 4,000 did and 16,000 as much again, up to **32,000**. At that point the bonuses Spiritus grants (damage, attack and movement speed, mining speed, Spiritus drops and the scythe's sweep) are half again their usual peak. The drain per swing rises in step. Hold Shift over a tool to see its current Overcharge.
+
+### Hellforged Tools
+
+The **[Ritual of Hellforging](Rituals#sentient-armor-workings)** upgrades any Sentient tool, and the Lex Vitae, with a **Prismatic Spiritus Gem** and a **Hellforged Ingot**. A Hellforged tool takes on a forged copper tint and:
+
+- mines, drops and lasts like Netherite even with no Spiritus carried (the Lex Vitae already does);
+- deals **30% more damage**;
+- drains **a quarter less Spiritus** per swing;
+- does not burn in fire or lava;
+- keeps growing past 4,000 Spiritus through [Overcharge](#overcharge).
+
+A Hellforged **Lex Vitae** also grows half again as fast and can switch between Fortune and Silk Touch: hold sneak and press the **Lex Vitae: Cycle Mode** key.
+
 ## Sentient Armor
 
 To create **Sentient Equipment**, you require Iron Armor, the **Arcane Scribe Tool**, a **Binding Reagent** (forged in the Tabula Vitae), and at least a **Common Spiritus Gem** charged with sufficient Spiritus. What emerges is no longer mere metal; it is alive, and it learns from you.
@@ -63,7 +79,7 @@ Mining by hand and felling trees one swing at a time is beneath a practitioner o
 
 Each charge can be enhanced by **Anointing** it with certain reagents and a measure of Spiritus:
 
-- **Fortunate** (or Fortunate II for augmented charges): broken blocks yield Fortune loot.
+- **Fortunate** (or Fortunate II for every charge except the basic Shaped Charge): broken blocks yield Fortune loot.
 - **Heated Tool**: broken blocks are smelted on the spot.
 - **Soft Touch**: broken blocks are affected by Silk Touch.
 - **Voiding**: worthless debris is annihilated rather than dropped.
@@ -71,14 +87,10 @@ Each charge can be enhanced by **Anointing** it with certain reagents and a meas
 | Charge | Effect |
 |--------|--------|
 | Shaped Charge | Obliterates a 7x7x7 cube on the face it strikes; drops blocks as though pickaxe-mined. Cuts through Obsidian. |
-| Augmented Shaped Charge | 11x11x11 cube; also accepts **Fortunate II**. |
-| Deep Shaped Charge | Bores a 7x7x9 corridor straight through whatever it strikes. |
-| Deforester Charge | Strike a log or leaf and up to **two stacks** of wood come down with leaves stripped. |
-| Deforester Charge II | Fells up to **8 stacks** of logs, shearing all connecting leaves. |
-| Controlled Charge | Destroys only blocks identical to the block it strikes, seeking outward (up to 3 stacks). |
-| Controlled Charge II | As above, devouring up to 8 stacks. |
-| Fungal Charge | Consumes up to 3 stacks of fungal material (giant mushrooms, Nether fungi). |
-| Fungal Charge II | Annihilates up to 8 stacks of mushroom material in a single detonation. |
+| Augmented Shaped Charge | 11x11x11 cube. |
+| Deforester Charge | Strike a log or leaf and up to **four stacks** of wood come down with leaves stripped. |
+| Controlled Charge | Destroys only blocks identical to the block it strikes, seeking outward (up to four stacks). |
+| Fungal Charge | Consumes up to four stacks of fungal material (giant mushrooms, Nether fungi). |
 
 ## Other Forge Products
 

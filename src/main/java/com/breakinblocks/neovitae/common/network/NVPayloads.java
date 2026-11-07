@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.network;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -12,6 +13,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import com.breakinblocks.neovitae.client.ClientAnimaCache;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.ClipboardClientHelper;
+import com.breakinblocks.neovitae.ClientConfig;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
@@ -38,8 +41,13 @@ import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.menu.SanguineCrafterMenu;
 import com.breakinblocks.neovitae.common.menu.ExperienceTomeMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
+import com.breakinblocks.neovitae.common.menu.TrainerMenu;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.sideconfig.OutputFaceConfigurable;
 import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
+import com.breakinblocks.neovitae.common.sideconfig.SlotSideConfig;
 import net.minecraft.core.Direction;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
@@ -145,9 +153,21 @@ public class NVPayloads {
         );
 
         registrar.playToClient(
+                SiphonStreamPayload.TYPE,
+                SiphonStreamPayload.STREAM_CODEC,
+                NVPayloads::handleSiphonStreamFX
+        );
+
+        registrar.playToClient(
                 RitualCodePayload.TYPE,
                 RitualCodePayload.STREAM_CODEC,
                 NVPayloads::handleRitualCode
+        );
+
+        registrar.playToServer(
+                SetTrainingCapPayload.TYPE,
+                SetTrainingCapPayload.STREAM_CODEC,
+                NVPayloads::handleSetTrainingCap
         );
 
         registrar.playToServer(
@@ -166,6 +186,12 @@ public class NVPayloads {
                 SetOutputFacePayload.TYPE,
                 SetOutputFacePayload.STREAM_CODEC,
                 NVPayloads::handleSetOutputFace
+        );
+
+        registrar.playToServer(
+                PasteSideConfigPayload.TYPE,
+                PasteSideConfigPayload.STREAM_CODEC,
+                NVPayloads::handlePasteSideConfig
         );
 
         registrar.playToServer(
@@ -225,6 +251,12 @@ public class NVPayloads {
             if (context.player() == null) return;
             ItemStack held = context.player().getMainHandItem();
             if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
+                if (context.player().isShiftKeyDown() && LexVitaeItem.canToggleSilkTouch(held)) {
+                    LexVitaeItem.toggleSilkTouch(held);
+                    context.player().sendOverlayMessage(Component.translatable("message.neovitae.lex_vitae.harvest",
+                            Component.translatable(LexVitaeItem.getHarvestTranslationKey(held))));
+                    return;
+                }
                 LexVitaeItem.cycleMode(held);
                 context.player().sendOverlayMessage(Component.translatable("message.neovitae.lex_vitae.mode",
                         Component.translatable(LexVitaeItem.getModeTranslationKey(held))));
@@ -318,6 +350,43 @@ public class NVPayloads {
         });
     }
 
+    private static void handlePasteSideConfig(PasteSideConfigPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            if (!(player.containerMenu instanceof AbstractBlockEntityMenu<?> menu)) return;
+            BlockEntity be = menu.getTile();
+            if (be == null || !be.getBlockPos().equals(payload.pos())) return;
+            if (!(be instanceof SideConfigurable configurable)) return;
+            SlotSideConfig config = configurable.getSideConfig();
+            Direction[] directions = Direction.values();
+            if (payload.mask().length != config.slotCount() * directions.length) return;
+            if (payload.face() >= directions.length) return;
+            for (int slot = 0; slot < config.slotCount(); slot++) {
+                for (Direction dir : directions) {
+                    config.setAllowed(slot, dir, payload.mask()[slot * directions.length + dir.get3DDataValue()] != 0);
+                }
+            }
+            if (be instanceof OutputFaceConfigurable outputConfigurable) {
+                outputConfigurable.setOutputFace(payload.face() < 0 ? null : Direction.from3DDataValue(payload.face()));
+            }
+            be.setChanged();
+        });
+    }
+
+    private static void handleSetTrainingCap(SetTrainingCapPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (!(player.containerMenu instanceof TrainerMenu)) return;
+            player.level().registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES)
+                    .get(ResourceKey.create(NVRegistries.Keys.SENTIENT_UPGRADES, payload.upgrade()))
+                    .filter(holder -> holder.is(NVTags.Sentient.TRAINABLE))
+                    .ifPresent(holder -> TrainerItem.setCap(player, holder, payload.level()));
+        });
+    }
+
     private static void handleOpenTrainerFromCurio(OpenTrainerFromCurioPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (!(context.player() instanceof ServerPlayer serverPlayer)) return;
@@ -342,6 +411,15 @@ public class NVPayloads {
         context.enqueueWork(() -> {
             StreamManager.getInstance()
                     .addStream(payload.effect());
+        });
+    }
+
+    private static void handleSiphonStreamFX(SiphonStreamPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            ClientConfig.SiphonStreams mode = NeoVitae.CLIENT_CONFIG.BLOOD_SIPHON_STREAMS.get();
+            if (mode == ClientConfig.SiphonStreams.NEVER) return;
+            if (mode == ClientConfig.SiphonStreams.ORB_ONLY && !payload.fromOrb()) return;
+            StreamManager.getInstance().addStream(payload.effect());
         });
     }
 

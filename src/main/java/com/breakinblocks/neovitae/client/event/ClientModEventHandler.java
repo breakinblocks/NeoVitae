@@ -1,5 +1,10 @@
 package com.breakinblocks.neovitae.client.event;
 
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import com.breakinblocks.neovitae.client.color.HellforgedItemColor;
+import com.breakinblocks.neovitae.client.helper.HellforgedTooltipHelper;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.model.sprite.Material;
@@ -58,6 +63,7 @@ import com.breakinblocks.neovitae.client.hud.NVHudElements;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.MaterialItemColor;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
+import com.breakinblocks.neovitae.common.item.soul.HellforgedHelper;
 import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
 import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
 import com.breakinblocks.neovitae.client.screen.MasterRoutingNodeScreen;
@@ -178,6 +184,7 @@ public class ClientModEventHandler {
         event.register(MaterialItemColor.ID, MaterialItemColor.MAP_CODEC);
         event.register(FlaskColor.ID, FlaskColor.MAP_CODEC);
         event.register(TippedDaggerColor.ID, TippedDaggerColor.MAP_CODEC);
+        event.register(HellforgedItemColor.ID, HellforgedItemColor.MAP_CODEC);
     }
 
     @SubscribeEvent
@@ -240,6 +247,12 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         NVFluidClientExtensions.register(event);
+        event.registerItem(new IClientItemExtensions() {
+            @Override
+            public int getArmorLayerTintColor(ItemStack stack, EquipmentClientInfo.Layer layer, int layerIdx, int fallbackColor) {
+                return HellforgedHelper.isHellforged(stack) ? 0xFF000000 | HellforgedTooltipHelper.HELLFORGED_COLOR : 0xFFFFFFFF;
+            }
+        }, NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
     }
 
     @SubscribeEvent

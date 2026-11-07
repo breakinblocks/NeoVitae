@@ -7,6 +7,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.NeoForge;
+import com.breakinblocks.neovitae.api.event.AnimaEvent;
+import com.breakinblocks.neovitae.common.effect.AnimaSeveranceEffect;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.api.soul.SyphonResult;
@@ -77,6 +80,8 @@ public class Anima implements IAnima {
 
     @Override
     public int add(AnimaTicket ticket, int maximum) {
+        if (AnimaSeveranceEffect.isSevered(getPlayerId()))
+            return 0;
         int curr = getCurrentEV();
         if (curr >= maximum)
             return 0;
@@ -98,10 +103,14 @@ public class Anima implements IAnima {
     public int syphon(AnimaTicket ticket) {
         int amount = ticket.getAmount();
         if (amount <= 0) return 0;
+        amount = (int) Math.min(Integer.MAX_VALUE, (long) amount * AnimaSeveranceEffect.upkeepMultiplier(getPlayerId()));
 
         int curr = getCurrentEV();
         int toRemove = Math.min(curr, amount);
         setCurrentEV(curr - toRemove);
+        if (toRemove > 0) {
+            NeoForge.EVENT_BUS.post(new AnimaEvent.PostSyphon(this, ticket, toRemove));
+        }
         return toRemove;
     }
 

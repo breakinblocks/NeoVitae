@@ -79,6 +79,9 @@ public class NVTags {
 
         public static final TagKey<Item> SENTIENT_UPGRADE_SET = tag(bm("sentient_upgrade_set"));
         public static final TagKey<Item> SENTIENT_SET = withParent(SENTIENT_UPGRADE_SET, NVMaterialsAndTiers.SENTIENT_EQUIPMENT_ASSET.identifier());
+        public static final TagKey<Item> HELLFORGEABLE = tag(bm("hellforgeable"));
+        public static final TagKey<Item> HELLFORGING_GEM = tag(bm("hellforging/gem"));
+        public static final TagKey<Item> HELLFORGING_METAL = tag(bm("hellforging/metal"));
 
         public static final TagKey<Item> FRAGMENTS_IRON = tag(c("fragments/iron"));
         public static final TagKey<Item> FRAGMENTS_GOLD = tag(c("fragments/gold"));
@@ -228,9 +231,11 @@ public class NVTags {
         public static final TagKey<SentientUpgrade> IS_DOWNGRADE = tag(bm("is_downgrade"));
         public static final TagKey<SentientUpgrade> SENTIENT_START = tag(bm("sentient_start"));
         public static final TagKey<SentientUpgrade> TRAINERS = tag(bm("trainer"));
+        public static final TagKey<SentientUpgrade> TRAINABLE = tag(bm("trainable"));
         public static final TagKey<SentientUpgrade> IS_SCRAPPABLE = tag(bm("is_scrappable"));
         public static final TagKey<SentientUpgrade> SENTIENT_BLACKLIST = tag(bm("sentient_blacklist"));
         public static final TagKey<SentientUpgrade> REQUIRES_FULL_EVOLUTION = tag(bm("requires_full_evolution"));
+        public static final TagKey<SentientUpgrade> REQUIRES_HELLFORGED = tag(bm("requires_hellforged"));
 
         private static TagKey<SentientUpgrade> tag(Identifier id) {
             return TagKey.create(NVRegistries.Keys.SENTIENT_UPGRADES, id);

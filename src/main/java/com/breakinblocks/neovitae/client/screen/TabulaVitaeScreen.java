@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -36,7 +37,7 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
     protected void init() {
         super.init();
         TabulaVitaeBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeSlot,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeSlot,
                 TabulaVitaeScreen::slotName, TabulaVitaeBlockEntity.OUTPUT_SLOT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 133, topPos + 50);
     }
@@ -120,6 +121,14 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
         int px = leftPos + 106;
         int py = topPos + 14;
         return mouseX >= px && mouseX < px + 18 && mouseY >= py && mouseY < py + 90;
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (sidePanel.keyPressed(event, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

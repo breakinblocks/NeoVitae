@@ -30,6 +30,7 @@ import com.breakinblocks.neovitae.common.block.IEnchantmentAmplifier;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
+import com.breakinblocks.neovitae.client.helper.HellforgedTooltipHelper;
 import com.breakinblocks.neovitae.client.GuideQuickOpen;
 import com.breakinblocks.neovitae.client.hud.GuiEditHUD;
 import com.breakinblocks.neovitae.client.render.NVFluidClientExtensions;
@@ -154,6 +155,7 @@ public class ClientEventHandler {
         TooltipFlag flags = event.getFlags();
         List<Component> toAdd = new ArrayList<>();
 
+        HellforgedTooltipHelper.append(stack, toAdd);
         addToTooltip(NVDataComponents.BINDING.get(), context, toAdd::add, flags, stack);
         int max = stack.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
         if (max > 0) {

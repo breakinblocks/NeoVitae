@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -39,7 +40,7 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
     protected void init() {
         super.init();
         HellfireForgeBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeSlot,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeSlot,
                 HellfireForgeScreen::slotName, HellfireForgeBlockEntity.OUTPUT_SLOT, tile);
         sidePanel.create(this::addRenderableWidget, leftPos + 133, topPos + 50);
     }
@@ -133,6 +134,14 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
         int px = leftPos + PROGRESS_X;
         int py = topPos + PROGRESS_Y;
         return mouseX >= px && mouseX < px + 18 && mouseY >= py && mouseY < py + 90;
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (sidePanel.keyPressed(event, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

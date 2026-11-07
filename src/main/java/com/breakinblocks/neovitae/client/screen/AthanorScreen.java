@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -73,7 +74,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         this.outputX = leftPos + 152;
         this.outputY = topPos + 18;
         AthanorBlockEntity tile = menu.tile;
-        sidePanel = new SideConfigPanel(tile.getBlockPos(), tile.getSideConfig(), () -> tile.activeGroup,
+        sidePanel = new SideConfigPanel(tile, tile.getSideConfig(), () -> tile.activeGroup,
                 AthanorScreen::groupName, AthanorBlockEntity.GROUP_OUTPUT, tile);
         sidePanel.create(this::addRenderableWidget, sidePanelX() + 4, sidePanelY() + 4);
     }
@@ -257,6 +258,14 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         int ax = leftPos + 63;
         int ay = topPos + 51;
         return mouseX >= ax && mouseX < ax + 38 && mouseY >= ay && mouseY < ay + 23;
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (sidePanel.keyPressed(event, getFocused())) {
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

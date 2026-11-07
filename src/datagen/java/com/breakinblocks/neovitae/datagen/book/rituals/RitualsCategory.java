@@ -30,7 +30,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__y_z_1_2_3________",
                 "__4_5_6_7_9_P______",
                 "___________________",
-                "__Q________________"
+                "__Q_H______________"
         };
     }
 
@@ -251,6 +251,11 @@ public class RitualsCategory extends CategoryProvider {
         deusRituals.withParent(this.parent(crystals));
         deusRituals.withCondition(this.condition().entryViewedOnce(crystals));
         deusRituals.hideWhileLocked(false);
+
+        var hellforging = this.add(new RitualHellforgingEntry(this).generate('H'));
+        hellforging.withParent(this.parent(deusRituals));
+        hellforging.withCondition(this.condition().entryViewedOnce(crystals));
+        hellforging.hideWhileLocked(false);
 
         var anchor = this.add(new RitualAnchorEntry(this).generate('A'));
         anchor.withParent(this.parent(tinkerer));

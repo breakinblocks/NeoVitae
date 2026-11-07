@@ -532,11 +532,58 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
 
     @Nullable
     private Plan planAuto(ServerLevel level) {
-        List<Consume> consumes = bufferConsumes();
-        if (consumes.isEmpty()) {
+        List<Consume> slots = bufferConsumes();
+        if (slots.isEmpty()) {
             status = Status.IDLE;
             return null;
         }
+        Plan plan = planAutoFor(level, slots);
+        if (plan != null || slots.size() >= TabulaVitaeRecipe.MAX_INPUTS) return plan;
+        Status reason = status;
+        int[] caps = new int[slots.size()];
+        boolean stacked = false;
+        for (int i = 0; i < caps.length; i++) {
+            Consume c = slots.get(i);
+            caps[i] = c.cuttingFluid() ? 1 : Math.min(inv.getStackInSlot(c.slot()).getCount(), TabulaVitaeRecipe.MAX_INPUTS);
+            if (caps[i] > 1) stacked = true;
+        }
+        if (!stacked) return null;
+        for (int total = slots.size() + 1; total <= TabulaVitaeRecipe.MAX_INPUTS; total++) {
+            for (int[] counts : distributions(caps, total)) {
+                List<Consume> consumes = new ArrayList<>(total);
+                for (int i = 0; i < counts.length; i++) {
+                    for (int n = 0; n < counts[i]; n++) consumes.add(slots.get(i));
+                }
+                plan = planAutoFor(level, consumes);
+                if (plan != null) return plan;
+                if (reason == Status.NO_RECIPE) reason = status;
+            }
+        }
+        status = reason;
+        return null;
+    }
+
+    private static List<int[]> distributions(int[] caps, int total) {
+        List<int[]> out = new ArrayList<>();
+        distribute(caps, 0, total, new int[caps.length], out);
+        return out;
+    }
+
+    private static void distribute(int[] caps, int index, int left, int[] current, List<int[]> out) {
+        int remainingSlots = caps.length - index;
+        if (remainingSlots == 0) {
+            if (left == 0) out.add(current.clone());
+            return;
+        }
+        int maxHere = Math.min(caps[index], left - (remainingSlots - 1));
+        for (int n = 1; n <= maxHere; n++) {
+            current[index] = n;
+            distribute(caps, index + 1, left - n, current, out);
+        }
+    }
+
+    @Nullable
+    private Plan planAutoFor(ServerLevel level, List<Consume> consumes) {
         Status forgeStatus = null;
         if (consumes.size() <= 4) {
             Plan plan = planForge(level, consumes);

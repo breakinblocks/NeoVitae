@@ -32,13 +32,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/base_ruina"
+                            "model": "neovitae:item/lex_vitae/base_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/base_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -57,13 +67,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/pickaxe_ruina"
+                            "model": "neovitae:item/lex_vitae/pickaxe_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/pickaxe_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/pickaxe_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -82,13 +102,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/axe_ruina"
+                            "model": "neovitae:item/lex_vitae/axe_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/axe_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/axe_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -107,13 +137,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/shovel_ruina"
+                            "model": "neovitae:item/lex_vitae/shovel_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/shovel_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/shovel_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -132,13 +172,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/hoe_ruina"
+                            "model": "neovitae:item/lex_vitae/hoe_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/hoe_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/hoe_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -157,13 +207,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/sword_ruina"
+                            "model": "neovitae:item/lex_vitae/sword_ruina",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/sword_ruina_in_hand"
+                        "model": "neovitae:item/lex_vitae/sword_ruina_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   }
@@ -181,13 +241,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_ruina"
+                        "model": "neovitae:item/lex_vitae/base_ruina",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_ruina_in_hand"
+                    "model": "neovitae:item/lex_vitae/base_ruina_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               }
@@ -213,13 +283,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/base_nihilum"
+                            "model": "neovitae:item/lex_vitae/base_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/base_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -238,13 +318,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/pickaxe_nihilum"
+                            "model": "neovitae:item/lex_vitae/pickaxe_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/pickaxe_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/pickaxe_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -263,13 +353,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/axe_nihilum"
+                            "model": "neovitae:item/lex_vitae/axe_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/axe_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/axe_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -288,13 +388,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/shovel_nihilum"
+                            "model": "neovitae:item/lex_vitae/shovel_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/shovel_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/shovel_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -313,13 +423,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/hoe_nihilum"
+                            "model": "neovitae:item/lex_vitae/hoe_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/hoe_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/hoe_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -338,13 +458,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/sword_nihilum"
+                            "model": "neovitae:item/lex_vitae/sword_nihilum",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/sword_nihilum_in_hand"
+                        "model": "neovitae:item/lex_vitae/sword_nihilum_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   }
@@ -362,13 +492,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_nihilum"
+                        "model": "neovitae:item/lex_vitae/base_nihilum",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_nihilum_in_hand"
+                    "model": "neovitae:item/lex_vitae/base_nihilum_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               }
@@ -394,13 +534,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/base_invictus"
+                            "model": "neovitae:item/lex_vitae/base_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/base_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -419,13 +569,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/pickaxe_invictus"
+                            "model": "neovitae:item/lex_vitae/pickaxe_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/pickaxe_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/pickaxe_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -444,13 +604,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/axe_invictus"
+                            "model": "neovitae:item/lex_vitae/axe_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/axe_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/axe_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -469,13 +639,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/shovel_invictus"
+                            "model": "neovitae:item/lex_vitae/shovel_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/shovel_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/shovel_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -494,13 +674,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/hoe_invictus"
+                            "model": "neovitae:item/lex_vitae/hoe_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/hoe_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/hoe_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -519,13 +709,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/sword_invictus"
+                            "model": "neovitae:item/lex_vitae/sword_invictus",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/sword_invictus_in_hand"
+                        "model": "neovitae:item/lex_vitae/sword_invictus_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   }
@@ -543,13 +743,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_invictus"
+                        "model": "neovitae:item/lex_vitae/base_invictus",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_invictus_in_hand"
+                    "model": "neovitae:item/lex_vitae/base_invictus_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               }
@@ -575,13 +785,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/base_vindicta"
+                            "model": "neovitae:item/lex_vitae/base_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/base_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -600,13 +820,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/pickaxe_vindicta"
+                            "model": "neovitae:item/lex_vitae/pickaxe_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/pickaxe_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/pickaxe_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -625,13 +855,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/axe_vindicta"
+                            "model": "neovitae:item/lex_vitae/axe_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/axe_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/axe_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -650,13 +890,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/shovel_vindicta"
+                            "model": "neovitae:item/lex_vitae/shovel_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/shovel_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/shovel_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -675,13 +925,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/hoe_vindicta"
+                            "model": "neovitae:item/lex_vitae/hoe_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/hoe_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/hoe_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   },
@@ -700,13 +960,23 @@
                           ],
                           "model": {
                             "type": "minecraft:model",
-                            "model": "neovitae:item/lex_vitae/sword_vindicta"
+                            "model": "neovitae:item/lex_vitae/sword_vindicta",
+                            "tints": [
+                              {
+                                "type": "neovitae:hellforged"
+                              }
+                            ]
                           }
                         }
                       ],
                       "fallback": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/sword_vindicta_in_hand"
+                        "model": "neovitae:item/lex_vitae/sword_vindicta_in_hand",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   }
@@ -724,13 +994,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_vindicta"
+                        "model": "neovitae:item/lex_vitae/base_vindicta",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_vindicta_in_hand"
+                    "model": "neovitae:item/lex_vitae/base_vindicta_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               }
@@ -755,13 +1035,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/base_raw"
+                        "model": "neovitae:item/lex_vitae/base_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/base_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               },
@@ -780,13 +1070,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/pickaxe_raw"
+                        "model": "neovitae:item/lex_vitae/pickaxe_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/pickaxe_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/pickaxe_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               },
@@ -805,13 +1105,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/axe_raw"
+                        "model": "neovitae:item/lex_vitae/axe_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/axe_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/axe_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               },
@@ -830,13 +1140,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/shovel_raw"
+                        "model": "neovitae:item/lex_vitae/shovel_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/shovel_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/shovel_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               },
@@ -855,13 +1175,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/hoe_raw"
+                        "model": "neovitae:item/lex_vitae/hoe_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/hoe_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/hoe_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               },
@@ -880,13 +1210,23 @@
                       ],
                       "model": {
                         "type": "minecraft:model",
-                        "model": "neovitae:item/lex_vitae/sword_raw"
+                        "model": "neovitae:item/lex_vitae/sword_raw",
+                        "tints": [
+                          {
+                            "type": "neovitae:hellforged"
+                          }
+                        ]
                       }
                     }
                   ],
                   "fallback": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/sword_raw_in_hand"
+                    "model": "neovitae:item/lex_vitae/sword_raw_in_hand",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               }
@@ -904,13 +1244,23 @@
                   ],
                   "model": {
                     "type": "minecraft:model",
-                    "model": "neovitae:item/lex_vitae/base_raw"
+                    "model": "neovitae:item/lex_vitae/base_raw",
+                    "tints": [
+                      {
+                        "type": "neovitae:hellforged"
+                      }
+                    ]
                   }
                 }
               ],
               "fallback": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/lex_vitae/base_raw_in_hand"
+                "model": "neovitae:item/lex_vitae/base_raw_in_hand",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             }
           }
@@ -930,13 +1280,23 @@
           ],
           "model": {
             "type": "minecraft:model",
-            "model": "neovitae:item/lex_vitae/base_dormant"
+            "model": "neovitae:item/lex_vitae/base_dormant",
+            "tints": [
+              {
+                "type": "neovitae:hellforged"
+              }
+            ]
           }
         }
       ],
       "fallback": {
         "type": "minecraft:model",
-        "model": "neovitae:item/lex_vitae/base_dormant_in_hand"
+        "model": "neovitae:item/lex_vitae/base_dormant_in_hand",
+        "tints": [
+          {
+            "type": "neovitae:hellforged"
+          }
+        ]
       }
     }
   }

@@ -15,41 +15,71 @@
               "when": "ruina",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_sword_ruina"
+                "model": "neovitae:item/variant/sentient_sword_ruina",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "nihilum",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_sword_nihilum"
+                "model": "neovitae:item/variant/sentient_sword_nihilum",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "invictus",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_sword_invictus"
+                "model": "neovitae:item/variant/sentient_sword_invictus",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "vindicta",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_sword_vindicta"
+                "model": "neovitae:item/variant/sentient_sword_vindicta",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             }
           ],
           "fallback": {
             "type": "minecraft:model",
-            "model": "neovitae:item/variant/sentient_sword_activated"
+            "model": "neovitae:item/variant/sentient_sword_activated",
+            "tints": [
+              {
+                "type": "neovitae:hellforged"
+              }
+            ]
           }
         }
       }
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "neovitae:item/variant/sentient_sword_deactivated"
+      "model": "neovitae:item/variant/sentient_sword_deactivated",
+      "tints": [
+        {
+          "type": "neovitae:hellforged"
+        }
+      ]
     }
   }
 }

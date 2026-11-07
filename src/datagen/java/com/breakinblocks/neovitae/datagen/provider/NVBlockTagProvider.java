@@ -131,13 +131,9 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 // Explosive charges
                 .add(NVBlocks.SHAPED_CHARGE.block().get())
                 .add(NVBlocks.AUG_SHAPED_CHARGE.block().get())
-                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().get())
                 .add(NVBlocks.DEFORESTER_CHARGE.block().get())
-                .add(NVBlocks.DEFORESTER_CHARGE_2.block().get())
                 .add(NVBlocks.VEINMINE_CHARGE.block().get())
-                .add(NVBlocks.VEINMINE_CHARGE_2.block().get())
-                .add(NVBlocks.FUNGAL_CHARGE.block().get())
-                .add(NVBlocks.FUNGAL_CHARGE_2.block().get());
+                .add(NVBlocks.FUNGAL_CHARGE.block().get());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(NVBlocks.ARA_VITAE.block().get(), NVBlocks.BLOOD_TANK.block().get())
@@ -175,13 +171,9 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 // Explosive charges
                 .add(NVBlocks.SHAPED_CHARGE.block().get())
                 .add(NVBlocks.AUG_SHAPED_CHARGE.block().get())
-                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().get())
                 .add(NVBlocks.DEFORESTER_CHARGE.block().get())
-                .add(NVBlocks.DEFORESTER_CHARGE_2.block().get())
                 .add(NVBlocks.VEINMINE_CHARGE.block().get())
-                .add(NVBlocks.VEINMINE_CHARGE_2.block().get())
-                .add(NVBlocks.FUNGAL_CHARGE.block().get())
-                .add(NVBlocks.FUNGAL_CHARGE_2.block().get());
+                .add(NVBlocks.FUNGAL_CHARGE.block().get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addAll(BlockGroups.BLOODSTONE)

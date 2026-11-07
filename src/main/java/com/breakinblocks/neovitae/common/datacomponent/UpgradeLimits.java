@@ -2,23 +2,11 @@ package com.breakinblocks.neovitae.common.datacomponent;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.item.NVItems;
+import net.minecraft.util.Mth;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
-import com.breakinblocks.neovitae.common.menu.GhostItemHandler;
-import com.breakinblocks.neovitae.common.menu.TrainerMenu;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
 
 public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<SentientUpgrade>> limits) {
     public static final Codec<UpgradeLimits> CODEC = RecordCodecBuilder.create(builder -> builder.group(
@@ -33,21 +21,30 @@ public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<
         return limits.getOrDefault(upgrade, def);
     }
 
-    public List<Pair<Integer, Integer>> fillData(GhostItemHandler handler) {
-        int index = 0;
-        List<Pair<Integer, Integer>> start = new ArrayList<>();
-        start.add(Pair.of(1, allowOthers ? TrainerMenu.ALLOW : TrainerMenu.DENY));
-        for (Map.Entry<Holder<SentientUpgrade>, Float> entry: limits.object2FloatEntrySet()) {
-            if (!(index < handler.getSlots())) {
-                break;
-            }
-            ItemStack tomeStack = new ItemStack(NVItems.UPGRADE_TOME);
-            tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(entry.getKey(), entry.getValue()));
-            int level = SentientHelper.getLevelFromXp(entry.getKey(), entry.getValue());
-            start.add(Pair.of(3 + index, level));
-            handler.setStackInSlot(index++, tomeStack);
+    public int capLevel(Holder<SentientUpgrade> upgrade) {
+        int max = SentientHelper.getMaxLevel(upgrade);
+        if (!limits.containsKey(upgrade)) {
+            return allowOthers ? max : 0;
         }
+        return Math.min(max, SentientHelper.getLevelFromXp(upgrade, limits.getFloat(upgrade)));
+    }
 
-        return start;
+    public UpgradeLimits withCap(Holder<SentientUpgrade> upgrade, int level, Iterable<? extends Holder<SentientUpgrade>> trainable) {
+        Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = limits.clone();
+        if (!allowOthers) {
+            for (Holder<SentientUpgrade> other : trainable) {
+                if (!map.containsKey(other)) {
+                    map.put(other, 0f);
+                }
+            }
+        }
+        int max = SentientHelper.getMaxLevel(upgrade);
+        int clamped = Mth.clamp(level, 0, max);
+        if (clamped >= max) {
+            map.removeFloat(upgrade);
+        } else {
+            map.put(upgrade, SentientHelper.getExpForLevel(upgrade, clamped));
+        }
+        return new UpgradeLimits(true, map);
     }
 }

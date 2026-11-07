@@ -1,0 +1,23 @@
+{
+  "values": [
+    "neovitae:aquatic_agility",
+    "neovitae:gills",
+    "neovitae:lava_strider",
+    "neovitae:knockback_resist",
+    "neovitae:sprint_attack",
+    "neovitae:deus_sanguinis",
+    "neovitae:digging",
+    "neovitae:experienced",
+    "neovitae:melee_damage",
+    "neovitae:fire_resist",
+    "neovitae:health",
+    "neovitae:arrow_protect",
+    "neovitae:poison_resist",
+    "neovitae:speed",
+    "neovitae:repair",
+    "neovitae:fall_protect",
+    "neovitae:jump",
+    "neovitae:physical_protect",
+    "neovitae:self_sacrifice"
+  ]
+}

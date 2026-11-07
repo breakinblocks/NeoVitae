@@ -22,7 +22,7 @@ Tomes are the key to deliberate specialisation; focus your training on the abili
 
 ## Training Bracelet
 
-To impose order on the armor's undirected growth, the Vitaemancer wears the **[Training Bracelet](Sigils#training-bracelet)**, a focus inscribed in an Alchemy Array. With a copy of the relevant Tome in hand, you can set a level cap for any upgrade; once the armor reaches that limit it ceases training the skill. Only one bracelet is active at a time (priority: off-hand, Curios, main inventory, then add-ons). To allow all upgrades except one, set the bracelet to 'allow others' mode and cap the unwanted skill at level 0.
+To impose order on the armor's undirected growth, the Vitaemancer wears the **[Training Bracelet](Sigils#training-bracelet)**, a focus inscribed in an Alchemy Array. Using it lists every upgrade your armor can learn by training, beside the level each has reached. Set a cap with - and +; once the armor reaches it, it stops training that skill. **Off** blocks a skill and **Max** leaves it free, and shift-click jumps straight to either. Changes are kept immediately. Only one bracelet is active at a time (priority: off-hand, Curios, main inventory, then add-ons). Pack makers can change which upgrades appear with the `neovitae:trainable` sentient upgrade tag.
 
 The bracelet only governs what the armor learns on its own. Upgrade Tomes and rituals are deliberate acts, so a tome you read always applies, even past a cap or for a skill the bracelet blocks.
 
@@ -41,6 +41,7 @@ A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded, Skilled) are not tra
 | Brilliance | Inscribe knowledge upon tomes and the armor crystallises into diamond-like hardness. | Inscribe a Brilliance Tome in the Tabula Vitae (diamond, written book, netherite ingot, shulker shell; Master orb, 10,000 EV), then apply it. Each tome grants one level, to a maximum of six. |
 | Charging Strike | Your momentum becomes a weapon; the faster you charge, the harder you strike. | Dealing damage *while sprinting*: experience equal to the damage dealt. |
 | Curios Sockets (*Socketed*) | The armor grows sockets to hold your vitaemantic trinkets. | Applied from a tome found in the Foreman's hoard; not trained. |
+| Deus Sanguinis | Each level grants 10 Blood Siphon and 10 Blood Shield, up to 100 of each (95% caps): the damage you deal feeds your network and the damage you take is paid from it. Needs a Hellforged chestplate at 700 Upgrade Points; costs up to 200. | Starts from the **Tome of Deus Sanguinis** (Tabula Vitae: Prismatic Spiritus Gem, Hellforged Block, Tabula Aetherea, Nether Star, Netherite Block, Totem of Undying; Transcendent orb, 1,000,000 EV). Then trains as your network spends EV, at most one credit every 10 seconds. |
 | Dwarven Might | The deeper you dig, the faster the armor drives your arms. | Breaking blocks: one point per block. |
 | Elytra | Wings of living tissue unfurl from the chestplate; take to the sky. | Inscribe an Elytra Tome in an Alchemy Array (Binding Reagent, Elytra), or find one in the Foreman's hoard; not trained. |
 | Experienced | The armor draws deeper knowledge from each fallen foe. | Collecting experience: points equal to the orb value picked up. |
@@ -77,6 +78,13 @@ Downgrades are imposed by the **Ritual of Sentient Penance** (see **[Rituals](Ri
 | Poisoned Blood | The armor's tissue turns venomous, periodically poisoning you. | Venomgland Sac |
 | Quenched | The armor seals your throat; no potion shall pass your lips. | Glass Bottle |
 | Storm Trooper | The armor ruins your aim; every shot goes astray. | Arrow |
+
+## Hellforging
+
+At the end of the road lies the **[Ritual of Hellforging](Rituals#sentient-armor-workings)**. Throw a piece of Sentient Armor onto its circle together with a **Prismatic Spiritus Gem** and a **Hellforged Ingot** and the piece is Hellforged, taking on a forged copper tint. A chestplate must first reach **600 Upgrade Points** through the Deus Sentient Evolution; the other pieces can be forged at any time.
+
+- Every Hellforged piece gains armor, toughness and knockback resistance to match Netherite, and does not burn in fire or lava.
+- A Hellforged chestplate holds **700 Upgrade Points** and learns **1.5x as fast** from training. Tomes and rituals apply at their usual rate.
 
 ## Caretaking
 

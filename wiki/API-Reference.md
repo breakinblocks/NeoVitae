@@ -908,19 +908,21 @@ player.getAttribute(NVAttributes.BONUS_SACRIFICE).addTransientModifier(
 
 ### Blood Siphon
 
-EV gained = min(attribute_value, damage_dealt) × multiplier.
-- vs Players, multiplier defaults to 100 and drains from the target's anima.
-- vs Mobs, multiplier defaults to 10 and EV is generated from nothing.
+Each point converts 1% of damage dealt, capped by `siphon_cap` (default 95). EV gained = damage_dealt × percent × multiplier.
+- vs Players, multiplier defaults to 250, drains from the target's anima and applies Anima Severance (no EV gain, doubled EV costs, 10 seconds, incurable).
+- vs Mobs, multiplier defaults to 50 and EV is generated from nothing.
 
 ### Blood Shield
 
-Damage reduction = 10% per attribute point (cap 99%). EV cost = damage_prevented × configurable multiplier (default 100). If there isn't enough EV the shield absorbs partially and the remainder passes through.
+Damage reduction = 1% per attribute point, capped by `shield_cap` (default 95). EV cost = damage_prevented × configurable multiplier (default 100). If there isn't enough EV the shield absorbs partially and the remainder passes through.
 
 ### Server Configuration
 
 In `config/neovitae-server.toml` under `[blood_attributes]`:
-- `siphon_player_multiplier` (default 100)
-- `siphon_mob_multiplier` (default 10)
+- `siphon_player_multiplier` (default 250)
+- `siphon_mob_multiplier` (default 50)
+- `siphon_cap` (default 95)
+- `shield_cap` (default 95)
 - `shield_lp_cost_multiplier` (default 100)
 
 ---

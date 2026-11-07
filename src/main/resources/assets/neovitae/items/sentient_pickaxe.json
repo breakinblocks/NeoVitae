@@ -15,41 +15,71 @@
               "when": "ruina",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_pickaxe_ruina"
+                "model": "neovitae:item/variant/sentient_pickaxe_ruina",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "nihilum",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_pickaxe_nihilum"
+                "model": "neovitae:item/variant/sentient_pickaxe_nihilum",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "invictus",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_pickaxe_invictus"
+                "model": "neovitae:item/variant/sentient_pickaxe_invictus",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             },
             {
               "when": "vindicta",
               "model": {
                 "type": "minecraft:model",
-                "model": "neovitae:item/variant/sentient_pickaxe_vindicta"
+                "model": "neovitae:item/variant/sentient_pickaxe_vindicta",
+                "tints": [
+                  {
+                    "type": "neovitae:hellforged"
+                  }
+                ]
               }
             }
           ],
           "fallback": {
             "type": "minecraft:model",
-            "model": "neovitae:item/variant/sentient_pickaxe_activated"
+            "model": "neovitae:item/variant/sentient_pickaxe_activated",
+            "tints": [
+              {
+                "type": "neovitae:hellforged"
+              }
+            ]
           }
         }
       }
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "neovitae:item/variant/sentient_pickaxe_deactivated"
+      "model": "neovitae:item/variant/sentient_pickaxe_deactivated",
+      "tints": [
+        {
+          "type": "neovitae:hellforged"
+        }
+      ]
     }
   }
 }

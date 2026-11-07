@@ -4,9 +4,8 @@
     "type": "modonomicon:none"
   },
   "id": "network_image",
-  "sort_number": 21,
-  "text": "book.neovitae.guide.spiritus.routing_nodes.network_image.text",
-  "title": "",
   "show_title_separator": true,
-  "use_markdown_in_title": false
+  "sort_number": 18,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.network_image.text",
+  "title": ""
 }

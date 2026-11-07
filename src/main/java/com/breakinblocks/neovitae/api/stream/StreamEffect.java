@@ -2,10 +2,13 @@ package com.breakinblocks.neovitae.api.stream;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.StreamPayload;
+
+import java.util.function.Function;
 
 /**
  * Immutable configuration for a visual energy stream or stationary blob effect.
@@ -189,7 +192,11 @@ public final class StreamEffect {
      * @param radius broadcast radius in blocks
      */
     public void sendToNearby(ServerLevel level, BlockPos center, double radius) {
-        NVPayloads.sendToNearby(level, center, radius, new StreamPayload(this));
+        sendToNearby(level, center, radius, StreamPayload::new);
+    }
+
+    public void sendToNearby(ServerLevel level, BlockPos center, double radius, Function<StreamEffect, CustomPacketPayload> wrapper) {
+        NVPayloads.sendToNearby(level, center, radius, wrapper.apply(this));
     }
 
     /**

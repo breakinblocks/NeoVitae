@@ -1,6 +1,11 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "neovitae:item/sentient_helmet"
+    "model": "neovitae:item/sentient_helmet",
+    "tints": [
+      {
+        "type": "neovitae:hellforged"
+      }
+    ]
   }
 }

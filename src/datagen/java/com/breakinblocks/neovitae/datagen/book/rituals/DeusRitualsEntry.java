@@ -51,7 +51,7 @@ public class DeusRitualsEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_magnetism"))
                 .withMultiblockName("Deus Endless Quarry")
                 .withText(this.context().pageText()));
-        this.pageText("Moves [#](8B0000)four times[#]() the ore each pulse. In the Ritual Configurator, choose [#](8B0000)Silk Touch[#]() to keep whole ore blocks or [#](8B0000)Fortune III[#]() to mine them for drops.");
+        this.pageText("Moves [#](8B0000)four times[#]() the ore each pulse, and a [#](8B0000)Sanguine Deus Block[#]() beneath the master stone reaches [#](8B0000)511x511[#](). Choose [#](8B0000)Silk Touch[#]() or [#](8B0000)Fortune III[#]() in the Ritual Configurator.");
 
         this.page("deus_magnetism_stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("deus_magnetism")));

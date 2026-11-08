@@ -52,6 +52,7 @@ public class RitualMagnetism extends Ritual {
     private static final int MAX_QUARRY_RADIUS = 255;
 
     private BlockPos lastPos;
+    private int lastRadius = -1;
 
     public RitualMagnetism() {
         this("magnetism", 0, 5000);
@@ -82,6 +83,10 @@ public class RitualMagnetism extends Ritual {
         IItemHandler container = world.getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
         BlockPos foundationPos = masterPos.below();
         int radius = getRadius(world.getBlockState(foundationPos).getBlock());
+        if (radius != lastRadius) {
+            if (lastRadius >= 0) lastPos = null;
+            lastRadius = radius;
+        }
         int minRelY = world.getMinBuildHeight() - masterPos.getY();
         int oreCost = getRefreshCost();
 
@@ -106,7 +111,7 @@ public class RitualMagnetism extends Ritual {
                     if (checks >= MAX_CHECKS_PER_REFRESH * getScanMultiplier()
                             || visited >= MAX_POSITIONS_PER_REFRESH * getScanMultiplier()
                             || oresMoved >= getMaxOresPerRefresh()
-                            || fillerVoided >= MAX_FILLER_PER_REFRESH
+                            || fillerVoided >= MAX_FILLER_PER_REFRESH * getScanMultiplier()
                             || evLeft < Math.max(oreCost, FILLER_COST)) {
                         finished = false;
                         break scan;
@@ -327,6 +332,7 @@ public class RitualMagnetism extends Ritual {
         if (tag.contains("lastPosX")) {
             lastPos = new BlockPos(tag.getInt("lastPosX"), tag.getInt("lastPosY"), tag.getInt("lastPosZ"));
         }
+        lastRadius = tag.contains("lastRadius") ? tag.getInt("lastRadius") : -1;
     }
 
     @Override
@@ -337,6 +343,7 @@ public class RitualMagnetism extends Ritual {
             tag.putInt("lastPosY", lastPos.getY());
             tag.putInt("lastPosZ", lastPos.getZ());
         }
+        tag.putInt("lastRadius", lastRadius);
     }
 
     @Override

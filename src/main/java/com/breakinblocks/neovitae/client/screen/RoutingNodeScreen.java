@@ -641,6 +641,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
         if (!isFilterTab()) {
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos + FILTER_GRID_X, topPos + FILTER_GRID_Y,

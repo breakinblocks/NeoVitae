@@ -555,7 +555,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_pickaxe",
@@ -576,7 +576,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_shovel",
@@ -597,7 +597,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_axe",
@@ -618,7 +618,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_sword",
@@ -639,7 +639,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_hoe",
@@ -660,7 +660,7 @@
                 "max": 35.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_helmet",
@@ -681,7 +681,7 @@
                 "max": 35.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_chestplate",
@@ -702,7 +702,7 @@
                 "max": 35.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_leggings",
@@ -723,7 +723,7 @@
                 "max": 35.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_boots",
@@ -946,7 +946,7 @@
                 "max": 30.0,
                 "min": 20.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:book",

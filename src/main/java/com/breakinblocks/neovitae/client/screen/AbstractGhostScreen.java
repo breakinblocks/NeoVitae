@@ -59,6 +59,7 @@ public abstract class AbstractGhostScreen<T extends AbstractGhostMenu<?>> extend
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.background(), leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
         int lastIdx = this.menu.getLastGhostSlotClicked();
         if (lastIdx >= 0) {

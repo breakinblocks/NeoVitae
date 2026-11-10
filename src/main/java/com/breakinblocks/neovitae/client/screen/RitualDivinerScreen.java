@@ -81,6 +81,7 @@ public class RitualDivinerScreen extends AbstractContainerScreen<RitualDivinerMe
 
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(g, mouseX, mouseY, partialTick);
         g.fill(leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xCC1A0A0A);
         g.fill(leftPos + 1, topPos + 1, leftPos + imageWidth - 1, topPos + imageHeight - 1, 0xCC2A1520);
         g.fill(leftPos, topPos, leftPos + imageWidth, topPos + 1, 0xFF6B1A1A);

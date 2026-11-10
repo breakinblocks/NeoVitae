@@ -43,6 +43,7 @@ public class ExperienceTomeScreen extends AbstractContainerScreen<ExperienceTome
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
         renderRow(guiGraphics, DEPOSIT_Y, mouseX, mouseY);
         renderRow(guiGraphics, WITHDRAW_Y, mouseX, mouseY);

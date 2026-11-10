@@ -250,7 +250,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_pickaxe",
@@ -272,7 +272,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_shovel",
@@ -294,7 +294,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_axe",
@@ -316,7 +316,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_hoe",
@@ -338,7 +338,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_sword",
@@ -360,7 +360,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_pickaxe",
@@ -381,7 +381,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_shovel",
@@ -402,7 +402,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_axe",
@@ -423,7 +423,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_sword",
@@ -444,7 +444,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_hoe",
@@ -465,7 +465,7 @@
                 "max": 35.0,
                 "min": 25.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_helmet",
@@ -486,7 +486,7 @@
                 "max": 35.0,
                 "min": 25.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_chestplate",
@@ -507,7 +507,7 @@
                 "max": 35.0,
                 "min": 25.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_leggings",
@@ -528,7 +528,7 @@
                 "max": 35.0,
                 "min": 25.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_boots",
@@ -699,7 +699,7 @@
                 "max": 35.0,
                 "min": 25.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:book",

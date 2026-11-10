@@ -258,7 +258,7 @@
                 "max": 40.0,
                 "min": 20.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:iron_pickaxe",
@@ -280,7 +280,7 @@
                 "max": 40.0,
                 "min": 20.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:iron_shovel",
@@ -302,7 +302,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_pickaxe",
@@ -324,7 +324,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:diamond_shovel",
@@ -346,7 +346,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_pickaxe",
@@ -367,7 +367,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_shovel",
@@ -388,7 +388,7 @@
                 "max": 40.0,
                 "min": 30.0
               },
-              "treasure": true
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:netherite_axe",

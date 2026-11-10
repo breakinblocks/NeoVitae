@@ -245,6 +245,7 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
 
         int progress = Math.max(0, Math.min(1000, menu.getData(SanguineCrafterMenu.DATA_PROGRESS)));

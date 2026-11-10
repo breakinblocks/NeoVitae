@@ -57,6 +57,7 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos + WELL_X, topPos + WELL_Y,
                 WELL_BLANK_U, WELL_BLANK_V, WELL_W, WELL_H, 256, 256);

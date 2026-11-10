@@ -128,14 +128,19 @@ public class BloodOrbItem extends Item implements IBindable, IAthanorTool {
         }
 
         if (!level.isClientSide()) {
-            if (healthSacrificed > 0 && level instanceof ServerLevel serverLevel
-                    && AltarUtil.takeSacrifice(serverLevel, player, healthSacrificed) <= 0) {
-                // Nothing was actually given up, so nothing is owed in return.
-                if (player instanceof ServerPlayer sp) {
-                    sp.connection.send(new ClientboundSetActionBarTextPacket(
-                            Component.translatable("message.neovitae.altar_blood_refused")));
+            if (healthSacrificed > 0 && level instanceof ServerLevel serverLevel) {
+                float lost = AltarUtil.takeSacrifice(serverLevel, player, healthSacrificed);
+                if (lost <= 0) {
+                    // Nothing was actually given up, so nothing is owed in return.
+                    if (player instanceof ServerPlayer sp) {
+                        sp.connection.send(new ClientboundSetActionBarTextPacket(
+                                Component.translatable("message.neovitae.altar_blood_refused")));
+                    }
+                    return InteractionResult.FAIL;
                 }
-                return InteractionResult.FAIL;
+                if (lost < healthSacrificed) {
+                    evAdded = (int) (evAdded * (lost / healthSacrificed));
+                }
             }
             if (toAltar) {
                 altar.addSacrificeEV(Math.max(0, evAdded), false);

@@ -125,9 +125,9 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         return 256;
     }
 
-    private static List<BlockPos> resolveHoverCaps(int tier) {
-        if (tier < 0 || tier >= NVMultiblock.TIER_LIST.length) return List.of();
-        AltarTier tierData = NVMultiblock.TIER_LIST[tier];
+    private static List<BlockPos> resolveHoverCaps(@Nullable Level level, int tier) {
+        if (level == null) return List.of();
+        AltarTier tierData = NVMultiblock.tierData(level.registryAccess(), tier).orElse(null);
         if (tierData == null) return List.of();
         List<BlockPos> out = new ArrayList<>();
         for (AltarEffect effect : tierData.effects()) {
@@ -171,7 +171,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
             s.fluidV1 = sprite.getV1();
         }
 
-        s.hoverCaps = s.active ? resolveHoverCaps(s.tier) : List.of();
+        s.hoverCaps = s.active ? resolveHoverCaps(level, s.tier) : List.of();
         int capCount = s.hoverCaps.size();
         if (s.capstoneTextures.length != capCount) {
             s.capstoneTextures = new Identifier[capCount];

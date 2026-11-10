@@ -74,6 +74,7 @@ public class TrainerScreen extends AbstractContainerScreen<TrainerMenu> {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(g, mouseX, mouseY, partialTick);
         g.fill(leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, BG_OUTER);
         g.fill(leftPos + 1, topPos + 1, leftPos + imageWidth - 1, topPos + imageHeight - 1, BG_INNER);
         g.fill(leftPos, topPos, leftPos + imageWidth, topPos + 1, BORDER);

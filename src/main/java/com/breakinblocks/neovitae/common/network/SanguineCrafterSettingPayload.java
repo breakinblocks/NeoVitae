@@ -12,6 +12,7 @@ public record SanguineCrafterSettingPayload(BlockPos pos, int setting, int value
     public static final int MODE = 0;
     public static final int REDSTONE = 1;
     public static final int LIMIT = 2;
+    public static final int CHUNK_LOADING = 3;
 
     public static final Type<SanguineCrafterSettingPayload> TYPE =
             new Type<>(NeoVitae.rl("sanguine_crafter_setting"));

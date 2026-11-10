@@ -109,7 +109,7 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
     }
 
     public enum ChunkLoading {
-        DISABLED, INACTIVE, ACTIVE, OWNER_OFFLINE, LIMIT_REACHED;
+        DISABLED, INACTIVE, ACTIVE, OWNER_OFFLINE, LIMIT_REACHED, TURNED_OFF;
 
         private static final ChunkLoading[] VALUES = values();
 
@@ -160,6 +160,7 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
     private Mode mode = Mode.AUTO;
     private RedstoneMode redstoneMode = RedstoneMode.IGNORED;
     private int outputLimit = 0;
+    private boolean chunkLoadingEnabled = true;
     @Nullable
     private Direction outputFace = null;
     private boolean formed = false;
@@ -276,7 +277,7 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
         if (--structureTimer <= 0) {
             structureTimer = STRUCTURE_CHECK_INTERVAL;
             checkStructure(level);
-            chunkLoading = SanguineCrafterChunkLoader.update(level, this, formed && owner != null && redstoneAllows(level));
+            chunkLoading = SanguineCrafterChunkLoader.update(level, this, formed && owner != null && redstoneAllows(level), chunkLoadingEnabled);
         }
 
         if (formed && OutputPusher.shouldPush(level)) {
@@ -1060,6 +1061,20 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
         return chunkLoading;
     }
 
+    public boolean isChunkLoadingEnabled() {
+        return chunkLoadingEnabled;
+    }
+
+    public void setChunkLoadingEnabled(boolean enabled) {
+        this.chunkLoadingEnabled = enabled;
+        if (!enabled && level instanceof ServerLevel serverLevel) {
+            SanguineCrafterChunkLoader.release(serverLevel, worldPosition);
+            chunkLoading = ChunkLoading.TURNED_OFF;
+        }
+        structureTimer = 0;
+        setChanged();
+    }
+
     public int getProgress() {
         return progress;
     }
@@ -1104,6 +1119,7 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
         mode = Mode.byIndex(tag.getIntOr("mode", 0));
         redstoneMode = RedstoneMode.byIndex(tag.getIntOr("redstoneMode", 0));
         outputLimit = tag.getIntOr("outputLimit", 0);
+        chunkLoadingEnabled = tag.getBooleanOr("chunkLoading", true);
         formed = tag.getBooleanOr("formed", false);
         hellforgedCasings = tag.getIntOr("hellforgedCasings", 0);
         swiftCasings = tag.getIntOr("swiftCasings", 0);
@@ -1125,6 +1141,7 @@ public class SanguineCrafterBlockEntity extends BaseBlockEntity implements MenuP
         tag.putInt("mode", mode.ordinal());
         tag.putInt("redstoneMode", redstoneMode.ordinal());
         tag.putInt("outputLimit", outputLimit);
+        tag.putBoolean("chunkLoading", chunkLoadingEnabled);
         tag.putBoolean("formed", formed);
         tag.putInt("hellforgedCasings", hellforgedCasings);
         tag.putInt("swiftCasings", swiftCasings);

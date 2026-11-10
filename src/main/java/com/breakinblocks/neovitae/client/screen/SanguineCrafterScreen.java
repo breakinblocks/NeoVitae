@@ -45,6 +45,7 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
     private FlatButton modeButton;
     private FlatButton redstoneButton;
     private FlatButton limitButton;
+    private FlatButton chunkLoadingButton;
 
     public SanguineCrafterScreen(SanguineCrafterMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 212, 244);
@@ -81,6 +82,13 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
                         ? Component.translatable("gui.neovitae.sanguine_crafter.limit.none")
                         : Component.translatable("gui.neovitae.sanguine_crafter.limit.value", tile.getOutputLimit()),
                 b -> { }));
+        chunkLoadingButton = addRenderableWidget(new FlatButton(leftPos + 181, topPos + 122, 16, 16,
+                Component::empty, () -> chunkLoadingIcon(tile.isChunkLoadingEnabled()),
+                b -> {
+                    boolean next = !tile.isChunkLoadingEnabled();
+                    tile.setChunkLoadingEnabled(next);
+                    sendSetting(SanguineCrafterSettingPayload.CHUNK_LOADING, next ? 1 : 0);
+                }));
         refreshTooltips();
     }
 
@@ -110,6 +118,11 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
                 Component.translatable("gui.neovitae.sanguine_crafter.limit.desc"),
                 Component.translatable("gui.neovitae.sanguine_crafter.limit.scroll").withStyle(ChatFormatting.GRAY),
                 Component.translatable("gui.neovitae.sanguine_crafter.limit.reset").withStyle(ChatFormatting.GRAY))));
+        chunkLoadingButton.setTooltip(Tooltip.create(lines(
+                Component.translatable("gui.neovitae.sanguine_crafter.chunk_loading_toggle",
+                        Component.translatable(tile.isChunkLoadingEnabled() ? "options.on" : "options.off").withStyle(ChatFormatting.YELLOW)),
+                Component.translatable("gui.neovitae.sanguine_crafter.chunk_loading_toggle.desc").withStyle(ChatFormatting.GRAY),
+                Component.translatable("gui.neovitae.sanguine_crafter.click_to_change").withStyle(ChatFormatting.DARK_GRAY))));
     }
 
     private static Component lines(Component... lines) {
@@ -131,6 +144,10 @@ public class SanguineCrafterScreen extends AbstractContainerScreen<SanguineCraft
             case HIGH -> new ItemStack(Items.REDSTONE);
             case LOW -> new ItemStack(Items.REDSTONE_TORCH);
         };
+    }
+
+    private static ItemStack chunkLoadingIcon(boolean enabled) {
+        return new ItemStack(enabled ? Items.ENDER_EYE : Items.ENDER_PEARL);
     }
 
     private static Component groupName(int group) {

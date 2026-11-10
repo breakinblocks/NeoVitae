@@ -55,7 +55,7 @@ public final class SanguineCrafterChunkLoader {
         return server.getPlayerList().getPlayer(owner) != null;
     }
 
-    public static ChunkLoading update(ServerLevel level, SanguineCrafterBlockEntity crafter, boolean running) {
+    public static ChunkLoading update(ServerLevel level, SanguineCrafterBlockEntity crafter, boolean running, boolean wanted) {
         GlobalPos key = GlobalPos.of(level.dimension(), crafter.getBlockPos());
         SanguineCrafterAnchorData data = data(level.getServer());
         UUID owner = crafter.getOwner();
@@ -63,6 +63,10 @@ public final class SanguineCrafterChunkLoader {
         if (!enabled()) {
             drop(level, key, data);
             return ChunkLoading.DISABLED;
+        }
+        if (!wanted) {
+            drop(level, key, data);
+            return ChunkLoading.TURNED_OFF;
         }
         if (!running || owner == null) {
             drop(level, key, data);

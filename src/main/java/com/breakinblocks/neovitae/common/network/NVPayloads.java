@@ -337,6 +337,7 @@ public class NVPayloads {
                 case SanguineCrafterSettingPayload.MODE -> crafter.setMode(SanguineCrafterBlockEntity.Mode.byIndex(payload.value()));
                 case SanguineCrafterSettingPayload.REDSTONE -> crafter.setRedstoneMode(SanguineCrafterBlockEntity.RedstoneMode.byIndex(payload.value()));
                 case SanguineCrafterSettingPayload.LIMIT -> crafter.setOutputLimit(payload.value());
+                case SanguineCrafterSettingPayload.CHUNK_LOADING -> crafter.setChunkLoadingEnabled(payload.value() != 0);
                 default -> { }
             }
         });

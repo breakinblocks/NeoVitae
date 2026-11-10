@@ -120,10 +120,16 @@ public class BloodOrbItem extends Item implements IBindable, IAthanorTool {
         }
 
         if (!level.isClientSide) {
-            if (healthSacrificed > 0 && AltarUtil.takeSacrifice(player, healthSacrificed) <= 0) {
-                // Nothing was actually given up, so nothing is owed in return.
-                player.displayClientMessage(Component.translatable("message.neovitae.altar_blood_refused"), true);
-                return InteractionResultHolder.fail(stack);
+            if (healthSacrificed > 0) {
+                float lost = AltarUtil.takeSacrifice(player, healthSacrificed);
+                if (lost <= 0) {
+                    // Nothing was actually given up, so nothing is owed in return.
+                    player.displayClientMessage(Component.translatable("message.neovitae.altar_blood_refused"), true);
+                    return InteractionResultHolder.fail(stack);
+                }
+                if (lost < healthSacrificed) {
+                    evAdded = (int) (evAdded * (lost / healthSacrificed));
+                }
             }
             if (toAltar) {
                 altar.addSacrificeEV(Math.max(0, evAdded), false);

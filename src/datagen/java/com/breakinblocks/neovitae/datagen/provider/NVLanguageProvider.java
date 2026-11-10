@@ -349,6 +349,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.sanguine_crafter.chunk_loading.active", "Chunk loading: on");
         add("gui.neovitae.sanguine_crafter.chunk_loading.owner_offline", "Chunk loading: paused while the owner is offline");
         add("gui.neovitae.sanguine_crafter.chunk_loading.limit_reached", "Chunk loading: owner's limit reached");
+        add("gui.neovitae.sanguine_crafter.chunk_loading.turned_off", "Chunk loading: turned off for this crafter");
+        add("gui.neovitae.sanguine_crafter.chunk_loading_toggle", "Chunk loading: %s");
+        add("gui.neovitae.sanguine_crafter.chunk_loading_toggle.desc", "Keeps this crafter's chunks loaded while it runs.");
         add("gui.neovitae.sanguine_crafter.group.input", "Input buffer");
         add("gui.neovitae.sanguine_crafter.group.output", "Output buffer");
         add("gui.neovitae.sanguine_crafter.group.orb", "Orb slot");

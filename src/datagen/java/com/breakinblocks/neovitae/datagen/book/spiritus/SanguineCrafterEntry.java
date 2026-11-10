@@ -106,7 +106,8 @@ public class SanguineCrafterEntry extends EntryProvider {
         this.pageTitle("A Workshop That Never Sleeps");
         this.pageText("While whole and running, the crafter keeps the chunks it stands in loaded so your work goes on "
                 + "when you wander off. By default this lasts only while its builder is online, and each player may "
-                + "keep ten crafters working this way. Server owners may change or disable this.");
+                + "keep ten crafters working this way. The eye beside the input buffer turns it off for one crafter. "
+                + "Server owners may change or disable this.");
 
         this.page("packing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

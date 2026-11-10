@@ -166,9 +166,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
     private void renderHoverArrays(AraVitaeTile altar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource) {
         Level level = altar.getLevel();
         if (level == null) return;
-        int tier = altar.getTier();
-        if (tier < 0 || tier >= NVMultiblock.TIER_LIST.length) return;
-        AltarTier tierData = NVMultiblock.TIER_LIST[tier];
+        AltarTier tierData = NVMultiblock.tierData(level.registryAccess(), altar.getTier()).orElse(null);
         if (tierData == null) return;
 
         long gameTime = level.getGameTime();

@@ -39,6 +39,17 @@ public class NVMultiblock {
     public static AltarTier[] TIER_LIST = new AltarTier[]{};
     public static MultiblockValidator[] TIER_VALIDATORS = new MultiblockValidator[]{};
 
+    public static Optional<AltarTier> tierData(RegistryAccess access, int tier) {
+        if (tier >= 0 && tier < TIER_LIST.length && TIER_LIST[tier] != null) {
+            return Optional.of(TIER_LIST[tier]);
+        }
+        return access.registry(NVRegistries.Keys.ALTAR_TIER_KEY).flatMap(registry -> registry.getTag(NVTags.Tiers.VALID_TIERS)
+                .map(tag -> tag.stream().map(Holder::value))
+                .orElseGet(registry::stream)
+                .filter(t -> t.tier() == tier)
+                .findFirst());
+    }
+
     public static void onServerStarted(ServerStartedEvent event) {
         NeoVitae.LOGGER.info("NVMultiblock.onServerStarted: Loading altar tier definitions...");
 

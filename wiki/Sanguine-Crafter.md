@@ -26,6 +26,7 @@ Lay a 3x3 floor of casings and build a ring of eight on top of it. The **Sanguin
 | Mode, redstone and limit buttons | See below. |
 | Status line | Why the crafter is waiting. Hover over it or the arrow for parallel crafts, speed and chunk loading. |
 | Input buffer (18 slots) | Ingredients, in any order. |
+| Chunk loading button (right of the input buffer) | Turns chunk loading on or off for this crafter. |
 
 ## Modes
 
@@ -85,7 +86,7 @@ Crafting table patterns are better left to AE2 and Refined Storage, which assemb
 
 ## Chunk Loading
 
-While the structure is complete and running, the crafter keeps the chunks it stands in loaded, so crafting continues after you leave. By default this only happens while its owner is online, and each player can have up to 10 crafters loading chunks at once. Hover over the arrow to see whether a crafter is loading its chunks.
+While the structure is complete and running, the crafter keeps the chunks it stands in loaded, so crafting continues after you leave. By default this only happens while its owner is online, and each player can have up to 10 crafters loading chunks at once. Hover over the arrow to see whether a crafter is loading its chunks. To stop one crafter from loading chunks, click the Ender Eye button to the right of its input buffer; it turns into an Ender Pearl while chunk loading is off.
 
 ## Server Config
 

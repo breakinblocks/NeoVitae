@@ -43,7 +43,7 @@ public class Anima implements IAnima {
 
     protected Anima(UUID playerId, int ev) {
         this.playerId = playerId;
-        this.currentEV = ev;
+        this.currentEV = ev < 0 ? Integer.MAX_VALUE : ev;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Anima implements IAnima {
         if (curr >= maximum)
             return 0;
 
-        int newEss = Math.min(maximum, curr + ticket.getAmount());
+        int newEss = (int) Math.min((long) maximum, (long) curr + ticket.getAmount());
         setCurrentEV(newEss);
 
         return newEss - curr;

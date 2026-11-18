@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +27,7 @@ public final class AnimaTests {
 
     private static final UUID TEST_UUID = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10f");
     private static final UUID TEST_UUID_2 = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10e");
+    private static final UUID TEST_UUID_LIMIT = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10d");
     private static final Binding TEST_BINDING = new Binding(TEST_UUID, "TestPlayer");
     private static final Binding TEST_BINDING_2 = new Binding(TEST_UUID_2, "TestPlayer2");
 
@@ -91,6 +93,37 @@ public final class AnimaTests {
                 int syphoned = anima.syphon(AnimaTicket.create(500));
                 if (syphoned > 100) {
                     helper.fail("Should not syphon more than available, got " + syphoned);
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("anima/add_stops_at_int_limit", 30, helper -> {
+            helper.runAfterDelay(1, () -> {
+                Anima anima = AnimaHelper.getAnima(TEST_UUID_LIMIT);
+                anima.set(AnimaTicket.create(Integer.MAX_VALUE - 1000), Integer.MAX_VALUE);
+
+                int added = anima.add(AnimaTicket.create(5000), Integer.MAX_VALUE);
+                int held = anima.getCurrentEV();
+                anima.set(AnimaTicket.create(0), Integer.MAX_VALUE);
+
+                if (added != 1000 || held != Integer.MAX_VALUE) {
+                    helper.fail("Expected 1000 EV added up to the int limit, added " + added + " and held " + held);
+                    return;
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("anima/negative_saved_value_is_repaired", 30, helper -> {
+            helper.runAfterDelay(1, () -> {
+                CompoundTag tag = AnimaHelper.getAnima(TEST_UUID_LIMIT).toNBT();
+                tag.putInt("current_ev", -2142527993);
+
+                int loaded = Anima.fromNBT(tag, null).getCurrentEV();
+                if (loaded != Integer.MAX_VALUE) {
+                    helper.fail("A network saved negative should load at the int limit, got " + loaded);
                     return;
                 }
                 helper.succeed();
@@ -163,7 +196,7 @@ public final class AnimaTests {
                 helper.succeedWhen(() -> {
                     ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
                     helper.assertTrue(!(output.isEmpty()), "Alchemy table should have crafted flint (burnTime=" + table.burnTime + ", ticksReq=" + table.ticksRequired + ")");
-                    helper.assertTrue(!(!output.is(Items.FLINT) || output.getCount() != 2), "Expected 2 flint, got " + output);
+                    helper.assertTrue(!(!output.is(Items.FLINT) || output.getCount() != 2), "Expected 2 flint, got " + output);
                 });
             });
         });
@@ -194,7 +227,7 @@ public final class AnimaTests {
 
                 helper.succeedWhen(() -> {
                     int lpAfter = anima2.getCurrentEV();
-                    helper.assertTrue(!(lpAfter >= lpBefore), "Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
+                    helper.assertTrue(!(lpAfter >= lpBefore), "Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
                 });
             });
         });

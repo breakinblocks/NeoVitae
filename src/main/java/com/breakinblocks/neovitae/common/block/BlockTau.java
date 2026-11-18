@@ -126,6 +126,19 @@ public class BlockTau extends CropBlock {
         }
     }
 
+    public boolean saturate(Level level, BlockPos pos, BlockState state) {
+        int age = getAge(state);
+        if (age >= getMaxAge()) {
+            return false;
+        }
+        Block target = isStrong ? this : strongTauSupplier != null ? strongTauSupplier.get() : null;
+        if (!(target instanceof BlockTau strongTau)) {
+            return false;
+        }
+        level.setBlock(pos, strongTau.getStateForAge(age + 1), Block.UPDATE_CLIENTS);
+        return true;
+    }
+
     @Override
     public void growCrops(Level level, BlockPos pos, BlockState state) {
         int age = this.getAge(state);

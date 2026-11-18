@@ -58,5 +58,7 @@ public class NVGameTestRegistration {
         event.register(RitualAnchorTests.class);
         event.register(EnderSeverArrayTests.class);
         event.register(SentientScytheEnchantTests.class);
+        event.register(NewMoonTests.class);
+        event.register(OvergrowthTests.class);
     }
 }

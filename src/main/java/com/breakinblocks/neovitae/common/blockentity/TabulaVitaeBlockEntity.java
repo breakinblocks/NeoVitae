@@ -84,6 +84,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     public int burnTime = 0;
     public int ticksRequired = 1;
     private final RitualAcceleration ritualAcceleration = new RitualAcceleration();
+    private final IdleThrottle idleThrottle = new IdleThrottle();
     public BlockPos connectedPos = BlockPos.ZERO;
     public int activeSlot = -1;
 
@@ -115,6 +116,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 cachedFlaskRecipe = null;
                 flaskSlot = -1;
             }
+            idleThrottle.wake();
         }
     };
 
@@ -224,6 +226,11 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             OutputPusher.push(level, worldPosition, outputFace, inv, OUTPUT_SLOT, OUTPUT_SLOT);
         }
 
+        if (idleThrottle.shouldSkip()) {
+            return;
+        }
+        idleThrottle.rest();
+
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);
         int orbTier = getOrbTier(orbStack);
 
@@ -250,6 +257,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 return;
             }
             idleReason = IdleReason.NONE;
+            idleThrottle.wake();
 
             if (burnTime == 0) {
                 level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
@@ -307,6 +315,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             return;
         }
         idleReason = IdleReason.NONE;
+        idleThrottle.wake();
 
         if (burnTime == 0) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);

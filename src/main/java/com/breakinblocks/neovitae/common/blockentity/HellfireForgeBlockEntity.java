@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForge;
@@ -65,6 +66,9 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
             setChanged();
+            if (!absorbing) {
+                idleThrottle.wake();
+            }
         }
     };
 
@@ -106,6 +110,10 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
     protected int progress = 0;
     private final RitualAcceleration ritualAcceleration = new RitualAcceleration();
+    private final IdleThrottle idleThrottle = new IdleThrottle();
+    private boolean absorbing = false;
+    private final RecipeManager.CachedCheck<ForgeInput, ForgeRecipe> recipeCheck = RecipeManager.createCheck(NVRecipes.HELLFIRE_FORGE_TYPE.get());
+    private final RecipeManager.CachedCheck<ForgeInput, ForgeRecipe> craftingGemRecipeCheck = RecipeManager.createCheck(NVRecipes.HELLFIRE_FORGE_TYPE.get());
     protected int status = STATUS_IDLE;
     protected int requiredSpiritus = 0;
     protected int storedSpiritus = 0;
@@ -160,13 +168,18 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             OutputPusher.push(level, pos, tile.outputFace, tile.inv, OUTPUT_SLOT, OUTPUT_SLOT);
         }
 
+        if (tile.idleThrottle.shouldSkip()) {
+            return;
+        }
+        tile.idleThrottle.rest();
+
         ForgeInput input = tile.getInput();
-        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = findRecipe(level, input);
+        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = findRecipe(level, input, tile.recipeCheck);
 
         if (recipeOptional.isEmpty() || !recipeOptional.get().value().hasEnoughSpiritus(input)) {
             ForgeInput craftingGemInput = tile.getCraftingGemInput();
             if (craftingGemInput.getGemIndex() != input.getGemIndex()) {
-                Optional<RecipeHolder<ForgeRecipe>> fallback = findRecipe(level, craftingGemInput);
+                Optional<RecipeHolder<ForgeRecipe>> fallback = findRecipe(level, craftingGemInput, tile.craftingGemRecipeCheck);
                 if (fallback.isPresent() && fallback.get().value().hasEnoughSpiritus(craftingGemInput)) {
                     input = craftingGemInput;
                     recipeOptional = fallback;
@@ -181,6 +194,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
         ForgeRecipe recipe = recipeOptional.get().value();
         if (!recipe.hasEnoughSpiritus(input)) {
+            tile.idleThrottle.wake();
             tile.abortCraft(STATUS_NEEDS_SPIRITUS, recipe.minSpiritus,
                     input.getGem().getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D));
             return;
@@ -201,6 +215,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             }
         }
 
+        tile.idleThrottle.wake();
         tile.status = STATUS_CRAFTING;
         if (tile.progress == 0) {
             level.playSound(null, pos, NVSounds.HELLFIRE_FORGE_CRAFT.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
@@ -259,8 +274,9 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         tile.setChanged();
     }
 
-    private static Optional<RecipeHolder<ForgeRecipe>> findRecipe(Level level, ForgeInput input) {
-        return level.getRecipeManager().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, level);
+    private static Optional<RecipeHolder<ForgeRecipe>> findRecipe(Level level, ForgeInput input,
+                                                                 RecipeManager.CachedCheck<ForgeInput, ForgeRecipe> check) {
+        return check.getRecipeFor(input, level);
     }
 
     private void abortCraft(int newStatus, double required, double stored) {
@@ -277,7 +293,9 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     private static void absorbSpiritusFromChunk(Level level, BlockPos pos, HellfireForgeBlockEntity tile) {
         ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
         if (absorbIntoGem(level, pos, gemStack)) {
+            tile.absorbing = true;
             tile.inv.setStackInSlot(GEM_SLOT, gemStack);
+            tile.absorbing = false;
         }
     }
 

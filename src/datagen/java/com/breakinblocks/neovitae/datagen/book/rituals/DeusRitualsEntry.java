@@ -27,7 +27,8 @@ public class DeusRitualsEntry extends EntryProvider {
         this.pageText("The greatest workings are ringed in [#](8B0000)Deus Ritual Stones[#](). Each Deus ritual is a mightier "
                 + "form of a ritual you already know, its circle wrapped in an outer crown of Deus stones.\\\n\\\n"
                 + "Inscribe them with the [#](8B0000)Ritual Diviner [Deus][#]() and wake them with a "
-                + "[#](8B0000)Divinus Activation Crystal[#](). They answer to the same Spiritus as their lesser forms.");
+                + "[#](8B0000)Divinus Activation Crystal[#](). Most answer to the same Spiritus as their lesser forms; "
+                + "where one does not, its page says so.");
 
         this.page("deus_well_of_suffering", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_well_of_suffering"))
@@ -51,10 +52,21 @@ public class DeusRitualsEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_magnetism"))
                 .withMultiblockName("Deus Endless Quarry")
                 .withText(this.context().pageText()));
-        this.pageText("Moves [#](8B0000)four times[#]() the ore each pulse, and a [#](8B0000)Sanguine Deus Block[#]() beneath the master stone reaches [#](8B0000)511x511[#](). Choose [#](8B0000)Silk Touch[#]() or [#](8B0000)Fortune III[#]() in the Ritual Configurator.");
+        this.pageText("Moves [#](8B0000)four times[#]() the ore each pulse, and a [#](8B0000)Sanguine Deus Block[#]() beneath the master stone reaches [#](8B0000)511x511[#](). Choose [#](8B0000)Silk Touch[#]() or [#](8B0000)Fortune III[#]() in the Ritual Configurator. Spiritus in the chunk does not change how it digs.");
 
         this.page("deus_magnetism_stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("deus_magnetism")));
+
+        this.page("deus_quarry_terrain", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Quarry Terrain Modes");
+        this.pageText("Where the Endless Quarry reads Spiritus Invictus and Ruina, the Deus Endless Quarry takes its "
+                + "orders from the [#](8B0000)Ritual Configurator[#](), which offers three terrain modes.\\\n\\\n"
+                + "- [#](8B0000)Backfill[#](), the default, replaces mined ores with natural stone.\\\n"
+                + "- [#](8B0000)Leave holes[#]() mines ores and preserves other rock.\\\n"
+                + "- [#](8B0000)Clear rock[#]() also removes common filler rock, at 10 EV per block.\\\n\\\n"
+                + "These modes need no Spiritus and work with either Silk Touch or Fortune.");
 
         this.page("deus_crystallum_fractura", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/deus_crystallum_fractura"))
@@ -139,12 +151,6 @@ public class DeusRitualsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Offered Books");
         this.pageText("By default, one book from each contributing stack is consumed after a successful working. Pack authors can set consume_books to false for neovitae:deus_enchanted_vitae in the ritual_stats data map to preserve books. Unsupported enchantments and enchantments already at the game-supported ceiling spend nothing.");
-
-        this.page("deus_quarry_terrain", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Quarry Terrain Modes");
-        this.pageText("The Ritual Configurator offers three terrain modes. Backfill, the default, replaces mined ores with natural stone. Leave holes mines ores and preserves other rock. Clear rock also removes common filler rock, at 10 EV per block. These modes need no Spiritus and work with either Silk Touch or Fortune.");
     }
 
     @Override

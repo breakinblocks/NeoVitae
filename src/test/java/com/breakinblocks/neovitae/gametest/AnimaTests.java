@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.gametest.framework.GameTest;
@@ -28,6 +29,7 @@ public class AnimaTests {
 
     private static final UUID TEST_UUID = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10f");
     private static final UUID TEST_UUID_2 = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10e");
+    private static final UUID TEST_UUID_LIMIT = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10d");
     private static final Binding TEST_BINDING = new Binding(TEST_UUID, "TestPlayer");
     private static final Binding TEST_BINDING_2 = new Binding(TEST_UUID_2, "TestPlayer2");
 
@@ -211,6 +213,38 @@ public class AnimaTests {
                 int lpAfter = anima2.getCurrentEV();
                 helper.assertTrue(!(lpAfter >= lpBefore), "Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
             });
+        });
+    }
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public void addStopsAtIntLimit(GameTestHelper helper) {
+        helper.runAfterDelay(1, () -> {
+            Anima anima = AnimaHelper.getAnima(TEST_UUID_LIMIT);
+            anima.set(AnimaTicket.create(Integer.MAX_VALUE - 1000), Integer.MAX_VALUE);
+
+            int added = anima.add(AnimaTicket.create(5000), Integer.MAX_VALUE);
+            int held = anima.getCurrentEV();
+            anima.set(AnimaTicket.create(0), Integer.MAX_VALUE);
+
+            if (added != 1000 || held != Integer.MAX_VALUE) {
+                helper.fail("Expected 1000 EV added up to the int limit, added " + added + " and held " + held);
+                return;
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public void negativeSavedValueIsRepaired(GameTestHelper helper) {
+        helper.runAfterDelay(1, () -> {
+            CompoundTag tag = AnimaHelper.getAnima(TEST_UUID_LIMIT).toNBT();
+            tag.putInt("current_ev", -2142527993);
+
+            int loaded = Anima.fromNBT(tag, null).getCurrentEV();
+            if (loaded != Integer.MAX_VALUE) {
+                helper.fail("A network saved negative should load at the int limit, got " + loaded);
+                return;
+            }
+            helper.succeed();
         });
     }
 }

@@ -54,6 +54,17 @@
       },
       "text": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau.text",
       "title": "Saturated Tau"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau_ritual.text",
+      "title": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau_ritual.title",
+      "use_markdown_in_title": false
     }
   ],
   "show_when_any_parent_unlocked": false,

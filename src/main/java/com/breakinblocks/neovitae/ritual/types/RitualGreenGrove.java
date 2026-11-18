@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.block.BlockTau;
 import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -59,6 +60,8 @@ public class RitualGreenGrove extends Ritual {
     private static final double WILL_PER_HYDRATE = 0.1;
     private static final double WILL_PER_LEECH = 1.0;
     private static final double WILL_PER_VENGEFUL_GROWTH = 0.3;
+    public static final double WILL_PER_TAU_FEED = 0.5;
+    public static final int TAU_FEED_GROWTHS = 5;
 
     private static final float EXTRA_GROWTH_CHANCE = 0.25f;
 
@@ -93,6 +96,7 @@ public class RitualGreenGrove extends Ritual {
         boolean doHydrate = will.hasInvictus();
         boolean doLeech = will.hasRuina();
         boolean doVengeful = will.hasVindicta();
+        boolean doFeedTau = will.hasNihilum();
 
         RitualStats stats = RitualRegistry.getStats(this);
         int baseRefresh = stats != null ? stats.refreshTime() : 20;
@@ -101,6 +105,7 @@ public class RitualGreenGrove extends Ritual {
         double steadfastSpiritusUsed = 0;
         double corrosiveSpiritusUsed = 0;
         double vengefulSpiritusUsed = 0;
+        double destructiveSpiritusUsed = 0;
 
         int maxGrowths = ctx.maxOperations(getRefreshCost());
         int totalGrowths = 0;
@@ -111,6 +116,15 @@ public class RitualGreenGrove extends Ritual {
             if (totalGrowths >= maxGrowths) break;
 
             BlockState state = ctx.level().getBlockState(pos);
+
+            if (doFeedTau && state.getBlock() instanceof BlockTau tau
+                    && (will.getNihilum() - destructiveSpiritusUsed) >= WILL_PER_TAU_FEED
+                    && totalGrowths + TAU_FEED_GROWTHS <= maxGrowths
+                    && tau.saturate(ctx.level(), pos, state)) {
+                totalGrowths += TAU_FEED_GROWTHS;
+                destructiveSpiritusUsed += WILL_PER_TAU_FEED;
+                continue;
+            }
 
             // Vengeful: scale growth chance
             if (doVengeful && (will.getVindicta() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
@@ -180,7 +194,7 @@ public class RitualGreenGrove extends Ritual {
         }
 
         RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
-                0, corrosiveSpiritusUsed, 0, vengefulSpiritusUsed, steadfastSpiritusUsed);
+                0, corrosiveSpiritusUsed, destructiveSpiritusUsed, vengefulSpiritusUsed, steadfastSpiritusUsed);
 
         ctx.syphon(getRefreshCost() * totalGrowths);
     }
@@ -234,7 +248,8 @@ public class RitualGreenGrove extends Ritual {
                 Component.translatable(getTranslationKey() + ".spiritus.raw"),
                 Component.translatable(getTranslationKey() + ".spiritus.invictus"),
                 Component.translatable(getTranslationKey() + ".spiritus.ruina"),
-                Component.translatable(getTranslationKey() + ".spiritus.vindicta")
+                Component.translatable(getTranslationKey() + ".spiritus.vindicta"),
+                Component.translatable(getTranslationKey() + ".spiritus.nihilum")
         };
     }
 

@@ -50,6 +50,17 @@ public class TauFruitEntry extends EntryProvider {
                 + "atop the plant as it matures, the Tau vine will draw upon the creature's vitality to "
                 + "feed its own growth. The result is [#](8B0000)Saturated Tau[#](), a far more potent variant "
                 + "born from stolen life.");
+
+        this.page("saturated_tau_ritual", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Feeding the Vine");
+        this.pageText("A field need not be fed with flesh. Plant Tau within a [#](8B0000)Ritual of Overgrowth[#]() "
+                + "in a chunk holding at least 10 [#](4A0080)Spiritus Nihilum[#](), and the circle feeds each vine "
+                + "itself.\\\n\\\n"
+                + "Every growth stage costs [#](8B0000)100 EV[#]() and [#](8B0000)0.5 Nihilum[#](), and every "
+                + "plant fed this way ripens as [#](8B0000)Saturated Tau[#](). A vine that is already fully "
+                + "grown is left as it is.");
     }
 
     @Override

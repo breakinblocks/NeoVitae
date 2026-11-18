@@ -40,10 +40,12 @@ public class AnimaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("To fill your [#](4A0080)Anima[#](), you require an [#](8B0000)Orb of Vitae[#](), a crystallized anchor "
                 + "between your soul and the altar's power."
-                + "\n\n- Right-click with the orb in hand to sacrifice one heart, channeling [#](8B0000)200 EV[#]() "
-                + "into your [#](4A0080)Anima[#]()."
+                + "\n\n- Right-click with the orb in hand to sacrifice one heart for [#](8B0000)200 EV[#](). "
+                + "Near an [#](8B0000)Ara Vitae[#]() the blood flows into its basin; away from one it is kept in the "
+                + "orb's own reservoir."
                 + "\n\n- Place the orb within an [#](8B0000)Ara Vitae[#]() brimming with [#](4A0080)Essentia Vitae[#](). "
-                + "The orb drinks deeply, limited only by your altar's [#](8B0000)Speed Runes[#]().");
+                + "The altar pours it through the orb into your [#](4A0080)Anima[#](), limited only by your altar's "
+                + "[#](8B0000)Speed Runes[#]().");
 
         this.page("orb_tiers", () -> BookBloodOrbStatsPageModel.create()
                 .withTitle(this.context().pageTitle()));
@@ -53,15 +55,15 @@ public class AnimaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Orb's Inner Reservoir");
-        this.pageText("Each [#](8B0000)Orb of Vitae[#]() harbours a hidden internal reservoir of "
-                + "[#](4A0080)Essentia Vitae[#](). When the altar fills your [#](4A0080)Anima[#](), "
-                + "a portion of that EV seeps into the orb's reservoir as well."
-                + "\\\n\\\nWhen you place an orb containing stored fluid back upon an "
-                + "[#](8B0000)Ara Vitae[#](), the altar reverses the flow. It drains the orb's "
+        this.pageText("Each [#](8B0000)Orb of Vitae[#]() harbors a hidden internal reservoir of "
+                + "[#](4A0080)Essentia Vitae[#](). It fills when you bleed into the orb away from an altar, "
+                + "and when you slay a creature with the orb in your off-hand."
+                + "\\\n\\\nWhen you place an orb containing stored fluid upon an "
+                + "[#](8B0000)Ara Vitae[#](), the altar drains the orb's "
                 + "reservoir at [#](B8860B)10 times[#]() the normal fill rate, rapidly refilling "
                 + "the basin. If the altar is nearly full, overflow is channeled "
-                + "into your [#](4A0080)Anima[#]() instead. Once the orb is empty, "
-                + "normal behavior resumes and the altar fills your network as usual.");
+                + "into your [#](4A0080)Anima[#]() instead. Once the reservoir is empty the orb rests; "
+                + "lift it out and set it back, and the altar fills your Anima as usual.");
 
         this.page("orb_harvest", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

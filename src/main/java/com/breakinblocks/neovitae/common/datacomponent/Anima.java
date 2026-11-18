@@ -38,7 +38,7 @@ public class Anima implements IAnima {
 
     protected Anima(UUID playerId, int ev) {
         this.playerId = playerId;
-        this.currentEV = ev;
+        this.currentEV = ev < 0 ? Integer.MAX_VALUE : ev;
     }
 
     @Override

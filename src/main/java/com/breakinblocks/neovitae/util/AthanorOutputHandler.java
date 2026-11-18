@@ -138,61 +138,24 @@ public class AthanorOutputHandler implements IItemHandler {
                 continue;
             }
 
-            slots: for (int slot = 0; slot < copyList.length; slot++) {
+            ItemStack remaining = stack.copy();
+            for (int slot = 0; slot < copyList.length && !remaining.isEmpty(); slot++) {
+                if (!isItemValid(slot, remaining)) {
+                    continue;
+                }
                 ItemStack stackInSlot = copyList[slot];
-
-                int m;
-                if (!stackInSlot.isEmpty()) {
-                    if(stackInSlot.getCount() >= Math.min(stackInSlot.getMaxStackSize(), getSlotLimit(slot))) {
-                        continue;
-                    }
-                    if (!ItemStack.isSameItemSameComponents(stack, stackInSlot)) {
-                        continue;
-                    }
-                    if (!isItemValid(slot, stack)) {
-                        continue;
-                    }
-
-                    m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot) - stackInSlot.getCount());
-                    if (stack.getCount() <= m) {
-                        ItemStack copy = stack.copy();
-                        if (!simulate) {
-                            copy.grow(stackInSlot.getCount());
-                            copyList[slot] = copy;
-                        }
-                        stack = ItemStack.EMPTY;
-                        break slots;
-                    } else {
-                        ItemStack tmpStack = stack.copy();
-                        if (!simulate) {
-                            ItemStack copy = tmpStack.split(m);
-                            copy.grow(stackInSlot.getCount());
-                            copyList[slot] = copy;
-                        } else {
-                            tmpStack.shrink(m);
-                        }
-                    }
-                } else {
-                    if (!isItemValid(slot, stack)) {
-                        continue;
-                    }
-                    m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot));
-                    if (m < stack.getCount()) {
-                        ItemStack tmpStack = stack.copy();
-                        if (!simulate) {
-                            copyList[slot] = tmpStack.split(m);
-                        } else {
-                            tmpStack.shrink(m);
-                        }
-                    } else {
-                        if (!simulate) {
-                            copyList[slot] = stack;
-                        }
-                        stack = ItemStack.EMPTY;
+                int limit = Math.min(remaining.getMaxStackSize(), getSlotLimit(slot));
+                if (stackInSlot.isEmpty()) {
+                    copyList[slot] = remaining.split(Math.min(limit, remaining.getCount()));
+                } else if (ItemStack.isSameItemSameComponents(remaining, stackInSlot)) {
+                    int moved = Math.min(limit - stackInSlot.getCount(), remaining.getCount());
+                    if (moved > 0) {
+                        stackInSlot.grow(moved);
+                        remaining.shrink(moved);
                     }
                 }
             }
-            if (!stack.isEmpty()) {
+            if (!remaining.isEmpty()) {
                 hasStashedAll = false;
             }
         }

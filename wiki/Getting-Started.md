@@ -19,7 +19,7 @@ Your first act as a Vitaemancer is to construct an **Ara Vitae**.
 2. Lay a **diamond** upon the bare altar. With no Essentia Vitae of its own, the altar draws blood from any nearby who carry no Blood Orb, refining it into **Essentia Vitae (EV)** until the working completes. It never kills, taking only what it needs.
 3. The diamond is transfigured into your first **Novicius Orb of Vitae**. Bind it to yourself by right-clicking with it in hand.
 
-From then on you offer your own blood at will: **right-click your bound Blood Orb**. Near an altar the blood flows straight into the basin. If you step away from one the Ara Vitae it is stored in the orb isntead to carry and pour in later.
+From then on you offer your own blood at will: **right-click your bound Blood Orb**. Near an altar the blood flows straight into the basin. Away from an Ara Vitae it is stored in the orb instead, to carry and pour in later.
 
 With EV in the basin, the altar can craft:
 

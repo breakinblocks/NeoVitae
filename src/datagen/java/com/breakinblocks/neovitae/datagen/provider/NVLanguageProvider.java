@@ -1489,8 +1489,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("config.jade.plugin_neovitae.block_info", "Neo Vitae Block Info");
 
         // Blood Orb
-        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that stops ranged attacks from your front arc. Melee still lands, and tridents or Throwing Daggers drop at the ward instead of being destroyed. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
-
+        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart for 200 EV. Near an Ara Vitae it flows into the basin; away from one it is stored in the orb's internal reservoir.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that stops ranged attacks from your front arc. Melee still lands, and tridents or Throwing Daggers drop at the ward instead of being destroyed. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
         add("jei.neovitae.disenchant.info", "With a Sanguine Reverter in the Athanor's tool slot, you can disenchant items.\n\nPlace a stack of Books and one enchanted item (gear, a tool, or an enchanted book) in the inputs. Each operation lifts one enchantment onto a book and removes it from the item, costing 5 raw spiritus and 100 mB of Essentia Vitae.\n\nWhen the item has no enchantments left, it moves to the output. It runs only while you have books to fill and room in the output to hold them.");
         add("jei.neovitae.disenchant.any_item", "Any Enchanted Item");
         add("jei.neovitae.flask.rinse.info", "Rinse a flask with water to empty it for a new brew.\n\nRight-click water with a drained flask: a water source, a water cauldron, or a sink or tank that holds water. A cauldron loses one level, and a sink or tank gives up 250 mB.\n\nSneak while you right-click to pour out a flask that still has doses left.\n\nCrafting a flask with a Water Bucket also rinses it.");
@@ -1672,11 +1671,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone, faster the more saturated the chunk. The aura is not consumed.");
         addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
-        addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
+        addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, scaled chance, or feeding Tau.");
         add("ritual.neovitae.green_grove.spiritus.raw", "Raw Spiritus: Hastens the refresh rate (20 ticks down to 10 as raw rises).");
         add("ritual.neovitae.green_grove.spiritus.invictus", "Spiritus Invictus: Hydrates nearby farmland to full moisture.");
         add("ritual.neovitae.green_grove.spiritus.ruina", "Spiritus Ruina: Applies Plant Leech to nearby mobs.");
         add("ritual.neovitae.green_grove.spiritus.vindicta", "Spiritus Vindicta: Scales growth success chance up to 100%%.");
+        add("ritual.neovitae.green_grove.spiritus.nihilum", "Spiritus Nihilum: Feeds Tau in range so it ripens as Saturated Tau with no creature standing on it, for 100 EV and 0.5 Nihilum per growth stage.");
         addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
         addRitual("feathered_knife", "Ritual of the Willing Sacrifice", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
         addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds. Place a chest atop the Master Ritual Stone to collect the yield; otherwise it drops where it grew.");
@@ -1711,8 +1711,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("deus_well_of_suffering", "Deus Well of Suffering", "A Deus Well of Suffering: reaches up to 32 blocks out and channels twice the Essentia Vitae from every wound.");
         addRitual("deus_torment_nexus", "Deus Torment Nexus", "A Deus Torment Nexus: scans spawners up to 64 blocks out, rolls three times the loot per operation, and costs under half the EV per kill.");
         addRitual("deus_magnetism", "Deus Endless Quarry", "A Deus Endless Quarry: moves four times the ore each pulse. The block beneath the master stone sets the scan radius as for the Endless Quarry, up to 255 (511x511) on a Sanguine Deus Block. The Ritual Configurator chooses Silk Touch, which keeps whole ore blocks, or Fortune III, which mines them for drops.");
-        add("ritual.neovitae.deus_magnetism.spiritus.invictus", "Spiritus Invictus: Fills each mined slot with the surrounding stone instead of leaving it open.");
-        add("ritual.neovitae.deus_magnetism.spiritus.ruina", "Spiritus Ruina: Also destroys stone, cobblestone, netherrack and other filler rock in range, up to 120 blocks per refresh at 10 EV each. Takes priority over Invictus.");
+        add("ritual.neovitae.deus_magnetism.terrain", "Terrain: Chosen in the Ritual Configurator and needs no Spiritus. Backfill packs each mined slot with the surrounding stone, Leave holes leaves it open, and Clear rock also destroys stone, cobblestone, netherrack and other filler rock in range, up to 120 blocks per refresh at 10 EV each.");
         addRitual("deus_crystallum_fractura", "Deus Crystallum Fractura", "A Deus Crystallum Fractura: quadruples crystal growth across a 31-wide area and always harvests with Fortune III, spending no Spiritus to do so.");
         add("ritual.neovitae.deus_crystallum_fractura.aspect_effect", "Biases the growth aura's Spiritus injection toward the chosen aspect's crystals. Raw leaves the aura unbiased.");
         addRitual("deus_green_grove", "Deus Overgrowth", "A Deus Overgrowth: tends three times the area and pulses twice as often, before any Spiritus is added.");
@@ -1720,6 +1719,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("ritual.neovitae.deus_green_grove.spiritus.invictus", "Spiritus Invictus: Hydrates nearby farmland to full moisture.");
         add("ritual.neovitae.deus_green_grove.spiritus.ruina", "Spiritus Ruina: Applies Plant Leech to nearby mobs.");
         add("ritual.neovitae.deus_green_grove.spiritus.vindicta", "Spiritus Vindicta: Scales growth success chance up to 100%%.");
+        add("ritual.neovitae.deus_green_grove.spiritus.nihilum", "Spiritus Nihilum: Feeds Tau in range so it ripens as Saturated Tau with no creature standing on it, for 100 EV and 0.5 Nihilum per growth stage.");
         addRitual("deus_placer", "Deus Mason", "A Deus Mason: lays eight times as many blocks each pulse across four times the volume and twice the reach.");
         add("ritual.neovitae.deus_placer.placerRange.info", "The area the Mason fills.");
         add("ritual.neovitae.deus_placer.spiritus.raw", "Raw Spiritus quickens the work and widens the domain: 20 raw for 32 blocks a pulse and 80,000 blocks of room, 50 raw for 64 and 320,000.");
@@ -1735,7 +1735,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.configurator.quarry.clear_rock", "Clear rock");
         add("gui.neovitae.configurator.mining.silk_touch", "Silk Touch");
         add("gui.neovitae.configurator.mining.fortune", "Fortune III");
-        addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
+        addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. The scoop starts at the first block found straight down from the master stone, however far below that is. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
         addRitual("hellforging", "Ritual of Hellforging", "Throw a piece of Sentient Armor, a Sentient tool or the Lex Vitae onto the circle with a Prismatic Spiritus Gem and a Hellforged Ingot to Hellforge it. A chestplate must first hold 600 Upgrade Points.");
         add("ritual.neovitae.hellforging.hellforgingRange.info", "The area where the item, gem and ingot are thrown.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; each activation adds 100 Upgrade Points of capacity, up to a maximum of 500.");

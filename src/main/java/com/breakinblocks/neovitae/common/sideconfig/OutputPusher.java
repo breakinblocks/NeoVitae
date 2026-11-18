@@ -23,7 +23,7 @@ public final class OutputPusher {
 
     public static void push(Level level, BlockPos pos, @Nullable Direction face,
                             IItemHandler source, int firstSlot, int lastSlot) {
-        if (face == null) return;
+        if (face == null || isEmpty(source, firstSlot, lastSlot)) return;
         IItemHandler target = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(face), face.getOpposite());
         if (target == null) return;
         for (int slot = firstSlot; slot <= lastSlot; slot++) {
@@ -38,6 +38,13 @@ public final class OutputPusher {
                 source.insertItem(slot, rejected, false);
             }
         }
+    }
+
+    private static boolean isEmpty(IItemHandler source, int firstSlot, int lastSlot) {
+        for (int slot = firstSlot; slot <= lastSlot; slot++) {
+            if (!source.getStackInSlot(slot).isEmpty()) return false;
+        }
+        return true;
     }
 
     public static void save(CompoundTag tag, @Nullable Direction face) {

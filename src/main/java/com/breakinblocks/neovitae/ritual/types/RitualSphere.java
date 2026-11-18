@@ -22,9 +22,12 @@ import java.util.function.Consumer;
 public class RitualSphere extends Ritual {
 
     private static final int MAX_CHECKS_PER_REFRESH = 100;
-    private static final int SOURCE_TOP_OFFSET = -2;
+    private static final int DEFAULT_SOURCE_TOP = -2;
+    private static final int DESTINATION_BOTTOM = 2;
+    private static final int SOURCE_TOP_UNSET = 0;
 
     private BlockPos lastPos;
+    private int sourceTop = SOURCE_TOP_UNSET;
 
     public RitualSphere() {
         super("sphere", 0, 20000, "ritual." + NeoVitae.MODID + ".sphere");
@@ -39,21 +42,25 @@ public class RitualSphere extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
+        if (sourceTop == SOURCE_TOP_UNSET) {
+            sourceTop = findSourceTop(world, masterPos);
+        }
+
         int radius = getRadius(world.getBlockState(masterPos.below()).getBlock());
-        int sourceBottomY = SOURCE_TOP_OFFSET - 2 * radius;
-        int sourceCenterY = SOURCE_TOP_OFFSET - radius;
-        int yTeleportOffset = -2 * sourceCenterY;
+        int sourceBottomY = sourceTop - 2 * radius;
+        int sourceCenterY = sourceTop - radius;
+        int yTeleportOffset = DESTINATION_BOTTOM - sourceBottomY;
         double radiusSq = (radius + 0.5) * (radius + 0.5);
 
         int i = -radius, j = sourceBottomY, k = -radius;
         if (lastPos != null) {
             i = clamp(lastPos.getX(), -radius, radius);
-            j = clamp(lastPos.getY(), sourceBottomY, SOURCE_TOP_OFFSET);
+            j = clamp(lastPos.getY(), sourceBottomY, sourceTop);
             k = clamp(lastPos.getZ(), -radius, radius);
         }
 
         int checks = 0;
-        while (j <= SOURCE_TOP_OFFSET) {
+        while (j <= sourceTop) {
             while (i <= radius) {
                 while (k <= radius) {
                     if (checks >= MAX_CHECKS_PER_REFRESH) {
@@ -82,6 +89,17 @@ public class RitualSphere extends Ritual {
 
         masterRitualStone.stopRitual(BreakType.DEACTIVATE);
         lastPos = null;
+        sourceTop = SOURCE_TOP_UNSET;
+    }
+
+    public static int findSourceTop(Level world, BlockPos masterPos) {
+        int lowest = world.getMinBuildHeight() - masterPos.getY();
+        for (int j = DEFAULT_SOURCE_TOP; j >= lowest; j--) {
+            if (!world.isEmptyBlock(masterPos.offset(0, j, 0))) {
+                return j;
+            }
+        }
+        return DEFAULT_SOURCE_TOP;
     }
 
     private boolean tryLift(Level world, BlockPos masterPos, int i, int j, int k, int yOffset, UUID owner) {
@@ -121,6 +139,7 @@ public class RitualSphere extends Ritual {
         if (tag.contains("lastPosX")) {
             lastPos = new BlockPos(tag.getInt("lastPosX"), tag.getInt("lastPosY"), tag.getInt("lastPosZ"));
         }
+        sourceTop = tag.contains("sourceTop") ? tag.getInt("sourceTop") : lastPos != null ? DEFAULT_SOURCE_TOP : SOURCE_TOP_UNSET;
     }
 
     @Override
@@ -130,6 +149,9 @@ public class RitualSphere extends Ritual {
             tag.putInt("lastPosX", lastPos.getX());
             tag.putInt("lastPosY", lastPos.getY());
             tag.putInt("lastPosZ", lastPos.getZ());
+        }
+        if (sourceTop != SOURCE_TOP_UNSET) {
+            tag.putInt("sourceTop", sourceTop);
         }
     }
 

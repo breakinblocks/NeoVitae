@@ -78,7 +78,9 @@ Under normal conditions, the vine ripens into common **Tau Fruit**, rendered dow
 
 ### Saturated Tau
 
-If a **living creature stands atop the plant** as it matures, the vine drinks the creature's vitality to feed its own growth. The result is **Saturated Tau**, a far more potent variant born from stolen life, a higher-tier potion ingredient catalogd in JEI.
+If a **living creature stands atop the plant** as it matures, the vine drinks the creature's vitality to feed its own growth. The result is **Saturated Tau**, a far more potent variant born from stolen life, a higher-tier potion ingredient cataloged in JEI.
+
+To grow it without a victim, plant Tau inside a **[Ritual of Overgrowth](Rituals)** in a chunk holding at least 10 **Spiritus Nihilum**. The ritual feeds each vine itself, at 100 EV and 0.5 Nihilum per growth stage, and every plant it feeds ripens as Saturated Tau.
 
 ## Tainted Provisions
 

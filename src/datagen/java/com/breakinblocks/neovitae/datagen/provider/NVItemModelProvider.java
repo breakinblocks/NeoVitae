@@ -172,14 +172,21 @@ public class NVItemModelProvider extends ItemModelProvider {
 
         String[] typeNames = {"ruina", "nihilum", "invictus", "vindicta"};
 
+        ItemModelBuilder sentientInHand = getBuilder("item/sentient_tool_in_hand")
+                .parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
+        sentientInHand.transforms()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(0, -90, 55).translation(0, 5.2F, 0.65F).scale(1.105F).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rotation(0, 90, -55).translation(0, 5.2F, 0.65F).scale(1.105F).end();
+
         for (String stem : new String[] {"sentient_sword", "sentient_axe", "sentient_pickaxe", "sentient_shovel", "sentient_scythe"}) {
             ModelFile[] typeVariants = new ModelFile[typeNames.length];
             for (int i = 0; i < typeNames.length; i++) {
-                typeVariants[i] = singleTexture("item/variant/" + stem + "_" + typeNames[i],
-                        mcLoc("item/handheld"), "layer0", modLoc("item/" + stem + "_" + typeNames[i]));
+                typeVariants[i] = getBuilder("item/variant/" + stem + "_" + typeNames[i])
+                        .parent(sentientInHand)
+                        .texture("layer0", modLoc("item/" + stem + "_" + typeNames[i]));
             }
             ItemModelBuilder b = getBuilder(stem)
-                    .parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
+                    .parent(sentientInHand);
             b.texture("layer0", modLoc("item/" + stem));
             for (int i = 0; i < typeNames.length; i++) {
                 int typeOrdinal = i + 1;

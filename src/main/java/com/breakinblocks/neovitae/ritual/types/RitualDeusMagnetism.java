@@ -6,6 +6,8 @@ import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.function.Consumer;
 
@@ -55,6 +57,14 @@ public class RitualDeusMagnetism extends RitualMagnetism {
     @Override
     public boolean usesMiningMode() {
         return true;
+    }
+
+    @Override
+    public Component[] provideInformationOfRitualToPlayer(Player player) {
+        return new Component[]{
+                Component.translatable(getTranslationKey() + ".info"),
+                Component.translatable(getTranslationKey() + ".terrain")
+        };
     }
 
     @Override

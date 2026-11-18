@@ -95,6 +95,27 @@ public final class HellfireForgeTests {
             });
         });
 
+        r.add("hellfire_forge/starts_at_once_after_sitting_idle", 120, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(45, () -> {
+                if (forge == null) return;
+
+                forge.inv.setStackInSlot(0, new ItemStack(Items.REDSTONE));
+                forge.inv.setStackInSlot(1, new ItemStack(Items.GOLD_INGOT));
+                forge.inv.setStackInSlot(2, new ItemStack(Items.GLASS));
+                forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_LAZULI));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
+
+                helper.runAfterDelay(3, () -> {
+                    helper.assertTrue(forge.getProgress() > 0,
+                            "A forge that sat empty should start crafting on the tick after it is fed, progress=" + forge.getProgress());
+                    helper.succeed();
+                });
+            });
+        });
+
         r.add("hellfire_forge/gem_absorbs_spiritus_from_chunk", 120, helper -> {
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             BlockPos forgePos = new BlockPos(3, 1, 2);

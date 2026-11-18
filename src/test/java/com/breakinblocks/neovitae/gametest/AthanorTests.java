@@ -20,8 +20,10 @@ import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+import com.breakinblocks.neovitae.util.AthanorOutputHandler;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class AthanorTests {
@@ -64,7 +66,7 @@ public final class AthanorTests {
                 helper.succeedWhen(() -> {
                     ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
                     helper.assertTrue(!(output.isEmpty()), "ARC should have smelted iron ore, output is empty");
-                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
+                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
                 });
             });
         });
@@ -135,7 +137,7 @@ public final class AthanorTests {
                 helper.succeedWhen(() -> {
                     ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
                     helper.assertTrue(!(output.isEmpty()), "ARC should smelt input from a non-first slot, output is empty");
-                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
+                    helper.assertTrue(output.is(Items.IRON_INGOT), "Expected iron ingot, got " + output);
                 });
             });
         });
@@ -190,9 +192,44 @@ public final class AthanorTests {
 
                 helper.succeedWhen(() -> {
                     ItemStack input = arc.athanorInv.getStackInSlot(AthanorBlockEntity.INPUT_START);
-                    helper.assertTrue(input.isEmpty(), "Input should be consumed after smelting, has " + input);
+                    helper.assertTrue(input.isEmpty(), "Input should be consumed after smelting, has " + input);
                 });
             });
+        });
+
+        r.add("athanor/output_room_check_counts_each_free_slot_once", 20, helper -> {
+            ItemStack[] slots = new ItemStack[AthanorBlockEntity.NUM_OUTPUTS];
+            for (int i = 0; i < slots.length - 1; i++) {
+                slots[i] = new ItemStack(Items.ENCHANTED_BOOK);
+            }
+            slots[slots.length - 1] = ItemStack.EMPTY;
+            AthanorOutputHandler handler = new AthanorOutputHandler(slots, 64);
+
+            List<ItemStack> lastDisenchant = List.of(new ItemStack(Items.ENCHANTED_BOOK), new ItemStack(Items.DIAMOND_PICKAXE));
+            helper.assertTrue(!handler.canTransferAllItemsToSlots(lastDisenchant, true),
+                    "Two unstackable outputs must not both fit in one free slot");
+            helper.assertTrue(handler.canTransferAllItemsToSlots(List.of(new ItemStack(Items.DIAMOND_PICKAXE)), true),
+                    "One unstackable output should fit in the one free slot");
+            helper.assertTrue(handler.getStackInSlot(slots.length - 1).isEmpty(), "A simulated transfer must not change the slots");
+            helper.succeed();
+        });
+
+        r.add("athanor/output_overflow_is_not_duplicated", 20, helper -> {
+            ItemStack[] slots = new ItemStack[AthanorBlockEntity.NUM_OUTPUTS];
+            slots[0] = new ItemStack(Items.IRON_INGOT, 60);
+            for (int i = 1; i < slots.length; i++) {
+                slots[i] = ItemStack.EMPTY;
+            }
+            AthanorOutputHandler handler = new AthanorOutputHandler(slots, 64);
+
+            helper.assertTrue(handler.canTransferAllItemsToSlots(List.of(new ItemStack(Items.IRON_INGOT, 8)), false),
+                    "Eight ingots should fit across a partial stack and an empty slot");
+            int total = 0;
+            for (int i = 0; i < handler.getSlots(); i++) {
+                total += handler.getStackInSlot(i).getCount();
+            }
+            helper.assertTrue(total == 68, "Expected 68 ingots after adding 8 to 60, got " + total);
+            helper.succeed();
         });
     }
 }

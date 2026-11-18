@@ -55,9 +55,10 @@ public class RitualSphereCreateEntry extends EntryProvider {
                 + "- [#](8B0000)Gold Block[#](): 49 blocks across\\\n"
                 + "- [#](8B0000)Diamond Block[#](): 57 blocks across\\\n"
                 + "- [#](8B0000)Netherite Block[#](): [#](2E8B57)65 blocks across[#]()\\\n\\\n"
-                + "The moon's source volume begins two blocks below the master and descends straight down for "
-                + "the full diameter; the destination begins two blocks above and rises the same distance. Mind "
-                + "what is in either space before activation.");
+                + "The moon's source volume begins at the first block found straight down from the master, two "
+                + "blocks below it on solid ground or as far down as the terrain is when the circle is built in "
+                + "the air, and descends for the full diameter; the destination begins two blocks above the master "
+                + "and rises the same distance. Mind what is in either space before activation.");
     }
 
     @Override

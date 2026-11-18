@@ -79,5 +79,7 @@ public class NVGameTestRegistration {
         DungeonBlockRotationTests.register(r);
         DungeonRoomBoundsTests.register(r);
         PillarAccentTests.register(r);
+        NewMoonTests.register(r);
+        OvergrowthTests.register(r);
     }
 }

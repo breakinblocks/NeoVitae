@@ -115,6 +115,8 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
 
     private double progress = 0;
     private final RitualAcceleration ritualAcceleration = new RitualAcceleration();
+    private final IdleThrottle idleThrottle = new IdleThrottle();
+    private int viewers = 0;
     public static final double DEFAULT_SPEED = 0.005;
 
     private Map<SpiritusType, Double> currentRecipeSpiritusCost = Map.of();
@@ -212,6 +214,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
+            idleThrottle.wake();
         }
 
         public ItemStack getStackInSlot(int slot) {
@@ -233,6 +236,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         @Override
         protected void onContentsChanged(int index, FluidStack previousContents) {
             setChanged();
+            idleThrottle.wake();
         }
 
         public FluidStack getFluid() {
@@ -255,6 +259,15 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         public boolean isEmpty() {
             return getResource(0).isEmpty();
         }
+    }
+
+    public void startViewing() {
+        viewers++;
+        idleThrottle.wake();
+    }
+
+    public void stopViewing() {
+        viewers = Math.max(0, viewers - 1);
     }
 
     public int getProgressForGui() {
@@ -394,6 +407,13 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
             OutputPusher.push(level, blockPos, athanorTile.outputFace, athanorTile.athanorInv, OUTPUT_SLOT, OUTPUT_SLOT + NUM_OUTPUTS - 1);
         }
 
+        boolean viewed = athanorTile.viewers > 0;
+        if (!viewed && athanorTile.idleThrottle.shouldSkip()) {
+            return;
+        }
+        boolean wasResting = athanorTile.idleThrottle.isResting();
+        athanorTile.idleThrottle.rest();
+
         ItemStack[] outputItems = {
                 athanorTile.athanorInv.getStackInSlot(OUTPUT_SLOT),
                 athanorTile.athanorInv.getStackInSlot(OUTPUT_SLOT + 1),
@@ -405,7 +425,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         boolean outputChanged = athanorTile.handleSlots(itemOutputHandler);
         athanorTile.updateType();
 
-        if (level.getGameTime() % 10 == 0) {
+        if (level.getGameTime() % 10 == 0 && (viewed || !wasResting)) {
             athanorTile.snapshotChunkSpiritus(level, blockPos);
         }
         ItemStack toolStack = athanorTile.athanorInv.getStackInSlot(TOOL_SLOT);
@@ -539,6 +559,9 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         }
 
         boolean active = didProgress || athanorTile.spiritusBlocked;
+        if (active) {
+            athanorTile.idleThrottle.wake();
+        }
         boolean spiritusChanged = athanorTile.spiritusSnapshotChanged();
         if (active != athanorTile.lastActive || spiritusChanged || (active && level.getGameTime() % 10 == 0)) {
             athanorTile.setChanged();
@@ -753,18 +776,13 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider,
         WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 5.0);
         snapshotChunkSpiritus(level, pos);
 
-        outputHandler.canTransferAllItemsToSlots(List.of(movedBook), false);
+        outputHandler.canTransferAllItemsToSlots(roomNeeded, false);
 
         ItemStack bookStack = athanorInv.getStackInSlot(INPUT_START + bookSlot).copy();
         bookStack.shrink(1);
         athanorInv.setStackInSlot(INPUT_START + bookSlot, bookStack);
 
-        if (lastEnchant) {
-            outputHandler.canTransferAllItemsToSlots(List.of(strippedSource), false);
-            athanorInv.setStackInSlot(INPUT_START + itemSlot, ItemStack.EMPTY);
-        } else {
-            athanorInv.setStackInSlot(INPUT_START + itemSlot, strippedSource);
-        }
+        athanorInv.setStackInSlot(INPUT_START + itemSlot, lastEnchant ? ItemStack.EMPTY : strippedSource);
 
         damageTool();
 

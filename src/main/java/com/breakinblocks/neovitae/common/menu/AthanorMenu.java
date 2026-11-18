@@ -68,6 +68,14 @@ public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
 
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_208, MenuSlotHelper.HOTBAR_Y_208);
+
+        tile.startViewing();
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        tile.stopViewing();
     }
 
     public AthanorBlockEntity.IdleReason getIdleReason() {

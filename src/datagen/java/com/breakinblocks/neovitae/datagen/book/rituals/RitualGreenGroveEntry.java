@@ -40,10 +40,11 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Hastens the growth rate further."
-                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Hydrates nearby farmland, ensuring fertile soil."
-                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Causes nearby plants to spread and propagate."
-                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Intensifies the effect at higher spiritus concentrations."
-                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Coaxes nearby saplings into full-grown trees.");
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Hydrates nearby farmland, ensuring fertile soil."
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Afflicts nearby mobs with Plant Leech."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Raises the chance that each plant is grown."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Feeds [#](8B0000)Tau[#]() in range, so it ripens as "
+                + "Saturated Tau with no creature standing on it.");
     }
 
     @Override

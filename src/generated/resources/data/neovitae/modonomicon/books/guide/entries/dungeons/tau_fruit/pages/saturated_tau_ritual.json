@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "saturated_tau_ritual",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau_ritual.text",
+  "title": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau_ritual.title"
+}

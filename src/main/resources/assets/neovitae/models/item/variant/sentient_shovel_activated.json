@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "neovitae:item/sentient_tool_in_hand",
   "textures": {
     "layer0": "neovitae:item/sentient_shovel_activated"
   }

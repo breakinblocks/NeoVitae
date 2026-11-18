@@ -24,7 +24,7 @@ public final class OutputPusher {
 
     public static void push(Level level, BlockPos pos, @Nullable Direction face,
                             ResourceHandler<ItemResource> source, int firstSlot, int lastSlot) {
-        if (face == null) return;
+        if (face == null || isEmpty(source, firstSlot, lastSlot)) return;
         ResourceHandler<ItemResource> target =
                 level.getCapability(Capabilities.Item.BLOCK, pos.relative(face), face.getOpposite());
         if (target == null) return;
@@ -40,6 +40,13 @@ public final class OutputPusher {
                 }
             }
         }
+    }
+
+    private static boolean isEmpty(ResourceHandler<ItemResource> source, int firstSlot, int lastSlot) {
+        for (int slot = firstSlot; slot <= lastSlot; slot++) {
+            if (!source.getResource(slot).isEmpty()) return false;
+        }
+        return true;
     }
 
     public static void save(ValueOutput out, @Nullable Direction face) {

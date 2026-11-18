@@ -13,9 +13,9 @@ Other workings, such as a hungry **[Ritual](Rituals)** that has drained you comp
 To fill your Anima, you require an **Orb of Vitae**, a crystallised anchor between your soul and the altar's power.
 
 - **Right-click with the orb in hand** to open your essentia vitae. Near an Ara Vitae the blood flows straight into the altar's basin; away from one it is stored in the orb's own internal reservoir to carry and deposit later. While a **Blessed Sacrifice** from an Incense Altar is upon you, this offering is far greater, after which you fall into Soul Fray.
-- **Place the orb within a charged [Ara Vitae](Ara-Vitae-and-Runes).** The basin drinks the orb's stored blood and pours it into your Anima, limited only by your altar's Speed Runes.
+- **Place the orb within a charged [Ara Vitae](Ara-Vitae-and-Runes).** The altar pours its Essentia Vitae through the orb into your Anima, limited only by your altar's Speed Runes.
 
-The orb harbours that internal reservoir between sacrifices. When you place an orb containing stored blood back upon an Ara Vitae, the altar drains the reservoir at **10x the normal fill rate** and rapidly refills the basin; if the basin is already nearly full, the EV is channeled into your Anima instead. Once the orb is empty, normal behavior resumes. To automate this, seat the orb in an **[Orb Vitae Link](Routing-Network)** beside an altar and let it charge your Anima continuously.
+The orb harbors that internal reservoir between sacrifices. When you place an orb containing stored blood back upon an Ara Vitae, the altar drains the reservoir at **10x the normal fill rate** and rapidly refills the basin; if the basin is already nearly full, the EV is channeled into your Anima instead. Once the reservoir is empty the orb rests; lift it out and set it back and the altar fills your Anima as usual. To automate this, seat the orb in an **[Orb Vitae Link](Routing-Network)** beside an altar and let it charge your Anima continuously.
 
 ### Harvest of the Slain
 
